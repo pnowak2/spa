@@ -58,7 +58,43 @@ define(function(require) {
         }).not.toThrow();
       });
 
-      xit('should be possible to create with zero items and current page bigger than one', function() {
+      it('should be possible to create with current page bigger than pages count', function() {
+        var model = new PagerModel({
+          totalItems: 100,
+          pageSize: 10,
+          currentPage: 25
+        });
+
+        expect(model.getCurrentPage()).toEqual(10);
+        expect(model.getPageSize()).toEqual(10);
+        expect(model.getTotalItems()).toEqual(100);
+      });
+
+      it('should be possible to create with current page lower than pages count', function() {
+        var model = new PagerModel({
+          totalItems: 100,
+          pageSize: 10,
+          currentPage: -6
+        });
+
+        expect(model.getCurrentPage()).toEqual(1);
+        expect(model.getPageSize()).toEqual(10);
+        expect(model.getTotalItems()).toEqual(100);
+      });
+
+      it('should be possible to create with current page set to zero', function() {
+        var model = new PagerModel({
+          totalItems: 10,
+          pageSize: 10,
+          currentPage: 0
+        });
+
+        expect(model.getCurrentPage()).toEqual(1);
+        expect(model.getPageSize()).toEqual(10);
+        expect(model.getTotalItems()).toEqual(10);
+      });
+
+      it('should be possible to create with zero items and current page bigger than one', function() {
         var model = new PagerModel({
           totalItems: 0,
           pageSize: 10,
@@ -66,6 +102,8 @@ define(function(require) {
         });
 
         expect(model.getCurrentPage()).toEqual(1);
+        expect(model.getPageSize()).toEqual(10);
+        expect(model.getTotalItems()).toEqual(0);
       });
 
       it('should throw for negative totalItems', function() {
@@ -82,66 +120,6 @@ define(function(require) {
             pageSize: 0
           });
         }).toThrowError('page size cannot be zero');
-      });
-
-      it('should throw if current page is bigger than total pages', function() {
-        expect(function() {
-          new PagerModel({
-            totalItems: 100,
-            pageSize: 10,
-            currentPage: 11
-          });
-        }).toThrowError('current page is beyond pages count');
-      });
-
-      it('should throw if current page is smaller than 0', function() {
-        expect(function() {
-          new PagerModel({
-            totalItems: 100,
-            pageSize: 10,
-            currentPage: -1
-          });
-        }).toThrowError('current page is beyond pages count');
-      });
-    });
-
-    describe('validation', function() {
-      it('should implement validate method', function() {
-        expect(PagerModel.prototype.validate).toEqual(jasmine.any(Function));
-      });
-
-      it('should not exceed the total pages count', function() {
-        var model = new PagerModel({
-            totalItems: 100,
-            pageSize: 10,
-            currentPage: 4
-          }),
-          validationSpy = jasmine.createSpy();
-
-        model.on('invalid', validationSpy);
-
-        expect(model.getCurrentPage()).toEqual(4);
-        model.setCurrentPage(200);
-        expect(model.getCurrentPage()).toEqual(4);
-
-        expect(validationSpy).toHaveBeenCalled();
-      });
-
-      it('should not be lower than 1', function() {
-        var model = new PagerModel({
-            totalItems: 100,
-            pageSize: 10,
-            currentPage: 1
-          }),
-          validationSpy = jasmine.createSpy();
-
-        model.on('invalid', validationSpy);
-
-        expect(model.getCurrentPage()).toEqual(1);
-        model.setCurrentPage(-10);
-        expect(model.getCurrentPage()).toEqual(1);
-
-        expect(validationSpy).toHaveBeenCalled();
       });
     });
 
@@ -260,6 +238,30 @@ define(function(require) {
           model.setCurrentPage(2);
 
           expect(model.getCurrentPage()).toEqual(2);
+        });
+
+        it('should not exceed the total pages count', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 4
+          });
+
+          expect(model.getCurrentPage()).toEqual(4);
+          model.setCurrentPage(200);
+          expect(model.getCurrentPage()).toEqual(10);
+        });
+
+        it('should not be lower than 1', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 1
+          })
+
+          expect(model.getCurrentPage()).toEqual(1);
+          model.setCurrentPage(-10);
+          expect(model.getCurrentPage()).toEqual(1);
         });
       });
 

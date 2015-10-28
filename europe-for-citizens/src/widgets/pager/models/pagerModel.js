@@ -18,22 +18,7 @@ define(function(require) {
         throw new Error('total items cannot be negative');
       }
 
-      if (options.currentPage > this.getPagesCount() ||
-        options.currentPage < 0) {
-        throw new Error('current page is beyond pages count');
-      }
-    },
-
-    validate: function(attrs) {
-      var pagesCount = this.getPagesCount();
-
-      if (attrs.currentPage > pagesCount) {
-        return 'current page cannot be bigger than total pages count';
-      }
-
-      if (attrs.currentPage < 1) {
-        return 'current page cannot be smaller than zero';
-      }
+      this.setCurrentPage(options.currentPage);
     },
 
     getTotalItems: function() {
@@ -49,9 +34,11 @@ define(function(require) {
     },
 
     setCurrentPage: function(page) {
-      this.set('currentPage', page, {
-        validate: true
-      });
+      var pagesCount = this.getPagesCount(),
+        upperTrunc = _.min([page, pagesCount]),
+        lowerTrunc = _.max([upperTrunc, 1]);
+
+      this.set('currentPage', lowerTrunc);
     },
 
     nextPage: function() {
@@ -79,9 +66,10 @@ define(function(require) {
     },
 
     toJSON: function() {
-      var serialized = _.assign(this.constructor.__super__.toJSON.call(this), {
-        pagesCount: this.getPagesCount()
-      });
+      var attrs = this.constructor.__super__.toJSON.call(this),
+        serialized = _.assign(attrs, {
+          pagesCount: this.getPagesCount()
+        });
 
       return serialized;
     }
