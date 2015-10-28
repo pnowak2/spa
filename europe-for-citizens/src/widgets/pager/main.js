@@ -1,30 +1,21 @@
-define(function (require) {
-  var Widget = require('app/core/widget'),
-    widgetEventBus = require('./events/widgetEventBus'),
-    PagerModel = require('./models/pagerModel'),
-    PagerView = require('./views/pagerView');
+define(function(require) {
+  var Widget = require('app/core/widget');
 
   return Widget.extend({
-    initialize: function (options) {
-      var pagerModel = new PagerModel(options);
 
-      this.view = new PagerView({
-        model: pagerModel
-      });
+    initialize: function() {
 
-      this.listenTo(widgetEventBus, 'pager:page-request', function (pageModel) {
-        this.trigger('pager:page-request', pageModel.get('page'));
-      });
     },
 
-    dataReady: function (data) {
-      this.view.dataReady(data);
+    getState: function() {
+      return {
+        total: 0,
+        pages: 0,
+        pageSize: 10,
+        currentPage: 1
+      }
     },
 
-    render: function () {
-      this.view.render();
-
-      return this;
-    }
+    refresh: function() {}
   });
 });
