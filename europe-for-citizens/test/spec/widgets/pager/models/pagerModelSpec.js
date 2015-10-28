@@ -11,7 +11,7 @@ define(function(require) {
     });
 
     describe('defaults', function() {
-      it('should be defined', function() {
+      it('should be defined with proper values', function() {
         expect(PagerModel.prototype.defaults).toEqual({
           total: 0,
           pageSize: 10,
@@ -19,7 +19,7 @@ define(function(require) {
         });
       });
 
-      it('can be overriden and passed to initialize method', function() {
+      it('can be passed to initialize method', function() {
         spyOn(PagerModel.prototype, 'initialize');
 
         var model = new PagerModel({
@@ -44,66 +44,13 @@ define(function(require) {
       });
     });
 
-    describe('validation', function() {
-
-      it('should implement validate method', function() {
-        expect(PagerModel.prototype.validate).toEqual(jasmine.any(Function));
-      });
-
-      it('should not exceed the total pages count', function() {
-        var model = new PagerModel({
-            total: 100,
-            pageSize: 10,
-            currentPage: 4
-          }),
-          newCurrentPage;
-
-        expect(model.getCurrentPage()).toEqual(4);
-        model.setCurrentPage(200);
-        expect(model.getCurrentPage()).toEqual(4);
-      });
-
-      it('should not be lower than 1', function() {
-        var model = new PagerModel({
-            total: 100,
-            pageSize: 10,
-            currentPage: 1
-          }),
-          newCurrentPage;
-
-        expect(model.getCurrentPage()).toEqual(1);
-        model.setCurrentPage(-10);
-        expect(model.getCurrentPage()).toEqual(1);
-      });
-
-      it('should not exceed the total pages count', function() {
-        var model = new PagerModel({
-            total: 10,
-            pageSize: 2,
-            currentPage: 4
-          }),
-          nextPage;
-
-        expect(model.getPagesCount()).toEqual(5);
-        expect(model.getCurrentPage()).toEqual(4);
-
-        model.setNextPage();
-        expect(model.getCurrentPage()).toEqual(5);
-
-        model.setNextPage();
-        expect(model.getCurrentPage()).toEqual(5);
-      });
-    });
-
     describe('creation', function() {
       it('should throw for zero page size', function() {
-        var createZeroPageModel = function() {
+        expect(function() {
           new PagerModel({
             pageSize: 0
           })
-        }
-
-        expect(createZeroPageModel).toThrowError('page size cannot be zero');
+        }).toThrowError('page size cannot be zero');
       });
 
       it('should throw if current page is bigger than total pages', function() {
@@ -127,11 +74,103 @@ define(function(require) {
       });
     });
 
-    describe('api', function() {
+    describe('validation', function() {
+      it('should implement validate method', function() {
+        expect(PagerModel.prototype.validate).toEqual(jasmine.any(Function));
+      });
 
-      describe('.getTotal()', function() {
+      it('should not exceed the total pages count', function() {
+        var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: 4
+          }),
+          validationSpy = jasmine.createSpy();
+
+        model.on('invalid', validationSpy);
+
+        expect(model.getCurrentPage()).toEqual(4);
+        model.setCurrentPage(200);
+        expect(model.getCurrentPage()).toEqual(4);
+
+        expect(validationSpy).toHaveBeenCalled();
+      });
+
+      it('should not be lower than 1', function() {
+        var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: 1
+          }),
+          validationSpy = jasmine.createSpy();
+
+        model.on('invalid', validationSpy);
+
+        expect(model.getCurrentPage()).toEqual(1);
+        model.setCurrentPage(-10);
+        expect(model.getCurrentPage()).toEqual(1);
+
+        expect(validationSpy).toHaveBeenCalled();
+      });
+    });
+
+    describe('api', function() {
+      describe('.getPagesCount()', function() {
         it('should be defined', function() {
-          expect(PagerModel.prototype.getTotal).toEqual(jasmine.any(Function));
+          expect(PagerModel.prototype.getPagesCount).toEqual(jasmine.any(Function));
+        });
+
+        it('should return correct value for 0 items', function() {
+          var model = new PagerModel({
+            total: 0,
+            pageSize: 10
+          });
+
+          expect(model.getPagesCount()).toBe(0);
+        });
+
+        it('should return correct value for 1 item', function() {
+          var model = new PagerModel({
+            total: 1,
+            pageSize: 10
+          });
+
+          expect(model.getPagesCount()).toBe(1);
+        });
+
+        it('should return correct value for many items', function() {
+          var model1 = new PagerModel({
+              total: 100,
+              pageSize: 10
+            }),
+            model2 = new PagerModel({
+              total: 100,
+              pageSize: 20
+            }),
+            model3 = new PagerModel({
+              total: 29,
+              pageSize: 10
+            }),
+            model4 = new PagerModel({
+              total: 20,
+              pageSize: 3
+            }),
+            model5 = new PagerModel({
+              total: 17,
+              pageSize: 1
+            });
+
+          expect(model1.getPagesCount()).toBe(10);
+          expect(model2.getPagesCount()).toBe(5);
+          expect(model3.getPagesCount()).toBe(3);
+          expect(model4.getPagesCount()).toBe(7);
+          expect(model5.getPagesCount()).toBe(17);
+        });
+      });
+
+      describe('.getTotalItems()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.getTotalItems).toEqual(jasmine.any(Function));
         });
 
         it('returns total items number', function() {
@@ -139,7 +178,7 @@ define(function(require) {
             total: 50
           });
 
-          expect(model.getTotal()).toEqual(50);
+          expect(model.getTotalItems()).toEqual(50);
         });
       });
 
@@ -185,15 +224,17 @@ define(function(require) {
             currentPage: 6
           });
 
+          expect(model.getCurrentPage()).toEqual(6);
+
           model.setCurrentPage(2);
 
           expect(model.getCurrentPage()).toEqual(2);
         });
       });
 
-      describe('.setNextPage()', function() {
+      describe('.nextPage()', function() {
         it('should be defined', function() {
-          expect(PagerModel.prototype.setNextPage).toEqual(jasmine.any(Function));
+          expect(PagerModel.prototype.nextPage).toEqual(jasmine.any(Function));
         });
 
         it('should increment current page by one', function() {
@@ -205,15 +246,72 @@ define(function(require) {
 
           expect(model.getCurrentPage()).toEqual(6);
 
-          model.setNextPage();
+          model.nextPage();
 
           expect(model.getCurrentPage()).toEqual(7);
         });
+
+
+        it('should not exceed the total pages count', function() {
+          var model = new PagerModel({
+            total: 10,
+            pageSize: 2,
+            currentPage: 4
+          });
+
+          expect(model.getCurrentPage()).toEqual(4);
+
+          model.nextPage();
+
+          expect(model.getCurrentPage()).toEqual(5);
+
+          model.nextPage();
+
+          expect(model.getCurrentPage()).toEqual(5);
+        });
       });
 
-      describe('.setFirstPage()', function() {
+      describe('.previousPage()', function() {
         it('should be defined', function() {
-          expect(PagerModel.prototype.setFirstPage).toEqual(jasmine.any(Function));
+          expect(PagerModel.prototype.previousPage).toEqual(jasmine.any(Function));
+        });
+
+        it('should decrement current page by one', function() {
+          var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: 6
+          });
+
+          expect(model.getCurrentPage()).toEqual(6);
+
+          model.previousPage();
+
+          expect(model.getCurrentPage()).toEqual(5);
+        });
+
+        it('should not get below one', function() {
+          var model = new PagerModel({
+            total: 10,
+            pageSize: 2,
+            currentPage: 2
+          });
+
+          expect(model.getCurrentPage()).toEqual(2);
+
+          model.previousPage();
+
+          expect(model.getCurrentPage()).toEqual(1);
+
+          model.previousPage();
+
+          expect(model.getCurrentPage()).toEqual(1);
+        });
+      });
+
+      describe('.firstPage()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.firstPage).toEqual(jasmine.any(Function));
         });
 
         it('should set current page to first page', function() {
@@ -225,15 +323,15 @@ define(function(require) {
 
           expect(model.getCurrentPage()).toEqual(6);
 
-          model.setFirstPage();
+          model.firstPage();
 
           expect(model.getCurrentPage()).toEqual(1);
         });
       });
 
-      describe('.setLastPage()', function() {
+      describe('.lastPage()', function() {
         it('should be defined', function() {
-          expect(PagerModel.prototype.setLastPage).toEqual(jasmine.any(Function));
+          expect(PagerModel.prototype.lastPage).toEqual(jasmine.any(Function));
         });
 
         it('should set current page to last page number', function() {
@@ -245,58 +343,57 @@ define(function(require) {
 
           expect(model.getCurrentPage()).toEqual(1);
 
-          model.setLastPage();
+          model.lastPage();
 
           expect(model.getCurrentPage()).toEqual(10);
         });
       });
+    });
 
-      describe('.getPagesCount()', function() {
-        it('should be defined', function() {
-          expect(PagerModel.prototype.getPagesCount).toEqual(jasmine.any(Function));
+    describe('events', function() {
+
+      beforeEach(function() {
+        this.model = new PagerModel({
+          total: 100,
+          pageSize: 10,
+          currentPage: 2
+        });
+      });
+
+      it('.nextPage() should trigger change event', function(done) {
+        this.model.on('change:currentPage', function(model) {
+          expect(model.getCurrentPage()).toEqual(3);
+          done();
         });
 
-        it('should return correct value for 0 items', function() {
-          var model = new PagerModel({
-            total: 0,
-            pageSize: 10
-          });
+        this.model.nextPage();
+      });
 
-          expect(model.getPagesCount()).toBe(0);
+      it('.previousPage() should trigger change event', function(done) {
+        this.model.on('change:currentPage', function(model) {
+          expect(model.getCurrentPage()).toEqual(1);
+          done();
         });
 
-        it('should return correct value for 1 item', function() {
-          var model = new PagerModel({
-            total: 1,
-            pageSize: 10
-          });
+        this.model.previousPage();
+      });
 
-          expect(model.getPagesCount()).toBe(1);
+      it('.firstPage() should trigger change event', function(done) {
+        this.model.on('change:currentPage', function(model) {
+          expect(model.getCurrentPage()).toEqual(1);
+          done();
         });
 
-        it('should return correct value for many items', function() {
-          var model1 = new PagerModel({
-              total: 100,
-              pageSize: 10
-            }),
-            model2 = new PagerModel({
-              total: 100,
-              pageSize: 20
-            }),
-            model3 = new PagerModel({
-              total: 29,
-              pageSize: 10
-            }),
-            model4 = new PagerModel({
-              total: 20,
-              pageSize: 3
-            });
+        this.model.firstPage();
+      });
 
-          expect(model1.getPagesCount()).toBe(10);
-          expect(model2.getPagesCount()).toBe(5);
-          expect(model3.getPagesCount()).toBe(3);
-          expect(model4.getPagesCount()).toBe(7);
+      it('.lastPage() should trigger change event', function(done) {
+        this.model.on('change:currentPage', function(model) {
+          expect(model.getCurrentPage()).toEqual(10);
+          done();
         });
+
+        this.model.lastPage();
       });
     });
   });

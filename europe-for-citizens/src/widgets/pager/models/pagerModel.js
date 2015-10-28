@@ -27,12 +27,12 @@ define(function(require) {
         return 'current page cannot be bigger than total pages count';
       }
 
-      if (attrs.currentPage < 0) {
+      if (attrs.currentPage < 1) {
         return 'current page cannot be smaller than zero';
       }
     },
 
-    getTotal: function() {
+    getTotalItems: function() {
       return this.get('total');
     },
 
@@ -50,22 +50,27 @@ define(function(require) {
       });
     },
 
-    setNextPage: function() {
+    nextPage: function() {
       var nextPage = this.getCurrentPage() + 1;
       this.setCurrentPage(nextPage);
     },
 
-    setFirstPage: function() {
+    previousPage: function() {
+      var previousPage = this.getCurrentPage() - 1;
+      this.setCurrentPage(previousPage);
+    },
+
+    firstPage: function() {
       this.setCurrentPage(1);
     },
 
-    setLastPage: function() {
+    lastPage: function() {
       var lastPage = this.getPagesCount();
       this.setCurrentPage(lastPage);
     },
 
     getPagesCount: function() {
-      return Math.ceil(this.getTotal() / this.getPageSize());
+      return Math.ceil(this.getTotalItems() / this.getPageSize());
     }
   });
 });
