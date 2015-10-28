@@ -5,7 +5,8 @@ define(function (require) {
     PaginatedView = require('./views/paginatedView'),
     TableResultsWidget = require('app/widgets/results/table/table/main'),
     PagerWidget = require('app/widgets/pager/main'),
-    searchService = require('app/services/search/searchService');
+    searchService = require('app/services/search/searchService'),
+    router = require('app/routers/router');
 
 
   return Widget.extend({

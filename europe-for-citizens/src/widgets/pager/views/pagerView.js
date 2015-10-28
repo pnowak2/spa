@@ -3,7 +3,9 @@ define(function (require) {
     Backbone = require('backbone'),
     PagerCollection = require('../collections/pagerCollection'),
     PageView = require('./pageView'),
-    widgetEventBus = require('../events/widgetEventBus');
+    widgetEventBus = require('../events/widgetEventBus'),
+    Mustache = require('mustache'),
+    tpl = require('text!../templates/pager.html');
 
   return Backbone.View.extend({
     className: 'efc-pager',
@@ -14,10 +16,19 @@ define(function (require) {
       this.listenTo(widgetEventBus, 'pager:page-request', this.didSelectPage);
     },
 
+    events: {
+      'click .efc-pager-next': 'didClickNextPage'
+    },
+
     didSelectPage: function (pageModel) {
       this.collection.chain()
         .without(pageModel)
         .invoke('deselect');
+    },
+
+    didClickNextPage: function (e) {
+      e.preventDefault();
+      console.log('next', this.model.get('currentPage') + 1);
     },
 
     dataReady: function (data) {
@@ -40,18 +51,24 @@ define(function (require) {
     },
 
     render: function () {
+      var html,
+        pagesContainerEl;
+
       this.$el.empty();
-      if (this.collection.isEmpty()) {
-        return
+      if (!this.collection.isEmpty()) {
+        html = Mustache.render(tpl)
+
+        this.$el.html(html);
+        pagesContainerEl = this.$el.find('.efc-pager-pages-container');
+
+        this.collection.each(function (pageModel) {
+          var pageView = new PageView({
+            model: pageModel
+          });
+
+          pagesContainerEl.append(pageView.render().el);
+        }, this);
       }
-
-      this.collection.each(function (pageModel) {
-        var pageView = new PageView({
-          model: pageModel
-        });
-
-        this.$el.append(pageView.render().el);
-      }, this);
 
       return this;
     }

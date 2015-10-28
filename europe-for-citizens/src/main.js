@@ -12,14 +12,6 @@ requirejs.config({
 
 define(function (require) {
   var app = require('app/app'),
-    Backbone = require('backbone'),
-    Router = require('app/routers/router'),
     ApplicationWidget = require('app/widgets/application/main'),
-    applicationWidget,
-    router;
-
-  applicationWidget = new ApplicationWidget().render();
-
-  router = new Router()
-  Backbone.history.start();
+    applicationWidget = new ApplicationWidget().render();
 });
