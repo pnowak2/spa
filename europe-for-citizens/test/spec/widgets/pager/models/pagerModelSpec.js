@@ -44,6 +44,39 @@ define(function(require) {
       });
     });
 
+    describe('validation', function() {
+
+      it('should implement validate method', function() {
+        expect(PagerModel.prototype.validate).toEqual(jasmine.any(Function));
+      });
+
+      it('should not exceed the total pages count', function() {
+        var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: 4
+          }),
+          newCurrentPage;
+
+        expect(model.getCurrentPage()).toEqual(4);
+        newCurrentPage = model.setCurrentPage(200);
+        expect(newCurrentPage).toEqual(10);
+      });
+
+      it('should not be lower than 1', function() {
+        var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: 1
+          }),
+          newCurrentPage;
+
+        expect(model.getCurrentPage()).toEqual(1);
+        newCurrentPage = model.setCurrentPage(-10);
+        expect(newCurrentPage).toEqual(1);
+      });
+    });
+
     describe('creation', function() {
       it('should throw for zero page size', function() {
         var createZeroPageModel = function() {
@@ -53,6 +86,26 @@ define(function(require) {
         }
 
         expect(createZeroPageModel).toThrowError('page size cannot be zero');
+      });
+
+      it('should throw if current page is bigger than total pages', function() {
+        expect(function() {
+          new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: 11
+          })
+        }).toThrowError('current page is beyond pages count');
+      });
+
+      it('should throw if current page is smaller than 0', function() {
+        expect(function() {
+          new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: -1
+          })
+        }).toThrowError('current page is beyond pages count');
       });
     });
 
@@ -93,6 +146,8 @@ define(function(require) {
 
         it('returns number of current page', function() {
           var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
             currentPage: 6
           });
 
@@ -100,28 +155,109 @@ define(function(require) {
         });
       });
 
-      describe('.nextPage()', function() {
+      describe('.setCurrentPage()', function() {
         it('should be defined', function() {
-          expect(PagerModel.prototype.nextPage).toEqual(jasmine.any(Function));
+          expect(PagerModel.prototype.setCurrentPage).toEqual(jasmine.any(Function));
         });
 
-        xit('should increment current page by one and return that number', function() {
+        it('sets the current page and returns this value', function() {
           var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: 6
+          });
+
+          var page = model.setCurrentPage(2);
+
+          expect(page).toEqual(2);
+          expect(model.getCurrentPage()).toEqual(2);
+        });
+      });
+
+      describe('.setNextPage()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.setNextPage).toEqual(jasmine.any(Function));
+        });
+
+        it('should increment current page by one and return that number', function() {
+          var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
             currentPage: 6
           });
 
           expect(model.getCurrentPage()).toEqual(6);
 
-          var nextPage = model.nextPage();
+          var nextPage = model.setNextPage();
 
           expect(nextPage).toEqual(7);
           expect(model.getCurrentPage()).toEqual(7);
         });
+
+        it('should not exceed the total pages count', function() {
+          var model = new PagerModel({
+              total: 10,
+              pageSize: 2,
+              currentPage: 4
+            }),
+            nextPage;
+
+          expect(model.getPagesCount()).toEqual(5);
+          expect(model.getCurrentPage()).toEqual(4);
+
+          nextPage = model.setNextPage();
+          expect(nextPage).toEqual(5);
+          expect(model.getCurrentPage()).toEqual(5);
+
+          nextPage = model.setNextPage();
+          expect(nextPage).toEqual(5);
+          expect(model.getCurrentPage()).toEqual(5);
+        });
       });
 
-      describe('.getPages()', function() {
+      describe('.setFirstPage()', function() {
         it('should be defined', function() {
-          expect(PagerModel.prototype.getPages).toEqual(jasmine.any(Function));
+          expect(PagerModel.prototype.setFirstPage).toEqual(jasmine.any(Function));
+        });
+
+        it('should set current page to first page and return that value', function() {
+          var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: 6
+          });
+
+          expect(model.getCurrentPage()).toEqual(6);
+
+          var firstPage = model.setFirstPage();
+          expect(firstPage).toEqual(1);
+          expect(model.getCurrentPage()).toEqual(1);
+        });
+      });
+
+      describe('.setLastPage()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.setLastPage).toEqual(jasmine.any(Function));
+        });
+
+        it('should set current page to last page number and return that value', function() {
+          var model = new PagerModel({
+            total: 100,
+            pageSize: 10,
+            currentPage: 1
+          });
+
+          expect(model.getCurrentPage()).toEqual(1);
+
+          var lastPage = model.setLastPage();
+          expect(lastPage).toEqual(10);
+          expect(model.getCurrentPage()).toEqual(10);
+        });
+      });
+
+      describe('.getPagesCount()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.getPagesCount).toEqual(jasmine.any(Function));
         });
 
         it('should return correct value for 0 items', function() {
@@ -130,7 +266,7 @@ define(function(require) {
             pageSize: 10
           });
 
-          expect(model.getPages()).toBe(0);
+          expect(model.getPagesCount()).toBe(0);
         });
 
         it('should return correct value for 1 item', function() {
@@ -139,7 +275,7 @@ define(function(require) {
             pageSize: 10
           });
 
-          expect(model.getPages()).toBe(1);
+          expect(model.getPagesCount()).toBe(1);
         });
 
         it('should return correct value for many items', function() {
@@ -160,10 +296,10 @@ define(function(require) {
               pageSize: 3
             });
 
-          expect(model1.getPages()).toBe(10);
-          expect(model2.getPages()).toBe(5);
-          expect(model3.getPages()).toBe(3);
-          expect(model4.getPages()).toBe(7);
+          expect(model1.getPagesCount()).toBe(10);
+          expect(model2.getPagesCount()).toBe(5);
+          expect(model3.getPagesCount()).toBe(3);
+          expect(model4.getPagesCount()).toBe(7);
         });
       });
     });
