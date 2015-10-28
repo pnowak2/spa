@@ -59,8 +59,8 @@ define(function(require) {
           newCurrentPage;
 
         expect(model.getCurrentPage()).toEqual(4);
-        newCurrentPage = model.setCurrentPage(200);
-        expect(newCurrentPage).toEqual(10);
+        model.setCurrentPage(200);
+        expect(model.getCurrentPage()).toEqual(4);
       });
 
       it('should not be lower than 1', function() {
@@ -72,8 +72,26 @@ define(function(require) {
           newCurrentPage;
 
         expect(model.getCurrentPage()).toEqual(1);
-        newCurrentPage = model.setCurrentPage(-10);
-        expect(newCurrentPage).toEqual(1);
+        model.setCurrentPage(-10);
+        expect(model.getCurrentPage()).toEqual(1);
+      });
+
+      it('should not exceed the total pages count', function() {
+        var model = new PagerModel({
+            total: 10,
+            pageSize: 2,
+            currentPage: 4
+          }),
+          nextPage;
+
+        expect(model.getPagesCount()).toEqual(5);
+        expect(model.getCurrentPage()).toEqual(4);
+
+        model.setNextPage();
+        expect(model.getCurrentPage()).toEqual(5);
+
+        model.setNextPage();
+        expect(model.getCurrentPage()).toEqual(5);
       });
     });
 
@@ -160,16 +178,15 @@ define(function(require) {
           expect(PagerModel.prototype.setCurrentPage).toEqual(jasmine.any(Function));
         });
 
-        it('sets the current page and returns this value', function() {
+        it('sets the current page', function() {
           var model = new PagerModel({
             total: 100,
             pageSize: 10,
             currentPage: 6
           });
 
-          var page = model.setCurrentPage(2);
+          model.setCurrentPage(2);
 
-          expect(page).toEqual(2);
           expect(model.getCurrentPage()).toEqual(2);
         });
       });
@@ -179,7 +196,7 @@ define(function(require) {
           expect(PagerModel.prototype.setNextPage).toEqual(jasmine.any(Function));
         });
 
-        it('should increment current page by one and return that number', function() {
+        it('should increment current page by one', function() {
           var model = new PagerModel({
             total: 100,
             pageSize: 10,
@@ -188,30 +205,9 @@ define(function(require) {
 
           expect(model.getCurrentPage()).toEqual(6);
 
-          var nextPage = model.setNextPage();
+          model.setNextPage();
 
-          expect(nextPage).toEqual(7);
           expect(model.getCurrentPage()).toEqual(7);
-        });
-
-        it('should not exceed the total pages count', function() {
-          var model = new PagerModel({
-              total: 10,
-              pageSize: 2,
-              currentPage: 4
-            }),
-            nextPage;
-
-          expect(model.getPagesCount()).toEqual(5);
-          expect(model.getCurrentPage()).toEqual(4);
-
-          nextPage = model.setNextPage();
-          expect(nextPage).toEqual(5);
-          expect(model.getCurrentPage()).toEqual(5);
-
-          nextPage = model.setNextPage();
-          expect(nextPage).toEqual(5);
-          expect(model.getCurrentPage()).toEqual(5);
         });
       });
 
@@ -220,7 +216,7 @@ define(function(require) {
           expect(PagerModel.prototype.setFirstPage).toEqual(jasmine.any(Function));
         });
 
-        it('should set current page to first page and return that value', function() {
+        it('should set current page to first page', function() {
           var model = new PagerModel({
             total: 100,
             pageSize: 10,
@@ -229,8 +225,8 @@ define(function(require) {
 
           expect(model.getCurrentPage()).toEqual(6);
 
-          var firstPage = model.setFirstPage();
-          expect(firstPage).toEqual(1);
+          model.setFirstPage();
+
           expect(model.getCurrentPage()).toEqual(1);
         });
       });
@@ -240,7 +236,7 @@ define(function(require) {
           expect(PagerModel.prototype.setLastPage).toEqual(jasmine.any(Function));
         });
 
-        it('should set current page to last page number and return that value', function() {
+        it('should set current page to last page number', function() {
           var model = new PagerModel({
             total: 100,
             pageSize: 10,
@@ -249,8 +245,8 @@ define(function(require) {
 
           expect(model.getCurrentPage()).toEqual(1);
 
-          var lastPage = model.setLastPage();
-          expect(lastPage).toEqual(10);
+          model.setLastPage();
+
           expect(model.getCurrentPage()).toEqual(10);
         });
       });

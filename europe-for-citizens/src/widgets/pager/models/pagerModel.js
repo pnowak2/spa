@@ -20,8 +20,16 @@ define(function(require) {
       }
     },
 
-    validate: function() {
+    validate: function(attrs) {
+      var pagesCount = this.getPagesCount();
 
+      if (attrs.currentPage > pagesCount) {
+        return 'current page cannot be bigger than total pages count';
+      }
+
+      if (attrs.currentPage < 0) {
+        return 'current page cannot be smaller than zero';
+      }
     },
 
     getTotal: function() {
@@ -37,35 +45,23 @@ define(function(require) {
     },
 
     setCurrentPage: function(page) {
-      var pagesCount = this.getPagesCount(),
-        newCurrentPage = _.max([1, _.min([page, pagesCount])]);
-
-      this.set('currentPage', newCurrentPage);
-
-      return newCurrentPage;
+      this.set('currentPage', page, {
+        validate: true
+      });
     },
 
     setNextPage: function() {
-      var pagesCount = this.getPagesCount(),
-        nextPage = _.min([this.getCurrentPage() + 1, pagesCount]);
-
-      this.set('currentPage', nextPage);
-
-      return nextPage;
+      var nextPage = this.getCurrentPage() + 1;
+      this.setCurrentPage(nextPage);
     },
 
     setFirstPage: function() {
-      var firstPage = 1;
-      this.set('currentPage', firstPage);
-
-      return firstPage;
+      this.setCurrentPage(1);
     },
 
     setLastPage: function() {
       var lastPage = this.getPagesCount();
-      this.set('currentPage', lastPage);
-
-      return lastPage;
+      this.setCurrentPage(lastPage);
     },
 
     getPagesCount: function() {
