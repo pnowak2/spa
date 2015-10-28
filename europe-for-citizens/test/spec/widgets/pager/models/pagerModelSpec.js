@@ -13,7 +13,7 @@ define(function(require) {
     describe('defaults', function() {
       it('should be defined with proper values', function() {
         expect(PagerModel.prototype.defaults).toEqual({
-          total: 0,
+          totalItems: 0,
           pageSize: 10,
           currentPage: 1
         });
@@ -23,53 +23,84 @@ define(function(require) {
         spyOn(PagerModel.prototype, 'initialize');
 
         var model = new PagerModel({
-          total: 5
+          totalItems: 5
         });
 
         expect(model.initialize).toHaveBeenCalledWith({
-          total: 5
+          totalItems: 5
         });
       });
 
       it('can be overriden', function() {
         var model = new PagerModel({
-          total: 50
+          totalItems: 50,
+          pageSize: 10,
+          currentPage: 1
         });
 
         expect(model.toJSON()).toEqual({
-          total: 50,
+          totalItems: 50,
           pageSize: 10,
-          currentPage: 1
+          currentPage: 1,
+          pagesCount: 5
         });
       });
     });
 
     describe('creation', function() {
+      it('should be possible to have totalItems zero', function() {
+        expect(function() {
+          new PagerModel({
+            totalItems: 0,
+            pageSize: 10,
+            currentPage: 1
+          });
+        }).not.toThrow();
+      });
+
+      xit('should be possible to create with zero items and current page bigger than one', function() {
+        var model = new PagerModel({
+          totalItems: 0,
+          pageSize: 10,
+          currentPage: 5
+        });
+
+        expect(model.getCurrentPage()).toEqual(1);
+      });
+
+      it('should throw for negative totalItems', function() {
+        expect(function() {
+          new PagerModel({
+            totalItems: -22
+          });
+        }).toThrowError('total items cannot be negative');
+      });
+
       it('should throw for zero page size', function() {
         expect(function() {
           new PagerModel({
             pageSize: 0
-          })
+          });
         }).toThrowError('page size cannot be zero');
       });
 
       it('should throw if current page is bigger than total pages', function() {
         expect(function() {
           new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: 11
-          })
+          });
         }).toThrowError('current page is beyond pages count');
       });
 
       it('should throw if current page is smaller than 0', function() {
         expect(function() {
           new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: -1
-          })
+          });
         }).toThrowError('current page is beyond pages count');
       });
     });
@@ -81,7 +112,7 @@ define(function(require) {
 
       it('should not exceed the total pages count', function() {
         var model = new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: 4
           }),
@@ -98,7 +129,7 @@ define(function(require) {
 
       it('should not be lower than 1', function() {
         var model = new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: 1
           }),
@@ -122,16 +153,16 @@ define(function(require) {
 
         it('should return correct value for 0 items', function() {
           var model = new PagerModel({
-            total: 0,
+            totalItems: 0,
             pageSize: 10
           });
 
-          expect(model.getPagesCount()).toBe(0);
+          expect(model.getPagesCount()).toBe(1);
         });
 
         it('should return correct value for 1 item', function() {
           var model = new PagerModel({
-            total: 1,
+            totalItems: 1,
             pageSize: 10
           });
 
@@ -140,23 +171,23 @@ define(function(require) {
 
         it('should return correct value for many items', function() {
           var model1 = new PagerModel({
-              total: 100,
+              totalItems: 100,
               pageSize: 10
             }),
             model2 = new PagerModel({
-              total: 100,
+              totalItems: 100,
               pageSize: 20
             }),
             model3 = new PagerModel({
-              total: 29,
+              totalItems: 29,
               pageSize: 10
             }),
             model4 = new PagerModel({
-              total: 20,
+              totalItems: 20,
               pageSize: 3
             }),
             model5 = new PagerModel({
-              total: 17,
+              totalItems: 17,
               pageSize: 1
             });
 
@@ -175,7 +206,7 @@ define(function(require) {
 
         it('returns total items number', function() {
           var model = new PagerModel({
-            total: 50
+            totalItems: 50
           });
 
           expect(model.getTotalItems()).toEqual(50);
@@ -203,7 +234,7 @@ define(function(require) {
 
         it('returns number of current page', function() {
           var model = new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: 6
           });
@@ -219,7 +250,7 @@ define(function(require) {
 
         it('sets the current page', function() {
           var model = new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: 6
           });
@@ -239,7 +270,7 @@ define(function(require) {
 
         it('should increment current page by one', function() {
           var model = new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: 6
           });
@@ -254,7 +285,7 @@ define(function(require) {
 
         it('should not exceed the total pages count', function() {
           var model = new PagerModel({
-            total: 10,
+            totalItems: 10,
             pageSize: 2,
             currentPage: 4
           });
@@ -278,7 +309,7 @@ define(function(require) {
 
         it('should decrement current page by one', function() {
           var model = new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: 6
           });
@@ -292,7 +323,7 @@ define(function(require) {
 
         it('should not get below one', function() {
           var model = new PagerModel({
-            total: 10,
+            totalItems: 10,
             pageSize: 2,
             currentPage: 2
           });
@@ -316,7 +347,7 @@ define(function(require) {
 
         it('should set current page to first page', function() {
           var model = new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: 6
           });
@@ -336,7 +367,7 @@ define(function(require) {
 
         it('should set current page to last page number', function() {
           var model = new PagerModel({
-            total: 100,
+            totalItems: 100,
             pageSize: 10,
             currentPage: 1
           });
@@ -348,13 +379,34 @@ define(function(require) {
           expect(model.getCurrentPage()).toEqual(10);
         });
       });
+
+      describe('.toJSON()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.toJSON).toEqual(jasmine.any(Function));
+        });
+
+        it('should return attributes of model', function() {
+          var model1 = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 1
+          });
+
+          expect(model1.toJSON()).toEqual({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 1,
+            pagesCount: 10
+          });
+        });
+      });
     });
 
     describe('events', function() {
 
       beforeEach(function() {
         this.model = new PagerModel({
-          total: 100,
+          totalItems: 100,
           pageSize: 10,
           currentPage: 2
         });

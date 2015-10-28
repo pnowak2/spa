@@ -4,7 +4,7 @@ define(function(require) {
 
   return Backbone.Model.extend({
     defaults: {
-      total: 0,
+      totalItems: 0,
       pageSize: 10,
       currentPage: 1
     },
@@ -12,6 +12,10 @@ define(function(require) {
     initialize: function(options) {
       if (options.pageSize === 0) {
         throw new Error('page size cannot be zero');
+      }
+
+      if (options.totalItems < 0) {
+        throw new Error('total items cannot be negative');
       }
 
       if (options.currentPage > this.getPagesCount() ||
@@ -33,7 +37,7 @@ define(function(require) {
     },
 
     getTotalItems: function() {
-      return this.get('total');
+      return this.get('totalItems');
     },
 
     getPageSize: function() {
@@ -70,7 +74,16 @@ define(function(require) {
     },
 
     getPagesCount: function() {
-      return Math.ceil(this.getTotalItems() / this.getPageSize());
+      var pagesCount = Math.ceil(this.getTotalItems() / this.getPageSize());
+      return _.max([pagesCount, 1]);
+    },
+
+    toJSON: function() {
+      var serialized = _.assign(this.constructor.__super__.toJSON.call(this), {
+        pagesCount: this.getPagesCount()
+      });
+
+      return serialized;
     }
   });
 });
