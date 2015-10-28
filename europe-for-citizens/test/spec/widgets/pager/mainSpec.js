@@ -1,7 +1,9 @@
 define(function(require) {
 
   var Widget = require('app/core/widget'),
-    PagerWidget = require('app/widgets/pager/main');
+    PagerWidget = require('app/widgets/pager/main'),
+    PagerModel = require('app/widgets/pager/models/pagerModel'),
+    PagerView = require('app/widgets/pager/views/pagerView');
 
   describe('Pager Widget', function() {
 
@@ -11,45 +13,41 @@ define(function(require) {
       });
     });
 
+    describe('creation', function() {
+      it('should be initialized with pager model', function() {
+        var pagerWidget = new PagerWidget;
+        expect(pagerWidget.model).toEqual(jasmine.any(PagerModel));
+      });
+
+      it('should be initialized with pager view', function() {
+        var pagerWidget = new PagerWidget;
+        expect(pagerWidget.view).toEqual(jasmine.any(PagerView));
+      });
+
+      it('should have view with pager model', function() {
+        var pagerWidget = new PagerWidget;
+        expect(pagerWidget.view.model).toBe(pagerWidget.model);
+      });
+    });
+
     describe('api', function() {
       describe('.getState()', function() {
         it('should be defined', function() {
           expect(PagerWidget.prototype.getState).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate the state to pager model', function() {
+          var pagerWidget = new PagerWidget,
+            fakePagerState = {};
+
+          spyOn(pagerWidget.model, 'toJSON').and.returnValue(fakePagerState);
+          expect(pagerWidget.getState()).toBe(fakePagerState);
         });
       });
 
       describe('.refresh()', function() {
         it('should be defined', function() {
           expect(PagerWidget.prototype.refresh).toEqual(jasmine.any(Function));
-        });
-      });
-    });
-
-    describe('creation', function() {
-      describe('without options', function() {
-        it('should have proper default state', function() {
-          var widget = new PagerWidget;
-          expect(widget.getState()).toEqual({
-            total: 0,
-            pages: 0,
-            pageSize: 10,
-            currentPage: 1
-          });
-        });
-      });
-
-      xdescribe('with options', function() {
-        it('partially applied', function() {
-          var widget = new PagerWidget({
-            total: 125
-          });
-
-          expect(widget.getState()).toEqual({
-            total: 125,
-            pages: 0,
-            pageSize: 10,
-            currentPage: 1
-          });
         });
       });
     });

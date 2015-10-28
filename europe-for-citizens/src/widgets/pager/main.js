@@ -1,19 +1,19 @@
 define(function(require) {
-  var Widget = require('app/core/widget');
+  var Widget = require('app/core/widget'),
+    PagerModel = require('./models/pagerModel'),
+    PagerView = require('./views/pagerView');
 
   return Widget.extend({
 
-    initialize: function() {
-
+    initialize: function(options) {
+      var model = this.model = new PagerModel(options);
+      this.view = new PagerView({
+        model: model
+      });
     },
 
     getState: function() {
-      return {
-        total: 0,
-        pages: 0,
-        pageSize: 10,
-        currentPage: 1
-      }
+      return this.model.toJSON();
     },
 
     refresh: function() {}

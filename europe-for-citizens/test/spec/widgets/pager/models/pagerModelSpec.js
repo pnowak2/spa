@@ -14,7 +14,7 @@ define(function(require) {
       it('should be defined with proper values', function() {
         expect(PagerModel.prototype.defaults).toEqual({
           totalItems: 0,
-          pageSize: 10,
+          pageSize: 15,
           currentPage: 1
         });
       });
@@ -48,6 +48,51 @@ define(function(require) {
     });
 
     describe('creation', function() {
+      it('should be possible to create without arguments', function() {
+        var model = new PagerModel;
+
+        expect(model.getCurrentPage()).toEqual(PagerModel.prototype.defaults.currentPage);
+        expect(model.getPageSize()).toEqual(PagerModel.prototype.defaults.pageSize);
+        expect(model.getTotalItems()).toEqual(PagerModel.prototype.defaults.totalItems);
+        expect(model.getPagesCount()).toEqual(1);
+      });
+
+      it('should be possible to create with empty argument object', function() {
+        var model = new PagerModel({});
+
+        expect(model.getCurrentPage()).toEqual(PagerModel.prototype.defaults.currentPage);
+        expect(model.getPageSize()).toEqual(PagerModel.prototype.defaults.pageSize);
+        expect(model.getTotalItems()).toEqual(PagerModel.prototype.defaults.totalItems);
+        expect(model.getPagesCount()).toEqual(1);
+      });
+
+      it('should be possible to create with partial options', function() {
+        var model1 = new PagerModel({
+            totalItems: 0,
+          }),
+          model2 = new PagerModel({
+            pageSize: 5,
+          }),
+          model3 = new PagerModel({
+            currentPage: 3,
+          });
+
+        expect(model1.getCurrentPage()).toEqual(PagerModel.prototype.defaults.currentPage);
+        expect(model1.getPageSize()).toEqual(PagerModel.prototype.defaults.pageSize);
+        expect(model1.getTotalItems()).toEqual(0);
+        expect(model1.getPagesCount()).toEqual(1);
+
+        expect(model2.getCurrentPage()).toEqual(PagerModel.prototype.defaults.currentPage);
+        expect(model2.getPageSize()).toEqual(5);
+        expect(model2.getTotalItems()).toEqual(PagerModel.prototype.defaults.totalItems);
+        expect(model2.getPagesCount()).toEqual(1);
+
+        expect(model3.getCurrentPage()).toEqual(1);
+        expect(model3.getPageSize()).toEqual(PagerModel.prototype.defaults.pageSize);
+        expect(model3.getTotalItems()).toEqual(PagerModel.prototype.defaults.totalItems);
+        expect(model3.getPagesCount()).toEqual(1);
+      });
+
       it('should be possible to have totalItems zero', function() {
         expect(function() {
           new PagerModel({
@@ -118,6 +163,14 @@ define(function(require) {
         expect(function() {
           new PagerModel({
             pageSize: 0
+          });
+        }).toThrowError('page size cannot be zero');
+      });
+
+      it('should throw for negative page size', function() {
+        expect(function() {
+          new PagerModel({
+            pageSize: -20
           });
         }).toThrowError('page size cannot be zero');
       });

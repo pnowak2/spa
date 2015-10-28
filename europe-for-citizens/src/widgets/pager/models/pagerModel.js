@@ -5,20 +5,22 @@ define(function(require) {
   return Backbone.Model.extend({
     defaults: {
       totalItems: 0,
-      pageSize: 10,
+      pageSize: 15,
       currentPage: 1
     },
 
-    initialize: function(options) {
-      if (options.pageSize === 0) {
+    initialize: function(attributes) {
+      var attrs = _.defaults({}, attributes)
+
+      if (attrs.pageSize <= 0) {
         throw new Error('page size cannot be zero');
       }
 
-      if (options.totalItems < 0) {
+      if (attrs.totalItems < 0) {
         throw new Error('total items cannot be negative');
       }
 
-      this.setCurrentPage(options.currentPage);
+      this.setCurrentPage(attrs.currentPage);
     },
 
     getTotalItems: function() {
