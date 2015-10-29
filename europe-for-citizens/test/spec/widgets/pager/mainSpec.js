@@ -14,19 +14,31 @@ define(function(require) {
     });
 
     describe('creation', function() {
+      beforeEach(function() {
+        this.pagerWidget = new PagerWidget;
+      });
+
       it('should be initialized with pager model', function() {
-        var pagerWidget = new PagerWidget;
-        expect(pagerWidget.model).toEqual(jasmine.any(PagerModel));
+        expect(this.pagerWidget.model).toEqual(jasmine.any(PagerModel));
       });
 
       it('should be initialized with pager view', function() {
-        var pagerWidget = new PagerWidget;
-        expect(pagerWidget.view).toEqual(jasmine.any(PagerView));
+        expect(this.pagerWidget.view).toEqual(jasmine.any(PagerView));
       });
 
       it('should have view with pager model', function() {
-        var pagerWidget = new PagerWidget;
-        expect(pagerWidget.view.model).toBe(pagerWidget.model);
+        expect(this.pagerWidget.view.model).toBe(this.pagerWidget.model);
+      });
+
+      it('should pass options to pager model', function() {
+        var fakeOptions = {
+            fakeAttr: 'fakeValue'
+          },
+          pagerWidget = new PagerWidget(fakeOptions);
+
+        expect(pagerWidget.model.toJSON()).toEqual(jasmine.objectContaining({
+          fakeAttr: 'fakeValue'
+        }));
       });
     });
 

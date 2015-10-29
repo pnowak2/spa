@@ -13,7 +13,7 @@ define(function(require) {
       var attrs = _.defaults({}, attributes)
 
       if (attrs.pageSize <= 0) {
-        throw new Error('page size cannot be zero');
+        throw new Error('page size cannot be zero or negative');
       }
 
       if (attrs.totalItems < 0) {
@@ -60,6 +60,14 @@ define(function(require) {
     lastPage: function() {
       var lastPage = this.getPagesCount();
       this.setCurrentPage(lastPage);
+    },
+
+    isFirstPageSelected: function() {
+      return this.getCurrentPage() === 1;
+    },
+
+    isLastPageSelected: function() {
+      return this.getCurrentPage() === this.getPagesCount();
     },
 
     getPagesCount: function() {

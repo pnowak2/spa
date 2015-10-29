@@ -164,7 +164,7 @@ define(function(require) {
           new PagerModel({
             pageSize: 0
           });
-        }).toThrowError('page size cannot be zero');
+        }).toThrowError('page size cannot be zero or negative');
       });
 
       it('should throw for negative page size', function() {
@@ -172,7 +172,7 @@ define(function(require) {
           new PagerModel({
             pageSize: -20
           });
-        }).toThrowError('page size cannot be zero');
+        }).toThrowError('page size cannot be zero or negative');
       });
     });
 
@@ -235,7 +235,7 @@ define(function(require) {
           expect(PagerModel.prototype.getTotalItems).toEqual(jasmine.any(Function));
         });
 
-        it('returns total items number', function() {
+        it('should return total items number', function() {
           var model = new PagerModel({
             totalItems: 50
           });
@@ -249,7 +249,7 @@ define(function(require) {
           expect(PagerModel.prototype.getPageSize).toEqual(jasmine.any(Function));
         });
 
-        it('returns size of the page', function() {
+        it('should return size of the page', function() {
           var model = new PagerModel({
             pageSize: 12
           });
@@ -263,7 +263,7 @@ define(function(require) {
           expect(PagerModel.prototype.getCurrentPage).toEqual(jasmine.any(Function));
         });
 
-        it('returns number of current page', function() {
+        it('should return number of current page', function() {
           var model = new PagerModel({
             totalItems: 100,
             pageSize: 10,
@@ -279,7 +279,7 @@ define(function(require) {
           expect(PagerModel.prototype.setCurrentPage).toEqual(jasmine.any(Function));
         });
 
-        it('sets the current page', function() {
+        it('should set the current page', function() {
           var model = new PagerModel({
             totalItems: 100,
             pageSize: 10,
@@ -432,6 +432,68 @@ define(function(require) {
           model.lastPage();
 
           expect(model.getCurrentPage()).toEqual(10);
+        });
+      });
+
+      describe('.isFirstPageSelected()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.isFirstPageSelected).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if current page is also a first page', function() {
+          var model1 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 1
+            }),
+            model2 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 3
+            }),
+            model3 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: -6
+            }),
+            model4 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 0
+            });
+
+          expect(model1.isFirstPageSelected()).toBe(true);
+          expect(model2.isFirstPageSelected()).toBe(false);
+          expect(model3.isFirstPageSelected()).toBe(true);
+          expect(model4.isFirstPageSelected()).toBe(true);
+        });
+      });
+
+      describe('.isLastPageSelected()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.isLastPageSelected).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if current page is also a last page', function() {
+          var model1 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 10
+            }),
+            model2 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 3
+            }),
+            model3 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 22
+            });
+
+          expect(model1.isLastPageSelected()).toBe(true);
+          expect(model2.isLastPageSelected()).toBe(false);
+          expect(model3.isLastPageSelected()).toBe(true);
         });
       });
 

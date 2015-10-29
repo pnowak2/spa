@@ -16,6 +16,8 @@ define(function(require) {
       return this.model.toJSON();
     },
 
-    refresh: function() {}
+    refresh: function() {
+
+    }
   });
 });
