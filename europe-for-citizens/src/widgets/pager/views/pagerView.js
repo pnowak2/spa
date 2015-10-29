@@ -14,6 +14,10 @@ define(function(require) {
     },
 
     modelDidChange: function() {
+      this.render();
+    },
+
+    render: function() {
 
     }
   });

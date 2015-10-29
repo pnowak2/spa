@@ -746,6 +746,40 @@ define(function(require) {
 
             expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
           });
+
+          it('should behave properly for page window size set to more than pages count', function() {
+            var model = new PagerModel({
+              totalItems: 80,
+              pageSize: 10,
+              currentPage: 1,
+              pageWindowSize: 5
+            });
+
+            expect(model.isFirstPageSelected()).toBe(true);
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
+
+            model.nextPage();
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
+
+            model.nextPage();
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
+
+            model.nextPage();
+            expect(model.getPagedWindow()).toEqual([2, 3, 4, 5, 6]);
+
+            model.nextPage();
+            expect(model.getPagedWindow()).toEqual([3, 4, 5, 6, 7]);
+
+            model.nextPage();
+            expect(model.getPagedWindow()).toEqual([4, 5, 6, 7, 8]);
+
+            model.nextPage();
+            expect(model.getPagedWindow()).toEqual([4, 5, 6, 7, 8]);
+
+            model.nextPage();
+            expect(model.getPagedWindow()).toEqual([4, 5, 6, 7, 8]);
+            expect(model.isLastPageSelected()).toBe(true);
+          });
         });
 
       });

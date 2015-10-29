@@ -15,7 +15,7 @@ define(function(require) {
         this.view = new PagerView({
           model: new PagerModel
         })
-      })
+      });
 
       it('should throw if created without model', function() {
         expect(function() {
@@ -45,30 +45,37 @@ define(function(require) {
     });
 
     describe('events', function() {
-      describe('.modelChanged()', function() {
-        beforeEach(function() {
-          spyOn(PagerView.prototype, 'modelDidChange');
-
-          this.model = new PagerModel;
-          this.view = new PagerView({
-            model: this.model
-          })
-        });
-
+      describe('.modelDidChange()', function() {
         it('should be defined', function() {
           expect(PagerView.prototype.modelDidChange).toEqual(jasmine.any(Function));
         });
 
         it('should be called on model change', function() {
-          expect(this.view.modelDidChange).not.toHaveBeenCalled();
-          this.model.trigger('change');
-          expect(this.view.modelDidChange).toHaveBeenCalled();
+          spyOn(PagerView.prototype, 'modelDidChange');
+
+          var view = new PagerView({
+            model: new PagerModel
+          })
+
+          expect(view.modelDidChange).not.toHaveBeenCalled();
+          view.model.trigger('change');
+          expect(view.modelDidChange).toHaveBeenCalled();
         });
       });
     });
 
     describe('rendering', function() {
+      it('should rerender on model change', function() {
+        spyOn(PagerView.prototype, 'render');
 
+        var view = new PagerView({
+          model: new PagerModel
+        })
+
+        expect(view.render).not.toHaveBeenCalled();
+        view.model.trigger('change');
+        expect(view.render).toHaveBeenCalled();
+      });
     });
   });
 });
