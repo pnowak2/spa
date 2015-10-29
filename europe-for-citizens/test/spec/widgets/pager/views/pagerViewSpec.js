@@ -23,11 +23,19 @@ define(function(require) {
         }).toThrowError('view should be created with model')
       });
 
-      it('should be a div', function() {
+      it('should throw if model type is not correct', function() {
+        expect(function() {
+          new PagerView({
+            model: {}
+          })
+        }).toThrowError('model is not of correct type')
+      });
+
+      it('should view element be a div', function() {
         expect(this.view.tagName).toEqual('div');
       });
 
-      it('should have proper css class', function() {
+      it('should view element have a proper css class', function() {
         expect(this.view.className).toEqual('efc-pager');
       });
     });
