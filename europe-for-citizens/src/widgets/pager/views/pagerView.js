@@ -13,6 +13,12 @@ define(function(require) {
       if (!(this.model instanceof PagerModel)) {
         throw new Error('model is not of correct type');
       }
+
+      this.listenTo(this.model, 'change', this.modelDidChange);
+    },
+
+    modelDidChange: function() {
+
     }
   });
 });

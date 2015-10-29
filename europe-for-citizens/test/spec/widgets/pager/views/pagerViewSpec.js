@@ -44,11 +44,30 @@ define(function(require) {
 
     });
 
-    describe('rendering', function() {
+    describe('events', function() {
+      describe('.modelChanged()', function() {
+        beforeEach(function() {
+          spyOn(PagerView.prototype, 'modelDidChange');
 
+          this.model = new PagerModel;
+          this.view = new PagerView({
+            model: this.model
+          })
+        });
+
+        it('should be defined', function() {
+          expect(PagerView.prototype.modelDidChange).toEqual(jasmine.any(Function));
+        });
+
+        it('should be called on model change', function() {
+          expect(this.view.modelDidChange).not.toHaveBeenCalled();
+          this.model.trigger('change');
+          expect(this.view.modelDidChange).toHaveBeenCalled();
+        });
+      });
     });
 
-    describe('events', function() {
+    describe('rendering', function() {
 
     });
   });
