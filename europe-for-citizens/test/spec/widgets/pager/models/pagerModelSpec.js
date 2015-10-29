@@ -15,7 +15,7 @@ define(function(require) {
           totalItems: 0,
           pageSize: 10,
           currentPage: 1,
-          pageWindow: 5
+          pageWindowSize: 5
         });
       });
 
@@ -151,15 +151,50 @@ define(function(require) {
         expect(model.getTotalItems()).toEqual(0);
       });
 
-      it('should be possible to create with page window bigger than pages count', function() {
+      it('should be possible to create with page window size bigger than pages count', function() {
         var model = new PagerModel({
           totalItems: 100,
           pageSize: 10,
           currentPage: 5,
-          pageWindow: 20
+          pageWindowSize: 20
         });
 
-        expect(model.getPageWindow()).toEqual(10);
+        expect(model.getPageWindowSize()).toEqual(10);
+      });
+
+      it('should throw for not numerical values', function() {
+        expect(function() {
+          new PagerModel({
+            totalItems: 'a'
+          });
+        }).toThrowError('attribute should be numerical');
+
+        expect(function() {
+          new PagerModel({
+            pageSize: 'a'
+          });
+        }).toThrowError('attribute should be numerical');
+
+        expect(function() {
+          new PagerModel({
+            currentPage: 'a'
+          });
+        }).toThrowError('attribute should be numerical');
+
+        expect(function() {
+          new PagerModel({
+            pageWindowSize: 'a'
+          });
+        }).toThrowError('attribute should be numerical');
+
+        expect(function() {
+          new PagerModel({
+            totalItems: undefined,
+            pageSize: undefined,
+            currentPage: undefined,
+            pageWindowSize: undefined
+          });
+        }).toThrowError('attribute should be numerical');
       });
 
       it('should throw for negative totalItems', function() {
@@ -170,15 +205,13 @@ define(function(require) {
         }).toThrowError('total items cannot be negative');
       });
 
-      it('should throw for zero page size', function() {
+      it('should throw for zero or negative page size', function() {
         expect(function() {
           new PagerModel({
             pageSize: 0
           });
         }).toThrowError('page size cannot be zero or negative');
-      });
 
-      it('should throw for negative page size', function() {
         expect(function() {
           new PagerModel({
             pageSize: -20
@@ -186,16 +219,16 @@ define(function(require) {
         }).toThrowError('page size cannot be zero or negative');
       });
 
-      it('should throw for negative or zero page window size', function() {
+      it('should throw for zero or negative page window size', function() {
         expect(function() {
           new PagerModel({
-            pageWindow: 0
+            pageWindowSize: 0
           });
         }).toThrowError('page window cannot be zero or negative');
 
         expect(function() {
           new PagerModel({
-            pageWindow: -2
+            pageWindowSize: -2
           });
         }).toThrowError('page window cannot be zero or negative');
       });
@@ -522,9 +555,9 @@ define(function(require) {
         });
       });
 
-      describe('.getPageWindow()', function() {
+      describe('.getPageWindowSize()', function() {
         it('should be defined', function() {
-          expect(PagerModel.prototype.getPageWindow).toEqual(jasmine.any(Function));
+          expect(PagerModel.prototype.getPageWindowSize).toEqual(jasmine.any(Function));
         });
 
         it('should return page window size', function() {
@@ -532,10 +565,130 @@ define(function(require) {
             totalItems: 100,
             pageSize: 10,
             currentPage: 1,
-            pageWindow: 3
+            pageWindowSize: 3
           });
 
-          expect(model.getPageWindow()).toEqual(3);
+          expect(model.getPageWindowSize()).toEqual(3);
+        });
+      });
+
+      describe('.getPagedWindow()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.getPagedWindow).toEqual(jasmine.any(Function));
+        });
+
+        describe('odd page window size', function() {
+          it('should return array of pages at the beginning of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 1,
+              pageWindowSize: 5
+            });
+
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
+          });
+
+          it('should return array of pages close to middle of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 3,
+              pageWindowSize: 5
+            });
+
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
+          });
+
+          it('should return array of pages in the middle of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 6,
+              pageWindowSize: 5
+            });
+
+            expect(model.getPagedWindow()).toEqual([4, 5, 6, 7, 8]);
+          });
+
+          it('should return array of pages close to end of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 9,
+              pageWindowSize: 5
+            });
+
+            expect(model.getPagedWindow()).toEqual([6, 7, 8, 9, 10]);
+          });
+
+          it('should return array of pages at the end of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 10,
+              pageWindowSize: 5
+            });
+
+            expect(model.getPagedWindow()).toEqual([6, 7, 8, 9, 10]);
+          });
+        });
+
+        describe('even page window size', function() {
+          it('should return array of pages at the beginning of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 1,
+              pageWindowSize: 6
+            });
+
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5, 6]);
+          });
+
+          it('should return array of pages close to middle of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 3,
+              pageWindowSize: 6
+            });
+
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5, 6]);
+          });
+
+          it('should return array of pages in the middle of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 4,
+              pageWindowSize: 6
+            });
+
+            expect(model.getPagedWindow()).toEqual([2, 3, 4, 5, 6, 7]);
+          });
+
+          it('should return array of pages close to end of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 9,
+              pageWindowSize: 6
+            });
+
+            expect(model.getPagedWindow()).toEqual([5, 6, 7, 8, 9, 10]);
+          });
+
+          it('should return array of pages at the end of paging', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 10,
+              pageWindowSize: 6
+            });
+
+            expect(model.getPagedWindow()).toEqual([5, 6, 7, 8, 9, 10]);
+          });
         });
       });
 
@@ -549,14 +702,14 @@ define(function(require) {
             totalItems: 100,
             pageSize: 10,
             currentPage: 1,
-            pageWindow: 3
+            pageWindowSize: 3
           });
 
           expect(model1.toJSON()).toEqual({
             totalItems: 100,
             pageSize: 10,
             currentPage: 1,
-            pageWindow: 3,
+            pageWindowSize: 3,
             pagesCount: 10,
           });
         });
