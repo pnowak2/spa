@@ -6,10 +6,6 @@ define(function(require) {
     className: 'efc-pager',
 
     initialize: function(options) {
-      if (!this.model) {
-        throw new Error('view should be created with model');
-      }
-
       if (!(this.model instanceof PagerModel)) {
         throw new Error('model is not of correct type');
       }

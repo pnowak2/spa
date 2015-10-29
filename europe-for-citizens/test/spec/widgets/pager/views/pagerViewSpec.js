@@ -20,7 +20,7 @@ define(function(require) {
       it('should throw if created without model', function() {
         expect(function() {
           new PagerView
-        }).toThrowError('view should be created with model')
+        }).toThrowError('model is not of correct type')
       });
 
       it('should throw if model type is not correct', function() {
