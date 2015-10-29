@@ -160,6 +160,7 @@ define(function(require) {
         });
 
         expect(model.getPageWindowSize()).toEqual(10);
+        expect(model.get('pageWindowSize')).toEqual(10);
       });
 
       it('should throw for not numerical values', function() {
@@ -224,13 +225,13 @@ define(function(require) {
           new PagerModel({
             pageWindowSize: 0
           });
-        }).toThrowError('page window cannot be zero or negative');
+        }).toThrowError('page window size cannot be zero or negative');
 
         expect(function() {
           new PagerModel({
             pageWindowSize: -2
           });
-        }).toThrowError('page window cannot be zero or negative');
+        }).toThrowError('page window size cannot be zero or negative');
       });
     });
 
@@ -572,6 +573,27 @@ define(function(require) {
         });
       });
 
+      describe('.setPageWindowSize()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.setPageWindowSize).toEqual(jasmine.any(Function));
+        });
+
+        it('should set the page window size', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 1,
+            pageWindowSize: 5
+          });
+
+          expect(model.getPageWindowSize()).toEqual(5);
+
+          model.setPageWindowSize(2);
+
+          expect(model.getPageWindowSize()).toEqual(2);
+        });
+      });
+
       describe('.getPagedWindow()', function() {
         it('should be defined', function() {
           expect(PagerModel.prototype.getPagedWindow).toEqual(jasmine.any(Function));
@@ -690,6 +712,42 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([5, 6, 7, 8, 9, 10]);
           });
         });
+
+        describe('other page window combinations', function() {
+          it('should behave properly for page window size set to one', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 5,
+              pageWindowSize: 1
+            });
+
+            expect(model.getPagedWindow()).toEqual([5]);
+          });
+
+          it('should behave properly for page window size set to pages count', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 5,
+              pageWindowSize: 10
+            });
+
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+          });
+
+          it('should behave properly for page window size set to more than pages count', function() {
+            var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 5,
+              pageWindowSize: 15
+            });
+
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+          });
+        });
+
       });
 
       describe('.toJSON()', function() {

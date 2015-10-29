@@ -29,10 +29,11 @@ define(function(require) {
       }
 
       if (attrs.pageWindowSize <= 0) {
-        throw new Error('page window cannot be zero or negative');
+        throw new Error('page window size cannot be zero or negative');
       }
 
       this.setCurrentPage(attrs.currentPage);
+      this.setPageWindowSize(attrs.pageWindowSize);
     },
 
     getTotalItems: function() {
@@ -50,17 +51,20 @@ define(function(require) {
     setCurrentPage: function(page) {
       var pagesCount = this.getPagesCount(),
         upperTrunc = _.min([page, pagesCount]),
-        lowerTrunc = _.max([upperTrunc, 1]);
+        truncated = _.max([upperTrunc, 1]);
 
-      this.set('currentPage', lowerTrunc);
+      this.set('currentPage', truncated);
     },
 
     getPageWindowSize: function() {
+      return this.get('pageWindowSize');
+    },
+
+    setPageWindowSize: function(pageWindowSize) {
       var pagesCount = this.getPagesCount(),
-        pageWindowSize = this.get('pageWindowSize'),
         upperTrunc = _.min([pageWindowSize, pagesCount]);
 
-      return upperTrunc;
+      this.set('pageWindowSize', upperTrunc);
     },
 
     getPagedWindow: function() {
