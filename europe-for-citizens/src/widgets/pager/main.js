@@ -4,7 +4,6 @@ define(function(require) {
     PagerView = require('./views/pagerView');
 
   return Widget.extend({
-
     initialize: function(options) {
       var model = this.model = new PagerModel(options);
       this.view = new PagerView({

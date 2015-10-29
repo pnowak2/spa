@@ -1,5 +1,4 @@
 define(function(require) {
-
   var Backbone = require('backbone'),
     PagerModel = require('app/widgets/pager/models/pagerModel');
 

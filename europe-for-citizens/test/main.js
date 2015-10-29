@@ -35,7 +35,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
   require([
     //pager
     'spec/widgets/pager/mainSpec',
-    'spec/widgets/pager/models/pagerModelSpec'
+    'spec/widgets/pager/models/pagerModelSpec',
+    'spec/widgets/pager/views/pagerViewSpec'
   ], function() {
     window.onload();
   });
