@@ -5,8 +5,9 @@ define(function(require) {
   return Backbone.Model.extend({
     defaults: {
       totalItems: 0,
-      pageSize: 15,
-      currentPage: 1
+      pageSize: 10,
+      currentPage: 1,
+      pageWindow: 5
     },
 
     initialize: function(attributes) {
@@ -18,6 +19,10 @@ define(function(require) {
 
       if (attrs.totalItems < 0) {
         throw new Error('total items cannot be negative');
+      }
+
+      if (attrs.pageWindow <= 0) {
+        throw new Error('page window cannot be zero or negative');
       }
 
       this.setCurrentPage(attrs.currentPage);
@@ -41,6 +46,14 @@ define(function(require) {
         lowerTrunc = _.max([upperTrunc, 1]);
 
       this.set('currentPage', lowerTrunc);
+    },
+
+    getPageWindow: function() {
+      var pagesCount = this.getPagesCount(),
+        pageWindow = this.get('pageWindow'),
+        upperTrunc = _.min([pageWindow, pagesCount]);
+
+      return upperTrunc;
     },
 
     nextPage: function() {

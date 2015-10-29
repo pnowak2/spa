@@ -13,8 +13,9 @@ define(function(require) {
       it('should be defined with proper values', function() {
         expect(PagerModel.prototype.defaults).toEqual({
           totalItems: 0,
-          pageSize: 15,
-          currentPage: 1
+          pageSize: 10,
+          currentPage: 1,
+          pageWindow: 5
         });
       });
 
@@ -150,6 +151,17 @@ define(function(require) {
         expect(model.getTotalItems()).toEqual(0);
       });
 
+      it('should be possible to create with page window bigger than pages count', function() {
+        var model = new PagerModel({
+          totalItems: 100,
+          pageSize: 10,
+          currentPage: 5,
+          pageWindow: 20
+        });
+
+        expect(model.getPageWindow()).toEqual(10);
+      });
+
       it('should throw for negative totalItems', function() {
         expect(function() {
           new PagerModel({
@@ -172,6 +184,20 @@ define(function(require) {
             pageSize: -20
           });
         }).toThrowError('page size cannot be zero or negative');
+      });
+
+      it('should throw for negative or zero page window size', function() {
+        expect(function() {
+          new PagerModel({
+            pageWindow: 0
+          });
+        }).toThrowError('page window cannot be zero or negative');
+
+        expect(function() {
+          new PagerModel({
+            pageWindow: -2
+          });
+        }).toThrowError('page window cannot be zero or negative');
       });
     });
 
@@ -496,6 +522,23 @@ define(function(require) {
         });
       });
 
+      describe('.getPageWindow()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.getPageWindow).toEqual(jasmine.any(Function));
+        });
+
+        it('should return page window size', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 1,
+            pageWindow: 3
+          });
+
+          expect(model.getPageWindow()).toEqual(3);
+        });
+      });
+
       describe('.toJSON()', function() {
         it('should be defined', function() {
           expect(PagerModel.prototype.toJSON).toEqual(jasmine.any(Function));
@@ -505,21 +548,22 @@ define(function(require) {
           var model1 = new PagerModel({
             totalItems: 100,
             pageSize: 10,
-            currentPage: 1
+            currentPage: 1,
+            pageWindow: 3
           });
 
-          expect(model1.toJSON()).toEqual(jasmine.objectContaining({
+          expect(model1.toJSON()).toEqual({
             totalItems: 100,
             pageSize: 10,
             currentPage: 1,
-            pagesCount: 10
-          }));
+            pageWindow: 3,
+            pagesCount: 10,
+          });
         });
       });
     });
 
     describe('events', function() {
-
       beforeEach(function() {
         this.model = new PagerModel({
           totalItems: 100,
