@@ -32,17 +32,17 @@ define(function(require) {
 
       it('can be overriden', function() {
         var model = new PagerModel({
-          totalItems: 50,
-          pageSize: 10,
-          currentPage: 1
+          totalItems: 462,
+          pageSize: 16,
+          currentPage: 6
         });
 
-        expect(model.toJSON()).toEqual({
-          totalItems: 50,
-          pageSize: 10,
-          currentPage: 1,
-          pagesCount: 5
-        });
+        expect(model.toJSON()).toEqual(jasmine.objectContaining({
+          totalItems: 462,
+          pageSize: 16,
+          currentPage: 6,
+          pagesCount: 29
+        }));
       });
     });
 
@@ -508,12 +508,12 @@ define(function(require) {
             currentPage: 1
           });
 
-          expect(model1.toJSON()).toEqual({
+          expect(model1.toJSON()).toEqual(jasmine.objectContaining({
             totalItems: 100,
             pageSize: 10,
             currentPage: 1,
             pagesCount: 10
-          });
+          }));
         });
       });
     });
