@@ -845,14 +845,14 @@ define(function(require) {
         });
 
         it('should return attributes of model', function() {
-          var model1 = new PagerModel({
+          var model = new PagerModel({
             totalItems: 100,
             pageSize: 10,
             currentPage: 1,
             pageWindowSize: 3
           });
 
-          expect(model1.toJSON()).toEqual({
+          expect(model.toJSON()).toEqual({
             totalItems: 100,
             pageSize: 10,
             currentPage: 1,
@@ -870,6 +870,15 @@ define(function(require) {
           pageSize: 10,
           currentPage: 2
         });
+      });
+
+      it('.setCurrentPage() should trigger change event', function(done) {
+        this.model.on('change:currentPage', function(model) {
+          expect(model.getCurrentPage()).toEqual(3);
+          done();
+        });
+
+        this.model.setCurrentPage(3);
       });
 
       it('.nextPage() should trigger change event', function(done) {

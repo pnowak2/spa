@@ -118,22 +118,6 @@ define(function(require) {
       });
 
       describe('.modelDidChange()', function() {
-        it('should rerender on model change', function() {
-          spyOn(PagerView.prototype, 'render');
-
-          var view = new PagerView({
-            model: new PagerModel
-          })
-
-          expect(view.render).not.toHaveBeenCalled();
-          view.modelDidChange();
-          expect(view.render).toHaveBeenCalled();
-        });
-      });
-    });
-
-    describe('events', function() {
-      describe('.modelDidChange()', function() {
         it('should be defined', function() {
           expect(PagerView.prototype.modelDidChange).toEqual(jasmine.any(Function));
         });
@@ -150,6 +134,28 @@ define(function(require) {
           expect(view.modelDidChange).toHaveBeenCalled();
           expect(view.modelDidChange.calls.count()).toBe(1);
         });
+
+        it('should rerender on model change', function() {
+          spyOn(PagerView.prototype, 'render');
+
+          var view = new PagerView({
+            model: new PagerModel
+          })
+
+          expect(view.render).not.toHaveBeenCalled();
+          view.modelDidChange();
+          expect(view.render).toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('events', function() {
+      describe('custom', function() {
+
+      });
+
+      describe('dom', function() {
+
       });
     });
 
