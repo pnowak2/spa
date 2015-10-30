@@ -11,7 +11,7 @@ define(function(require) {
     },
 
     initialize: function(attributes) {
-      var attrs = _.defaults({}, attributes),
+      var attrs = _.assign({}, this.defaults, attributes),
         numericalAttrs = _.pick(attrs, 'totalItems', 'pageSize', 'currentPage', 'pageWindowSize');
 
       _.each(numericalAttrs, function(value) {
@@ -106,6 +106,14 @@ define(function(require) {
       }
 
       return _.range(startPage, endPage + 1);
+    },
+
+    getFirstPage: function() {
+      return 1;
+    },
+
+    getLastPage: function() {
+      return this.getPagesCount();
     },
 
     nextPage: function() {

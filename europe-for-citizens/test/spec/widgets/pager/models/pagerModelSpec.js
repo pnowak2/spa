@@ -388,6 +388,38 @@ define(function(require) {
         });
       });
 
+      describe('.getFirstPage()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.getFirstPage).toEqual(jasmine.any(Function));
+        });
+
+        it('should give the number of first page', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 5
+          });
+
+          expect(model.getFirstPage()).toEqual(1);
+        });
+      });
+
+      describe('.getLastPage()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.getLastPage).toEqual(jasmine.any(Function));
+        });
+
+        it('should give the number of last page', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 5
+          });
+
+          expect(model.getLastPage()).toEqual(10);
+        });
+      });
+
       describe('.nextPage()', function() {
         it('should be defined', function() {
           expect(PagerModel.prototype.nextPage).toEqual(jasmine.any(Function));

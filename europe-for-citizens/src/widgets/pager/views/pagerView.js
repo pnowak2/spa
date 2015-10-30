@@ -1,7 +1,8 @@
 define(function(require) {
   var Backbone = require('backbone'),
     PageCollection = require('../collections/pageCollection'),
-    PagerModel = require('../models/pagerModel');
+    PagerModel = require('../models/pagerModel'),
+    PageModel = require('../models/pageModel');
 
   return Backbone.View.extend({
     className: 'efc-pager',
@@ -11,8 +12,21 @@ define(function(require) {
         throw new Error('model is not of correct type');
       }
 
-      this.collection = new PageCollection;
       this.listenTo(this.model, 'change', this.modelDidChange);
+    },
+
+    createPageCollection: function() {
+      var collection = new PageCollection;
+
+      _.each(this.model.getPagedWindow(), function(page) {
+        collection.add({
+          title: page,
+          number: page,
+          selected: this.model.getCurrentPage() === page
+        })
+      }, this);
+
+      return collection;
     },
 
     modelDidChange: function() {
