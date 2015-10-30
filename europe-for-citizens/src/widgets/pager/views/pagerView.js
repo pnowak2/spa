@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    PageCollection = require('../collections/pageCollection'),
     PagerModel = require('../models/pagerModel');
 
   return Backbone.View.extend({
@@ -10,6 +11,7 @@ define(function(require) {
         throw new Error('model is not of correct type');
       }
 
+      this.collection = new PageCollection;
       this.listenTo(this.model, 'change', this.modelDidChange);
     },
 
@@ -18,7 +20,7 @@ define(function(require) {
     },
 
     render: function() {
-
+      return this;
     }
   });
 });

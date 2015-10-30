@@ -8,5 +8,15 @@ define(function(require) {
         expect(PageModel.prototype).toEqual(jasmine.any(Backbone.Model));
       });
     });
+
+    describe('defaults', function() {
+      it('should be defined with proper values', function() {
+        expect(PageModel.prototype.defaults).toEqual({
+          title: '',
+          number: null,
+          selected: false
+        });
+      });
+    });
   });
 });
