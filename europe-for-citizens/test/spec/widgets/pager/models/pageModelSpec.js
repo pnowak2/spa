@@ -12,8 +12,7 @@ define(function(require) {
     describe('defaults', function() {
       it('should be defined with proper values', function() {
         expect(PageModel.prototype.defaults).toEqual({
-          title: '',
-          number: null,
+          page: null,
           selected: false
         });
       });

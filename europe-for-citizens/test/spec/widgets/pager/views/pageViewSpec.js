@@ -74,6 +74,31 @@ define(function(require) {
 
           expect(view.render()).toBe(view);
         });
+
+        it('should render unselected anchor with page number', function() {
+          var view = new PageView({
+            model: new PageModel({
+              page: 5,
+              selected: false
+            })
+          });
+
+          expect(view.render().$el).toBeMatchedBy('a[href="#"]');
+          expect(view.render().$el).not.toHaveClass('efc-selected');
+          expect(view.render().$el).toContainText('5');
+        });
+
+        it('should render selected anchor with page number', function() {
+          var view = new PageView({
+            model: new PageModel({
+              page: 2,
+              selected: true
+            })
+          });
+
+          expect(view.render().$el).toBeMatchedBy('a.efc-selected[href="#"]');
+          expect(view.render().$el).toContainText('2');
+        });
       });
     });
   });
