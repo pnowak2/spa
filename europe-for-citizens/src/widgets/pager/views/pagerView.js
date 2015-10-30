@@ -35,6 +35,8 @@ define(function(require) {
     },
 
     render: function() {
+      var collection = this.createPageCollection();
+
       return this;
     }
   });

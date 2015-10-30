@@ -148,6 +148,7 @@ define(function(require) {
           expect(view.modelDidChange).not.toHaveBeenCalled();
           view.model.trigger('change');
           expect(view.modelDidChange).toHaveBeenCalled();
+          expect(view.modelDidChange.calls.count()).toBe(1);
         });
       });
     });
@@ -160,6 +161,18 @@ define(function(require) {
           });
 
           expect(view.render()).toBe(view);
+        });
+
+        it('should call createPageCollection', function() {
+          spyOn(PagerView.prototype, 'createPageCollection');
+
+          var view = new PagerView({
+            model: new PagerModel
+          });
+
+          expect(view.createPageCollection).not.toHaveBeenCalled();
+          view.render();
+          expect(view.createPageCollection).toHaveBeenCalled();
         });
       });
     });
