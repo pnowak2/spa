@@ -88,6 +88,8 @@ define(function(require) {
             }),
             collection = view.createPageCollection();
 
+          expect(collection.size()).toEqual(5);
+
           var modelPage1 = collection.at(0);
           expect(modelPage1.get('title')).toBe(3);
           expect(modelPage1.get('number')).toBe(3);

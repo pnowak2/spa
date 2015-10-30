@@ -16,15 +16,16 @@ define(function(require) {
     },
 
     createPageCollection: function() {
-      var collection = new PageCollection;
+      var collection = new PageCollection,
+        pageObjects = _.map(this.model.getPagedWindow(), function(page) {
+          return {
+            title: page,
+            number: page,
+            selected: this.model.getCurrentPage() === page
+          }
+        }, this);
 
-      _.each(this.model.getPagedWindow(), function(page) {
-        collection.add({
-          title: page,
-          number: page,
-          selected: this.model.getCurrentPage() === page
-        })
-      }, this);
+      collection.reset(pageObjects);
 
       return collection;
     },
