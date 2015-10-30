@@ -375,6 +375,17 @@ define(function(require) {
           model.setCurrentPage(-10);
           expect(model.getCurrentPage()).toEqual(1);
         });
+
+        it('should not accept non numerical values and use first page instead', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 5
+          });
+
+          model.setCurrentPage('a');
+          expect(model.getCurrentPage()).toEqual(1);
+        });
       });
 
       describe('.nextPage()', function() {
@@ -591,6 +602,18 @@ define(function(require) {
           model.setPageWindowSize(2);
 
           expect(model.getPageWindowSize()).toEqual(2);
+        });
+
+        it('should not accept non numerical values and use pages count instead', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 2,
+            pageWindowSize: 5
+          });
+
+          model.setPageWindowSize('a');
+          expect(model.getPageWindowSize()).toEqual(10);
         });
       });
 

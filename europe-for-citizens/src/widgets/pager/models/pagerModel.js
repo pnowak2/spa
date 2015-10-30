@@ -49,9 +49,15 @@ define(function(require) {
     },
 
     setCurrentPage: function(page) {
-      var pagesCount = this.getPagesCount(),
-        upperTrunc = _.min([page, pagesCount]),
-        truncated = _.max([upperTrunc, 1]);
+      var pagesCount, upperTrunc, truncated;
+
+      if (!_.isNumber(page)) {
+        page = 1
+      };
+
+      pagesCount = this.getPagesCount();
+      upperTrunc = _.min([page, pagesCount]);
+      truncated = _.max([upperTrunc, 1]);
 
       this.set('currentPage', truncated);
     },
