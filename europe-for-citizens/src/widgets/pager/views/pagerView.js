@@ -17,11 +17,13 @@ define(function(require) {
 
     createPageCollection: function() {
       var collection = new PageCollection,
-        pageObjects = _.map(this.model.getPagedWindow(), function(page) {
+        currentPage = this.model.getCurrentPage(),
+        pagedWindow = this.model.getPagedWindow(),
+        pageObjects = _.map(pagedWindow, function(page) {
           return {
             title: page,
             number: page,
-            selected: this.model.getCurrentPage() === page
+            selected: (currentPage === page)
           }
         }, this);
 
