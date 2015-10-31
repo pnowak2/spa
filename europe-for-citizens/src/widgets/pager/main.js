@@ -13,10 +13,6 @@ define(function(require) {
 
     getState: function() {
       return this.model.toJSON();
-    },
-
-    refresh: function() {
-
     }
   });
 });

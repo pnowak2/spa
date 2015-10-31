@@ -56,12 +56,6 @@ define(function(require) {
           expect(pagerWidget.getState()).toBe(fakePagerState);
         });
       });
-
-      describe('.refresh()', function() {
-        it('should be defined', function() {
-          expect(PagerWidget.prototype.refresh).toEqual(jasmine.any(Function));
-        });
-      });
     });
   });
 });
