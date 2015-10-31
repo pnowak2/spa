@@ -64,9 +64,9 @@ define(function(require) {
         });
       });
 
-      describe('.didSelectPage()', function() {
+      describe('.didClickPageButton()', function() {
         it('should be defined', function() {
-          expect(PagerView.prototype.didSelectPage).toEqual(jasmine.any(Function));
+          expect(PagerView.prototype.didClickPageButton).toEqual(jasmine.any(Function));
         });
 
         it('should set the current page on model', function() {
@@ -82,10 +82,66 @@ define(function(require) {
 
           view.model.setCurrentPage.calls.reset();
 
-          view.didSelectPage(9);
+          view.didClickPageButton(9);
 
           expect(view.model.setCurrentPage).toHaveBeenCalledWith(9);
           expect(view.model.setCurrentPage.calls.count()).toBe(1);
+        });
+      });
+
+      describe('control buttons', function() {
+        beforeEach(function() {
+          this.view = new PagerView({
+            model: new PagerModel
+          });
+        });
+
+        describe('.didClickFirstPageButton()', function() {
+          it('should be defined', function() {
+            expect(PagerView.prototype.didClickFirstPageButton).toEqual(jasmine.any(Function));
+          });
+
+          it('should request first page on model', function() {
+            spyOn(PagerModel.prototype, 'firstPage');
+            this.view.didClickFirstPageButton();
+            expect(this.view.model.firstPage).toHaveBeenCalled();
+          });
+        });
+
+        describe('.didClickPreviousPageButton()', function() {
+          it('should be defined', function() {
+            expect(PagerView.prototype.didClickPreviousPageButton).toEqual(jasmine.any(Function));
+          });
+
+          it('should request previous page on model', function() {
+            spyOn(PagerModel.prototype, 'previousPage');
+            this.view.didClickPreviousPageButton();
+            expect(this.view.model.previousPage).toHaveBeenCalled();
+          });
+        });
+
+        describe('.didClickNextPageButton()', function() {
+          it('should be defined', function() {
+            expect(PagerView.prototype.didClickNextPageButton).toEqual(jasmine.any(Function));
+          });
+
+          it('should request next page on model', function() {
+            spyOn(PagerModel.prototype, 'nextPage');
+            this.view.didClickNextPageButton();
+            expect(this.view.model.nextPage).toHaveBeenCalled();
+          });
+        });
+
+        describe('.didClickLastPageButton()', function() {
+          it('should be defined', function() {
+            expect(PagerView.prototype.didClickLastPageButton).toEqual(jasmine.any(Function));
+          });
+
+          it('should request last page on model', function() {
+            spyOn(PagerModel.prototype, 'lastPage');
+            this.view.didClickLastPageButton();
+            expect(this.view.model.lastPage).toHaveBeenCalled();
+          });
         });
       });
     });
@@ -106,17 +162,17 @@ define(function(require) {
         });
 
         it('should listen to event bus for page selection', function() {
-          spyOn(PagerView.prototype, 'didSelectPage');
+          spyOn(PagerView.prototype, 'didClickPageButton');
           var view = new PagerView({
             model: new PagerModel
           });
 
-          expect(view.didSelectPage).not.toHaveBeenCalled();
+          expect(view.didClickPageButton).not.toHaveBeenCalled();
 
           eventBus.trigger('pager:page:selected', 7);
 
-          expect(view.didSelectPage).toHaveBeenCalledWith(7);
-          expect(view.didSelectPage.calls.count()).toBe(1);
+          expect(view.didClickPageButton).toHaveBeenCalledWith(7);
+          expect(view.didClickPageButton.calls.count()).toBe(1);
         });
       });
 

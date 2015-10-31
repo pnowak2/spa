@@ -14,15 +14,31 @@ define(function(require) {
       }
 
       this.listenTo(this.model, 'change', this.modelDidChange);
-      this.listenTo(eventBus, 'pager:page:selected', this.didSelectPage);
+      this.listenTo(eventBus, 'pager:page:selected', this.didClickPageButton);
     },
 
     modelDidChange: function() {
       this.render();
     },
 
-    didSelectPage: function(page) {
+    didClickPageButton: function(page) {
       this.model.setCurrentPage(page);
+    },
+
+    didClickFirstPageButton: function() {
+      this.model.firstPage();
+    },
+
+    didClickPreviousPageButton: function() {
+      this.model.previousPage();
+    },
+
+    didClickNextPageButton: function() {
+      this.model.nextPage();
+    },
+
+    didClickLastPageButton: function() {
+      this.model.lastPage();
     },
 
     render: function() {
