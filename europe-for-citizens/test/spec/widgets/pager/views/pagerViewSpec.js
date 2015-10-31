@@ -3,7 +3,8 @@ define(function(require) {
     PagerModel = require('app/widgets/pager/models/pagerModel'),
     PageModel = require('app/widgets/pager/models/pageModel'),
     PagerView = require('app/widgets/pager/views/pagerView'),
-    PageCollection = require('app/widgets/pager/collections/pageCollection');
+    PageCollection = require('app/widgets/pager/collections/pageCollection'),
+    eventBus = require('app/widgets/pager/events/eventBus');
 
   describe('Pager View', function() {
     describe('type', function() {
@@ -67,6 +68,25 @@ define(function(require) {
         it('should be defined', function() {
           expect(PagerView.prototype.didSelectPage).toEqual(jasmine.any(Function));
         });
+
+        it('should set the current page on model', function() {
+          spyOn(PagerModel.prototype, 'setCurrentPage');
+          spyOn(PagerModel.prototype, 'initialize');
+
+          var model = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 2
+            }),
+            view = new PagerView({
+              model: model
+            });
+
+          view.didSelectPage(9);
+
+          expect(model.setCurrentPage).toHaveBeenCalledWith(9);
+          expect(model.setCurrentPage.calls.count()).toBe(1);
+        });
       });
     });
 
@@ -83,6 +103,20 @@ define(function(require) {
           view.model.trigger('change');
           expect(view.modelDidChange).toHaveBeenCalled();
           expect(view.modelDidChange.calls.count()).toBe(1);
+        });
+
+        it('should listen to event bus for page selection', function() {
+          spyOn(PagerView.prototype, 'didSelectPage');
+          var view = new PagerView({
+            model: new PagerModel
+          });
+
+          expect(view.didSelectPage).not.toHaveBeenCalled();
+
+          eventBus.trigger('pager:page:selected', 7);
+
+          expect(view.didSelectPage).toHaveBeenCalledWith(7);
+          expect(view.didSelectPage.calls.count()).toBe(1);
         });
       });
 

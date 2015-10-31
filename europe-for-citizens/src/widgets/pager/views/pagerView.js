@@ -2,7 +2,8 @@ define(function(require) {
   var Backbone = require('backbone'),
     PageCollection = require('../collections/pageCollection'),
     PagerModel = require('../models/pagerModel'),
-    PageModel = require('../models/pageModel');
+    PageModel = require('../models/pageModel'),
+    eventBus = require('../events/eventBus');
 
   return Backbone.View.extend({
     className: 'efc-pager',
@@ -13,14 +14,15 @@ define(function(require) {
       }
 
       this.listenTo(this.model, 'change', this.modelDidChange);
+      this.listenTo(eventBus, 'pager:page:selected', this.didSelectPage);
     },
 
     modelDidChange: function() {
       this.render();
     },
 
-    didSelectPage: function() {
-
+    didSelectPage: function(page) {
+      this.model.setCurrentPage(page);
     },
 
     render: function() {
