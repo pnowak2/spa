@@ -13,6 +13,7 @@ define(function(require) {
 
       var pageObjects = _.map(pages, function(page) {
         return {
+          title: page,
           page: page,
           selected: (selectedPage === page)
         }
