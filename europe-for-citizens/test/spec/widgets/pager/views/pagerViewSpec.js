@@ -45,78 +45,6 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.createPageCollection()', function() {
-        it('should be defined', function() {
-          expect(PagerView.prototype.createPageCollection).toEqual(jasmine.any(Function));
-        });
-
-        it('should return collection', function() {
-          var view = new PagerView({
-              model: new PagerModel
-            }),
-            collection = view.createPageCollection();
-
-          expect(collection).toEqual(jasmine.any(PageCollection));
-        });
-
-        it('should have size as page window size', function() {
-          var view = new PagerView({
-              model: new PagerModel({
-                totalItems: 100,
-                pageSize: 10,
-                currentPage: 1,
-                pageWindowSize: 5
-              })
-            }),
-            collection = view.createPageCollection();
-
-          expect(collection.size()).toEqual(view.model.getPageWindowSize());
-        });
-
-        it('should contain page models with proper attributes', function() {
-          var view = new PagerView({
-              /**
-               * 1 2 3 4 5 6 7 8 9 10
-               *     ----^----
-               **/
-              model: new PagerModel({
-                totalItems: 100,
-                pageSize: 10,
-                currentPage: 5,
-                pageWindowSize: 5
-              })
-            }),
-            collection = view.createPageCollection();
-
-          expect(collection.size()).toEqual(5);
-
-          var modelPage1 = collection.at(0);
-          expect(modelPage1.get('title')).toBe(3);
-          expect(modelPage1.get('number')).toBe(3);
-          expect(modelPage1.get('selected')).toBe(false);
-
-          var modelPage2 = collection.at(1);
-          expect(modelPage2.get('title')).toEqual(4);
-          expect(modelPage2.get('number')).toBe(4);
-          expect(modelPage2.get('selected')).toBe(false);
-
-          var modelPage3 = collection.at(2);
-          expect(modelPage3.get('title')).toEqual(5);
-          expect(modelPage3.get('number')).toBe(5);
-          expect(modelPage3.get('selected')).toBe(true);
-
-          var modelPage4 = collection.at(3);
-          expect(modelPage4.get('title')).toEqual(6);
-          expect(modelPage4.get('number')).toBe(6);
-          expect(modelPage4.get('selected')).toBe(false);
-
-          var modelPage5 = collection.at(4);
-          expect(modelPage5.get('title')).toEqual(7);
-          expect(modelPage5.get('number')).toBe(7);
-          expect(modelPage5.get('selected')).toBe(false);
-        });
-      });
-
       describe('.modelDidChange()', function() {
         it('should be defined', function() {
           expect(PagerView.prototype.modelDidChange).toEqual(jasmine.any(Function));
@@ -169,16 +97,24 @@ define(function(require) {
           expect(view.render()).toBe(view);
         });
 
-        it('should call createPageCollection', function() {
-          spyOn(PagerView.prototype, 'createPageCollection');
+        it('should create collection to iterate through', function() {
+          spyOn(PageCollection, 'createCollection');
 
           var view = new PagerView({
-            model: new PagerModel
+            model: new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 3,
+              pageWindowSize: 5
+            })
           });
 
-          expect(view.createPageCollection).not.toHaveBeenCalled();
+          expect(PageCollection.createCollection).not.toHaveBeenCalled();
           view.render();
-          expect(view.createPageCollection).toHaveBeenCalled();
+          expect(PageCollection.createCollection).toHaveBeenCalledWith(
+            view.model.getPagedWindow(),
+            view.model.getCurrentPage()
+          );
         });
       });
     });

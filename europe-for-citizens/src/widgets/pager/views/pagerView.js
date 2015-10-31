@@ -15,29 +15,15 @@ define(function(require) {
       this.listenTo(this.model, 'change', this.modelDidChange);
     },
 
-    createPageCollection: function() {
-      var collection = new PageCollection,
-        currentPage = this.model.getCurrentPage(),
-        pagedWindow = this.model.getPagedWindow(),
-        pageObjects = _.map(pagedWindow, function(page) {
-          return {
-            title: page,
-            number: page,
-            selected: (currentPage === page)
-          }
-        }, this);
-
-      collection.reset(pageObjects);
-
-      return collection;
-    },
-
     modelDidChange: function() {
       this.render();
     },
 
     render: function() {
-      var collection = this.createPageCollection();
+      var collection = PageCollection.createCollection(
+        this.model.getPagedWindow(),
+        this.model.getCurrentPage()
+      );
 
       return this;
     }
