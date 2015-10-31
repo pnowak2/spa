@@ -636,6 +636,21 @@ define(function(require) {
           expect(model.getPageWindowSize()).toEqual(2);
         });
 
+        it('should not accept negative page window size', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 1,
+            pageWindowSize: 5
+          });
+
+          expect(model.getPageWindowSize()).toEqual(5);
+
+          model.setPageWindowSize(-2);
+
+          expect(model.getPageWindowSize()).toEqual(1);
+        });
+
         it('should not accept non numerical values and use pages count instead', function() {
           var model = new PagerModel({
             totalItems: 100,

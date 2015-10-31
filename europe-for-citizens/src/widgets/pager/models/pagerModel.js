@@ -68,9 +68,10 @@ define(function(require) {
 
     setPageWindowSize: function(pageWindowSize) {
       var pagesCount = this.getPagesCount(),
-        upperTrunc = _.min([pageWindowSize, pagesCount]);
+        upperTrunc = _.min([pageWindowSize, pagesCount]),
+        truncated = _.max([upperTrunc, 1]);
 
-      this.set('pageWindowSize', upperTrunc);
+      this.set('pageWindowSize', truncated);
     },
 
     getPagedWindow: function() {
