@@ -98,7 +98,7 @@ define(function(require) {
         });
 
         it('should create collection to iterate through', function() {
-          spyOn(PageCollection, 'createCollection');
+          spyOn(PageCollection, 'createCollection').and.callThrough();
 
           var view = new PagerView({
             model: new PagerModel({

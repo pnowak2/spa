@@ -43,8 +43,6 @@ define(function(require) {
         it('should contain page models with proper attributes', function() {
           var collection = PageCollection.createCollection([3, 4, 5, 6, 7], 5);
 
-          expect(collection.size()).toEqual(5);
-
           var modelPage1 = collection.at(0);
           expect(modelPage1.get('page')).toBe(3);
           expect(modelPage1.get('selected')).toBe(false);
