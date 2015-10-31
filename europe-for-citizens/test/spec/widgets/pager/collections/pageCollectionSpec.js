@@ -18,30 +18,30 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.createCollection', function() {
+      describe('.create', function() {
         it('should be defined', function() {
-          expect(PageCollection.createCollection).toEqual(jasmine.any(Function));
+          expect(PageCollection.create).toEqual(jasmine.any(Function));
         });
 
         it('should throw if pages argument not provided', function() {
           expect(function() {
-            PageCollection.createCollection();
+            PageCollection.create();
           }).toThrowError('pages is not an array')
         });
 
         it('should return collection', function() {
-          var collection = PageCollection.createCollection([]);
+          var collection = PageCollection.create([]);
           expect(collection).toEqual(jasmine.any(PageCollection));
         });
 
         it('should have size as pages count', function() {
           var pages = [1, 2, 3, 4, 5];
-          var collection = PageCollection.createCollection(pages);
+          var collection = PageCollection.create(pages);
           expect(collection.size()).toEqual(pages.length);
         });
 
         it('should contain page models with proper attributes', function() {
-          var collection = PageCollection.createCollection([3, 4, 5, 6, 7], 5);
+          var collection = PageCollection.create([3, 4, 5, 6, 7], 5);
 
           var modelPage1 = collection.at(0);
           expect(modelPage1.get('page')).toBe(3);

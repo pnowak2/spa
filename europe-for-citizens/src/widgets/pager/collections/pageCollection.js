@@ -6,7 +6,7 @@ define(function(require) {
   return Backbone.Collection.extend({
     model: PageModel
   }, {
-    createCollection: function(pages, selectedPage) {
+    create: function(pages, selectedPage) {
       if (!_.isArray(pages)) {
         throw new Error('pages is not an array');
       }

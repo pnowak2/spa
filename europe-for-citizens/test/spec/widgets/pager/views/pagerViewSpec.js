@@ -71,21 +71,21 @@ define(function(require) {
 
         it('should set the current page on model', function() {
           spyOn(PagerModel.prototype, 'setCurrentPage');
-          spyOn(PagerModel.prototype, 'initialize');
 
-          var model = new PagerModel({
+          var view = new PagerView({
+            model: new PagerModel({
               totalItems: 100,
               pageSize: 10,
-              currentPage: 2
-            }),
-            view = new PagerView({
-              model: model
-            });
+              currentPage: 1
+            })
+          });
+
+          view.model.setCurrentPage.calls.reset();
 
           view.didSelectPage(9);
 
-          expect(model.setCurrentPage).toHaveBeenCalledWith(9);
-          expect(model.setCurrentPage.calls.count()).toBe(1);
+          expect(view.model.setCurrentPage).toHaveBeenCalledWith(9);
+          expect(view.model.setCurrentPage.calls.count()).toBe(1);
         });
       });
     });
@@ -136,7 +136,7 @@ define(function(require) {
         });
 
         it('should create collection to iterate through', function() {
-          spyOn(PageCollection, 'createCollection').and.callThrough();
+          spyOn(PageCollection, 'create').and.callThrough();
 
           var view = new PagerView({
             model: new PagerModel({
@@ -147,9 +147,9 @@ define(function(require) {
             })
           });
 
-          expect(PageCollection.createCollection).not.toHaveBeenCalled();
+          expect(PageCollection.create).not.toHaveBeenCalled();
           view.render();
-          expect(PageCollection.createCollection).toHaveBeenCalledWith(
+          expect(PageCollection.create).toHaveBeenCalledWith(
             view.model.getPagedWindow(),
             view.model.getCurrentPage()
           );

@@ -26,7 +26,7 @@ define(function(require) {
     },
 
     render: function() {
-      var collection = PageCollection.createCollection(
+      var collection = PageCollection.create(
         this.model.getPagedWindow(),
         this.model.getCurrentPage()
       );

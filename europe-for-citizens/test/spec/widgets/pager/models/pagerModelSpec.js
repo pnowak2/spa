@@ -881,6 +881,16 @@ define(function(require) {
         this.model.setCurrentPage(3);
       });
 
+      it('.setCurrentPage() should not trigger change event when setting page to the same currently set', function(done) {
+        this.model.on('change:currentPage', function(model) {
+          fail('should not trigger change event for the same page');
+        });
+
+        this.model.setCurrentPage(2);
+        expect(this.model.getCurrentPage()).toEqual(2);
+        done();
+      });
+
       it('.nextPage() should trigger change event', function(done) {
         this.model.on('change:currentPage', function(model) {
           expect(model.getCurrentPage()).toEqual(3);
