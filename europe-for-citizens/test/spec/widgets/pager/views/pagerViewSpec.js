@@ -50,19 +50,6 @@ define(function(require) {
           expect(PagerView.prototype.modelDidChange).toEqual(jasmine.any(Function));
         });
 
-        it('should be called on model change', function() {
-          spyOn(PagerView.prototype, 'modelDidChange');
-
-          var view = new PagerView({
-            model: new PagerModel
-          });
-
-          expect(view.modelDidChange).not.toHaveBeenCalled();
-          view.model.trigger('change');
-          expect(view.modelDidChange).toHaveBeenCalled();
-          expect(view.modelDidChange.calls.count()).toBe(1);
-        });
-
         it('should rerender on model change', function() {
           spyOn(PagerView.prototype, 'render');
 
@@ -75,11 +62,28 @@ define(function(require) {
           expect(view.render).toHaveBeenCalled();
         });
       });
+
+      describe('.didSelectPage()', function() {
+        it('should be defined', function() {
+          expect(PagerView.prototype.didSelectPage).toEqual(jasmine.any(Function));
+        });
+      });
     });
 
     describe('events', function() {
       describe('custom', function() {
+        it('should call method on model change', function() {
+          spyOn(PagerView.prototype, 'modelDidChange');
 
+          var view = new PagerView({
+            model: new PagerModel
+          });
+
+          expect(view.modelDidChange).not.toHaveBeenCalled();
+          view.model.trigger('change');
+          expect(view.modelDidChange).toHaveBeenCalled();
+          expect(view.modelDidChange.calls.count()).toBe(1);
+        });
       });
 
       describe('dom', function() {

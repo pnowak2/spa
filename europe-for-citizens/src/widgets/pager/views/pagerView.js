@@ -19,6 +19,10 @@ define(function(require) {
       this.render();
     },
 
+    didSelectPage: function() {
+
+    },
+
     render: function() {
       var collection = PageCollection.createCollection(
         this.model.getPagedWindow(),
