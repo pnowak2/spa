@@ -75,6 +75,7 @@ define(function(require) {
           view.render().$el.trigger('click');
 
           expect(view.didClickPage).toHaveBeenCalled();
+          expect(view.didClickPage.calls.count()).toBe(1);
         });
       });
     });
