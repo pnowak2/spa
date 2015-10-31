@@ -1,6 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     PageModel = require('../models/pageModel'),
+    eventBus = require('../events/eventBus'),
     Mustache = require('mustache');
 
   return Backbone.View.extend({
@@ -21,7 +22,7 @@ define(function(require) {
     },
 
     didClickPage: function() {
-
+      eventBus.trigger('pager:page:selected', this.model.get('page'));
     },
 
     render: function() {

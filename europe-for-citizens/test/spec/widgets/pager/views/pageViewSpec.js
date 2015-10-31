@@ -1,6 +1,7 @@
 define(function(require) {
   var PageView = require('app/widgets/pager/views/pageView'),
-    PageModel = require('app/widgets/pager/models/pageModel');
+    PageModel = require('app/widgets/pager/models/pageModel'),
+    eventBus = require('app/widgets/pager/events/eventBus');
 
   describe('Page View', function() {
     describe('type', function() {
@@ -45,6 +46,19 @@ define(function(require) {
       describe('.didClickPage', function() {
         it('should be defined', function() {
           expect(PageView.prototype.didClickPage).toEqual(jasmine.any(Function));
+        });
+
+        it('should trigger event bus', function() {
+          spyOn(eventBus, 'trigger');
+          var view = new PageView({
+            model: new PageModel({
+              page: 3
+            })
+          });
+
+          view.didClickPage();
+
+          expect(eventBus.trigger).toHaveBeenCalledWith('pager:page:selected', 3);
         });
       });
     });

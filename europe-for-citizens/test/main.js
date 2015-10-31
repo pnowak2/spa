@@ -39,7 +39,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/widgets/pager/models/pageModelSpec',
     'spec/widgets/pager/collections/pageCollectionSpec',
     'spec/widgets/pager/views/pagerViewSpec',
-    'spec/widgets/pager/views/pageViewSpec'
+    'spec/widgets/pager/views/pageViewSpec',
+    'spec/widgets/pager/events/eventBusSpec'
   ], function() {
     window.onload();
   });

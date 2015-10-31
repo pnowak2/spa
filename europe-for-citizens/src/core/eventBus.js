@@ -1,9 +1,9 @@
-define(function (require) {
+define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    eventBus = {};
+    EventBus = function() {};
 
-  _.extend(eventBus, Backbone.Events);
+  _.extend(EventBus.prototype, Backbone.Events);
 
-  return eventBus;
+  return EventBus;
 });

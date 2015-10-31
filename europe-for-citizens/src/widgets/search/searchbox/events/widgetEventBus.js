@@ -1,6 +1,6 @@
-define(function (require) {
+define(function(require) {
   var _ = require('underscore'),
-    eventBus = require('app/core/eventBus');
+    EventBus = require('app/core/eventBus');
 
   return _.create(eventBus);
 });
