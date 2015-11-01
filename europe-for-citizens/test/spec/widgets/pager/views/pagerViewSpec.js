@@ -189,6 +189,26 @@ define(function(require) {
           expect(views[0].model).toBe(model);
         });
       });
+
+      describe('.getPagesContainer()', function() {
+        it('should be defined', function() {
+          expect(PagerView.prototype.getPagesContainer).toEqual(jasmine.any(Function));
+        });
+
+        it('should get container for pages', function() {
+          var view = new PagerView({
+              model: new PagerModel
+            }),
+            fakeContainer = {};
+
+          spyOn(view.$el, 'find').and.returnValue(fakeContainer);
+
+          var result = view.getPagesContainer();
+
+          expect(result).toBe(fakeContainer);
+          expect(view.$el.find).toHaveBeenCalledWith('.efc-pager-pages');
+        });
+      });
     });
 
     describe('events', function() {
@@ -280,10 +300,24 @@ define(function(require) {
         });
 
         it('should render pages', function() {
-          var view = new PagerView({
-            model: new PagerModel
-          });
+          var pagerView = new PagerView({
+              model: new PagerModel
+            }),
+            fakePagesContainer = jasmine.createSpyObj('container', ['append']),
+            fakePageView = new PageView({
+              model: new PageModel
+            });
 
+          spyOn(fakePageView, 'render').and.callThrough();
+          spyOn(PagerView.prototype, 'getPagesContainer').and.returnValue(fakePagesContainer);
+          spyOn(PagerView.prototype, 'createPageViews').and.returnValue([fakePageView]);
+
+          pagerView.render();
+
+          expect(fakePageView.render).toHaveBeenCalled();
+          expect(fakePageView.render.calls.count()).toBe(1);
+          expect(fakePagesContainer.append.calls.count()).toBe(1);
+          expect(fakePagesContainer.append).toHaveBeenCalledWith(fakePageView.el);
         });
       });
     });

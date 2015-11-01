@@ -544,9 +544,7 @@ define(function(require) {
 
         it('should return true if no items', function() {
           var model = new PagerModel({
-            totalItems: 0,
-            pageSize: 10,
-            currentPage: 1
+            totalItems: 0
           });
 
           expect(model.hasItems()).toBe(false);

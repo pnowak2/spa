@@ -63,21 +63,25 @@ define(function(require) {
     },
 
     createPageViews: function() {
-      var collection = this.createPageCollection();
-
-      return collection.map(function(pageModel) {
+      return this.createPageCollection().map(function(pageModel) {
         return new PageView({
           model: pageModel
         });
       });
     },
 
+    getPagesContainer: function() {
+      return this.$el.find('.efc-pager-pages');
+    },
+
     render: function() {
       this.$el.html(Mustache.render(tpl));
-      var container = this.$el.find('.efc-pager-pages')
 
-      _.each(this.createPageViews(), function(view) {
-        container.append(view.render().el);
+      var pageViews = this.createPageViews(),
+        container = this.getPagesContainer();
+
+      _.each(pageViews, function(pageView) {
+        container.append(pageView.render().el);
       });
 
       return this;

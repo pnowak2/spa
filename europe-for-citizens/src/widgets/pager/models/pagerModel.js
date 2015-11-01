@@ -136,6 +136,10 @@ define(function(require) {
       this.setCurrentPage(lastPage);
     },
 
+    hasItems: function() {
+      return this.getTotalItems() > 0;
+    },
+
     isFirstPageSelected: function() {
       return this.getCurrentPage() === 1;
     },
