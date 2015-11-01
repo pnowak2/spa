@@ -817,7 +817,7 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
           });
 
-          it('should behave properly for page window size set to more than pages count', function() {
+          it('should behave properly for iterating through the pages one by one', function() {
             var model = new PagerModel({
               totalItems: 80,
               pageSize: 10,
@@ -832,6 +832,12 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
 
             model.nextPage();
+            expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
+
+            model.nextPage();
+            expect(model.getPagedWindow()).toEqual([2, 3, 4, 5, 6]);
+
+            model.previousPage();
             expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
 
             model.nextPage();
