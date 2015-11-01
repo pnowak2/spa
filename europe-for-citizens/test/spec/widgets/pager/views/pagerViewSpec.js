@@ -177,7 +177,38 @@ define(function(require) {
       });
 
       describe('dom', function() {
+        describe('control buttons', function() {
+          beforeEach(function() {
+            spyOn(PagerView.prototype, 'didClickFirstPageButton');
+            spyOn(PagerView.prototype, 'didClickPreviousPageButton');
+            spyOn(PagerView.prototype, 'didClickNextPageButton');
+            spyOn(PagerView.prototype, 'didClickLastPageButton');
 
+            this.view = new PagerView({
+              model: new PagerModel
+            });
+          });
+
+          it('should define click event on go to first page button', function() {
+            this.view.render().$el.find('.efc-pager-first').trigger('click');
+            expect(this.view.didClickFirstPageButton).toHaveBeenCalled();
+          });
+
+          it('should define click event on go to previous page button', function() {
+            this.view.render().$el.find('.efc-pager-previous').trigger('click');
+            expect(this.view.didClickPreviousPageButton).toHaveBeenCalled();
+          });
+
+          it('should define click event on go to next page button', function() {
+            this.view.render().$el.find('.efc-pager-next').trigger('click');
+            expect(this.view.didClickNextPageButton).toHaveBeenCalled();
+          });
+
+          it('should define click event on go to last page button', function() {
+            this.view.render().$el.find('.efc-pager-last').trigger('click');
+            expect(this.view.didClickLastPageButton).toHaveBeenCalled();
+          });
+        });
       });
     });
 

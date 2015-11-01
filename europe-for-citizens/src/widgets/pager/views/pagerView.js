@@ -19,6 +19,13 @@ define(function(require) {
       this.listenTo(eventBus, 'pager:page:selected', this.didClickPageButton);
     },
 
+    events: {
+      'click .efc-pager-first': 'didClickFirstPageButton',
+      'click .efc-pager-previous': 'didClickPreviousPageButton',
+      'click .efc-pager-next': 'didClickNextPageButton',
+      'click .efc-pager-last': 'didClickLastPageButton'
+    },
+
     modelDidChange: function() {
       this.render();
     },
