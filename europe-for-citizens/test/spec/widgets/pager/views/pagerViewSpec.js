@@ -281,14 +281,9 @@ define(function(require) {
 
         it('should render pages', function() {
           var view = new PagerView({
-              model: new PagerModel({
-                totalItems: 100,
-                pageSize: 10,
-                currentPage: 1,
-                pageWindowSize: 5
-              })
-            }),
-            pagesContainer = view.render().$el.find('span.efc-pager-pages');
+            model: new PagerModel
+          });
+
         });
       });
     });

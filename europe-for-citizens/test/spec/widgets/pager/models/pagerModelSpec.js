@@ -537,6 +537,32 @@ define(function(require) {
         });
       });
 
+      describe('.hasItems()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.hasItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if no items', function() {
+          var model = new PagerModel({
+            totalItems: 0,
+            pageSize: 10,
+            currentPage: 1
+          });
+
+          expect(model.hasItems()).toBe(false);
+        });
+
+        it('should return false if there are items', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 1
+          });
+
+          expect(model.hasItems()).toBe(true);
+        });
+      });
+
       describe('.isFirstPageSelected()', function() {
         it('should be defined', function() {
           expect(PagerModel.prototype.isFirstPageSelected).toEqual(jasmine.any(Function));
