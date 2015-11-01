@@ -318,8 +318,8 @@ define(function(require) {
 
           expect(fakePageView.render).toHaveBeenCalled();
           expect(fakePageView.render.calls.count()).toBe(1);
-          expect(fakePagesContainer.append.calls.count()).toBe(1);
           expect(fakePagesContainer.append).toHaveBeenCalledWith(fakePageView.el);
+          expect(fakePagesContainer.append.calls.count()).toBe(1);
         });
       });
     });

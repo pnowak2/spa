@@ -3,7 +3,8 @@ define(function(require) {
   var Widget = require('app/core/widget'),
     PagerWidget = require('app/widgets/pager/main'),
     PagerModel = require('app/widgets/pager/models/pagerModel'),
-    PagerView = require('app/widgets/pager/views/pagerView');
+    PagerView = require('app/widgets/pager/views/pagerView'),
+    eventBus = require('app/widgets/pager/events/eventBus');
 
   describe('Pager Widget', function() {
 
@@ -55,6 +56,19 @@ define(function(require) {
           spyOn(pagerWidget.model, 'toJSON').and.returnValue(fakePagerState);
           expect(pagerWidget.getState()).toBe(fakePagerState);
         });
+      });
+    });
+
+    describe('events', function() {
+      it('should capture and retrigger event on page selection', function(done) {
+        var pagerWidget = new PagerWidget;
+
+        pagerWidget.on('pager:page:selected', function(page) {
+          expect(page).toEqual(6);
+          done();
+        });
+
+        eventBus.trigger('pager:page:selected', 6);
       });
     });
   });
