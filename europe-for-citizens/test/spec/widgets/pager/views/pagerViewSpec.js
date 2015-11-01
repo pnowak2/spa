@@ -144,6 +144,32 @@ define(function(require) {
           });
         });
       });
+
+      describe('.createPageViews()', function() {
+        it('should behave...', function() {
+          expect(PagerView.prototype.createPageViews).toEqual(jasmine.any(Function));
+        });
+
+        it('should create collection to iterate through', function() {
+          spyOn(PageCollection, 'create').and.callThrough();
+
+          var view = new PagerView({
+            model: new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 3,
+              pageWindowSize: 5
+            })
+          });
+
+          expect(PageCollection.create).not.toHaveBeenCalled();
+          view.createPageViews();
+          expect(PageCollection.create).toHaveBeenCalledWith(
+            view.model.getPagedWindow(),
+            view.model.getCurrentPage()
+          );
+        });
+      });
     });
 
     describe('events', function() {
@@ -220,26 +246,6 @@ define(function(require) {
           });
 
           expect(view.render()).toBe(view);
-        });
-
-        it('should create collection to iterate through', function() {
-          spyOn(PageCollection, 'create').and.callThrough();
-
-          var view = new PagerView({
-            model: new PagerModel({
-              totalItems: 100,
-              pageSize: 10,
-              currentPage: 3,
-              pageWindowSize: 5
-            })
-          });
-
-          expect(PageCollection.create).not.toHaveBeenCalled();
-          view.render();
-          expect(PageCollection.create).toHaveBeenCalledWith(
-            view.model.getPagedWindow(),
-            view.model.getCurrentPage()
-          );
         });
 
         it('should put page control buttons', function() {

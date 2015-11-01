@@ -50,13 +50,15 @@ define(function(require) {
       this.model.lastPage();
     },
 
-    render: function() {
-      this.$el.html(Mustache.render(tpl));
-
+    createPageViews: function() {
       var collection = PageCollection.create(
         this.model.getPagedWindow(),
         this.model.getCurrentPage()
       );
+    },
+
+    render: function() {
+      this.$el.html(Mustache.render(tpl));
 
       return this;
     }
