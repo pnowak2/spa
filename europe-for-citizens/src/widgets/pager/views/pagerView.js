@@ -3,6 +3,7 @@ define(function(require) {
     PageCollection = require('../collections/pageCollection'),
     PagerModel = require('../models/pagerModel'),
     PageModel = require('../models/pageModel'),
+    PageView = require('../views/pageView'),
     eventBus = require('../events/eventBus'),
     Mustache = require('mustache'),
     tpl = require('text!../templates/pager.html');
@@ -34,31 +35,50 @@ define(function(require) {
       this.model.setCurrentPage(page);
     },
 
-    didClickFirstPageButton: function() {
+    didClickFirstPageButton: function(e) {
+      e.preventDefault();
       this.model.firstPage();
     },
 
-    didClickPreviousPageButton: function() {
+    didClickPreviousPageButton: function(e) {
+      e.preventDefault();
       this.model.previousPage();
     },
 
-    didClickNextPageButton: function() {
+    didClickNextPageButton: function(e) {
+      e.preventDefault();
       this.model.nextPage();
     },
 
-    didClickLastPageButton: function() {
+    didClickLastPageButton: function(e) {
+      e.preventDefault();
       this.model.lastPage();
     },
 
-    createPageViews: function() {
-      var collection = PageCollection.create(
+    createPageCollection: function() {
+      return PageCollection.create(
         this.model.getPagedWindow(),
         this.model.getCurrentPage()
       );
     },
 
+    createPageViews: function() {
+      var collection = this.createPageCollection();
+
+      return collection.map(function(pageModel) {
+        return new PageView({
+          model: pageModel
+        });
+      });
+    },
+
     render: function() {
       this.$el.html(Mustache.render(tpl));
+      var container = this.$el.find('.efc-pager-pages')
+
+      _.each(this.createPageViews(), function(view) {
+        container.append(view.render().el);
+      });
 
       return this;
     }
