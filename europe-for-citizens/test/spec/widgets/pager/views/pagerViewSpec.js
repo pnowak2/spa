@@ -221,7 +221,9 @@ define(function(require) {
           });
 
           expect(view.modelDidChange).not.toHaveBeenCalled();
+
           view.model.trigger('change');
+
           expect(view.modelDidChange).toHaveBeenCalled();
           expect(view.modelDidChange.calls.count()).toBe(1);
         });
