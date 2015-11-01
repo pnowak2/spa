@@ -21,7 +21,8 @@ define(function(require) {
       }
     },
 
-    didClickPage: function() {
+    didClickPage: function(e) {
+      e.preventDefault();
       eventBus.trigger('pager:page:selected', this.model.get('page'));
     },
 

@@ -50,15 +50,17 @@ define(function(require) {
 
         it('should trigger event bus', function() {
           spyOn(eventBus, 'trigger');
-          var view = new PageView({
-            model: new PageModel({
-              page: 3
-            })
-          });
+          var evt = jasmine.createSpyObj('e', ['preventDefault']),
+            view = new PageView({
+              model: new PageModel({
+                page: 3
+              })
+            });
 
-          view.didClickPage();
+          view.didClickPage(evt);
 
           expect(eventBus.trigger).toHaveBeenCalledWith('pager:page:selected', 3);
+          expect(evt.preventDefault).toHaveBeenCalled();
         });
       });
     });
