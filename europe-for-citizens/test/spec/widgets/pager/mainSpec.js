@@ -60,7 +60,7 @@ define(function(require) {
     });
 
     describe('events', function() {
-      it('should capture and retrigger event on page selection', function(done) {
+      it('should trigger event on page selection', function(done) {
         var pagerWidget = new PagerWidget;
 
         pagerWidget.on('pager:page:selected', function(page) {

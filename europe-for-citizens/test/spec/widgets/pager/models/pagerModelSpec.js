@@ -917,6 +917,15 @@ define(function(require) {
         });
       });
 
+      it('model changes should trigger change event', function(done) {
+        this.model.on('change', function(model) {
+          expect(model.getPagesCount()).toEqual(20);
+          done();
+        }, this);
+
+        this.model.set('totalItems', 200);
+      });
+
       it('.setCurrentPage() should trigger change event', function(done) {
         this.model.on('change:currentPage', function(model) {
           expect(model.getCurrentPage()).toEqual(3);
