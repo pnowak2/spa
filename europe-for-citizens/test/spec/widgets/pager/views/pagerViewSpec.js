@@ -210,6 +210,18 @@ define(function(require) {
             view.model.getCurrentPage()
           );
         });
+
+        it('should put page control buttons', function() {
+          var view = new PagerView({
+            model: new PagerModel
+          });
+
+          expect(view.render().el).toContainHtml('<a href="#" class="efc-pager-first">First</a>');
+          expect(view.render().el).toContainHtml('<a href="#" class="efc-pager-previous">Previous</a>');
+          expect(view.render().el).toContainHtml('<a href="#" class="efc-pager-next">Next</a>');
+          expect(view.render().el).toContainHtml('<a href="#" class="efc-pager-last">Last</a>');
+          expect(view.render().el).toContainElement('span.efc-pager-pages');
+        });
       });
     });
   });

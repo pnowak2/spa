@@ -3,7 +3,9 @@ define(function(require) {
     PageCollection = require('../collections/pageCollection'),
     PagerModel = require('../models/pagerModel'),
     PageModel = require('../models/pageModel'),
-    eventBus = require('../events/eventBus');
+    eventBus = require('../events/eventBus'),
+    Mustache = require('mustache'),
+    tpl = require('text!../templates/pager.html');
 
   return Backbone.View.extend({
     className: 'efc-pager',
@@ -42,6 +44,8 @@ define(function(require) {
     },
 
     render: function() {
+      this.$el.html(Mustache.render(tpl));
+
       var collection = PageCollection.create(
         this.model.getPagedWindow(),
         this.model.getCurrentPage()
