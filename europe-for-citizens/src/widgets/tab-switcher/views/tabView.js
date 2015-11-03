@@ -26,7 +26,7 @@ define(function(require) {
 
     didModelChange: function() {
       if (this.model.isSelected()) {
-        eventBus.trigger('tab-switcher:tab:selected', this.model.toJSON());
+        eventBus.trigger('tab-switcher:tab:selected', this.model);
       }
       this.render();
     },

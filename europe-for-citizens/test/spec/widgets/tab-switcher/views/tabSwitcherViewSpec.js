@@ -29,31 +29,25 @@ define(function(require) {
           new TabSwitcherView;
         }).toThrowError('No tabs configuration provided');
       });
+    });
 
-      it('should throw if created with empty tabs configuration', function() {
-        expect(function() {
-          new TabSwitcherView({
-            configuration: []
-          });
-        }).toThrowError('No tabs configuration provided');
-      });
-
-      it('should throw if configuration is incomplete', function() {
-        expect(function() {
-          new TabSwitcherView({
+    xdescribe('rendering', function() {
+      describe('.render()', function() {
+        it('should behave...', function() {
+          var view = new TabSwitcherView({
             configuration: [{
+              title: 'List',
+              identifier: 'list'
+            }, {
+              title: 'Map',
               identifier: 'map'
             }]
           });
-        }).toThrowError('At least one tab descriptor is incomplete');
 
-        expect(function() {
-          new TabSwitcherView({
-            configuration: [{
-              title: 'Map'
-            }]
-          });
-        }).toThrowError('At least one tab descriptor is incomplete');
+          view.render();
+
+          expect(view.$el.html()).toEqual('');
+        });
       });
     });
   });

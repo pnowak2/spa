@@ -7,43 +7,32 @@ define(function(require) {
 
   return Backbone.View.extend({
     tagName: 'ul',
+
     className: 'efc-tabs',
 
     initialize: function(attrs) {
-      var options = _.assign({}, attrs),
-        tabsConfiguration = options.configuration;
+      var options = _.assign({}, attrs);
 
-      if (!_.isArray(tabsConfiguration)) {
+      if (!_.isArray(options.configuration)) {
         throw new Error('No tabs configuration provided');
       }
 
-      if (_.isEmpty(tabsConfiguration)) {
-        throw new Error('No tabs configuration provided');
-      }
-
-      _.each(tabsConfiguration, function(tabConfig) {
-        if (_.isEmpty(tabConfig.title) ||
-          _.isEmpty(tabConfig.identifier)) {
-          throw new Error('At least one tab descriptor is incomplete');
-        }
-      });
-
-      this.subviews = [];
-      this.collection = new TabsCollection([{
-        title: 'Results on map',
-        identifier: 'map'
-      }, {
-        title: 'Results on List',
-        identifier: 'list'
-      }]);
-
-      this.collection.each(function(tabModel) {
-        this.subviews.push(new TabView({
+      this.managedViews = [];
+      this.collection = new TabsCollection(options.configuration);
+      this.tabViews = this.collection.map(function(tabModel) {
+        return new TabView({
           model: tabModel
-        }));
+        });
       }, this);
 
       this.listenTo(eventBus, 'tab-switcher:selected', this.didSelectTab);
+    },
+
+    addManagedView: function(identifier, view) {
+      this.managedViews.push({
+        identifier: identifier,
+        view: view
+      });
     },
 
     didSelectTab: function(tabModel) {
@@ -70,7 +59,8 @@ define(function(require) {
     },
 
     render: function() {
-      _.each(this.subviews, function(tabView) {
+      _.each(this.tabViews, function(tabView) {
+        tabView.$el.css('width', (100 / this.collection.size()) + '%');
         this.$el.append(tabView.render().el);
       }, this);
 

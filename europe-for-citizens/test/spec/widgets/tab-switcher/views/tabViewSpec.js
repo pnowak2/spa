@@ -58,9 +58,7 @@ define(function(require) {
       });
 
       describe('.didModelChange()', function() {
-
         beforeEach(function() {
-          this.fakeModelJSON = {};
           this.model = new TabModel({
             selected: true
           });
@@ -68,8 +66,8 @@ define(function(require) {
             model: this.model
           });
 
+          spyOn(this.view, 'render');
           spyOn(eventBus, 'trigger');
-          spyOn(TabModel.prototype, 'toJSON').and.returnValue(this.fakeModelJSON);
         });
 
         it('should be defined', function() {
@@ -78,7 +76,7 @@ define(function(require) {
 
         it('should trigger event bus if model is selected', function() {
           this.view.didModelChange();
-          expect(eventBus.trigger).toHaveBeenCalledWith('tab-switcher:tab:selected', this.fakeModelJSON);
+          expect(eventBus.trigger).toHaveBeenCalledWith('tab-switcher:tab:selected', this.model);
         });
 
         it('should not trigger event bus if model is not selected', function() {
@@ -89,6 +87,9 @@ define(function(require) {
 
         it('should rerender', function() {
           spyOn(TabView.prototype, 'render');
+
+          expect(this.view.render).not.toHaveBeenCalled();
+
           this.view.didModelChange();
 
           expect(this.view.render).toHaveBeenCalled();
