@@ -57,7 +57,7 @@ define(function(require) {
         });
       });
 
-      describe('.didModelSelectionChange()', function() {
+      describe('.didModelChange()', function() {
 
         beforeEach(function() {
           this.fakeModelJSON = {};
@@ -73,29 +73,25 @@ define(function(require) {
         });
 
         it('should be defined', function() {
-          expect(TabView.prototype.didModelSelectionChange).toEqual(jasmine.any(Function));
+          expect(TabView.prototype.didModelChange).toEqual(jasmine.any(Function));
         });
 
         it('should trigger event bus if model is selected', function() {
-          this.view.didModelSelectionChange();
+          this.view.didModelChange();
           expect(eventBus.trigger).toHaveBeenCalledWith('tab-switcher:tab:selected', this.fakeModelJSON);
-        });
-
-        it('should have selected css class if selected', function() {
-          this.view.didModelSelectionChange();
-          expect(this.view.$el).toHaveClass('efc-selected');
         });
 
         it('should not trigger event bus if model is not selected', function() {
           this.model.deselect();
-          this.view.didModelSelectionChange();
+          this.view.didModelChange();
           expect(eventBus.trigger).not.toHaveBeenCalled();
         });
 
-        it('should not have css class if not selected', function() {
-          this.model.deselect();
-          this.view.didModelSelectionChange();
-          expect(this.view.$el).not.toHaveClass('efc-selected');
+        it('should rerender', function() {
+          spyOn(TabView.prototype, 'render');
+          this.view.didModelChange();
+
+          expect(this.view.render).toHaveBeenCalled();
         });
       });
     });
@@ -111,25 +107,49 @@ define(function(require) {
 
       describe('model', function() {
         it('should listen to changes', function() {
-          spyOn(TabView.prototype, 'didModelSelectionChange');
+          spyOn(TabView.prototype, 'didModelChange');
 
           var view = new TabView({
             model: new TabModel
           });
 
-          view.model.trigger('change:selected');
+          view.model.trigger('change');
 
-          expect(TabView.prototype.didModelSelectionChange).toHaveBeenCalled();
+          expect(TabView.prototype.didModelChange).toHaveBeenCalled();
         });
       });
     });
 
     describe('rendering', function() {
       describe('.render()', function() {
+        it('should have selected css class if selected', function() {
+          var view = new TabView({
+            model: new TabModel({
+              selected: true
+            })
+          });
+
+          view.render();
+
+          expect(view.$el).toHaveClass('efc-selected');
+        });
+
+        it('should not have selected css class if not selected', function() {
+          var view = new TabView({
+            model: new TabModel({
+              selected: false
+            })
+          });
+
+          view.render();
+
+          expect(view.$el).not.toHaveClass('efc-selected');
+        });
+
         it('should render proper text in tab', function() {
           var view = new TabView({
             model: new TabModel({
-              title: 'List',
+              title: 'Tab Text',
               identifier: 'list',
               selected: true
             })
@@ -137,7 +157,7 @@ define(function(require) {
 
           view.render();
 
-          expect(view.$el).toContainText('List');
+          expect(view.$el).toContainText('Tab Text');
         });
       });
     });

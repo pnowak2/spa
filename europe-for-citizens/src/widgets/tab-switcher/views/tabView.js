@@ -13,7 +13,7 @@ define(function(require) {
     },
 
     initialize: function() {
-      this.listenTo(this.model, 'change:selected', this.didModelSelectionChange);
+      this.listenTo(this.model, 'change', this.didModelChange);
     },
 
     didClickTab: function() {
@@ -24,15 +24,16 @@ define(function(require) {
       return this.model.isSelected();
     },
 
-    didModelSelectionChange: function() {
-      this.$el.toggleClass('efc-selected', this.model.isSelected());
+    didModelChange: function() {
       if (this.model.isSelected()) {
         eventBus.trigger('tab-switcher:tab:selected', this.model.toJSON());
       }
+      this.render();
     },
 
     render: function() {
       this.$el.html(Mustache.render('{{ title }}', this.model.toJSON()));
+      this.$el.toggleClass('efc-selected', this.model.isSelected());
 
       return this;
     }
