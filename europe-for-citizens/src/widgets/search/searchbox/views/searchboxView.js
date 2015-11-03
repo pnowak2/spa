@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
     SearchCriteriaModel = require('../models/searchCriteriaModel'),
@@ -16,27 +16,22 @@ define(function (require) {
       'keypress input': 'keyPressed'
     },
 
-    initialize: function () {
+    initialize: function() {
       this.model = new SearchCriteriaModel;
-      this.listenTo(this.model, 'invalid', this.validationDidFail);
     },
 
-    searchButtonClicked: function () {
+    searchButtonClicked: function() {
       this.performSearch();
     },
 
-    validationDidFail: function (e) {
-      widgetEventBus.trigger('searchbox:invalid', e.validationError);
-    },
-
-    keyPressed: function (e) {
+    keyPressed: function(e) {
       if (e.which === ENTER_KEY) {
         e.preventDefault();
         this.performSearch();
       }
     },
 
-    performSearch: function () {
+    performSearch: function() {
       var isValid = this.model.set('keyword', this.keywordInput.val(), {
         validate: true
       });
@@ -45,7 +40,7 @@ define(function (require) {
       }
     },
 
-    render: function () {
+    render: function() {
       var html = Mustache.render(tpl, this.model.toJSON());
       this.$el.html(html);
       this.keywordInput = this.$el.find('input');
