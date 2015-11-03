@@ -1,21 +1,21 @@
-define(function (require) {
+define(function(require) {
   var _ = require('underscore');
 
-  var extend = function (protoProps, staticProps) {
+  var extend = function(protoProps, staticProps) {
     var parent = this;
     var child;
 
     if (protoProps && _.has(protoProps, 'constructor')) {
       child = protoProps.constructor;
     } else {
-      child = function () {
+      child = function() {
         return parent.apply(this, arguments);
       };
     }
 
     _.extend(child, parent, staticProps);
 
-    var Surrogate = function () {
+    var Surrogate = function() {
       this.constructor = child;
     };
 

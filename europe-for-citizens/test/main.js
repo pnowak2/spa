@@ -33,7 +33,12 @@ requirejs.config({
 
 require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
   require([
-    //pager
+    // core
+    'spec/core/eventBusSpec',
+    'spec/core/moduleSpec',
+    'spec/core/widgetSpec',
+    'spec/core/utilsSpec',
+    // pager
     'spec/widgets/pager/mainSpec',
     'spec/widgets/pager/models/pagerModelSpec',
     'spec/widgets/pager/models/pageModelSpec',

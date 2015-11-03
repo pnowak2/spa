@@ -1,26 +1,22 @@
-define(function (require) {
+define(function(require) {
   var Module = require('./module');
 
   return Module.extend({
     view: null,
 
-    render: function () {
+    render: function() {
       this.view.render();
       return this;
     },
 
-    hide: function () {
+    hide: function() {
       this.view.$el.hide();
+      return this;
     },
 
-    show: function () {
+    show: function() {
       this.view.$el.show();
-    },
-
-    remove: function () {
-      if (this.view) {
-        this.view.remove();
-      }
+      return this;
     }
   });
 });

@@ -1,56 +1,51 @@
-define(function (require) {
+define(function(require) {
 
   var Module = require('app/core/module'),
+    EventBus = require('app/core/eventBus'),
     utils = require('app/core/utils'),
-    _ = require('underscore'),
-    Backbone = require('backbone');
+    _ = require('underscore');
 
-  describe('Module', function () {
-    describe('Definition', function () {
-      it('should be defined', function () {
+  describe('Module', function() {
+    describe('type', function() {
+      it('should be function', function() {
         expect(Module).toEqual(jasmine.any(Function));
-      });
-
-      it('should have backbone events mixed in', function () {
-        var moduleKeys = _.keys(Module.prototype),
-          backboneEventKeys = _.keys(Backbone.Events);
-
-        _.each(backboneEventKeys, function (backboneEventKey) {
-          expect(moduleKeys).toContain(backboneEventKey);
-        });
-      });
-
-      it('should have default initialize method', function () {
-        expect(Module.prototype.initialize).toBeDefined();
-      });
-
-      it('should be extensible', function () {
-        expect(Module.extend).toBe(utils.extend);
-      });
-
-      it('should call initialize on instantiate', function () {
-        spyOn(Module.prototype, 'initialize');
-        expect(Module.prototype.initialize).not.toHaveBeenCalled();
-
-        new Module;
-
-        expect(Module.prototype.initialize).toHaveBeenCalled();
       });
     });
 
-    describe('Extension', function () {
-      it('should be possible', function () {
-        var spy = jasmine.createSpy();
-        var ExtendedModule = Module.extend({
-          initialize: spy
-        });
-        expect(ExtendedModule).toEqual(jasmine.any(Function));
+    describe('creation', function() {
+      it('should call initialize on instatiation', function() {
+        spyOn(Module.prototype, 'initialize');
 
-        var extModule = new ExtendedModule('a', 'b', 'c');
+        var testModule = new Module(1, 2, 3);
 
-        expect(spy.calls.count()).toBe(1);
-        expect(spy.calls.argsFor(0)).toEqual(['a', 'b', 'c']);
+        expect(Module.prototype.initialize).toHaveBeenCalledWith(1, 2, 3);
       });
+    });
+
+    describe('api', function() {
+      describe('.initialize()', function() {
+        it('should be defined', function() {
+          expect(Module.prototype.initialize).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.extend()', function() {
+        it('should be defined', function() {
+          expect(Module.extend).toBe(utils.extend);
+        });
+      });
+
+      describe('EventBus api', function() {
+        it('should be mixed in', function() {
+          var moduleKeys = _.keys(Module.prototype),
+            eventBusKeys = _.keys(EventBus.prototype);
+
+          _.each(eventBusKeys, function(eventBusKey) {
+            expect(moduleKeys).toContain(eventBusKey);
+          });
+        });
+      });
+
     });
   });
 });
