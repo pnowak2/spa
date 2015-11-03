@@ -1,6 +1,5 @@
-define(function (require) {
-  var _ = require('underscore'),
-    widgetEventBus = require('../events/widgetEventBus'),
+define(function(require) {
+  var eventBus = require('../events/eventBus'),
     Mustache = require('mustache'),
     Backbone = require('backbone');
 
@@ -13,27 +12,27 @@ define(function (require) {
       'click': 'didClickTab'
     },
 
-    initialize: function () {
-      this.listenTo(this.model, 'change:selected', this.selectionDidChange);
+    initialize: function() {
+      this.listenTo(this.model, 'change:selected', this.didModelSelectionChange);
     },
 
-    didClickTab: function () {
+    didClickTab: function() {
       this.model.select();
     },
 
-    isTabSelected: function () {
+    isSelected: function() {
       return this.model.isSelected();
     },
 
-    selectionDidChange: function () {
-      if (this.model.isSelected()) {
-        widgetEventBus.trigger('tab-switcher:selected', this.model);
-      }
+    didModelSelectionChange: function() {
       this.$el.toggleClass('efc-selected', this.model.isSelected());
+      if (this.model.isSelected()) {
+        eventBus.trigger('tab-switcher:tab:selected', this.model.toJSON());
+      }
     },
 
-    render: function () {
-      this.$el.html(Mustache.render('{{title}}', this.model.toJSON()));
+    render: function() {
+      this.$el.html(Mustache.render('{{ title }}', this.model.toJSON()));
 
       return this;
     }

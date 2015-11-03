@@ -11,7 +11,7 @@ define(function(require) {
     });
 
     describe('creation', function() {
-      it('should have page model defined', function() {
+      it('should have proper model defined', function() {
         var collection = new PageCollection;
         expect(collection.model).toEqual(PageModel);
       });

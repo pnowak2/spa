@@ -61,17 +61,10 @@ define(function(require) {
 
     describe('events', function() {
       describe('dom', function() {
-        it('should define click event on view itself', function() {
-          spyOn(PageView.prototype, 'didClickPage');
-
-          var view = new PageView({
-            model: new PageModel
+        it('should define proper events', function() {
+          expect(PageView.prototype.events).toEqual({
+            'click': 'didClickPage'
           });
-
-          view.render().$el.trigger('click');
-
-          expect(view.didClickPage).toHaveBeenCalled();
-          expect(view.didClickPage.calls.count()).toBe(1);
         });
       });
     });
