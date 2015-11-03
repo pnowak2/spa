@@ -39,6 +39,14 @@ define(function(require) {
       this.collection.chain()
         .without(tabModel)
         .invoke('deselect');
+
+      _.each(this.managedViews, function(managedView) {
+        if (managedView.identifier === tabModel.get('identifier')) {
+          managedView.$el.show();
+        } else {
+          managedView.$el.hide();
+        }
+      });
     },
 
     selectTab: function(identifier) {
