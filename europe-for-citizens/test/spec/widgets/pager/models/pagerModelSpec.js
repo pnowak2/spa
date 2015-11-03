@@ -808,6 +808,17 @@ define(function(require) {
         });
 
         describe('other page window combinations', function() {
+          it('should behave properly for total items set to one', function() {
+            var model = new PagerModel({
+              totalItems: 1,
+              pageSize: 10,
+              currentPage: 5,
+              pageWindowSize: 1
+            });
+
+            expect(model.getPagedWindow()).toEqual([1]);
+          });
+
           it('should behave properly for page window size set to one', function() {
             var model = new PagerModel({
               totalItems: 100,

@@ -41,6 +41,15 @@ define(function(require) {
         });
 
         it('should contain page models with proper attributes', function() {
+          var collection = PageCollection.create([1], 1);
+
+          var modelPage1 = collection.at(0);
+          expect(modelPage1.get('title')).toBe(1);
+          expect(modelPage1.get('page')).toBe(1);
+          expect(modelPage1.get('selected')).toBe(true);
+        });
+
+        it('should contain page models with proper attributes', function() {
           var collection = PageCollection.create([3, 4, 5, 6, 7], 5);
 
           var modelPage1 = collection.at(0);
