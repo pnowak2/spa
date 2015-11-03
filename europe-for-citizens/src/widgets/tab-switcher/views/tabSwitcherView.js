@@ -1,7 +1,7 @@
-define(function (require) {
+define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    widgetEventBus = require('../events/widgetEventBus'),
+    eventBus = require('../events/eventBus'),
     TabView = require('./tabView'),
     TabsCollection = require('../collections/tabsCollection');
 
@@ -9,41 +9,58 @@ define(function (require) {
     tagName: 'ul',
     className: 'efc-tabs',
 
-    initialize: function () {
-      this.subviews = [];
-      this.collection = new TabsCollection([
-        {
-          title: 'Results on map',
-          identifier: 'map'
-        },
-        {
-          title: 'Results on List',
-          identifier: 'list'
-        }
-      ]);
+    initialize: function(attrs) {
+      var options = _.assign({}, attrs),
+        tabsConfiguration = options.configuration;
 
-      this.collection.each(function (tabModel) {
+      if (!_.isArray(tabsConfiguration)) {
+        throw new Error('No tabs configuration provided');
+      }
+
+      if (_.isEmpty(tabsConfiguration)) {
+        throw new Error('No tabs configuration provided');
+      }
+
+      _.each(tabsConfiguration, function(tabConfig) {
+        if (_.isEmpty(tabConfig.title) ||
+          _.isEmpty(tabConfig.identifier)) {
+          throw new Error('At least one tab descriptor is incomplete');
+        }
+      });
+
+      this.subviews = [];
+      this.collection = new TabsCollection([{
+        title: 'Results on map',
+        identifier: 'map'
+      }, {
+        title: 'Results on List',
+        identifier: 'list'
+      }]);
+
+      this.collection.each(function(tabModel) {
         this.subviews.push(new TabView({
           model: tabModel
         }));
       }, this);
 
-      this.listenTo(widgetEventBus, 'tab-switcher:selected', this.didSelectTab);
+      this.listenTo(eventBus, 'tab-switcher:selected', this.didSelectTab);
     },
 
-    didSelectTab: function (tabModel) {
+    didSelectTab: function(tabModel) {
       this.collection.chain()
         .without(tabModel)
         .invoke('deselect');
     },
 
-    selectTab: function (identifier) {
+    selectTab: function(identifier) {
       this.collection
-        .findWhere({ identifier: identifier })
+        .findWhere({
+          identifier: identifier
+        })
         .select();
     },
 
-    isTabSelected: function (identifier) {
+    isTabSelected: function(identifier) {
       var tabModel = this.collection
         .findWhere({
           identifier: identifier
@@ -52,8 +69,8 @@ define(function (require) {
       return tabModel && tabModel.isSelected()
     },
 
-    render: function () {
-      _.each(this.subviews, function (tabView) {
+    render: function() {
+      _.each(this.subviews, function(tabView) {
         this.$el.append(tabView.render().el);
       }, this);
 

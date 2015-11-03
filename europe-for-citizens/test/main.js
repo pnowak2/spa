@@ -56,6 +56,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/widgets/tab-switcher/models/tabModelSpec',
     'spec/widgets/tab-switcher/collections/tabsCollectionSpec',
     'spec/widgets/tab-switcher/events/eventBusSpec',
+    'spec/widgets/tab-switcher/views/tabSwitcherViewSpec',
     'spec/widgets/tab-switcher/views/tabViewSpec'
 
   ], function() {
