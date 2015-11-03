@@ -1,6 +1,5 @@
 define(function(require) {
-  var _ = require('underscore'),
-    Backbone = require('backbone'),
+  var Backbone = require('backbone'),
     constants = require('app/core/constants'),
     SearchBoxModel = require('../models/searchBoxModel'),
     eventBus = require('../events/eventBus'),
@@ -49,7 +48,6 @@ define(function(require) {
     render: function() {
       var html = Mustache.render(tpl, this.model.toJSON());
       this.$el.html(html);
-
       this.keywordInput = this.$el.find('input');
 
       return this;

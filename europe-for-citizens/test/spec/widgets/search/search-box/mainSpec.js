@@ -1,47 +1,35 @@
-define(function (require) {
+define(function(require) {
 
-  var _ = require('underscore'),
-    SearchboxWidget = require('app/widgets/search/searchbox/main'),
-    SearchboxView = require('app/widgets/search/searchbox/views/searchboxView'),
-    widgetEventBus = require('app/widgets/search/searchbox/events/widgetEventBus'),
+  var SearchBoxWidget = require('app/widgets/search/search-box/main'),
+    SearchBoxView = require('app/widgets/search/search-box/views/searchBoxView'),
+    eventBus = require('app/widgets/search/search-box/events/eventBus'),
     Widget = require('app/core/widget');
 
-  describe('Searchbox Widget', function () {
-    describe('prototype', function () {
-      it('should be defined', function () {
-        expect(SearchboxWidget.prototype).toEqual(jasmine.any(Widget));
-      });
-
-      it('should have defined view', function () {
-        expect(SearchboxWidget.prototype.view).toEqual(jasmine.any(SearchboxView));
+  describe('SearchBox Widget', function() {
+    describe('type', function() {
+      it('should be of widget', function() {
+        expect(SearchBoxWidget.prototype).toEqual(jasmine.any(Widget));
       });
     });
 
-    describe('events', function () {
-
-      beforeEach(function () {
-        this.widget = new SearchboxWidget();
-        spyOn(this.widget, 'trigger');
+    describe('creation', function() {
+      it('should be initialized with proper view', function() {
+        var widget = new SearchBoxWidget;
+        expect(widget.view).toEqual(jasmine.any(SearchBoxView));
       });
+    });
 
-      it('should trigger searchbox:keyword', function () {
-        expect(this.widget.trigger).not.toHaveBeenCalled();
+    describe('events', function() {
+      it('should trigger event on search', function(done) {
+        var widget = new SearchBoxWidget;
 
-        widgetEventBus.trigger('searchbox:keyword', 'hello');
+        widget.on('search:keyword', function(keyword) {
+          expect(keyword).toEqual('kwrd');
+          done();
+        });
 
-        expect(this.widget.trigger).toHaveBeenCalledWith('searchbox:keyword', 'hello');
-        expect(this.widget.trigger.calls.count()).toBe(1);
-      });
-
-      it('should trigger searchbox:invalid', function () {
-        expect(this.widget.trigger).not.toHaveBeenCalled();
-
-        widgetEventBus.trigger('searchbox:invalid', 'validation message');
-
-        expect(this.widget.trigger).toHaveBeenCalledWith('searchbox:invalid', 'validation message');
-        expect(this.widget.trigger.calls.count()).toBe(1);
+        eventBus.trigger('search:keyword', 'kwrd');
       });
     });
   });
-
 });

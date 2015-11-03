@@ -48,6 +48,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/widgets/pager/views/pageViewSpec',
     'spec/widgets/pager/events/eventBusSpec',
     // search
+    'spec/widgets/search/search-box/mainSpec',
     'spec/widgets/search/search-box/events/eventBusSpec',
     'spec/widgets/search/search-box/models/searchBoxModelSpec',
     'spec/widgets/search/search-box/views/searchBoxViewSpec'

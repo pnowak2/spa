@@ -19,15 +19,15 @@ define(function(require) {
         this.pagerWidget = new PagerWidget;
       });
 
-      it('should be initialized with pager model', function() {
+      it('should be initialized with proper model', function() {
         expect(this.pagerWidget.model).toEqual(jasmine.any(PagerModel));
       });
 
-      it('should be initialized with pager view', function() {
+      it('should be initialized with proper view', function() {
         expect(this.pagerWidget.view).toEqual(jasmine.any(PagerView));
       });
 
-      it('should have view with pager model', function() {
+      it('should have view with proper model', function() {
         expect(this.pagerWidget.view.model).toBe(this.pagerWidget.model);
       });
 
