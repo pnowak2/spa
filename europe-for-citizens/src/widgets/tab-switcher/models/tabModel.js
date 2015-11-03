@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
   var Backbone = require('backbone');
 
   return Backbone.Model.extend({
@@ -8,15 +8,15 @@ define(function (require) {
       selected: false
     },
 
-    isSelected: function () {
+    isSelected: function() {
       return this.get('selected');
     },
 
-    select: function () {
+    select: function() {
       this.set('selected', true);
     },
 
-    deselect: function () {
+    deselect: function() {
       this.set('selected', false);
     }
   });

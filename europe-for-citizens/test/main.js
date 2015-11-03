@@ -51,7 +51,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/widgets/search/search-box/mainSpec',
     'spec/widgets/search/search-box/events/eventBusSpec',
     'spec/widgets/search/search-box/models/searchBoxModelSpec',
-    'spec/widgets/search/search-box/views/searchBoxViewSpec'
+    'spec/widgets/search/search-box/views/searchBoxViewSpec',
+    // tab switcher
+    'spec/widgets/tab-switcher/models/tabModelSpec'
+
   ], function() {
     window.onload();
   });
