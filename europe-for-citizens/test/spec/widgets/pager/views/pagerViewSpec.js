@@ -31,18 +31,12 @@ define(function(require) {
     });
 
     describe('properties', function() {
-      beforeEach(function() {
-        this.view = new PagerView({
-          model: new PagerModel
-        })
-      });
-
       it('.tagName', function() {
-        expect(this.view.tagName).toEqual('div');
+        expect(PagerView.prototype.tagName).toEqual('div');
       });
 
       it('.className', function() {
-        expect(this.view.className).toEqual('efc-pager');
+        expect(PagerView.prototype.className).toEqual('efc-pager');
       });
     });
 

@@ -27,18 +27,12 @@ define(function(require) {
     });
 
     describe('properties', function() {
-      beforeEach(function() {
-        this.view = new PageView({
-          model: new PageModel
-        })
-      });
-
       it('.tagName', function() {
-        expect(this.view.tagName).toEqual('a');
+        expect(PageView.prototype.tagName).toEqual('a');
       });
 
       it('should have href set to #', function() {
-        expect(this.view.attributes.href).toEqual('#');
+        expect(PageView.prototype.attributes.href).toEqual('#');
       });
     });
 

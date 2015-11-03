@@ -38,6 +38,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/core/moduleSpec',
     'spec/core/widgetSpec',
     'spec/core/utilsSpec',
+    'spec/core/constantsSpec',
     // pager
     'spec/widgets/pager/mainSpec',
     'spec/widgets/pager/models/pagerModelSpec',
@@ -45,7 +46,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/widgets/pager/collections/pageCollectionSpec',
     'spec/widgets/pager/views/pagerViewSpec',
     'spec/widgets/pager/views/pageViewSpec',
-    'spec/widgets/pager/events/eventBusSpec'
+    'spec/widgets/pager/events/eventBusSpec',
+    // search
+    'spec/widgets/search/search-box/events/eventBusSpec',
+    'spec/widgets/search/search-box/models/searchBoxModelSpec',
+    'spec/widgets/search/search-box/views/searchBoxViewSpec'
   ], function() {
     window.onload();
   });
