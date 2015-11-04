@@ -2,7 +2,6 @@ define(function(require) {
   var Backbone = require('backbone'),
     constants = require('app/core/constants'),
     SearchBoxModel = require('../models/searchBoxModel'),
-    eventBus = require('../events/eventBus'),
     Mustache = require('mustache'),
     tpl = require('text!../templates/searchbox.html');
 
@@ -32,7 +31,7 @@ define(function(require) {
     },
 
     didModelChange: function() {
-      eventBus.trigger('search:keyword', this.model.toJSON())
+      this.trigger('search:keyword', this.model.toJSON())
     },
 
     getFormData: function() {

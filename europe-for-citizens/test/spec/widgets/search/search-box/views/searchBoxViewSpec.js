@@ -2,7 +2,6 @@ define(function(require) {
 
   var Backbone = require('backbone'),
     constants = require('app/core/constants'),
-    eventBus = require('app/widgets/search/search-box/events/eventBus'),
     SearchBoxView = require('app/widgets/search/search-box/views/searchBoxView'),
     SearchBoxModel = require('app/widgets/search/search-box/models/searchBoxModel');
 
@@ -139,13 +138,13 @@ define(function(require) {
           var view = new SearchBoxView,
             fakeModelJSON = {}
 
-          spyOn(eventBus, 'trigger');
+          spyOn(view, 'trigger');
           spyOn(view.model, 'toJSON').and.returnValue(fakeModelJSON);
 
           view.didModelChange();
 
-          expect(eventBus.trigger).toHaveBeenCalledWith('search:keyword', fakeModelJSON);
-          expect(eventBus.trigger.calls.mostRecent().args[1]).toBe(fakeModelJSON);
+          expect(view.trigger).toHaveBeenCalledWith('search:keyword', fakeModelJSON);
+          expect(view.trigger.calls.mostRecent().args[1]).toBe(fakeModelJSON);
         });
       });
     });

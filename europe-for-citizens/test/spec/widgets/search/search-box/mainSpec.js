@@ -2,7 +2,6 @@ define(function(require) {
 
   var SearchBoxWidget = require('app/widgets/search/search-box/main'),
     SearchBoxView = require('app/widgets/search/search-box/views/searchBoxView'),
-    eventBus = require('app/widgets/search/search-box/events/eventBus'),
     Widget = require('app/core/widget');
 
   describe('SearchBox Widget', function() {
@@ -28,7 +27,7 @@ define(function(require) {
           done();
         });
 
-        eventBus.trigger('search:keyword', 'kwrd');
+        widget.view.trigger('search:keyword', 'kwrd');
       });
     });
   });
