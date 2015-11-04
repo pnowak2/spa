@@ -914,6 +914,8 @@ define(function(require) {
             currentPage: 1,
             pageWindowSize: 3,
             pagesCount: 10,
+            isFirstPage: true,
+            isLastPage: false
           });
         });
       });

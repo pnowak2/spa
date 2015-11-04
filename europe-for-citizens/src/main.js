@@ -12,25 +12,17 @@ requirejs.config({
 
 define(function(require) {
   var $ = require('jquery'),
-    PagerModel = require('app/widgets/pager/models/pagerModel'),
-    PagerView = require('app/widgets/pager/views/pagerView'),
-    pagerView = new PagerView({
-      model: new PagerModel({
-        totalItems: 100,
-        pageSize: 10,
-        currentPage: 1
-      })
-    }),
-
-    pagerView2 = new PagerView({
-      model: new PagerModel({
-        totalItems: 1000,
-        pageSize: 4,
-        currentPage: 65,
-        pageWindowSize: 9
-      })
+    PagerWidget = require('app/widgets/pager/main'),
+    pagerWidget = new PagerWidget({
+      totalItems: 1000000,
+      pageSize: 10,
+      currentPage: 250,
+      pageWindowSize: 15
     });
 
-  $('body').prepend(pagerView2.render().el);
-  $('body').prepend(pagerView.render().el);
+  pagerWidget.on('pager:page:selected', function(page) {
+    console.log(page);
+  });
+
+  $('body').prepend(pagerWidget.render().view.el);
 });

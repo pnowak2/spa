@@ -4,8 +4,7 @@ define(function(require) {
     PageModel = require('app/widgets/pager/models/pageModel'),
     PagerView = require('app/widgets/pager/views/pagerView'),
     PageView = require('app/widgets/pager/views/pageView'),
-    PageCollection = require('app/widgets/pager/collections/pageCollection'),
-    eventBus = require('app/widgets/pager/events/eventBus');
+    PageCollection = require('app/widgets/pager/collections/pageCollection');
 
   describe('Pager View', function() {
     describe('type', function() {
@@ -41,24 +40,6 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.modelDidChange()', function() {
-        it('should be defined', function() {
-          expect(PagerView.prototype.modelDidChange).toEqual(jasmine.any(Function));
-        });
-
-        it('should rerender on model change', function() {
-          spyOn(PagerView.prototype, 'render');
-
-          var view = new PagerView({
-            model: new PagerModel
-          })
-
-          expect(view.render).not.toHaveBeenCalled();
-          view.modelDidChange();
-          expect(view.render).toHaveBeenCalled();
-        });
-      });
-
       describe('.didClickPageButton()', function() {
         it('should be defined', function() {
           expect(PagerView.prototype.didClickPageButton).toEqual(jasmine.any(Function));
@@ -207,19 +188,19 @@ define(function(require) {
 
     describe('events', function() {
       describe('custom', function() {
-        it('should call method on model change', function() {
-          spyOn(PagerView.prototype, 'modelDidChange');
+        it('should call render on model change', function() {
+          spyOn(PagerView.prototype, 'render');
 
           var view = new PagerView({
             model: new PagerModel
           });
 
-          expect(view.modelDidChange).not.toHaveBeenCalled();
+          expect(view.render).not.toHaveBeenCalled();
 
           view.model.trigger('change');
 
-          expect(view.modelDidChange).toHaveBeenCalled();
-          expect(view.modelDidChange.calls.count()).toBe(1);
+          expect(view.render).toHaveBeenCalled();
+          expect(view.render.calls.count()).toBe(1);
         });
 
         it('should listen to event bus for page selection', function() {

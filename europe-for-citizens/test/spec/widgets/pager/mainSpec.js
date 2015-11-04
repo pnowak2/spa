@@ -3,8 +3,7 @@ define(function(require) {
   var Widget = require('app/core/widget'),
     PagerWidget = require('app/widgets/pager/main'),
     PagerModel = require('app/widgets/pager/models/pagerModel'),
-    PagerView = require('app/widgets/pager/views/pagerView'),
-    eventBus = require('app/widgets/pager/events/eventBus');
+    PagerView = require('app/widgets/pager/views/pagerView');
 
   describe('Pager Widget', function() {
 
@@ -68,7 +67,7 @@ define(function(require) {
           done();
         });
 
-        eventBus.trigger('pager:page:selected', 6);
+        pagerWidget.view.trigger('pager:page:selected', 6);
       });
     });
   });

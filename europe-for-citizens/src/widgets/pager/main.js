@@ -1,8 +1,7 @@
 define(function(require) {
   var Widget = require('app/core/widget'),
     PagerModel = require('./models/pagerModel'),
-    PagerView = require('./views/pagerView'),
-    eventBus = require('./events/eventBus');
+    PagerView = require('./views/pagerView');
 
   return Widget.extend({
     initialize: function(attrs) {
@@ -11,7 +10,7 @@ define(function(require) {
         model: model
       });
 
-      this.listenTo(eventBus, 'pager:page:selected', function(page) {
+      this.listenTo(this.view, 'pager:page:selected', function(page) {
         this.trigger('pager:page:selected', page);
       });
     },

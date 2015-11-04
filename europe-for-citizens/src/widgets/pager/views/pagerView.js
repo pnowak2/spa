@@ -4,7 +4,6 @@ define(function(require) {
     PagerModel = require('../models/pagerModel'),
     PageModel = require('../models/pageModel'),
     PageView = require('../views/pageView'),
-    eventBus = require('../events/eventBus'),
     Mustache = require('mustache'),
     tpl = require('text!../templates/pager.html');
 
@@ -16,8 +15,9 @@ define(function(require) {
         throw new Error('model is not of correct type');
       }
 
-      this.collection = this.createPageCollection();
-      this.listenTo(this.model, 'change', this.modelDidChange);
+      this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'change:currentPage', this.didChangeCurrentPage);
+      this.subviews = this.createPageViews();
     },
 
     events: {
@@ -27,14 +27,8 @@ define(function(require) {
       'click .efc-pager-last': 'didClickLastPageButton'
     },
 
-    modelDidChange: function() {
-      var pagedWindow = this.model.getPagedWindow();
-      this.collection.each(function(pageModel, i) {
-        pageModel.set({
-          page: pagedWindow[i],
-          selected: this.model.getCurrentPage() === pagedWindow[i]
-        });
-      }, this);
+    didChangeCurrentPage: function() {
+      this.trigger('pager:page:selected', this.model.getCurrentPage());
     },
 
     didClickPageButton: function(page) {
@@ -68,8 +62,8 @@ define(function(require) {
       );
     },
 
-    createPageViews: function(collection) {
-      return collection.map(function(pageModel) {
+    createPageViews: function() {
+      return this.createPageCollection().map(function(pageModel) {
         var pageView = new PageView({
           model: pageModel
         });
@@ -85,10 +79,10 @@ define(function(require) {
     },
 
     render: function() {
-      this.$el.html(Mustache.render(tpl));
+      this.$el.html(Mustache.render(tpl, this.model.toJSON()));
       var container = this.getPagesContainer();
 
-      _.each(this.createPageViews(this.collection), function(pageView) {
+      _.each(this.createPageViews(), function(pageView) {
         container.append(pageView.render().el);
       });
 

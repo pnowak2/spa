@@ -1,7 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
     PageModel = require('../models/pageModel'),
-    eventBus = require('../events/eventBus'),
     Mustache = require('mustache');
 
   return Backbone.View.extend({

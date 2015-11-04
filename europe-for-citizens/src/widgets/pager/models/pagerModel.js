@@ -156,7 +156,9 @@ define(function(require) {
     toJSON: function() {
       var attrs = this.constructor.__super__.toJSON.call(this),
         serialized = _.assign(attrs, {
-          pagesCount: this.getPagesCount()
+          pagesCount: this.getPagesCount(),
+          isFirstPage: this.isFirstPageSelected(),
+          isLastPage: this.isLastPageSelected()
         });
 
       return serialized;

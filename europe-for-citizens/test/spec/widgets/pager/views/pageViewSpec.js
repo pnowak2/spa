@@ -1,7 +1,6 @@
 define(function(require) {
   var PageView = require('app/widgets/pager/views/pageView'),
-    PageModel = require('app/widgets/pager/models/pageModel'),
-    eventBus = require('app/widgets/pager/events/eventBus');
+    PageModel = require('app/widgets/pager/models/pageModel');
 
   describe('Page View', function() {
     describe('type', function() {
@@ -43,7 +42,7 @@ define(function(require) {
         });
 
         it('should trigger event bus', function() {
-          spyOn(eventBus, 'trigger');
+          spyOn(PageView.prototype, 'trigger');
           var evt = jasmine.createSpyObj('e', ['preventDefault']),
             view = new PageView({
               model: new PageModel({
@@ -53,7 +52,7 @@ define(function(require) {
 
           view.didClickPage(evt);
 
-          expect(eventBus.trigger).toHaveBeenCalledWith('pager:page:selected', 3);
+          expect(view.trigger).toHaveBeenCalledWith('page:selected', 3);
           expect(evt.preventDefault).toHaveBeenCalled();
         });
       });
