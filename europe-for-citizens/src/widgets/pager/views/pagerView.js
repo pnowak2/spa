@@ -16,21 +16,7 @@ define(function(require) {
         throw new Error('model is not of correct type');
       }
 
-      this.collection = PageCollection.create(
-        this.model.getPagedWindow(),
-        this.model.getCurrentPage()
-      );
-
-      this.pageViews = this.collection.map(function(pageModel) {
-        var pageView = new PageView({
-          model: pageModel
-        });
-
-        this.listenTo(pageView, 'page:selected', this.didClickPageButton);
-
-        return pageView;
-      }, this);
-
+      this.collection = this.createPageCollection();
       this.listenTo(this.model, 'change', this.modelDidChange);
     },
 
@@ -75,6 +61,25 @@ define(function(require) {
       this.model.lastPage();
     },
 
+    createPageCollection: function() {
+      return PageCollection.create(
+        this.model.getPagedWindow(),
+        this.model.getCurrentPage()
+      );
+    },
+
+    createPageViews: function(collection) {
+      return collection.map(function(pageModel) {
+        var pageView = new PageView({
+          model: pageModel
+        });
+
+        this.listenTo(pageView, 'page:selected', this.didClickPageButton);
+
+        return pageView;
+      }, this);
+    },
+
     getPagesContainer: function() {
       return this.$el.find('.efc-pager-pages');
     },
@@ -83,7 +88,7 @@ define(function(require) {
       this.$el.html(Mustache.render(tpl));
       var container = this.getPagesContainer();
 
-      _.each(this.pageViews, function(pageView) {
+      _.each(this.createPageViews(this.collection), function(pageView) {
         container.append(pageView.render().el);
       });
 

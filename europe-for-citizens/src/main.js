@@ -26,8 +26,8 @@ define(function(require) {
       model: new PagerModel({
         totalItems: 1000,
         pageSize: 4,
-        currentPage: 6,
-        pageWindowSize: 3
+        currentPage: 65,
+        pageWindowSize: 9
       })
     });
 
