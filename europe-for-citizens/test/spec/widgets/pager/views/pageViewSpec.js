@@ -37,23 +37,30 @@ define(function(require) {
 
     describe('api', function() {
       describe('.didClickPage', function() {
+        beforeEach(function() {
+          this.evt = jasmine.createSpyObj('e', ['preventDefault']);
+          this.view = new PageView({
+            model: new PageModel({
+              page: 3
+            })
+          });
+        });
+
         it('should be defined', function() {
           expect(PageView.prototype.didClickPage).toEqual(jasmine.any(Function));
         });
 
         it('should trigger event bus', function() {
           spyOn(PageView.prototype, 'trigger');
-          var evt = jasmine.createSpyObj('e', ['preventDefault']),
-            view = new PageView({
-              model: new PageModel({
-                page: 3
-              })
-            });
 
-          view.didClickPage(evt);
+          this.view.didClickPage(this.evt);
 
-          expect(view.trigger).toHaveBeenCalledWith('page:selected', 3);
-          expect(evt.preventDefault).toHaveBeenCalled();
+          expect(this.view.trigger).toHaveBeenCalledWith('page:selected', 3);
+        });
+
+        it('should prevent default', function() {
+          this.view.didClickPage(this.evt);
+          expect(this.evt.preventDefault).toHaveBeenCalled();
         });
       });
     });

@@ -134,7 +134,7 @@ define(function(require) {
           expect(SearchBoxView.prototype.didModelChange).toEqual(jasmine.any(Function));
         });
 
-        it('should trigger event bus with serialized model', function() {
+        it('should trigger view event with serialized model', function() {
           var view = new SearchBoxView,
             fakeModelJSON = {}
 
