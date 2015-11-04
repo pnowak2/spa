@@ -16,8 +16,22 @@ define(function(require) {
         throw new Error('model is not of correct type');
       }
 
+      this.collection = PageCollection.create(
+        this.model.getPagedWindow(),
+        this.model.getCurrentPage()
+      );
+
+      this.pageViews = this.collection.map(function(pageModel) {
+        var pageView = new PageView({
+          model: pageModel
+        });
+
+        this.listenTo(pageView, 'page:selected', this.didClickPageButton);
+
+        return pageView;
+      }, this);
+
       this.listenTo(this.model, 'change', this.modelDidChange);
-      this.listenTo(eventBus, 'pager:page:selected', this.didClickPageButton);
     },
 
     events: {
@@ -28,7 +42,13 @@ define(function(require) {
     },
 
     modelDidChange: function() {
-      this.render();
+      var pagedWindow = this.model.getPagedWindow();
+      this.collection.each(function(pageModel, i) {
+        pageModel.set({
+          page: pagedWindow[i],
+          selected: this.model.getCurrentPage() === pagedWindow[i]
+        });
+      }, this);
     },
 
     didClickPageButton: function(page) {
@@ -55,32 +75,15 @@ define(function(require) {
       this.model.lastPage();
     },
 
-    createPageCollection: function() {
-      return PageCollection.create(
-        this.model.getPagedWindow(),
-        this.model.getCurrentPage()
-      );
-    },
-
-    createPageViews: function() {
-      return this.createPageCollection().map(function(pageModel) {
-        return new PageView({
-          model: pageModel
-        });
-      });
-    },
-
     getPagesContainer: function() {
       return this.$el.find('.efc-pager-pages');
     },
 
     render: function() {
       this.$el.html(Mustache.render(tpl));
+      var container = this.getPagesContainer();
 
-      var pageViews = this.createPageViews(),
-        container = this.getPagesContainer();
-
-      _.each(pageViews, function(pageView) {
+      _.each(this.pageViews, function(pageView) {
         container.append(pageView.render().el);
       });
 

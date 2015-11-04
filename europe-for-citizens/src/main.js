@@ -10,8 +10,27 @@ requirejs.config({
   }
 });
 
-define(function (require) {
-  var app = require('app/app'),
-    ApplicationWidget = require('app/widgets/application/main'),
-    applicationWidget = new ApplicationWidget().render();
+define(function(require) {
+  var $ = require('jquery'),
+    PagerModel = require('app/widgets/pager/models/pagerModel'),
+    PagerView = require('app/widgets/pager/views/pagerView'),
+    pagerView = new PagerView({
+      model: new PagerModel({
+        totalItems: 100,
+        pageSize: 10,
+        currentPage: 1
+      })
+    }),
+
+    pagerView2 = new PagerView({
+      model: new PagerModel({
+        totalItems: 1000,
+        pageSize: 4,
+        currentPage: 6,
+        pageWindowSize: 3
+      })
+    });
+
+  $('body').prepend(pagerView2.render().el);
+  $('body').prepend(pagerView.render().el);
 });

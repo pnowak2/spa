@@ -3,7 +3,6 @@ define(function(require) {
 
   return Backbone.Model.extend({
     defaults: {
-      title: '',
       page: null,
       selected: false
     },

@@ -19,11 +19,12 @@ define(function(require) {
       if (!(this.model instanceof PageModel)) {
         throw new Error('model is not of correct type');
       }
+      this.listenTo(this.model, 'change', this.render);
     },
 
     didClickPage: function(e) {
       e.preventDefault();
-      eventBus.trigger('pager:page:selected', this.model.get('page'));
+      this.trigger('page:selected', this.model.get('page'));
     },
 
     render: function() {

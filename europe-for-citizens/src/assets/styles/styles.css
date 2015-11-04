@@ -55,7 +55,7 @@
     margin-right: 2px;
 }
 
-.efc-pager a.efc-page-selected {
+.efc-pager .efc-pager-pages a.efc-selected {
     color: #ff0000;
 }
 
