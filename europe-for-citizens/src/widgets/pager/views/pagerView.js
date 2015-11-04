@@ -17,7 +17,6 @@ define(function(require) {
 
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'change:currentPage', this.didChangeCurrentPage);
-      this.subviews = this.createPageViews();
     },
 
     events: {

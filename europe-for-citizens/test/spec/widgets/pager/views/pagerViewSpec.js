@@ -25,7 +25,25 @@ define(function(require) {
           new PagerView({
             model: {}
           })
-        }).toThrowError('model is not of correct type')
+        }).toThrowError('model is not of correct type');
+
+        expect(function() {
+          new PagerView({
+            model: undefined
+          })
+        }).toThrowError('model is not of correct type');
+
+        expect(function() {
+          new PagerView({
+            model: null
+          })
+        }).toThrowError('model is not of correct type');
+
+        expect(function() {
+          new PagerView({
+            model: ''
+          })
+        }).toThrowError('model is not of correct type');
       });
     });
 
@@ -40,6 +58,28 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.didChangeCurrentPage()', function() {
+        it('should be defined', function() {
+          expect(PagerView.prototype.didChangeCurrentPage).toEqual(jasmine.any(Function));
+        });
+
+        it('should trigger view event with current page', function() {
+          spyOn(PagerView.prototype, 'trigger');
+
+          var view = new PagerView({
+            model: new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 3
+            })
+          });
+
+          view.didChangeCurrentPage();
+
+          expect(view.trigger).toHaveBeenCalledWith('pager:page:selected', 3);
+        });
+      });
+
       describe('.didClickPageButton()', function() {
         it('should be defined', function() {
           expect(PagerView.prototype.didClickPageButton).toEqual(jasmine.any(Function));
@@ -69,7 +109,11 @@ define(function(require) {
         beforeEach(function() {
           this.evt = jasmine.createSpyObj('e', ['preventDefault']);
           this.view = new PagerView({
-            model: new PagerModel
+            model: new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 1
+            })
           });
         });
 
@@ -82,6 +126,10 @@ define(function(require) {
             spyOn(PagerModel.prototype, 'firstPage');
             this.view.didClickFirstPageButton(this.evt);
             expect(this.view.model.firstPage).toHaveBeenCalled();
+          });
+
+          it('prevents default action', function() {
+            this.view.didClickFirstPageButton(this.evt);
             expect(this.evt.preventDefault).toHaveBeenCalled();
           });
         });
@@ -95,6 +143,10 @@ define(function(require) {
             spyOn(PagerModel.prototype, 'previousPage');
             this.view.didClickPreviousPageButton(this.evt);
             expect(this.view.model.previousPage).toHaveBeenCalled();
+          });
+
+          it('prevents default action', function() {
+            this.view.didClickPreviousPageButton(this.evt);
             expect(this.evt.preventDefault).toHaveBeenCalled();
           });
         });
@@ -108,6 +160,10 @@ define(function(require) {
             spyOn(PagerModel.prototype, 'nextPage');
             this.view.didClickNextPageButton(this.evt);
             expect(this.view.model.nextPage).toHaveBeenCalled();
+          });
+
+          it('prevents default action', function() {
+            this.view.didClickNextPageButton(this.evt);
             expect(this.evt.preventDefault).toHaveBeenCalled();
           });
         });
@@ -121,6 +177,10 @@ define(function(require) {
             spyOn(PagerModel.prototype, 'lastPage');
             this.view.didClickLastPageButton(this.evt);
             expect(this.view.model.lastPage).toHaveBeenCalled();
+          });
+
+          it('prevents default action', function() {
+            this.view.didClickLastPageButton(this.evt);
             expect(this.evt.preventDefault).toHaveBeenCalled();
           });
         });
@@ -205,16 +265,19 @@ define(function(require) {
 
         it('should listen to event bus for page selection', function() {
           spyOn(PagerView.prototype, 'didClickPageButton');
-          var view = new PagerView({
-            model: new PagerModel
+
+          var pagerView = new PagerView({
+            model: new PagerModel({
+              totalItems: 30,
+              pageSize: 10
+            })
           });
 
-          expect(view.didClickPageButton).not.toHaveBeenCalled();
+          _.each(pagerView.createPageViews(), function(v) {
+            v.trigger('page:selected');
+          });
 
-          eventBus.trigger('pager:page:selected', 7);
-
-          expect(view.didClickPageButton).toHaveBeenCalledWith(7);
-          expect(view.didClickPageButton.calls.count()).toBe(1);
+          expect(pagerView.didClickPageButton.calls.count()).toBe(3);
         });
       });
 
