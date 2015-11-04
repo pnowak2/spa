@@ -6,6 +6,14 @@ define(function(require) {
       title: '',
       page: null,
       selected: false
+    },
+
+    select: function() {
+      this.set('selected', true);
+    },
+
+    deselect: function() {
+      this.set('selected', false);
     }
   });
 });

@@ -18,5 +18,44 @@ define(function(require) {
         });
       });
     });
+
+    describe('api', function() {
+      describe('.select()', function() {
+        beforeEach(function() {
+          this.model = new PageModel
+        });
+
+        it('should be defined', function() {
+          expect(PageModel.prototype.select).toEqual(jasmine.any(Function));
+        });
+
+        it('should select', function() {
+          spyOn(PageModel.prototype, 'set');
+
+          this.model.select();
+
+          expect(this.model.set).toHaveBeenCalledWith('selected', true);
+        });
+
+      });
+
+      describe('.deselect()', function() {
+        beforeEach(function() {
+          this.model = new PageModel
+        });
+
+        it('should be defined', function() {
+          expect(PageModel.prototype.deselect).toEqual(jasmine.any(Function));
+        });
+
+        it('should deselect tab', function() {
+          spyOn(PageModel.prototype, 'set');
+
+          this.model.deselect();
+
+          expect(this.model.set).toHaveBeenCalledWith('selected', false);
+        });
+      });
+    });
   });
 });
