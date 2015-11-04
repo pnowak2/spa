@@ -80,9 +80,11 @@ define(function(require) {
 
     render: function() {
       this.$el.html(Mustache.render(tpl, this.model.toJSON()));
-      var container = this.getPagesContainer();
 
-      _.each(this.createPageViews(), function(pageView) {
+      var pageViews = this.createPageViews(),
+        container = this.getPagesContainer();
+
+      _.each(pageViews, function(pageView) {
         container.append(pageView.render().el);
       });
 
