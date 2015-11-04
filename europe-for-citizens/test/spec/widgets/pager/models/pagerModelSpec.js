@@ -914,6 +914,7 @@ define(function(require) {
             currentPage: 1,
             pageWindowSize: 3,
             pagesCount: 10,
+            hasItems: true,
             isFirstPage: true,
             isLastPage: false
           });

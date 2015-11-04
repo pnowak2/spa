@@ -157,6 +157,7 @@ define(function(require) {
       var attrs = this.constructor.__super__.toJSON.call(this),
         serialized = _.assign(attrs, {
           pagesCount: this.getPagesCount(),
+          hasItems: this.hasItems(),
           isFirstPage: this.isFirstPageSelected(),
           isLastPage: this.isLastPageSelected()
         });

@@ -86,6 +86,8 @@ define(function(require) {
         container.append(pageView.render().el);
       });
 
+      this.$el.toggle(this.model.hasItems());
+
       return this;
     }
   });
