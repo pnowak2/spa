@@ -14,11 +14,7 @@ define(function(require) {
   var $ = require('jquery'),
     PagerWidget = require('app/widgets/pager/main'),
     SearchWidget = require('app/widgets/search/search-box/main'),
-    pagerWidget = new PagerWidget({
-      totalItems: 123745,
-      pageSize: 3,
-      pageWindowSize: 7
-    }),
+    pagerWidget = new PagerWidget,
     searchWidget = new SearchWidget;
 
   pagerWidget.on('pager:page:selected', function(page) {

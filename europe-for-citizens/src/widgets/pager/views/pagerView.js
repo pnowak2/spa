@@ -1,5 +1,6 @@
 define(function(require) {
-  var Backbone = require('backbone'),
+  var _ = require('underscore'),
+    Backbone = require('backbone'),
     PageCollection = require('../collections/pageCollection'),
     PagerModel = require('../models/pagerModel'),
     PageModel = require('../models/pageModel'),
@@ -11,6 +12,10 @@ define(function(require) {
     className: 'efc-pager',
 
     initialize: function(options) {
+      if (!_.has(options, ['model'])) {
+        this.model = new PagerModel;
+      }
+
       if (!(this.model instanceof PagerModel)) {
         throw new Error('model is not of correct type');
       }

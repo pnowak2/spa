@@ -5,9 +5,8 @@ define(function(require) {
 
   return Widget.extend({
     initialize: function(attrs) {
-      var model = new PagerModel(attrs);
       this.view = new PagerView({
-        model: model
+        model: new PagerModel(attrs)
       });
 
       this.listenTo(this.view, 'pager:page:selected', function(page) {
