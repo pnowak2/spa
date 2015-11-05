@@ -69,14 +69,15 @@ define(function(require) {
 
     describe('events', function() {
       it('should trigger event on page selection', function(done) {
-        var pagerWidget = new PagerWidget;
+        var pagerWidget = new PagerWidget,
+          fakePagerDetails = {}
 
-        pagerWidget.on('pager:page:selected', function(page) {
-          expect(page).toEqual(6);
+        pagerWidget.on('pager:page:selected', function(pagerDetails) {
+          expect(pagerDetails).toBe(fakePagerDetails);
           done();
         });
 
-        pagerWidget.view.trigger('pager:page:selected', 6);
+        pagerWidget.view.trigger('pager:page:selected', fakePagerDetails);
       });
     });
   });

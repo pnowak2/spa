@@ -81,7 +81,7 @@ define(function(require) {
           expect(PagerView.prototype.didChangeCurrentPage).toEqual(jasmine.any(Function));
         });
 
-        it('should trigger view event with current page', function() {
+        it('should trigger view event with pager details', function() {
           spyOn(PagerView.prototype, 'trigger');
 
           var view = new PagerView({
@@ -94,7 +94,7 @@ define(function(require) {
 
           view.didChangeCurrentPage();
 
-          expect(view.trigger).toHaveBeenCalledWith('pager:page:selected', 3);
+          expect(view.trigger).toHaveBeenCalledWith('pager:page:selected', view.model.toJSON());
         });
       });
 

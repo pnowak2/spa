@@ -9,8 +9,8 @@ define(function(require) {
         model: new PagerModel(attrs)
       });
 
-      this.listenTo(this.view, 'pager:page:selected', function(page) {
-        this.trigger('pager:page:selected', page);
+      this.listenTo(this.view, 'pager:page:selected', function(pagerDetails) {
+        this.trigger('pager:page:selected', pagerDetails);
       });
     },
 

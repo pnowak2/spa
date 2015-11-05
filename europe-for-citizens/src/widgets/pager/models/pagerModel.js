@@ -39,7 +39,7 @@ define(function(require) {
     },
 
     update: function(attrs) {
-      var attributes = _.defaults({}, attrs, this.toJSON());
+      var attributes = _.defaults({}, attrs, this.attributes);
       this.initialize(attributes);
     },
 

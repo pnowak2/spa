@@ -32,7 +32,7 @@ define(function(require) {
     },
 
     didChangeCurrentPage: function() {
-      this.trigger('pager:page:selected', this.model.getCurrentPage());
+      this.trigger('pager:page:selected', this.model.toJSON());
     },
 
     didClickPageButton: function(page) {
