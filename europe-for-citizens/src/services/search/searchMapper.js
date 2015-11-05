@@ -3,6 +3,7 @@ define(function(require) {
     var total, items, response = response || {};
 
     total = response['iTotalRecords'] || 0;
+
     items = _.map(response['aaData'], function(responseItem) {
       var id = responseItem[0],
         title = responseItem[1],
