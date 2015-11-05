@@ -156,8 +156,8 @@ define(function(require) {
           pageWindowSize: 20
         });
 
-        expect(model.getPageWindowSize()).toEqual(10);
-        expect(model.get('pageWindowSize')).toEqual(10);
+        expect(model.getPageWindowSize()).toEqual(20);
+        expect(model.get('pageWindowSize')).toEqual(20);
       });
 
       it('should throw for not numerical values', function() {
@@ -233,6 +233,85 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should fully update default model', function() {
+          var model = new PagerModel;
+
+          model.update({
+            totalItems: 250,
+            pageSize: 11,
+            currentPage: 3,
+            pageWindowSize: 8
+          });
+
+          expect(model.getTotalItems()).toEqual(250);
+          expect(model.getPageSize()).toEqual(11);
+          expect(model.getCurrentPage()).toEqual(3);
+          expect(model.getPageWindowSize()).toEqual(8);
+        });
+
+        it('should not touch default model when empty options', function() {
+          var model = new PagerModel;
+
+          model.update();
+
+          expect(model.getTotalItems()).toEqual(PagerModel.prototype.defaults.totalItems);
+          expect(model.getPageSize()).toEqual(PagerModel.prototype.defaults.pageSize);
+          expect(model.getCurrentPage()).toEqual(PagerModel.prototype.defaults.currentPage);
+          expect(model.getPageWindowSize()).toEqual(PagerModel.prototype.defaults.pageWindowSize);
+        });
+
+        it('should update just totalItems from default model', function() {
+          var model = new PagerModel;
+
+          model.update({
+            totalItems: 3000
+          });
+
+          expect(model.getTotalItems()).toEqual(3000);
+          expect(model.getPageSize()).toEqual(PagerModel.prototype.defaults.pageSize);
+          expect(model.getCurrentPage()).toEqual(PagerModel.prototype.defaults.currentPage);
+          expect(model.getPageWindowSize()).toEqual(PagerModel.prototype.defaults.pageWindowSize);
+        });
+
+        it('should update just currentPage from default model', function() {
+          var model = new PagerModel({
+            totalItems: 10000
+          });
+
+          model.update({
+            currentPage: 16
+          });
+
+          expect(model.getTotalItems()).toEqual(10000);
+          expect(model.getPageSize()).toEqual(PagerModel.prototype.defaults.pageSize);
+          expect(model.getCurrentPage()).toEqual(16);
+          expect(model.getPageWindowSize()).toEqual(PagerModel.prototype.defaults.pageWindowSize);
+        });
+
+        it('should partially update model', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 2
+          });
+
+          model.update({
+            totalItems: 200,
+            pageSize: 3
+          });
+
+          expect(model.getTotalItems()).toEqual(200);
+          expect(model.getPageSize()).toEqual(3);
+          expect(model.getCurrentPage()).toEqual(2);
+          expect(model.getPageWindowSize()).toEqual(PagerModel.prototype.defaults.pageWindowSize);
+        });
+      });
+
       describe('.getPagesCount()', function() {
         it('should be defined', function() {
           expect(PagerModel.prototype.getPagesCount).toEqual(jasmine.any(Function));
@@ -712,7 +791,7 @@ define(function(require) {
           expect(model.getPageWindowSize()).toEqual(1);
         });
 
-        it('should not accept non numerical values and use pages count instead', function() {
+        it('should not accept non numerical values and use smallest page window size', function() {
           var model = new PagerModel({
             totalItems: 100,
             pageSize: 10,
@@ -721,7 +800,7 @@ define(function(require) {
           });
 
           model.setPageWindowSize('a');
-          expect(model.getPageWindowSize()).toEqual(10);
+          expect(model.getPageWindowSize()).toEqual(1);
         });
       });
 

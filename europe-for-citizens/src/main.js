@@ -14,10 +14,13 @@ define(function(require) {
   var $ = require('jquery'),
     PagerWidget = require('app/widgets/pager/main'),
     SearchWidget = require('app/widgets/search/search-box/main'),
-    pagerWidget = new PagerWidget({
-      totalItems: 100
-    }),
+    pagerWidget = new PagerWidget,
     searchWidget = new SearchWidget;
+
+  pagerWidget.updateState({
+    totalItems: 15454,
+    currentPage: 99
+  });
 
   pagerWidget.on('pager:page:selected', function(page) {
     console.log(page);

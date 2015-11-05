@@ -53,6 +53,17 @@ define(function(require) {
         it('should be defined', function() {
           expect(PagerWidget.prototype.updateState).toEqual(jasmine.any(Function));
         });
+
+        it('should delegate to pager model', function() {
+          var pagerWidget = new PagerWidget,
+            fakeState = {};
+
+          spyOn(pagerWidget.view.model, 'update');
+
+          pagerWidget.updateState(fakeState);
+
+          expect(pagerWidget.view.model.update).toHaveBeenCalledWith(fakeState);
+        });
       });
     });
 

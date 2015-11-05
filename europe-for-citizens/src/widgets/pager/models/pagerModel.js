@@ -32,10 +32,15 @@ define(function(require) {
         throw new Error('page window size cannot be zero or negative');
       }
 
-      this.setPageSize(attrs.pageSize);
       this.setTotalItems(attrs.totalItems);
+      this.setPageSize(attrs.pageSize);
       this.setCurrentPage(attrs.currentPage);
       this.setPageWindowSize(attrs.pageWindowSize);
+    },
+
+    update: function(attrs) {
+      var attributes = _.defaults({}, attrs, this.toJSON());
+      this.initialize(attributes);
     },
 
     getTotalItems: function() {
@@ -77,25 +82,26 @@ define(function(require) {
     },
 
     setPageWindowSize: function(pageWindowSize) {
-      var pagesCount = this.getPagesCount(),
-        upperTrunc = _.min([pageWindowSize, pagesCount]),
-        truncated = _.max([upperTrunc, 1]);
-
+      var truncated = _.max([pageWindowSize, 1]);
       this.set('pageWindowSize', truncated);
     },
 
     getPagedWindow: function() {
       var pageWindowSize = this.getPageWindowSize(),
-        leftPageWindowSize,
-        rightPageWindowSize,
         pagesCount = this.getPagesCount(),
         currentPage = this.getCurrentPage(),
+        truncatedPageWindowSize,
+        leftPageWindowSize,
+        rightPageWindowSize,
         startPage,
         endPage;
 
-      if (pageWindowSize % 2 === 0) {
+      // should not be bigger than pages count
+      truncatedPageWindowSize = _.min([this.getPageWindowSize(), this.getPagesCount()]);
+
+      if (truncatedPageWindowSize % 2 === 0) {
         // nonsymetrical pager (...*....)
-        leftPageWindowSize = (pageWindowSize / 2) - 1;
+        leftPageWindowSize = (truncatedPageWindowSize / 2) - 1;
         rightPageWindowSize = leftPageWindowSize + 1
       } else {
         // symmetrical pager (...*...)
@@ -105,10 +111,10 @@ define(function(require) {
       if (currentPage <= leftPageWindowSize) {
         // start
         startPage = 1;
-        endPage = pageWindowSize;
+        endPage = truncatedPageWindowSize;
       } else if (currentPage > (pagesCount - rightPageWindowSize)) {
         // end
-        startPage = pagesCount - pageWindowSize + 1;
+        startPage = pagesCount - truncatedPageWindowSize + 1;
         endPage = pagesCount;
       } else {
         // middle
