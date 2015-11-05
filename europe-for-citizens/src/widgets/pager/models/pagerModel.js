@@ -11,7 +11,7 @@ define(function(require) {
     },
 
     initialize: function(attributes) {
-      var attrs = _.assign({}, this.defaults, attributes),
+      var attrs = _.extend({}, this.defaults, attributes),
         numericalAttrs = _.pick(attrs, 'totalItems', 'pageSize', 'currentPage', 'pageWindowSize');
 
       _.each(numericalAttrs, function(value) {
@@ -32,6 +32,8 @@ define(function(require) {
         throw new Error('page window size cannot be zero or negative');
       }
 
+      this.setPageSize(attrs.pageSize);
+      this.setTotalItems(attrs.totalItems);
       this.setCurrentPage(attrs.currentPage);
       this.setPageWindowSize(attrs.pageWindowSize);
     },
@@ -40,8 +42,16 @@ define(function(require) {
       return this.get('totalItems');
     },
 
+    setTotalItems: function(totalItems) {
+      this.set('totalItems', totalItems);
+    },
+
     getPageSize: function() {
       return this.get('pageSize');
+    },
+
+    setPageSize: function(pageSize) {
+      this.set('pageSize', pageSize);
     },
 
     getCurrentPage: function() {

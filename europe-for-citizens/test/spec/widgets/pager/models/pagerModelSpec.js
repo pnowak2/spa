@@ -34,16 +34,13 @@ define(function(require) {
       it('can be overriden', function() {
         var model = new PagerModel({
           totalItems: 462,
-          pageSize: 16,
-          currentPage: 6
+          pageWindowSize: 3
         });
 
-        expect(model.toJSON()).toEqual(jasmine.objectContaining({
-          totalItems: 462,
-          pageSize: 16,
-          currentPage: 6,
-          pagesCount: 29
-        }));
+        expect(model.get('totalItems')).toEqual(462);
+        expect(model.get('pageSize')).toEqual(10);
+        expect(model.get('currentPage')).toEqual(1);
+        expect(model.get('pageWindowSize')).toEqual(3);
       });
     });
 
@@ -303,6 +300,26 @@ define(function(require) {
         });
       });
 
+      describe('.setTotalItems()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.setTotalItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should set the total items', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 6
+          });
+
+          expect(model.getTotalItems()).toEqual(100);
+
+          model.setTotalItems(300);
+
+          expect(model.getTotalItems()).toEqual(300);
+        });
+      });
+
       describe('.getPageSize()', function() {
         it('should be defined', function() {
           expect(PagerModel.prototype.getPageSize).toEqual(jasmine.any(Function));
@@ -314,6 +331,26 @@ define(function(require) {
           });
 
           expect(model.getPageSize()).toEqual(12);
+        });
+      });
+
+      describe('.setPageSize()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.setPageSize).toEqual(jasmine.any(Function));
+        });
+
+        it('should set the page size', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 6
+          });
+
+          expect(model.getPageSize()).toEqual(10);
+
+          model.setPageSize(3);
+
+          expect(model.getPageSize()).toEqual(3);
         });
       });
 
