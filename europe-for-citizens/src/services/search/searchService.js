@@ -8,7 +8,7 @@ define(function(require) {
       url: constants.urls.rest.SEARCH,
       dataType: 'json',
       method: 'GET',
-      data: pageUtils.pagify(searchCriteria).mix({
+      data: restUtils.pagify(searchCriteria).mix({
         KEYWORD: this.keyword,
         COUNTRIES: this.countries
       })
