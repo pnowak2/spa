@@ -109,11 +109,7 @@ define(function(require) {
         beforeEach(function() {
           this.evt = jasmine.createSpyObj('e', ['preventDefault']);
           this.view = new PagerView({
-            model: new PagerModel({
-              totalItems: 100,
-              pageSize: 10,
-              currentPage: 1
-            })
+            model: new PagerModel
           });
         });
 

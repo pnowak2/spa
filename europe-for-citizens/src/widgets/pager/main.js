@@ -5,7 +5,7 @@ define(function(require) {
 
   return Widget.extend({
     initialize: function(attrs) {
-      var model = this.model = new PagerModel(attrs);
+      var model = new PagerModel(attrs);
       this.view = new PagerView({
         model: model
       });
@@ -16,7 +16,7 @@ define(function(require) {
     },
 
     getState: function() {
-      return this.model.toJSON();
+      return this.view.model.toJSON();
     }
   });
 });
