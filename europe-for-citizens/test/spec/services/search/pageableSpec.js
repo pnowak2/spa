@@ -30,7 +30,7 @@ define(function(require) {
         });
 
         it('should have defaults', function() {
-          expect(Pageable.create()).toEqual({
+          expect(Pageable.create().attrs).toEqual({
             iDisplayStart: 0,
             iDisplayLength: 10
           });
@@ -41,7 +41,7 @@ define(function(require) {
             page: 2
           };
 
-          expect(Pageable.create(criteria)).toEqual({
+          expect(Pageable.create(criteria).attrs).toEqual({
             iDisplayStart: 10,
             iDisplayLength: 10
           });
@@ -52,7 +52,7 @@ define(function(require) {
             pageSize: 20
           };
 
-          expect(Pageable.create(criteria)).toEqual({
+          expect(Pageable.create(criteria).attrs).toEqual({
             iDisplayStart: 0,
             iDisplayLength: 20
           });
@@ -64,7 +64,7 @@ define(function(require) {
             pageSize: 10
           };
 
-          expect(Pageable.create(criteria)).toEqual({
+          expect(Pageable.create(criteria).attrs).toEqual({
             iDisplayStart: 90,
             iDisplayLength: 10
           });

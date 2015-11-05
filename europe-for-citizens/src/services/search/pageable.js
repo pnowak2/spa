@@ -1,6 +1,16 @@
 define(function(require) {
   var _ = require('underscore'),
-    Pageable = function() {}
+    Pageable = function(pageableAttrs) {
+      this.attrs = pageableAttrs;
+    }
+
+  _.extend(Pageable.prototype, {
+    mixTo: function(obj) {
+      _.assign(obj, _.clone(this.attrs));
+
+      return this;
+    }
+  });
 
   _.extend(Pageable, {
     defaults: {
@@ -11,14 +21,14 @@ define(function(require) {
     create: function(criteria) {
       var pageable = _.extend({}, this.defaults, criteria);
 
-      // return new Pageable({
-      //   iDisplayStart: (pageable.page - 1) * pageable.pageSize,
-      //   iDisplayLength: pageable.pageSize
-      // });
-      return {
+      return new Pageable({
         iDisplayStart: (pageable.page - 1) * pageable.pageSize,
         iDisplayLength: pageable.pageSize
-      }
+      });
+      // return {
+      //   iDisplayStart: (pageable.page - 1) * pageable.pageSize,
+      //   iDisplayLength: pageable.pageSize
+      // }
     }
   });
 
