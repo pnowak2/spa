@@ -16,6 +16,10 @@ define(function(require) {
 
     getState: function() {
       return this.view.model.toJSON();
+    },
+
+    updateState: function(state) {
+
     }
   });
 });

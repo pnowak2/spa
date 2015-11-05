@@ -48,6 +48,12 @@ define(function(require) {
           expect(pagerWidget.getState()).toBe(fakePagerState);
         });
       });
+
+      describe('.updateState()', function() {
+        it('should be defined', function() {
+          expect(PagerWidget.prototype.updateState).toEqual(jasmine.any(Function));
+        });
+      });
     });
 
     describe('events', function() {
