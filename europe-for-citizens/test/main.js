@@ -39,6 +39,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/core/widgetSpec',
     'spec/core/utilsSpec',
     'spec/core/constantsSpec',
+    // service
+    'spec/services/search/searchServiceSpec',
+    'spec/services/search/searchMapperSpec',
     // pager
     'spec/widgets/pager/mainSpec',
     'spec/widgets/pager/models/pagerModelSpec',
