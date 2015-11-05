@@ -269,7 +269,19 @@ define(function(require) {
           expect(view.render.calls.count()).toBe(1);
         });
 
-        it('should listen to event bus for page selection', function() {
+        it('should call callback on model current page change', function() {
+          spyOn(PagerView.prototype, 'didChangeCurrentPage');
+
+          var view = new PagerView
+
+          expect(view.didChangeCurrentPage).not.toHaveBeenCalled();
+
+          view.model.trigger('change:currentPage', 8);
+
+          expect(view.didChangeCurrentPage).toHaveBeenCalledWith(8);
+        });
+
+        it('should listen to page view event for page selection', function() {
           spyOn(PagerView.prototype, 'didClickPageButton');
 
           var pagerView = new PagerView({

@@ -89,23 +89,22 @@ define(function(require) {
         });
       });
 
-      describe('.requestSearch()', function() {
+      describe('.didModelChange()', function() {
         it('should be defined', function() {
-          expect(SearchBoxView.prototype.requestSearch).toEqual(jasmine.any(Function));
+          expect(SearchBoxView.prototype.didModelChange).toEqual(jasmine.any(Function));
         });
 
-        it('should set proper keyword on model', function() {
+        it('should trigger view event with serialized model', function() {
           var view = new SearchBoxView,
-            fakeFormData = {};
+            fakeModelJSON = {}
 
-          spyOn(view.model, 'set');
-          spyOn(view, 'getFormData').and.returnValue(fakeFormData);
+          spyOn(view, 'trigger');
+          spyOn(view.model, 'toJSON').and.returnValue(fakeModelJSON);
 
-          view.requestSearch();
+          view.didModelChange();
 
-          expect(view.model.set).toHaveBeenCalled();
-          expect(view.model.set.calls.count()).toBe(1);
-          expect(view.model.set.calls.mostRecent().args[0]).toBe(fakeFormData);
+          expect(view.trigger).toHaveBeenCalledWith('search:keyword', fakeModelJSON);
+          expect(view.trigger.calls.mostRecent().args[1]).toBe(fakeModelJSON);
         });
       });
 
@@ -129,22 +128,23 @@ define(function(require) {
         });
       });
 
-      describe('.didModelChange()', function() {
+      describe('.requestSearch()', function() {
         it('should be defined', function() {
-          expect(SearchBoxView.prototype.didModelChange).toEqual(jasmine.any(Function));
+          expect(SearchBoxView.prototype.requestSearch).toEqual(jasmine.any(Function));
         });
 
-        it('should trigger view event with serialized model', function() {
+        it('should set proper keyword on model', function() {
           var view = new SearchBoxView,
-            fakeModelJSON = {}
+            fakeFormData = {};
 
-          spyOn(view, 'trigger');
-          spyOn(view.model, 'toJSON').and.returnValue(fakeModelJSON);
+          spyOn(view.model, 'set');
+          spyOn(view, 'getFormData').and.returnValue(fakeFormData);
 
-          view.didModelChange();
+          view.requestSearch();
 
-          expect(view.trigger).toHaveBeenCalledWith('search:keyword', fakeModelJSON);
-          expect(view.trigger.calls.mostRecent().args[1]).toBe(fakeModelJSON);
+          expect(view.model.set).toHaveBeenCalled();
+          expect(view.model.set.calls.count()).toBe(1);
+          expect(view.model.set.calls.mostRecent().args[0]).toBe(fakeFormData);
         });
       });
     });
@@ -197,11 +197,15 @@ define(function(require) {
 
         it('should render proper markup', function() {
           var view = new SearchBoxView;
+          view.model.set('keyword', 'test search');
 
           view.render();
 
           expect(view.$el).toContainElement('input');
+          expect(view.$el.find('input')).toHaveAttr('placeholder', 'Search...');
+          expect(view.$el.find('input')).toHaveAttr('value', 'test search');
           expect(view.$el).toContainElement('button');
+          expect(view.$el.find('button')).toContainText('Search');
         });
       });
     });

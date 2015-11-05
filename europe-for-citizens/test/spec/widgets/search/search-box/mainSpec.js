@@ -1,5 +1,4 @@
 define(function(require) {
-
   var SearchBoxWidget = require('app/widgets/search/search-box/main'),
     SearchBoxView = require('app/widgets/search/search-box/views/searchBoxView'),
     Widget = require('app/core/widget');
@@ -20,14 +19,15 @@ define(function(require) {
 
     describe('events', function() {
       it('should trigger event on search', function(done) {
-        var widget = new SearchBoxWidget;
+        var widget = new SearchBoxWidget,
+          fakeSearchCriteria = {};
 
-        widget.on('search:keyword', function(keyword) {
-          expect(keyword).toEqual('kwrd');
+        widget.on('search:keyword', function(searchCriteria) {
+          expect(searchCriteria).toBe(fakeSearchCriteria);
           done();
         });
 
-        widget.view.trigger('search:keyword', 'kwrd');
+        widget.view.trigger('search:keyword', fakeSearchCriteria);
       });
     });
   });
