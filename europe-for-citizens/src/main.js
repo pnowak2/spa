@@ -17,17 +17,14 @@ define(function(require) {
     pagerWidget = new PagerWidget,
     searchWidget = new SearchWidget;
 
-  pagerWidget.updateState({
-    totalItems: 15454,
-    currentPage: 99
-  });
-
   pagerWidget.on('pager:page:selected', function(page) {
     console.log(page);
   });
 
   searchWidget.on('search:keyword', function(searchCriteria) {
-    console.log(searchCriteria);
+    pagerWidget.updateState({
+      totalItems: parseInt(searchCriteria.keyword, 10)
+    });
   });
 
   $('body').prepend(pagerWidget.render().view.el);
