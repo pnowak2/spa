@@ -15,8 +15,18 @@ define(function(require) {
   var $ = require('jquery'),
     PagerWidget = require('app/widgets/pager/main'),
     SearchWidget = require('app/widgets/search/search-box/main'),
+    TabSwitcherWidget = require('app/widgets/tab-switcher/main'),
     pagerWidget = new PagerWidget,
-    searchWidget = new SearchWidget;
+    searchWidget = new SearchWidget,
+    tabSwitcherWidget = new TabSwitcherWidget({
+      configuration: [{
+        title: 'List',
+        identifier: 'list'
+      }, {
+        title: 'Map',
+        identifier: 'map'
+      }]
+    });
 
   pagerWidget.on('pager:page:selected', function(page) {
     console.log(page);
@@ -28,6 +38,7 @@ define(function(require) {
     });
   });
 
+  $('body').prepend(tabSwitcherWidget.render().view.el);
   $('body').prepend(pagerWidget.render().view.el);
   $('body').prepend(searchWidget.render().view.el);
 });

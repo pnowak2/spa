@@ -47,7 +47,7 @@ define(function(require) {
           expect(PageModel.prototype.deselect).toEqual(jasmine.any(Function));
         });
 
-        it('should deselect tab', function() {
+        it('should deselect page', function() {
           spyOn(PageModel.prototype, 'set');
 
           this.model.deselect();

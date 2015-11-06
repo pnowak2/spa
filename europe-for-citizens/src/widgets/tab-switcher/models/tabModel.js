@@ -12,6 +12,10 @@ define(function(require) {
       return this.get('selected');
     },
 
+    toggle: function() {
+      this.set('selected', !this.isSelected());
+    },
+
     select: function() {
       this.set('selected', true);
     },

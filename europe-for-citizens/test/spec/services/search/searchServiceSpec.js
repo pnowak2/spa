@@ -93,6 +93,7 @@ define(function(require) {
           it('should accept undefined criteria', function(done) {
             var testRequest = function() {
               request = jasmine.Ajax.requests.mostRecent();
+              expect(request.url).toEqual(constants.urls.rest.SEARCH);
               expect(request.url).not.toContain('KEYWORD')
             };
 

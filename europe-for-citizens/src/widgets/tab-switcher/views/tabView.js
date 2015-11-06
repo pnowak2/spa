@@ -1,6 +1,5 @@
 define(function(require) {
-  var eventBus = require('../events/eventBus'),
-    Mustache = require('mustache'),
+  var Mustache = require('mustache'),
     Backbone = require('backbone');
 
   return Backbone.View.extend({
@@ -13,22 +12,15 @@ define(function(require) {
     },
 
     initialize: function() {
-      this.listenTo(this.model, 'change', this.didModelChange);
+      this.listenTo(this.model, 'change', this.render);
     },
 
     didClickTab: function() {
-      this.model.select();
+      this.trigger('tab:selected', this.model.get('identifier'));
     },
 
     isSelected: function() {
       return this.model.isSelected();
-    },
-
-    didModelChange: function() {
-      if (this.model.isSelected()) {
-        eventBus.trigger('tab-switcher:tab:selected', this.model);
-      }
-      this.render();
     },
 
     render: function() {

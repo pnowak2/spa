@@ -1,23 +1,20 @@
-define(function (require) {
+define(function(require) {
   var Widget = require('app/core/widget'),
-    widgetEventBus = require('./events/widgetEventBus'),
     TabSwitcherView = require('./views/tabSwitcherView'),
-    tabSwitcherView = new TabSwitcherView;
+    TabsCollection = require('./collections/tabsCollection');
 
   return Widget.extend({
-    view: tabSwitcherView,
-
-    initialize: function () {
-      this.listenTo(widgetEventBus, 'tab-switcher:selected', function (tabModel) {
-        this.trigger('tab-switcher:selected', tabModel.get('identifier'));
+    initialize: function(options) {
+      this.view = new TabSwitcherView({
+        configuration: options.configuration
       });
     },
 
-    selectTab: function (identifier) {
+    selectTab: function(identifier) {
       tabSwitcherView.selectTab(identifier);
     },
 
-    isTabSelected: function (identifier) {
+    isTabSelected: function(identifier) {
       return tabSwitcherView.isTabSelected(identifier);
     }
   });

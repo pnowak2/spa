@@ -1,7 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    eventBus = require('../events/eventBus'),
     TabView = require('./tabView'),
     TabsCollection = require('../collections/tabsCollection');
 
@@ -10,65 +9,33 @@ define(function(require) {
 
     className: 'efc-tabs',
 
-    initialize: function(attrs) {
-      var options = _.assign({}, attrs);
-
-      if (!_.isArray(options.configuration)) {
-        throw new Error('No tabs configuration provided');
-      }
-
-      this.managedViews = [];
+    initialize: function(options) {
       this.collection = new TabsCollection(options.configuration);
-      this.tabViews = this.collection.map(function(tabModel) {
-        return new TabView({
+    },
+
+    didClickTab: function(identifier) {
+      this.collection.selectTab(identifier);
+    },
+
+    createTabViews: function() {
+      return this.collection.map(function(tabModel) {
+        var tabView = new TabView({
           model: tabModel
         });
+
+        this.listenTo(tabView, 'tab:selected', this.didClickTab);
+
+        return tabView;
       }, this);
-
-      this.listenTo(eventBus, 'tab-switcher:selected', this.didSelectTab);
     },
 
-    addManagedView: function(identifier, view) {
-      this.managedViews.push({
-        identifier: identifier,
-        view: view
-      });
-    },
-
-    didSelectTab: function(tabModel) {
-      this.collection.chain()
-        .without(tabModel)
-        .invoke('deselect');
-
-      _.each(this.managedViews, function(managedView) {
-        if (managedView.identifier === tabModel.get('identifier')) {
-          managedView.$el.show();
-        } else {
-          managedView.$el.hide();
-        }
-      });
-    },
-
-    selectTab: function(identifier) {
-      this.collection
-        .findWhere({
-          identifier: identifier
-        })
-        .select();
-    },
-
-    isTabSelected: function(identifier) {
-      var tabModel = this.collection
-        .findWhere({
-          identifier: identifier
-        });
-
-      return tabModel && tabModel.isSelected()
+    getTabWidthPercentage: function() {
+      return 100 / this.collection.size();
     },
 
     render: function() {
-      _.each(this.tabViews, function(tabView) {
-        tabView.$el.css('width', (100 / this.collection.size()) + '%');
+      _.each(this.createTabViews(), function(tabView) {
+        tabView.$el.css('width', this.getTabWidthPercentage() + '%');
         this.$el.append(tabView.render().el);
       }, this);
 
