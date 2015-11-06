@@ -5,16 +5,18 @@ define(function(require) {
     constants = require('app/core/constants');
 
   return {
-    search: function(searchCriteria) {
+    search: function(criteria) {
+      criteria = criteria || {};
+
       var promise = new RSVP.Promise(function(resolve, reject) {
         $.ajax({
           url: constants.urls.rest.SEARCH,
           dataType: 'json',
           method: 'GET',
           data: {
-            KEYWORD: searchCriteria.keyword,
-            iDisplayStart: searchCriteria.startFromItem,
-            iDisplayLength: searchCriteria.pageSize,
+            KEYWORD: criteria.keyword,
+            iDisplayStart: criteria.startFromItem,
+            iDisplayLength: criteria.pageSize,
           }
         }).done(function(response) {
           resolve(searchMapper.map(response));

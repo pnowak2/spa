@@ -75,6 +75,18 @@ define(function(require) {
               .finally(done);
           });
 
+          it('should accept undefined criteria', function(done) {
+            var testRequest = function() {
+              request = jasmine.Ajax.requests.mostRecent();
+              expect(request.url).not.toContain('KEYWORD')
+            };
+
+            searchService.search()
+              .then(testRequest)
+              .catch(fail)
+              .finally(done);
+          });
+
           it('should set proper data to request', function(done) {
             var testRequest = function() {
               request = jasmine.Ajax.requests.mostRecent();
