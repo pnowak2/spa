@@ -9,6 +9,7 @@ requirejs.config({
     backbone: 'lib/backbone/backbone-min',
     mustache: 'lib/mustache.js/mustache.min',
     text: 'lib/text/text',
+    rsvp: 'lib/rsvp/rsvp.min',
     jasmine: ['lib/jasmine/lib/jasmine-core/jasmine'],
     'jasmine-html': ['lib/jasmine/lib/jasmine-core/jasmine-html'],
     'jasmine-boot': ['lib/jasmine/lib/jasmine-core/boot'],

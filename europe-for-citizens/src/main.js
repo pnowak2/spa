@@ -6,7 +6,8 @@ requirejs.config({
     underscore: '../../lib/underscore/underscore-min',
     backbone: '../../lib/backbone/backbone-min',
     mustache: '../../lib/mustache.js/mustache.min',
-    text: '../../lib/text/text'
+    text: '../../lib/text/text',
+    rsvp: '../../lib/rsvp/rsvp.min'
   }
 });
 
