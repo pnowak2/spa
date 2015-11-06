@@ -11,6 +11,12 @@ define(function(require) {
       });
     },
 
+    unselected: function() {
+      return this.where({
+        selected: false
+      });
+    },
+
     getTab: function(identifier) {
       return this.findWhere({
         identifier: identifier

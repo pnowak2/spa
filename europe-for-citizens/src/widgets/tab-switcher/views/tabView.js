@@ -19,10 +19,6 @@ define(function(require) {
       this.trigger('tab:selected', this.model.get('identifier'));
     },
 
-    isSelected: function() {
-      return this.model.isSelected();
-    },
-
     render: function() {
       this.$el.html(Mustache.render('{{ title }}', this.model.toJSON()));
       this.$el.toggleClass('efc-selected', this.model.isSelected());

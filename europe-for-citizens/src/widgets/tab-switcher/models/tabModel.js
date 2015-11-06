@@ -5,15 +5,16 @@ define(function(require) {
     defaults: {
       title: '',
       identifier: null,
-      selected: false
+      selected: false,
+      targetSelector: null
+    },
+
+    getTargetSelector: function() {
+      return this.get('targetSelector');
     },
 
     isSelected: function() {
       return this.get('selected');
-    },
-
-    toggle: function() {
-      this.set('selected', !this.isSelected());
     },
 
     select: function() {

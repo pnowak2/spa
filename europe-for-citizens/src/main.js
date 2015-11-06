@@ -21,10 +21,12 @@ define(function(require) {
     tabSwitcherWidget = new TabSwitcherWidget({
       configuration: [{
         title: 'List',
-        identifier: 'list'
+        identifier: 'list',
+        targetSelector: '.efc-searchbox'
       }, {
         title: 'Map',
-        identifier: 'map'
+        identifier: 'map',
+        targetSelector: '.efc-pager'
       }]
     });
 
@@ -38,7 +40,7 @@ define(function(require) {
     });
   });
 
-  $('body').prepend(tabSwitcherWidget.render().view.el);
   $('body').prepend(pagerWidget.render().view.el);
   $('body').prepend(searchWidget.render().view.el);
+  $('body').prepend(tabSwitcherWidget.render().view.el);
 });

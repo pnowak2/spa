@@ -15,6 +15,13 @@ define(function(require) {
 
     didClickTab: function(identifier) {
       this.collection.selectTab(identifier);
+      this.collection.each(function(tabModel) {
+        if (tabModel.get('identifier') === identifier) {
+          $(tabModel.getTargetSelector()).show();
+        } else {
+          $(tabModel.getTargetSelector()).hide();
+        }
+      });
     },
 
     createTabViews: function() {
