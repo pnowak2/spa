@@ -169,9 +169,14 @@ define(function(require) {
       return _.max([pagesCount, 1]);
     },
 
+    getStartFromItem: function() {
+      return (this.getCurrentPage() - 1) * this.getPageSize();
+    },
+
     toJSON: function() {
       var attrs = this.constructor.__super__.toJSON.call(this),
         serialized = _.assign(attrs, {
+          startFromItem: this.getStartFromItem(),
           pagesCount: this.getPagesCount(),
           hasItems: this.hasItems(),
           isFirstPage: this.isFirstPageSelected(),

@@ -8,10 +8,12 @@ define(function(require) {
       url: constants.urls.rest.SEARCH,
       dataType: 'json',
       method: 'GET',
-      data: restUtils.pagify(searchCriteria).mix({
-        KEYWORD: this.keyword,
-        COUNTRIES: this.countries
-      })
+      data: {
+        KEYWORD: searchCriteria.keyword,
+        COUNTRIES: searchCriteria.countries,
+        iDisplayStart: searchCriteria.startFromItem,
+        iDisplayLength: searchCriteria.pageSize,
+      }
     }).done(function(response) {
       success(searchMapper.map(response));
     }).fail(function(jqXHR, textStatus) {

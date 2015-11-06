@@ -40,9 +40,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/core/utilsSpec',
     'spec/core/constantsSpec',
     // service
-    'spec/services/search/searchServiceSpec',
     'spec/services/search/searchMapperSpec',
-    'spec/services/search/pageableSpec',
+    'spec/services/search/searchServiceSpec',
     // pager
     'spec/widgets/pager/mainSpec',
     'spec/widgets/pager/models/pagerModelSpec',

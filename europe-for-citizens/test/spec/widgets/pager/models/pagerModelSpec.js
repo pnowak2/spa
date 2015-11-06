@@ -504,6 +504,64 @@ define(function(require) {
         });
       });
 
+      describe('.getStartFromItem()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.getStartFromItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should return proper value for all data defined', function() {
+          var model1 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 2
+            }),
+            model2 = new PagerModel({
+              totalItems: 100,
+              pageSize: 5,
+              currentPage: 3
+            }),
+            model3 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 7
+            });
+
+          expect(model1.getStartFromItem()).toEqual(10);
+          expect(model2.getStartFromItem()).toEqual(10);
+          expect(model3.getStartFromItem()).toEqual(60);
+        });
+
+        it('should return proper value if current page bigger than pages available', function() {
+          var model = new PagerModel({
+            totalItems: 100,
+            pageSize: 10,
+            currentPage: 20
+          });
+
+          expect(model.getStartFromItem()).toEqual(90);
+        });
+
+        it('should return proper value if total items is zero', function() {
+          var model = new PagerModel({
+            totalItems: 0,
+            pageSize: 10,
+            currentPage: 20
+          });
+
+          expect(model.getStartFromItem()).toEqual(0);
+        });
+
+        it('should return proper value if theres just one page', function() {
+          var model = new PagerModel({
+            totalItems: 10,
+            pageSize: 10,
+            currentPage: 1
+          });
+
+          expect(model.getStartFromItem()).toEqual(0);
+        });
+      });
+
       describe('.getFirstPage()', function() {
         it('should be defined', function() {
           expect(PagerModel.prototype.getFirstPage).toEqual(jasmine.any(Function));
@@ -1029,6 +1087,7 @@ define(function(require) {
             pageSize: 10,
             currentPage: 1,
             pageWindowSize: 3,
+            startFromItem: 0,
             pagesCount: 10,
             hasItems: true,
             isFirstPage: true,

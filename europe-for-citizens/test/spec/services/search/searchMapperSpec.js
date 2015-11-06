@@ -2,7 +2,7 @@ define(function(require) {
   var searchMapper = require('app/services/search/searchMapper'),
 
     testResponses = {
-      allData: {
+      allDataOneRow: {
         iTotalRecords: 1,
         aaData: [
           [
@@ -15,7 +15,28 @@ define(function(require) {
           ]
         ]
       },
-      noCountries: {
+      allDataTwoRows: {
+        iTotalRecords: 2,
+        aaData: [
+          [
+            '11',
+            'Title 1',
+            'Description 1',
+            'not important',
+            '2011',
+            'PL|DE'
+          ],
+          [
+            '16',
+            'Title 2',
+            'Description 2',
+            'not important',
+            '2012',
+            'FR'
+          ],
+        ]
+      },
+      noCountriesOneRow: {
         iTotalRecords: 1,
         aaData: [
           [
@@ -51,7 +72,7 @@ define(function(require) {
         });
 
         it('should map response with one row to object', function() {
-          var mapped = searchMapper.map(testResponses.allData);
+          var mapped = searchMapper.map(testResponses.allDataOneRow);
 
           expect(mapped).toEqual({
             total: 1,
@@ -65,8 +86,29 @@ define(function(require) {
           })
         });
 
+        it('should map response with two rows to object', function() {
+          var mapped = searchMapper.map(testResponses.allDataTwoRows);
+
+          expect(mapped).toEqual({
+            total: 2,
+            items: [{
+              id: '11',
+              title: 'Title 1',
+              description: 'Description 1',
+              year: '2011',
+              countries: ['pl', 'de']
+            }, {
+              id: '16',
+              title: 'Title 2',
+              description: 'Description 2',
+              year: '2012',
+              countries: ['fr']
+            }]
+          })
+        });
+
         it('should map response without countries to object', function() {
-          var mapped = searchMapper.map(testResponses.noCountries);
+          var mapped = searchMapper.map(testResponses.noCountriesOneRow);
 
           expect(mapped).toEqual({
             total: 1,
