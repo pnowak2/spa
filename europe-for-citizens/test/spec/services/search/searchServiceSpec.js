@@ -75,6 +75,21 @@ define(function(require) {
               .finally(done);
           });
 
+          it('should set proper paging attributes', function(done) {
+            var testRequest = function() {
+              request = jasmine.Ajax.requests.mostRecent();
+              expect(request.url).toContain('iDisplayStart=40');
+              expect(request.url).toContain('iDisplayLength=10');
+            };
+
+            searchService.search({
+              startFromItem: 40,
+              pageSize: 10
+            }).then(testRequest)
+              .catch(fail)
+              .finally(done);
+          });
+
           it('should accept undefined criteria', function(done) {
             var testRequest = function() {
               request = jasmine.Ajax.requests.mostRecent();
