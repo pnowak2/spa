@@ -5,7 +5,7 @@ define(function(require) {
     constants = require('app/core/constants');
 
   return {
-    search: function(searchCriteria, pagingCriteria) {
+    search: function(searchCriteria) {
       var promise = new RSVP.Promise(function(resolve, reject) {
         $.ajax({
           url: constants.urls.rest.SEARCH,
@@ -13,9 +13,8 @@ define(function(require) {
           method: 'GET',
           data: {
             KEYWORD: searchCriteria.keyword,
-            COUNTRIES: searchCriteria.countries,
-            iDisplayStart: pagingCriteria.startFromItem,
-            iDisplayLength: pagingCriteria.pageSize,
+            iDisplayStart: searchCriteria.startFromItem,
+            iDisplayLength: searchCriteria.pageSize,
           }
         }).done(function(response) {
           resolve(searchMapper.map(response));

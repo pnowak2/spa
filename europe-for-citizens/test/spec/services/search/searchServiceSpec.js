@@ -1,6 +1,9 @@
 define(function(require) {
   var searchService = require('app/services/search/searchService'),
+    searchMapper = require('app/services/search/searchMapper'),
     constants = require('app/core/constants'),
+    RSVP = require('rsvp'),
+    $ = require('jquery'),
 
     testResponses = {
       search: {
@@ -30,49 +33,94 @@ define(function(require) {
     });
 
     describe('api', function() {
-
       describe('.search()', function() {
-
-        it('should be defined', function() {
-          expect(searchService.search).toEqual(jasmine.any(Function));
-        });
-
-        xit('should call proper REST service url', function() {
-          searchService.search({});
-
-          request = jasmine.Ajax.requests.mostRecent();
-
-          expect(request.url).toBe(constants.urls.rest.SEARCH);
-          expect(request.method).toBe('GET');
-        });
-
-        xit('should call success', function(done) {
-          searchService.searchByKeyword('test', function(data) {
-            expect(data).toEqual({
-              total: 157,
-              items: [{
-                id: 'id',
-                title: 'title',
-                description: 'description',
-                year: 'year',
-                countries: ['pl', 'de']
-              }]
-            });
-            done();
+        describe('properties', function() {
+          it('should be defined', function() {
+            expect(searchService.search).toEqual(jasmine.any(Function));
           });
 
-          request = jasmine.Ajax.requests.mostRecent();
-          request.respondWith(testResponses.search.success);
+          it('should return promise', function() {
+            expect(searchService.search()).toEqual(jasmine.any(RSVP.Promise));
+          });
         });
 
-        xit('should call failure', function(done) {
-          searchService.searchByKeyword('test', null, function(data) {
-            expect(data).toEqual('error');
-            done();
+        describe('successful response', function() {
+          beforeEach(function() {
+            jasmine.Ajax
+              .stubRequest(/.*/)
+              .andReturn(testResponses.search.success);
           });
 
-          request = jasmine.Ajax.requests.mostRecent();
-          request.respondWith(testResponses.search.error);
+          it('should resolve successful response', function(done) {
+            var testRequest = function() {
+              expect(true).toBe(true);
+            };
+
+            searchService.search({})
+              .then(testRequest)
+              .catch(fail)
+              .finally(done);
+          });
+
+          it('should use proper REST url and method', function(done) {
+            var testRequest = function() {
+              request = jasmine.Ajax.requests.mostRecent();
+              expect(request.url).toBe(constants.urls.rest.SEARCH);
+              expect(request.method).toBe('GET');
+            };
+
+            searchService.search({})
+              .then(testRequest)
+              .catch(fail)
+              .finally(done);
+          });
+
+          it('should set proper data to request', function(done) {
+            var testRequest = function() {
+              request = jasmine.Ajax.requests.mostRecent();
+              expect(request.url).toContain('KEYWORD=foo')
+            };
+
+            searchService.search({
+              keyword: 'foo'
+            }).then(testRequest)
+              .catch(fail)
+              .finally(done);
+          });
+
+          it('should map response to object', function(done) {
+            var fakeMappedData = {},
+              testRequest = function(data) {
+                expect(searchMapper.map).toHaveBeenCalled();
+                expect(data).toBe(fakeMappedData);
+              }
+
+            spyOn(searchMapper, 'map').and.returnValue(fakeMappedData);
+
+            searchService.search({})
+              .then(testRequest)
+              .catch(fail)
+              .finally(done);
+          });
+        });
+
+        describe('error response', function() {
+          beforeEach(function() {
+            jasmine.Ajax
+              .stubRequest(/.*/)
+              .andReturn(testResponses.search.error);
+          });
+
+          it('should reject error response', function(done) {
+            var testFailedRequest = function(errorStatus) {
+              expect(errorStatus).toEqual('error');
+            };
+
+            searchService.search({})
+              .then(fail)
+              .catch(testFailedRequest)
+              .finally(done);
+          });
         });
       });
     });
