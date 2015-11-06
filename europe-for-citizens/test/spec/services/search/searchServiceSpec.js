@@ -31,7 +31,12 @@ define(function(require) {
 
     describe('api', function() {
 
-      describe('.searchByKeyword()', function() {
+      describe('.search()', function() {
+
+        it('should be defined', function() {
+          expect(searchService.search).toEqual(jasmine.any(Function));
+        });
+
         xit('should call proper REST service url', function() {
           searchService.search({});
 
