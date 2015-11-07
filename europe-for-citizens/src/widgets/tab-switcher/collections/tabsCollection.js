@@ -5,6 +5,16 @@ define(function(require) {
   return Backbone.Collection.extend({
     model: TabModel,
 
+    initialize: function(models) {
+      var selectedModels = _.where(models, {
+        selected: true
+      });
+
+      if (selectedModels.length > 1) {
+        throw new Error('More than one model is selected')
+      }
+    },
+
     selected: function() {
       return this.where({
         selected: true
