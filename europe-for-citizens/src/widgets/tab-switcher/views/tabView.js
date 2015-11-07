@@ -16,7 +16,7 @@ define(function(require) {
     },
 
     didClickTab: function() {
-      this.trigger('tab:selected', this.model.get('identifier'));
+      this.model.trigger('tab:selection-request', this.model.get('identifier'));
     },
 
     render: function() {
