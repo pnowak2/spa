@@ -11,17 +11,21 @@ define(function(require) {
 
     initialize: function(options) {
       this.collection = new TabsCollection(options.configuration);
-      this.listenTo(this.collection, 'change', this.didModelChange);
+      this.listenTo(this.collection, 'change:selected', this.didModelSelectionChange);
     },
 
     didClickTab: function(identifier) {
       this.collection.selectTab(identifier);
     },
 
-    didModelChange: function() {
+    didModelSelectionChange: function() {
       this.collection.each(function(tabModel) {
         Backbone.$(tabModel.getTargetSelector()).toggle(tabModel.isSelected());
       });
+    },
+
+    calculateTabWidthPercentage: function() {
+      return 100 / this.collection.size() + '%';
     },
 
     createTabViews: function() {
@@ -35,10 +39,6 @@ define(function(require) {
 
         return tabView;
       }, this);
-    },
-
-    calculateTabWidthPercentage: function() {
-      return 100 / this.collection.size() + '%';
     },
 
     render: function() {

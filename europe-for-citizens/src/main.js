@@ -30,8 +30,8 @@ define(function(require) {
       }]
     });
 
-  pagerWidget.on('pager:page:selected', function(page) {
-    console.log(page);
+  pagerWidget.on('pager:page:selected', function(pagerStatus) {
+    console.log(pagerStatus)
   });
 
   searchWidget.on('search:keyword', function(searchCriteria) {
