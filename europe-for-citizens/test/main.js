@@ -55,10 +55,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/widgets/search/search-box/models/searchBoxModelSpec',
     'spec/widgets/search/search-box/views/searchBoxViewSpec',
     // tab switcher
-    // 'spec/widgets/tab-switcher/models/tabModelSpec',
-    // 'spec/widgets/tab-switcher/collections/tabsCollectionSpec',
-    // 'spec/widgets/tab-switcher/views/tabSwitcherViewSpec',
-    // 'spec/widgets/tab-switcher/views/tabViewSpec'
+    'spec/widgets/tab-switcher/mainSpec',
+    'spec/widgets/tab-switcher/models/tabModelSpec',
+    'spec/widgets/tab-switcher/collections/tabsCollectionSpec',
+    'spec/widgets/tab-switcher/views/tabSwitcherViewSpec',
+    'spec/widgets/tab-switcher/views/tabViewSpec'
 
   ], function() {
     window.onload();

@@ -11,13 +11,7 @@ define(function(require) {
       });
     },
 
-    unselected: function() {
-      return this.where({
-        selected: false
-      });
-    },
-
-    getTab: function(identifier) {
+    findTab: function(identifier) {
       return this.findWhere({
         identifier: identifier
       });
@@ -27,7 +21,7 @@ define(function(require) {
       _.chain(this.selected())
         .invoke('deselect');
 
-      this.getTab(identifier).select();
+      this.findTab(identifier).select();
     }
   });
 });

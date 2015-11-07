@@ -11,16 +11,16 @@ define(function(require) {
 
     initialize: function(options) {
       this.collection = new TabsCollection(options.configuration);
+      this.listenTo(this.collection, 'change', this.didModelChange);
     },
 
     didClickTab: function(identifier) {
       this.collection.selectTab(identifier);
+    },
+
+    didModelChange: function() {
       this.collection.each(function(tabModel) {
-        if (tabModel.get('identifier') === identifier) {
-          $(tabModel.getTargetSelector()).show();
-        } else {
-          $(tabModel.getTargetSelector()).hide();
-        }
+        Backbone.$(tabModel.getTargetSelector()).toggle(tabModel.isSelected());
       });
     },
 
@@ -29,6 +29,7 @@ define(function(require) {
         var tabView = new TabView({
           model: tabModel
         });
+        tabView.$el.css('width', this.calculateTabWidthPercentage());
 
         this.listenTo(tabView, 'tab:selected', this.didClickTab);
 
@@ -36,13 +37,12 @@ define(function(require) {
       }, this);
     },
 
-    getTabWidthPercentage: function() {
-      return 100 / this.collection.size();
+    calculateTabWidthPercentage: function() {
+      return 100 / this.collection.size() + '%';
     },
 
     render: function() {
       _.each(this.createTabViews(), function(tabView) {
-        tabView.$el.css('width', this.getTabWidthPercentage() + '%');
         this.$el.append(tabView.render().el);
       }, this);
 
