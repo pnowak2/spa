@@ -56,7 +56,7 @@ define(function(require) {
               expect(true).toBe(true);
             };
 
-            searchService.search({})
+            searchService.search()
               .then(testRequest)
               .catch(fail)
               .finally(done);
@@ -69,7 +69,7 @@ define(function(require) {
               expect(request.method).toBe('GET');
             };
 
-            searchService.search({})
+            searchService.search()
               .then(testRequest)
               .catch(fail)
               .finally(done);
@@ -103,7 +103,7 @@ define(function(require) {
               .finally(done);
           });
 
-          it('should set proper data to request', function(done) {
+          it('should set proper search criteria to request', function(done) {
             var testRequest = function() {
               request = jasmine.Ajax.requests.mostRecent();
               expect(request.url).toContain('KEYWORD=foo')
@@ -125,7 +125,7 @@ define(function(require) {
 
             spyOn(searchMapper, 'map').and.returnValue(fakeMappedData);
 
-            searchService.search({})
+            searchService.search()
               .then(testRequest)
               .catch(fail)
               .finally(done);
@@ -144,7 +144,7 @@ define(function(require) {
               expect(errorStatus).toEqual('error');
             };
 
-            searchService.search({})
+            searchService.search()
               .then(fail)
               .catch(testFailedRequest)
               .finally(done);
