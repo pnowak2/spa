@@ -50,12 +50,12 @@ define(function(require) {
           expect(PageView.prototype.didClickPage).toEqual(jasmine.any(Function));
         });
 
-        it('should trigger event bus', function() {
-          spyOn(PageView.prototype, 'trigger');
+        it('should trigger model event', function() {
+          spyOn(this.view.model, 'trigger');
 
           this.view.didClickPage(this.evt);
 
-          expect(this.view.trigger).toHaveBeenCalledWith('page:selected', 3);
+          expect(this.view.model.trigger).toHaveBeenCalledWith('page:selection-request', 3);
         });
 
         it('should prevent default', function() {

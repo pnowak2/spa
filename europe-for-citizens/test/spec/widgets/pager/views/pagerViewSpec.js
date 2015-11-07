@@ -281,7 +281,7 @@ define(function(require) {
           expect(view.didChangeCurrentPage).toHaveBeenCalledWith(8);
         });
 
-        it('should listen to page view event for page selection', function() {
+        it('should listen to page change request', function() {
           spyOn(PagerView.prototype, 'didClickPageButton');
 
           var pagerView = new PagerView({
@@ -291,8 +291,8 @@ define(function(require) {
             })
           });
 
-          _.each(pagerView.createPageViews(), function(v) {
-            v.trigger('page:selected');
+          pagerView.createPageCollection().each(function(model) {
+            model.trigger('page:selection-request');
           });
 
           expect(pagerView.didClickPageButton.calls.count()).toBe(3);

@@ -23,7 +23,7 @@ define(function(require) {
 
     didClickPage: function(e) {
       e.preventDefault();
-      this.trigger('page:selected', this.model.get('page'));
+      this.model.trigger('page:selection-request', this.model.get('page'));
     },
 
     render: function() {

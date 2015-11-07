@@ -60,22 +60,22 @@ define(function(require) {
     },
 
     createPageCollection: function() {
-      return PageCollection.create(
+      var collection = PageCollection.create(
         this.model.getPagedWindow(),
         this.model.getCurrentPage()
       );
+
+      this.listenTo(collection, 'page:selection-request', this.didClickPageButton);
+
+      return collection;
     },
 
     createPageViews: function() {
       return this.createPageCollection().map(function(pageModel) {
-        var pageView = new PageView({
+        return new PageView({
           model: pageModel
-        });
-
-        this.listenTo(pageView, 'page:selected', this.didClickPageButton);
-
-        return pageView;
-      }, this);
+        })
+      });
     },
 
     getPagesContainer: function() {
