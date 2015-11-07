@@ -15,7 +15,7 @@ define(function(require) {
       }
     },
 
-    selected: function() {
+    selectedTabs: function() {
       return this.where({
         selected: true
       });
@@ -28,7 +28,7 @@ define(function(require) {
     },
 
     selectTab: function(identifier) {
-      _.chain(this.selected())
+      _.chain(this.selectedTabs())
         .invoke('deselect');
 
       this.findTab(identifier).select();

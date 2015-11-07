@@ -18,10 +18,10 @@ define(function(require) {
       this.collection.selectTab(identifier);
     },
 
-    didModelSelectionChange: function() {
-      this.collection.each(function(tabModel) {
-        Backbone.$(tabModel.getTargetSelector()).toggle(tabModel.isSelected());
-      });
+    didModelSelectionChange: function(tabModel) {
+      Backbone
+        .$(tabModel.getTargetSelector())
+        .toggle(tabModel.isSelected());
     },
 
     calculateTabWidthPercentage: function() {
