@@ -9,10 +9,6 @@ define(function(require) {
       targetSelector: null
     },
 
-    getTargetSelector: function() {
-      return this.get('targetSelector');
-    },
-
     isSelected: function() {
       return this.get('selected');
     },
@@ -23,6 +19,10 @@ define(function(require) {
 
     deselect: function() {
       this.set('selected', false);
+    },
+
+    getTargetSelector: function() {
+      return this.get('targetSelector');
     }
   });
 });
