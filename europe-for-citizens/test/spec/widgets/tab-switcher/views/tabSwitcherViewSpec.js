@@ -137,7 +137,7 @@ define(function(require) {
       });
 
       describe('rendering', function() {
-        xdescribe('.render()', function() {
+        describe('.render()', function() {
           it('should return view object', function() {
             var view = new TabSwitcherView;
             expect(view.render()).toBe(view);
@@ -149,10 +149,15 @@ define(function(require) {
               }),
               tabSwitcherView = new TabSwitcherView;
 
-            spyOn(TabView.prototype, 'render');
+            spyOn(tabSwitcherView.$el, 'append');
             spyOn(TabSwitcherView.prototype, 'createTabViews').and.returnValue([tabView]);
+            spyOn(TabView.prototype, 'render').and.callThrough();
 
             tabSwitcherView.render();
+
+            expect(tabView.render.calls.count()).toBe(1);
+            expect(tabSwitcherView.$el.append.calls.count()).toBe(1);
+            expect(tabSwitcherView.$el.append).toHaveBeenCalledWith(tabView.el);
           });
         });
       });
