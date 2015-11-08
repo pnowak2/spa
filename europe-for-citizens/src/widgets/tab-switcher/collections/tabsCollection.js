@@ -28,10 +28,14 @@ define(function(require) {
     },
 
     selectTab: function(identifier) {
-      _.chain(this.selectedTabs())
-        .invoke('deselect');
+      var foundTab = this.findTab(identifier);
 
-      this.findTab(identifier).select();
+      if (foundTab) {
+        _.chain(this.selectedTabs())
+          .invoke('deselect');
+
+        foundTab.select();
+      }
     }
   });
 });

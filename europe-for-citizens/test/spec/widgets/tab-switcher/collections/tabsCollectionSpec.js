@@ -149,6 +149,14 @@ define(function(require) {
 
           expect(this.collection.selectedTabs()[0].get('identifier')).toEqual('third');
         });
+
+        it('should not select non existing tab', function() {
+          expect(this.collection.selectedTabs()[0].get('identifier')).toEqual('second');
+
+          this.collection.selectTab('nonexisting');
+
+          expect(this.collection.selectedTabs()[0].get('identifier')).toEqual('second');
+        });
       });
     });
   });

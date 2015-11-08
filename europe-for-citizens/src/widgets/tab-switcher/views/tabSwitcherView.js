@@ -10,6 +10,8 @@ define(function(require) {
     className: 'efc-tabs',
 
     initialize: function(options) {
+      options = options || {};
+
       this.collection = new TabsCollection(options.configuration);
       this.listenTo(this.collection, 'change:selected', this.didModelSelectionChange);
       this.listenTo(this.collection, 'tab:selection-request', this.didClickTab);
