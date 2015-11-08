@@ -1,6 +1,7 @@
 define(function(require) {
   var Mustache = require('mustache'),
-    Backbone = require('backbone');
+    Backbone = require('backbone'),
+    TabModel = require('../models/tabModel');
 
   return Backbone.View.extend({
     tagName: 'li',
@@ -12,10 +13,14 @@ define(function(require) {
     },
 
     initialize: function() {
+      if (!(this.model instanceof TabModel)) {
+        throw new Error('model is not of correct type');
+      }
+
       this.listenTo(this.model, 'change', this.render);
     },
 
-    didClickTab: function() {
+    didClickTab: function(e) {
       this.model.trigger('tab:selection-request', this.model.get('identifier'));
     },
 
