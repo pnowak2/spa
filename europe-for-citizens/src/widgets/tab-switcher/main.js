@@ -5,17 +5,9 @@ define(function(require) {
 
   return Widget.extend({
     initialize: function(options) {
-      this.view = new TabSwitcherView({
-        configuration: options.configuration
-      });
-    },
+      options = options || {};
 
-    selectTab: function(identifier) {
-      tabSwitcherView.selectTab(identifier);
-    },
-
-    isTabSelected: function(identifier) {
-      return tabSwitcherView.isTabSelected(identifier);
+      this.view = new TabSwitcherView(options.tabDescriptors);
     }
   });
 });

@@ -19,7 +19,7 @@ define(function(require) {
     pagerWidget = new PagerWidget,
     searchWidget = new SearchWidget,
     tabSwitcherWidget = new TabSwitcherWidget({
-      configuration: [{
+      tabDescriptors: [{
         title: 'List',
         identifier: 'list',
         targetSelector: '.efc-searchbox'

@@ -14,7 +14,7 @@ define(function(require) {
     });
 
     describe('creation', function() {
-      it('should be possible to create without configuration', function() {
+      it('should be possible to create without tab descriptors', function() {
         var view = new TabSwitcherView;
         expect(view).toEqual(jasmine.any(TabSwitcherView));
       });
@@ -24,15 +24,13 @@ define(function(require) {
         expect(view.collection).toEqual(jasmine.any(TabsCollection))
       });
 
-      it('should return collection with passed configuration', function() {
+      it('should return collection with passed tab descriptors', function() {
         spyOn(TabsCollection.prototype, 'initialize');
-        var fakeOptions = {
-          configuration: {}
-        };
+        var fakeOptions = {};
 
         new TabSwitcherView(fakeOptions)
 
-        expect(TabsCollection.prototype.initialize).toHaveBeenCalledWith(fakeOptions.configuration);
+        expect(TabsCollection.prototype.initialize).toHaveBeenCalledWith(fakeOptions);
       });
     });
 
@@ -86,14 +84,12 @@ define(function(require) {
         });
 
         it('should return array of views', function() {
-          var tabSwitcherView = new TabSwitcherView({
-              configuration: [{
-                title: 'Tab title',
-                identifier: 'tabdi',
-                selected: false,
-                targetSelector: '.selector'
-              }]
-            }),
+          var tabSwitcherView = new TabSwitcherView([{
+              title: 'Tab title',
+              identifier: 'tabdi',
+              selected: false,
+              targetSelector: '.selector'
+            }]),
             tabViews = tabSwitcherView.createTabViews(),
             tabView = tabViews[0];
 
