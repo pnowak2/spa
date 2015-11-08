@@ -18,7 +18,7 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.create', function() {
+      describe('.create()', function() {
         it('should be defined', function() {
           expect(PageCollection.create).toEqual(jasmine.any(Function));
         });
@@ -34,13 +34,13 @@ define(function(require) {
           expect(collection).toEqual(jasmine.any(PageCollection));
         });
 
-        it('should have size as pages count', function() {
+        it('should have size of pages count argument', function() {
           var pages = [1, 2, 3, 4, 5];
           var collection = PageCollection.create(pages);
           expect(collection.size()).toEqual(pages.length);
         });
 
-        it('should contain page models with proper attributes', function() {
+        it('should contain page models with proper attributes for one item page window and current page', function() {
           var collection = PageCollection.create([1], 1);
 
           var modelPage = collection.at(0);
@@ -48,7 +48,7 @@ define(function(require) {
           expect(modelPage.get('selected')).toBe(true);
         });
 
-        it('should contain page models with proper attributes', function() {
+        it('should contain page models with proper attributes for bigger page window and current page', function() {
           var collection = PageCollection.create([3, 4, 5, 6, 7], 5);
 
           var modelPage1 = collection.at(0);

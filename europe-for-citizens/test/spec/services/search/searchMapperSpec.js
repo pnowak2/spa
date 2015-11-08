@@ -64,7 +64,7 @@ define(function(require) {
           expect(searchMapper.map).toEqual(jasmine.any(Function));
         });
 
-        it('should return object when invoked without response', function() {
+        it('should return default empty object when invoked without response', function() {
           expect(searchMapper.map()).toEqual({
             total: 0,
             items: []

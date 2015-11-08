@@ -83,7 +83,7 @@ define(function(require) {
           expect(SearchBoxView.prototype.requestSearch).toHaveBeenCalled();
         });
 
-        it('should not call search method when other key pressed', function() {
+        it('should not call search method when other key than enter was pressed', function() {
           SearchBoxView.prototype.didPressKey(this.fakeEventWithOtherKey);
           expect(SearchBoxView.prototype.requestSearch).not.toHaveBeenCalled();
         });
@@ -113,7 +113,7 @@ define(function(require) {
           expect(SearchBoxView.prototype.getFormData).toEqual(jasmine.any(Function));
         });
 
-        it('should get data from form and return as object', function() {
+        it('should get data from dom and return as object', function() {
           var view = new SearchBoxView;
 
           view.keywordInput = {
@@ -160,7 +160,7 @@ define(function(require) {
       });
 
       describe('model', function() {
-        it('should listen to changes', function() {
+        it('should listen to changes and call view method', function() {
           spyOn(SearchBoxView.prototype, 'didModelChange');
 
           var view = new SearchBoxView;
@@ -178,7 +178,7 @@ define(function(require) {
           expect(view.render()).toBe(view);
         });
 
-        it('should set keyword input property', function() {
+        it('should set dom keyword input property', function() {
           var view = new SearchBoxView,
             fakeKeywordInput = {};
 

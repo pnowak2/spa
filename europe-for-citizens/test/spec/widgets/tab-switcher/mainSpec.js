@@ -22,7 +22,7 @@ define(function(require) {
         expect(widget.view).toEqual(jasmine.any(TabSwitcherView));
       });
 
-      it('should pass tab descriptors to view', function() {
+      it('should pass tab descriptor array to its view', function() {
         spyOn(TabSwitcherView.prototype, 'initialize');
 
         var fakeOptions = {

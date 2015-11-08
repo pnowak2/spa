@@ -28,7 +28,7 @@ define(function(require) {
           expect(PageModel.prototype.select).toEqual(jasmine.any(Function));
         });
 
-        it('should select', function() {
+        it('should set selected property to true', function() {
           spyOn(PageModel.prototype, 'set');
 
           this.model.select();
@@ -47,7 +47,7 @@ define(function(require) {
           expect(PageModel.prototype.deselect).toEqual(jasmine.any(Function));
         });
 
-        it('should deselect page', function() {
+        it('should set selected property to false', function() {
           spyOn(PageModel.prototype, 'set');
 
           this.model.deselect();

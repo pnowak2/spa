@@ -30,7 +30,7 @@ define(function(require) {
         expect(PageView.prototype.tagName).toEqual('a');
       });
 
-      it('should have href set to #', function() {
+      it('href - should have href set to #', function() {
         expect(PageView.prototype.attributes.href).toEqual('#');
       });
     });

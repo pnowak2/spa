@@ -15,7 +15,7 @@ define(function(require) {
         expect(TabsCollection.prototype.model).toEqual(TabModel);
       });
 
-      it('should be possible to create with models', function() {
+      it('should be possible to create with array of objects with tab properties', function() {
         expect(function() {
           new TabsCollection([{
             identifier: 'first',
@@ -52,7 +52,7 @@ define(function(require) {
           expect(TabsCollection.prototype.selectedTabs).toEqual(jasmine.any(Function));
         });
 
-        it('should return only selected tabs', function() {
+        it('should return only selected tab models', function() {
           var collection = new TabsCollection([{
             identifier: 'first',
             selected: false,
@@ -142,7 +142,7 @@ define(function(require) {
           expect(TabsCollection.prototype.selectTab).toEqual(jasmine.any(Function));
         });
 
-        it('should select tab by identifier', function() {
+        it('should select tab model by model identifier', function() {
           expect(this.collection.selectedTabs()[0].get('identifier')).toEqual('second');
 
           this.collection.selectTab('third');

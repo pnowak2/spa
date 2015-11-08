@@ -51,7 +51,7 @@ define(function(require) {
           expect(this.testWidget.render()).toBe(this.testWidget);
         });
 
-        it('should call render on view', function() {
+        it('should call render on view property', function() {
           expect(this.testWidget.view.render).not.toHaveBeenCalled();
           this.testWidget.render();
           expect(this.testWidget.view.render).toHaveBeenCalled();

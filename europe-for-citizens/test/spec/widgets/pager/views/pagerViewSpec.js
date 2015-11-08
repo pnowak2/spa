@@ -19,7 +19,7 @@ define(function(require) {
         expect(view.model).toEqual(jasmine.any(PagerModel));
       });
 
-      it('should accept model', function() {
+      it('should accept model in constructor', function() {
         var pagerModel = new PagerModel(),
           view = new PagerView({
             model: pagerModel
@@ -34,7 +34,7 @@ define(function(require) {
         }).not.toThrow();
       });
 
-      it('should throw if model is undefined', function() {
+      it('should throw if model passed but is undefined', function() {
         expect(function() {
           new PagerView({
             model: undefined
@@ -42,7 +42,7 @@ define(function(require) {
         }).toThrowError('model is not of correct type');
       });
 
-      it('should throw if model is null', function() {
+      it('should throw if model passed but is null', function() {
         expect(function() {
           new PagerView({
             model: null
@@ -50,7 +50,7 @@ define(function(require) {
         }).toThrowError('model is not of correct type');
       });
 
-      it('should throw if model type is not correct', function() {
+      it('should throw if passed model type is not correct', function() {
         expect(function() {
           new PagerView({
             model: {}
@@ -123,7 +123,7 @@ define(function(require) {
         });
       });
 
-      describe('control buttons', function() {
+      describe('page control buttons - first, previous, next, last', function() {
         beforeEach(function() {
           this.evt = jasmine.createSpyObj('e', ['preventDefault']);
           this.view = new PagerView;
@@ -203,7 +203,7 @@ define(function(require) {
           expect(PagerView.prototype.createPageCollection).toEqual(jasmine.any(Function));
         });
 
-        it('should return page collection', function() {
+        it('should return page collection delegating to page collection class', function() {
           var fakeCollection = {},
             view = new PagerView;
 
@@ -240,7 +240,7 @@ define(function(require) {
           expect(PagerView.prototype.getPagesContainer).toEqual(jasmine.any(Function));
         });
 
-        it('should get container for pages', function() {
+        it('should get dom container for pages', function() {
           var view = new PagerView,
             fakeContainer = {};
 
@@ -269,7 +269,7 @@ define(function(require) {
           expect(view.render.calls.count()).toBe(1);
         });
 
-        it('should call callback on model current page change', function() {
+        it('should call view method on model change of current page', function() {
           spyOn(PagerView.prototype, 'didChangeCurrentPage');
 
           var view = new PagerView
@@ -281,7 +281,7 @@ define(function(require) {
           expect(view.didChangeCurrentPage).toHaveBeenCalledWith(8);
         });
 
-        it('should listen to page change request', function() {
+        it('should call view method on model selection request event', function() {
           spyOn(PagerView.prototype, 'didClickPageButton');
 
           var pagerView = new PagerView({
@@ -341,7 +341,7 @@ define(function(require) {
           expect(view.render()).toBe(view);
         });
 
-        it('should put page control buttons', function() {
+        it('should render page control buttons', function() {
           var view = new PagerView;
 
           expect(view.render().el).toContainHtml('<a href="#" class="efc-pager-first">First</a>');
@@ -375,7 +375,7 @@ define(function(require) {
           expect(view.$el.css('display')).toEqual('block')
         });
 
-        it('should render pages', function() {
+        it('should render pages elements', function() {
           var pagerView = new PagerView,
             fakePagesContainer = jasmine.createSpyObj('container', ['append']),
             fakePageView = new PageView({

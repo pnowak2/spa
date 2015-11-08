@@ -26,7 +26,7 @@ define(function(require) {
           expect(TabModel.prototype.isSelected).toEqual(jasmine.any(Function));
         });
 
-        it('should return selected property', function() {
+        it('should return selected property of model', function() {
           var model = new TabModel({
             selected: true
           });
@@ -44,7 +44,7 @@ define(function(require) {
           expect(TabModel.prototype.select).toEqual(jasmine.any(Function));
         });
 
-        it('should set selected to true', function() {
+        it('should set selected to true in model', function() {
           var model = new TabModel({
             selected: false
           });
@@ -60,7 +60,7 @@ define(function(require) {
           expect(TabModel.prototype.deselect).toEqual(jasmine.any(Function));
         });
 
-        it('should set selected to false', function() {
+        it('should set selected to false in model', function() {
           var model = new TabModel({
             selected: true
           });
@@ -76,7 +76,7 @@ define(function(require) {
           expect(TabModel.prototype.getTargetSelector).toEqual(jasmine.any(Function));
         });
 
-        it('should return selected property', function() {
+        it('should return jquery selector for target element', function() {
           var model = new TabModel({
             targetSelector: '.myElementClass'
           });

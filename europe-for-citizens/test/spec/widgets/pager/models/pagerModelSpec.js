@@ -19,7 +19,7 @@ define(function(require) {
         });
       });
 
-      it('can be passed to initialize method', function() {
+      it('can be overriden using constructor', function() {
         spyOn(PagerModel.prototype, 'initialize');
 
         var model = new PagerModel({
@@ -31,7 +31,7 @@ define(function(require) {
         });
       });
 
-      it('can be overriden', function() {
+      it('can be overriden using constructor and preserve not overriden properties from defaults', function() {
         var model = new PagerModel({
           totalItems: 462,
           pageWindowSize: 3
@@ -160,7 +160,7 @@ define(function(require) {
         expect(model.get('pageWindowSize')).toEqual(20);
       });
 
-      it('should throw for not numerical values', function() {
+      it('should throw for not numerical values in constructor', function() {
         expect(function() {
           new PagerModel({
             totalItems: 'a'
@@ -238,7 +238,7 @@ define(function(require) {
           expect(PagerModel.prototype.update).toEqual(jasmine.any(Function));
         });
 
-        it('should fully update default model', function() {
+        it('should fully update defaults', function() {
           var model = new PagerModel;
 
           model.update({
@@ -254,7 +254,7 @@ define(function(require) {
           expect(model.getPageWindowSize()).toEqual(8);
         });
 
-        it('should not touch default model when empty options', function() {
+        it('should not touch defaults when empty options', function() {
           var model = new PagerModel;
 
           model.update();
@@ -265,7 +265,7 @@ define(function(require) {
           expect(model.getPageWindowSize()).toEqual(PagerModel.prototype.defaults.pageWindowSize);
         });
 
-        it('should update just totalItems from default model', function() {
+        it('should update just totalItems and take rest from defaults', function() {
           var model = new PagerModel;
 
           model.update({
@@ -278,7 +278,7 @@ define(function(require) {
           expect(model.getPageWindowSize()).toEqual(PagerModel.prototype.defaults.pageWindowSize);
         });
 
-        it('should update just currentPage from default model', function() {
+        it('should update just currentPage and take rest from defaults', function() {
           var model = new PagerModel({
             totalItems: 10000
           });
@@ -293,7 +293,7 @@ define(function(require) {
           expect(model.getPageWindowSize()).toEqual(PagerModel.prototype.defaults.pageWindowSize);
         });
 
-        it('should partially update model', function() {
+        it('should partially update model and take rest from defaults', function() {
           var model = new PagerModel({
             totalItems: 100,
             pageSize: 10,
@@ -509,7 +509,7 @@ define(function(require) {
           expect(PagerModel.prototype.getStartFromItem).toEqual(jasmine.any(Function));
         });
 
-        it('should return proper value for all data defined', function() {
+        it('should return starting position item number for paging', function() {
           var model1 = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -652,7 +652,7 @@ define(function(require) {
           expect(model.getCurrentPage()).toEqual(5);
         });
 
-        it('should not get below one', function() {
+        it('should decrement current page, but not get below one', function() {
           var model = new PagerModel({
             totalItems: 10,
             pageSize: 2,
@@ -716,7 +716,7 @@ define(function(require) {
           expect(PagerModel.prototype.hasItems).toEqual(jasmine.any(Function));
         });
 
-        it('should return true if no items', function() {
+        it('should return false if number of items is zero', function() {
           var model = new PagerModel({
             totalItems: 0
           });
@@ -724,7 +724,7 @@ define(function(require) {
           expect(model.hasItems()).toBe(false);
         });
 
-        it('should return false if there are items', function() {
+        it('should return true if number of items is greater than zero', function() {
           var model = new PagerModel({
             totalItems: 100,
             pageSize: 10,
@@ -802,7 +802,7 @@ define(function(require) {
           expect(PagerModel.prototype.getPageWindowSize).toEqual(jasmine.any(Function));
         });
 
-        it('should return page window size', function() {
+        it('should return size of the window - visible pages to choose', function() {
           var model = new PagerModel({
             totalItems: 100,
             pageSize: 10,
@@ -862,13 +862,13 @@ define(function(require) {
         });
       });
 
-      describe('.getPagedWindow()', function() {
+      describe('.getPagedWindow() - Array of pages visible to select', function() {
         it('should be defined', function() {
           expect(PagerModel.prototype.getPagedWindow).toEqual(jasmine.any(Function));
         });
 
         describe('odd page window size', function() {
-          it('should return array of pages at the beginning of paging', function() {
+          it('should return array of pages at the beginning of paging - first page selected', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -879,7 +879,7 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
           });
 
-          it('should return array of pages close to middle of paging', function() {
+          it('should return array of pages close to middle of paging - first page still visible in page window but not selected', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -890,7 +890,7 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5]);
           });
 
-          it('should return array of pages in the middle of paging', function() {
+          it('should return array of pages in the middle of paging - first page not visible in page window', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -901,7 +901,7 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([4, 5, 6, 7, 8]);
           });
 
-          it('should return array of pages close to end of paging', function() {
+          it('should return array of pages close to end of paging - last page visible in window but not selected yet', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -912,7 +912,7 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([6, 7, 8, 9, 10]);
           });
 
-          it('should return array of pages at the end of paging', function() {
+          it('should return array of pages at the end of paging - last page selected', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -925,7 +925,7 @@ define(function(require) {
         });
 
         describe('even page window size', function() {
-          it('should return array of pages at the beginning of paging', function() {
+          it('should return array of pages at the beginning of paging - first page selected', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -936,7 +936,7 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5, 6]);
           });
 
-          it('should return array of pages close to middle of paging', function() {
+          it('should return array of pages close to middle of paging - first page still visible in page window but not selected', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -947,7 +947,7 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([1, 2, 3, 4, 5, 6]);
           });
 
-          it('should return array of pages in the middle of paging', function() {
+          it('should return array of pages in the middle of paging - first page not visible in page window', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -958,7 +958,7 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([2, 3, 4, 5, 6, 7]);
           });
 
-          it('should return array of pages close to end of paging', function() {
+          it('should return array of pages close to end of paging - last page visible in window but not selected yet', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,
@@ -969,7 +969,7 @@ define(function(require) {
             expect(model.getPagedWindow()).toEqual([5, 6, 7, 8, 9, 10]);
           });
 
-          it('should return array of pages at the end of paging', function() {
+          it('should return array of pages at the end of paging - last page selected', function() {
             var model = new PagerModel({
               totalItems: 100,
               pageSize: 10,

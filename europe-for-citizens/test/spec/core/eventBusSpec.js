@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     EventBus = require('app/core/eventBus');
 
-  describe('Event Bus', function() {
+  describe('Event Bus - PubSub object', function() {
     describe('type', function() {
       it('should be function', function() {
         expect(EventBus).toEqual(jasmine.any(Function));

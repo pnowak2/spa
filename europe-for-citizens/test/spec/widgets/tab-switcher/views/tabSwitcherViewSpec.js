@@ -14,7 +14,7 @@ define(function(require) {
     });
 
     describe('creation', function() {
-      it('should be possible to create without tab descriptors', function() {
+      it('should be possible to create without array of tab descriptors', function() {
         var view = new TabSwitcherView;
         expect(view).toEqual(jasmine.any(TabSwitcherView));
       });
@@ -24,7 +24,7 @@ define(function(require) {
         expect(view.collection).toEqual(jasmine.any(TabsCollection))
       });
 
-      it('should return collection with passed tab descriptors', function() {
+      it('should initialize collection with passed array of tab descriptors', function() {
         spyOn(TabsCollection.prototype, 'initialize');
         var fakeOptions = {};
 
@@ -65,7 +65,7 @@ define(function(require) {
           expect(TabSwitcherView.prototype.didModelSelectionChange).toEqual(jasmine.any(Function));
         });
 
-        it('should toggle target element visibility', function() {
+        it('should toggle target dom element visibility', function() {
           spyOn(Backbone.$.prototype, 'toggle');
           var model = new TabModel({
             selected: true,
@@ -83,7 +83,7 @@ define(function(require) {
           expect(TabSwitcherView.prototype.createTabViews).toEqual(jasmine.any(Function));
         });
 
-        it('should return array of views', function() {
+        it('should return array of tab views each initialized with its model', function() {
           var tabSwitcherView = new TabSwitcherView([{
               title: 'Tab title',
               identifier: 'tabdi',
@@ -112,7 +112,7 @@ define(function(require) {
         });
 
         describe('tab selection change', function() {
-          it('should call method on tab model selection change', function() {
+          it('should call method on view', function() {
             var fakeModel = {};
 
             this.tabSwitcherView.collection.trigger('change:selected', fakeModel);
@@ -121,8 +121,8 @@ define(function(require) {
           });
         });
 
-        describe('tab selection change', function() {
-          it('should call method on tab selection request', function() {
+        describe('tab selection request', function() {
+          it('should call method on view', function() {
             var fakeData = {};
 
             this.tabSwitcherView.collection.trigger('tab:selection-request', fakeData);
@@ -139,7 +139,7 @@ define(function(require) {
             expect(view.render()).toBe(view);
           });
 
-          it('should render tabs', function() {
+          it('should render tab views', function() {
             var tabView = new TabView({
                 model: new TabModel
               }),

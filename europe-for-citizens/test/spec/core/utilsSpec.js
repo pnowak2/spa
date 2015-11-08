@@ -11,7 +11,7 @@ define(function(require) {
           });
         });
 
-        describe('extended result', function() {
+        describe('function extension result', function() {
           it('should be new function', function() {
             var Extensible = function() {};
             Extensible.extend = utils.extend;
@@ -74,7 +74,7 @@ define(function(require) {
           });
         });
 
-        describe('reference to parent - super', function() {
+        describe('getting super in hierarchy', function() {
           it('should point to parent prototype', function() {
             var Extensible = function() {};
             Extensible.extend = utils.extend;
