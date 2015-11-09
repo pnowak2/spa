@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
   var Backbone = require('backbone'),
     _ = require('underscore');
 
@@ -8,9 +8,7 @@ define(function (require) {
       title: '',
       description: '',
       year: '',
-      countries: (function () {
-        return []
-      })()
+      countries: []
     }
   });
 });

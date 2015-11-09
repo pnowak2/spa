@@ -50,16 +50,18 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/widgets/pager/collections/pageCollectionSpec',
     'spec/widgets/pager/views/pagerViewSpec',
     'spec/widgets/pager/views/pageViewSpec',
-    // search
-    'spec/widgets/search/search-box/mainSpec',
-    'spec/widgets/search/search-box/models/searchBoxModelSpec',
-    'spec/widgets/search/search-box/views/searchBoxViewSpec',
     // tab switcher
     'spec/widgets/tab-switcher/mainSpec',
     'spec/widgets/tab-switcher/models/tabModelSpec',
     'spec/widgets/tab-switcher/collections/tabsCollectionSpec',
     'spec/widgets/tab-switcher/views/tabSwitcherViewSpec',
-    'spec/widgets/tab-switcher/views/tabViewSpec'
+    'spec/widgets/tab-switcher/views/tabViewSpec',
+    // search
+    'spec/widgets/search/search-box/mainSpec',
+    'spec/widgets/search/search-box/models/searchBoxModelSpec',
+    'spec/widgets/search/search-box/views/searchBoxViewSpec',
+    // results list
+    'spec/widgets/results/results-list/mainSpec'
 
   ], function() {
     window.onload();
