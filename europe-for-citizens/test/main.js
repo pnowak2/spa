@@ -63,7 +63,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // results list
     'spec/widgets/results/results-list/mainSpec',
     'spec/widgets/results/results-list/models/resultModelSpec',
-    'spec/widgets/results/results-list/collections/resultCollectionSpec'
+    'spec/widgets/results/results-list/collections/resultCollectionSpec',
+    'spec/widgets/results/results-list/views/resultItemViewSpec'
   ], function() {
     window.onload();
   });

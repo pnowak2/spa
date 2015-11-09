@@ -10,12 +10,6 @@ define(function(require) {
     });
 
     describe('creation', function() {
-      it('should throw if created without model', function() {
-        expect(function() {
-          new PageView
-        }).toThrowError('model is not of correct type')
-      });
-
       it('should throw if model type is incorrect', function() {
         expect(function() {
           new PageView({
