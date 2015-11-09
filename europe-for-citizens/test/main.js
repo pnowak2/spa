@@ -61,8 +61,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/widgets/search/search-box/models/searchBoxModelSpec',
     'spec/widgets/search/search-box/views/searchBoxViewSpec',
     // results list
-    'spec/widgets/results/results-list/mainSpec'
-
+    'spec/widgets/results/results-list/mainSpec',
+    'spec/widgets/results/results-list/models/resultModelSpec',
+    'spec/widgets/results/results-list/collections/resultCollectionSpec'
   ], function() {
     window.onload();
   });

@@ -1,6 +1,5 @@
 define(function(require) {
-  var Widget = require('app/core/widget'),
-    TableView = require('./views/tableView');
+  var Widget = require('app/core/widget');
 
   return Widget.extend({});
 });
