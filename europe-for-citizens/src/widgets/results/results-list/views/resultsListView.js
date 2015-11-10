@@ -2,15 +2,15 @@ define(function(require) {
   var _ = require('underscore'),
     Mustache = require('mustache'),
     Backbone = require('backbone'),
-    ProjectCollection = require('../collections/projectsCollection'),
-    ItemView = require('./itemView'),
-    tpl = require('text!../templates/result-list.html');
+    ResultsCollection = require('../collections/resultsCollection'),
+    ItemView = require('./resultItemView'),
+    tpl = require('text!../templates/results-list.html');
 
   return Backbone.View.extend({
     className: 'efc-results-table',
 
     initialize: function() {
-      this.collection = new ProjectCollection;
+      this.collection = new ResultsCollection;
       this.listenTo(this.collection, 'reset', this.render);
     },
 
@@ -34,12 +34,11 @@ define(function(require) {
       this.$el.html(Mustache.render(tpl));
 
       var tableBody = this.getTableBodyContainer(),
-        resultItemViews = createResultItemViews();
+        resultItemViews = this.createResultItemViews();
 
       _.each(resultItemViews, function(resultItemView) {
         tableBody.append(resultItemView.render().el);
       });
-
       return this;
     }
   });
