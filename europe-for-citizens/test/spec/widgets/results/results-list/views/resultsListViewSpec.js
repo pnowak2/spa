@@ -128,6 +128,27 @@ define(function(require) {
           expect(this.$el.find('th').eq(2)).toContainText('Start Year');
           expect(this.$el.find('th').last()).toContainText('Countries');
         });
+
+        it('should render table body', function() {
+          expect(this.$el.find('table')).toContainElement('tbody');
+        });
+
+        it('should append to table body result items', function() {
+          var resultsListView = new ResultsListView,
+            fakeTableBodyContainer = jasmine.createSpyObj('tableBodyContainer', ['append']),
+            fakeItemView = new ResultItemView({
+              model: new ResultModel
+            });
+
+          spyOn(fakeItemView, 'render').and.callThrough();
+          spyOn(ResultsListView.prototype, 'getTableBodyContainer').and.returnValue(fakeTableBodyContainer);
+          spyOn(ResultsListView.prototype, 'createResultItemViews').and.returnValue([fakeItemView]);
+
+          resultsListView.render();
+
+          expect(fakeItemView.render).toHaveBeenCalled();
+          expect(fakeTableBodyContainer.append).toHaveBeenCalledWith(fakeItemView.el);
+        });
       });
     });
 
