@@ -7,7 +7,7 @@ define(function(require) {
     tpl = require('text!../templates/results-list.html');
 
   return Backbone.View.extend({
-    className: 'efc-results-table',
+    className: 'efc-results-list',
 
     initialize: function() {
       this.collection = new ResultsCollection;
@@ -19,11 +19,11 @@ define(function(require) {
     },
 
     createResultItemViews: function() {
-      return this.collection.map(function(resultModel) {
-        return new ResultItemView({
-          model: resultModel
-        });
-      });
+      // return this.collection.map(function(resultModel) {
+      //   return new ResultItemView({
+      //     model: resultModel
+      //   });
+      // });
     },
 
     getTableBodyContainer: function() {

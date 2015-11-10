@@ -17,25 +17,25 @@
 }
 
 /* Results - Table */
-.efc-results-table {
+.efc-results-list {
 
 }
 
-.efc-results-table table {
+.efc-results-list table {
     border-collapse: collapse;
     width: 100%
 }
 
-.efc-results-table th {
+.efc-results-list th {
     font-weight: bold;
 }
 
-.efc-results-table td, .efc-results-table th {
+.efc-results-list td, .efc-results-table th {
     border: 1px solid #ccc;
     padding: 5px;
 }
 
-.efc-results-table table tr:nth-child(even) {
+.efc-results-list table tr:nth-child(even) {
     background: #efefef
 }
 
