@@ -34,7 +34,7 @@ define(function(require) {
             title: 'Europe for Citizens',
             description: 'Mapping platform',
             startYear: '2015',
-            countries: ['pl', 'de', 'lu']
+            countries: ['pl', 'lu']
           })
         });
 
@@ -42,51 +42,70 @@ define(function(require) {
       });
 
       describe('.render()', function() {
-        describe('Name of the group', function() {
-          it('should return view itself', function() {
-            expect(this.view.render()).toBe(this.view)
-          });
+        it('should return view itself', function() {
+          expect(this.view.render()).toBe(this.view)
+        });
 
-          it('should render 4 table columns', function() {
-            expect(this.$el.find('td')).toHaveLength(4);
-          });
+        it('should render 4 table columns', function() {
+          expect(this.$el.find('td')).toHaveLength(4);
         });
 
         describe('first column', function() {
+          beforeEach(function() {
+            this.$td = this.$el.find('td').first();
+          });
+
           it('should contain link to result card', function() {
-            var $td = this.$el.find('td').first();
-            expect($td).toContainElement('a[href="/programmes/erasmus-plus/projects/eplus-project-details-page/?nodeRef=52"]');
+            expect(this.$td).toContainElement('a[href="/programmes/erasmus-plus/projects/eplus-project-details-page/?nodeRef=52"]');
           });
 
           it('should have link to result card which opens in new window', function() {
-            var $td = this.$el.find('td').first();
-            expect($td).toContainElement('a[target="_blank"]');
+            expect(this.$td).toContainElement('a[target="_blank"]');
           });
 
-          it('should render title', function() {
-            var $td = this.$el.find('td a').first();
-            expect($td).toHaveText('Europe for Citizens');
+          it('should contain link with title', function() {
+            var $link = this.$td.find('a').first();
+            expect($link).toHaveText('Europe for Citizens');
           });
         });
 
         describe('second column', function() {
-          it('should render description', function() {
+          it('should contain description', function() {
             var $td = this.$el.find('td').eq(1);
             expect($td).toHaveText('Mapping platform');
           });
         });
 
         describe('third column', function() {
-          it('should render year', function() {
+          it('should contain year', function() {
             var $td = this.$el.find('td').eq(2);
             expect($td).toHaveText('2015');
           });
         });
 
         describe('fourth column', function() {
-          it('should render countriesn', function() {
-            var $td = this.$el.find('td').last();
-            expect($td.find('img')).toHaveLength(3);
+          beforeEach(function() {
+            this.$td = this.$el.find('td').last();
+          });
+
+          it('should contain country images', function() {
+            expect(this.$td.find('img')).toHaveLength(2);
+          });
+
+          it('should have images with default placeholder image', function() {
+            this.$td.find('img').each(function() {
+              expect(this).toHaveAttr('src', '/programmes/valor/images/blank.png');
+            });
+          });
+
+          it('should have images with proper css class', function() {
+            expect(this.$td.find('img').first()).toHaveAttr('class', 'flag pl');
+            expect(this.$td.find('img').last()).toHaveAttr('class', 'flag lu');
+          });
+
+          it('should have images with proper title', function() {
+            expect(this.$td.find('img').first()).toHaveAttr('title', 'pl');
+            expect(this.$td.find('img').last()).toHaveAttr('title', 'lu');
           });
         });
       });
