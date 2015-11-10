@@ -19,11 +19,11 @@ define(function(require) {
     },
 
     createResultItemViews: function() {
-      // return this.collection.map(function(resultModel) {
-      //   return new ResultItemView({
-      //     model: resultModel
-      //   });
-      // });
+      return this.collection.map(function(resultModel) {
+        return new ResultItemView({
+          model: resultModel
+        });
+      });
     },
 
     getTableBodyContainer: function() {
