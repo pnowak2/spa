@@ -29,6 +29,10 @@ define(function(require) {
         title: 'Map',
         identifier: 'map',
         targetSelector: '.efc-pager'
+      }, {
+        title: 'ffsd',
+        identifier: 'mafsp',
+        targetSelector: '.efc-pagerfsd'
       }]
     }),
     resultsListWidget = new ResultsListWidget;

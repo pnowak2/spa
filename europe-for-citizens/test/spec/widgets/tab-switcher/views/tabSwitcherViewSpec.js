@@ -83,6 +83,18 @@ define(function(require) {
           expect(TabSwitcherView.prototype.createTabViews).toEqual(jasmine.any(Function));
         });
 
+        it('should return array of tab views with number of tab descriptors size', function() {
+          var tabSwitcherView = new TabSwitcherView([{
+            identifier: 'one'
+          }, {
+            identifier: 'two'
+          }, {
+            identifier: 'three'
+          }]);
+
+          expect(tabSwitcherView.createTabViews().length).toBe(3);
+        });
+
         it('should return array of tab views each initialized with its model', function() {
           var tabSwitcherView = new TabSwitcherView([{
               title: 'Tab title',
@@ -103,57 +115,93 @@ define(function(require) {
         });
       });
 
-      describe('events', function() {
-        beforeEach(function() {
-          spyOn(TabSwitcherView.prototype, 'didModelSelectionChange');
-          spyOn(TabSwitcherView.prototype, 'didClickTab');
-
-          this.tabSwitcherView = new TabSwitcherView;
+      describe('.calculateTabWidth', function() {
+        it('should be defined', function() {
+          expect(TabSwitcherView.prototype.calculateTabWidth).toEqual(jasmine.any(Function));
         });
 
-        describe('tab selection change', function() {
-          it('should call method on view', function() {
-            var fakeModel = {};
-
-            this.tabSwitcherView.collection.trigger('change:selected', fakeModel);
-
-            expect(this.tabSwitcherView.didModelSelectionChange).toHaveBeenCalledWith(fakeModel);
-          });
+        it('should calculate tab width based on tabs count', function() {
+          expect(TabSwitcherView.prototype.calculateTabWidth(4)).toEqual('25%');
         });
 
-        describe('tab selection request', function() {
-          it('should call method on view', function() {
-            var fakeData = {};
+        it('should set correct width if tab count is zero', function() {
+          expect(TabSwitcherView.prototype.calculateTabWidth(0)).toEqual('0%');
+        });
+      });
+    });
 
-            this.tabSwitcherView.collection.trigger('tab:selection-request', fakeData);
+    describe('events', function() {
+      beforeEach(function() {
+        spyOn(TabSwitcherView.prototype, 'didModelSelectionChange');
+        spyOn(TabSwitcherView.prototype, 'didClickTab');
 
-            expect(this.tabSwitcherView.didClickTab).toHaveBeenCalledWith(fakeData);
-          });
+        this.tabSwitcherView = new TabSwitcherView;
+      });
+
+      describe('tab selection change', function() {
+        it('should call method on view', function() {
+          var fakeModel = {};
+
+          this.tabSwitcherView.collection.trigger('change:selected', fakeModel);
+
+          expect(this.tabSwitcherView.didModelSelectionChange).toHaveBeenCalledWith(fakeModel);
         });
       });
 
-      describe('rendering', function() {
-        describe('.render()', function() {
-          it('should return view object', function() {
-            var view = new TabSwitcherView;
-            expect(view.render()).toBe(view);
-          });
+      describe('tab selection request', function() {
+        it('should call method on view', function() {
+          var fakeData = {};
 
-          it('should render tab views', function() {
-            var tabView = new TabView({
-                model: new TabModel
-              }),
-              tabSwitcherView = new TabSwitcherView;
+          this.tabSwitcherView.collection.trigger('tab:selection-request', fakeData);
 
-            spyOn(tabSwitcherView.$el, 'append');
-            spyOn(TabSwitcherView.prototype, 'createTabViews').and.returnValue([tabView]);
-            spyOn(TabView.prototype, 'render').and.callThrough();
+          expect(this.tabSwitcherView.didClickTab).toHaveBeenCalledWith(fakeData);
+        });
+      });
+    });
 
-            tabSwitcherView.render();
+    describe('rendering', function() {
+      describe('.render()', function() {
+        it('should return view object', function() {
+          var view = new TabSwitcherView;
+          expect(view.render()).toBe(view);
+        });
 
-            expect(tabView.render.calls.count()).toBe(1);
-            expect(tabSwitcherView.$el.append.calls.count()).toBe(1);
-            expect(tabSwitcherView.$el.append).toHaveBeenCalledWith(tabView.el);
+        it('should render tab views', function() {
+          var tabView = new TabView({
+              model: new TabModel
+            }),
+            tabSwitcherView = new TabSwitcherView;
+
+          spyOn(tabSwitcherView.$el, 'append');
+          spyOn(TabSwitcherView.prototype, 'createTabViews').and.returnValue([tabView]);
+          spyOn(TabView.prototype, 'render').and.callThrough();
+
+          tabSwitcherView.render();
+
+          expect(tabView.render.calls.count()).toBe(1);
+          expect(tabSwitcherView.$el.append.calls.count()).toBe(1);
+          expect(tabSwitcherView.$el.append).toHaveBeenCalledWith(tabView.el);
+        });
+
+        it('should have tab views width related to tabs count', function() {
+          var tabSwitcherView = new TabSwitcherView([{
+            identifier: 'one'
+          }, {
+            identifier: 'two'
+          }, {
+            identifier: 'three'
+          }, {
+            identifier: 'four'
+          }]);
+
+          tabSwitcherView.render();
+
+          expect(tabSwitcherView.$el.find('li')).toHaveLength(4);
+
+          tabSwitcherView.$el.find('li').each(function() {
+            expect(this).toHaveCss({
+              width: '25%'
+            });
           });
         });
       });
