@@ -40,6 +40,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/core/widgetSpec',
     'spec/core/utilsSpec',
     'spec/core/constantsSpec',
+    // app
+    'spec/appSpec',
     // service
     'spec/services/search/searchMapperSpec',
     'spec/services/search/searchServiceSpec',

@@ -2,13 +2,17 @@ define(function(require) {
   var $ = require('jquery'),
     Module = require('app/core/module'),
     Backbone = require('backbone'),
-    Router = require('app/routers/router'),
+    AppRouter = require('app/routers/appRouter'),
     AppModule = Module.extend({
       initialize: function() {
-        this._initializeAjaxEvents();
+        this.appRouter = new AppRouter;
+        this.appRouter.app = this;
+        this.initializeAjaxEvents();
+
+        Backbone.history.start();
       },
 
-      _initializeAjaxEvents: function() {
+      initializeAjaxEvents: function() {
         var self = this;
         $(document)
           .ajaxStart(function() {
@@ -18,7 +22,7 @@ define(function(require) {
             self.trigger('app:ajax:stop');
           })
           .ajaxError(function(event, jqxhr, settings, thrownError) {
-            self.trigger('app:ajax:error', event, jqxhr, settings, thrownError);
+            self.trigger('app:ajax:error', thrownError);
           });
       },
 
@@ -28,11 +32,8 @@ define(function(require) {
 
       showError: function(message) {}
     }),
-    appModule = new AppModule,
-    router = new Router;
 
-  router.app = appModule;
-  Backbone.history.start();
+    appModule = new AppModule;
 
   return appModule;
 });
