@@ -77,12 +77,16 @@ define(function(require) {
           expect(ResultsListView.prototype.getTableBodyContainer).toEqual(jasmine.any(Function));
         });
 
-        it('should return jquery dom object', function() {
+        it('should get table body element', function() {
           var view = new ResultsListView,
             fakeContainer = {},
             foundContainer;
 
-          spyOn(view.$el, 'find').and.returnValue(fakeContainer);
+          spyOn(view.$el, 'find').and.callFake(function(selector) {
+            if (selector === 'tbody') {
+              return fakeContainer;
+            }
+          });
 
           foundContainer = view.getTableBodyContainer();
 
@@ -140,9 +144,9 @@ define(function(require) {
               model: new ResultModel
             });
 
-          spyOn(fakeItemView, 'render').and.callThrough();
-          spyOn(ResultsListView.prototype, 'getTableBodyContainer').and.returnValue(fakeTableBodyContainer);
           spyOn(ResultsListView.prototype, 'createResultItemViews').and.returnValue([fakeItemView]);
+          spyOn(ResultsListView.prototype, 'getTableBodyContainer').and.returnValue(fakeTableBodyContainer);
+          spyOn(fakeItemView, 'render').and.callThrough();
 
           resultsListView.render();
 
