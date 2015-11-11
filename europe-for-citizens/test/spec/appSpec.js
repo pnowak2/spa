@@ -5,7 +5,7 @@ define(function(require) {
     Backbone = require('backbone'),
     $ = require('jquery');
 
-  describe('App', function() {
+  describe('App Module', function() {
     describe('type', function() {
       it('should be of module', function() {
         expect(app).toEqual(jasmine.any(Module));
@@ -22,32 +22,8 @@ define(function(require) {
       });
     });
 
-    describe('events', function() {
-      describe('ajax', function() {
-        beforeEach(function() {
-          spyOn(app, 'trigger');
-        });
-
-        it('should trigger app event when ajax call starts', function() {
-          $.event.trigger("ajaxStart")
-          expect(app.trigger).toHaveBeenCalledWith('app:ajax:start');
-        });
-
-        it('should trigger app event when ajax call stops', function() {
-          $.event.trigger("ajaxStop")
-          expect(app.trigger).toHaveBeenCalledWith('app:ajax:stop');
-        });
-
-        it('should trigger app event when ajax call failed', function() {
-          var fakeError = {};
-          $.event.trigger("ajaxError")
-          expect(app.trigger).toHaveBeenCalled();
-        });
-      });
-    });
-
     describe('properties', function() {
-      describe('.router', function() {
+      describe('.appRouter', function() {
         it('should be defined', function() {
           expect(app.appRouter).toEqual(jasmine.any(AppRouter));
         });
@@ -93,15 +69,43 @@ define(function(require) {
     });
 
     describe('events', function() {
-      it('should listen to router event', function() {
-        spyOn(app, 'didExecuteRoute');
-
-        app.appRouter.trigger('routed', 'eventname', {
-          foo: 'bar'
+      describe('ajax', function() {
+        beforeEach(function() {
+          spyOn(app, 'trigger');
         });
 
-        expect(app.didExecuteRoute).toHaveBeenCalledWith('eventname', {
-          foo: 'bar'
+        it('should trigger app event when ajax call starts', function() {
+          $.event.trigger("ajaxStart")
+          expect(app.trigger).toHaveBeenCalledWith('app:ajax:start');
+        });
+
+        it('should trigger app event when ajax call stops', function() {
+          $.event.trigger("ajaxStop")
+          expect(app.trigger).toHaveBeenCalledWith('app:ajax:stop');
+        });
+
+        it('should trigger app event when ajax call failed', function() {
+          var fakeError = {};
+          $.event.trigger("ajaxError")
+          expect(app.trigger).toHaveBeenCalled();
+        });
+      });
+
+      describe('routing', function() {
+        it('should listen to router event', function() {
+          spyOn(app, 'didExecuteRoute');
+          spyOn(app, 'initializeAjaxEvents');
+          spyOn(Backbone.history, 'start');
+
+          app.initialize();
+
+          app.appRouter.trigger('routed', 'eventname', {
+            foo: 'bar'
+          });
+
+          expect(app.didExecuteRoute).toHaveBeenCalledWith('eventname', {
+            foo: 'bar'
+          });
         });
       });
     });

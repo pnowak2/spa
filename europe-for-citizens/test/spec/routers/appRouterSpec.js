@@ -2,19 +2,19 @@ define(function(require) {
   var Backbone = require('backbone'),
     AppRouter = require('app/routers/appRouter');
 
-  xdescribe('Application Router', function() {
+  describe('Application Router', function() {
     beforeEach(function() {
+      spyOn(AppRouter.prototype, 'trigger');
 
       this.router = new AppRouter;
-
       try {
-        Backbone.history.start({
-          silent: true,
-          pushState: true
-        });
+        Backbone.history.start();
       } catch (e) {}
+    });
 
-      this.router.app = jasmine.createSpyObj('app', ['trigger']);
+    afterEach(function() {
+      this.router.navigate('');
+      this.router.trigger.calls.reset();
     });
 
     describe('type', function() {
@@ -24,14 +24,12 @@ define(function(require) {
     });
 
     describe('routes', function() {
-      it('search/:keyword', function() {
-        console.log('app', this.router.app)
-
+      it('searching by keyword should trigger router event', function() {
         this.router.navigate('search/bar', {
           trigger: true
         });
 
-        expect(this.router.app.trigger).toHaveBeenCalledWith('bar');
+        expect(this.router.trigger).toHaveBeenCalledWith('routed', 'app:route:search:keyword', 'bar');
       });
     });
   });

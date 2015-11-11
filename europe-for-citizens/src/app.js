@@ -3,15 +3,13 @@ define(function(require) {
     Module = require('app/core/module'),
     Backbone = require('backbone'),
     AppRouter = require('app/routers/appRouter'),
+
     AppModule = Module.extend({
       initialize: function() {
         this.initializeAjaxEvents();
         this.appRouter = new AppRouter;
-        Backbone.history.start();
-      },
-
-      startRouter: function() {
         this.listenTo(this.appRouter, 'routed', this.didExecuteRoute);
+        Backbone.history.start();
       },
 
       initializeAjaxEvents: function() {
@@ -37,9 +35,7 @@ define(function(require) {
       showWarning: function(message) {},
 
       showError: function(message) {}
-    }),
+    });
 
-    appModule = new AppModule;
-
-  return appModule;
+  return new AppModule;
 });
