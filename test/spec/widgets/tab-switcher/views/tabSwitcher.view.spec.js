@@ -45,6 +45,22 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(TabSwitcherView.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should reset collection with tab descriptors', function() {
+          var view = new TabSwitcherView,
+            fakeData = {};
+          spyOn(view.collection, 'reset');
+
+          view.update(fakeData);
+
+          expect(view.collection.reset).toHaveBeenCalledWith(fakeData);
+        });
+      });
+
       describe('.didClickTab()', function() {
         it('should be defined', function() {
           expect(TabSwitcherView.prototype.didClickTab).toEqual(jasmine.any(Function));
@@ -134,11 +150,12 @@ define(function(require) {
       beforeEach(function() {
         spyOn(TabSwitcherView.prototype, 'didModelSelectionChange');
         spyOn(TabSwitcherView.prototype, 'didClickTab');
+        spyOn(TabSwitcherView.prototype, 'render');
 
         this.tabSwitcherView = new TabSwitcherView;
       });
 
-      describe('tab selection change', function() {
+      describe('on tab selection change', function() {
         it('should call method on view', function() {
           var fakeModel = {};
 
@@ -148,13 +165,21 @@ define(function(require) {
         });
       });
 
-      describe('tab selection request', function() {
+      describe('on tab selection request', function() {
         it('should call method on view', function() {
           var fakeData = {};
 
           this.tabSwitcherView.collection.trigger('tab:selection-request', fakeData);
 
           expect(this.tabSwitcherView.didClickTab).toHaveBeenCalledWith(fakeData);
+        });
+      });
+
+      describe('on collection reset', function() {
+        it('should rerender', function() {
+          this.tabSwitcherView.collection.trigger('reset');
+
+          expect(this.tabSwitcherView.render).toHaveBeenCalled();
         });
       });
     });
@@ -164,6 +189,15 @@ define(function(require) {
         it('should return view object', function() {
           var view = new TabSwitcherView;
           expect(view.render()).toBe(view);
+        });
+
+        it('should empty markup before render', function() {
+          tabSwitcherView = new TabSwitcherView;
+          spyOn(tabSwitcherView.$el, 'empty');
+
+          tabSwitcherView.render();
+
+          expect(tabSwitcherView.$el.empty).toHaveBeenCalled();
         });
 
         it('should render tab views', function() {

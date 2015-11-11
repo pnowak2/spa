@@ -11,8 +11,13 @@ define(function(require) {
 
     initialize: function(tabDescriptors) {
       this.collection = new TabsCollection(tabDescriptors);
+      this.listenTo(this.collection, 'reset', this.render);
       this.listenTo(this.collection, 'change:selected', this.didModelSelectionChange);
       this.listenTo(this.collection, 'tab:selection-request', this.didClickTab);
+    },
+
+    update: function(tabDescriptors) {
+      this.collection.reset(tabDescriptors);
     },
 
     didClickTab: function(identifier) {
@@ -45,6 +50,8 @@ define(function(require) {
       var container = this.$el,
         tabViews = this.createTabViews(),
         tabWidth = this.calculateTabWidth(tabViews.length);
+
+      container.empty();
 
       _.each(tabViews, function(tabView) {
         tabView.$el.css('width', tabWidth);

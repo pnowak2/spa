@@ -8,6 +8,10 @@ define(function(require) {
       options = options || {};
 
       this.view = new TabSwitcherView(options.tabDescriptors);
+    },
+
+    update: function(data) {
+      this.view.update(data);
     }
   });
 });

@@ -34,5 +34,23 @@ define(function(require) {
         expect(lastCall.args[0]).toBe(fakeOptions.tabDescriptors);
       });
     });
+
+    describe('api', function() {
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(TabSwitcherComponent.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          spyOn(TabSwitcherView.prototype, 'update');
+          var component = new TabSwitcherComponent,
+            fakeData = {};
+
+          component.update(fakeData);
+
+          expect(component.view.update).toHaveBeenCalledWith(fakeData);
+        });
+      });
+    });
   });
 });

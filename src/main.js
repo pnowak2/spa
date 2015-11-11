@@ -14,7 +14,8 @@ requirejs.config({
 define(function(require) {
   var Backbone = require('backbone'),
     app = require('app/app.module'),
-    AppComponent = require('app/widgets/app/main.component');
+    AppComponent = require('app/widgets/app/main.component'),
+    appComponent = new AppComponent;
 
   Backbone.history.start();
 });

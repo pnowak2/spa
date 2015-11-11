@@ -19,7 +19,18 @@ define(function(require) {
     },
 
     render: function() {
-
+      this.tabSwitcherComponent.update([{
+        title: 'Lista',
+        identifier: 'list',
+        targetSelector: '.a',
+        selected: true
+      }, {
+        title: 'Map',
+        identifier: 'map',
+        targetSelector: '.b',
+        selected: false
+      }]);
+      $('body').append(this.tabSwitcherComponent.render().view.el);
     }
   });
 });
