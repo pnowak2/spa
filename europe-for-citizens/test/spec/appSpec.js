@@ -51,6 +51,10 @@ define(function(require) {
         it('should be defined', function() {
           expect(app.appRouter).toEqual(jasmine.any(AppRouter));
         });
+
+        it('should have reference to the app', function() {
+          expect(app.appRouter.app).toBe(app);
+        });
       });
     });
 
