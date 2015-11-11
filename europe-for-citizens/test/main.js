@@ -39,7 +39,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/core/moduleSpec',
     'spec/core/widgetSpec',
     'spec/core/utilsSpec',
-    'spec/core/constantsSpec',
+    // util
+    'spec/util/constantsSpec',
     // app
     'spec/appSpec',
     // service

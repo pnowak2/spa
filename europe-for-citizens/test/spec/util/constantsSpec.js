@@ -1,5 +1,5 @@
 define(function(require) {
-  var constants = require('app/core/constants');
+  var constants = require('app/util/constants');
 
   describe('Constants - Applications constants', function() {
     describe('type', function() {
