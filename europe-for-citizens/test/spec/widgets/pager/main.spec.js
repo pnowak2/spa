@@ -1,34 +1,34 @@
 define(function(require) {
 
-  var Widget = require('app/core/widget'),
-    PagerWidget = require('app/widgets/pager/main'),
+  var Component = require('app/core/component'),
+    PagerComponent = require('app/widgets/pager/main'),
     PagerModel = require('app/widgets/pager/models/pager.model'),
     PagerView = require('app/widgets/pager/views/pager.view');
 
-  describe('Pager Widget', function() {
+  describe('Pager Component', function() {
 
     describe('type', function() {
-      it('should be of widget', function() {
-        expect(PagerWidget.prototype).toEqual(jasmine.any(Widget));
+      it('should be of component', function() {
+        expect(PagerComponent.prototype).toEqual(jasmine.any(Component));
       });
     });
 
     describe('creation', function() {
       beforeEach(function() {
-        this.pagerWidget = new PagerWidget;
+        this.pagerComponent = new PagerComponent;
       });
 
       it('should be initialized with proper view', function() {
-        expect(this.pagerWidget.view).toEqual(jasmine.any(PagerView));
+        expect(this.pagerComponent.view).toEqual(jasmine.any(PagerView));
       });
 
       it('should pass options to pager model', function() {
         var fakeOptions = {
             fakeAttr: 'fakeValue'
           },
-          pagerWidget = new PagerWidget(fakeOptions);
+          pagerComponent = new PagerComponent(fakeOptions);
 
-        expect(pagerWidget.view.model.toJSON()).toEqual(jasmine.objectContaining({
+        expect(pagerComponent.view.model.toJSON()).toEqual(jasmine.objectContaining({
           fakeAttr: 'fakeValue'
         }));
       });
@@ -37,47 +37,47 @@ define(function(require) {
     describe('api', function() {
       describe('.getState()', function() {
         it('should be defined', function() {
-          expect(PagerWidget.prototype.getState).toEqual(jasmine.any(Function));
+          expect(PagerComponent.prototype.getState).toEqual(jasmine.any(Function));
         });
 
         it('should delegate the state to pager model', function() {
-          var pagerWidget = new PagerWidget,
+          var pagerComponent = new PagerComponent,
             fakePagerState = {};
 
-          spyOn(pagerWidget.view.model, 'toJSON').and.returnValue(fakePagerState);
-          expect(pagerWidget.getState()).toBe(fakePagerState);
+          spyOn(pagerComponent.view.model, 'toJSON').and.returnValue(fakePagerState);
+          expect(pagerComponent.getState()).toBe(fakePagerState);
         });
       });
 
       describe('.updateState()', function() {
         it('should be defined', function() {
-          expect(PagerWidget.prototype.updateState).toEqual(jasmine.any(Function));
+          expect(PagerComponent.prototype.updateState).toEqual(jasmine.any(Function));
         });
 
         it('should delegate to pager model', function() {
-          var pagerWidget = new PagerWidget,
+          var pagerComponent = new PagerComponent,
             fakeState = {};
 
-          spyOn(pagerWidget.view.model, 'update');
+          spyOn(pagerComponent.view.model, 'update');
 
-          pagerWidget.updateState(fakeState);
+          pagerComponent.updateState(fakeState);
 
-          expect(pagerWidget.view.model.update).toHaveBeenCalledWith(fakeState);
+          expect(pagerComponent.view.model.update).toHaveBeenCalledWith(fakeState);
         });
       });
     });
 
     describe('events', function() {
       it('should trigger event on page selection', function(done) {
-        var pagerWidget = new PagerWidget,
+        var pagerComponent = new PagerComponent,
           fakePagerDetails = {}
 
-        pagerWidget.on('pager:page:selected', function(pagerDetails) {
+        pagerComponent.on('pager:page:selected', function(pagerDetails) {
           expect(pagerDetails).toBe(fakePagerDetails);
           done();
         });
 
-        pagerWidget.view.trigger('pager:page:selected', fakePagerDetails);
+        pagerComponent.view.trigger('pager:page:selected', fakePagerDetails);
       });
     });
   });

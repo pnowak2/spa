@@ -1,8 +1,8 @@
 define(function(require) {
-  var Widget = require('app/core/widget'),
+  var Component = require('app/core/component'),
     ResultsListView = require('app/widgets/results/results-list/views/resultsList.view');
 
-  return Widget.extend({
+  return Component.extend({
     initialize: function() {
       this.view = new ResultsListView;
     },

@@ -1,37 +1,37 @@
 define(function(require) {
-  var Widget = require('app/core/widget'),
-    ResultsListWidget = require('app/widgets/results/results-list/main'),
+  var Component = require('app/core/component'),
+    ResultsListComponent = require('app/widgets/results/results-list/main'),
     ResultsListView = require('app/widgets/results/results-list/views/resultsList.view');
 
-  describe('Results List Widget', function() {
+  describe('Results List Component', function() {
     describe('type', function() {
-      it('should be of widget', function() {
-        expect(ResultsListWidget.prototype).toEqual(jasmine.any(Widget));
+      it('should be of component', function() {
+        expect(ResultsListComponent.prototype).toEqual(jasmine.any(Component));
       });
     });
 
     describe('creation', function() {
       it('should be initialized with proper view', function() {
-        var widget = new ResultsListWidget;
-        expect(widget.view).toEqual(jasmine.any(ResultsListView));
+        var component = new ResultsListComponent;
+        expect(component.view).toEqual(jasmine.any(ResultsListView));
       });
     });
 
     describe('api', function() {
       describe('.update()', function() {
         it('should be defined', function() {
-          expect(ResultsListWidget.prototype.update).toEqual(jasmine.any(Function));
+          expect(ResultsListComponent.prototype.update).toEqual(jasmine.any(Function));
         });
 
         it('should update view with passed data', function() {
-          var widget = new ResultsListWidget,
+          var component = new ResultsListComponent,
             fakeData = {};
-          spyOn(widget.view, 'update');
+          spyOn(component.view, 'update');
 
-          widget.update(fakeData);
+          component.update(fakeData);
 
-          expect(widget.view.update).toHaveBeenCalled();
-          expect(widget.view.update.calls.mostRecent().args[0]).toBe(fakeData);
+          expect(component.view.update).toHaveBeenCalled();
+          expect(component.view.update.calls.mostRecent().args[0]).toBe(fakeData);
         });
       });
     });

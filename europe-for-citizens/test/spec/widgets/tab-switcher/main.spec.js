@@ -1,25 +1,25 @@
 define(function(require) {
-  var Widget = require('app/core/widget'),
-    TabSwitcherWidget = require('app/widgets/tab-switcher/main'),
+  var Component = require('app/core/component'),
+    TabSwitcherComponent = require('app/widgets/tab-switcher/main'),
     TabSwitcherView = require('app/widgets/tab-switcher/views/tabSwitcher.view');
 
-  describe('Tab Switcher Widget', function() {
+  describe('Tab Switcher Component', function() {
     describe('type', function() {
-      it('should be of widget', function() {
-        expect(TabSwitcherWidget.prototype).toEqual(jasmine.any(Widget));
+      it('should be of component', function() {
+        expect(TabSwitcherComponent.prototype).toEqual(jasmine.any(Component));
       });
     });
 
     describe('creation', function() {
       it('should be initialized without options', function() {
         expect(function() {
-          new TabSwitcherWidget;
+          new TabSwitcherComponent;
         }).not.toThrow();
       });
 
       it('should have view defined', function() {
-        var widget = new TabSwitcherWidget;
-        expect(widget.view).toEqual(jasmine.any(TabSwitcherView));
+        var component = new TabSwitcherComponent;
+        expect(component.view).toEqual(jasmine.any(TabSwitcherView));
       });
 
       it('should pass tab descriptor array to its view', function() {
@@ -28,8 +28,8 @@ define(function(require) {
         var fakeOptions = {
             tabDescriptors: []
           },
-          widget = new TabSwitcherWidget(fakeOptions),
-          lastCall = widget.view.initialize.calls.mostRecent();
+          component = new TabSwitcherComponent(fakeOptions),
+          lastCall = component.view.initialize.calls.mostRecent();
 
         expect(lastCall.args[0]).toBe(fakeOptions.tabDescriptors);
       });

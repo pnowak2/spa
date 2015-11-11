@@ -1,9 +1,9 @@
 define(function(require) {
-  var Widget = require('app/core/widget'),
+  var Component = require('app/core/component'),
     TabSwitcherView = require('./views/tabSwitcher.view'),
     TabsCollection = require('./collections/tabs.collection');
 
-  return Widget.extend({
+  return Component.extend({
     initialize: function(options) {
       options = options || {};
 

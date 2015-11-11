@@ -1,7 +1,7 @@
 define(function(require) {
 
   var Module = require('app/core/module'),
-    EventBus = require('app/core/event'),
+    Event = require('app/core/event'),
     utils = require('app/core/utils'),
     _ = require('underscore');
 
@@ -35,10 +35,10 @@ define(function(require) {
         });
       });
 
-      describe('EventBus api', function() {
+      describe('Event api', function() {
         it('should be mixed in', function() {
           var moduleKeys = _.keys(Module.prototype),
-            eventBusKeys = _.keys(EventBus.prototype);
+            eventBusKeys = _.keys(Event.prototype);
 
           _.each(eventBusKeys, function(eventBusKey) {
             expect(moduleKeys).toContain(eventBusKey);

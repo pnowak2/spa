@@ -1,8 +1,8 @@
 define(function(require) {
-  var Widget = require('app/core/widget'),
+  var Component = require('app/core/component'),
     SearchBoxView = require('./views/searchBox.view');
 
-  return Widget.extend({
+  return Component.extend({
     initialize: function() {
       this.view = new SearchBoxView;
 

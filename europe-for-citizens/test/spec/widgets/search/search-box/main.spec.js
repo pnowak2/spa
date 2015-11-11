@@ -1,33 +1,33 @@
 define(function(require) {
-  var SearchBoxWidget = require('app/widgets/search/search-box/main'),
+  var SearchBoxComponent = require('app/widgets/search/search-box/main'),
     SearchBoxView = require('app/widgets/search/search-box/views/searchBox.view'),
-    Widget = require('app/core/widget');
+    Component = require('app/core/component');
 
-  describe('SearchBox Widget', function() {
+  describe('SearchBox Component', function() {
     describe('type', function() {
-      it('should be of widget', function() {
-        expect(SearchBoxWidget.prototype).toEqual(jasmine.any(Widget));
+      it('should be of component', function() {
+        expect(SearchBoxComponent.prototype).toEqual(jasmine.any(Component));
       });
     });
 
     describe('creation', function() {
       it('should be initialized with proper view', function() {
-        var widget = new SearchBoxWidget;
-        expect(widget.view).toEqual(jasmine.any(SearchBoxView));
+        var component = new SearchBoxComponent;
+        expect(component.view).toEqual(jasmine.any(SearchBoxView));
       });
     });
 
     describe('events', function() {
       it('should trigger event on search', function(done) {
-        var widget = new SearchBoxWidget,
+        var component = new SearchBoxComponent,
           fakeSearchCriteria = {};
 
-        widget.on('search:keyword', function(searchCriteria) {
+        component.on('search:keyword', function(searchCriteria) {
           expect(searchCriteria).toBe(fakeSearchCriteria);
           done();
         });
 
-        widget.view.trigger('search:keyword', fakeSearchCriteria);
+        component.view.trigger('search:keyword', fakeSearchCriteria);
       });
     });
   });
