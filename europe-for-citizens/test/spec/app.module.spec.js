@@ -1,7 +1,7 @@
 define(function(require) {
-  var app = require('app/app'),
+  var app = require('app/app.module'),
     Module = require('app/core/module'),
-    AppRouter = require('app/routers/appRouter'),
+    AppRouter = require('app/app.router'),
     Backbone = require('backbone'),
     $ = require('jquery');
 

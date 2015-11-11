@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    AppRouter = require('app/routers/appRouter');
+    AppRouter = require('app/app.router');
 
   describe('Application Router', function() {
     beforeEach(function() {
