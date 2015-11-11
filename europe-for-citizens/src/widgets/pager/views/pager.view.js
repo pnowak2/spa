@@ -1,12 +1,12 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    PageCollection = require('../collections/pageCollection'),
-    PagerModel = require('../models/pagerModel'),
-    PageModel = require('../models/pageModel'),
-    PageView = require('../views/pageView'),
+    PageCollection = require('../collections/page.collection'),
+    PagerModel = require('../models/pager.model'),
+    PageModel = require('../models/page.model'),
+    PageView = require('../views/page.view'),
     Mustache = require('mustache'),
-    tpl = require('text!../templates/pager.html');
+    tpl = require('text!../templates/pager.tpl.html');
 
   return Backbone.View.extend({
     className: 'efc-pager',

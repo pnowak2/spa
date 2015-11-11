@@ -1,6 +1,6 @@
 define(function(require) {
-  var PageView = require('app/widgets/pager/views/pageView'),
-    PageModel = require('app/widgets/pager/models/pageModel');
+  var PageView = require('app/widgets/pager/views/page.view'),
+    PageModel = require('app/widgets/pager/models/page.model');
 
   describe('Page View', function() {
     describe('type', function() {

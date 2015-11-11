@@ -1,10 +1,10 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    PagerModel = require('app/widgets/pager/models/pagerModel'),
-    PageModel = require('app/widgets/pager/models/pageModel'),
-    PagerView = require('app/widgets/pager/views/pagerView'),
-    PageView = require('app/widgets/pager/views/pageView'),
-    PageCollection = require('app/widgets/pager/collections/pageCollection');
+    PagerModel = require('app/widgets/pager/models/pager.model'),
+    PageModel = require('app/widgets/pager/models/page.model'),
+    PagerView = require('app/widgets/pager/views/pager.view'),
+    PageView = require('app/widgets/pager/views/page.view'),
+    PageCollection = require('app/widgets/pager/collections/page.collection');
 
   describe('Pager View', function() {
     describe('type', function() {

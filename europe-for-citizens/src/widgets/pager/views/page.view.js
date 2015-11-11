@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    PageModel = require('../models/pageModel'),
+    PageModel = require('../models/page.model'),
     Mustache = require('mustache');
 
   return Backbone.View.extend({

@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    PagerModel = require('app/widgets/pager/models/pagerModel');
+    PagerModel = require('app/widgets/pager/models/pager.model');
 
   describe('Pager Model', function() {
     describe('type', function() {

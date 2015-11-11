@@ -1,6 +1,6 @@
 define(function(require) {
-  var PageCollection = require('app/widgets/pager/collections/pageCollection'),
-    PageModel = require('app/widgets/pager/models/pageModel'),
+  var PageCollection = require('app/widgets/pager/collections/page.collection'),
+    PageModel = require('app/widgets/pager/models/page.model'),
     Backbone = require('backbone');
 
   describe('Page Collection', function() {

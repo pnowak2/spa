@@ -1,7 +1,7 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    PageModel = require('../models/pageModel');
+    PageModel = require('../models/page.model');
 
   return Backbone.Collection.extend({
     model: PageModel

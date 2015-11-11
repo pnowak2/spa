@@ -1,7 +1,7 @@
 define(function(require) {
   var Widget = require('app/core/widget'),
-    PagerModel = require('./models/pagerModel'),
-    PagerView = require('./views/pagerView');
+    PagerModel = require('./models/pager.model'),
+    PagerView = require('./views/pager.view');
 
   return Widget.extend({
     initialize: function(attrs) {
