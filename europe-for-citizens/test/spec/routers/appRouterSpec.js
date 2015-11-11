@@ -14,7 +14,7 @@ define(function(require) {
         });
       } catch (e) {}
 
-      // this.router.app = jasmine.createSpyObj('app', ['trigger']);
+      this.router.app = jasmine.createSpyObj('app', ['trigger']);
     });
 
     describe('type', function() {

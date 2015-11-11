@@ -13,6 +13,7 @@ requirejs.config({
 
 define(function(require) {
   var $ = require('jquery'),
+    app = require('app/app'),
     PagerWidget = require('app/widgets/pager/main'),
     SearchWidget = require('app/widgets/search/search-box/main'),
     TabSwitcherWidget = require('app/widgets/tab-switcher/main'),

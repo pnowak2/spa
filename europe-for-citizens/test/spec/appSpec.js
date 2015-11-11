@@ -51,14 +51,28 @@ define(function(require) {
         it('should be defined', function() {
           expect(app.appRouter).toEqual(jasmine.any(AppRouter));
         });
-
-        it('should have reference to the app', function() {
-          expect(app.appRouter.app).toBe(app);
-        });
       });
     });
 
     describe('api', function() {
+      describe('.didExecuteRoute()', function() {
+        it('should be defined', function() {
+          expect(app.didExecuteRoute).toEqual(jasmine.any(Function));
+        });
+
+        it('should trigger app event', function() {
+          spyOn(app, 'trigger');
+
+          app.didExecuteRoute('routename', {
+            foo: 'bar'
+          });
+
+          expect(app.trigger).toHaveBeenCalledWith('routename', {
+            foo: 'bar'
+          });
+        });
+      });
+
       describe('.showInfo()', function() {
         it('should be defined', function() {
           expect(app.showInfo).toEqual(jasmine.any(Function));
@@ -74,6 +88,20 @@ define(function(require) {
       describe('.showError()', function() {
         it('should be defined', function() {
           expect(app.showError).toEqual(jasmine.any(Function));
+        });
+      });
+    });
+
+    describe('events', function() {
+      it('should listen to router event', function() {
+        spyOn(app, 'didExecuteRoute');
+
+        app.appRouter.trigger('routed', 'eventname', {
+          foo: 'bar'
+        });
+
+        expect(app.didExecuteRoute).toHaveBeenCalledWith('eventname', {
+          foo: 'bar'
         });
       });
     });

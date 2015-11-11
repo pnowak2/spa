@@ -5,11 +5,13 @@ define(function(require) {
     AppRouter = require('app/routers/appRouter'),
     AppModule = Module.extend({
       initialize: function() {
-        this.appRouter = new AppRouter;
-        this.appRouter.app = this;
         this.initializeAjaxEvents();
-
+        this.appRouter = new AppRouter;
         Backbone.history.start();
+      },
+
+      startRouter: function() {
+        this.listenTo(this.appRouter, 'routed', this.didExecuteRoute);
       },
 
       initializeAjaxEvents: function() {
@@ -24,6 +26,10 @@ define(function(require) {
           .ajaxError(function(event, jqxhr, settings, thrownError) {
             self.trigger('app:ajax:error', thrownError);
           });
+      },
+
+      didExecuteRoute: function(eventName, param) {
+        this.trigger(eventName, param);
       },
 
       showInfo: function(message) {},
