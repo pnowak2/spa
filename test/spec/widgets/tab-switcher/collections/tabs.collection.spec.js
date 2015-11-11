@@ -30,23 +30,63 @@ define(function(require) {
         }).not.toThrow();
       });
 
-      it('should throw if more than one model is selected', function() {
-        expect(function() {
-          new TabsCollection([{
-            identifier: 'first',
-            selected: true
-          }, {
-            identifier: 'second',
-            selected: false
-          }, {
-            identifier: 'third',
-            selected: true
-          }]);
-        }).toThrowError('More than one model is selected');
+      it('should validate tab descriptors', function() {
+        spyOn(TabsCollection.prototype, 'reset');
+        spyOn(TabsCollection.prototype, 'validateTabDescriptors');
+
+        var fakeDescriptors = {},
+          collection = new TabsCollection(fakeDescriptors);
+
+        expect(collection.validateTabDescriptors).toHaveBeenCalledWith(fakeDescriptors);
       });
     });
 
     describe('api', function() {
+      describe('.reset()', function() {
+        it('should be overriden', function() {
+          expect(TabsCollection.prototype.hasOwnProperty('reset')).toBeTruthy();
+        });
+
+        it('should call parent implementation', function() {
+          spyOn(TabsCollection.__super__, 'reset');
+          TabsCollection.prototype.reset();
+
+          expect(TabsCollection.__super__.reset).toHaveBeenCalled();
+        });
+
+        it('should validate tab descriptors', function() {
+          spyOn(TabsCollection.prototype, 'validateTabDescriptors');
+
+          var collection = new TabsCollection,
+            fakeDescriptors = {};
+
+          collection.reset(fakeDescriptors);
+
+          expect(collection.validateTabDescriptors).toHaveBeenCalledWith(fakeDescriptors);
+        });
+      });
+
+      describe('.validateTabDescriptors()', function() {
+        it('should be redefined', function() {
+          expect(TabsCollection.prototype.validateTabDescriptors).toEqual(jasmine.any(Function));
+        });
+
+        it('should throw if more than one model is selected', function() {
+          expect(function() {
+            TabsCollection.prototype.validateTabDescriptors([{
+              identifier: 'first',
+              selected: true
+            }, {
+              identifier: 'second',
+              selected: false
+            }, {
+              identifier: 'third',
+              selected: true
+            }])
+          }).toThrowError('More than one model is selected');
+        });
+      });
+
       describe('.selectedTabs()', function() {
         it('should be defined', function() {
           expect(TabsCollection.prototype.selectedTabs).toEqual(jasmine.any(Function));

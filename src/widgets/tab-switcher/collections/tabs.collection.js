@@ -5,8 +5,17 @@ define(function(require) {
   return Backbone.Collection.extend({
     model: TabModel,
 
-    initialize: function(models) {
-      var selectedModels = _.where(models, {
+    initialize: function(tabDescriptors) {
+      this.validateTabDescriptors(tabDescriptors);
+    },
+
+    reset: function(tabDescriptors) {
+      this.validateTabDescriptors(tabDescriptors);
+      this.constructor.__super__.reset.apply(this, arguments);
+    },
+
+    validateTabDescriptors: function(tabDescriptors) {
+      var selectedModels = _.where(tabDescriptors, {
         selected: true
       });
 
