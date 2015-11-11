@@ -54,13 +54,13 @@ define(function(require) {
         expect(function() {
           new PagerView({
             model: {}
-          })
+          });
         }).toThrowError('model is not of correct type');
 
         expect(function() {
           new PagerView({
             model: ''
-          })
+          });
         }).toThrowError('model is not of correct type');
       });
     });
@@ -76,6 +76,26 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(PagerView.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to model', function() {
+          var view = new PagerView({
+              model: new PagerModel
+            }),
+            fakeData = {};
+
+          spyOn(view.model, 'update');
+
+          view.update(fakeData);
+
+          expect(view.model.update.calls.count()).toBe(1);
+          expect(view.model.update.calls.mostRecent().args[0]).toBe(fakeData);
+        });
+      });
+
       describe('.didChangeCurrentPage()', function() {
         it('should be defined', function() {
           expect(PagerView.prototype.didChangeCurrentPage).toEqual(jasmine.any(Function));

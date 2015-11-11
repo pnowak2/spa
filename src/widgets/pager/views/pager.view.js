@@ -31,6 +31,10 @@ define(function(require) {
       'click .efc-pager-last': 'didClickLastPageButton'
     },
 
+    update: function(data) {
+      this.model.update(data);
+    },
+
     didChangeCurrentPage: function() {
       this.trigger('pager:page:selected', this.model.toJSON());
     },

@@ -54,15 +54,15 @@ define(function(require) {
           expect(PagerComponent.prototype.update).toEqual(jasmine.any(Function));
         });
 
-        it('should delegate to pager model', function() {
+        it('should delegate to pager view', function() {
           var pagerComponent = new PagerComponent,
             fakeState = {};
 
-          spyOn(pagerComponent.view.model, 'update');
+          spyOn(pagerComponent.view, 'update');
 
           pagerComponent.update(fakeState);
 
-          expect(pagerComponent.view.model.update).toHaveBeenCalledWith(fakeState);
+          expect(pagerComponent.view.update).toHaveBeenCalledWith(fakeState);
         });
       });
     });

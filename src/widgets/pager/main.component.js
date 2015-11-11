@@ -19,7 +19,7 @@ define(function(require) {
     },
 
     update: function(state) {
-      this.view.model.update(state);
+      this.view.update(state);
     }
   });
 });
