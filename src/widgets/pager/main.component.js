@@ -18,7 +18,7 @@ define(function(require) {
       return this.view.model.toJSON();
     },
 
-    updateState: function(state) {
+    update: function(state) {
       this.view.model.update(state);
     }
   });

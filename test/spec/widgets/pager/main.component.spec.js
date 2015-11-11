@@ -49,9 +49,9 @@ define(function(require) {
         });
       });
 
-      describe('.updateState()', function() {
+      describe('.update()', function() {
         it('should be defined', function() {
-          expect(PagerComponent.prototype.updateState).toEqual(jasmine.any(Function));
+          expect(PagerComponent.prototype.update).toEqual(jasmine.any(Function));
         });
 
         it('should delegate to pager model', function() {
@@ -60,7 +60,7 @@ define(function(require) {
 
           spyOn(pagerComponent.view.model, 'update');
 
-          pagerComponent.updateState(fakeState);
+          pagerComponent.update(fakeState);
 
           expect(pagerComponent.view.model.update).toHaveBeenCalledWith(fakeState);
         });
