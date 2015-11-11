@@ -1,6 +1,6 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    TabSwitcherComponent = require('app/widgets/tab-switcher/main'),
+    TabSwitcherComponent = require('app/widgets/tab-switcher/main.component'),
     TabSwitcherView = require('app/widgets/tab-switcher/views/tabSwitcher.view');
 
   describe('Tab Switcher Component', function() {

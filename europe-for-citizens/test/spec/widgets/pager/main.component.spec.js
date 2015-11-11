@@ -1,7 +1,7 @@
 define(function(require) {
 
   var Component = require('app/core/component'),
-    PagerComponent = require('app/widgets/pager/main'),
+    PagerComponent = require('app/widgets/pager/main.component'),
     PagerModel = require('app/widgets/pager/models/pager.model'),
     PagerView = require('app/widgets/pager/views/pager.view');
 

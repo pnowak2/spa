@@ -1,6 +1,6 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    ResultsListComponent = require('app/widgets/results/results-list/main'),
+    ResultsListComponent = require('app/widgets/results/results-list/main.component'),
     ResultsListView = require('app/widgets/results/results-list/views/resultsList.view');
 
   describe('Results List Component', function() {

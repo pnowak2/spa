@@ -1,5 +1,5 @@
 define(function(require) {
-  var SearchBoxComponent = require('app/widgets/search/search-box/main'),
+  var SearchBoxComponent = require('app/widgets/search/search-box/main.component'),
     SearchBoxView = require('app/widgets/search/search-box/views/searchBox.view'),
     Component = require('app/core/component');
 
