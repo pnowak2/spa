@@ -41,6 +41,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/core/utilsSpec',
     // util
     'spec/util/constantsSpec',
+    // app router
+    'spec/routers/appRouterSpec',
     // app
     'spec/appSpec',
     // service
