@@ -40,30 +40,33 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'spec/core/utils.spec',
     // util
     'spec/util/constants.spec',
-    // app
+    // app module
     'spec/app.module.spec',
+    // app router
     'spec/app.router.spec',
     // service
     'spec/services/search/search.mapper.spec',
     'spec/services/search/search.service.spec',
-    // pager
+    // application component
+    'spec/widgets/app/main.component.spec',
+    // pager component
     'spec/widgets/pager/main.component.spec',
     'spec/widgets/pager/models/pager.model.spec',
     'spec/widgets/pager/models/page.model.spec',
     'spec/widgets/pager/collections/page.collection.spec',
     'spec/widgets/pager/views/pager.view.spec',
     'spec/widgets/pager/views/page.view.spec',
-    // tab switcher
+    // tab switcher component
     'spec/widgets/tab-switcher/main.component.spec',
     'spec/widgets/tab-switcher/models/tab.model.spec',
     'spec/widgets/tab-switcher/collections/tabs.collection.spec',
     'spec/widgets/tab-switcher/views/tabSwitcher.view.spec',
     'spec/widgets/tab-switcher/views/tab.view.spec',
-    // search
+    // search component
     'spec/widgets/search/search-box/main.component.spec',
     'spec/widgets/search/search-box/models/searchBox.model.spec',
     'spec/widgets/search/search-box/views/searchBox.view.spec',
-    // results list
+    // results list component
     'spec/widgets/results/results-list/main.component.spec',
     'spec/widgets/results/results-list/models/result.model.spec',
     'spec/widgets/results/results-list/collections/results.collection.spec',
