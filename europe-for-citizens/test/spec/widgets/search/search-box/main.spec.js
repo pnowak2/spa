@@ -1,6 +1,6 @@
 define(function(require) {
   var SearchBoxWidget = require('app/widgets/search/search-box/main'),
-    SearchBoxView = require('app/widgets/search/search-box/views/searchBoxView'),
+    SearchBoxView = require('app/widgets/search/search-box/views/searchBox.view'),
     Widget = require('app/core/widget');
 
   describe('SearchBox Widget', function() {

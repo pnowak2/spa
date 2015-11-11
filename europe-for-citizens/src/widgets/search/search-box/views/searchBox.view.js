@@ -1,9 +1,9 @@
 define(function(require) {
   var Backbone = require('backbone'),
     constants = require('app/util/constants'),
-    SearchBoxModel = require('../models/searchBoxModel'),
     Mustache = require('mustache'),
-    tpl = require('text!../templates/searchbox.html');
+    SearchBoxModel = require('../models/searchBox.model'),
+    tpl = require('text!../templates/searchbox.tpl.html');
 
   return Backbone.View.extend({
     className: 'efc-searchbox',

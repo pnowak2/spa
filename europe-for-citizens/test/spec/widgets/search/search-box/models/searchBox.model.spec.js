@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    SearchBoxModel = require('app/widgets/search/search-box/models/searchBoxModel');
+    SearchBoxModel = require('app/widgets/search/search-box/models/searchBox.model');
 
   describe('SearchBox Model', function() {
     describe('type', function() {
