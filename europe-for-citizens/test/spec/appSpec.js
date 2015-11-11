@@ -12,16 +12,6 @@ define(function(require) {
       });
     });
 
-    describe('creation', function() {
-      it('should start backbone history', function() {
-        spyOn(Backbone.history, 'start');
-
-        app.initialize();
-
-        expect(Backbone.history.start).toHaveBeenCalled();
-      });
-    });
-
     describe('properties', function() {
       describe('.appRouter', function() {
         it('should be defined', function() {

@@ -9,7 +9,6 @@ define(function(require) {
         this.initializeAjaxEvents();
         this.appRouter = new AppRouter;
         this.listenTo(this.appRouter, 'route:executed', this.didExecuteRoute);
-        Backbone.history.start();
       },
 
       initializeAjaxEvents: function() {
