@@ -1,9 +1,9 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    EventBus = function() {};
+    Event = function() {};
 
-  _.extend(EventBus.prototype, Backbone.Events);
+  _.extend(Event.prototype, Backbone.Events);
 
-  return EventBus;
+  return Event;
 });

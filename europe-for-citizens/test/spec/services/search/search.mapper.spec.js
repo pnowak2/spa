@@ -1,5 +1,5 @@
 define(function(require) {
-  var searchMapper = require('app/services/search/searchMapper'),
+  var searchMapper = require('app/services/search/search.mapper'),
 
     testResponses = {
       allDataOneRow: {

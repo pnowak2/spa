@@ -1,13 +1,13 @@
 define(function(require) {
   var _ = require('underscore'),
-    EventBus = require('./eventBus'),
+    Event = require('./event'),
     utils = require('./utils');
 
   var Module = function() {
     this.initialize.apply(this, arguments);
   }
 
-  _.extend(Module.prototype, EventBus.prototype, {
+  _.extend(Module.prototype, Event.prototype, {
     initialize: function() {}
   });
 

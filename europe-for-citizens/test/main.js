@@ -35,41 +35,41 @@ requirejs.config({
 require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
   require([
     // core
-    'spec/core/eventBusSpec',
-    'spec/core/moduleSpec',
-    'spec/core/widgetSpec',
-    'spec/core/utilsSpec',
+    'spec/core/event.spec',
+    'spec/core/module.spec',
+    'spec/core/widget.spec',
+    'spec/core/utils.spec',
     // util
-    'spec/util/constantsSpec',
+    'spec/util/constants.spec',
     // app
     'spec/app.module.spec',
     'spec/app.router.spec',
     // service
-    'spec/services/search/searchMapperSpec',
-    'spec/services/search/searchServiceSpec',
+    'spec/services/search/search.mapper.spec',
+    'spec/services/search/search.service.spec',
     // pager
-    'spec/widgets/pager/mainSpec',
-    'spec/widgets/pager/models/pagerModelSpec',
-    'spec/widgets/pager/models/pageModelSpec',
-    'spec/widgets/pager/collections/pageCollectionSpec',
-    'spec/widgets/pager/views/pagerViewSpec',
-    'spec/widgets/pager/views/pageViewSpec',
+    'spec/widgets/pager/main.spec',
+    'spec/widgets/pager/models/pager.model.spec',
+    'spec/widgets/pager/models/page.model.spec',
+    'spec/widgets/pager/collections/page.collection.spec',
+    'spec/widgets/pager/views/pager.view.spec',
+    'spec/widgets/pager/views/page.view.spec',
     // tab switcher
-    'spec/widgets/tab-switcher/mainSpec',
-    'spec/widgets/tab-switcher/models/tabModelSpec',
-    'spec/widgets/tab-switcher/collections/tabsCollectionSpec',
-    'spec/widgets/tab-switcher/views/tabSwitcherViewSpec',
-    'spec/widgets/tab-switcher/views/tabViewSpec',
+    'spec/widgets/tab-switcher/main.spec',
+    'spec/widgets/tab-switcher/models/tab.model.spec',
+    'spec/widgets/tab-switcher/collections/tabs.collection.spec',
+    'spec/widgets/tab-switcher/views/tabSwitcher.view.spec',
+    'spec/widgets/tab-switcher/views/tab.view.spec',
     // search
-    'spec/widgets/search/search-box/mainSpec',
-    'spec/widgets/search/search-box/models/searchBoxModelSpec',
-    'spec/widgets/search/search-box/views/searchBoxViewSpec',
+    'spec/widgets/search/search-box/main.spec',
+    'spec/widgets/search/search-box/models/searchBox.model.spec',
+    'spec/widgets/search/search-box/views/searchBox.view.spec',
     // results list
-    'spec/widgets/results/results-list/mainSpec',
-    'spec/widgets/results/results-list/models/resultModelSpec',
-    'spec/widgets/results/results-list/collections/resultsCollectionSpec',
-    'spec/widgets/results/results-list/views/resultsListViewSpec',
-    'spec/widgets/results/results-list/views/resultItemViewSpec'
+    'spec/widgets/results/results-list/main.spec',
+    'spec/widgets/results/results-list/models/result.model.spec',
+    'spec/widgets/results/results-list/collections/results.collection.spec',
+    'spec/widgets/results/results-list/views/resultsList.view.spec',
+    'spec/widgets/results/results-list/views/resultItem.view.spec'
   ], function() {
     window.onload();
   });

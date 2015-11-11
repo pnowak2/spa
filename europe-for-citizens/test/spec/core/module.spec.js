@@ -1,7 +1,7 @@
 define(function(require) {
 
   var Module = require('app/core/module'),
-    EventBus = require('app/core/eventBus'),
+    EventBus = require('app/core/event'),
     utils = require('app/core/utils'),
     _ = require('underscore');
 
