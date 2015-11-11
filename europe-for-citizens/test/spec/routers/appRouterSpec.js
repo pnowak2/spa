@@ -29,7 +29,7 @@ define(function(require) {
           trigger: true
         });
 
-        expect(this.router.trigger).toHaveBeenCalledWith('routed', 'app:route:search:keyword', 'bar');
+        expect(this.router.trigger).toHaveBeenCalledWith('route:executed', 'app:route:search:keyword', 'bar');
       });
     });
   });

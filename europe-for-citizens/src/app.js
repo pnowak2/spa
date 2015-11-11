@@ -8,7 +8,7 @@ define(function(require) {
       initialize: function() {
         this.initializeAjaxEvents();
         this.appRouter = new AppRouter;
-        this.listenTo(this.appRouter, 'routed', this.didExecuteRoute);
+        this.listenTo(this.appRouter, 'route:executed', this.didExecuteRoute);
         Backbone.history.start();
       },
 

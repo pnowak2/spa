@@ -99,7 +99,7 @@ define(function(require) {
 
           app.initialize();
 
-          app.appRouter.trigger('routed', 'eventname', {
+          app.appRouter.trigger('route:executed', 'eventname', {
             foo: 'bar'
           });
 
