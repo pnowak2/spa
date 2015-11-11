@@ -1,5 +1,5 @@
 define(function(require) {
-  var ResultModel = require('app/widgets/results/results-list/models/resultModel');
+  var ResultModel = require('app/widgets/results/results-list/models/result.model');
 
   describe('Result List Model', function() {
     describe('type', function() {

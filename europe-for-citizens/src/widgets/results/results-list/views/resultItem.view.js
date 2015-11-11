@@ -2,8 +2,8 @@ define(function(require) {
   var _ = require('underscore'),
     Mustache = require('mustache'),
     Backbone = require('backbone'),
-    ResultModel = require('../models/resultModel'),
-    tpl = require('text!../templates/result-item.html');
+    ResultModel = require('../models/result.model'),
+    tpl = require('text!../templates/result-item.tpl.html');
 
   return Backbone.View.extend({
     tagName: 'tr',

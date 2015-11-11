@@ -1,10 +1,10 @@
 define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
-    ResultsListView = require('app/widgets/results/results-list/views/resultsListView'),
-    ResultItemView = require('app/widgets/results/results-list/views/resultItemView'),
-    ResultsCollection = require('app/widgets/results/results-list/collections/resultsCollection'),
-    ResultModel = require('app/widgets/results/results-list/models/resultModel');
+    ResultsListView = require('app/widgets/results/results-list/views/resultsList.view'),
+    ResultItemView = require('app/widgets/results/results-list/views/resultItem.view'),
+    ResultsCollection = require('app/widgets/results/results-list/collections/results.collection'),
+    ResultModel = require('app/widgets/results/results-list/models/result.model');
 
   describe('Results List View', function() {
     describe('type', function() {

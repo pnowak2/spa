@@ -1,7 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    ResultsCollection = require('app/widgets/results/results-list/collections/resultsCollection'),
-    ResultModel = require('app/widgets/results/results-list/models/resultModel');
+    ResultsCollection = require('app/widgets/results/results-list/collections/results.collection'),
+    ResultModel = require('app/widgets/results/results-list/models/result.model');
 
   describe('Results List Collection', function() {
     describe('type', function() {

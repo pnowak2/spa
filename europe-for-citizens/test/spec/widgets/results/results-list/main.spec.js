@@ -1,7 +1,7 @@
 define(function(require) {
   var Widget = require('app/core/widget'),
     ResultsListWidget = require('app/widgets/results/results-list/main'),
-    ResultsListView = require('app/widgets/results/results-list/views/resultsListView');
+    ResultsListView = require('app/widgets/results/results-list/views/resultsList.view');
 
   describe('Results List Widget', function() {
     describe('type', function() {

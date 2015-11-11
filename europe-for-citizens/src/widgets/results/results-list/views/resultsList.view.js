@@ -2,9 +2,9 @@ define(function(require) {
   var _ = require('underscore'),
     Mustache = require('mustache'),
     Backbone = require('backbone'),
-    ResultItemView = require('./resultItemView'),
-    ResultsCollection = require('../collections/resultsCollection'),
-    tpl = require('text!../templates/results-list.html');
+    ResultItemView = require('./resultItem.view'),
+    ResultsCollection = require('../collections/results.collection'),
+    tpl = require('text!../templates/results-list.tpl.html');
 
   return Backbone.View.extend({
     className: 'efc-results-list',

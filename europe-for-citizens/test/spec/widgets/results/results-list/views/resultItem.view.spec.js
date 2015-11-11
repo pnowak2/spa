@@ -1,7 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    ResultItemView = require('app/widgets/results/results-list/views/resultItemView'),
-    ResultModel = require('app/widgets/results/results-list/models/resultModel');
+    ResultItemView = require('app/widgets/results/results-list/views/resultItem.view'),
+    ResultModel = require('app/widgets/results/results-list/models/result.model');
 
   describe('Result List Item View', function() {
     describe('type', function() {

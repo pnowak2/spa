@@ -1,6 +1,6 @@
 define(function(require) {
   var Widget = require('app/core/widget'),
-    ResultsListView = require('app/widgets/results/results-list/views/resultsListView');
+    ResultsListView = require('app/widgets/results/results-list/views/resultsList.view');
 
   return Widget.extend({
     initialize: function() {
