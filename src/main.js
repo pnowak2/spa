@@ -13,7 +13,7 @@ requirejs.config({
 
 define(function(require) {
   var Backbone = require('backbone'),
-    app = require('app/app');
+    app = require('app/app.module');
 
   Backbone.history.start();
 });

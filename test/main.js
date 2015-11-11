@@ -1,9 +1,8 @@
 requirejs.config({
   baseUrl: '../../',
   paths: {
-    spec: 'europe-for-citizens/test/spec',
-    app: 'europe-for-citizens/src',
-    templates: 'europe-for-citizens/src/templates',
+    spec: 'test/spec',
+    app: 'src',
     jquery: 'lib/jquery/dist/jquery.min',
     underscore: 'lib/underscore/underscore-min',
     backbone: 'lib/backbone/backbone-min',
