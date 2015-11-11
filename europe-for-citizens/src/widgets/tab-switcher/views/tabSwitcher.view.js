@@ -1,8 +1,8 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    TabView = require('./tabView'),
-    TabsCollection = require('../collections/tabsCollection');
+    TabView = require('./tab.view'),
+    TabsCollection = require('../collections/tabs.collection');
 
   return Backbone.View.extend({
     tagName: 'ul',

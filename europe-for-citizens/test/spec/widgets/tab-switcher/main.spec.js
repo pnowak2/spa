@@ -1,7 +1,7 @@
 define(function(require) {
   var Widget = require('app/core/widget'),
     TabSwitcherWidget = require('app/widgets/tab-switcher/main'),
-    TabSwitcherView = require('app/widgets/tab-switcher/views/tabSwitcherView');
+    TabSwitcherView = require('app/widgets/tab-switcher/views/tabSwitcher.view');
 
   describe('Tab Switcher Widget', function() {
     describe('type', function() {

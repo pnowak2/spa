@@ -1,7 +1,7 @@
 define(function(require) {
   var Widget = require('app/core/widget'),
-    TabSwitcherView = require('./views/tabSwitcherView'),
-    TabsCollection = require('./collections/tabsCollection');
+    TabSwitcherView = require('./views/tabSwitcher.view'),
+    TabsCollection = require('./collections/tabs.collection');
 
   return Widget.extend({
     initialize: function(options) {

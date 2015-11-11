@@ -1,5 +1,5 @@
 define(function(require) {
-  var TabModel = require('app/widgets/tab-switcher/models/tabModel'),
+  var TabModel = require('app/widgets/tab-switcher/models/tab.model'),
     Backbone = require('backbone');
 
   describe('Tab Switcher Tab Model', function() {

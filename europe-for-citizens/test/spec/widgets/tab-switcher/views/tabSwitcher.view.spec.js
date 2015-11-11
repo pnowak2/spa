@@ -1,9 +1,9 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    TabView = require('app/widgets/tab-switcher/views/tabView'),
-    TabSwitcherView = require('app/widgets/tab-switcher/views/tabSwitcherView'),
-    TabsCollection = require('app/widgets/tab-switcher/collections/tabsCollection'),
-    TabModel = require('app/widgets/tab-switcher/models/tabModel');
+    TabView = require('app/widgets/tab-switcher/views/tab.view'),
+    TabSwitcherView = require('app/widgets/tab-switcher/views/tabSwitcher.view'),
+    TabsCollection = require('app/widgets/tab-switcher/collections/tabs.collection'),
+    TabModel = require('app/widgets/tab-switcher/models/tab.model');
 
 
   describe('Tab Switcher View', function() {

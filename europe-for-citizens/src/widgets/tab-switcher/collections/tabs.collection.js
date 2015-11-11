@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    TabModel = require('../models/tabModel');
+    TabModel = require('../models/tab.model');
 
   return Backbone.Collection.extend({
     model: TabModel,

@@ -1,7 +1,7 @@
 define(function(require) {
   var Mustache = require('mustache'),
     Backbone = require('backbone'),
-    TabModel = require('../models/tabModel');
+    TabModel = require('../models/tab.model');
 
   return Backbone.View.extend({
     tagName: 'li',

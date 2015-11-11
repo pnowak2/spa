@@ -1,6 +1,6 @@
 define(function(require) {
-  var TabView = require('app/widgets/tab-switcher/views/tabView'),
-    TabModel = require('app/widgets/tab-switcher/models/tabModel');
+  var TabView = require('app/widgets/tab-switcher/views/tab.view'),
+    TabModel = require('app/widgets/tab-switcher/models/tab.model');
 
   describe('Tab Switcher Tab View', function() {
     describe('type', function() {
