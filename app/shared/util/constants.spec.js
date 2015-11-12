@@ -8,11 +8,7 @@ define(function(require) {
       });
     });
 
-    describe('keys', function() {
-      it('namespace should be defined', function() {
-        expect(constants.keys).toEqual(jasmine.any(Object));
-      });
-
+    describe('keyboard character codes', function() {
       it('.ENTER should be defined', function() {
         expect(constants.keys.ENTER).toBe(13);
       });
