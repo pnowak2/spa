@@ -40,9 +40,6 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/app.module.spec',
     // app router
     'app/app.router.spec',
-    // service
-    'app/services/search/search.mapper.spec',
-    'app/services/search/search.service.spec',
 
     // shared
 
@@ -62,18 +59,21 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/tab-switcher/views/tabSwitcher.view.spec',
     'app/shared/components/tab-switcher/views/tab.view.spec',
 
-    // components
+    // efc
 
+    // search service
+    'app/efc/services/search/search.mapper.spec',
+    'app/efc/services/search/search.service.spec',
     // search component
-    'app/components/search/search-box/main.component.spec',
-    'app/components/search/search-box/models/searchBox.model.spec',
-    'app/components/search/search-box/views/searchBox.view.spec',
+    'app/efc/components/search/search-box/main.component.spec',
+    'app/efc/components/search/search-box/models/searchBox.model.spec',
+    'app/efc/components/search/search-box/views/searchBox.view.spec',
     // results list component
-    'app/components/results/results-list/main.component.spec',
-    'app/components/results/results-list/models/result.model.spec',
-    'app/components/results/results-list/collections/results.collection.spec',
-    'app/components/results/results-list/views/resultsList.view.spec',
-    'app/components/results/results-list/views/resultItem.view.spec'
+    'app/efc/components/results/results-list/main.component.spec',
+    'app/efc/components/results/results-list/models/result.model.spec',
+    'app/efc/components/results/results-list/collections/results.collection.spec',
+    'app/efc/components/results/results-list/views/resultsList.view.spec',
+    'app/efc/components/results/results-list/views/resultItem.view.spec'
   ], function() {
     window.onload();
   });
