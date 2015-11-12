@@ -40,8 +40,6 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // app
     'app/app.module.spec',
 
-    // app/shared
-
     // util
     'app/shared/util/constants.spec',
     // pager component
@@ -58,11 +56,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/tab-switcher/views/tabSwitcher.view.spec',
     'app/shared/components/tab-switcher/views/tab.view.spec',
 
-    // app/efc
-
     // util
     'app/efc/util/constants.spec',
-    'app/efc/routers/router.spec',
+    'app/efc/routers/efc.router.spec',
     // services
     'app/efc/services/search/search.mapper.spec',
     'app/efc/services/search/search.service.spec',

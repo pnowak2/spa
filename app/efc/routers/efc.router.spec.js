@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    efcRouter = require('./router');
+    efcRouter = require('./efc.router');
 
   describe('EFC Router', function() {
     beforeEach(function() {
