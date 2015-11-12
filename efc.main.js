@@ -14,10 +14,10 @@ requirejs.config({
 define(function(require) {
   var Backbone = require('backbone'),
     app = require('app/app.module'),
-    EFC = require('app/efc/components/app/main.component'),
-    efc = new EFC;
+    EFCComponent = require('app/efc/components/app/main.component'),
+    efcComponent = new EFCComponent;
 
-  efc.render();
+  efcComponent.render();
 
   Backbone.history.start();
 });
