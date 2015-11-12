@@ -39,7 +39,6 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // app
     'app/app.module.spec',
-    'app/app.router.spec',
 
     // app/shared
 
@@ -63,6 +62,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // util
     'app/efc/util/constants.spec',
+    'app/efc/routers/router.spec',
     // services
     'app/efc/services/search/search.mapper.spec',
     'app/efc/services/search/search.service.spec',

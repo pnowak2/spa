@@ -1,35 +1,34 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    AppRouter = require('./app.router');
+    efcRouter = require('./router');
 
-  describe('Application Router', function() {
+  describe('EFC Router', function() {
     beforeEach(function() {
-      spyOn(AppRouter.prototype, 'trigger');
+      spyOn(efcRouter, 'trigger');
 
-      this.router = new AppRouter;
       try {
         Backbone.history.start();
       } catch (e) {}
     });
 
     afterEach(function() {
-      this.router.navigate('');
-      this.router.trigger.calls.reset();
+      efcRouter.navigate('');
+      efcRouter.trigger.calls.reset();
     });
 
     describe('type', function() {
       it('should be of router', function() {
-        expect(AppRouter.prototype).toEqual(jasmine.any(Backbone.Router));
+        expect(efcRouter).toEqual(jasmine.any(Backbone.Router));
       });
     });
 
     describe('routes', function() {
       it('searching by keyword should trigger router event', function() {
-        this.router.navigate('search/bar', {
+        efcRouter.navigate('search/bar', {
           trigger: true
         });
 
-        expect(this.router.trigger).toHaveBeenCalledWith('route:executed', 'app:route:search:keyword', 'bar');
+        expect(efcRouter.trigger).toHaveBeenCalledWith('route:search:keyword', 'bar');
       });
     });
   });

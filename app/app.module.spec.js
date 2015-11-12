@@ -1,7 +1,6 @@
 define(function(require) {
   var app = require('./app.module'),
     Module = require('./core/module'),
-    AppRouter = require('./app.router'),
     Backbone = require('backbone'),
     $ = require('jquery');
 
@@ -12,33 +11,7 @@ define(function(require) {
       });
     });
 
-    describe('properties', function() {
-      describe('.appRouter', function() {
-        it('should be defined', function() {
-          expect(app.appRouter).toEqual(jasmine.any(AppRouter));
-        });
-      });
-    });
-
     describe('api', function() {
-      describe('.didExecuteRoute()', function() {
-        it('should be defined', function() {
-          expect(app.didExecuteRoute).toEqual(jasmine.any(Function));
-        });
-
-        it('should trigger app event', function() {
-          spyOn(app, 'trigger');
-
-          app.didExecuteRoute('routename', {
-            foo: 'bar'
-          });
-
-          expect(app.trigger).toHaveBeenCalledWith('routename', {
-            foo: 'bar'
-          });
-        });
-      });
-
       describe('.showInfo()', function() {
         it('should be defined', function() {
           expect(app.showInfo).toEqual(jasmine.any(Function));
@@ -78,24 +51,6 @@ define(function(require) {
           var fakeError = {};
           $.event.trigger("ajaxError")
           expect(app.trigger).toHaveBeenCalled();
-        });
-      });
-
-      describe('routing', function() {
-        it('should listen to router event', function() {
-          spyOn(app, 'didExecuteRoute');
-          spyOn(app, 'initializeAjaxEvents');
-          spyOn(Backbone.history, 'start');
-
-          app.initialize();
-
-          app.appRouter.trigger('route:executed', 'eventname', {
-            foo: 'bar'
-          });
-
-          expect(app.didExecuteRoute).toHaveBeenCalledWith('eventname', {
-            foo: 'bar'
-          });
         });
       });
     });

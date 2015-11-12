@@ -6,9 +6,9 @@ define(function(require) {
       },
 
       keywordSearch: function(keyword) {
-        this.trigger('route:executed', 'app:route:search:keyword', keyword);
+        this.trigger('route:search:keyword', keyword);
       }
     });
 
-  return Router;
+  return new Router;
 });
