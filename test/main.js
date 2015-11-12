@@ -31,17 +31,17 @@ requirejs.config({
 
 require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
   require([
-    // core
+    // app/core
     'app/core/event.spec',
     'app/core/module.spec',
     'app/core/component.spec',
     'app/core/utils.spec',
-    // app module
+
+    // app
     'app/app.module.spec',
-    // app router
     'app/app.router.spec',
 
-    // shared
+    // app/shared
 
     // util
     'app/shared/util/constants.spec',
@@ -59,9 +59,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/tab-switcher/views/tabSwitcher.view.spec',
     'app/shared/components/tab-switcher/views/tab.view.spec',
 
-    // efc
+    // app/efc
 
-    // search service
+    // util
+    'app/efc/util/constants.spec',
+    // services
     'app/efc/services/search/search.mapper.spec',
     'app/efc/services/search/search.service.spec',
     // search component

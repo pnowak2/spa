@@ -1,8 +1,8 @@
 define(function(require) {
   var Backbone = require('backbone'),
-  Event = require('./event');
+    Event = require('./event');
 
-  describe('Event Bus - PubSub object', function() {
+  describe('Event - PubSub object', function() {
     describe('type', function() {
       it('should be function', function() {
         expect(Event).toEqual(jasmine.any(Function));

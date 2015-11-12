@@ -1,7 +1,7 @@
 define(function(require) {
   var searchService = require('./search.service'),
     searchMapper = require('./search.mapper'),
-    constants = require('app/shared/util/constants'),
+    constants = require('app/efc/util/constants'),
     RSVP = require('rsvp'),
     $ = require('jquery'),
 
@@ -65,7 +65,7 @@ define(function(require) {
           it('should use proper REST url and method', function(done) {
             var testRequest = function() {
               request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toBe(constants.urls.rest.SEARCH);
+              expect(request.url).toBe(constants.rest.SEARCH);
               expect(request.method).toBe('GET');
             };
 
@@ -93,7 +93,7 @@ define(function(require) {
           it('should accept undefined criteria', function(done) {
             var testRequest = function() {
               request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toEqual(constants.urls.rest.SEARCH);
+              expect(request.url).toEqual(constants.rest.SEARCH);
               expect(request.url).not.toContain('KEYWORD')
             };
 

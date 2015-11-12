@@ -60,7 +60,7 @@ define(function(require) {
 
           this.fakeEventWithEnter = {
             preventDefault: jasmine.createSpy(),
-            which: constants.dom.keys.ENTER
+            which: constants.keys.ENTER
           };
 
           this.fakeEventWithOtherKey = {

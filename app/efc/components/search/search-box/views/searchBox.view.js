@@ -24,7 +24,7 @@ define(function(require) {
     },
 
     didPressKey: function(e) {
-      if (e.which === constants.dom.keys.ENTER) {
+      if (e.which === constants.keys.ENTER) {
         e.preventDefault();
         this.requestSearch();
       }

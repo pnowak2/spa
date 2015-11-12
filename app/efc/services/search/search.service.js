@@ -2,7 +2,7 @@ define(function(require) {
   var $ = require('jquery'),
     RSVP = require('rsvp'),
     searchMapper = require('./search.mapper'),
-    constants = require('app/shared/util/constants');
+    constants = require('app/efc/util/constants');
 
   return {
     search: function(criteria) {
@@ -10,7 +10,7 @@ define(function(require) {
 
       var promise = new RSVP.Promise(function(resolve, reject) {
         $.ajax({
-          url: constants.urls.rest.SEARCH,
+          url: constants.rest.SEARCH,
           dataType: 'json',
           method: 'GET',
           data: {
