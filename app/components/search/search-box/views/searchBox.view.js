@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    constants = require('app/util/constants'),
+    constants = require('app/shared/util/constants'),
     Mustache = require('mustache'),
     SearchBoxModel = require('../models/searchBox.model'),
     tpl = require('text!../templates/searchbox.tpl.html');

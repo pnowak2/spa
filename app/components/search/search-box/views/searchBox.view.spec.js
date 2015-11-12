@@ -1,7 +1,7 @@
 define(function(require) {
 
   var Backbone = require('backbone'),
-    constants = require('app/util/constants'),
+    constants = require('app/shared/util/constants'),
     SearchBoxView = require('./searchBox.view'),
     SearchBoxModel = require('../models/searchBox.model');
 

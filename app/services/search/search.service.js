@@ -2,7 +2,7 @@ define(function(require) {
   var $ = require('jquery'),
     RSVP = require('rsvp'),
     searchMapper = require('./search.mapper'),
-    constants = require('app/util/constants');
+    constants = require('app/shared/util/constants');
 
   return {
     search: function(criteria) {

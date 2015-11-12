@@ -36,8 +36,6 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/core/module.spec',
     'app/core/component.spec',
     'app/core/utils.spec',
-    // util
-    'app/util/constants.spec',
     // app module
     'app/app.module.spec',
     // app router
@@ -45,21 +43,27 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // service
     'app/services/search/search.mapper.spec',
     'app/services/search/search.service.spec',
-    // application component
-    'app/components/app/main.component.spec',
+
+    // shared
+
+    // util
+    'app/shared/util/constants.spec',
     // pager component
-    'app/components/pager/main.component.spec',
-    'app/components/pager/models/pager.model.spec',
-    'app/components/pager/models/page.model.spec',
-    'app/components/pager/collections/page.collection.spec',
-    'app/components/pager/views/pager.view.spec',
-    'app/components/pager/views/page.view.spec',
+    'app/shared/components/pager/main.component.spec',
+    'app/shared/components/pager/models/pager.model.spec',
+    'app/shared/components/pager/models/page.model.spec',
+    'app/shared/components/pager/collections/page.collection.spec',
+    'app/shared/components/pager/views/pager.view.spec',
+    'app/shared/components/pager/views/page.view.spec',
     // tab switcher component
-    'app/components/tab-switcher/main.component.spec',
-    'app/components/tab-switcher/models/tab.model.spec',
-    'app/components/tab-switcher/collections/tabs.collection.spec',
-    'app/components/tab-switcher/views/tabSwitcher.view.spec',
-    'app/components/tab-switcher/views/tab.view.spec',
+    'app/shared/components/tab-switcher/main.component.spec',
+    'app/shared/components/tab-switcher/models/tab.model.spec',
+    'app/shared/components/tab-switcher/collections/tabs.collection.spec',
+    'app/shared/components/tab-switcher/views/tabSwitcher.view.spec',
+    'app/shared/components/tab-switcher/views/tab.view.spec',
+
+    // components
+
     // search component
     'app/components/search/search-box/main.component.spec',
     'app/components/search/search-box/models/searchBox.model.spec',

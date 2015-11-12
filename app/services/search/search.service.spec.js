@@ -1,7 +1,7 @@
 define(function(require) {
   var searchService = require('./search.service'),
     searchMapper = require('./search.mapper'),
-    constants = require('app/util/constants'),
+    constants = require('app/shared/util/constants'),
     RSVP = require('rsvp'),
     $ = require('jquery'),
 
