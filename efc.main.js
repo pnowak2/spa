@@ -14,10 +14,10 @@ requirejs.config({
 define(function(require) {
   var Backbone = require('backbone'),
     app = require('app/app.module'),
-    Search = require('app/efc/components/search/search-box/main.component'),
-    search = new Search;
+    EFC = require('app/efc/components/app/main.component'),
+    efc = new EFC;
 
-  $('body').append(search.render().view.el);
+  efc.render();
 
   Backbone.history.start();
 });
