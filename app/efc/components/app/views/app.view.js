@@ -14,10 +14,13 @@ define(function(require) {
       this.tabSwitcherComponent = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'List',
-          identifier: 'list'
+          identifier: 'list',
+          targetSelector: '.efc-searchbox',
+          selected: true
         }, {
           title: 'Map',
-          identifier: 'map'
+          identifier: 'map',
+          targetSelector: '.efc-results-list'
         }]
       });
 
@@ -52,9 +55,9 @@ define(function(require) {
     },
 
     render: function() {
-      $('body').append(this.searchComponent.render().view.el);
       $('body').append(this.tabSwitcherComponent.render().view.el);
-      $('body').append(this.pagedListComponent.render().view.el);
+      $('body').append(this.searchComponent.show().render().view.el);
+      $('body').append(this.pagedListComponent.hide().render().view.el);
     }
   });
 })
