@@ -1,17 +1,17 @@
 requirejs.config({
   paths: {
     app: '../app',
-    jquery: '../../lib/jquery/dist/jquery.min',
-    underscore: '../../lib/underscore/underscore-min',
-    backbone: '../../lib/backbone/backbone-min',
-    mustache: '../../lib/mustache.js/mustache.min',
-    text: '../../lib/text/text',
-    rsvp: '../../lib/rsvp/rsvp.min',
-    jasmine: ['../../lib/jasmine/lib/jasmine-core/jasmine'],
-    'jasmine-html': ['../../lib/jasmine/lib/jasmine-core/jasmine-html'],
-    'jasmine-boot': ['../../lib/jasmine/lib/jasmine-core/boot'],
-    'jasmine-jquery': ['../../lib/jasmine-jquery/lib/jasmine-jquery'],
-    'jasmine-ajax': ['../../lib/jasmine-ajax/lib/mock-ajax']
+    jquery: '../lib/jquery/dist/jquery.min',
+    underscore: '../lib/underscore/underscore-min',
+    backbone: '../lib/backbone/backbone-min',
+    mustache: '../lib/mustache.js/mustache.min',
+    text: '../lib/text/text',
+    rsvp: '../lib/rsvp/rsvp.min',
+    jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
+    'jasmine-html': ['../lib/jasmine/lib/jasmine-core/jasmine-html'],
+    'jasmine-boot': ['../lib/jasmine/lib/jasmine-core/boot'],
+    'jasmine-jquery': ['../lib/jasmine-jquery/lib/jasmine-jquery'],
+    'jasmine-ajax': ['../lib/jasmine-ajax/lib/mock-ajax']
   },
   shim: {
     'jasmine-html': {
