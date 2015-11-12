@@ -1,6 +1,6 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    ResultsListView = require('app/widgets/results/results-list/views/resultsList.view');
+    ResultsListView = require('./views/resultsList.view');
 
   return Component.extend({
     initialize: function() {

@@ -1,11 +1,11 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    AppComponent = require('app/widgets/app/main.component'),
-    AppView = require('app/widgets/app/views/app.view'),
-    TabSwitcherComponent = require('app/widgets/tab-switcher/main.component'),
-    SearchComponent = require('app/widgets/search/search-box/main.component'),
-    ResultsListComponent = require('app/widgets/results/results-list/main.component'),
-    PagerComponent = require('app/widgets/pager/main.component');
+    AppComponent = require('./main.component'),
+    AppView = require('./views/app.view'),
+    TabSwitcherComponent = require('../tab-switcher/main.component'),
+    SearchComponent = require('../search/search-box/main.component'),
+    ResultsListComponent = require('../results/results-list/main.component'),
+    PagerComponent = require('../pager/main.component');
 
   describe('App Component', function() {
     describe('type', function() {

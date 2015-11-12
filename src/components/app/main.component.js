@@ -1,10 +1,10 @@
 define(function(require) {
   var $ = require('jquery'),
     Component = require('app/core/component'),
-    TabSwitcherComponent = require('app/widgets/tab-switcher/main.component'),
-    SearchComponent = require('app/widgets/search/search-box/main.component'),
-    ResultsListComponent = require('app/widgets/results/results-list/main.component'),
-    PagerComponent = require('app/widgets/pager/main.component'),
+    TabSwitcherComponent = require('../tab-switcher/main.component'),
+    SearchComponent = require('../search/search-box/main.component'),
+    ResultsListComponent = require('../results/results-list/main.component'),
+    PagerComponent = require('../pager/main.component'),
     AppView = require('./views/app.view');
 
   return Component.extend({

@@ -46,30 +46,30 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/services/search/search.mapper.spec',
     'app/services/search/search.service.spec',
     // application component
-    'app/widgets/app/main.component.spec',
+    'app/components/app/main.component.spec',
     // pager component
-    'app/widgets/pager/main.component.spec',
-    'app/widgets/pager/models/pager.model.spec',
-    'app/widgets/pager/models/page.model.spec',
-    'app/widgets/pager/collections/page.collection.spec',
-    'app/widgets/pager/views/pager.view.spec',
-    'app/widgets/pager/views/page.view.spec',
+    'app/components/pager/main.component.spec',
+    'app/components/pager/models/pager.model.spec',
+    'app/components/pager/models/page.model.spec',
+    'app/components/pager/collections/page.collection.spec',
+    'app/components/pager/views/pager.view.spec',
+    'app/components/pager/views/page.view.spec',
     // tab switcher component
-    'app/widgets/tab-switcher/main.component.spec',
-    'app/widgets/tab-switcher/models/tab.model.spec',
-    'app/widgets/tab-switcher/collections/tabs.collection.spec',
-    'app/widgets/tab-switcher/views/tabSwitcher.view.spec',
-    'app/widgets/tab-switcher/views/tab.view.spec',
+    'app/components/tab-switcher/main.component.spec',
+    'app/components/tab-switcher/models/tab.model.spec',
+    'app/components/tab-switcher/collections/tabs.collection.spec',
+    'app/components/tab-switcher/views/tabSwitcher.view.spec',
+    'app/components/tab-switcher/views/tab.view.spec',
     // search component
-    'app/widgets/search/search-box/main.component.spec',
-    'app/widgets/search/search-box/models/searchBox.model.spec',
-    'app/widgets/search/search-box/views/searchBox.view.spec',
+    'app/components/search/search-box/main.component.spec',
+    'app/components/search/search-box/models/searchBox.model.spec',
+    'app/components/search/search-box/views/searchBox.view.spec',
     // results list component
-    'app/widgets/results/results-list/main.component.spec',
-    'app/widgets/results/results-list/models/result.model.spec',
-    'app/widgets/results/results-list/collections/results.collection.spec',
-    'app/widgets/results/results-list/views/resultsList.view.spec',
-    'app/widgets/results/results-list/views/resultItem.view.spec'
+    'app/components/results/results-list/main.component.spec',
+    'app/components/results/results-list/models/result.model.spec',
+    'app/components/results/results-list/collections/results.collection.spec',
+    'app/components/results/results-list/views/resultsList.view.spec',
+    'app/components/results/results-list/views/resultItem.view.spec'
   ], function() {
     window.onload();
   });
