@@ -30,10 +30,6 @@ define(function(require) {
       }
     },
 
-    didModelChange: function() {
-      this.trigger('search:keyword', this.model.toJSON())
-    },
-
     getFormData: function() {
       return {
         keyword: this.keywordInput.val()
@@ -42,6 +38,7 @@ define(function(require) {
 
     requestSearch: function() {
       this.model.set(this.getFormData());
+      this.trigger('search:keyword', this.model.toJSON())
     },
 
     render: function() {

@@ -88,25 +88,6 @@ define(function(require) {
         });
       });
 
-      describe('.didModelChange()', function() {
-        it('should be defined', function() {
-          expect(SearchBoxView.prototype.didModelChange).toEqual(jasmine.any(Function));
-        });
-
-        it('should trigger view event with serialized model', function() {
-          var view = new SearchBoxView,
-            fakeModelJSON = {}
-
-          spyOn(view, 'trigger');
-          spyOn(view.model, 'toJSON').and.returnValue(fakeModelJSON);
-
-          view.didModelChange();
-
-          expect(view.trigger).toHaveBeenCalledWith('search:keyword', fakeModelJSON);
-          expect(view.trigger.calls.mostRecent().args[1]).toBe(fakeModelJSON);
-        });
-      });
-
       describe('.getFormData()', function() {
         it('should be defined', function() {
           expect(SearchBoxView.prototype.getFormData).toEqual(jasmine.any(Function));
@@ -145,6 +126,19 @@ define(function(require) {
           expect(view.model.set.calls.count()).toBe(1);
           expect(view.model.set.calls.mostRecent().args[0]).toBe(fakeFormData);
         });
+
+        it('should trigger view event', function() {
+          var view = new SearchBoxView,
+            fakeModelJSON = {};
+
+          spyOn(view, 'trigger');
+          spyOn(view, 'getFormData');
+          spyOn(view.model, 'toJSON').and.returnValue(fakeModelJSON);
+
+          view.requestSearch();
+
+          expect(view.trigger).toHaveBeenCalledWith('search:keyword', fakeModelJSON);
+        });
       });
     });
 
@@ -155,17 +149,6 @@ define(function(require) {
             'click button': 'didClickSearchButton',
             'keypress input': 'didPressKey'
           });
-        });
-      });
-
-      describe('model', function() {
-        it('should listen to changes and call view method', function() {
-          spyOn(SearchBoxView.prototype, 'didModelChange');
-
-          var view = new SearchBoxView;
-          view.model.trigger('change');
-
-          expect(SearchBoxView.prototype.didModelChange).toHaveBeenCalled();
         });
       });
     });

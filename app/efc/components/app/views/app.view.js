@@ -31,7 +31,9 @@ define(function(require) {
     },
 
     onSearchRequest: function(searchCriteria) {
-      var criteria = _.extend({}, searchCriteria, _.omit(this.pagedResultsListComponent.getPagerState(), 'currentPage'));
+      var criteria = _.extend({}, searchCriteria, {
+        startFromItem: 0
+      });
       this.cachedCriteria = _.clone(criteria);
       searchService.search(criteria).then(this.didSearchSucceeded);
     },
