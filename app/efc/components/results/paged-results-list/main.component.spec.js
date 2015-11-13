@@ -109,5 +109,25 @@ define(function(require) {
         });
       });
     });
+
+    describe('events', function() {
+      it('should retrigger events from results list component', function() {
+        spyOn(PagedResultsListComponent.prototype, 'trigger');
+        var component = new PagedResultsListComponent;
+
+        component.resultsListComponent.trigger('foo', 'bar');
+
+        expect(component.trigger).toHaveBeenCalledWith('foo', 'bar');
+      });
+
+      it('should retrigger events from pager component', function() {
+        spyOn(PagedResultsListComponent.prototype, 'trigger');
+        var component = new PagedResultsListComponent;
+
+        component.pagerComponent.trigger('foo', 'bar');
+
+        expect(component.trigger).toHaveBeenCalledWith('foo', 'bar');
+      });
+    });
   });
 });

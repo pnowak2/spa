@@ -13,6 +13,9 @@ define(function(require) {
         resultsListComponent: this.resultsListComponent,
         pagerComponent: this.pagerComponent
       });
+
+      this.listenTo(this.resultsListComponent, 'all', this.trigger);
+      this.listenTo(this.pagerComponent, 'all', this.trigger);
     },
 
     getPagerState: function() {

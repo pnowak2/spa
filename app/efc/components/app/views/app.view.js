@@ -45,6 +45,7 @@ define(function(require) {
     },
 
     onPageRequest: function(pagerCriteria) {
+      console.log('page request', pagerCriteria);
       var criteria = _.extend(this.cachedCriteria, pagerCriteria);
       this.performSearch(criteria)
     },
