@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     searchService = require('app/efc/services/search/search.service'),
     SearchComponent = require('app/efc/components/search/search-box/main.component'),
-    ResultsListComponent = require('app/efc/components/results/results-list/main.component'),
+    PagedResultsListComponent = require('app/efc/components/results/paged-results-list/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
 
   return Backbone.View.extend({
@@ -10,7 +10,7 @@ define(function(require) {
       _.bindAll(this, 'didFoundRecords', 'didFailSearch');
 
       this.searchComponent = new SearchComponent;
-      this.pagedListComponent = new ResultsListComponent;
+      this.pagedListComponent = new PagedResultsListComponent;
       this.tabSwitcherComponent = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'List',
@@ -26,10 +26,17 @@ define(function(require) {
 
       this.listenTo(this.searchComponent, 'search:keyword', this.onSearch);
       this.listenTo(this.pagedListComponent, 'pager:page:selected', this.onPageRequest);
+
+      this.pagedListComponent.update({
+        total: 100,
+        items: [{
+          title: 'hello'
+        }]
+      });
     },
 
     onSearch: function(searchCriteria) {
-      var criteria = _.extend(searchCriteria, this.pagerComponent.getState());
+      var criteria = _.extend(searchCriteria, this.pagedListComponent.getPagerState());
       this.performSearch(criteria);
       this.cachedCriteria = _.clone(criteria);
     },
@@ -47,7 +54,7 @@ define(function(require) {
     },
 
     didFoundRecords: function(data) {
-      self.pagedListComponent.update(data);
+      this.pagedListComponent.update(data);
     },
 
     didFailSearch: function(error) {
@@ -56,8 +63,8 @@ define(function(require) {
 
     render: function() {
       $('body').append(this.tabSwitcherComponent.render().view.el);
-      $('body').append(this.searchComponent.show().render().view.el);
-      $('body').append(this.pagedListComponent.hide().render().view.el);
+      $('body').append(this.searchComponent.render().view.el);
+      $('body').append(this.pagedListComponent.render().view.el);
     }
   });
 })

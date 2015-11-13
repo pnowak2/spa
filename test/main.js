@@ -71,7 +71,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/results/results-list/models/result.model.spec',
     'app/efc/components/results/results-list/collections/results.collection.spec',
     'app/efc/components/results/results-list/views/resultsList.view.spec',
-    'app/efc/components/results/results-list/views/resultItem.view.spec'
+    'app/efc/components/results/results-list/views/resultItem.view.spec',
+    // paged results list component
+    'app/efc/components/results/paged-results-list/main.component.spec',
+    'app/efc/components/results/paged-results-list/views/pagedResultsList.view.spec'
+
   ], function() {
     window.onload();
   });
