@@ -1,45 +1,33 @@
 define(function(require) {
-  var Backbone = require('backbone'),
-    searchService = require('app/efc/services/search/search.service'),
-    SearchComponent = require('app/efc/components/search/search-box/main.component'),
-    PagedResultsListComponent = require('app/efc/components/results/paged-results-list/main.component'),
-    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
+  var _ = require('underscore'),
+    Backbone = require('backbone'),
+    searchService = require('app/efc/services/search/search.service');
 
   return Backbone.View.extend({
-    initialize: function(options) {
+    initialize: function(attrs) {
       _.bindAll(this, 'didFoundRecords', 'didFailSearch');
 
-      this.searchComponent = new SearchComponent;
-      this.pagedListComponent = new PagedResultsListComponent({
-        pageSize: 17,
-        pageWindowSize: 15
-      });
-      this.tabSwitcherComponent = new TabSwitcherComponent({
-        tabDescriptors: [{
-          title: 'List',
-          identifier: 'list',
-          targetSelector: '.efc-searchbox',
-          selected: true
-        }, {
-          title: 'Map',
-          identifier: 'map',
-          targetSelector: '.efc-results-list'
-        }]
-      });
+      this.tabSwitcherComponent = attrs.tabSwitcherComponent;
+      this.pagedResultsListComponent = attrs.pagedResultsListComponent;
+      this.searchComponent = attrs.searchComponent;
 
       this.listenTo(this.searchComponent, 'search:keyword', this.onSearch);
-      this.listenTo(this.pagedListComponent, 'pager:page:selected', this.onPageRequest);
+      this.listenTo(this.pagedResultsListComponent, 'pager:page:selected', this.onPageRequest);
 
-      this.pagedListComponent.update({
-        total: 10000,
-        items: [{
-          title: 'hello'
-        }]
-      });
+      this.tabSwitcherComponent.update([{
+        title: 'List',
+        identifier: 'list',
+        targetSelector: '.efc-searchbox',
+        selected: true
+      }, {
+        title: 'Map',
+        identifier: 'map',
+        targetSelector: '.efc-results-list'
+      }]);
     },
 
     onSearch: function(searchCriteria) {
-      var criteria = _.extend(searchCriteria, this.pagedListComponent.getPagerState());
+      var criteria = _.extend(searchCriteria, this.pagedResultsListComponent.getPagerState());
       this.performSearch(criteria);
       this.cachedCriteria = _.clone(criteria);
     },
@@ -58,7 +46,7 @@ define(function(require) {
     },
 
     didFoundRecords: function(data) {
-      this.pagedListComponent.update(data);
+      this.pagedResultsListComponent.update(data);
     },
 
     didFailSearch: function(error) {
@@ -68,7 +56,7 @@ define(function(require) {
     render: function() {
       $('body').append(this.tabSwitcherComponent.render().view.el);
       $('body').append(this.searchComponent.render().view.el);
-      $('body').append(this.pagedListComponent.render().view.el);
+      $('body').append(this.pagedResultsListComponent.render().view.el);
     }
   });
 })
