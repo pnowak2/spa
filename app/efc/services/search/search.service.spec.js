@@ -65,7 +65,7 @@ define(function(require) {
           it('should use proper REST url and method', function(done) {
             var testRequest = function() {
               request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toBe(constants.rest.SEARCH);
+              expect(request.url).toContain(constants.rest.SEARCH);
               expect(request.method).toBe('GET');
             };
 
@@ -90,10 +90,23 @@ define(function(require) {
               .finally(done);
           });
 
+          it('should set default paging attributes if not provided', function(done) {
+            var testRequest = function() {
+              request = jasmine.Ajax.requests.mostRecent();
+              expect(request.url).toContain('iDisplayStart=0');
+              expect(request.url).toContain('iDisplayLength=10');
+            };
+
+            searchService.search()
+              .then(testRequest)
+              .catch(fail)
+              .finally(done);
+          });
+
           it('should accept undefined criteria', function(done) {
             var testRequest = function() {
               request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toEqual(constants.rest.SEARCH);
+              expect(request.url).toContain(constants.rest.SEARCH);
               expect(request.url).not.toContain('KEYWORD')
             };
 

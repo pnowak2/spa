@@ -15,8 +15,8 @@ define(function(require) {
           method: 'GET',
           data: {
             KEYWORD: criteria.keyword,
-            iDisplayStart: criteria.startFromItem,
-            iDisplayLength: criteria.pageSize,
+            iDisplayStart: criteria.startFromItem || 0,
+            iDisplayLength: criteria.pageSize || 10,
           }
         }).done(function(response) {
           resolve(searchMapper.map(response));
