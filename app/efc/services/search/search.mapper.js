@@ -2,7 +2,7 @@ define(function(require) {
   var map = function(response) {
     var total, items, response = response || {};
 
-    total = response['iTotalRecords'] || 0;
+    total = parseInt(response['iTotalRecords'], 10) || 0;
 
     items = _.map(response['aaData'], function(responseItem) {
       var id = responseItem[0],

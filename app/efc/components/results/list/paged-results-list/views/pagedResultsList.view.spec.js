@@ -1,7 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     PagedResultsListView = require('./pagedResultsList.view'),
-    ResultsListComponent = require('app/efc/components/results/results-list/main.component'),
+    ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component');
 
   describe('Paged Results List View', function() {

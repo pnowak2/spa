@@ -67,14 +67,14 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/search/search-box/models/searchBox.model.spec',
     'app/efc/components/search/search-box/views/searchBox.view.spec',
     // results list component
-    'app/efc/components/results/results-list/main.component.spec',
-    'app/efc/components/results/results-list/models/result.model.spec',
-    'app/efc/components/results/results-list/collections/results.collection.spec',
-    'app/efc/components/results/results-list/views/resultsList.view.spec',
-    'app/efc/components/results/results-list/views/resultItem.view.spec',
+    'app/efc/components/results/list/results-list/main.component.spec',
+    'app/efc/components/results/list/results-list/models/result.model.spec',
+    'app/efc/components/results/list/results-list/collections/results.collection.spec',
+    'app/efc/components/results/list/results-list/views/resultsList.view.spec',
+    'app/efc/components/results/list/results-list/views/resultItem.view.spec',
     // paged results list component
-    'app/efc/components/results/paged-results-list/main.component.spec',
-    'app/efc/components/results/paged-results-list/views/pagedResultsList.view.spec'
+    'app/efc/components/results/list/paged-results-list/main.component.spec',
+    'app/efc/components/results/list/paged-results-list/views/pagedResultsList.view.spec'
 
   ], function() {
     window.onload();

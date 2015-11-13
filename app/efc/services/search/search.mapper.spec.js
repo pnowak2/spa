@@ -2,8 +2,12 @@ define(function(require) {
   var searchMapper = require('./search.mapper'),
 
     testResponses = {
+      noData: {
+        iTotalRecords: '0',
+        aaData: []
+      },
       allDataOneRow: {
-        iTotalRecords: 1,
+        iTotalRecords: '1',
         aaData: [
           [
             '17',
@@ -16,7 +20,7 @@ define(function(require) {
         ]
       },
       allDataTwoRows: {
-        iTotalRecords: 2,
+        iTotalRecords: '2',
         aaData: [
           [
             '11',
@@ -37,7 +41,7 @@ define(function(require) {
         ]
       },
       noCountriesOneRow: {
-        iTotalRecords: 1,
+        iTotalRecords: '1',
         aaData: [
           [
             '17',
@@ -69,6 +73,11 @@ define(function(require) {
             total: 0,
             items: []
           });
+        });
+
+        it('should convert total to number if it is string', function() {
+          var mapped = searchMapper.map(testResponses.noData);
+          expect(mapped.total).toEqual(jasmine.any(Number));
         });
 
         it('should map response with one row to object', function() {

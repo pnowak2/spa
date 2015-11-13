@@ -11,15 +11,12 @@
     margin: 0 -9px 0 -15px;
 }
 
-/* Results - Paginated */
-.efc-results-paginated {
+/* Paged Results List */
+.efc-paged-results-list {
     padding: 10px;
 }
 
 /* Results - Table */
-.efc-results-list {
-
-}
 
 .efc-results-list table {
     border-collapse: collapse;
@@ -45,7 +42,7 @@
 }
 
 /* Pager */
-.efc-results-paginated-pager {
+.efc-pager {
     margin-top: 10px;
 }
 .efc-pager a {

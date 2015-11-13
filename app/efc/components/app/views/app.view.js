@@ -5,58 +5,50 @@ define(function(require) {
 
   return Backbone.View.extend({
     initialize: function(attrs) {
-      _.bindAll(this, 'didFoundRecords', 'didFailSearch');
+      _.bindAll(this, 'didSearchSucceeded');
 
       this.tabSwitcherComponent = attrs.tabSwitcherComponent;
       this.pagedResultsListComponent = attrs.pagedResultsListComponent;
       this.searchComponent = attrs.searchComponent;
 
-      this.listenTo(this.searchComponent, 'search:keyword', this.onSearch);
-      this.listenTo(this.pagedResultsListComponent, 'pager:page:selected', this.onPageRequest);
+      this.initUI();
 
+      this.listenTo(this.searchComponent, 'search:keyword', this.onSearchRequest);
+      this.listenTo(this.pagedResultsListComponent, 'pager:page:selected', this.onPageRequest);
+    },
+
+    initUI: function() {
       this.tabSwitcherComponent.update([{
-        title: 'List',
-        identifier: 'list',
-        targetSelector: '.efc-searchbox',
-        selected: true
-      }, {
         title: 'Map',
         identifier: 'map',
-        targetSelector: '.efc-results-list'
+        targetSelector: ''
+      }, {
+        title: 'List',
+        identifier: 'list',
+        targetSelector: '.efc-paged-results-list',
+        selected: true
       }]);
     },
 
-    onSearch: function(searchCriteria) {
-      var criteria = _.extend(searchCriteria, this.pagedResultsListComponent.getPagerState());
-      this.performSearch(criteria);
+    onSearchRequest: function(searchCriteria) {
+      var criteria = _.extend({}, searchCriteria, _.omit(this.pagedResultsListComponent.getPagerState(), 'currentPage'));
       this.cachedCriteria = _.clone(criteria);
+      searchService.search(criteria).then(this.didSearchSucceeded);
     },
 
     onPageRequest: function(pagerCriteria) {
-      console.log('page request', pagerCriteria);
-      var criteria = _.extend(this.cachedCriteria, pagerCriteria);
-      this.performSearch(criteria)
+      var criteria = _.extend({}, this.cachedCriteria, pagerCriteria);
+      searchService.search(criteria).then(this.didSearchSucceeded);
     },
 
-    performSearch(criteria) {
-      searchService
-        .search(criteria)
-        .then(this.didFoundRecords)
-        .catch(this.didFailSearch);
-    },
-
-    didFoundRecords: function(data) {
+    didSearchSucceeded: function(data) {
       this.pagedResultsListComponent.update(data);
     },
 
-    didFailSearch: function(error) {
-      console.log(error);
-    },
-
     render: function() {
-      $('body').append(this.tabSwitcherComponent.render().view.el);
-      $('body').append(this.searchComponent.render().view.el);
-      $('body').append(this.pagedResultsListComponent.render().view.el);
+      $('.efc-searchbox-container').append(this.searchComponent.render().view.el);
+      $('.efc-results-container').append(this.tabSwitcherComponent.render().view.el);
+      $('.efc-results-container').append(this.pagedResultsListComponent.render().view.el);
     }
   });
 })

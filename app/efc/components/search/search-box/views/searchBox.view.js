@@ -3,7 +3,7 @@ define(function(require) {
     constants = require('app/shared/util/constants'),
     Mustache = require('mustache'),
     SearchBoxModel = require('../models/searchBox.model'),
-    tpl = require('text!../templates/searchbox.tpl.html');
+    tpl = require('text!../templates/searchBox.tpl.html');
 
   return Backbone.View.extend({
     className: 'efc-searchbox',

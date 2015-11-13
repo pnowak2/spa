@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    ResultsListComponent = require('app/efc/components/results/results-list/main.component'),
+    ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component');
 
   return Backbone.View.extend({

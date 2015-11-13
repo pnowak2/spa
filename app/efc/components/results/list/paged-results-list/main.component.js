@@ -1,6 +1,6 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    ResultsListComponent = require('app/efc/components/results/results-list/main.component'),
+    ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
     PagedResultsListView = require('./views/pagedResultsList.view');
 
