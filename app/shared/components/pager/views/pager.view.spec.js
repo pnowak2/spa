@@ -371,16 +371,33 @@ define(function(require) {
           expect(view.render().el).toContainElement('span.efc-pager-pages');
         });
 
-        it('should be hidden if no items', function() {
-          var view = new PagerView({
-            model: new PagerModel({
-              totalItems: 0
-            })
-          });
+        it('should be hidden if just one page is available', function() {
+          var view1 = new PagerView({
+              model: new PagerModel({
+                totalItems: 10,
+                pageSize: 10
+              })
+            }),
+            view2 = new PagerView({
+              model: new PagerModel({
+                totalItems: 0,
+                pageSize: 10
+              })
+            }),
+            view3 = new PagerView({
+              model: new PagerModel({
+                totalItems: 11,
+                pageSize: 10
+              })
+            });
 
-          view.render();
+          view1.render();
+          view2.render();
+          view3.render();
 
-          expect(view.$el.css('display')).toEqual('none')
+          expect(view1.$el.css('display')).toEqual('none')
+          expect(view2.$el.css('display')).toEqual('none')
+          expect(view3.$el.css('display')).toEqual('block')
         });
 
         it('should not be hidden if has items', function() {

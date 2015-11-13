@@ -152,6 +152,10 @@ define(function(require) {
       this.setCurrentPage(lastPage);
     },
 
+    hasOnePage: function() {
+      return this.getPagesCount() === 1;
+    },
+
     hasItems: function() {
       return this.getTotalItems() > 0;
     },

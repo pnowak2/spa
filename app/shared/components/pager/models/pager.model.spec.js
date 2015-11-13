@@ -735,6 +735,40 @@ define(function(require) {
         });
       });
 
+      describe('.hasOnePage()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.hasOnePage).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if there is only one page available', function() {
+          var model1 = new PagerModel({
+              totalItems: 0,
+              pageSize: 10,
+              currentPage: 1
+            }),
+            model2 = new PagerModel({
+              totalItems: 10,
+              pageSize: 10,
+              currentPage: 1
+            }),
+            model3 = new PagerModel({
+              totalItems: 10,
+              pageSize: 10,
+              currentPage: 100
+            }),
+            model4 = new PagerModel({
+              totalItems: 11,
+              pageSize: 10,
+              currentPage: 100
+            });
+
+          expect(model1.hasOnePage()).toBe(true);
+          expect(model2.hasOnePage()).toBe(true);
+          expect(model3.hasOnePage()).toBe(true);
+          expect(model4.hasOnePage()).toBe(false);
+        });
+      });
+
       describe('.isFirstPageSelected()', function() {
         it('should be defined', function() {
           expect(PagerModel.prototype.isFirstPageSelected).toEqual(jasmine.any(Function));

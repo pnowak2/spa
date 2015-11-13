@@ -96,7 +96,7 @@ define(function(require) {
         container.append(pageView.render().el);
       });
 
-      this.$el.toggle(this.model.hasItems());
+      this.$el.toggle(!this.model.hasOnePage());
 
       return this;
     }
