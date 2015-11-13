@@ -6,9 +6,19 @@ define(function(require) {
   return Backbone.View.extend({
     className: 'efc-paged-results-list',
 
-    initialize: function() {
-      this.resultsListComponent = new ResultsListComponent;
-      this.pagerComponent = new PagerComponent;
+    initialize: function(attrs) {
+      attrs = attrs || {};
+
+      if (!(attrs.resultsListComponent instanceof ResultsListComponent)) {
+        throw new Error('Result list component is not correct');
+      }
+
+      if (!(attrs.pagerComponent instanceof PagerComponent)) {
+        throw new Error('Pager component is not correct');
+      }
+
+      this.resultsListComponent = attrs.resultsListComponent;
+      this.pagerComponent = attrs.pagerComponent;
     },
 
     render: function() {

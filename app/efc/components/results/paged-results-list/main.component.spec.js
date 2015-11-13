@@ -1,6 +1,8 @@
 define(function(require) {
   var Component = require('app/core/component'),
     PagedResultsListComponent = require('./main.component'),
+    ResultsListComponent = require('app/efc/components/results/results-list/main.component'),
+    PagerComponent = require('app/shared/components/pager/main.component'),
     PagedResultsListView = require('./views/pagedResultsList.view');
 
   describe('Paged Results List Component', function() {
@@ -11,9 +13,39 @@ define(function(require) {
     });
 
     describe('creation', function() {
+      beforeEach(function() {
+        spyOn(PagedResultsListView.prototype, 'initialize');
+        spyOn(PagerComponent.prototype, 'initialize');
+        spyOn(ResultsListComponent.prototype, 'initialize');
+        this.fakeOptions = {};
+        this.component = new PagedResultsListComponent(this.fakeOptions);
+      });
+
+      it('should have results list component defined', function() {
+        expect(this.component.resultsListComponent).toEqual(jasmine.any(ResultsListComponent));
+      });
+
+      it('should have pager component defined', function() {
+        expect(this.component.pagerComponent).toEqual(jasmine.any(PagerComponent));
+      });
+
       it('should be initialized with proper view', function() {
-        var component = new PagedResultsListComponent;
-        expect(component.view).toEqual(jasmine.any(PagedResultsListView));
+        expect(this.component.view).toEqual(jasmine.any(PagedResultsListView));
+      });
+
+      it('should initialize view with list and pager components', function() {
+        expect(this.component.view.initialize).toHaveBeenCalledWith({
+          resultsListComponent: this.component.resultsListComponent,
+          pagerComponent: this.component.pagerComponent
+        });
+      });
+
+      it('should initialize results list component with options', function() {
+        expect(this.component.resultsListComponent.initialize).toHaveBeenCalledWith(this.fakeOptions);
+      });
+
+      it('should initialize pager component with options', function() {
+        expect(this.component.pagerComponent.initialize).toHaveBeenCalledWith(this.fakeOptions);
       });
     });
 
@@ -28,7 +60,7 @@ define(function(require) {
             fakeState = {},
             pagerState;
 
-          spyOn(component.view.pagerComponent, 'getState').and.returnValue(fakeState);
+          spyOn(component.pagerComponent, 'getState').and.returnValue(fakeState);
 
           pagerState = component.getPagerState();
 
@@ -57,7 +89,7 @@ define(function(require) {
         });
 
         it('should update results list component', function() {
-          var updateSpy = spyOn(this.component.view.resultsListComponent, 'update')
+          var updateSpy = spyOn(this.component.resultsListComponent, 'update')
 
           this.component.update(this.fakeData);
 
@@ -67,7 +99,7 @@ define(function(require) {
         });
 
         it('should update pager component', function() {
-          var updateSpy = spyOn(this.component.view.pagerComponent, 'update')
+          var updateSpy = spyOn(this.component.pagerComponent, 'update')
 
           this.component.update(this.fakeData);
 

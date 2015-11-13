@@ -10,7 +10,10 @@ define(function(require) {
       _.bindAll(this, 'didFoundRecords', 'didFailSearch');
 
       this.searchComponent = new SearchComponent;
-      this.pagedListComponent = new PagedResultsListComponent;
+      this.pagedListComponent = new PagedResultsListComponent({
+        pageSize: 17,
+        pageWindowSize: 15
+      });
       this.tabSwitcherComponent = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'List',
@@ -28,7 +31,7 @@ define(function(require) {
       this.listenTo(this.pagedListComponent, 'pager:page:selected', this.onPageRequest);
 
       this.pagedListComponent.update({
-        total: 100,
+        total: 10000,
         items: [{
           title: 'hello'
         }]
