@@ -186,8 +186,12 @@ define(function(require) {
           expect(view.$el).toContainElement('input');
           expect(view.$el.find('input')).toHaveAttr('placeholder', 'Search...');
           expect(view.$el.find('input')).toHaveAttr('value', 'test search');
+
           expect(view.$el).toContainElement('button');
           expect(view.$el.find('button')).toContainText('Search');
+
+          expect(view.$el).toContainElement('button');
+          expect(view.$el.find('button')).toContainText('More');
         });
       });
     });
