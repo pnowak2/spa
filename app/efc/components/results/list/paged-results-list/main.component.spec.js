@@ -69,43 +69,19 @@ define(function(require) {
       });
 
       describe('.update()', function() {
-        beforeEach(function() {
-          this.component = new PagedResultsListComponent;
-          this.fakeData = {
-            total: 5,
-            items: []
-          };
-        });
-
         it('should be defined', function() {
           expect(PagedResultsListComponent.prototype.update).toEqual(jasmine.any(Function));
         });
 
-        it('should not throw if called without data', function() {
-          var self = this;
-          expect(function() {
-            self.component.update();
-          }).not.toThrow();
-        });
+        it('should delegate to view', function() {
+          var component = new PagedResultsListComponent
+          spyOn(component.view, 'update');
 
-        it('should update results list component', function() {
-          var updateSpy = spyOn(this.component.resultsListComponent, 'update')
+          var fakeData = {};
 
-          this.component.update(this.fakeData);
+          component.update(fakeData);
 
-          expect(updateSpy).toHaveBeenCalledWith(this.fakeData.items);
-          expect(updateSpy.calls.mostRecent().args[0])
-            .toBe(this.fakeData.items);
-        });
-
-        it('should update pager component', function() {
-          var updateSpy = spyOn(this.component.pagerComponent, 'update')
-
-          this.component.update(this.fakeData);
-
-          expect(updateSpy).toHaveBeenCalledWith({
-            totalItems: 5
-          });
+          expect(component.view.update).toHaveBeenCalledWith(fakeData);
         });
       });
     });

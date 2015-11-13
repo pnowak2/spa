@@ -23,12 +23,7 @@ define(function(require) {
     },
 
     update: function(data) {
-      data = data || {};
-
-      this.resultsListComponent.update(data.items);
-      this.pagerComponent.update({
-        totalItems: data.total
-      });
+      this.view.update(data);
     }
   });
 });

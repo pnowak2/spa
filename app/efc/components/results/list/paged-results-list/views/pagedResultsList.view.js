@@ -21,6 +21,15 @@ define(function(require) {
       this.pagerComponent = attrs.pagerComponent;
     },
 
+    update: function(data) {
+      data = data || {};
+
+      this.resultsListComponent.update(data.items);
+      this.pagerComponent.update({
+        totalItems: data.total
+      });
+    },
+
     render: function() {
       this.$el.append(this.resultsListComponent.render().view.el);
       this.$el.append(this.pagerComponent.render().view.el);
