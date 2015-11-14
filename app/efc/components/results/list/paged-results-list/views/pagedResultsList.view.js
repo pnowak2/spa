@@ -21,13 +21,12 @@ define(function(require) {
       this.pagerComponent = attrs.pagerComponent;
     },
 
-    update: function(data) {
-      data = data || {};
+    update: function(resultsListData, pagerData) {
+      resultsListData = resultsListData || {};
+      pagerData = pagerData || {};
 
-      this.resultsListComponent.update(data.items);
-      this.pagerComponent.update({
-        totalItems: data.total
-      });
+      this.resultsListComponent.update(resultsListData);
+      this.pagerComponent.update(pagerData);
     },
 
     render: function() {

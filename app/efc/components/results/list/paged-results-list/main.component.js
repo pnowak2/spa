@@ -22,8 +22,10 @@ define(function(require) {
       return this.pagerComponent.getState();
     },
 
-    update: function(data) {
-      this.view.update(data);
+    update: function(resultsListData, pagerData) {
+      this.stopListening(this.pagerComponent, 'all');
+      this.view.update(resultsListData, pagerData);
+      this.listenTo(this.pagerComponent, 'all', this.trigger);
     }
   });
 });

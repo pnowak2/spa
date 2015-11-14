@@ -77,11 +77,37 @@ define(function(require) {
           var component = new PagedResultsListComponent
           spyOn(component.view, 'update');
 
-          var fakeData = {};
+          var fakeResultsListData = {},
+            fakePagerData = {};
 
-          component.update(fakeData);
+          component.update(fakeResultsListData, fakePagerData);
 
-          expect(component.view.update).toHaveBeenCalledWith(fakeData);
+          expect(component.view.update).toHaveBeenCalledWith(fakeResultsListData, fakePagerData);
+        });
+
+        it('should not trigger any events from pager during update', function() {
+          spyOn(PagedResultsListComponent.prototype, 'trigger');
+
+          var component = new PagedResultsListComponent({
+            totalItems: 100,
+            currentPage: 1
+          });
+
+          component.update([], {
+            currentPage: 3
+          });
+
+          expect(component.trigger).not.toHaveBeenCalled();
+          expect(component.getPagerState()).toEqual(jasmine.objectContaining({
+            currentPage: 3
+          }));
+
+          component.pagerComponent.update({
+            currentPage: 2
+          });
+
+          expect(component.trigger).toHaveBeenCalled();
+          expect(component.trigger.calls.count()).toBe(1);
         });
       });
     });

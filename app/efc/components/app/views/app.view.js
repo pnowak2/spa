@@ -31,20 +31,23 @@ define(function(require) {
     },
 
     onSearchRequest: function(searchCriteria) {
-      var criteria = _.extend({}, searchCriteria, {
-        startFromItem: 0
-      });
-      this.cachedCriteria = _.clone(criteria);
-      searchService.search(criteria).then(this.didSearchSucceeded);
+      this.cachedCriteria = _.clone(searchCriteria);
+      searchService.search(searchCriteria).then(this.didSearchSucceeded);
     },
 
     onPageRequest: function(pagerCriteria) {
       var criteria = _.extend({}, this.cachedCriteria, pagerCriteria);
-      searchService.search(criteria).then(this.didSearchSucceeded);
+      searchService.search(criteria).then(this.didPagingSucceeded);
     },
 
     didSearchSucceeded: function(data) {
-      this.pagedResultsListComponent.update(data);
+      this.pagedResultsListComponent.update(data.items, {
+        currentPage: 1
+      });
+    },
+
+    didPagingSucceeded: function(data) {
+      this.pagedResultsListComponent.update(data.items)
     },
 
     render: function() {
