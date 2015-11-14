@@ -11,6 +11,7 @@ define(function(require) {
       this.searchComponent = new SearchComponent;
       this.tabSwitcherComponent = new TabSwitcherComponent;
       this.pagedResultsListComponent = new PagedResultsListComponent({
+        pageSize: 15,
         pageWindowSize: 9
       });
 

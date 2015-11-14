@@ -31,8 +31,9 @@ define(function(require) {
     },
 
     onSearchRequest: function(searchCriteria) {
-      this.cachedCriteria = _.clone(searchCriteria);
-      searchService.search(searchCriteria).then(this.didSearchSucceeded);
+      this.cachedCriteria = _.extend({}, searchCriteria, this.pagedResultsListComponent.getPagerState());
+      console.log(this.cachedCriteria);
+      searchService.search(this.cachedCriteria).then(this.didSearchSucceeded);
     },
 
     onPageRequest: function(pagerCriteria) {
@@ -42,12 +43,15 @@ define(function(require) {
 
     didSearchSucceeded: function(data) {
       this.pagedResultsListComponent.update(data.items, {
-        currentPage: 1
+        currentPage: 1,
+        totalItems: data.total
       });
     },
 
     didPagingSucceeded: function(data) {
-      this.pagedResultsListComponent.update(data.items)
+      this.pagedResultsListComponent.update(data.items, {
+        totalItems: data.total
+      })
     },
 
     render: function() {
