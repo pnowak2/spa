@@ -2,7 +2,8 @@ define(function(require) {
   var Backbone = require('backbone'),
     PagedResultsListView = require('./pagedResultsList.view'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
-    PagerComponent = require('app/shared/components/pager/main.component');
+    PagerComponent = require('app/shared/components/pager/main.component'),
+    searchService = require('app/efc/services/search/search.service');
 
   describe('Paged Results List View', function() {
     describe('type', function() {
@@ -12,49 +13,16 @@ define(function(require) {
     });
 
     describe('creation', function() {
-      it('should not throw if properly initialized', function() {
-        expect(function() {
-          new PagedResultsListView({
-            resultsListComponent: new ResultsListComponent,
-            pagerComponent: new PagerComponent
-          });
-        }).not.toThrow();
+      beforeEach(function() {
+        this.view = new PagedResultsListView;
       });
 
-      it('should have results list component', function() {
-        var view = new PagedResultsListView({
-          resultsListComponent: new ResultsListComponent,
-          pagerComponent: new PagerComponent
-        });
-
-        expect(view.resultsListComponent).toEqual(jasmine.any(ResultsListComponent));
+      it('should have results list component defined', function() {
+        expect(this.view.resultsListComponent).toEqual(jasmine.any(ResultsListComponent));
       });
 
-      it('should have pager component', function() {
-        var view = new PagedResultsListView({
-          resultsListComponent: new ResultsListComponent,
-          pagerComponent: new PagerComponent
-        });
-
-        expect(view.pagerComponent).toEqual(jasmine.any(PagerComponent));
-      });
-
-      it('should throw if result list component is not correct', function() {
-        expect(function() {
-          new PagedResultsListView({
-            resultsListComponent: {},
-            pagerComponent: new PagerComponent
-          });
-        }).toThrowError('Result list component is not correct');
-      });
-
-      it('should throw if pager component is not correct', function() {
-        expect(function() {
-          new PagedResultsListView({
-            resultsListComponent: new ResultsListComponent,
-            pagerComponent: {}
-          })
-        }).toThrowError('Pager component is not correct');
+      it('should have pager component defined', function() {
+        expect(this.view.pagerComponent).toEqual(jasmine.any(PagerComponent));
       });
     });
 
@@ -73,45 +41,89 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.update()', function() {
+      describe('.onSearchRequest()', function() {
         beforeEach(function() {
-          this.view = new PagedResultsListView({
-            resultsListComponent: new ResultsListComponent,
-            pagerComponent: new PagerComponent
-          });
-          this.fakeResultsListData = [];
-          this.fakePagerData = {}
+          var fakeThenable = {
+            then: function() {},
+            catch: function() {}
+          }
+          spyOn(fakeThenable, 'then').and.returnValue(fakeThenable);
+          spyOn(fakeThenable, 'catch').and.returnValue(fakeThenable);
+
+          spyOn(searchService, 'search').and.returnValue(fakeThenable);
+          spyOn(PagedResultsListView.prototype, 'didSearchSucceed');
+
+          this.view = new PagedResultsListView;
         });
 
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.update).toEqual(jasmine.any(Function));
+          expect(PagedResultsListView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
         });
 
-        it('should not throw if called without data', function() {
+        it('should not throw if called without args', function() {
           var self = this;
           expect(function() {
-            self.view.update();
+            self.view.onSearchRequest();
           }).not.toThrow();
         });
 
-        it('should update results list component', function() {
-          var updateSpy = spyOn(this.view.resultsListComponent, 'update')
+        it('should call search service with search criteria', function() {
+          var fakeSearchCriteria = {
+            keyword: 'foo'
+          };
 
-          this.view.update(this.fakeResultsListData, this.fakePagerData);
+          this.view.onSearchRequest(fakeSearchCriteria);
 
-          expect(updateSpy).toHaveBeenCalledWith(this.fakeResultsListData);
-          expect(updateSpy.calls.mostRecent().args[0])
-            .toBe(this.fakeResultsListData);
+          expect(searchService.search).toHaveBeenCalledWith(jasmine.objectContaining({
+            keyword: 'foo'
+          }));
         });
 
-        it('should update pager component', function() {
-          var updateSpy = spyOn(this.view.pagerComponent, 'update')
+        it('should call search with minimum paging data from pager component', function() {
+          this.view.onSearchRequest();
 
-          this.view.update(this.fakeResultsListData, this.fakePagerData);
+          var searchArg = searchService.search.calls.mostRecent().args[0];
 
-          expect(updateSpy).toHaveBeenCalledWith(this.fakePagerData);
-          expect(updateSpy.calls.mostRecent().args[0])
-            .toBe(this.fakePagerData);
+          expect(searchArg).toEqual(jasmine.objectContaining({
+            startFromItem: this.view.pagerComponent.getState().startFromItem,
+            pageSize: this.view.pagerComponent.getState().pageSize,
+          }));
+        });
+
+        it('should reset pager component to first page before search', function() {
+          this.view.pagerComponent.update({
+            totalItems: 100,
+            currentPage: 3
+          });
+
+          this.view.onSearchRequest();
+
+          expect(this.view.pagerComponent.getState()).toEqual(jasmine.objectContaining({
+            startFromItem: 0,
+            currentPage: 1
+          }));
+        });
+
+        it('should callback after search done', function() {
+          this.view.onSearchRequest();
+          expect(searchService.search().then).toHaveBeenCalledWith(PagedResultsListView.prototype.didSearchSucceed);
+        });
+
+        it('should callback after search failed', function() {
+          this.view.onSearchRequest();
+          expect(searchService.search().catch).toHaveBeenCalledWith(PagedResultsListView.prototype.didSearchFail);
+        });
+      });
+
+      describe('.didSearchSucceed()', function() {
+        it('should be defined', function() {
+          expect(PagedResultsListView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.didSearchFail()', function() {
+        it('should be defined', function() {
+          expect(PagedResultsListView.prototype.didSearchFail).toEqual(jasmine.any(Function));
         });
       });
     });
@@ -119,20 +131,17 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
-          this.view = new PagedResultsListView({
-            resultsListComponent: new ResultsListComponent,
-            pagerComponent: new PagerComponent
-          });
+          this.view = new PagedResultsListView;
         });
 
         it('should append results list component', function() {
           this.view.render();
-          expect(this.view.$el).toContainHtml(this.view.resultsListComponent.render().view.$el.html());
+          expect(this.view.$el).toContainHtml(this.view.resultsListComponent.render().view.$el);
         });
 
         it('should append pager component', function() {
           this.view.render();
-          expect(this.view.$el).toContainHtml(this.view.pagerComponent.render().view.$el.html());
+          expect(this.view.$el).toContainHtml(this.view.pagerComponent.render().view.$el);
         });
       });
     });

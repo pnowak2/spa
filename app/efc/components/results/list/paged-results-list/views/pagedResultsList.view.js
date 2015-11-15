@@ -1,32 +1,34 @@
 define(function(require) {
   var Backbone = require('backbone'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
-    PagerComponent = require('app/shared/components/pager/main.component');
+    PagerComponent = require('app/shared/components/pager/main.component'),
+    searchService = require('app/efc/services/search/search.service');
 
   return Backbone.View.extend({
     className: 'efc-paged-results-list',
 
-    initialize: function(attrs) {
-      attrs = attrs || {};
-
-      if (!(attrs.resultsListComponent instanceof ResultsListComponent)) {
-        throw new Error('Result list component is not correct');
-      }
-
-      if (!(attrs.pagerComponent instanceof PagerComponent)) {
-        throw new Error('Pager component is not correct');
-      }
-
-      this.resultsListComponent = attrs.resultsListComponent;
-      this.pagerComponent = attrs.pagerComponent;
+    initialize: function() {
+      this.resultsListComponent = new ResultsListComponent;
+      this.pagerComponent = new PagerComponent;
     },
 
-    update: function(resultsListData, pagerData) {
-      resultsListData = resultsListData || {};
-      pagerData = pagerData || {};
+    onSearchRequest: function(searchCriteria) {
+      this.pagerComponent.update({
+        currentPage: 1
+      });
 
-      this.resultsListComponent.update(resultsListData);
-      this.pagerComponent.update(pagerData);
+      var criteria = _.extend({}, searchCriteria, this.pagerComponent.getState());
+      searchService.search(criteria)
+        .then(this.didSearchSucceed)
+        .catch(this.didSearchFail);
+    },
+
+    didSearchSucceed: function(data) {
+
+    },
+
+    didSearchFail: function() {
+
     },
 
     render: function() {
