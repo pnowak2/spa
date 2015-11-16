@@ -13,7 +13,23 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.onSearchRequest()', function() {
+        it('should be defined', function() {
+          expect(PagedResultsListComponent.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+        });
 
+        it('should delegate do view', function() {
+          spyOn(PagedResultsListView.prototype, 'onSearchRequest');
+
+          var component = new PagedResultsListComponent,
+            fakeSearchCriteria = {};
+
+          component.onSearchRequest(fakeSearchCriteria);
+
+          expect(component.view.onSearchRequest).toHaveBeenCalled();
+          expect(component.view.onSearchRequest.calls.mostRecent().args[0]).toBe(fakeSearchCriteria);
+        });
+      });
     });
   });
 });
