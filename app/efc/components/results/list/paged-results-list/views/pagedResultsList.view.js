@@ -23,21 +23,35 @@ define(function(require) {
       this.stopListening(this.pagerComponent, 'pager:page:selected');
     },
 
-    prepareSearchCriteria: function(criteria) {
-      return _.extend({}, criteria, this.pagerComponent.getState())
+    prepareSearchCriteria: function(criteria, pagerState) {
+      return _.extend({}, criteria, pagerState)
     },
 
     onSearchRequest: function(searchCriteria) {
       this.resetPager();
 
-      var criteria = this.cachedCriteria = this.prepareSearchCriteria(searchCriteria)
+      var pagerState = this.pagerComponent.getState(),
+        criteria = this.prepareSearchCriteria(
+          searchCriteria,
+          pagerState
+        );
+
       searchService.search(criteria)
         .then(this.didSearchSucceed)
         .catch(this.didSearchFail);
+
+      this.cachedCriteria = criteria;
     },
 
-    onPageRequest: function(pagerCriteria) {
+    onPageRequest: function(pagerState) {
+      var criteria = this.prepareSearchCriteria(
+        this.cachedCriteria,
+        pagerState
+      );
 
+      searchService.search(criteria)
+        .then(this.didSearchSucceed)
+        .catch(this.didSearchFail);
     },
 
     resetPager: function() {
@@ -50,7 +64,9 @@ define(function(require) {
 
     didSearchSucceed: function(data) {
       this.resultsListComponent.update(data.items);
-      this.pagerComponent.update(data.total);
+      this.pagerComponent.update({
+        totalItems: data.total
+      });
     },
 
     didSearchFail: function(error) {

@@ -5,6 +5,10 @@ define(function(require) {
   return Component.extend({
     initialize: function(attrs) {
       this.view = new PagedResultsListView;
+    },
+
+    onSearchRequest: function(searchCriteria) {
+      this.view.onSearchRequest(searchCriteria);
     }
   });
 });

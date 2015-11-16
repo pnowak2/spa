@@ -63,9 +63,7 @@ define(function(require) {
               currentPage: 15
             };
 
-          spyOn(this.view.pagerComponent, 'getState').and.returnValue(fakePagerState);
-
-          var preparedCriteria = this.view.prepareSearchCriteria(fakeSearchCriteria);
+          var preparedCriteria = this.view.prepareSearchCriteria(fakeSearchCriteria, fakePagerState);
 
           expect(preparedCriteria).toEqual(jasmine.objectContaining({
             keyword: 'foo',
@@ -154,6 +152,18 @@ define(function(require) {
           expect(this.view.cachedCriteria).toBe(fakePreparedCriteria);
         });
 
+        it('should prepare search criteria with criteria argument and pager state', function() {
+          var fakeSearchCriteria = {},
+            fakePagerStatus = {};
+
+          spyOn(PagerComponent.prototype, 'getState').and.returnValue(fakePagerStatus);
+          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria');
+
+          this.view.onSearchRequest(fakeSearchCriteria, fakePagerStatus);
+
+          expect(this.view.prepareSearchCriteria).toHaveBeenCalledWith(fakeSearchCriteria, fakePagerStatus);
+        });
+
         it('should call search service with prepared search criteria', function() {
           var fakePreparedCriteria = {};
           spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
@@ -175,12 +185,22 @@ define(function(require) {
       });
 
       describe('.onPageRequest()', function() {
+        beforeEach(function() {
+          this.view = new PagedResultsListView;
+        });
+
         it('it should be defined', function() {
           expect(PagedResultsListView.prototype.onPageRequest).toEqual(jasmine.any(Function));
         });
 
-        it('should call search service with cached criteria', function() {
+        xit('should call search service with cached criteria', function() {
+          var fakePagerCriteria = {};
 
+          this.view.cachedCriteria = {
+            keyword: 'foo'
+          }
+
+          this.view.onPageRequest(fakePagerCriteria);
         });
       });
 
@@ -241,7 +261,7 @@ define(function(require) {
 
           this.view = new PagedResultsListView;
           this.fakeData = {
-            total: {},
+            total: 1000,
             items: []
           };
         });
@@ -258,8 +278,9 @@ define(function(require) {
 
         it('should update pager component with data total items', function() {
           this.view.didSearchSucceed(this.fakeData);
-          var updateSpy = this.view.pagerComponent.update.calls.mostRecent();
-          expect(updateSpy.args[0]).toBe(this.fakeData.total);
+          expect(this.view.pagerComponent.update).toHaveBeenCalledWith(jasmine.objectContaining({
+            totalItems: 1000
+          }));
         });
       });
 
