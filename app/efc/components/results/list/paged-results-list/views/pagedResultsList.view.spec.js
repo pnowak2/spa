@@ -186,6 +186,14 @@ define(function(require) {
 
       describe('.onPageRequest()', function() {
         beforeEach(function() {
+          var fakeThenable = {
+            then: function() {},
+            catch: function() {}
+          }
+          spyOn(fakeThenable, 'then').and.returnValue(fakeThenable);
+          spyOn(fakeThenable, 'catch').and.returnValue(fakeThenable);
+          spyOn(searchService, 'search').and.returnValue(fakeThenable);
+
           this.view = new PagedResultsListView;
         });
 
@@ -193,14 +201,42 @@ define(function(require) {
           expect(PagedResultsListView.prototype.onPageRequest).toEqual(jasmine.any(Function));
         });
 
-        xit('should call search service with cached criteria', function() {
-          var fakePagerCriteria = {};
+        it('should prepare search criteria with cached criteria and pager state argument', function() {
+          var fakeCachedCriteria = {
+              keyword: 'bar'
+            },
+            fakePagerState = {
+              currentPage: 1
+            };
 
-          this.view.cachedCriteria = {
+          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria');
+
+          this.view.cachedCriteria = fakeCachedCriteria;
+          this.view.onPageRequest(fakePagerState);
+
+          expect(this.view.prepareSearchCriteria).toHaveBeenCalledWith(fakeCachedCriteria, fakePagerState);
+        });
+
+        it('should call search service with prepared search criteria', function() {
+          var fakePreparedCriteria = {
             keyword: 'foo'
-          }
+          };
 
-          this.view.onPageRequest(fakePagerCriteria);
+          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
+
+          this.view.onPageRequest({});
+
+          expect(searchService.search).toHaveBeenCalledWith(fakePreparedCriteria);
+        });
+
+        it('should callback after search done', function() {
+          this.view.onPageRequest();
+          expect(searchService.search().then).toHaveBeenCalledWith(PagedResultsListView.prototype.didSearchSucceed);
+        });
+
+        it('should callback after search failed', function() {
+          this.view.onPageRequest();
+          expect(searchService.search().catch).toHaveBeenCalledWith(PagedResultsListView.prototype.didSearchFail);
         });
       });
 
