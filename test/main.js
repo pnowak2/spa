@@ -74,9 +74,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/results/list/results-list/collections/results.collection.spec',
     'app/efc/components/results/list/results-list/views/resultsList.view.spec',
     'app/efc/components/results/list/results-list/views/resultItem.view.spec',
-    // paged results list component
-    'app/efc/components/results/list/paged-results-list/main.component.spec',
-    'app/efc/components/results/list/paged-results-list/views/pagedResultsList.view.spec'
+    // searchable results list component
+    'app/efc/components/results/list/searchable-results-list/main.component.spec',
+    'app/efc/components/results/list/searchable-results-list/views/searchableResultsList.view.spec'
 
   ], function() {
     window.onload();

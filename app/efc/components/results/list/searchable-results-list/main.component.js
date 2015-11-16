@@ -1,10 +1,10 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    PagedResultsListView = require('./views/pagedResultsList.view');
+    SearchableResultsListView = require('./views/searchableResultsList.view');
 
   return Component.extend({
     initialize: function(attrs) {
-      this.view = new PagedResultsListView;
+      this.view = new SearchableResultsListView;
     },
 
     onSearchRequest: function(searchCriteria) {

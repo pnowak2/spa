@@ -2,7 +2,7 @@ define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
     SearchComponent = require('app/efc/components/search/search-box/main.component'),
-    PagedResultsListComponent = require('app/efc/components/results/list/paged-results-list/main.component'),
+    PagedResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
     searchService = require('app/efc/services/search/search.service');
 
@@ -26,7 +26,7 @@ define(function(require) {
       }, {
         title: 'List',
         identifier: 'list',
-        targetSelector: '.efc-paged-results-list',
+        targetSelector: '.efc-searchable-results-list',
         selected: true
       }]);
     },

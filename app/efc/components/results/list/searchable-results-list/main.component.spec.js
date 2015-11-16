@@ -1,27 +1,27 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    PagedResultsListComponent = require('./main.component'),
+    SearchableResultsListComponent = require('./main.component'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
-    PagedResultsListView = require('./views/pagedResultsList.view');
+    SearchableResultsListView = require('./views/searchableResultsList.view');
 
-  describe('Paged Results List Component', function() {
+  describe('Searchable Results List Component', function() {
     describe('type', function() {
       it('should be of component', function() {
-        expect(PagedResultsListComponent.prototype).toEqual(jasmine.any(Component));
+        expect(SearchableResultsListComponent.prototype).toEqual(jasmine.any(Component));
       });
     });
 
     describe('api', function() {
       describe('.onSearchRequest()', function() {
         it('should be defined', function() {
-          expect(PagedResultsListComponent.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListComponent.prototype.onSearchRequest).toEqual(jasmine.any(Function));
         });
 
         it('should delegate do view', function() {
-          spyOn(PagedResultsListView.prototype, 'onSearchRequest');
+          spyOn(SearchableResultsListView.prototype, 'onSearchRequest');
 
-          var component = new PagedResultsListComponent,
+          var component = new SearchableResultsListComponent,
             fakeSearchCriteria = {};
 
           component.onSearchRequest(fakeSearchCriteria);

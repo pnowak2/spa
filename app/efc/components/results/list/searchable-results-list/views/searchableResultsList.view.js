@@ -6,7 +6,7 @@ define(function(require) {
     searchService = require('app/efc/services/search/search.service');
 
   return Backbone.View.extend({
-    className: 'efc-paged-results-list',
+    className: 'efc-searchable-results-list',
 
     initialize: function() {
       _.bindAll(this, 'didSearchSucceed');

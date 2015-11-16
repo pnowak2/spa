@@ -1,23 +1,23 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    PagedResultsListView = require('./pagedResultsList.view'),
+    SearchableResultsListView = require('./searchableResultsList.view'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
     searchService = require('app/efc/services/search/search.service'),
     RSVP = require('rsvp'),
     _ = require('underscore');
 
-  describe('Paged Results List View', function() {
+  describe('Searchable Results List View', function() {
     describe('type', function() {
       it('should be of view', function() {
-        expect(PagedResultsListView.prototype).toEqual(jasmine.any(Backbone.View));
+        expect(SearchableResultsListView.prototype).toEqual(jasmine.any(Backbone.View));
       });
     });
 
     describe('creation', function() {
       beforeEach(function() {
         spyOn(_, 'bindAll').and.callThrough();
-        this.view = new PagedResultsListView;
+        this.view = new SearchableResultsListView;
       });
 
       it('should have results list component defined', function() {
@@ -40,13 +40,13 @@ define(function(require) {
     describe('properties', function() {
       describe('.tagName', function() {
         it('should be div', function() {
-          expect(PagedResultsListView.prototype.tagName).toEqual('div');
+          expect(SearchableResultsListView.prototype.tagName).toEqual('div');
         });
       });
 
       describe('.className', function() {
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.className).toEqual('efc-paged-results-list');
+          expect(SearchableResultsListView.prototype.className).toEqual('efc-searchable-results-list');
         });
       });
     });
@@ -54,12 +54,12 @@ define(function(require) {
     describe('api', function() {
       describe('.startListeningPager()', function() {
         beforeEach(function() {
-          spyOn(PagedResultsListView.prototype, 'listenTo');
-          this.view = new PagedResultsListView;
+          spyOn(SearchableResultsListView.prototype, 'listenTo');
+          this.view = new SearchableResultsListView;
         });
 
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.startListeningPager).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListView.prototype.startListeningPager).toEqual(jasmine.any(Function));
         });
 
         it('should start listening for page changes', function() {
@@ -72,12 +72,12 @@ define(function(require) {
 
       describe('.stopListeningPager()', function() {
         beforeEach(function() {
-          spyOn(PagedResultsListView.prototype, 'stopListening');
-          this.view = new PagedResultsListView;
+          spyOn(SearchableResultsListView.prototype, 'stopListening');
+          this.view = new SearchableResultsListView;
         });
 
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.stopListeningPager).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListView.prototype.stopListeningPager).toEqual(jasmine.any(Function));
         });
 
         it('should stop listening for page changes', function() {
@@ -90,12 +90,12 @@ define(function(require) {
 
       describe('.resetPager()', function() {
         beforeEach(function() {
-          spyOn(PagedResultsListView.prototype, 'onPageRequest');
-          this.view = new PagedResultsListView;
+          spyOn(SearchableResultsListView.prototype, 'onPageRequest');
+          this.view = new SearchableResultsListView;
         });
 
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.resetPager).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListView.prototype.resetPager).toEqual(jasmine.any(Function));
         });
 
         it('should reset pager component to first page', function() {
@@ -140,11 +140,11 @@ define(function(require) {
 
       describe('.prepareSearchCriteria()', function() {
         beforeEach(function() {
-          this.view = new PagedResultsListView;
+          this.view = new SearchableResultsListView;
         });
 
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.prepareSearchCriteria).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListView.prototype.prepareSearchCriteria).toEqual(jasmine.any(Function));
         });
 
         it('should extend search criteria with pager state', function() {
@@ -168,16 +168,16 @@ define(function(require) {
 
       describe('.onSearchRequest()', function() {
         beforeEach(function() {
-          spyOn(PagedResultsListView.prototype, 'performSearch');
-          spyOn(PagedResultsListView.prototype, 'didSearchSucceed');
-          spyOn(PagedResultsListView.prototype, 'didSearchFail');
-          spyOn(PagedResultsListView.prototype, 'resetPager');
+          spyOn(SearchableResultsListView.prototype, 'performSearch');
+          spyOn(SearchableResultsListView.prototype, 'didSearchSucceed');
+          spyOn(SearchableResultsListView.prototype, 'didSearchFail');
+          spyOn(SearchableResultsListView.prototype, 'resetPager');
 
-          this.view = new PagedResultsListView;
+          this.view = new SearchableResultsListView;
         });
 
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
         });
 
         it('should not throw if called without args', function() {
@@ -200,7 +200,7 @@ define(function(require) {
               currentPage: 5
             };
 
-          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria');
+          spyOn(SearchableResultsListView.prototype, 'prepareSearchCriteria');
           spyOn(PagerComponent.prototype, 'getState').and.returnValue(fakePagerStatus);
 
           this.view.onSearchRequest(fakeSearchCriteria, fakePagerStatus);
@@ -212,7 +212,7 @@ define(function(require) {
           var fakePreparedCriteria = {
             currentPage: 2
           };
-          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
+          spyOn(SearchableResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
 
           this.view.onSearchRequest({});
 
@@ -222,7 +222,7 @@ define(function(require) {
         it('should update cached criteria for later use', function() {
           var fakePreparedCriteria = {};
 
-          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
+          spyOn(SearchableResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
 
           expect(this.view.cachedCriteria).toEqual({});
           this.view.onSearchRequest({});
@@ -232,12 +232,12 @@ define(function(require) {
 
       describe('.onPageRequest()', function() {
         beforeEach(function() {
-          spyOn(PagedResultsListView.prototype, 'performSearch');
-          this.view = new PagedResultsListView;
+          spyOn(SearchableResultsListView.prototype, 'performSearch');
+          this.view = new SearchableResultsListView;
         });
 
         it('it should be defined', function() {
-          expect(PagedResultsListView.prototype.onPageRequest).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListView.prototype.onPageRequest).toEqual(jasmine.any(Function));
         });
 
         it('should prepare search criteria with cached criteria and pager state argument', function() {
@@ -248,7 +248,7 @@ define(function(require) {
               currentPage: 1
             };
 
-          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria');
+          spyOn(SearchableResultsListView.prototype, 'prepareSearchCriteria');
 
           this.view.cachedCriteria = fakeCachedCriteria;
           this.view.onPageRequest(fakePagerState);
@@ -261,7 +261,7 @@ define(function(require) {
             keyword: 'foo'
           };
 
-          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
+          spyOn(SearchableResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
 
           this.view.onPageRequest({});
 
@@ -271,11 +271,11 @@ define(function(require) {
 
       describe('.performSearch()', function() {
         beforeEach(function() {
-          this.view = new PagedResultsListView;
+          this.view = new SearchableResultsListView;
         });
 
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.performSearch).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListView.prototype.performSearch).toEqual(jasmine.any(Function));
         });
 
         it('should call search service with argument provided', function() {
@@ -318,7 +318,7 @@ define(function(require) {
           spyOn(ResultsListComponent.prototype, 'update');
           spyOn(PagerComponent.prototype, 'update');
 
-          this.view = new PagedResultsListView;
+          this.view = new SearchableResultsListView;
           this.fakeData = {
             total: 1000,
             items: []
@@ -326,7 +326,7 @@ define(function(require) {
         });
 
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
         });
 
         it('should not throw if invoked without arguments', function() {
@@ -352,7 +352,7 @@ define(function(require) {
 
       describe('.didSearchFail()', function() {
         it('should be defined', function() {
-          expect(PagedResultsListView.prototype.didSearchFail).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListView.prototype.didSearchFail).toEqual(jasmine.any(Function));
         });
       });
     });
@@ -360,8 +360,8 @@ define(function(require) {
     describe('events', function() {
       describe('custom', function() {
         it('should listen to pager changes after view creation', function() {
-          spyOn(PagedResultsListView.prototype, 'onPageRequest');
-          var view = new PagedResultsListView;
+          spyOn(SearchableResultsListView.prototype, 'onPageRequest');
+          var view = new SearchableResultsListView;
           view.pagerComponent.trigger('pager:page:selected');
 
           expect(view.onPageRequest).toHaveBeenCalled();
@@ -372,7 +372,7 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
-          this.view = new PagedResultsListView;
+          this.view = new SearchableResultsListView;
         });
 
         it('should append results list component', function() {
