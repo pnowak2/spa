@@ -57,6 +57,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/tab-switcher/collections/tabs.collection.spec',
     'app/shared/components/tab-switcher/views/tabSwitcher.view.spec',
     'app/shared/components/tab-switcher/views/tab.view.spec',
+    // multiselect component
+    'app/shared/components/multiselect/main.component.spec',
+    'app/shared/components/multiselect/views/multiselect.view.spec',
 
     // util
     'app/efc/util/constants.spec',
