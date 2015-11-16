@@ -9,7 +9,7 @@ define(function(require) {
     className: 'efc-paged-results-list',
 
     initialize: function() {
-      // _.bindAll(this, 'didSearchSucceed');
+      _.bindAll(this, 'didSearchSucceed');
       this.resultsListComponent = new ResultsListComponent;
       this.pagerComponent = new PagerComponent;
       this.cachedCriteria = {};
@@ -67,6 +67,8 @@ define(function(require) {
     },
 
     didSearchSucceed: function(data) {
+      data = data || {};
+
       this.resultsListComponent.update(data.items);
       this.pagerComponent.update({
         totalItems: data.total

@@ -3,7 +3,9 @@ define(function(require) {
     PagedResultsListView = require('./pagedResultsList.view'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
-    searchService = require('app/efc/services/search/search.service');
+    searchService = require('app/efc/services/search/search.service'),
+    RSVP = require('rsvp'),
+    _ = require('underscore');
 
   describe('Paged Results List View', function() {
     describe('type', function() {
@@ -14,6 +16,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
+        spyOn(_, 'bindAll').and.callThrough();
         this.view = new PagedResultsListView;
       });
 
@@ -23,6 +26,10 @@ define(function(require) {
 
       it('should have pager component defined', function() {
         expect(this.view.pagerComponent).toEqual(jasmine.any(PagerComponent));
+      });
+
+      it('should bind callback methods with view object', function() {
+        expect(_.bindAll).toHaveBeenCalledWith(this.view, 'didSearchSucceed');
       });
 
       it('should have empty cached criteria defined', function() {
@@ -264,14 +271,6 @@ define(function(require) {
 
       describe('.performSearch()', function() {
         beforeEach(function() {
-          var fakeThenable = {
-            then: function() {},
-            catch: function() {}
-          }
-          spyOn(fakeThenable, 'then').and.returnValue(fakeThenable);
-          spyOn(fakeThenable, 'catch').and.returnValue(fakeThenable);
-          spyOn(searchService, 'search').and.returnValue(fakeThenable);
-
           this.view = new PagedResultsListView;
         });
 
@@ -280,23 +279,37 @@ define(function(require) {
         });
 
         it('should call search service with argument provided', function() {
-          var fakeCriteria = {
+          spyOn(searchService, 'search').and.returnValue(RSVP.Promise.resolve());
+
+          var fakeSearchCriteria = {
             keyword: 'bar'
           };
 
-          this.view.performSearch(fakeCriteria);
+          this.view.performSearch(fakeSearchCriteria);
 
-          expect(searchService.search).toHaveBeenCalledWith(fakeCriteria)
+          expect(searchService.search).toHaveBeenCalledWith(fakeSearchCriteria);
         });
 
-        it('should callback after search done', function() {
+        it('should call success method after search done', function(done) {
+          spyOn(searchService, 'search').and.returnValue(RSVP.Promise.resolve('success'));
+
+          this.view.didSearchSucceed = function(data) {
+            expect(data).toEqual('success');
+            done();
+          }
+
           this.view.performSearch({});
-          expect(searchService.search().then).toHaveBeenCalledWith(PagedResultsListView.prototype.didSearchSucceed);
         });
 
-        it('should callback after search failed', function() {
+        it('should call failure method after search failed', function(done) {
+          spyOn(searchService, 'search').and.returnValue(RSVP.Promise.reject('error'));
+
+          this.view.didSearchFail = function(error) {
+            expect(error).toEqual('error');
+            done();
+          }
+
           this.view.performSearch({});
-          expect(searchService.search().catch).toHaveBeenCalledWith(PagedResultsListView.prototype.didSearchFail);
         });
       });
 
@@ -316,12 +329,11 @@ define(function(require) {
           expect(PagedResultsListView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
         });
 
-        xit('should be bound with view', function() {
-          var fn = this.view.didSearchSucceed;
-
-          fn();
-
-          expect(fn.calls.mostRecent().object).toBe(this.view);
+        it('should not throw if invoked without arguments', function() {
+          var self = this;
+          expect(function() {
+            self.view.didSearchSucceed();
+          }).not.toThrow();
         });
 
         it('should update results list component with data items', function() {
