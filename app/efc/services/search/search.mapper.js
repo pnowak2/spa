@@ -8,7 +8,7 @@ define(function(require) {
       var id = responseItem[0],
         title = responseItem[1],
         description = responseItem[2],
-        year = responseItem[4],
+        startYear = responseItem[4],
         countries = _.chain(responseItem[5].split('|'))
         .map(function(country) {
           return country.toLowerCase();
@@ -20,7 +20,7 @@ define(function(require) {
         id: id,
         title: title,
         description: description,
-        year: year,
+        startYear: startYear,
         countries: countries
       }
     });

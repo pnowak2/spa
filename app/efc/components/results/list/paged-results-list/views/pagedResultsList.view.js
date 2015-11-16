@@ -1,5 +1,6 @@
 define(function(require) {
-  var Backbone = require('backbone'),
+  var _ = require('underscore'),
+    Backbone = require('backbone'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
     searchService = require('app/efc/services/search/search.service');
@@ -8,6 +9,7 @@ define(function(require) {
     className: 'efc-paged-results-list',
 
     initialize: function() {
+      // _.bindAll(this, 'didSearchSucceed');
       this.resultsListComponent = new ResultsListComponent;
       this.pagerComponent = new PagerComponent;
       this.cachedCriteria = {};
@@ -23,6 +25,14 @@ define(function(require) {
       this.stopListening(this.pagerComponent, 'pager:page:selected');
     },
 
+    resetPager: function() {
+      this.stopListeningPager();
+      this.pagerComponent.update({
+        currentPage: 1
+      });
+      this.startListeningPager();
+    },
+
     prepareSearchCriteria: function(criteria, pagerState) {
       return _.extend({}, criteria, pagerState)
     },
@@ -36,9 +46,7 @@ define(function(require) {
           pagerState
         );
 
-      searchService.search(criteria)
-        .then(this.didSearchSucceed)
-        .catch(this.didSearchFail);
+      this.performSearch(criteria);
 
       this.cachedCriteria = criteria;
     },
@@ -49,17 +57,13 @@ define(function(require) {
         pagerState
       );
 
+      this.performSearch(criteria);
+    },
+
+    performSearch: function(criteria) {
       searchService.search(criteria)
         .then(this.didSearchSucceed)
         .catch(this.didSearchFail);
-    },
-
-    resetPager: function() {
-      this.stopListeningPager();
-      this.pagerComponent.update({
-        currentPage: 1
-      });
-      this.startListeningPager();
     },
 
     didSearchSucceed: function(data) {

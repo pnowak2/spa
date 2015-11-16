@@ -89,7 +89,7 @@ define(function(require) {
               id: '17',
               title: 'Project title',
               description: 'Project description',
-              year: '2015',
+              startYear: '2015',
               countries: ['pl', 'de', 'be']
             }]
           })
@@ -104,13 +104,13 @@ define(function(require) {
               id: '11',
               title: 'Title 1',
               description: 'Description 1',
-              year: '2011',
+              startYear: '2011',
               countries: ['pl', 'de']
             }, {
               id: '16',
               title: 'Title 2',
               description: 'Description 2',
-              year: '2012',
+              startYear: '2012',
               countries: ['fr']
             }]
           })
@@ -125,7 +125,7 @@ define(function(require) {
               id: '17',
               title: 'Project title',
               description: 'Project description',
-              year: '2015',
+              startYear: '2015',
               countries: []
             }]
           })
