@@ -53,6 +53,34 @@ define(function(require) {
         });
       });
 
+      describe('.didClickMoreButton()', function() {
+        beforeEach(function() {
+          this.fakeEvent = {
+            preventDefault: jasmine.createSpy(),
+            which: 35
+          };
+        });
+
+        it('should be defined', function() {
+          expect(SearchBoxView.prototype.didClickMoreButton).toEqual(jasmine.any(Function));
+        });
+
+        it('should prevent default event action', function() {
+          SearchBoxView.prototype.didClickMoreButton(this.fakeEvent);
+          expect(this.fakeEvent.preventDefault).toHaveBeenCalled();
+        });
+
+        it('should trigger view event', function() {
+          spyOn(SearchBoxView.prototype, 'trigger');
+
+          var view = new SearchBoxView;
+
+          view.didClickMoreButton(this.fakeEvent);;
+
+          expect(view.trigger).toHaveBeenCalledWith('search:more');
+        });
+      });
+
       describe('.didPressKey()', function() {
         beforeEach(function() {
           spyOn(SearchBoxView.prototype, 'requestSearch');
@@ -146,7 +174,8 @@ define(function(require) {
       describe('dom', function() {
         it('should be properly defined', function() {
           expect(SearchBoxView.prototype.events).toEqual({
-            'click button': 'didClickSearchButton',
+            'click button.efc-btn-search': 'didClickSearchButton',
+            'click button.efc-btn-more': 'didClickMoreButton',
             'keypress input': 'didPressKey'
           });
         });
@@ -188,9 +217,11 @@ define(function(require) {
           expect(view.$el.find('input')).toHaveAttr('value', 'test search');
 
           expect(view.$el).toContainElement('button');
+          expect(view.$el.find('button')).toHaveClass('efc-btn-search');
           expect(view.$el.find('button')).toContainText('Search');
 
           expect(view.$el).toContainElement('button');
+          expect(view.$el.find('button')).toHaveClass('efc-btn-more');
           expect(view.$el.find('button')).toContainText('More');
         });
       });

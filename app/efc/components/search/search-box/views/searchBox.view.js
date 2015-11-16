@@ -9,7 +9,8 @@ define(function(require) {
     className: 'efc-searchbox',
 
     events: {
-      'click button': 'didClickSearchButton',
+      'click button.efc-btn-search': 'didClickSearchButton',
+      'click button.efc-btn-more': 'didClickMoreButton',
       'keypress input': 'didPressKey'
     },
 
@@ -21,6 +22,11 @@ define(function(require) {
     didClickSearchButton: function(e) {
       e.preventDefault();
       this.requestSearch();
+    },
+
+    didClickMoreButton: function(e) {
+      e.preventDefault();
+      this.trigger('search:more');
     },
 
     didPressKey: function(e) {
