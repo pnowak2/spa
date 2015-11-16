@@ -18,7 +18,7 @@ define(function(require) {
     });
 
     describe('events', function() {
-      it('should trigger event on search', function(done) {
+      it('should trigger event on search action', function(done) {
         var component = new SearchBoxComponent,
           fakeSearchCriteria = {};
 
@@ -28,6 +28,17 @@ define(function(require) {
         });
 
         component.view.trigger('search:keyword', fakeSearchCriteria);
+      });
+
+      it('should trigger event on more action', function(done) {
+        var component = new SearchBoxComponent;
+
+        component.on('search:more', function() {
+          expect(true).toBe(true);
+          done();
+        });
+
+        component.view.trigger('search:more');
       });
     });
   });

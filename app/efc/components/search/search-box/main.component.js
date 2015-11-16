@@ -9,6 +9,10 @@ define(function(require) {
       this.listenTo(this.view, 'search:keyword', function(searchCriteria) {
         this.trigger('search:keyword', searchCriteria);
       });
+
+      this.listenTo(this.view, 'search:more', function() {
+        this.trigger('search:more');
+      });
     }
   });
 });
