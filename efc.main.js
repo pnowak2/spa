@@ -8,6 +8,7 @@ requirejs.config({
     backbone: 'lib/backbone/backbone-min',
     mustache: 'lib/mustache.js/mustache.min',
     text: 'lib/text/text',
+    select2: 'lib/select2/js/select2.full.min',
     rsvp: 'lib/rsvp/rsvp.min'
   }
 });
