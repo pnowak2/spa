@@ -10,24 +10,50 @@ define(function(require) {
     initialize: function() {
       this.resultsListComponent = new ResultsListComponent;
       this.pagerComponent = new PagerComponent;
+      this.cachedCriteria = {};
+
+      this.startListeningPager();
+    },
+
+    startListeningPager: function() {
+      this.listenTo(this.pagerComponent, 'pager:page:selected', this.onPageRequest);
+    },
+
+    stopListeningPager: function() {
+      this.stopListening(this.pagerComponent, 'pager:page:selected');
+    },
+
+    prepareSearchCriteria: function(criteria) {
+      return _.extend({}, criteria, this.pagerComponent.getState())
     },
 
     onSearchRequest: function(searchCriteria) {
-      this.pagerComponent.update({
-        currentPage: 1
-      });
+      this.resetPager();
 
-      var criteria = _.extend({}, searchCriteria, this.pagerComponent.getState());
+      var criteria = this.cachedCriteria = this.prepareSearchCriteria(searchCriteria)
       searchService.search(criteria)
         .then(this.didSearchSucceed)
         .catch(this.didSearchFail);
     },
 
-    didSearchSucceed: function(data) {
+    onPageRequest: function(pagerCriteria) {
 
     },
 
-    didSearchFail: function() {
+    resetPager: function() {
+      this.stopListeningPager();
+      this.pagerComponent.update({
+        currentPage: 1
+      });
+      this.startListeningPager();
+    },
+
+    didSearchSucceed: function(data) {
+      this.resultsListComponent.update(data.items);
+      this.pagerComponent.update(data.total);
+    },
+
+    didSearchFail: function(error) {
 
     },
 

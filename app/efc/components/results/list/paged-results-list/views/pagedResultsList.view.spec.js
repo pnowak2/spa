@@ -24,6 +24,10 @@ define(function(require) {
       it('should have pager component defined', function() {
         expect(this.view.pagerComponent).toEqual(jasmine.any(PagerComponent));
       });
+
+      it('should have empty cached criteria defined', function() {
+        expect(this.view.cachedCriteria).toEqual({});
+      });
     });
 
     describe('properties', function() {
@@ -41,6 +45,72 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.prepareSearchCriteria()', function() {
+        beforeEach(function() {
+          this.view = new PagedResultsListView;
+        });
+
+        it('should be defined', function() {
+          expect(PagedResultsListView.prototype.prepareSearchCriteria).toEqual(jasmine.any(Function));
+        });
+
+        it('should extend search criteria with pager criteria', function() {
+          var fakeSearchCriteria = {
+              keyword: 'foo'
+            },
+            fakePagerState = {
+              totalItems: 1000,
+              currentPage: 15
+            };
+
+          spyOn(this.view.pagerComponent, 'getState').and.returnValue(fakePagerState);
+
+          var preparedCriteria = this.view.prepareSearchCriteria(fakeSearchCriteria);
+
+          expect(preparedCriteria).toEqual(jasmine.objectContaining({
+            keyword: 'foo',
+            totalItems: 1000,
+            currentPage: 15
+          }));
+        });
+      });
+
+      describe('.startListeningPager()', function() {
+        beforeEach(function() {
+          spyOn(PagedResultsListView.prototype, 'listenTo');
+          this.view = new PagedResultsListView;
+        });
+
+        it('should be defined', function() {
+          expect(PagedResultsListView.prototype.startListeningPager).toEqual(jasmine.any(Function));
+        });
+
+        it('should start listening for page changes', function() {
+          this.view.listenTo.calls.reset();
+          this.view.startListeningPager();
+          expect(this.view.listenTo.calls.count()).toBe(1);
+          expect(this.view.listenTo).toHaveBeenCalledWith(this.view.pagerComponent, 'pager:page:selected', this.view.onPageRequest);
+        });
+      });
+
+      describe('.stopListeningPager()', function() {
+        beforeEach(function() {
+          spyOn(PagedResultsListView.prototype, 'stopListening');
+          this.view = new PagedResultsListView;
+        });
+
+        it('should be defined', function() {
+          expect(PagedResultsListView.prototype.stopListeningPager).toEqual(jasmine.any(Function));
+        });
+
+        it('should stop listening for page changes', function() {
+          this.view.stopListening.calls.reset();
+          this.view.stopListeningPager();
+          expect(this.view.stopListening.calls.count()).toBe(1);
+          expect(this.view.stopListening).toHaveBeenCalledWith(this.view.pagerComponent, 'pager:page:selected');
+        });
+      });
+
       describe('.onSearchRequest()', function() {
         beforeEach(function() {
           var fakeThenable = {
@@ -52,12 +122,19 @@ define(function(require) {
 
           spyOn(searchService, 'search').and.returnValue(fakeThenable);
           spyOn(PagedResultsListView.prototype, 'didSearchSucceed');
+          spyOn(PagedResultsListView.prototype, 'didSearchFail');
+          spyOn(PagedResultsListView.prototype, 'resetPager');
 
           this.view = new PagedResultsListView;
         });
 
         it('should be defined', function() {
           expect(PagedResultsListView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+        });
+
+        it('should reset pager component', function() {
+          this.view.onSearchRequest();
+          expect(this.view.resetPager).toHaveBeenCalled();
         });
 
         it('should not throw if called without args', function() {
@@ -67,41 +144,23 @@ define(function(require) {
           }).not.toThrow();
         });
 
-        it('should call search service with search criteria', function() {
-          var fakeSearchCriteria = {
-            keyword: 'foo'
-          };
+        it('should update cached criteria for later use', function() {
+          var fakePreparedCriteria = {};
 
-          this.view.onSearchRequest(fakeSearchCriteria);
+          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
 
-          expect(searchService.search).toHaveBeenCalledWith(jasmine.objectContaining({
-            keyword: 'foo'
-          }));
+          expect(this.view.cachedCriteria).toEqual({});
+          this.view.onSearchRequest({});
+          expect(this.view.cachedCriteria).toBe(fakePreparedCriteria);
         });
 
-        it('should call search with minimum paging data from pager component', function() {
-          this.view.onSearchRequest();
+        it('should call search service with prepared search criteria', function() {
+          var fakePreparedCriteria = {};
+          spyOn(PagedResultsListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
 
-          var searchArg = searchService.search.calls.mostRecent().args[0];
+          this.view.onSearchRequest({});
 
-          expect(searchArg).toEqual(jasmine.objectContaining({
-            startFromItem: this.view.pagerComponent.getState().startFromItem,
-            pageSize: this.view.pagerComponent.getState().pageSize,
-          }));
-        });
-
-        it('should reset pager component to first page before search', function() {
-          this.view.pagerComponent.update({
-            totalItems: 100,
-            currentPage: 3
-          });
-
-          this.view.onSearchRequest();
-
-          expect(this.view.pagerComponent.getState()).toEqual(jasmine.objectContaining({
-            startFromItem: 0,
-            currentPage: 1
-          }));
+          expect(searchService.search).toHaveBeenCalledWith(fakePreparedCriteria);
         });
 
         it('should callback after search done', function() {
@@ -115,15 +174,110 @@ define(function(require) {
         });
       });
 
+      describe('.onPageRequest()', function() {
+        it('it should be defined', function() {
+          expect(PagedResultsListView.prototype.onPageRequest).toEqual(jasmine.any(Function));
+        });
+
+        it('should call search service with cached criteria', function() {
+
+        });
+      });
+
+      describe('.resetPager()', function() {
+        beforeEach(function() {
+          spyOn(PagedResultsListView.prototype, 'onPageRequest');
+          this.view = new PagedResultsListView;
+        });
+
+        it('should be defined', function() {
+          expect(PagedResultsListView.prototype.resetPager).toEqual(jasmine.any(Function));
+        });
+
+        it('should reset pager component to first page', function() {
+          this.view.pagerComponent.update({
+            totalItems: 100,
+            currentPage: 3
+          });
+
+          this.view.resetPager();
+
+          expect(this.view.pagerComponent.getState()).toEqual(jasmine.objectContaining({
+            startFromItem: 0,
+            currentPage: 1
+          }));
+        });
+
+        it('should reset silently without notifying the view', function() {
+          this.view.pagerComponent.update({
+            totalItems: 100,
+            currentPage: 3
+          });
+
+          this.view.onPageRequest.calls.reset();
+
+          expect(this.view.onPageRequest).not.toHaveBeenCalled();
+          expect(this.view.pagerComponent.getState().currentPage).toBe(3);
+
+          this.view.resetPager();
+
+          expect(this.view.onPageRequest).not.toHaveBeenCalled();
+          expect(this.view.pagerComponent.getState().currentPage).toBe(1);
+
+          this.view.pagerComponent.update({
+            totalItems: 100,
+            currentPage: 3
+          });
+
+          expect(this.view.onPageRequest).toHaveBeenCalled();
+          expect(this.view.pagerComponent.getState().currentPage).toBe(3);
+        });
+      });
+
       describe('.didSearchSucceed()', function() {
+        beforeEach(function() {
+          spyOn(ResultsListComponent.prototype, 'update');
+          spyOn(PagerComponent.prototype, 'update');
+
+          this.view = new PagedResultsListView;
+          this.fakeData = {
+            total: {},
+            items: []
+          };
+        });
+
         it('should be defined', function() {
           expect(PagedResultsListView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
+        });
+
+        it('should update results list component with data items', function() {
+          this.view.didSearchSucceed(this.fakeData);
+          var updateSpy = this.view.resultsListComponent.update.calls.mostRecent();
+          expect(updateSpy.args[0]).toBe(this.fakeData.items);
+        });
+
+        it('should update pager component with data total items', function() {
+          this.view.didSearchSucceed(this.fakeData);
+          var updateSpy = this.view.pagerComponent.update.calls.mostRecent();
+          expect(updateSpy.args[0]).toBe(this.fakeData.total);
         });
       });
 
       describe('.didSearchFail()', function() {
         it('should be defined', function() {
           expect(PagedResultsListView.prototype.didSearchFail).toEqual(jasmine.any(Function));
+        });
+      });
+    });
+
+    describe('events', function() {
+      describe('custom', function() {
+        it('should listen to pager changes after view creation', function() {
+          spyOn(PagedResultsListView.prototype, 'onPageRequest');
+          var view = new PagedResultsListView;
+          view.pagerComponent.trigger('pager:page:selected');
+
+          expect(view.onPageRequest).toHaveBeenCalled();
         });
       });
     });

@@ -1,20 +1,21 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
+    SearchComponent = require('app/efc/components/search/search-box/main.component'),
+    PagedResultsListComponent = require('app/efc/components/results/list/paged-results-list/main.component'),
+    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
     searchService = require('app/efc/services/search/search.service');
 
   return Backbone.View.extend({
     initialize: function(attrs) {
-      _.bindAll(this, 'didSearchSucceeded');
+      _.bindAll(this, 'onSearchRequest');
 
-      this.tabSwitcherComponent = attrs.tabSwitcherComponent;
-      this.pagedResultsListComponent = attrs.pagedResultsListComponent;
-      this.searchComponent = attrs.searchComponent;
+      this.searchComponent = new SearchComponent;
+      this.tabSwitcherComponent = new TabSwitcherComponent;
+      this.pagedResultsListComponent = new PagedResultsListComponent;
 
       this.initUI();
-
       this.listenTo(this.searchComponent, 'search:keyword', this.onSearchRequest);
-      this.listenTo(this.pagedResultsListComponent, 'pager:page:selected', this.onPageRequest);
     },
 
     initUI: function() {
@@ -31,27 +32,7 @@ define(function(require) {
     },
 
     onSearchRequest: function(searchCriteria) {
-      this.cachedCriteria = _.extend({}, searchCriteria, this.pagedResultsListComponent.getPagerState());
-      console.log(this.cachedCriteria);
-      searchService.search(this.cachedCriteria).then(this.didSearchSucceeded);
-    },
-
-    onPageRequest: function(pagerCriteria) {
-      var criteria = _.extend({}, this.cachedCriteria, pagerCriteria);
-      searchService.search(criteria).then(this.didPagingSucceeded);
-    },
-
-    didSearchSucceeded: function(data) {
-      this.pagedResultsListComponent.update(data.items, {
-        currentPage: 1,
-        totalItems: data.total
-      });
-    },
-
-    didPagingSucceeded: function(data) {
-      this.pagedResultsListComponent.update(data.items, {
-        totalItems: data.total
-      })
+      this.pagedResultsListComponent.onSearchRequest(searchCriteria);
     },
 
     render: function() {
