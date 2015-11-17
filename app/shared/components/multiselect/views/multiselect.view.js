@@ -57,7 +57,6 @@ define(function(require) {
     },
 
     render: function() {
-      console.log(this.options)
       var html = Mustache.render(tpl, {
         items: this.collection.toJSON(),
         multiple: this.options.multiple
