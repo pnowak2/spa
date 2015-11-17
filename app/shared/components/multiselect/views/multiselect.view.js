@@ -8,13 +8,36 @@ define(function(require) {
   return Backbone.View.extend({
     className: 'efc-multiselect',
 
+    events: {
+      'select2:select select': 'didSelectItem',
+      'select2:unselect select': 'didUnselectItem'
+    },
+
     initialize: function(items) {
       this.collection = new MultiSelectCollection(items);
       this.listenTo(this.collection, 'reset', this.render);
     },
 
+    didSelectItem: function(e) {
+      e = e || {};
+      e.params = e.params || {};
+      e.params.data = e.params.data || {};
+
+      var itemId = e.params.data.id;
+      this.collection.selectItem(itemId);
+    },
+
+    didUnselectItem: function(e) {
+      e = e || {};
+      e.params = e.params || {};
+      e.params.data = e.params.data || {};
+
+      var itemId = e.params.data.id;
+      this.collection.unselectItem(itemId);
+    },
+
     selectedItems: function() {
-      return this.collection.selected();
+      return this.collection.selectedItems();
     },
 
     update: function(items) {

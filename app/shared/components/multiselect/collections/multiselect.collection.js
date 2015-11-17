@@ -1,14 +1,30 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    MultiselectModel = require('../models/multiselect.model');
+    SelectItemModel = require('../models/selectItem.model');
 
   return Backbone.Collection.extend({
-    model: MultiselectModel,
+    model: SelectItemModel,
 
-    selected: function() {
+    selectedItems: function() {
       return this.where({
         selected: true
       });
+    },
+
+    selectItem: function(id) {
+      var model = this.get(id);
+
+      if (model) {
+        model.select();
+      }
+    },
+
+    unselectItem: function(id) {
+      var model = this.get(id);
+
+      if (model) {
+        model.unselect();
+      }
     }
   });
 });

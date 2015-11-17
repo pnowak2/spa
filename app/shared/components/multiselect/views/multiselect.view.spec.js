@@ -39,6 +39,80 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.didSelectItem()', function() {
+        beforeEach(function() {
+          this.view = new MultiselectView([{
+            id: 'de',
+            title: 'Germany',
+            selected: false
+          }]);
+        });
+
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.didSelectItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should not throw if called without arguments', function() {
+          var self = this;
+          expect(function() {
+            self.view.didSelectItem();
+          }).not.toThrow();
+        });
+
+        it('should select model', function() {
+          var fakeEvent = {
+            params: {
+              data: {
+                id: 'de'
+              }
+            }
+          };
+
+          expect(this.view.collection.get('de').isSelected()).toBe(false);
+
+          this.view.didSelectItem(fakeEvent);
+
+          expect(this.view.collection.get('de').isSelected()).toBe(true);
+        });
+      });
+
+      describe('.didUnselectItem()', function() {
+        beforeEach(function() {
+          this.view = new MultiselectView([{
+            id: 'pl',
+            title: 'Poland',
+            selected: true
+          }]);
+        });
+
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.didUnselectItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should not throw if called without arguments', function() {
+          var self = this;
+          expect(function() {
+            self.view.didUnselectItem();
+          }).not.toThrow();
+        });
+
+        it('should unselect model', function() {
+          var fakeEvent = {
+            params: {
+              data: {
+                id: 'pl'
+              }
+            }
+          };
+
+          expect(this.view.collection.get('pl').isSelected()).toBe(true);
+
+          this.view.didUnselectItem(fakeEvent);
+
+          expect(this.view.collection.get('pl').isSelected()).toBe(false);
+        });
+      });
+
       describe('.selectedItems()', function() {
         it('should be defined', function() {
           expect(MultiselectView.prototype.selectedItems).toEqual(jasmine.any(Function));
@@ -48,7 +122,7 @@ define(function(require) {
           var fakeItems = [],
             view = new MultiselectView;
 
-          spyOn(MultiselectCollection.prototype, 'selected').and.returnValue(fakeItems);
+          spyOn(MultiselectCollection.prototype, 'selectedItems').and.returnValue(fakeItems);
 
           expect(view.selectedItems()).toBe(fakeItems);
         });
@@ -96,6 +170,15 @@ define(function(require) {
     });
 
     describe('events', function() {
+      describe('dom', function() {
+        it('should define proper events', function() {
+          expect(MultiselectView.prototype.events).toEqual({
+            'select2:select select': 'didSelectItem',
+            'select2:unselect select': 'didUnselectItem'
+          });
+        });
+      });
+
       describe('custom', function() {
         it('should rerender when collection resets', function() {
           spyOn(MultiselectView.prototype, 'render');

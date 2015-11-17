@@ -60,7 +60,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // multiselect component
     'app/shared/components/multiselect/main.component.spec',
     'app/shared/components/multiselect/views/multiselect.view.spec',
-    'app/shared/components/multiselect/models/multiselect.model.spec',
+    'app/shared/components/multiselect/models/selectItem.model.spec',
     'app/shared/components/multiselect/collections/multiselect.collection.spec',
 
     // util

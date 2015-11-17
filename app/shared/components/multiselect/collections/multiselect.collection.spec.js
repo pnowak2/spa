@@ -1,7 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     MultiselectCollection = require('./multiselect.collection'),
-    MultiselectModel = require('../models/multiselect.model');
+    MultiselectModel = require('../models/selectItem.model');
 
   describe('Multiselect Collection', function() {
     describe('type', function() {
@@ -17,9 +17,9 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.selected()', function() {
+      describe('.selectedItems()', function() {
         it('should be defined', function() {
-          expect(MultiselectCollection.prototype.selected).toEqual(jasmine.any(Function));
+          expect(MultiselectCollection.prototype.selectedItems).toEqual(jasmine.any(Function));
         });
 
         it('should return only selected items', function() {
@@ -37,15 +37,74 @@ define(function(require) {
               id: 'be',
               title: 'Belgium',
               selected: true
-            });
+            }),
+            collection = new MultiselectCollection([
+              country1, country2, country3
+            ]);
 
-          var collection = new MultiselectCollection([
-            country1, country2, country3
-          ]);
-
-          expect(collection.selected()).toEqual([
+          expect(collection.selectedItems()).toEqual([
             country1, country3
           ])
+        });
+      });
+
+      describe('.selectItem()', function() {
+        it('should be defined', function() {
+          expect(MultiselectCollection.prototype.selectItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should not throw if id is not defined', function() {
+          var collection = new MultiselectCollection;
+          expect(function() {
+            collection.selectItem();
+          }).not.toThrow();
+        });
+
+        it('should select item by item id', function() {
+          var country1 = new MultiselectModel({
+              id: 'de',
+              title: 'Germany',
+              selected: false
+            }),
+            collection = new MultiselectCollection([
+              country1
+            ]);
+
+          expect(collection.get('de').get('selected')).toBe(false);
+
+          collection.selectItem('de');
+
+          expect(collection.get('de').get('selected')).toBe(true);
+        });
+      });
+
+      describe('.unselectItem()', function() {
+        it('should be defined', function() {
+          expect(MultiselectCollection.prototype.unselectItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should not throw if id is not defined', function() {
+          var collection = new MultiselectCollection;
+          expect(function() {
+            collection.unselectItem();
+          }).not.toThrow();
+        });
+
+        it('should unselect item by item id', function() {
+          var country1 = new MultiselectModel({
+              id: 'de',
+              title: 'Germany',
+              selected: true
+            }),
+            collection = new MultiselectCollection([
+              country1
+            ]);
+
+          expect(collection.get('de').get('selected')).toBe(true);
+
+          collection.unselectItem('de');
+
+          expect(collection.get('de').get('selected')).toBe(false);
         });
       });
     });
