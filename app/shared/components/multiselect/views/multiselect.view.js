@@ -1,9 +1,9 @@
 define(function(require) {
-  var Backbone = require('backbone'),
+  var _ = require('underscore'),
+    Backbone = require('backbone'),
     MultiSelectCollection = require('../collections/multiselect.collection'),
     tpl = require('text!../templates/multiselect.tpl.html'),
     Mustache = require('mustache'),
-    _ = require('underscore'),
     select2 = require('select2');
 
   return Backbone.View.extend({
