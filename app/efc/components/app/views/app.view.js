@@ -31,6 +31,20 @@ define(function(require) {
         targetSelector: '.efc-searchable-results-list',
         selected: true
       }]);
+
+      this.multiselectComponent.update([{
+        id: 'pl',
+        title: 'Poland',
+        selected: true
+      }, {
+        id: 'de',
+        title: 'Germany',
+        selected: false
+      }, {
+        id: 'be',
+        title: 'Belgium',
+        selected: true
+      }]);
     },
 
     onSearchRequest: function(searchCriteria) {

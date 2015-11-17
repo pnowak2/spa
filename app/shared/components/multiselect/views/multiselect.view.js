@@ -3,6 +3,7 @@ define(function(require) {
     MultiSelectCollection = require('../collections/multiselect.collection'),
     tpl = require('text!../templates/multiselect.tpl.html'),
     Mustache = require('mustache'),
+    _ = require('underscore'),
     select2 = require('select2');
 
   return Backbone.View.extend({
@@ -37,7 +38,9 @@ define(function(require) {
     },
 
     selectedItems: function() {
-      return this.collection.selectedItems();
+      return _.map(this.collection.selectedItems(), function(model) {
+        return model.toJSON();
+      });
     },
 
     update: function(items) {

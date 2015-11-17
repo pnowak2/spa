@@ -118,13 +118,31 @@ define(function(require) {
           expect(MultiselectView.prototype.selectedItems).toEqual(jasmine.any(Function));
         });
 
-        it('should return items object from collection', function() {
-          var fakeItems = [],
-            view = new MultiselectView;
+        it('should return selected items objects from collection', function() {
+          var view = new MultiselectView([{
+            id: 'pl',
+            title: 'Poland',
+            selected: true
+          }, {
+            id: 'de',
+            title: 'Germany',
+            selected: false
+          }, {
+            id: 'be',
+            title: 'Belgium',
+            selected: true
+          }]);
 
-          spyOn(MultiselectCollection.prototype, 'selectedItems').and.returnValue(fakeItems);
-
-          expect(view.selectedItems()).toBe(fakeItems);
+          expect(view.selectedItems().length).toBe(2);
+          expect(view.selectedItems()).toEqual([{
+            id: 'pl',
+            title: 'Poland',
+            selected: true
+          }, {
+            id: 'be',
+            title: 'Belgium',
+            selected: true
+          }])
         });
       });
 
