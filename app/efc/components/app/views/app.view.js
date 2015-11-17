@@ -26,7 +26,9 @@ define(function(require) {
         id: 'be',
         title: 'Belgium',
         selected: true
-      }]);
+      }], {
+        multiple: true
+      });
 
       this.initUI();
       this.listenTo(this.searchComponent, 'search:keyword', this.onSearchRequest);

@@ -25,6 +25,10 @@ define(function(require) {
       if (model) {
         model.unselect();
       }
+    },
+
+    unselectAll: function() {
+      this.invoke('unselect');
     }
   });
 });

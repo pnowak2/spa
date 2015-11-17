@@ -106,6 +106,10 @@ define(function(require) {
 
           expect(this.view.collection.get('de').isSelected()).toBe(true);
         });
+
+        it('should deselect all if multiple is not active', function() {
+          fail('to do');
+        });
       });
 
       describe('.didUnselectItem()', function() {

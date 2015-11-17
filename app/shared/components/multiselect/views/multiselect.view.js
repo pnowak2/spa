@@ -30,6 +30,9 @@ define(function(require) {
       e.params.data = e.params.data || {};
 
       var itemId = e.params.data.id;
+      if (!this.options.multiple) {
+        this.collection.unselectAll();
+      }
       this.collection.selectItem(itemId);
     },
 

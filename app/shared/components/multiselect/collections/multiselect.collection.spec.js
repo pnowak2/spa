@@ -107,6 +107,34 @@ define(function(require) {
           expect(collection.get('de').get('selected')).toBe(false);
         });
       });
+
+      describe('.unselectAll()', function() {
+        it('should be defined', function() {
+          expect(MultiselectCollection.prototype.unselectAll).toEqual(jasmine.any(Function));
+        });
+
+        it('should unselect all items', function() {
+          var country1 = new MultiselectModel({
+              id: 'pl',
+              title: 'Poland',
+              selected: true
+            }),
+            country2 = new MultiselectModel({
+              id: 'be',
+              title: 'Belgium',
+              selected: true
+            }),
+            collection = new MultiselectCollection([
+              country1, country2
+            ]);
+
+          expect(collection.selectedItems().length).toBe(2);
+
+          collection.unselectAll();
+
+          expect(collection.selectedItems().length).toBe(0);
+        });
+      });
     });
   });
 });
