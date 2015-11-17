@@ -56,6 +56,11 @@
     color: #ff0000;
 }
 
+/* Multiselect */
+.efc-multiselect {
+
+}
+
 /* Search box */
 .efc-searchbox-container {
     position: relative;

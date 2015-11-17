@@ -4,7 +4,19 @@ define(function(require) {
 
   return Component.extend({
     initialize: function() {
-      this.view = new MultiselectView;
+      this.view = new MultiselectView([{
+        id: 'pl',
+        title: 'Poland',
+        selected: true
+      }, {
+        id: 'de',
+        title: 'Germany',
+        selected: false
+      }, {
+        id: 'be',
+        title: 'Belgium',
+        selected: true
+      }]);
     }
   });
 });

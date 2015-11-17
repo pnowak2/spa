@@ -1,6 +1,8 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    MultiselectView = require('./multiselect.view');
+    $ = require('jquery'),
+    MultiselectView = require('./multiselect.view'),
+    MultiselectCollection = require('../collections/multiselect.collection');
 
   describe('Multiselect View', function() {
     describe('type', function() {
@@ -16,6 +18,150 @@ define(function(require) {
 
       it('.className should be defined', function() {
         expect(MultiselectView.prototype.className).toEqual('efc-multiselect');
+      });
+    });
+
+    describe('creation', function() {
+      it('should have collection defined', function() {
+        var view = new MultiselectView;
+
+        expect(view.collection).toEqual(jasmine.any(MultiselectCollection));
+      });
+
+      it('should initialize collection items', function() {
+        spyOn(MultiselectCollection.prototype, 'initialize');
+
+        var fakeItems = {},
+          view = new MultiselectView(fakeItems);
+
+        expect(view.collection.initialize).toHaveBeenCalledWith(fakeItems);
+      });
+    });
+
+    describe('api', function() {
+      describe('.selectedItems()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.selectedItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should return items object from collection', function() {
+          var fakeItems = [],
+            view = new MultiselectView;
+
+          spyOn(MultiselectCollection.prototype, 'selected').and.returnValue(fakeItems);
+
+          expect(view.selectedItems()).toBe(fakeItems);
+        });
+      });
+
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should reset collectio with items', function() {
+          spyOn(MultiselectCollection.prototype, 'reset');
+
+          var fakeItems = {},
+            view = new MultiselectView;
+
+          view.update(fakeItems);
+
+          expect(view.collection.reset).toHaveBeenCalledWith(fakeItems);
+        });
+      });
+
+      describe('.selectElement()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.selectElement).toEqual(jasmine.any(Function));
+        });
+
+        it('should get table body element', function() {
+          var view = new MultiselectView,
+            fakeSelectElement = {},
+            foundSelectElement;
+
+          spyOn(view.$el, 'find').and.callFake(function(selector) {
+            if (selector === 'select') {
+              return fakeSelectElement;
+            }
+          });
+
+          foundSelectElement = view.selectElement();
+
+          expect(view.$el.find).toHaveBeenCalledWith('select');
+          expect(foundSelectElement).toEqual(fakeSelectElement);
+        });
+      });
+    });
+
+    describe('events', function() {
+      describe('custom', function() {
+        it('should rerender when collection resets', function() {
+          spyOn(MultiselectView.prototype, 'render');
+
+          var view = new MultiselectView;
+
+          view.collection.reset([]);
+
+          expect(view.render).toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('rendering', function() {
+      beforeEach(function() {
+        this.view = new MultiselectView([{
+          id: 'pl',
+          title: 'Poland',
+          selected: true
+        }, {
+          id: 'de',
+          title: 'Germany',
+          selected: false
+        }, {
+          id: 'be',
+          title: 'Belgium',
+          selected: true
+        }])
+
+        this.$el = this.view.render().$el;
+      });
+
+      describe('.render()', function() {
+        it('should return view itself', function() {
+          expect(this.view.render()).toBe(this.view);
+        });
+
+        it('should render select', function() {
+          expect(this.$el).toContainElement('select');
+        });
+
+        it('should render three option elements with proper data', function() {
+          expect(this.$el.find('option')).toHaveLength(3);
+
+          expect(this.$el.find('option').first()).toContainText('Poland');
+          expect(this.$el.find('option').first()).toHaveAttr('value', 'pl');
+          expect(this.$el.find('option').first()).toHaveAttr('selected');
+
+          expect(this.$el.find('option').eq(1)).toContainText('Germany');
+          expect(this.$el.find('option').eq(1)).toHaveAttr('value', 'de');
+          expect(this.$el.find('option').eq(1)).not.toHaveAttr('selected');
+
+
+          expect(this.$el.find('option').last()).toContainText('Belgium');
+          expect(this.$el.find('option').last()).toHaveAttr('value', 'be');
+          expect(this.$el.find('option').last()).toHaveAttr('selected');
+        });
+
+        it('should run select2 plugin', function() {
+          spyOn(this.view, 'selectElement').and.returnValue($.prototype);
+          spyOn($.prototype, 'select2');
+
+          this.view.render();
+
+          expect(this.view.selectElement().select2).toHaveBeenCalled();
+        });
       });
     });
   });

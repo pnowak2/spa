@@ -8,5 +8,15 @@ define(function(require) {
         expect(MultiselectModel.prototype).toEqual(jasmine.any(Bakckbone.Model));
       });
     });
+
+    describe('defaults', function() {
+      it('should be defined with proper values', function() {
+        expect(MultiselectModel.prototype.defaults).toEqual({
+          id: '',
+          title: '',
+          selected: false
+        })
+      });
+    });
   });
 });

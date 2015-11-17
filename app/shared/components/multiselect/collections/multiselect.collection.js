@@ -3,6 +3,12 @@ define(function(require) {
     MultiselectModel = require('../models/multiselect.model');
 
   return Backbone.Collection.extend({
-    model: MultiselectModel
+    model: MultiselectModel,
+
+    selected: function() {
+      return this.where({
+        selected: true
+      });
+    }
   });
 });
