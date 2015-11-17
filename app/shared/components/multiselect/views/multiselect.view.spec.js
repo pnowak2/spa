@@ -21,6 +21,14 @@ define(function(require) {
       });
     });
 
+    describe('defaults', function() {
+      it('should be properly defined', function() {
+        expect(MultiselectView.prototype.defaults).toEqual({
+          multiple: true
+        });
+      });
+    });
+
     describe('creation', function() {
       it('should not throw if no arguments provided', function() {
         expect(function() {
@@ -44,16 +52,21 @@ define(function(require) {
       });
 
       it('should initialize options', function() {
-        var fakeOptions = {},
+        var fakeOptions = {
+            foo: 'bar'
+          },
           view = new MultiselectView([], fakeOptions);
 
-        expect(view.options).toBe(fakeOptions);
+        expect(view.options).toEqual(jasmine.objectContaining({
+          foo: 'bar'
+        }));
+        expect(view.options).toEqual(jasmine.objectContaining(view.defaults));
       });
 
-      it('should initialize options even if its not provided', function() {
+      it('should initialize options with defaults if not provided in arguments', function() {
         var view = new MultiselectView([]);
 
-        expect(view.options).toEqual({});
+        expect(view.options).toEqual(view.defaults);
       });
     });
 
