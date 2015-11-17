@@ -16,13 +16,29 @@ define(function(require) {
         expect(component.view).toEqual(jasmine.any(MultiselectView));
       });
 
+      it('should not throw if no arguments provided', function() {
+        expect(function() {
+          new MultiselectComponent;
+        }).not.toThrow();
+      });
+
       it('should initialize view with items', function() {
         spyOn(MultiselectView.prototype, 'initialize');
 
         var fakeItems = [],
           component = new MultiselectComponent(fakeItems);
 
-        expect(component.view.initialize).toHaveBeenCalledWith(fakeItems);
+        expect(component.view.initialize).toHaveBeenCalledWith(fakeItems, {});
+      });
+
+      it('should initialize view with items and options', function() {
+        spyOn(MultiselectView.prototype, 'initialize');
+
+        var fakeItems = [],
+          fakeOptions = [],
+          component = new MultiselectComponent(fakeItems, fakeOptions);
+
+        expect(component.view.initialize).toHaveBeenCalledWith(fakeItems, fakeOptions);
       });
     });
 

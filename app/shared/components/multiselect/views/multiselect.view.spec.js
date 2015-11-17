@@ -22,6 +22,12 @@ define(function(require) {
     });
 
     describe('creation', function() {
+      it('should not throw if no arguments provided', function() {
+        expect(function() {
+          new MultiselectView;
+        }).not.toThrow();
+      });
+
       it('should have collection defined', function() {
         var view = new MultiselectView;
 
@@ -35,6 +41,19 @@ define(function(require) {
           view = new MultiselectView(fakeItems);
 
         expect(view.collection.initialize).toHaveBeenCalledWith(fakeItems);
+      });
+
+      it('should initialize options', function() {
+        var fakeOptions = {},
+          view = new MultiselectView([], fakeOptions);
+
+        expect(view.options).toBe(fakeOptions);
+      });
+
+      it('should initialize options even if its not provided', function() {
+        var view = new MultiselectView([]);
+
+        expect(view.options).toEqual({});
       });
     });
 
@@ -224,7 +243,9 @@ define(function(require) {
           id: 'be',
           title: 'Belgium',
           selected: true
-        }])
+        }], {
+          multiple: true
+        })
 
         this.$el = this.view.render().$el;
       });
@@ -236,6 +257,17 @@ define(function(require) {
 
         it('should render select', function() {
           expect(this.$el).toContainElement('select');
+        });
+
+        it('should render multiple options select', function() {
+          expect(this.$el.find('select')).toHaveAttr('multiple');
+        });
+
+        it('should render multiple options select', function() {
+          this.view.options = {
+            multiple: false
+          }
+          expect(this.view.render().$el.find('select')).not.toHaveAttr('multiple');
         });
 
         it('should render three option elements with proper data', function() {

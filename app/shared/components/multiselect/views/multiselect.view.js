@@ -14,7 +14,8 @@ define(function(require) {
       'select2:unselect select': 'didUnselectItem'
     },
 
-    initialize: function(items) {
+    initialize: function(items, options) {
+      this.options = options || {};
       this.collection = new MultiSelectCollection(items);
       this.listenTo(this.collection, 'reset', this.render);
     },
@@ -53,7 +54,8 @@ define(function(require) {
 
     render: function() {
       var html = Mustache.render(tpl, {
-        items: this.collection.toJSON()
+        items: this.collection.toJSON(),
+        multiple: this.options.multiple
       });
 
       this.$el.html(html);

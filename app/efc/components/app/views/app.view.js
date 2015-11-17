@@ -14,7 +14,21 @@ define(function(require) {
       this.searchComponent = new SearchComponent;
       this.tabSwitcherComponent = new TabSwitcherComponent;
       this.pagedResultsListComponent = new PagedResultsListComponent;
-      this.multiselectComponent = new MultiselectComponent;
+      this.multiselectComponent = new MultiselectComponent([{
+        id: 'pl',
+        title: 'Poland',
+        selected: false
+      }, {
+        id: 'de',
+        title: 'Germany',
+        selected: false
+      }, {
+        id: 'be',
+        title: 'Belgium',
+        selected: true
+      }], {
+        multiple: true
+      });
 
       this.initUI();
       this.listenTo(this.searchComponent, 'search:keyword', this.onSearchRequest);
@@ -29,20 +43,6 @@ define(function(require) {
         title: 'List',
         identifier: 'list',
         targetSelector: '.efc-searchable-results-list',
-        selected: true
-      }]);
-
-      this.multiselectComponent.update([{
-        id: 'pl',
-        title: 'Poland',
-        selected: true
-      }, {
-        id: 'de',
-        title: 'Germany',
-        selected: false
-      }, {
-        id: 'be',
-        title: 'Belgium',
         selected: true
       }]);
     },
