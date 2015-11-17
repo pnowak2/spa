@@ -18,7 +18,7 @@ define(function(require) {
     });
 
     describe('properties', function() {
-      it('.tagName', function() {
+      it('.tagName should be div', function() {
         expect(SearchBoxView.prototype.tagName).toEqual('div');
       });
 

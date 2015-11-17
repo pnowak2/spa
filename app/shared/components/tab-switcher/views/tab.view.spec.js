@@ -26,7 +26,7 @@ define(function(require) {
     });
 
     describe('properties', function() {
-      it('.tagName', function() {
+      it('.tagName should be li', function() {
         expect(TabView.prototype.tagName).toEqual('li');
       });
     });
