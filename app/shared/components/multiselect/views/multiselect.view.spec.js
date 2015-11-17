@@ -163,9 +163,9 @@ define(function(require) {
         });
       });
 
-      describe('.selectElement()', function() {
+      describe('.getSelectElement()', function() {
         it('should be defined', function() {
-          expect(MultiselectView.prototype.selectElement).toEqual(jasmine.any(Function));
+          expect(MultiselectView.prototype.getSelectElement).toEqual(jasmine.any(Function));
         });
 
         it('should get table body element', function() {
@@ -179,7 +179,7 @@ define(function(require) {
             }
           });
 
-          foundSelectElement = view.selectElement();
+          foundSelectElement = view.getSelectElement();
 
           expect(view.$el.find).toHaveBeenCalledWith('select');
           expect(foundSelectElement).toEqual(fakeSelectElement);
@@ -256,12 +256,12 @@ define(function(require) {
         });
 
         it('should run select2 plugin', function() {
-          spyOn(this.view, 'selectElement').and.returnValue($.prototype);
+          spyOn(this.view, 'getSelectElement').and.returnValue($.prototype);
           spyOn($.prototype, 'select2');
 
           this.view.render();
 
-          expect(this.view.selectElement().select2).toHaveBeenCalled();
+          expect(this.view.getSelectElement().select2).toHaveBeenCalled();
         });
       });
     });

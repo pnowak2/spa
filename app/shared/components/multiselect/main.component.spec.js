@@ -15,6 +15,15 @@ define(function(require) {
         var component = new MultiselectComponent;
         expect(component.view).toEqual(jasmine.any(MultiselectView));
       });
+
+      it('should initialize view with items', function() {
+        spyOn(MultiselectView.prototype, 'initialize');
+
+        var fakeItems = [],
+          component = new MultiselectComponent(fakeItems);
+
+        expect(component.view.initialize).toHaveBeenCalledWith(fakeItems);
+      });
     });
 
     describe('api', function() {

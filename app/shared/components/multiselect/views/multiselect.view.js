@@ -47,7 +47,7 @@ define(function(require) {
       this.collection.reset(items);
     },
 
-    selectElement: function() {
+    getSelectElement: function() {
       return this.$el.find('select');
     },
 
@@ -57,7 +57,7 @@ define(function(require) {
       });
 
       this.$el.html(html);
-      this.selectElement().select2();
+      this.getSelectElement().select2();
 
       return this;
     }

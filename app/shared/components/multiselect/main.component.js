@@ -3,8 +3,8 @@ define(function(require) {
     MultiselectView = require('./views/multiselect.view');
 
   return Component.extend({
-    initialize: function() {
-      this.view = new MultiselectView();
+    initialize: function(items) {
+      this.view = new MultiselectView(items);
     },
 
     selectedItems: function() {
