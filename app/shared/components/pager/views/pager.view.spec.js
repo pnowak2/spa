@@ -66,11 +66,11 @@ define(function(require) {
     });
 
     describe('properties', function() {
-      it('.tagName', function() {
+      it('.tagName should be div', function() {
         expect(PagerView.prototype.tagName).toEqual('div');
       });
 
-      it('.className', function() {
+      it('.className should be defined', function() {
         expect(PagerView.prototype.className).toEqual('efc-pager');
       });
     });

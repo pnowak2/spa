@@ -8,5 +8,15 @@ define(function(require) {
         expect(MultiselectView.prototype).toEqual(jasmine.any(Backbone.View));
       });
     });
+
+    describe('properties', function() {
+      it('.tagName should be div', function() {
+        expect(MultiselectView.prototype.tagName).toEqual('div');
+      });
+
+      it('.className should be defined', function() {
+        expect(MultiselectView.prototype.className).toEqual('efc-multiselect');
+      });
+    });
   });
 });
