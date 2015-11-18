@@ -44,6 +44,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // util
     'app/shared/util/constants.spec',
+
     // pager component
     'app/shared/components/pager/main.component.spec',
     'app/shared/components/pager/models/pager.model.spec',
@@ -51,12 +52,14 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/pager/collections/page.collection.spec',
     'app/shared/components/pager/views/pager.view.spec',
     'app/shared/components/pager/views/page.view.spec',
+
     // tab switcher component
     'app/shared/components/tab-switcher/main.component.spec',
     'app/shared/components/tab-switcher/models/tab.model.spec',
     'app/shared/components/tab-switcher/collections/tabs.collection.spec',
     'app/shared/components/tab-switcher/views/tabSwitcher.view.spec',
     'app/shared/components/tab-switcher/views/tab.view.spec',
+
     // multiselect component
     'app/shared/components/multiselect/main.component.spec',
     'app/shared/components/multiselect/views/multiselect.view.spec',
@@ -71,13 +74,14 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/services/search/search.mapper.spec',
     'app/efc/services/search/search.service.spec',
 
-    // search-box
+    // search box component
     'app/efc/components/search/search-box/main.component.spec',
     'app/efc/components/search/search-box/models/searchBox.model.spec',
     'app/efc/components/search/search-box/views/searchBox.view.spec',
 
-    // country-search-field
-    'app/efc/components/search/advanced-search/search-fields/country/main.component.spec',
+    // advanced searh component
+    'app/efc/components/search/advanced-search/main.component.spec',
+    'app/efc/components/search/advanced-search/views/advancedSearch.view.spec',
 
     // results list component
     'app/efc/components/results/list/results-list/main.component.spec',
@@ -85,6 +89,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/results/list/results-list/collections/results.collection.spec',
     'app/efc/components/results/list/results-list/views/resultsList.view.spec',
     'app/efc/components/results/list/results-list/views/resultItem.view.spec',
+
     // searchable results list component
     'app/efc/components/results/list/searchable-results-list/main.component.spec',
     'app/efc/components/results/list/searchable-results-list/views/searchableResultsList.view.spec'
