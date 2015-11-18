@@ -131,8 +131,9 @@ define(function(require) {
 
         it('should trigger view event', function() {
           spyOn(MultiselectView.prototype, 'trigger');
-          console.log(this.fakeEvent)
+
           this.viewSingle.didSelectItem(this.fakeEvent);
+
           expect(this.viewSingle.trigger).toHaveBeenCalledWith('multiselect:selected', {
             id: 'de',
             title: 'Germany',
