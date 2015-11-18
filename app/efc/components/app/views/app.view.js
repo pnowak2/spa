@@ -11,7 +11,40 @@ define(function(require) {
       _.bindAll(this, 'onSearchRequest');
 
       this.searchComponent = new SearchComponent;
-      this.advancedSearchComponent = new AdvancedSearchComponent;
+      this.advancedSearchComponent = new AdvancedSearchComponent({
+        countries: [{
+          id: 'pl',
+          title: 'Poland',
+          selected: false
+        }, {
+          id: 'de',
+          title: 'Germany',
+          selected: false
+        }, {
+          id: 'be',
+          title: 'Belgium',
+          selected: false
+        }, {
+          id: 'lu',
+          title: 'Luxembourg',
+          selected: false
+        }],
+        activities: [{
+          id: 'sr',
+          title: 'Strand1: European Remembrance',
+          selected: false
+        }],
+        subactivities: [{
+          id: 'tt',
+          title: 'Town Twinning',
+          selected: false
+        }],
+        organisationTypes: [{
+          id: 'np',
+          title: 'Non Profit',
+          selected: false
+        }]
+      });
       this.tabSwitcherComponent = new TabSwitcherComponent;
       this.pagedResultsListComponent = new PagedResultsListComponent;
 

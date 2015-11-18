@@ -61,7 +61,11 @@
 
 }
 
-/* Search box */
+input.select2-search__field {
+    width: 100% !important;
+}
+
+/* Search */
 .efc-searchbox-container {
     position: relative;
     clear: both;
@@ -69,6 +73,29 @@
     margin: 0 auto;
     top: 120px;
     text-align: center;
+}
+
+.efc-advanced-search {
+    padding: 10px;
+    background-color: #eee;
+    font-size: 1em;
+    font-family: sans-serif;
+}
+
+.efc-advanced-search > header {
+    font-weight: bold;
+    border-bottom: 1px solid rgb(170, 170, 170);
+    color: rgb(102, 102, 102);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.efc-search-section {
+    margin-bottom: 10px
+}
+
+.efc-search-section > label {
+    color: #666;
 }
 
 /* Tabs */

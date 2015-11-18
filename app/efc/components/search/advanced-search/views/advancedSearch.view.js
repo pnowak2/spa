@@ -9,12 +9,27 @@ define(function(require) {
 
     initialize: function(data) {
       data = data || {};
-      this.countrySelectComponent = new MultiselectComponent(data.countries);
+
+      this.countries = new MultiselectComponent(data.countries, {
+        placeholder: 'All countries'
+      });
+      this.activities = new MultiselectComponent(data.activities, {
+        placeholder: 'All Activities'
+      });
+      this.subactivities = new MultiselectComponent(data.subactivities, {
+        placeholder: 'All Subativities'
+      });
+      this.organisationTypes = new MultiselectComponent(data.organisationTypes, {
+        placeholder: 'All Organisation Types'
+      });
     },
 
     getState: function() {
       return {
-        country: _.pluck(this.countrySelectComponent.selectedItems(), 'id')
+        countries: null,
+        activities: null,
+        subactivities: null,
+        organisationTypes: null
       }
     },
 
@@ -22,8 +37,10 @@ define(function(require) {
       var html = Mustache.render(tpl);
       this.$el.html(html);
 
-      var countryContainer = this.$el.find('#country');
-      countryContainer.append(this.countrySelectComponent.render().view.el);
+      this.$el.find('#efc-country').append(this.countries.render().view.el);
+      this.$el.find('#efc-activity').append(this.activities.render().view.el);
+      this.$el.find('#efc-subactivity').append(this.subactivities.render().view.el);
+      this.$el.find('#efc-organisation-type').append(this.organisationTypes.render().view.el);
     }
   });
 });

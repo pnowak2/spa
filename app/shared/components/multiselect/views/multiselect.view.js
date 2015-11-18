@@ -73,7 +73,9 @@ define(function(require) {
       });
 
       this.$el.html(html);
-      this.getSelectElement().select2();
+
+      this.getSelectElement().css('width', '100%');
+      this.getSelectElement().select2(this.options);
 
       return this;
     }

@@ -302,6 +302,12 @@ define(function(require) {
           expect(this.view.render()).toBe(this.view);
         });
 
+        it('should render select with 100% width', function() {
+          expect(this.$el.find('select')).toHaveCss({
+            width: '100%'
+          });
+        });
+
         it('should render select', function() {
           expect(this.$el).toContainElement('select');
         });
@@ -340,7 +346,7 @@ define(function(require) {
 
           this.view.render();
 
-          expect(this.view.getSelectElement().select2).toHaveBeenCalled();
+          expect(this.view.getSelectElement().select2).toHaveBeenCalledWith(this.view.options);
         });
       });
     });
