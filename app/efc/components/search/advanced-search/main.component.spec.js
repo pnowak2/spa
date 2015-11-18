@@ -18,6 +18,14 @@ define(function(require) {
       it('should be initialized with proper view', function() {
         expect(this.advancedSearchComponent.view).toEqual(jasmine.any(AdvancedSearchView));
       });
+
+      it('should pass data to view', function() {
+        spyOn(AdvancedSearchView.prototype, 'initialize');
+        var fakeData = {},
+          component = new AdvancedSearchComponent(fakeData);
+
+        expect(component.view.initialize).toHaveBeenCalledWith(fakeData);
+      });
     });
   });
 });

@@ -8,5 +8,15 @@ define(function(require) {
         expect(AdvancedSearchView.prototype).toEqual(jasmine.any(Backbone.View));
       });
     });
+
+    describe('properties', function() {
+      it('.tagName should be div', function() {
+        expect(AdvancedSearchView.prototype.tagName).toEqual('div');
+      });
+
+      it('.className should be defined', function() {
+        expect(AdvancedSearchView.prototype.className).toEqual('efc-advanced-search');
+      });
+    });
   });
 });
