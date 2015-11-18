@@ -66,13 +66,19 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // util
     'app/efc/util/constants.spec',
     'app/efc/routers/efc.router.spec',
+
     // services
     'app/efc/services/search/search.mapper.spec',
     'app/efc/services/search/search.service.spec',
-    // search component
+
+    // search-box
     'app/efc/components/search/search-box/main.component.spec',
     'app/efc/components/search/search-box/models/searchBox.model.spec',
     'app/efc/components/search/search-box/views/searchBox.view.spec',
+
+    // country-search-field
+    'app/efc/components/search/advanced-search/search-fields/country/main.component.spec',
+
     // results list component
     'app/efc/components/results/list/results-list/main.component.spec',
     'app/efc/components/results/list/results-list/models/result.model.spec',
