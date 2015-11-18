@@ -1,8 +1,8 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    SearchComponent = require('app/efc/components/search/search-box/main.component'),
-    AdvancedSearchComponent = require('app/efc/components/search/advanced-search/main.component'),
+    SearchComponent = require('app/efc/components/searching/search-box/main.component'),
+    AdvancedSearchComponent = require('app/efc/components/searching/advanced-search/main.component'),
     PagedResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
 
