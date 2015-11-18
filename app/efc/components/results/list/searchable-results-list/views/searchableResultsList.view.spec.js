@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    app = require('app/app.module'),
     SearchableResultsListView = require('./searchableResultsList.view'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
@@ -29,7 +30,7 @@ define(function(require) {
       });
 
       it('should bind callback methods with view object', function() {
-        expect(_.bindAll).toHaveBeenCalledWith(this.view, 'didSearchSucceed');
+        expect(_.bindAll).toHaveBeenCalledWith(this.view, 'didSearchSucceed', 'didSearchFail');
       });
 
       it('should have empty cached criteria defined', function() {
@@ -353,6 +354,17 @@ define(function(require) {
       describe('.didSearchFail()', function() {
         it('should be defined', function() {
           expect(SearchableResultsListView.prototype.didSearchFail).toEqual(jasmine.any(Function));
+        });
+
+        it('should show error message', function() {
+          spyOn(app, 'showError');
+
+          var view = new SearchableResultsListView,
+            fakeError = {};
+
+          view.didSearchFail(fakeError);
+
+          expect(app.showError).toHaveBeenCalledWith(fakeError);
         });
       });
     });

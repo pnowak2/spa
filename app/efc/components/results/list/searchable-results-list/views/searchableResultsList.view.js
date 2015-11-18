@@ -1,5 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
+    app = require('app/app.module'),
     Backbone = require('backbone'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
@@ -9,7 +10,7 @@ define(function(require) {
     className: 'efc-searchable-results-list',
 
     initialize: function() {
-      _.bindAll(this, 'didSearchSucceed');
+      _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
       this.resultsListComponent = new ResultsListComponent;
       this.pagerComponent = new PagerComponent;
       this.cachedCriteria = {};
@@ -76,7 +77,7 @@ define(function(require) {
     },
 
     didSearchFail: function(error) {
-
+      app.showError(error);
     },
 
     render: function() {
