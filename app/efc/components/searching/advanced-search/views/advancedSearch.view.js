@@ -1,8 +1,8 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    MultiselectComponent = require('app/shared/components/multiselect/main.component');
-  Mustache = require('mustache'),
-  tpl = require('text!../templates/advancedSearch.tpl.html');
+    MultiselectComponent = require('app/shared/components/multiselect/main.component'),
+    Mustache = require('mustache'),
+    tpl = require('text!../templates/advancedSearch.tpl.html');
 
   return Backbone.View.extend({
     className: 'efc-advanced-search',
@@ -11,13 +11,13 @@ define(function(require) {
       data = data || {};
 
       this.countries = new MultiselectComponent(data.countries, {
-        placeholder: 'All countries'
+        placeholder: 'All Countries'
       });
       this.activities = new MultiselectComponent(data.activities, {
         placeholder: 'All Activities'
       });
       this.subactivities = new MultiselectComponent(data.subactivities, {
-        placeholder: 'All Subativities'
+        placeholder: 'All Subactivities'
       });
       this.organisationTypes = new MultiselectComponent(data.organisationTypes, {
         placeholder: 'All Organisation Types'
@@ -26,10 +26,10 @@ define(function(require) {
 
     getState: function() {
       return {
-        countries: null,
-        activities: null,
-        subactivities: null,
-        organisationTypes: null
+        countries: _.pluck(this.countries.selectedItems(), 'id'),
+        activities: _.pluck(this.activities.selectedItems(), 'id'),
+        subactivities: _.pluck(this.subactivities.selectedItems(), 'id'),
+        organisationTypes: _.pluck(this.organisationTypes.selectedItems(), 'id')
       }
     },
 
@@ -41,6 +41,8 @@ define(function(require) {
       this.$el.find('#efc-activity').append(this.activities.render().view.el);
       this.$el.find('#efc-subactivity').append(this.subactivities.render().view.el);
       this.$el.find('#efc-organisation-type').append(this.organisationTypes.render().view.el);
+
+      return this;
     }
   });
 });

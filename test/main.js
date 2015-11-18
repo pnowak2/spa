@@ -75,13 +75,13 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/services/search/search.service.spec',
 
     // search box component
-    'app/efc/components/search/search-box/main.component.spec',
-    'app/efc/components/search/search-box/models/searchBox.model.spec',
-    'app/efc/components/search/search-box/views/searchBox.view.spec',
+    'app/efc/components/searching/search-box/main.component.spec',
+    'app/efc/components/searching/search-box/models/searchBox.model.spec',
+    'app/efc/components/searching/search-box/views/searchBox.view.spec',
 
     // advanced searh component
-    'app/efc/components/search/advanced-search/main.component.spec',
-    'app/efc/components/search/advanced-search/views/advancedSearch.view.spec',
+    'app/efc/components/searching/advanced-search/main.component.spec',
+    'app/efc/components/searching/advanced-search/views/advancedSearch.view.spec',
 
     // results list component
     'app/efc/components/results/list/results-list/main.component.spec',

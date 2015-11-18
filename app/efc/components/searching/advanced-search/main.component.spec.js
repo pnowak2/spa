@@ -27,5 +27,23 @@ define(function(require) {
         expect(component.view.initialize).toHaveBeenCalledWith(fakeData);
       });
     });
+
+    describe('api', function() {
+      describe('.getState()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchComponent.prototype.getState).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var fakeViewState = {},
+            component;
+
+          spyOn(AdvancedSearchView.prototype, 'getState').and.returnValue(fakeViewState);
+
+          component = new AdvancedSearchComponent;
+          expect(component.getState()).toBe(fakeViewState);
+        });
+      });
+    });
   });
 });

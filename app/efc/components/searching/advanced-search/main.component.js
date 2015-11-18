@@ -5,6 +5,10 @@ define(function(require) {
   return Component.extend({
     initialize: function(data) {
       this.view = new AdvancedSearchView(data);
+    },
+
+    getState: function() {
+      return this.view.getState();
     }
   });
 });
