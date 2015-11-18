@@ -17,21 +17,24 @@ define(function(require) {
       this.multiselectComponent = new MultiselectComponent([{
         id: 'pl',
         title: 'Poland',
-        selected: false
+        selected: true
       }, {
         id: 'de',
         title: 'Germany',
-        selected: false
+        selected: true
       }, {
         id: 'be',
         title: 'Belgium',
-        selected: true
+        selected: false
       }], {
-        multiple: false
+        multiple: true
       });
 
       this.initUI();
       this.listenTo(this.searchComponent, 'search:keyword', this.onSearchRequest);
+      this.listenTo(this.multiselectComponent, 'multiselect:selected', function(data) {
+        console.log(data);
+      });
     },
 
     initUI: function() {

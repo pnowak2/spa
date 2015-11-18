@@ -6,6 +6,10 @@ define(function(require) {
     initialize: function(items, options) {
       options = options || {};
       this.view = new MultiselectView(items, options);
+
+      this.listenTo(this.view, 'multiselect:selected', function(data) {
+        this.trigger('multiselect:selected', data);
+      });
     },
 
     selectedItems: function() {

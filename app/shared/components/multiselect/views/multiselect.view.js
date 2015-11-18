@@ -29,11 +29,18 @@ define(function(require) {
       e.params = e.params || {};
       e.params.data = e.params.data || {};
 
-      var itemId = e.params.data.id;
-      if (!this.options.multiple) {
-        this.collection.unselectAll();
+      var itemId = e.params.data.id,
+        item = this.collection.get(itemId);
+
+      if (item) {
+        if (!this.options.multiple) {
+          this.collection.unselectAll();
+        }
+
+        this.collection.selectItem(itemId);
+
+        this.trigger('multiselect:selected', item.toJSON());
       }
-      this.collection.selectItem(itemId);
     },
 
     didUnselectItem: function(e) {

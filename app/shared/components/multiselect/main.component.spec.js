@@ -78,5 +78,19 @@ define(function(require) {
         });
       });
     });
+
+    describe('events', function() {
+      it('should trigger event for item selected', function(done) {
+        var component = new MultiselectComponent,
+          fakeData = {};
+
+        component.on('multiselect:selected', function(data) {
+          expect(data).toBe(fakeData);
+          done();
+        });
+
+        component.view.trigger('multiselect:selected', fakeData);
+      });
+    });
   });
 });
