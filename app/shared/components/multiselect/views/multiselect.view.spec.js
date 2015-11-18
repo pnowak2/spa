@@ -73,11 +73,31 @@ define(function(require) {
     describe('api', function() {
       describe('.didSelectItem()', function() {
         beforeEach(function() {
-          this.view = new MultiselectView([{
+          spyOn(MultiselectCollection.prototype, 'unselectAll');
+
+          this.viewMultiple = new MultiselectView([{
             id: 'de',
             title: 'Germany',
             selected: false
-          }]);
+          }], {
+            multiple: true
+          });
+
+          this.viewSingle = new MultiselectView([{
+            id: 'de',
+            title: 'Germany',
+            selected: false
+          }], {
+            multiple: false
+          });
+
+          this.fakeEvent = {
+            params: {
+              data: {
+                id: 'de'
+              }
+            }
+          }
         });
 
         it('should be defined', function() {
@@ -87,28 +107,26 @@ define(function(require) {
         it('should not throw if called without arguments', function() {
           var self = this;
           expect(function() {
-            self.view.didSelectItem();
+            self.viewMultiple.didSelectItem();
           }).not.toThrow();
         });
 
         it('should select model', function() {
-          var fakeEvent = {
-            params: {
-              data: {
-                id: 'de'
-              }
-            }
-          };
-
-          expect(this.view.collection.get('de').isSelected()).toBe(false);
-
-          this.view.didSelectItem(fakeEvent);
-
-          expect(this.view.collection.get('de').isSelected()).toBe(true);
+          expect(this.viewMultiple.collection.get('de').isSelected()).toBe(false);
+          this.viewMultiple.didSelectItem(this.fakeEvent);
+          expect(this.viewMultiple.collection.get('de').isSelected()).toBe(true);
         });
 
         it('should deselect all if multiple is not active', function() {
-          fail('to do');
+          expect(this.viewSingle.collection.unselectAll).not.toHaveBeenCalled();
+          this.viewSingle.didSelectItem(this.fakeEvent);
+          expect(this.viewSingle.collection.unselectAll).toHaveBeenCalled();
+        });
+
+        it('should not deselect all if multiple is active', function() {
+          expect(this.viewMultiple.collection.unselectAll).not.toHaveBeenCalled();
+          this.viewMultiple.didSelectItem(this.fakeEvent);
+          expect(this.viewMultiple.collection.unselectAll).not.toHaveBeenCalled();
         });
       });
 

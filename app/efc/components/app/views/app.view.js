@@ -27,7 +27,7 @@ define(function(require) {
         title: 'Belgium',
         selected: true
       }], {
-        multiple: true
+        multiple: false
       });
 
       this.initUI();
