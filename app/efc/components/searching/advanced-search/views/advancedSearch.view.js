@@ -35,6 +35,7 @@ define(function(require) {
 
     render: function() {
       var html = Mustache.render(tpl);
+
       this.$el.html(html);
 
       this.$el.find('#efc-country').append(this.countries.render().view.el);

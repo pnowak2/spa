@@ -144,10 +144,72 @@ define(function(require) {
     });
 
     describe('rendering', function() {
+      beforeEach(function() {
+        this.view = new AdvancedSearchView({
+          countries: [{
+            id: 'pl'
+          }],
+          activities: [{
+            id: 'act'
+          }],
+          subactivities: [{
+            id: 'sub'
+          }],
+          organisationTypes: [{
+            id: 'org'
+          }]
+        });
+        this.$el = this.view.render().$el;
+      });
+
       describe('.render()', function() {
         it('should return view itself', function() {
-          var view = new AdvancedSearchView;
-          expect(view.render()).toBe(view);
+          expect(this.view.render()).toBe(this.view);
+        });
+
+        it('should render header with text', function() {
+          expect(this.$el).toContainElement('header');
+          expect(this.$el.find('header')).toContainText('Advanced Search');
+        });
+
+        it('should render four sections', function() {
+          expect(this.$el.find('section')).toHaveLength(4);
+        });
+
+        it('should render country section', function() {
+          expect(this.$el).toContainElement('section#efc-country.efc-search-section');
+        });
+
+        it('should render countries', function() {
+          var $subview = this.view.countries.render().view.$el;
+          expect(this.$el.find('#efc-country')).toContainHtml($subview);
+        });
+
+        it('should render activity section', function() {
+          expect(this.$el).toContainElement('section#efc-activity.efc-search-section');
+        });
+
+        it('should render activities', function() {
+          var $subview = this.view.activities.render().view.$el;
+          expect(this.$el.find('#efc-activity')).toContainHtml($subview);
+        });
+
+        it('should render subactivity section', function() {
+          expect(this.$el).toContainElement('section#efc-subactivity.efc-search-section');
+        });
+
+        it('should render subactivities', function() {
+          var $subview = this.view.subactivities.render().view.$el;
+          expect(this.$el.find('#efc-subactivity')).toContainHtml($subview);
+        });
+
+        it('should render organisation type section', function() {
+          expect(this.$el).toContainElement('section#efc-organisation-type.efc-search-section');
+        });
+
+        it('should render organisation types', function() {
+          var $subview = this.view.organisationTypes.render().view.$el;
+          expect(this.$el.find('#efc-organisation-type')).toContainHtml($subview);
         });
       });
     });
