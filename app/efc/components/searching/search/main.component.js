@@ -3,8 +3,8 @@ define(function(require) {
     SearchView = require('./views/search.view');
 
   return Component.extend({
-    initialize: function() {
-      this.view = new SearchView;
+    initialize: function(data) {
+      this.view = new SearchView(data);
     }
   });
 });

@@ -23,6 +23,24 @@ define(function(require) {
       it('should have advanced search component defined', function() {
         expect(this.view.advancedSearch).toEqual(jasmine.any(AdvancedSearchComponent));
       });
+
+      it('should pass data to search box component', function() {
+        spyOn(SearchBoxComponent.prototype, 'initialize');
+
+        var fakeData = {},
+          view = new SearchView(fakeData);
+
+        expect(view.searchBox.initialize).toHaveBeenCalledWith(fakeData);
+      });
+
+      it('should pass data to advanced search component', function() {
+        spyOn(AdvancedSearchComponent.prototype, 'initialize');
+
+        var fakeData = {},
+          view = new SearchView(fakeData);
+
+        expect(view.advancedSearch.initialize).toHaveBeenCalledWith(fakeData);
+      });
     });
   });
 });

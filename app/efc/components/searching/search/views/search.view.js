@@ -4,9 +4,9 @@ define(function(require) {
     AdvancedSearchComponent = require('app/efc/components/searching/advanced-search/main.component');
 
   return Backbone.View.extend({
-    initialize: function() {
-      this.searchBox = new SearchBoxComponent;
-      this.advancedSearch = new AdvancedSearchComponent;
+    initialize: function(data) {
+      this.searchBox = new SearchBoxComponent(data);
+      this.advancedSearch = new AdvancedSearchComponent(data);
     }
   });
 });
