@@ -19,7 +19,7 @@ define(function(require) {
         }, {
           id: 'de',
           title: 'Germany',
-          selected: true
+          selected: false
         }, {
           id: 'be',
           title: 'Belgium',
