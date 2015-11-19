@@ -74,6 +74,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/services/search/search.mapper.spec',
     'app/efc/services/search/search.service.spec',
 
+    //search
+    'app/efc/components/searching/search/main.component.spec',
+    'app/efc/components/searching/search/views/search.view.spec',
+
     // search box component
     'app/efc/components/searching/search-box/main.component.spec',
     'app/efc/components/searching/search-box/models/searchBox.model.spec',
