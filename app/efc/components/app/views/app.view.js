@@ -33,15 +33,31 @@ define(function(require) {
           id: 'sr',
           title: 'Strand1: European Remembrance',
           selected: false
+        }, {
+          id: 'st',
+          title: 'Strand2: Better communication',
+          selected: false
         }],
         subactivities: [{
           id: 'tt',
           title: 'Town Twinning',
           selected: false
+        }, {
+          id: 'ls',
+          title: 'Less troubles',
+          selected: false
         }],
         organisationTypes: [{
           id: 'np',
           title: 'Non Profit',
+          selected: false
+        }, {
+          id: 'cm',
+          title: 'Commercial',
+          selected: false
+        }, {
+          id: 'bd',
+          title: 'Bare minimal',
           selected: false
         }]
       });

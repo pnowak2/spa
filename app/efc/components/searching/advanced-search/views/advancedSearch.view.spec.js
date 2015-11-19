@@ -34,28 +34,28 @@ define(function(require) {
       it('should have countries properly defined', function() {
         expect(this.view.countries).toEqual(jasmine.any(MultiselectComponent));
         expect(this.view.countries.initialize).toHaveBeenCalledWith(this.fakeData.countries, {
-          placeholder: 'All Countries'
+          placeholder: 'All'
         });
       });
 
       it('should have activities properly defined', function() {
         expect(this.view.activities).toEqual(jasmine.any(MultiselectComponent));
         expect(this.view.activities.initialize).toHaveBeenCalledWith(this.fakeData.activities, {
-          placeholder: 'All Activities'
+          placeholder: 'All'
         });
       });
 
       it('should have subactivities properly defined', function() {
         expect(this.view.subactivities).toEqual(jasmine.any(MultiselectComponent));
         expect(this.view.subactivities.initialize).toHaveBeenCalledWith(this.fakeData.subactivities, {
-          placeholder: 'All Subactivities'
+          placeholder: 'All'
         });
       });
 
       it('should have organisationTypes properly defined', function() {
         expect(this.view.organisationTypes).toEqual(jasmine.any(MultiselectComponent));
         expect(this.view.organisationTypes.initialize).toHaveBeenCalledWith(this.fakeData.organisationTypes, {
-          placeholder: 'All Organisation Types'
+          placeholder: 'All'
         });
       });
     });
@@ -84,6 +84,7 @@ define(function(require) {
               id: 'be',
               selected: true
             }],
+
             activities: [{
               id: 'act1',
               selected: false
@@ -94,6 +95,7 @@ define(function(require) {
               id: 'act3',
               selected: true
             }],
+
             subactivities: [{
               id: 'sub1',
               selected: true
@@ -104,6 +106,7 @@ define(function(require) {
               id: 'sub3',
               selected: false
             }],
+
             organisationTypes: [{
               id: 'org1',
               selected: false

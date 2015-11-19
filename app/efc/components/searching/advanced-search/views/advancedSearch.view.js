@@ -11,16 +11,16 @@ define(function(require) {
       data = data || {};
 
       this.countries = new MultiselectComponent(data.countries, {
-        placeholder: 'All Countries'
+        placeholder: 'All'
       });
       this.activities = new MultiselectComponent(data.activities, {
-        placeholder: 'All Activities'
+        placeholder: 'All'
       });
       this.subactivities = new MultiselectComponent(data.subactivities, {
-        placeholder: 'All Subactivities'
+        placeholder: 'All'
       });
       this.organisationTypes = new MultiselectComponent(data.organisationTypes, {
-        placeholder: 'All Organisation Types'
+        placeholder: 'All'
       });
     },
 
