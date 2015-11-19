@@ -78,6 +78,60 @@ define(function(require) {
         });
       });
 
+      describe('.selectItems()', function() {
+        it('should be defined', function() {
+          expect(MultiselectCollection.prototype.selectItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should not throw if invoked without ids', function() {
+          collection = new MultiselectCollection;
+
+          expect(function() {
+            collection.selectItems();
+          }).not.toThrow();
+        });
+
+        it('should not throw if invoked with bad ids', function() {
+          collection = new MultiselectCollection;
+
+          expect(function() {
+            collection.selectItems('garbage', 'data');
+          }).not.toThrow();
+        });
+
+        it('should deselect all items first', function() {
+          spyOn(MultiselectCollection.prototype, 'unselectAll');
+
+          var collection = new MultiselectCollection;
+
+          collection.selectItems();
+
+          expect(collection.unselectAll).toHaveBeenCalled();
+        });
+
+        it('should select given items', function() {
+          var country1 = new MultiselectModel({
+              id: 'pl',
+              selected: false
+            }),
+            country2 = new MultiselectModel({
+              id: 'be',
+              selected: false
+            }),
+            country3 = new MultiselectModel({
+              id: 'de',
+              selected: false
+            }),
+            collection = new MultiselectCollection([
+              country1, country2, country3
+            ]);
+
+          collection.selectItems(['be', 'de']);
+
+          expect(_.pluck(collection.selectedItems(), 'id')).toEqual(['be', 'de'])
+        });
+      });
+
       describe('.unselectItem()', function() {
         it('should be defined', function() {
           expect(MultiselectCollection.prototype.unselectItem).toEqual(jasmine.any(Function));

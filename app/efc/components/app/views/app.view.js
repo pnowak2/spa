@@ -19,7 +19,7 @@ define(function(require) {
         }, {
           id: 'de',
           title: 'Germany',
-          selected: false
+          selected: true
         }, {
           id: 'be',
           title: 'Belgium',
@@ -61,6 +61,7 @@ define(function(require) {
           selected: false
         }]
       });
+
       this.tabSwitcherComponent = new TabSwitcherComponent;
       this.pagedResultsListComponent = new PagedResultsListComponent;
 

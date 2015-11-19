@@ -16,6 +16,10 @@ define(function(require) {
       return this.view.selectedItems();
     },
 
+    selectItems: function(itemIds) {
+      this.view.selectItems(itemIds);
+    },
+
     update: function(items) {
       this.view.update(items);
     }

@@ -1,5 +1,6 @@
 define(function(require) {
-  var Backbone = require('backbone'),
+  var _ = require('underscore'),
+    Backbone = require('backbone'),
     SelectItemModel = require('../models/selectItem.model');
 
   return Backbone.Collection.extend({
@@ -17,6 +18,18 @@ define(function(require) {
       if (model) {
         model.select();
       }
+    },
+
+    selectItems: function(itemIds) {
+      this.unselectAll();
+
+      var items = _.map(itemIds, function(id) {
+        return this.get(id);
+      }, this);
+
+      _.chain(items)
+        .compact()
+        .invoke('select');
     },
 
     unselectItem: function(id) {

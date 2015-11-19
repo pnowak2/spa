@@ -10,8 +10,8 @@ define(function(require) {
     className: 'efc-multiselect',
 
     events: {
-      'select2:select select': 'didSelectItem',
-      'select2:unselect select': 'didUnselectItem'
+      'select2:select select': 'didClickSelectItem',
+      'select2:unselect select': 'didClickUnselectItem'
     },
 
     defaults: {
@@ -20,11 +20,12 @@ define(function(require) {
 
     initialize: function(items, options) {
       this.options = _.extend({}, this.defaults, options);
+
       this.collection = new MultiSelectCollection(items);
       this.listenTo(this.collection, 'reset', this.render);
     },
 
-    didSelectItem: function(e) {
+    didClickSelectItem: function(e) {
       e = e || {};
       e.params = e.params || {};
       e.params.data = e.params.data || {};
@@ -38,12 +39,11 @@ define(function(require) {
         }
 
         this.collection.selectItem(itemId);
-
         this.trigger('multiselect:selected', item.toJSON());
       }
     },
 
-    didUnselectItem: function(e) {
+    didClickUnselectItem: function(e) {
       e = e || {};
       e.params = e.params || {};
       e.params.data = e.params.data || {};
@@ -56,6 +56,11 @@ define(function(require) {
       return _.map(this.collection.selectedItems(), function(model) {
         return model.toJSON();
       });
+    },
+
+    selectItems: function(itemIds) {
+      this.collection.selectItems(itemIds);
+      this.render();
     },
 
     update: function(items) {

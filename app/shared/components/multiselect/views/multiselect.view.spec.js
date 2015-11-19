@@ -71,7 +71,7 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.didSelectItem()', function() {
+      describe('.didClickSelectItem()', function() {
         beforeEach(function() {
           spyOn(MultiselectCollection.prototype, 'unselectAll');
 
@@ -101,38 +101,38 @@ define(function(require) {
         });
 
         it('should be defined', function() {
-          expect(MultiselectView.prototype.didSelectItem).toEqual(jasmine.any(Function));
+          expect(MultiselectView.prototype.didClickSelectItem).toEqual(jasmine.any(Function));
         });
 
         it('should not throw if called without arguments', function() {
           var self = this;
           expect(function() {
-            self.viewMultiple.didSelectItem();
+            self.viewMultiple.didClickSelectItem();
           }).not.toThrow();
         });
 
         it('should select model', function() {
           expect(this.viewMultiple.collection.get('de').isSelected()).toBe(false);
-          this.viewMultiple.didSelectItem(this.fakeEvent);
+          this.viewMultiple.didClickSelectItem(this.fakeEvent);
           expect(this.viewMultiple.collection.get('de').isSelected()).toBe(true);
         });
 
         it('should deselect all if multiple is not active', function() {
           expect(this.viewSingle.collection.unselectAll).not.toHaveBeenCalled();
-          this.viewSingle.didSelectItem(this.fakeEvent);
+          this.viewSingle.didClickSelectItem(this.fakeEvent);
           expect(this.viewSingle.collection.unselectAll).toHaveBeenCalled();
         });
 
         it('should not deselect all if multiple is active', function() {
           expect(this.viewMultiple.collection.unselectAll).not.toHaveBeenCalled();
-          this.viewMultiple.didSelectItem(this.fakeEvent);
+          this.viewMultiple.didClickSelectItem(this.fakeEvent);
           expect(this.viewMultiple.collection.unselectAll).not.toHaveBeenCalled();
         });
 
         it('should trigger view event', function() {
           spyOn(MultiselectView.prototype, 'trigger');
 
-          this.viewSingle.didSelectItem(this.fakeEvent);
+          this.viewSingle.didClickSelectItem(this.fakeEvent);
 
           expect(this.viewSingle.trigger).toHaveBeenCalledWith('multiselect:selected', {
             id: 'de',
@@ -142,7 +142,7 @@ define(function(require) {
         });
       });
 
-      describe('.didUnselectItem()', function() {
+      describe('.didClickUnselectItem()', function() {
         beforeEach(function() {
           this.view = new MultiselectView([{
             id: 'pl',
@@ -152,13 +152,13 @@ define(function(require) {
         });
 
         it('should be defined', function() {
-          expect(MultiselectView.prototype.didUnselectItem).toEqual(jasmine.any(Function));
+          expect(MultiselectView.prototype.didClickUnselectItem).toEqual(jasmine.any(Function));
         });
 
         it('should not throw if called without arguments', function() {
           var self = this;
           expect(function() {
-            self.view.didUnselectItem();
+            self.view.didClickUnselectItem();
           }).not.toThrow();
         });
 
@@ -173,7 +173,7 @@ define(function(require) {
 
           expect(this.view.collection.get('pl').isSelected()).toBe(true);
 
-          this.view.didUnselectItem(fakeEvent);
+          this.view.didClickUnselectItem(fakeEvent);
 
           expect(this.view.collection.get('pl').isSelected()).toBe(false);
         });
@@ -209,6 +209,29 @@ define(function(require) {
             title: 'Belgium',
             selected: true
           }])
+        });
+      });
+
+      describe('.selectItems()', function() {
+        beforeEach(function() {
+          spyOn(MultiselectView.prototype, 'render');
+          spyOn(MultiselectCollection.prototype, 'selectItems');
+          this.view = new MultiselectView;
+        });
+
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.selectItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to collection', function() {
+          var fakeItemIds = {};
+          this.view.selectItems(fakeItemIds);
+          expect(this.view.collection.selectItems).toHaveBeenCalledWith(fakeItemIds);
+        });
+
+        it('should rerender', function() {
+          this.view.selectItems();
+          expect(this.view.render).toHaveBeenCalled();
         });
       });
 
@@ -257,8 +280,8 @@ define(function(require) {
       describe('dom', function() {
         it('should define proper events', function() {
           expect(MultiselectView.prototype.events).toEqual({
-            'select2:select select': 'didSelectItem',
-            'select2:unselect select': 'didUnselectItem'
+            'select2:select select': 'didClickSelectItem',
+            'select2:unselect select': 'didClickUnselectItem'
           });
         });
       });
