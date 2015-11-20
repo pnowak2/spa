@@ -22,23 +22,23 @@ define(function(require) {
         var component = new SearchBoxComponent,
           fakeSearchCriteria = {};
 
-        component.on('search:keyword', function(searchCriteria) {
+        component.on('search-box:search', function(searchCriteria) {
           expect(searchCriteria).toBe(fakeSearchCriteria);
           done();
         });
 
-        component.view.trigger('search:keyword', fakeSearchCriteria);
+        component.view.trigger('search-box:search', fakeSearchCriteria);
       });
 
       it('should trigger event on more action', function(done) {
         var component = new SearchBoxComponent;
 
-        component.on('search:more', function() {
+        component.on('search-box:more', function() {
           expect(true).toBe(true);
           done();
         });
 
-        component.view.trigger('search:more');
+        component.view.trigger('search-box:more');
       });
     });
   });

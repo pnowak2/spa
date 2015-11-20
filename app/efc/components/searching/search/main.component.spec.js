@@ -25,5 +25,19 @@ define(function(require) {
         expect(component.view.initialize).toHaveBeenCalledWith(fakeData);
       });
     });
+
+    describe('events', function() {
+      it('should trigger search event on searchbox search action', function(done) {
+        var component = new SearchComponent,
+          fakeCriteria = {};
+
+        component.on('search:search', function(criteria) {
+          expect(criteria).toBe(fakeCriteria);
+          done();
+        });
+
+        component.view.trigger('search:search', fakeCriteria);
+      });
+    });
   });
 });

@@ -26,7 +26,7 @@ define(function(require) {
 
     didClickMoreButton: function(e) {
       e.preventDefault();
-      this.trigger('search:more');
+      this.trigger('search-box:more');
     },
 
     didPressKey: function(e) {
@@ -44,7 +44,7 @@ define(function(require) {
 
     requestSearch: function() {
       this.model.set(this.getFormData());
-      this.trigger('search:keyword', this.model.toJSON())
+      this.trigger('search-box:search', this.model.toJSON())
     },
 
     render: function() {

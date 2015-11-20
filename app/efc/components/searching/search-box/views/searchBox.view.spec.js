@@ -77,7 +77,7 @@ define(function(require) {
 
           view.didClickMoreButton(this.fakeEvent);;
 
-          expect(view.trigger).toHaveBeenCalledWith('search:more');
+          expect(view.trigger).toHaveBeenCalledWith('search-box:more');
         });
       });
 
@@ -165,7 +165,7 @@ define(function(require) {
 
           view.requestSearch();
 
-          expect(view.trigger).toHaveBeenCalledWith('search:keyword', fakeModelJSON);
+          expect(view.trigger).toHaveBeenCalledWith('search-box:search', fakeModelJSON);
         });
       });
     });

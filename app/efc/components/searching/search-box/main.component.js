@@ -6,12 +6,12 @@ define(function(require) {
     initialize: function() {
       this.view = new SearchBoxView;
 
-      this.listenTo(this.view, 'search:keyword', function(searchCriteria) {
-        this.trigger('search:keyword', searchCriteria);
+      this.listenTo(this.view, 'search-box:search', function(searchCriteria) {
+        this.trigger('search-box:search', searchCriteria);
       });
 
-      this.listenTo(this.view, 'search:more', function() {
-        this.trigger('search:more');
+      this.listenTo(this.view, 'search-box:more', function() {
+        this.trigger('search-box:more');
       });
     }
   });
