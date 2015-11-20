@@ -1,5 +1,6 @@
 define(function(require) {
-  var Backbone = require('backbone'),
+  var _ = require('underscore'),
+    Backbone = require('backbone'),
     SearchBoxComponent = require('app/efc/components/searching/search-box/main.component'),
     AdvancedSearchComponent = require('app/efc/components/searching/advanced-search/main.component');
 
@@ -15,7 +16,10 @@ define(function(require) {
     },
 
     didRequestSearch: function(searchBoxCriteria) {
+      var advancedCriteria = this.advancedSearch.getCriteria(),
+        criteria = _.extend({}, searchBoxCriteria, advancedCriteria);
 
+      this.trigger('search:search', criteria);
     },
 
     didRequestMore: function() {

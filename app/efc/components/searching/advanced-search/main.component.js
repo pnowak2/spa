@@ -7,8 +7,8 @@ define(function(require) {
       this.view = new AdvancedSearchView(data);
     },
 
-    getState: function() {
-      return this.view.getState();
+    getCriteria: function() {
+      return this.view.getCriteria();
     }
   });
 });

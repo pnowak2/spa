@@ -55,8 +55,33 @@ define(function(require) {
 
     describe('api', function() {
       describe('.didRequestSearch()', function() {
+        beforeEach(function() {
+          this.view = new SearchView;
+        });
+
         it('should be defined', function() {
           expect(SearchView.prototype.didRequestSearch).toEqual(jasmine.any(Function));
+        });
+
+        it('should trigger view event with merged search box and advanced search criteria', function() {
+          var fakeSearchBoxCriteria = {
+              keyword: 'foo'
+            },
+            fakeAdvancedSearchState = {
+              countries: ['pl', 'lu'],
+              activities: ['act1', 'act2']
+            };
+
+          spyOn(SearchView.prototype, 'trigger');
+          spyOn(AdvancedSearchComponent.prototype, 'getCriteria').and.returnValue(fakeAdvancedSearchState);
+
+          this.view.didRequestSearch(fakeSearchBoxCriteria);
+
+          expect(this.view.trigger).toHaveBeenCalledWith('search:search', {
+            keyword: 'foo',
+            countries: ['pl', 'lu'],
+            activities: ['act1', 'act2']
+          });
         });
       });
 

@@ -71,7 +71,7 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.getState()', function() {
+      describe('.getCriteria()', function() {
         beforeEach(function() {
           this.fakeData = {
             countries: [{
@@ -122,23 +122,23 @@ define(function(require) {
         });
 
         it('should be defined', function() {
-          expect(AdvancedSearchView.prototype.getState).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchView.prototype.getCriteria).toEqual(jasmine.any(Function));
         });
 
         it('should return array with country keys', function() {
-          expect(this.view.getState().countries).toEqual(['pl', 'be']);
+          expect(this.view.getCriteria().countries).toEqual(['pl', 'be']);
         });
 
         it('should return array with activities keys', function() {
-          expect(this.view.getState().activities).toEqual(['act2', 'act3']);
+          expect(this.view.getCriteria().activities).toEqual(['act2', 'act3']);
         });
 
         it('should return array with subactivities keys', function() {
-          expect(this.view.getState().subactivities).toEqual(['sub1', 'sub2']);
+          expect(this.view.getCriteria().subactivities).toEqual(['sub1', 'sub2']);
         });
 
         it('should return array with organisation types keys', function() {
-          expect(this.view.getState().organisationTypes).toEqual(['org2']);
+          expect(this.view.getCriteria().organisationTypes).toEqual(['org2']);
         });
       });
     });

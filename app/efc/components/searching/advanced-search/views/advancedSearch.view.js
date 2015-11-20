@@ -24,7 +24,7 @@ define(function(require) {
       });
     },
 
-    getState: function() {
+    getCriteria: function() {
       return {
         countries: _.pluck(this.countries.selectedItems(), 'id'),
         activities: _.pluck(this.activities.selectedItems(), 'id'),

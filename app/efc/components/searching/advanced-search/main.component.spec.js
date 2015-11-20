@@ -31,17 +31,17 @@ define(function(require) {
     describe('api', function() {
       describe('.getState()', function() {
         it('should be defined', function() {
-          expect(AdvancedSearchComponent.prototype.getState).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchComponent.prototype.getCriteria).toEqual(jasmine.any(Function));
         });
 
         it('should delegate to view', function() {
-          var fakeViewState = {},
+          var fakeViewCriteria = {},
             component;
 
-          spyOn(AdvancedSearchView.prototype, 'getState').and.returnValue(fakeViewState);
+          spyOn(AdvancedSearchView.prototype, 'getCriteria').and.returnValue(fakeViewCriteria);
 
           component = new AdvancedSearchComponent;
-          expect(component.getState()).toBe(fakeViewState);
+          expect(component.getCriteria()).toBe(fakeViewCriteria);
         });
       });
     });
