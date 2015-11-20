@@ -42,5 +42,50 @@ define(function(require) {
         expect(view.advancedSearch.initialize).toHaveBeenCalledWith(fakeData);
       });
     });
+
+    describe('properties', function() {
+      it('.tagName should be div', function() {
+        expect(SearchView.prototype.tagName).toEqual('div');
+      });
+
+      it('.className should be defined', function() {
+        expect(SearchView.prototype.className).toEqual('efc-search');
+      });
+    });
+
+    describe('api', function() {
+      describe('.didRequestSearch()', function() {
+        it('should be defined', function() {
+          expect(SearchView.prototype.didRequestSearch).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.didRequestMore()', function() {
+        it('should be defined', function() {
+          expect(SearchView.prototype.didRequestMore).toEqual(jasmine.any(Function));
+        });
+      });
+    });
+
+    describe('events', function() {
+      beforeEach(function() {
+        spyOn(SearchView.prototype, 'didRequestSearch');
+        spyOn(SearchView.prototype, 'didRequestMore');
+
+        this.view = new SearchView;
+      });
+
+      it('should call method on search box search event', function() {
+        var fakeCriteria = {};
+        this.view.searchBox.trigger('search-box:search', fakeCriteria)
+
+        expect(this.view.didRequestSearch).toHaveBeenCalledWith(fakeCriteria);
+      });
+
+      it('should call method on search box more event', function() {
+        this.view.searchBox.trigger('search-box:more')
+        expect(this.view.didRequestMore).toHaveBeenCalled();
+      });
+    });
   });
 });
