@@ -8,7 +8,7 @@ define(function(require) {
     search: function(criteria) {
       criteria = criteria || {};
 
-      var promise = new RSVP.Promise(function(resolve, reject) {
+      return new RSVP.Promise(function(resolve, reject) {
         $.ajax({
           url: constants.rest.SEARCH,
           dataType: 'json',
@@ -24,8 +24,6 @@ define(function(require) {
           reject(textStatus);
         });
       });
-
-      return promise;
     }
   }
 });
