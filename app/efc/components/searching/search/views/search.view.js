@@ -2,8 +2,7 @@ define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
     SearchBoxComponent = require('app/efc/components/searching/search-box/main.component'),
-    AdvancedSearchComponent = require('app/efc/components/searching/advanced-search/main.component'),
-    popover = require('popover');
+    AdvancedSearchComponent = require('app/efc/components/searching/advanced-search/main.component');
 
   return Backbone.View.extend({
     className: 'efc-search',
