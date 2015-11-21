@@ -8,6 +8,7 @@ requirejs.config({
     mustache: '../lib/mustache.js/mustache.min',
     text: '../lib/text/text',
     select2: '../lib/select2/js/select2.full.min',
+    popover: '../lib/jquery-webui-popover/jquery.webui-popover.min',
     rsvp: '../lib/rsvp/rsvp.min',
     jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
     'jasmine-html': ['../lib/jasmine/lib/jasmine-core/jasmine-html'],
@@ -16,6 +17,9 @@ requirejs.config({
     'jasmine-ajax': ['../lib/jasmine-ajax/lib/mock-ajax']
   },
   shim: {
+    'popover': {
+      deps: ['jquery']
+    },
     'jasmine-html': {
       deps: ['jasmine']
     },
