@@ -30,7 +30,7 @@ define(function(require) {
 
         it('should map start from page', function() {
           var input = {
-            startFromPage: 30
+            startFromItem: 30
           };
 
           expect(searchInputMapper.map(input)).toEqual({
@@ -52,7 +52,7 @@ define(function(require) {
 
         it('should all paging properties', function() {
           var input = {
-            startFromPage: 11,
+            startFromItem: 11,
             pageSize: 29
           };
 

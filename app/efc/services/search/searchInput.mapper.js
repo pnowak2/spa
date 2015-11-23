@@ -4,7 +4,7 @@ define(function(require) {
       input = input || {};
 
       var mapped = _.extend({}, {
-        'iDisplayStart': input.startFromPage || 0,
+        'iDisplayStart': input.startFromItem || 0,
         'iDisplayLength': input.pageSize || 10
       });
 
