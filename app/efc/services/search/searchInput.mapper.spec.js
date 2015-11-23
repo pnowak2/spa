@@ -82,7 +82,7 @@ define(function(require) {
           }));
         });
 
-        it('should omit undefined input values', function() {
+        it('should map only defined input properties', function() {
           var input = {
             keyword: 'foo'
           };
