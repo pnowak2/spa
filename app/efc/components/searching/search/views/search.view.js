@@ -24,6 +24,13 @@ define(function(require) {
 
     didRequestMore: function() {
 
+    },
+
+    render: function() {
+      this.$el.append(this.searchBox.render().view.el);
+      this.$el.append(this.advancedSearch.render().view.el);
+
+      return this;
     }
   });
 });

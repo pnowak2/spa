@@ -112,5 +112,26 @@ define(function(require) {
         expect(this.view.didRequestMore).toHaveBeenCalled();
       });
     });
+
+    describe('rendering', function() {
+      beforeEach(function() {
+        this.view = new SearchView;
+        this.$el = this.view.render().$el;
+      });
+
+      describe('.render()', function() {
+        it('should return view itself', function() {
+          expect(this.view.render()).toBe(this.view);
+        });
+
+        it('should render searchbox markup', function() {
+          expect(this.$el).toContainHtml(this.view.searchBox.render().view.el);
+        });
+
+        it('should render advanced search markup', function() {
+          expect(this.$el).toContainHtml(this.view.advancedSearch.render().view.el);
+        });
+      });
+    });
   });
 });

@@ -63,7 +63,7 @@ define(function(require) {
       this.tabSwitcherComponent = new TabSwitcherComponent;
       this.pagedResultsListComponent = new PagedResultsListComponent;
 
-      this.listenTo(this.searchComponent, 'search:keyword', this.onSearchRequest);
+      this.listenTo(this.searchComponent, 'search:search', this.onSearchRequest);
       this.initUI();
     },
 
@@ -86,10 +86,8 @@ define(function(require) {
 
     render: function() {
       $('body').append(this.searchComponent.render().view.el);
-      // $('body').append(this.advancedSearchComponent.render().view.el);
-      // $('.efc-results-container').append(this.tabSwitcherComponent.render().view.el);
-      // $('.efc-results-container').append(this.pagedResultsListComponent.render().view.el);
-      // $('.efc-multiselect-container').append(this.multiselectComponent.render().view.el);
+      $('body').append(this.tabSwitcherComponent.render().view.el);
+      $('body').append(this.pagedResultsListComponent.render().view.el);
     }
   });
 })
