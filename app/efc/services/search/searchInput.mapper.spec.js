@@ -50,7 +50,7 @@ define(function(require) {
           });
         });
 
-        it('should all paging properties', function() {
+        it('should map all paging properties', function() {
           var input = {
             startFromItem: 11,
             pageSize: 29
