@@ -74,14 +74,35 @@ input.select2-search__field {
     top: 120px;
 }
 
+.efc-searchbox {
+    box-sizing: border-box;
+}
+
 .efc-advanced-search {
+    box-sizing: border-box;
     display: none;
     position: absolute;
+    top: 40px;
     width: 550px;
     padding: 10px;
     background-color: #eee;
     font-size: 1em;
     font-family: sans-serif;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
+}
+
+.efc-advanced-search:after {
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: 100%;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #eee;
+    border-left: 10px solid transparent;
 }
 
 .efc-advanced-search > header {
