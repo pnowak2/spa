@@ -83,6 +83,14 @@ define(function(require) {
             activities: ['act1', 'act2']
           });
         });
+
+        it('should hide advanced search', function() {
+          spyOn(this.view.advancedSearch, 'hide');
+
+          this.view.didRequestSearch();
+
+          expect(this.view.advancedSearch.hide).toHaveBeenCalled();
+        });
       });
 
       describe('.didRequestMore()', function() {

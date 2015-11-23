@@ -19,6 +19,8 @@ define(function(require) {
       var advancedCriteria = this.advancedSearch.getCriteria(),
         criteria = _.extend({}, searchBoxCriteria, advancedCriteria);
 
+      this.advancedSearch.hide();
+
       this.trigger('search:search', criteria);
     },
 
