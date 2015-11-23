@@ -71,7 +71,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/routers/efc.router.spec',
 
     // services
-    'app/efc/services/search/search.mapper.spec',
+    'app/efc/services/search/searchResult.mapper.spec',
     'app/efc/services/search/search.service.spec',
 
     //search

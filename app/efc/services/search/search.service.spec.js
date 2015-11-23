@@ -1,6 +1,6 @@
 define(function(require) {
   var searchService = require('./search.service'),
-    searchMapper = require('./search.mapper'),
+    searchResultMapper = require('./searchResult.mapper'),
     constants = require('app/efc/util/constants'),
     RSVP = require('rsvp'),
     $ = require('jquery'),
@@ -132,11 +132,11 @@ define(function(require) {
           it('should map response to object', function(done) {
             var fakeMappedData = {},
               testRequest = function(data) {
-                expect(searchMapper.map).toHaveBeenCalled();
+                expect(searchResultMapper.map).toHaveBeenCalled();
                 expect(data).toBe(fakeMappedData);
               }
 
-            spyOn(searchMapper, 'map').and.returnValue(fakeMappedData);
+            spyOn(searchResultMapper, 'map').and.returnValue(fakeMappedData);
 
             searchService.search()
               .then(testRequest)

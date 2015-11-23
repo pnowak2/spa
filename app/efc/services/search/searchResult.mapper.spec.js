@@ -1,5 +1,5 @@
 define(function(require) {
-  var searchMapper = require('./search.mapper'),
+  var searchResultMapper = require('./searchResult.mapper'),
 
     testResponses = {
       noData: {
@@ -58,30 +58,30 @@ define(function(require) {
   describe('Search Mapper', function() {
     describe('creation', function() {
       it('should be defined', function() {
-        expect(searchMapper).toEqual(jasmine.any(Object));
+        expect(searchResultMapper).toEqual(jasmine.any(Object));
       });
     });
 
     describe('api', function() {
       describe('.map', function() {
         it('should be defined', function() {
-          expect(searchMapper.map).toEqual(jasmine.any(Function));
+          expect(searchResultMapper.map).toEqual(jasmine.any(Function));
         });
 
         it('should return default empty object when invoked without response', function() {
-          expect(searchMapper.map()).toEqual({
+          expect(searchResultMapper.map()).toEqual({
             total: 0,
             items: []
           });
         });
 
         it('should convert total to number if it is string', function() {
-          var mapped = searchMapper.map(testResponses.noData);
+          var mapped = searchResultMapper.map(testResponses.noData);
           expect(mapped.total).toEqual(jasmine.any(Number));
         });
 
         it('should map response with one row to object', function() {
-          var mapped = searchMapper.map(testResponses.allDataOneRow);
+          var mapped = searchResultMapper.map(testResponses.allDataOneRow);
 
           expect(mapped).toEqual({
             total: 1,
@@ -96,7 +96,7 @@ define(function(require) {
         });
 
         it('should map response with two rows to object', function() {
-          var mapped = searchMapper.map(testResponses.allDataTwoRows);
+          var mapped = searchResultMapper.map(testResponses.allDataTwoRows);
 
           expect(mapped).toEqual({
             total: 2,
@@ -117,7 +117,7 @@ define(function(require) {
         });
 
         it('should map response without countries to object', function() {
-          var mapped = searchMapper.map(testResponses.noCountriesOneRow);
+          var mapped = searchResultMapper.map(testResponses.noCountriesOneRow);
 
           expect(mapped).toEqual({
             total: 1,

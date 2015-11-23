@@ -1,7 +1,7 @@
 define(function(require) {
   var $ = require('jquery'),
     RSVP = require('rsvp'),
-    searchMapper = require('./search.mapper'),
+    searchResultMapper = require('./searchResult.mapper'),
     constants = require('app/efc/util/constants');
 
   return {
@@ -19,7 +19,7 @@ define(function(require) {
             iDisplayLength: criteria.pageSize || 10,
           }
         }).done(function(response) {
-          resolve(searchMapper.map(response));
+          resolve(searchResultMapper.map(response));
         }).fail(function(jqXHR, textStatus) {
           reject(textStatus);
         });
