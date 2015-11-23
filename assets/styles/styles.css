@@ -66,16 +66,18 @@ input.select2-search__field {
 }
 
 /* Search */
-.efc-searchbox-container {
+.efc-search-container {
     position: relative;
     clear: both;
-    width: 400px;
+    width: 550px;
     margin: 0 auto;
     top: 120px;
-    text-align: center;
 }
 
 .efc-advanced-search {
+    display: none;
+    position: absolute;
+    width: 550px;
     padding: 10px;
     background-color: #eee;
     font-size: 1em;

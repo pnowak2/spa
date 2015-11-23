@@ -17,6 +17,11 @@ define(function(require) {
     show: function() {
       this.view.$el.show();
       return this;
+    },
+
+    toggle: function() {
+      this.view.$el.toggle();
+      return this;
     }
   });
 });

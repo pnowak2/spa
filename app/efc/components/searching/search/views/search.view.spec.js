@@ -89,6 +89,16 @@ define(function(require) {
         it('should be defined', function() {
           expect(SearchView.prototype.didRequestMore).toEqual(jasmine.any(Function));
         });
+
+        it('should toggle the advanced search component', function() {
+          var view = new SearchView;
+
+          spyOn(view.advancedSearch, 'toggle');
+
+          expect(view.advancedSearch.toggle).not.toHaveBeenCalled();
+          view.didRequestMore();
+          expect(view.advancedSearch.toggle).toHaveBeenCalled();
+        });
       });
     });
 

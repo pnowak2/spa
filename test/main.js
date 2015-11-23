@@ -7,7 +7,6 @@ requirejs.config({
     backbone: '../lib/backbone/backbone-min',
     mustache: '../lib/mustache.js/mustache.min',
     text: '../lib/text/text',
-    bootstrap: '../lib/bootstrap/js/bootstrap.min',
     select2: '../lib/select2/js/select2.full.min',
     rsvp: '../lib/rsvp/rsvp.min',
     jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
@@ -17,12 +16,6 @@ requirejs.config({
     'jasmine-ajax': ['../lib/jasmine-ajax/lib/mock-ajax']
   },
   shim: {
-    'bootstrap': {
-      deps: ['jquery']
-    },
-    'popover': {
-      deps: ['jquery']
-    },
     'jasmine-html': {
       deps: ['jasmine']
     },

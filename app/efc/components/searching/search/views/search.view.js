@@ -23,7 +23,7 @@ define(function(require) {
     },
 
     didRequestMore: function() {
-
+      this.advancedSearch.toggle();
     },
 
     render: function() {

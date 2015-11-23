@@ -85,9 +85,9 @@ define(function(require) {
     },
 
     render: function() {
-      $('body').append(this.searchComponent.render().view.el);
-      $('body').append(this.tabSwitcherComponent.render().view.el);
-      $('body').append(this.pagedResultsListComponent.render().view.el);
+      $('.efc-search-container').append(this.searchComponent.render().view.el);
+      $('.efc-results-container').append(this.tabSwitcherComponent.render().view.el);
+      $('.efc-results-container').append(this.pagedResultsListComponent.render().view.el);
     }
   });
 })

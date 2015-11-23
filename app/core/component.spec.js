@@ -105,6 +105,30 @@ define(function(require) {
           expect(this.testComponent.view.$el.show).toHaveBeenCalled();
         });
       });
+
+      describe('.toggle()', function() {
+        beforeEach(function() {
+          var TestComponent = Component.extend({
+            view: new Backbone.View
+          });
+          this.testComponent = new TestComponent;
+        });
+
+        it('should be defined', function() {
+          expect(Component.prototype.toggle).toEqual(jasmine.any(Function));
+        });
+
+        it('should return component itself', function() {
+          expect(this.testComponent.toggle()).toBe(this.testComponent);
+        });
+
+        it('should toggle view element', function() {
+          spyOn(this.testComponent.view.$el, 'toggle');
+
+          this.testComponent.toggle();
+          expect(this.testComponent.view.$el.toggle).toHaveBeenCalled();
+        });
+      });
     });
   });
 });
