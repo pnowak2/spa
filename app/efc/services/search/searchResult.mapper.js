@@ -29,9 +29,9 @@ define(function(require) {
       total: total,
       items: items
     }
-  }
+  };
 
   return {
     map: map
-  }
+  };
 });

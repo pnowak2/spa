@@ -55,7 +55,7 @@ define(function(require) {
       }
     };
 
-  describe('Search Mapper', function() {
+  describe('Search Result Mapper', function() {
     describe('creation', function() {
       it('should be defined', function() {
         expect(searchResultMapper).toEqual(jasmine.any(Object));

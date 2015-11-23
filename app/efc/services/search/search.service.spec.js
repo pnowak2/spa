@@ -1,5 +1,6 @@
 define(function(require) {
   var searchService = require('./search.service'),
+    searchInputMapper = require('./searchInput.mapper'),
     searchResultMapper = require('./searchResult.mapper'),
     constants = require('app/efc/util/constants'),
     RSVP = require('rsvp'),
@@ -75,56 +76,21 @@ define(function(require) {
               .finally(done);
           });
 
-          it('should set proper paging attributes', function(done) {
-            var testRequest = function() {
-              request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toContain('iDisplayStart=40');
-              expect(request.url).toContain('iDisplayLength=10');
-            };
+          it('should map input criteria to data object', function(done) {
+            var fakeMappedData = {
+                foo: 'bar'
+              },
+              testRequest = function() {
+                expect($.ajax).toHaveBeenCalledWith(jasmine.objectContaining({
+                  data: fakeMappedData
+                }))
+              };
 
-            searchService.search({
-              startFromItem: 40,
-              pageSize: 10
-            }).then(testRequest)
-              .catch(fail)
-              .finally(done);
-          });
-
-          it('should set default paging attributes if not provided', function(done) {
-            var testRequest = function() {
-              request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toContain('iDisplayStart=0');
-              expect(request.url).toContain('iDisplayLength=10');
-            };
+            spyOn(searchInputMapper, 'map').and.returnValue(fakeMappedData);
+            spyOn($, 'ajax').and.callThrough();
 
             searchService.search()
               .then(testRequest)
-              .catch(fail)
-              .finally(done);
-          });
-
-          it('should accept undefined criteria', function(done) {
-            var testRequest = function() {
-              request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toContain(constants.rest.SEARCH);
-              expect(request.url).not.toContain('KEYWORD')
-            };
-
-            searchService.search()
-              .then(testRequest)
-              .catch(fail)
-              .finally(done);
-          });
-
-          it('should set proper search criteria to request', function(done) {
-            var testRequest = function() {
-              request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toContain('KEYWORD=foo')
-            };
-
-            searchService.search({
-              keyword: 'foo'
-            }).then(testRequest)
               .catch(fail)
               .finally(done);
           });

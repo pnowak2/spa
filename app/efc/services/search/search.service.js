@@ -1,6 +1,7 @@
 define(function(require) {
   var $ = require('jquery'),
     RSVP = require('rsvp'),
+    searchInputMapper = require('./searchInput.mapper'),
     searchResultMapper = require('./searchResult.mapper'),
     constants = require('app/efc/util/constants');
 
@@ -13,11 +14,7 @@ define(function(require) {
           url: constants.rest.SEARCH,
           dataType: 'json',
           method: 'GET',
-          data: {
-            KEYWORD: criteria.keyword,
-            iDisplayStart: criteria.startFromItem || 0,
-            iDisplayLength: criteria.pageSize || 10,
-          }
+          data: searchInputMapper.map(criteria)
         }).done(function(response) {
           resolve(searchResultMapper.map(response));
         }).fail(function(jqXHR, textStatus) {
