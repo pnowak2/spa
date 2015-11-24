@@ -112,49 +112,57 @@ define(function(require) {
 
     describe('rendering', function() {
       describe('.render()', function() {
-        beforeEach(function() {
-          this.view = new ResultsListView
-          this.$el = this.view.render().$el;
+        describe('without data', function() {
+          beforeEach(function() {
+            this.view = new ResultsListView
+            this.$el = this.view.render().$el;
+          });
+
+          it('should render no data placeholder', function() {
+            expect(this.$el.find('div.efc-nodata')).toContainText('No results');
+          });
         });
 
-        it('should return view itself', function() {
-          expect(this.view.render()).toBe(this.view);
-        });
+        describe('with data', function() {
+          beforeEach(function() {
+            this.view = new ResultsListView;
+            this.view.update([{
+              title: 'foo'
+            }]);
+            this.$el = this.view.render().$el;
+          });
 
-        it('should render table', function() {
-          expect(this.$el).toContainElement('table');
-        });
+          it('should return view itself', function() {
+            expect(this.view.render()).toBe(this.view);
+          });
 
-        it('should render 4 column headers with proper titles', function() {
-          expect(this.$el.find('table > thead > tr > th')).toHaveLength(4);
-          expect(this.$el.find('th').first()).toContainText('Title');
-          expect(this.$el.find('th').eq(1)).toContainText('Description');
-          expect(this.$el.find('th').eq(2)).toContainText('Start Year');
-          expect(this.$el.find('th').last()).toContainText('Countries');
-        });
+          it('should render table', function() {
+            expect(this.$el).toContainElement('table');
+          });
 
-        it('should render table body', function() {
-          expect(this.$el.find('table')).toContainElement('tbody');
-        });
+          it('should render 4 column headers with proper titles', function() {
+            expect(this.$el.find('table > thead > tr > th')).toHaveLength(4);
+            expect(this.$el.find('th').first()).toContainText('Title');
+            expect(this.$el.find('th').eq(1)).toContainText('Description');
+            expect(this.$el.find('th').eq(2)).toContainText('Start Year');
+            expect(this.$el.find('th').last()).toContainText('Countries');
+          });
 
-        it('should append to table body result items', function() {
-          var resultsListView = new ResultsListView,
-            fakeTableBodyContainer = jasmine.createSpyObj('tableBodyContainer', ['append']),
-            fakeItemView = new ResultItemView({
-              model: new ResultModel
+          it('should render table body', function() {
+            expect(this.$el.find('table')).toContainElement('tbody');
+          });
+
+          it('should render items inside table body', function() {
+            var itemView = new ResultItemView({
+              model: new ResultModel({
+                title: 'foo'
+              })
             });
 
-          spyOn(ResultsListView.prototype, 'createResultItemViews').and.returnValue([fakeItemView]);
-          spyOn(ResultsListView.prototype, 'getTableBodyContainer').and.returnValue(fakeTableBodyContainer);
-          spyOn(fakeItemView, 'render').and.callThrough();
-
-          resultsListView.render();
-
-          expect(fakeItemView.render).toHaveBeenCalled();
-          expect(fakeTableBodyContainer.append).toHaveBeenCalledWith(fakeItemView.el);
+            expect(this.$el.find('tbody')).toContainHtml(itemView.render().el);
+          });
         });
       });
     });
-
   });
 });

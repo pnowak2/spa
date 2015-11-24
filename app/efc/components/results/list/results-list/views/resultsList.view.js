@@ -31,7 +31,9 @@ define(function(require) {
     },
 
     render: function() {
-      this.$el.html(Mustache.render(tpl));
+      this.$el.html(Mustache.render(tpl, {
+        isEmpty: this.collection.isEmpty()
+      }));
 
       var tableBody = this.getTableBodyContainer(),
         resultItemViews = this.createResultItemViews();
