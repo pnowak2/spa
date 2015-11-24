@@ -22,10 +22,10 @@ define(function(require) {
         });
 
         it('should return proper defaults if called without arguments', function() {
-          expect(searchInputMapper.map()).toEqual({
+          expect(searchInputMapper.map()).toEqual(jasmine.objectContaining({
             iDisplayStart: 0,
             iDisplayLength: 10
-          });
+          }));
         });
 
         it('should map start from page', function() {
@@ -33,10 +33,10 @@ define(function(require) {
             startFromItem: 30
           };
 
-          expect(searchInputMapper.map(input)).toEqual({
+          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
             iDisplayStart: 30,
             iDisplayLength: 10
-          });
+          }));
         });
 
         it('should map page size', function() {
@@ -44,10 +44,10 @@ define(function(require) {
             pageSize: 19
           };
 
-          expect(searchInputMapper.map(input)).toEqual({
+          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
             iDisplayStart: 0,
             iDisplayLength: 19
-          });
+          }));
         });
 
         it('should map all paging properties', function() {
@@ -56,10 +56,10 @@ define(function(require) {
             pageSize: 29
           };
 
-          expect(searchInputMapper.map(input)).toEqual({
+          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
             iDisplayStart: 11,
             iDisplayLength: 29
-          });
+          }));
         });
 
         it('should map keyword', function() {
@@ -80,6 +80,14 @@ define(function(require) {
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
             'FILTER-COVERAGE': 'pl;de'
           }));
+        });
+
+        it('should not map countries if its empty array', function() {
+          var input = {
+            countries: []
+          };
+
+          expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-COVERAGE');
         });
 
         it('should map only defined input properties', function() {

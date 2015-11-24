@@ -178,6 +178,7 @@ define(function(require) {
 
         it('should render country section', function() {
           expect(this.$el).toContainElement('section#efc-country.efc-search-section');
+          expect(this.$el.find('#efc-country > label')).toContainText('Country');
         });
 
         it('should render countries', function() {
@@ -187,6 +188,7 @@ define(function(require) {
 
         it('should render activity section', function() {
           expect(this.$el).toContainElement('section#efc-activity.efc-search-section');
+          expect(this.$el.find('#efc-activity > label')).toContainText('Activity');
         });
 
         it('should render activities', function() {
@@ -196,6 +198,7 @@ define(function(require) {
 
         it('should render subactivity section', function() {
           expect(this.$el).toContainElement('section#efc-subactivity.efc-search-section');
+          expect(this.$el.find('#efc-subactivity > label')).toContainText('Sub-Activity');
         });
 
         it('should render subactivities', function() {
@@ -205,6 +208,7 @@ define(function(require) {
 
         it('should render organisation type section', function() {
           expect(this.$el).toContainElement('section#efc-organisation-type.efc-search-section');
+          expect(this.$el.find('#efc-organisation-type > label')).toContainText('Type of Organisation');
         });
 
         it('should render organisation types', function() {

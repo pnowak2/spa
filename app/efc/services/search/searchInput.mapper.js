@@ -14,7 +14,7 @@ define(function(require) {
         });
       }
 
-      if (_.isArray(input.countries)) {
+      if (_.isArray(input.countries) && !_.isEmpty(input.countries)) {
         mapped = _.extend(mapped, {
           'FILTER-COVERAGE': input.countries.join(';')
         });
