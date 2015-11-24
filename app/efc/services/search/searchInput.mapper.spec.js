@@ -24,7 +24,8 @@ define(function(require) {
         it('should return proper defaults if called without arguments', function() {
           expect(searchInputMapper.map()).toEqual(jasmine.objectContaining({
             iDisplayStart: 0,
-            iDisplayLength: 10
+            iDisplayLength: 10,
+            searchType: 'simple'
           }));
         });
 
@@ -90,12 +91,22 @@ define(function(require) {
           expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-COVERAGE');
         });
 
-        it('should map only defined input properties', function() {
+        it('should map only defaults and defined input properties', function() {
           var input = {
             keyword: 'foo'
           };
 
-          expect(_.keys(searchInputMapper.map(input))).toEqual(['iDisplayStart', 'iDisplayLength', 'KEYWORD']);
+          expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-COVERAGE');
+        });
+
+        it('should map proper search type for advanced search', function() {
+          var input = {
+            countries: ['pl']
+          };
+
+          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+            'searchType': 'advanced'
+          }))
         });
       });
     });

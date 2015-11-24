@@ -26,6 +26,10 @@ define(function(require) {
           id: 'lu',
           title: 'Luxembourg',
           selected: false
+        }, {
+          id: 'es',
+          title: 'Spain',
+          selected: false
         }],
         activities: [{
           id: 'sr',
