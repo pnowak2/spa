@@ -45,11 +45,18 @@
 .efc-pager {
     margin-top: 10px;
 }
+
 .efc-pager a {
     border: 1px solid grey;
     padding: 3px;
     margin-right: 2px;
     margin-right: 2px;
+}
+
+.efc-pager a.efc-disabled {
+    cursor: default;
+    text-decoration: none;
+    color: grey;
 }
 
 .efc-pager .efc-pager-pages a.efc-selected {

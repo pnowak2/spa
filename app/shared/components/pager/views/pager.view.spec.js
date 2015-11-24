@@ -362,13 +362,85 @@ define(function(require) {
         });
 
         it('should render page control buttons', function() {
-          var view = new PagerView;
+          var view = new PagerView({
+            model: new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 3
+            })
+          });
 
-          expect(view.render().el).toContainHtml('<a href="#" class="efc-pager-first">First</a>');
-          expect(view.render().el).toContainHtml('<a href="#" class="efc-pager-previous">Previous</a>');
-          expect(view.render().el).toContainHtml('<a href="#" class="efc-pager-next">Next</a>');
-          expect(view.render().el).toContainHtml('<a href="#" class="efc-pager-last">Last</a>');
-          expect(view.render().el).toContainElement('span.efc-pager-pages');
+          expect(view.render().$el.find('a[href="#"].efc-pager-first')).toContainText('First');
+          expect(view.render().$el.find('a[href="#"].efc-pager-previous')).toContainText('Previous');
+          expect(view.render().$el.find('a[href="#"].efc-pager-next')).toContainText('Next');
+          expect(view.render().$el.find('a[href="#"].efc-pager-last')).toContainText('Last');
+
+          expect(view.render().$el.find('span.efc-pager-pages')).toContainText('3');
+          expect(view.render().$el).toContainText('of 10');
+        });
+
+        it('should disable go to first button when first page is selected', function() {
+          var view = new PagerView({
+            model: new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 1
+            })
+          });
+
+          expect(view.render().$el.find('a[href="#"].efc-pager-first')).toHaveClass('efc-disabled');
+
+          view.model.nextPage();
+
+          expect(view.render().$el.find('a[href="#"].efc-pager-first')).not.toHaveClass('efc-disabled');
+        });
+
+        it('should disable go to previous button when first page is selected', function() {
+          var view = new PagerView({
+            model: new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 1
+            })
+          });
+
+          expect(view.render().$el.find('a[href="#"].efc-pager-previous')).toHaveClass('efc-disabled');
+
+          view.model.nextPage();
+
+          expect(view.render().$el.find('a[href="#"].efc-pager-previous')).not.toHaveClass('efc-disabled');
+        });
+
+        it('should disable go to next button when last page is selected', function() {
+          var view = new PagerView({
+            model: new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 10
+            })
+          });
+
+          expect(view.render().$el.find('a[href="#"].efc-pager-next')).toHaveClass('efc-disabled');
+
+          view.model.previousPage();
+
+          expect(view.render().$el.find('a[href="#"].efc-pager-next')).not.toHaveClass('efc-disabled');
+        });
+
+        it('should disable go to last button when last page is selected', function() {
+          var view = new PagerView({
+            model: new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 10
+            })
+          });
+
+          expect(view.render().$el.find('a[href="#"].efc-pager-last')).toHaveClass('efc-disabled');
+
+          view.model.previousPage();
+
+          expect(view.render().$el.find('a[href="#"].efc-pager-last')).not.toHaveClass('efc-disabled');
         });
 
         it('should be hidden if just one page is available', function() {
