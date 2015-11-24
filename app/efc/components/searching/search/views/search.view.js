@@ -16,8 +16,10 @@ define(function(require) {
     },
 
     didRequestSearch: function(searchBoxCriteria) {
-      var advancedCriteria = this.advancedSearch.getCriteria(),
-        criteria = _.extend({}, searchBoxCriteria, advancedCriteria);
+      var criteria = _.extend({},
+        searchBoxCriteria,
+        this.advancedSearch.getCriteria()
+      );
 
       this.advancedSearch.hide();
 
