@@ -29,7 +29,7 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.getState()', function() {
+      describe('.getCriteria()', function() {
         it('should be defined', function() {
           expect(AdvancedSearchComponent.prototype.getCriteria).toEqual(jasmine.any(Function));
         });

@@ -7,6 +7,10 @@ define(function(require) {
   return Backbone.View.extend({
     className: 'efc-advanced-search',
 
+    events: {
+      'click a.efc-search-clear': 'didClickClearFilters'
+    },
+
     initialize: function(data) {
       data = data || {};
 
@@ -31,6 +35,15 @@ define(function(require) {
         subactivities: _.pluck(this.subactivities.selectedItems(), 'id'),
         organisationTypes: _.pluck(this.organisationTypes.selectedItems(), 'id')
       }
+    },
+
+    didClickClearFilters: function(e) {
+      e.preventDefault();
+
+      this.countries.unselectAll();
+      this.activities.unselectAll();
+      this.subactivities.unselectAll();
+      this.organisationTypes.unselectAll();
     },
 
     render: function() {

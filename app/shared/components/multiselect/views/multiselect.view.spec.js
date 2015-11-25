@@ -252,6 +252,24 @@ define(function(require) {
         });
       });
 
+      describe('.unselectAll()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.unselectAll).toEqual(jasmine.any(Function));
+        });
+
+        it('should clear all selections and rerender', function() {
+          spyOn(MultiselectCollection.prototype, 'unselectAll');
+          spyOn(MultiselectView.prototype, 'render');
+
+          var view = new MultiselectView;
+
+          view.unselectAll();
+
+          expect(view.collection.unselectAll).toHaveBeenCalled();
+          expect(view.render).toHaveBeenCalled();
+        });
+      });
+
       describe('.getSelectElement()', function() {
         it('should be defined', function() {
           expect(MultiselectView.prototype.getSelectElement).toEqual(jasmine.any(Function));

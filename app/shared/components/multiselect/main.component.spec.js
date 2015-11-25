@@ -94,6 +94,22 @@ define(function(require) {
           expect(component.view.update).toHaveBeenCalledWith(fakeItems);
         });
       });
+
+      describe('.unselectAll()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.unselectAll).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new MultiselectComponent;
+
+          spyOn(component.view, 'unselectAll');
+
+          component.unselectAll();
+
+          expect(component.view.unselectAll).toHaveBeenCalled();
+        });
+      });
     });
 
     describe('events', function() {

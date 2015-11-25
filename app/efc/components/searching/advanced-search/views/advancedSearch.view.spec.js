@@ -141,6 +141,53 @@ define(function(require) {
           expect(this.view.getCriteria().organisationTypes).toEqual(['org2']);
         });
       });
+
+      describe('.didClickClearFilters()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView;
+          spyOn(this.view.countries, 'unselectAll');
+          spyOn(this.view.activities, 'unselectAll');
+          spyOn(this.view.subactivities, 'unselectAll');
+          spyOn(this.view.organisationTypes, 'unselectAll');
+
+          this.fakeEvent = jasmine.createSpyObj('evt', ['preventDefault']);
+          this.view.didClickClearFilters(this.fakeEvent);
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.didClickClearFilters).toEqual(jasmine.any(Function));
+        });
+
+        it('should prevent default action', function() {
+          expect(this.fakeEvent.preventDefault).toHaveBeenCalled();
+        });
+
+        it('should clear countries component', function() {
+          expect(this.view.countries.unselectAll).toHaveBeenCalled();
+        });
+
+        it('should clear activities component', function() {
+          expect(this.view.activities.unselectAll).toHaveBeenCalled();
+        });
+
+        it('should clear subactivities component', function() {
+          expect(this.view.subactivities.unselectAll).toHaveBeenCalled();
+        });
+
+        it('should clear organisation types component', function() {
+          expect(this.view.organisationTypes.unselectAll).toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('events', function() {
+      describe('dom', function() {
+        it('should have be properly defined', function() {
+          expect(AdvancedSearchView.prototype.events).toEqual({
+            'click a.efc-search-clear': 'didClickClearFilters'
+          });
+        });
+      });
     });
 
     describe('rendering', function() {
@@ -167,9 +214,17 @@ define(function(require) {
           expect(this.view.render()).toBe(this.view);
         });
 
-        it('should render header with text', function() {
+        it('should render header', function() {
           expect(this.$el).toContainElement('header');
-          expect(this.$el.find('header')).toContainText('Advanced Search');
+        });
+
+        it('should render header text', function() {
+          expect(this.$el.find('header > h3')).toContainText('Advanced Search');
+        });
+
+        it('should render clear filters link', function() {
+          expect(this.$el.find('header')).toContainElement('a[href="#"].efc-search-clear');
+          expect(this.$el.find('header > a.efc-search-clear')).toContainText('Clear filters');
         });
 
         it('should render four sections', function() {

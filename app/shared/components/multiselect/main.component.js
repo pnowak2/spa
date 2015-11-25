@@ -22,6 +22,10 @@ define(function(require) {
 
     update: function(items) {
       this.view.update(items);
+    },
+
+    unselectAll: function() {
+      this.view.unselectAll();
     }
   });
 });

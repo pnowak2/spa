@@ -67,6 +67,11 @@ define(function(require) {
       this.collection.reset(items);
     },
 
+    unselectAll: function() {
+      this.collection.unselectAll();
+      this.render();
+    },
+
     getSelectElement: function() {
       return this.$el.find('select');
     },
