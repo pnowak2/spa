@@ -41,11 +41,10 @@ define(function(require) {
     onSearchRequest: function(searchCriteria) {
       this.resetPager();
 
-      var pagerState = this.pagerComponent.getState(),
-        criteria = this.prepareSearchCriteria(
-          searchCriteria,
-          pagerState
-        );
+      var criteria = this.prepareSearchCriteria(
+        searchCriteria,
+        this.pagerComponent.getState()
+      );
 
       this.performSearch(criteria);
 
