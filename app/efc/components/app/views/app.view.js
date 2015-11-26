@@ -27,4 +27,4 @@ define(function(require) {
       $('.efc-results-container').append(this.searchableList.render().view.el);
     }
   });
-})
+});
