@@ -9,9 +9,9 @@ define(function(require) {
     className: 'efc-searchbox',
 
     events: {
-      'click button.efc-searchbox__search-button': 'didClickSearchButton',
-      'click button.efc-searchbox__more-button': 'didClickMoreButton',
-      'keypress input': 'didPressKey'
+      'click .efc-searchbox__search-button': 'didClickSearchButton',
+      'click .efc-searchbox__more-button': 'didClickMoreButton',
+      'keypress .efc-searchbox__input': 'didPressKey'
     },
 
     initialize: function() {
@@ -21,11 +21,13 @@ define(function(require) {
 
     didClickSearchButton: function(e) {
       e.preventDefault();
+      this.toggleMoreButtonStateToOpen();
       this.requestSearch();
     },
 
     didClickMoreButton: function(e) {
       e.preventDefault();
+      this.toggleMoreButtonState();
       this.trigger('search-box:more');
     },
 
@@ -34,6 +36,18 @@ define(function(require) {
         e.preventDefault();
         this.requestSearch();
       }
+    },
+
+    toggleMoreButtonStateToOpen: function() {
+      this.getMoreButton().removeClass('efc-searchbox__more-button--open');
+    },
+
+    toggleMoreButtonState: function() {
+      this.getMoreButton().toggleClass('efc-searchbox__more-button--open');
+    },
+
+    getMoreButton: function() {
+      return this.$el.find('.efc-searchbox__more-button');
     },
 
     getFormData: function() {
