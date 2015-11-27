@@ -4,7 +4,7 @@ define(function(require) {
     SearchComponent = require('app/efc/components/searching/search/main.component'),
     SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
-    fakeDataSource = require('../data/fakeDataSource');
+    fakeDataSource = require('../data/fakeDatasource');
 
   return Backbone.View.extend({
     initialize: function(attrs) {
