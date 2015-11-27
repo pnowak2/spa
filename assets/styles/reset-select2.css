@@ -6,6 +6,15 @@
     margin: 0;
 }
 
+.select2-dropdown {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+input.select2-search__field {
+	width: 50px !important;
+}
+
 .select2-container--default .select2-selection--multiple {
 	border-radius: 0;
 }

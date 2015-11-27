@@ -67,6 +67,10 @@ define(function(require) {
       id: 'st',
       title: 'Strand2: Better communication',
       selected: false
+    }, {
+      id: 'sc',
+      title: 'Strand3: Improved cooperation',
+      selected: false
     }],
     subactivities: [{
       id: 'tt',
