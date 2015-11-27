@@ -9,8 +9,8 @@ define(function(require) {
     className: 'efc-searchbox',
 
     events: {
-      'click button.efc-btn-search': 'didClickSearchButton',
-      'click button.efc-btn-more': 'didClickMoreButton',
+      'click button.efc-searchbox__search-button': 'didClickSearchButton',
+      'click button.efc-searchbox__more-button': 'didClickMoreButton',
       'keypress input': 'didPressKey'
     },
 

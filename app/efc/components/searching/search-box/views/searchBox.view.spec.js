@@ -174,8 +174,8 @@ define(function(require) {
       describe('dom', function() {
         it('should be properly defined', function() {
           expect(SearchBoxView.prototype.events).toEqual({
-            'click button.efc-btn-search': 'didClickSearchButton',
-            'click button.efc-btn-more': 'didClickMoreButton',
+            'click button.efc-searchbox__search-button': 'didClickSearchButton',
+            'click button.efc-searchbox__more-button': 'didClickMoreButton',
             'keypress input': 'didPressKey'
           });
         });
@@ -213,16 +213,15 @@ define(function(require) {
           view.render();
 
           expect(view.$el).toContainElement('input');
-          expect(view.$el.find('input')).toHaveAttr('placeholder', 'Search...');
+          expect(view.$el.find('input')).toHaveAttr('placeholder', 'Find...');
           expect(view.$el.find('input')).toHaveAttr('value', 'test search');
 
           expect(view.$el).toContainElement('button');
-          expect(view.$el.find('button')).toHaveClass('efc-btn-search');
+          expect(view.$el.find('button')).toHaveClass('efc-searchbox__search-button');
           expect(view.$el.find('button')).toContainText('Search');
 
           expect(view.$el).toContainElement('button');
-          expect(view.$el.find('button')).toHaveClass('efc-btn-more');
-          expect(view.$el.find('button')).toContainText('More');
+          expect(view.$el.find('button')).toHaveClass('efc-searchbox__more-button');
         });
       });
     });
