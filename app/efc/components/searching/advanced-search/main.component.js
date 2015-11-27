@@ -9,6 +9,10 @@ define(function(require) {
 
     getCriteria: function() {
       return this.view.getCriteria();
+    },
+
+    hasSelections: function() {
+      return this.view.hasSelections();
     }
   });
 });

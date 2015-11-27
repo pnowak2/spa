@@ -37,6 +37,13 @@ define(function(require) {
       }
     },
 
+    hasSelections: function() {
+      return this.countries.hasSelection() ||
+        this.activities.hasSelection() ||
+        this.subactivities.hasSelection() ||
+        this.organisationTypes.hasSelection();
+    },
+
     didClickClearFilters: function(e) {
       e.preventDefault();
 

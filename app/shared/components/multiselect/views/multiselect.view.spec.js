@@ -208,7 +208,22 @@ define(function(require) {
             id: 'be',
             title: 'Belgium',
             selected: true
-          }])
+          }]);
+        });
+      });
+
+      describe('.hasSelection()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.hasSelection).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to collection', function() {
+          var view = new MultiselectView,
+            fakeHasSelection = {};
+
+          spyOn(MultiselectCollection.prototype, 'hasSelection').and.returnValue(fakeHasSelection);
+
+          expect(view.hasSelection()).toBe(fakeHasSelection);
         });
       });
 

@@ -16,6 +16,10 @@ define(function(require) {
       return this.view.selectedItems();
     },
 
+    hasSelection: function() {
+      return this.view.hasSelection();
+    },
+
     selectItems: function(itemIds) {
       this.view.selectItems(itemIds);
     },

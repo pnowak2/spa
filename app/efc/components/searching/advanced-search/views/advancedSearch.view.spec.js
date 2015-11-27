@@ -142,6 +142,34 @@ define(function(require) {
         });
       });
 
+      describe('.hasSelections()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.hasSelections).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if any criteria components has selection', function() {
+          var view = new AdvancedSearchView;
+
+          spyOn(view.countries, 'hasSelection').and.returnValue(false);
+          spyOn(view.activities, 'hasSelection').and.returnValue(false);
+          spyOn(view.subactivities, 'hasSelection').and.returnValue(true);
+          spyOn(view.organisationTypes, 'hasSelection').and.returnValue(false);
+
+          expect(view.hasSelections()).toBe(true);
+        });
+
+        it('should return false if none of criteria components has selection', function() {
+          var view = new AdvancedSearchView;
+
+          spyOn(view.countries, 'hasSelection').and.returnValue(false);
+          spyOn(view.activities, 'hasSelection').and.returnValue(false);
+          spyOn(view.subactivities, 'hasSelection').and.returnValue(false);
+          spyOn(view.organisationTypes, 'hasSelection').and.returnValue(false);
+
+          expect(view.hasSelections()).toBe(false);
+        });
+      });
+
       describe('.didClickClearFilters()', function() {
         beforeEach(function() {
           this.view = new AdvancedSearchView;

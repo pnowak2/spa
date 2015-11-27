@@ -58,6 +58,10 @@ define(function(require) {
       });
     },
 
+    hasSelection: function() {
+      return this.collection.hasSelection();
+    },
+
     selectItems: function(itemIds) {
       this.collection.selectItems(itemIds);
       this.render();

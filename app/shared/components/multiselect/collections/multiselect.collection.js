@@ -20,6 +20,10 @@ define(function(require) {
       }
     },
 
+    hasSelection: function() {
+      return !_.isEmpty(this.selectedItems());
+    },
+
     selectItems: function(itemIds) {
       this.unselectAll();
 

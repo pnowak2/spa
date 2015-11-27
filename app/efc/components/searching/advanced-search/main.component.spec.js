@@ -44,6 +44,21 @@ define(function(require) {
           expect(component.getCriteria()).toBe(fakeViewCriteria);
         });
       });
+
+      describe('.hasSelections()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchComponent.prototype.hasSelections).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new AdvancedSearchComponent,
+            fakeHasSelections = {};
+
+          spyOn(AdvancedSearchView.prototype, 'hasSelections').and.returnValue(fakeHasSelections);
+
+          expect(component.hasSelections()).toBe(fakeHasSelections);
+        });
+      });
     });
   });
 });
