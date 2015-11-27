@@ -4,176 +4,27 @@
 
 /* Banner */
 .efc-banner {
-    width: 984px;
-    height: 280px;
-    margin: 0 -6px 0 -15px;
-    background: url(../images/efc_slidea.jpg);
+  width: 984px;
+  height: 280px;
+  margin: 0 -6px 0 -15px;
+  background: url(../images/efc_slidea.jpg);
 }
 
-/* Results */
-.efc-results-container {
-    margin: 0 -9px 0 -15px;
-}
-
-/* Searchable Results List */
-.efc-searchable-results-list {
-    padding: 10px;
-}
-
-/* Results - Table */
-
-.efc-results-list table {
-    border-collapse: collapse;
-    width: 100%
-}
-
-.efc-results-list th {
-    font-weight: bold;
-}
-
-.efc-results-list td, .efc-results-table th {
-    border: 1px solid #ccc;
-    padding: 5px;
-}
-
-.efc-results-list table tr:nth-child(even) {
-    background: #efefef
-}
-
-/* Results - Map */
-.efc-results-map {
-    padding: 0;
-}
-
-/* Pager */
-.efc-pager {
-    margin-top: 10px;
-}
-
-.efc-pager a {
-    border: 1px solid grey;
-    padding: 3px;
-    margin-right: 2px;
-    margin-right: 2px;
-}
-
-.efc-pager a.efc-disabled {
-    cursor: default;
-    text-decoration: none;
-    color: grey;
-}
-
-.efc-pager .efc-pager-pages a.efc-selected {
-    color: #ff0000;
-}
-
-/* Multiselect */
-.efc-multiselect {
-
-}
-
-input.select2-search__field {
-    width: 100% !important;
-}
-
-/* Search */
+/* Search Container */
 .efc-search-container {
-    position: relative;
-    clear: both;
-    width: 550px;
-    margin: 0 auto;
-    top: 110px;
-}
-
-.efc-advanced-search {
-    box-sizing: border-box;
-    display: none;
-    position: absolute;
-    top: 40px;
-    width: 550px;
-    padding: 10px;
-    background-color: #eee;
-    font-size: 1em;
-    font-family: sans-serif;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
-}
-
-.efc-advanced-search:after {
-    content: '';
-    position: absolute;
-    display: block;
-    bottom: 100%;
-    right: 20px;
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid #eee;
-    border-left: 10px solid transparent;
-}
-
-.efc-advanced-search > header {
-    font-weight: bold;
-    border-bottom: 1px solid rgb(170, 170, 170);
-    color: rgb(102, 102, 102);
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-}
-
-.efc-search-section {
-    margin-bottom: 10px
-}
-
-.efc-search-section > label {
-    color: #666;
-}
-
-/* Tabs */
-.efc-tabs {
-    padding: 0;
-    margin: 0;
-    background-color: #074a8b;
-    border-top: 1px solid #4B8AC8;
-    border-bottom: 1px solid #4B8AC8;
-    border-left: 0;
-    border-right: 0;
-    font-size: 0;
-}
-
-.efc-tab {
-    width: 50%;
-    border: 0;
-    margin: 0;
-    display: inline-block;
-    box-sizing: border-box;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    cursor: pointer;
-    color: #fff;
-    font-size: 12px;
-    text-decoration: none;
-}
-
-.efc-tab.efc-selected {
-    background-color: #0762af;
-}
-
-.efc-tab:hover {
-    background-color: #0774bb;
-}
-
-.efc-tab:last-child {
-    border-left: 1px solid #4B8AC8;
+  position: relative;
+  clear: both;
+  width: 550px;
+  margin: 0 auto;
+  top: 110px;
 }
 
 /* Search Box */
-
 .efc-searchbox {
     overflow: hidden; /* clear the float */
-    border: 1px solid rgba(255, 255, 255, .2);
     border-radius: 3px;
     height: 40px;
+    position: relative;
 }
 
 .efc-searchbox__input-container {
@@ -186,7 +37,7 @@ input.select2-search__field {
     font-size: 0;
 }
 
-.efc-searchbox__input-container, 
+.efc-searchbox__input-container,
 .efc-searchbox__buttons-container {
     height: 100%;
 }
@@ -211,8 +62,8 @@ input.select2-search__field {
   font-size: 16px;
 }
 
-.efc-searchbox__input, 
-.efc-searchbox__search-button, 
+.efc-searchbox__input,
+.efc-searchbox__search-button,
 .efc-searchbox__more-button {
   height: 100%;
   border: 0;
@@ -220,7 +71,7 @@ input.select2-search__field {
   display: inline-block;
   vertical-align: top;
 }
- 
+
 .efc-searchbox__more-icon {
     box-sizing: border-box;
     position:relative;
@@ -240,4 +91,121 @@ input.select2-search__field {
     left:0;
     width:100%;
     border-top:2px solid #fff;
+}
+
+/* Advanced Search*/
+.efc-advanced-search {
+    display: none;
+    position: absolute;
+    box-sizing: border-box;
+    padding: 12px;
+    width: 550px;
+    top: 55px;
+    background: #fff;
+    font-family: sans-serif;
+    clear: both;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, .35);
+    border-radius: 3px;
+}
+
+.efc-advanced-search:after {
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: 100%;
+    right: 11px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    border-left: 10px solid transparent;
+}
+
+.efc-advanced-search__header {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.efc-advanced-search__title {
+    margin: 0;
+    padding: 0;
+    color: #888;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.efc-advanced-search__clear,
+.efc-advanced-search__clear:hover,
+.efc-advanced-search__clear:visited {
+    float: right;
+    color: #666;
+    font-size: 12px;
+}
+
+.efc-advanced-search__clear:hover {
+
+}
+
+.efc-advanced-search__section {
+    margin-bottom: 5px;
+}
+
+.efc-advanced-search__section:last-child {
+    margin-bottom: 0;
+}
+
+.efc-advanced-search__section-label {
+    display: inline-block;
+    margin-bottom: 2px;
+    color: #888;
+    font-size: 12px;
+}
+
+/* Results Container */
+.efc-results-container {
+  margin: 0 -9px 0 -15px;
+}
+
+/* Searchable Results List */
+.efc-searchable-results-list {
+  padding: 10px;
+}
+
+/* OLD */
+
+/* Tabs */
+.efc-tabs {
+    padding: 0;
+    margin: 0;
+    background-color: #074a8b;
+    border-top: 1px solid #4B8AC8;
+    border-bottom: 1px solid #4B8AC8;
+    border-left: 0;
+    border-right: 0;
+    font-size: 0;
+}
+.efc-tab {
+    width: 50%;
+    border: 0;
+    margin: 0;
+    display: inline-block;
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    font-size: 12px;
+    text-decoration: none;
+}
+.efc-tab.efc-selected {
+    background-color: #0762af;
+}
+.efc-tab:hover {
+    background-color: #0774bb;
+}
+.efc-tab:last-child {
+    border-left: 1px solid #4B8AC8;
 }

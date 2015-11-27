@@ -30,6 +30,34 @@ define(function(require) {
       id: 'es',
       title: 'Spain',
       selected: false
+    }, {
+      id: 'gr',
+      title: 'Greece',
+      selected: false
+    }, {
+      id: 'ne',
+      title: 'Netherlands',
+      selected: false
+    }, {
+      id: 'ch',
+      title: 'Switzerland',
+      selected: false
+    }, {
+      id: 'ua',
+      title: 'Ukraine',
+      selected: false
+    }, {
+      id: 'ru',
+      title: 'Russia',
+      selected: false
+    }, {
+      id: 'ro',
+      title: 'Romania',
+      selected: false
+    }, {
+      id: 'cz',
+      title: 'Czech Republic',
+      selected: false
     }],
     activities: [{
       id: 'sr',

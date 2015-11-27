@@ -8,7 +8,7 @@ define(function(require) {
     className: 'efc-advanced-search',
 
     events: {
-      'click a.efc-search-clear': 'didClickClearFilters'
+      'click a.efc-advanced-search__clear': 'didClickClearFilters'
     },
 
     initialize: function(data) {
