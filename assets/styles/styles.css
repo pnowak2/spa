@@ -75,11 +75,11 @@ body {
 
 .efc-searchbox__bars_container {
   width: 16px;
-  height: 16px;
+  height: 14px;
   position: absolute;
   border: 0;
   margin: auto auto;
-  top: 2px;
+  top: 0px;
   bottom: 0;
   left: 0;
   right: 0;

@@ -1,7 +1,7 @@
 requirejs.config({
   paths: {
     app: '../app',
-    jquery: '../lib/jquery/dist/jquery.min',
+    jquery: '../lib/jquery/jquery.min',
     blockUI: '../lib/jquery-blockUI/jquery.blockUI.min',
     underscore: '../lib/underscore/underscore-min',
     backbone: '../lib/backbone/backbone-min',
