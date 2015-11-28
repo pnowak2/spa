@@ -60,13 +60,16 @@ body {
   font-size: 19px;
 }
 
+.efc-searchbox__search-button:active {
+  background: #ebb000;
+}
+
 .efc-searchbox__more-button {
   display: inline-block;
   width: 40px;
   background: #0075c7;
   position: relative;
   cursor: pointer;
-
 }
 
 .efc-searchbox__more-button--open {
