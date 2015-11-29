@@ -58,10 +58,25 @@ body {
   color: #fff;
   background-color: #fdbe00;
   font-size: 19px;
+  position: relative;
+  outline-style:none;
+  box-shadow:none;
+  border-color:transparent;
 }
 
-.efc-searchbox__search-button:active {
-  background: #ebb000;
+.efc-searchbox__search-button:after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 50%;
+    margin-top: -7px;
+    right: 100%;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-right: 7px solid #fdbe00;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid transparent;
 }
 
 .efc-searchbox__more-button {
