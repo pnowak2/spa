@@ -59,6 +59,9 @@ body {
   background-color: #fdbe00;
   font-size: 19px;
   position: relative;
+  outline-style:none;
+  box-shadow:none;
+  border-color:transparent;
 }
 
 .efc-searchbox__search-button:after {
