@@ -74,6 +74,11 @@ body {
 
 .efc-searchbox__more-button--open {
   background: #084886;
+  -webkit-transition: background-color .35s linear;
+  -moz-transition: background-color .35s linear;
+  -ms-transition: background-color .35s linear;
+  -o-transition: background-color .35s linear;
+  transition: background-color .35s linear;
 }
 
 .efc-searchbox__bars_container {

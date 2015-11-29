@@ -284,7 +284,7 @@ define(function(require) {
           expect(view.$el.find('button')).toHaveClass('efc-searchbox__search-button');
           expect(view.$el.find('button')).toContainText('Search');
 
-          expect(view.$el.find('div')).toHaveClass('efc-searchbox__more-button');
+          expect(view.$el.find('button')).toHaveClass('efc-searchbox__more-button');
         });
       });
     });
