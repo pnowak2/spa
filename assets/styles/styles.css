@@ -70,6 +70,9 @@ body {
   background: #0075c7;
   position: relative;
   cursor: pointer;
+  outline-style:none;
+  box-shadow:none;
+  border-color:transparent;
 }
 
 .efc-searchbox__more-button--open {
