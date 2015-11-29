@@ -9,12 +9,17 @@ requirejs.config({
     mustache: 'lib/mustache.js/mustache.min',
     text: 'lib/text/text',
     select2: 'lib/select2/js/select2.full.min',
-    rsvp: 'lib/rsvp/rsvp.min'
+    rsvp: 'lib/rsvp/rsvp.min',
+    modernizr: 'lib/modernizr/modernizr-custom.min'
+  },
+  shim: {
+    modernizr: {}
   }
 });
 
 define(function(require) {
   var Backbone = require('backbone'),
+    modernizr = require('modernizr'),
     app = require('app/app.module'),
     EFCComponent = require('app/efc/components/app/main.component'),
     efcComponent = new EFCComponent;

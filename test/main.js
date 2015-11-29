@@ -9,6 +9,7 @@ requirejs.config({
     text: '../lib/text/text',
     select2: '../lib/select2/js/select2.full.min',
     rsvp: '../lib/rsvp/rsvp.min',
+    modernizr: 'lib/modernizr/modernizr-custom.min',
     jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
     'jasmine-html': ['../lib/jasmine/lib/jasmine-core/jasmine-html'],
     'jasmine-boot': ['../lib/jasmine/lib/jasmine-core/boot'],
@@ -16,6 +17,7 @@ requirejs.config({
     'jasmine-ajax': ['../lib/jasmine-ajax/lib/mock-ajax']
   },
   shim: {
+    'modernizr': {},
     'jasmine-html': {
       deps: ['jasmine']
     },

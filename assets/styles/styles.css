@@ -75,7 +75,7 @@ body {
   border-color:transparent;
 }
 
-.efc-searchbox__more-button--open {
+.csstransforms .efc-searchbox__more-button--open {
   background: #084886;
   -webkit-transition: background-color .35s linear;
   -moz-transition: background-color .35s linear;
@@ -131,7 +131,7 @@ body {
   top: 10px;
 }
 
-.efc-searchbox__more-button--open .efc-searchbox__bar1 {
+.csstransforms .efc-searchbox__more-button--open .efc-searchbox__bar1 {
   top: 6px;
   -webkit-transform: rotate(135deg);
   -moz-transform: rotate(135deg);
@@ -140,11 +140,11 @@ body {
   transform: rotate(135deg);
 }
 
-.efc-searchbox__more-button--open .efc-searchbox__bar2 {
+.csstransforms .efc-searchbox__more-button--open .efc-searchbox__bar2 {
   opacity: 0;
 }
 
-.efc-searchbox__more-button--open .efc-searchbox__bar3{
+.csstransforms .efc-searchbox__more-button--open .efc-searchbox__bar3{
   top: 6px;
   -webkit-transform: rotate(-135deg);
   -moz-transform: rotate(-135deg);
