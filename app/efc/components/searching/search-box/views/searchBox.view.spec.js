@@ -31,11 +31,13 @@ define(function(require) {
       describe('.didClickSearchButton()', function() {
         beforeEach(function() {
           spyOn(SearchBoxView.prototype, 'requestSearch');
+          spyOn(SearchBoxView.prototype, 'toggleMoreButtonStateToOpen');
 
           this.fakeEventWithOtherKey = {
             preventDefault: jasmine.createSpy(),
             which: 35
           };
+          this.view = new SearchBoxView;
         });
 
         it('should be defined', function() {
@@ -51,14 +53,22 @@ define(function(require) {
           SearchBoxView.prototype.didClickSearchButton(this.fakeEventWithOtherKey);
           expect(SearchBoxView.prototype.requestSearch).toHaveBeenCalled();
         });
+
+        it('should toggle button more state', function() {
+          this.view.didClickSearchButton(this.fakeEventWithOtherKey);
+          expect(this.view.toggleMoreButtonStateToOpen).toHaveBeenCalled();
+        });
       });
 
       describe('.didClickMoreButton()', function() {
         beforeEach(function() {
+          spyOn(SearchBoxView.prototype, 'toggleMoreButtonState');
+
           this.fakeEvent = {
             preventDefault: jasmine.createSpy(),
             which: 35
           };
+          this.view = new SearchBoxView;
         });
 
         it('should be defined', function() {
@@ -73,11 +83,66 @@ define(function(require) {
         it('should trigger view event', function() {
           spyOn(SearchBoxView.prototype, 'trigger');
 
+          this.view.didClickMoreButton(this.fakeEvent);;
+
+          expect(this.view.trigger).toHaveBeenCalledWith('search-box:more');
+        });
+
+        it('should toggle button more state', function() {
+          this.view.didClickMoreButton(this.fakeEvent);
+          expect(this.view.toggleMoreButtonState).toHaveBeenCalled();
+        });
+      });
+
+      describe('.toggleMoreButtonStateToOpen', function() {
+        it('should be defined', function() {
+          expect(SearchBoxView.prototype.toggleMoreButtonStateToOpen).toEqual(jasmine.any(Function));
+        });
+
+        it('should remove open class', function() {
+          spyOn($.prototype, 'removeClass');
+          spyOn(SearchBoxView.prototype, 'getMoreButton').and.returnValue($.prototype);
+
           var view = new SearchBoxView;
 
-          view.didClickMoreButton(this.fakeEvent);;
+          view.toggleMoreButtonStateToOpen();
 
-          expect(view.trigger).toHaveBeenCalledWith('search-box:more');
+          expect(view.getMoreButton().removeClass).toHaveBeenCalledWith('efc-searchbox__more-button--open');
+        });
+      });
+
+      describe('.toggleMoreButtonState', function() {
+        it('should be defined', function() {
+          expect(SearchBoxView.prototype.toggleMoreButtonState).toEqual(jasmine.any(Function));
+        });
+
+        it('should toggle open class', function() {
+          spyOn($.prototype, 'toggleClass');
+          spyOn(SearchBoxView.prototype, 'getMoreButton').and.returnValue($.prototype);
+
+          var view = new SearchBoxView;
+
+          view.toggleMoreButtonState();
+
+          expect(view.getMoreButton().toggleClass).toHaveBeenCalledWith('efc-searchbox__more-button--open');
+        });
+      });
+
+      describe('.getMoreButton', function() {
+        it('should be defined', function() {
+          expect(SearchBoxView.prototype.getMoreButton).toEqual(jasmine.any(Function));
+        });
+
+        it('should get more button from dom', function() {
+          var view = new SearchBoxView,
+            fakeEl = {};
+
+          spyOn(view.$el, 'find').and.returnValue(fakeEl);
+
+          var result = view.getMoreButton();
+
+          expect(result).toBe(fakeEl);
+          expect(view.$el.find).toHaveBeenCalledWith('.efc-searchbox__more-button');
         });
       });
 
@@ -174,9 +239,9 @@ define(function(require) {
       describe('dom', function() {
         it('should be properly defined', function() {
           expect(SearchBoxView.prototype.events).toEqual({
-            'click button.efc-searchbox__search-button': 'didClickSearchButton',
-            'click button.efc-searchbox__more-button': 'didClickMoreButton',
-            'keypress input': 'didPressKey'
+            'click .efc-searchbox__search-button': 'didClickSearchButton',
+            'click .efc-searchbox__more-button': 'didClickMoreButton',
+            'keypress .efc-searchbox__input': 'didPressKey'
           });
         });
       });
@@ -216,11 +281,9 @@ define(function(require) {
           expect(view.$el.find('input')).toHaveAttr('placeholder', 'Find...');
           expect(view.$el.find('input')).toHaveAttr('value', 'test search');
 
-          expect(view.$el).toContainElement('button');
           expect(view.$el.find('button')).toHaveClass('efc-searchbox__search-button');
           expect(view.$el.find('button')).toContainText('Search');
 
-          expect(view.$el).toContainElement('button');
           expect(view.$el.find('button')).toHaveClass('efc-searchbox__more-button');
         });
       });

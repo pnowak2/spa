@@ -23,8 +23,8 @@ define(function(require) {
 
     render: function() {
       $('.efc-search-container').append(this.search.render().view.el);
-      $('.efc-results-container').append(this.tabSwitcher.render().view.el);
-      $('.efc-results-container').append(this.searchableList.render().view.el);
+      // $('.efc-results-container').append(this.tabSwitcher.render().view.el);
+      // $('.efc-results-container').append(this.searchableList.render().view.el);
     }
   });
 });

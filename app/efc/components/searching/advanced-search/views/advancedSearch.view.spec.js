@@ -242,25 +242,21 @@ define(function(require) {
           expect(this.view.render()).toBe(this.view);
         });
 
-        it('should render header', function() {
-          expect(this.$el).toContainElement('header');
-        });
-
         it('should render header text', function() {
-          expect(this.$el.find('header > h1')).toContainText('Advanced Search');
+          expect(this.$el.find('h1')).toContainText('Advanced Search');
         });
 
         it('should render clear filters link', function() {
-          expect(this.$el.find('header')).toContainElement('a[href="#"].efc-advanced-search__clear');
-          expect(this.$el.find('header > a.efc-advanced-search__clear')).toContainText('Clear filters');
+          expect(this.$el.find('.efc-advanced-search__header')).toContainElement('a[href="#"].efc-advanced-search__clear');
+          expect(this.$el.find('.efc-advanced-search__header > a.efc-advanced-search__clear')).toContainText('Clear filters');
         });
 
         it('should render four sections', function() {
-          expect(this.$el.find('section')).toHaveLength(4);
+          expect(this.$el.find('.efc-advanced-search__section')).toHaveLength(4);
         });
 
         it('should render country section', function() {
-          expect(this.$el).toContainElement('section#efc-country.efc-advanced-search__section');
+          expect(this.$el).toContainElement('#efc-country.efc-advanced-search__section');
           expect(this.$el.find('#efc-country > label')).toContainText('Country');
         });
 
@@ -270,7 +266,7 @@ define(function(require) {
         });
 
         it('should render activity section', function() {
-          expect(this.$el).toContainElement('section#efc-activity.efc-advanced-search__section');
+          expect(this.$el).toContainElement('#efc-activity.efc-advanced-search__section');
           expect(this.$el.find('#efc-activity > label')).toContainText('Activity');
         });
 
@@ -280,7 +276,7 @@ define(function(require) {
         });
 
         it('should render subactivity section', function() {
-          expect(this.$el).toContainElement('section#efc-subactivity.efc-advanced-search__section');
+          expect(this.$el).toContainElement('#efc-subactivity.efc-advanced-search__section');
           expect(this.$el.find('#efc-subactivity > label')).toContainText('Sub-Activity');
         });
 
@@ -290,7 +286,7 @@ define(function(require) {
         });
 
         it('should render organisation type section', function() {
-          expect(this.$el).toContainElement('section#efc-organisation-type.efc-advanced-search__section');
+          expect(this.$el).toContainElement('#efc-organisation-type.efc-advanced-search__section');
           expect(this.$el.find('#efc-organisation-type > label')).toContainText('Type of Organisation');
         });
 
