@@ -21,7 +21,6 @@ define(function(require) {
 
     didClickSearchButton: function(e) {
       e.preventDefault();
-      this.toggleMoreButtonStateToOpen();
       this.requestSearch();
     },
 
@@ -38,7 +37,7 @@ define(function(require) {
       }
     },
 
-    toggleMoreButtonStateToOpen: function() {
+    toggleMoreButtonStateToClosed: function() {
       this.getMoreButton().removeClass('efc-searchbox__more-button--open');
     },
 
@@ -58,6 +57,7 @@ define(function(require) {
 
     requestSearch: function() {
       this.model.set(this.getFormData());
+      this.toggleMoreButtonStateToClosed();
       this.trigger('search-box:search', this.model.toJSON())
     },
 

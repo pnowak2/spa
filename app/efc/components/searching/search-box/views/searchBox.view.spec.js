@@ -31,7 +31,7 @@ define(function(require) {
       describe('.didClickSearchButton()', function() {
         beforeEach(function() {
           spyOn(SearchBoxView.prototype, 'requestSearch');
-          spyOn(SearchBoxView.prototype, 'toggleMoreButtonStateToOpen');
+          spyOn(SearchBoxView.prototype, 'toggleMoreButtonStateToClosed');
 
           this.fakeEventWithOtherKey = {
             preventDefault: jasmine.createSpy(),
@@ -52,11 +52,6 @@ define(function(require) {
         it('should call search method', function() {
           SearchBoxView.prototype.didClickSearchButton(this.fakeEventWithOtherKey);
           expect(SearchBoxView.prototype.requestSearch).toHaveBeenCalled();
-        });
-
-        it('should toggle button more state', function() {
-          this.view.didClickSearchButton(this.fakeEventWithOtherKey);
-          expect(this.view.toggleMoreButtonStateToOpen).toHaveBeenCalled();
         });
       });
 
@@ -80,6 +75,11 @@ define(function(require) {
           expect(this.fakeEvent.preventDefault).toHaveBeenCalled();
         });
 
+        it('should toggle button more state', function() {
+          this.view.didClickMoreButton(this.fakeEvent);
+          expect(this.view.toggleMoreButtonState).toHaveBeenCalled();
+        });
+
         it('should trigger view event', function() {
           spyOn(SearchBoxView.prototype, 'trigger');
 
@@ -87,16 +87,11 @@ define(function(require) {
 
           expect(this.view.trigger).toHaveBeenCalledWith('search-box:more');
         });
-
-        it('should toggle button more state', function() {
-          this.view.didClickMoreButton(this.fakeEvent);
-          expect(this.view.toggleMoreButtonState).toHaveBeenCalled();
-        });
       });
 
-      describe('.toggleMoreButtonStateToOpen', function() {
+      describe('.toggleMoreButtonStateToClosed', function() {
         it('should be defined', function() {
-          expect(SearchBoxView.prototype.toggleMoreButtonStateToOpen).toEqual(jasmine.any(Function));
+          expect(SearchBoxView.prototype.toggleMoreButtonStateToClosed).toEqual(jasmine.any(Function));
         });
 
         it('should remove open class', function() {
@@ -105,7 +100,7 @@ define(function(require) {
 
           var view = new SearchBoxView;
 
-          view.toggleMoreButtonStateToOpen();
+          view.toggleMoreButtonStateToClosed();
 
           expect(view.getMoreButton().removeClass).toHaveBeenCalledWith('efc-searchbox__more-button--open');
         });
@@ -218,6 +213,16 @@ define(function(require) {
           expect(view.model.set).toHaveBeenCalled();
           expect(view.model.set.calls.count()).toBe(1);
           expect(view.model.set.calls.mostRecent().args[0]).toBe(fakeFormData);
+        });
+
+        it('should toggle button more state to closed', function() {
+          spyOn(SearchBoxView.prototype, 'toggleMoreButtonStateToClosed');
+          spyOn(SearchBoxView.prototype, 'getFormData');
+          var view = new SearchBoxView;
+
+          view.requestSearch();
+
+          expect(view.toggleMoreButtonStateToClosed).toHaveBeenCalled();
         });
 
         it('should trigger view event', function() {
