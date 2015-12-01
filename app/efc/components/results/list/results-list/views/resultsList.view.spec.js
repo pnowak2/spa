@@ -119,7 +119,7 @@ define(function(require) {
           });
 
           it('should render no data placeholder', function() {
-            expect(this.$el.find('div.efc-nodata')).toContainText('No results');
+            expect(this.$el.find('.efc-results-list__no-data')).toContainText('No results');
           });
         });
 
