@@ -323,6 +323,17 @@
   cursor: text;
 }
 
+/* Results list */
+.efc-results-list__year {
+  width: 40px;
+  text-align: center;
+}
+
+.efc-results-list__countries {
+  width: 100px;
+  text-align: center;
+}
+
 /* Searchable Results List */
 .efc-searchable-results-list {
   padding: 0;
