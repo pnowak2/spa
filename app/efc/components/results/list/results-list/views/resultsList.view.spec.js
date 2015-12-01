@@ -144,7 +144,7 @@ define(function(require) {
             expect(this.$el.find('table > thead > tr > th')).toHaveLength(4);
             expect(this.$el.find('th').first()).toContainText('Title');
             expect(this.$el.find('th').eq(1)).toContainText('Description');
-            expect(this.$el.find('th').eq(2)).toContainText('Start Year');
+            expect(this.$el.find('th').eq(2)).toContainText('Year');
             expect(this.$el.find('th').last()).toContainText('Countries');
           });
 
