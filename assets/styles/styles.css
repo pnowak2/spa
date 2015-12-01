@@ -1,17 +1,14 @@
-.app * {
-  box-sizing: border-box;
-}
-
-body {
-  background: #eee;
-}
-
 /* Banner */
 .efc-banner {
   width: 984px;
   height: 280px;
   margin: 0 -6px 0 -15px;
   background: url(../images/efc_slidea.jpg);
+}
+
+/* Results Container */
+.efc-results-container {
+  margin: 0 -9px 0 -15px;
 }
 
 /* Search Container */
@@ -244,18 +241,6 @@ body {
     font-size: 12px;
 }
 
-/* Results Container */
-.efc-results-container {
-  margin: 0 -9px 0 -15px;
-}
-
-/* Searchable Results List */
-.efc-searchable-results-list {
-  padding: 10px;
-}
-
-/* OLD */
-
 /* Tabs */
 .efc-tabs {
     padding: 0;
@@ -267,7 +252,8 @@ body {
     border-right: 0;
     font-size: 0;
 }
-.efc-tab {
+
+.efc-tabs__tab {
     width: 50%;
     border: 0;
     margin: 0;
@@ -283,12 +269,68 @@ body {
     font-family: sans-serif;
     font-size: 16px;
 }
-.efc-tab.efc-selected {
+
+.efc-tabs__tab--selected {
     background-color: #0762af;
 }
-.efc-tab:hover {
+
+.efc-tabs__tab:hover {
     background-color: #0774bb;
 }
-.efc-tab:last-child {
+
+.efc-tabs__tab:last-child {
     border-left: 1px solid #4B8AC8;
 }
+
+/* Pager */
+.efc-pager:after {
+  content:"";
+  display:table;
+  clear:both;
+}
+
+.efc-pager__page,
+.efc-pager__page:hover,
+.efc-pager__page:visited {
+  box-sizing: border-box;
+  float: left;
+  display: block;
+  min-width: 20px;
+  text-align: center;
+  padding: 8px 10px;
+  margin-right: 2px;
+  outline: none;
+  background: #074a8b;
+  text-decoration: none;
+  border-radius: 3px;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  color: #fff;
+  line-height: 1;
+}
+
+.efc-pager__page--selected,
+.efc-pager__page--selected:hover,
+.efc-pager__page--selected:visited {
+  background: #FDBE00;
+}
+
+.efc-pager__page--disabled,
+.efc-pager__page--disabled:hover,
+.efc-pager__page--disabled:visited {
+  background: #7693A7;
+  cursor: text;
+}
+
+/* Searchable Results List */
+.efc-searchable-results-list {
+  padding: 10px;
+}
+
+.efc-searchable-results-list .efc-pager {
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+

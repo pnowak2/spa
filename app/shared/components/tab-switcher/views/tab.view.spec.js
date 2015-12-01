@@ -29,6 +29,10 @@ define(function(require) {
       it('.tagName should be li', function() {
         expect(TabView.prototype.tagName).toEqual('li');
       });
+
+      it('.className should be defined', function() {
+        expect(TabView.prototype.className).toEqual('efc-tabs__tab');
+      });
     });
 
     describe('api', function() {
@@ -98,7 +102,7 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el).toBeMatchedBy('li.efc-selected');
+          expect(view.render().$el).toBeMatchedBy('li.efc-tabs__tab--selected');
           expect(view.render().$el).toContainText('My Tab');
         });
       });

@@ -141,7 +141,7 @@ define(function(require) {
         });
 
         it('should set correct width if tab count is zero', function() {
-          expect(TabSwitcherView.prototype.calculateTabWidth(0)).toEqual('0%');
+          expect(TabSwitcherView.prototype.calculateTabWidth(0)).toEqual('0');
         });
       });
     });

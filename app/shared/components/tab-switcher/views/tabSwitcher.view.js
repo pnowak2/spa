@@ -40,7 +40,7 @@ define(function(require) {
 
     calculateTabWidth: function(tabsCount) {
       if (tabsCount === 0) {
-        return '0%';
+        return '0';
       } else {
         return (100 / tabsCount) + '%';
       }

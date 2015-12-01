@@ -6,7 +6,7 @@ define(function(require) {
   return Backbone.View.extend({
     tagName: 'li',
 
-    className: 'efc-tab',
+    className: 'efc-tabs__tab',
 
     events: {
       'click': 'didClickTab'
@@ -26,7 +26,7 @@ define(function(require) {
 
     render: function() {
       this.$el.html(Mustache.render('{{ title }}', this.model.toJSON()));
-      this.$el.toggleClass('efc-selected', this.model.isSelected());
+      this.$el.toggleClass('efc-tabs__tab--selected', this.model.isSelected());
 
       return this;
     }

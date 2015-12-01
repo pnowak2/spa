@@ -25,10 +25,10 @@ define(function(require) {
     },
 
     events: {
-      'click .efc-pager-first': 'didClickFirstPageButton',
-      'click .efc-pager-previous': 'didClickPreviousPageButton',
-      'click .efc-pager-next': 'didClickNextPageButton',
-      'click .efc-pager-last': 'didClickLastPageButton'
+      'click .efc-pager__page--first': 'didClickFirstPageButton',
+      'click .efc-pager__page--previous': 'didClickPreviousPageButton',
+      'click .efc-pager__page--next': 'didClickNextPageButton',
+      'click .efc-pager__page--last': 'didClickLastPageButton'
     },
 
     update: function(data) {
@@ -83,7 +83,7 @@ define(function(require) {
     },
 
     getPagesContainer: function() {
-      return this.$el.find('.efc-pager-pages');
+      return this.$el.find('.efc-pager__pages');
     },
 
     render: function() {

@@ -269,7 +269,7 @@ define(function(require) {
           var result = view.getPagesContainer();
 
           expect(result).toBe(fakeContainer);
-          expect(view.$el.find).toHaveBeenCalledWith('.efc-pager-pages');
+          expect(view.$el.find).toHaveBeenCalledWith('.efc-pager__pages');
         });
       });
     });
@@ -331,22 +331,22 @@ define(function(require) {
           });
 
           it('should define click event on go to first page button', function() {
-            this.view.render().$el.find('.efc-pager-first').trigger('click');
+            this.view.render().$el.find('.efc-pager__page--first').trigger('click');
             expect(this.view.didClickFirstPageButton).toHaveBeenCalled();
           });
 
           it('should define click event on go to previous page button', function() {
-            this.view.render().$el.find('.efc-pager-previous').trigger('click');
+            this.view.render().$el.find('.efc-pager__page--previous').trigger('click');
             expect(this.view.didClickPreviousPageButton).toHaveBeenCalled();
           });
 
           it('should define click event on go to next page button', function() {
-            this.view.render().$el.find('.efc-pager-next').trigger('click');
+            this.view.render().$el.find('.efc-pager__page--next').trigger('click');
             expect(this.view.didClickNextPageButton).toHaveBeenCalled();
           });
 
           it('should define click event on go to last page button', function() {
-            this.view.render().$el.find('.efc-pager-last').trigger('click');
+            this.view.render().$el.find('.efc-pager__page--last').trigger('click');
             expect(this.view.didClickLastPageButton).toHaveBeenCalled();
           });
         });
@@ -370,13 +370,12 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager-first')).toContainText('First');
-          expect(view.render().$el.find('a[href="#"].efc-pager-previous')).toContainText('Previous');
-          expect(view.render().$el.find('a[href="#"].efc-pager-next')).toContainText('Next');
-          expect(view.render().$el.find('a[href="#"].efc-pager-last')).toContainText('Last');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--first')).toContainText('First');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--previous')).toContainText('Previous');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--next')).toContainText('Next');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--last')).toContainText('Last');
 
-          expect(view.render().$el.find('span.efc-pager-pages')).toContainText('3');
-          expect(view.render().$el).toContainText('of 10');
+          expect(view.render().$el.find('span.efc-pager__pages')).toContainText('3');
         });
 
         it('should disable go to first button when first page is selected', function() {
@@ -388,11 +387,11 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager-first')).toHaveClass('efc-disabled');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--first')).toHaveClass('efc-pager__page--disabled');
 
           view.model.nextPage();
 
-          expect(view.render().$el.find('a[href="#"].efc-pager-first')).not.toHaveClass('efc-disabled');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--first')).not.toHaveClass('efc-pager__page--disabled');
         });
 
         it('should disable go to previous button when first page is selected', function() {
@@ -404,11 +403,11 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager-previous')).toHaveClass('efc-disabled');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--previous')).toHaveClass('efc-pager__page--disabled');
 
           view.model.nextPage();
 
-          expect(view.render().$el.find('a[href="#"].efc-pager-previous')).not.toHaveClass('efc-disabled');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--previous')).not.toHaveClass('efc-pager__page--disabled');
         });
 
         it('should disable go to next button when last page is selected', function() {
@@ -420,11 +419,11 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager-next')).toHaveClass('efc-disabled');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--next')).toHaveClass('efc-pager__page--disabled');
 
           view.model.previousPage();
 
-          expect(view.render().$el.find('a[href="#"].efc-pager-next')).not.toHaveClass('efc-disabled');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--next')).not.toHaveClass('efc-pager__page--disabled');
         });
 
         it('should disable go to last button when last page is selected', function() {
@@ -436,11 +435,11 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager-last')).toHaveClass('efc-disabled');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--last')).toHaveClass('efc-pager__page--disabled');
 
           view.model.previousPage();
 
-          expect(view.render().$el.find('a[href="#"].efc-pager-last')).not.toHaveClass('efc-disabled');
+          expect(view.render().$el.find('a[href="#"].efc-pager__page--last')).not.toHaveClass('efc-pager__page--disabled');
         });
 
         it('should be hidden if just one page is available', function() {

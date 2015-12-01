@@ -6,6 +6,8 @@ define(function(require) {
   return Backbone.View.extend({
     tagName: 'a',
 
+    className: 'efc-pager__page',
+
     attributes: {
       href: '#'
     },
@@ -28,7 +30,7 @@ define(function(require) {
 
     render: function() {
       var html = Mustache.render('{{ page }}', this.model.toJSON());
-      this.$el.toggleClass('efc-selected', this.model.get('selected'));
+      this.$el.toggleClass('efc-pager__page--selected', this.model.get('selected'));
       this.$el.html(html);
 
       return this;
