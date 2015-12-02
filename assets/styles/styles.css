@@ -60,6 +60,7 @@
   outline-style:none;
   box-shadow:none;
   border-color:transparent;
+  cursor: pointer;
 }
 
 .efc-searchbox__search-button:after {
