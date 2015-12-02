@@ -56,7 +56,7 @@ define(function(require) {
           });
 
           it('should contain link to result card', function() {
-            expect(this.$td).toContainElement('a[href="/programmes/erasmus-plus/projects/eplus-project-details-page/?nodeRef=52"]');
+            expect(this.$td).toContainElement('a[href="/programmes/europe-for-citizens/projects/efc-project-details-page/?nodeRef=52"]');
           });
 
           it('should have link to result card which opens in new window', function() {
