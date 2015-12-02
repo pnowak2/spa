@@ -52,6 +52,7 @@
 
 .efc-searchbox__search-button {
   width: 100px;
+  overflow: visible;
   color: #fff;
   background-color: #fdbe00;
   font-size: 19px;
