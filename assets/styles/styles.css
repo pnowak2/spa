@@ -300,13 +300,13 @@
   padding: 8px 10px;
   margin-right: 2px;
   outline: none;
-  background: #074a8b;
+  background: #ccc;
   text-decoration: none;
   border-radius: 3px;
   font-family: sans-serif;
   font-size: 12px;
   font-weight: normal;
-  color: #fff;
+  color: #666;
   line-height: 1;
 }
 
@@ -314,12 +314,15 @@
 .efc-pager__page--selected:hover,
 .efc-pager__page--selected:visited {
   background: #FDBE00;
+  color: #fff;
+  font-weight: bold;
 }
 
 .efc-pager__page--disabled,
 .efc-pager__page--disabled:hover,
 .efc-pager__page--disabled:visited {
-  background: #7693A7;
+  background: #ddd;
+  color: #999;
   cursor: text;
 }
 
@@ -328,6 +331,10 @@
 .efc-results-list__no-data {
   text-align: center;
   padding: 10px;
+}
+
+.efc-results-list__title {
+  width: 340px;
 }
 
 .efc-results-list__year {
@@ -364,7 +371,7 @@ table a:visited {
 }
 table a:active,
 table a:hover {
-	color: #bd5a35;
+	color: #666;
 	text-decoration:underline;
 }
 table {
