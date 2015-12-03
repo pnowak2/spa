@@ -216,11 +216,11 @@
 }
 
 .efc-searchbox__more-button--open .efc-searchbox__tooltip {
-  -webkit-transform: translate(0, 30px); 
-  -moz-transform: translate(0, 30px); 
-  -o-transform: translate(0, 30px); 
-  -ms-transform: translate(0, 30px); 
-  transform: translate(0, 30px);
+  -webkit-transform: translate(0, 15px); 
+  -moz-transform: translate(0, 15px); 
+  -o-transform: translate(0, 15px); 
+  -ms-transform: translate(0, 15px); 
+  transform: translate(0, 15px);
 
   opacity: 0;
 }
