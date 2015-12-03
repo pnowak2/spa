@@ -292,7 +292,6 @@
 }
 
 .efc-pager__page,
-.efc-pager__page:hover,
 .efc-pager__page:visited {
   box-sizing: border-box;
   float: left;
@@ -310,6 +309,10 @@
   font-weight: normal;
   color: #666;
   line-height: 1;
+}
+
+.efc-pager__page--last {
+  margin-right: 0
 }
 
 .efc-pager__page--selected,
@@ -356,37 +359,21 @@
 
 .efc-searchable-results-list .efc-pager {
   float: right;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 10px;
 }
 
 /* Table */
-table a:link {
-	color: #666;
-	font-weight: bold;
-	text-decoration:none;
-}
-table a:visited {
-	color: #666;
-	font-weight:bold;
-	text-decoration:none;
-}
-table a:active,
-table a:hover {
-	color: #666;
-	text-decoration:underline;
-}
 table {
 	font-family: sans-serif;
 	color:#666;
 	font-size:12px;
 	background:#eaebec;
 	margin:0;
-	border-left:#ccc 1px solid;
-	border-right:#ccc 1px solid;
-	border-bottom:#ccc 1px solid;
-    width: 100%;
+	border:0;
+  border-collapse: collapse;
+  width: 100%;
 }
+
 table th {
 	padding:20px 10px;
 	border-bottom:1px solid #e0e0e0;
@@ -394,15 +381,12 @@ table th {
     font-size: 14px;
     font-weight: bold;
 }
+
 table th:first-child{
 	text-align: left;
 	padding-left:20px;
 }
 
-table tr{
-	text-align: center;
-	padding-left:20px;
-}
 table tr td:first-child{
 	text-align: left;
 	padding-left:20px;
@@ -421,4 +405,22 @@ table tr:nth-child(even) td{
 }
 table tr:last-child td{
 	border-bottom:0;
+}
+
+table a:link {
+  color: #666;
+  font-weight: bold;
+  text-decoration:none;
+}
+
+table a:visited {
+  color: #666;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+table a:active,
+table a:hover {
+  color: #666;
+  text-decoration:underline;
 }
