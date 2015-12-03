@@ -290,6 +290,8 @@ define(function(require) {
           expect(view.$el.find('button')).toContainText('Search');
 
           expect(view.$el.find('button')).toHaveClass('efc-searchbox__more-button');
+
+          expect(view.$el.find('.efc-searchbox__tooltip')).toContainText('Click here to open advanced search');
         });
       });
     });
