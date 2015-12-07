@@ -40,6 +40,10 @@ input.select2-search__field {
 	border-radius: 3px;
 }
 
+.select2-container--disabled .select2-selection--multiple .select2-selection__choice {
+	background-color: #838383;
+}
+
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
 	color: #fff;
 }
