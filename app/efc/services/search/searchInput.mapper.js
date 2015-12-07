@@ -1,24 +1,27 @@
 define(function(require) {
   var _ = require('underscore'),
 
+    isCountryDefined = function(input) {
+      return _.isArray(input.countries) && !_.isEmpty(input.countries);
+    },
+
+    isActivityDefined = function(input) {
+      return _.isArray(input.activities) && !_.isEmpty(input.activities);
+    },
+
+    isSubactivityDefined = function(input) {
+      return _.isArray(input.subactivities) && !_.isEmpty(input.subactivities);
+    },
+
+    isOrganisationTypeDefined = function(input) {
+      return _.isArray(input.organisationTypes) && !_.isEmpty(input.organisationTypes);
+    },
+
     isAdvanced = function(input) {
-      if (_.isArray(input.countries) && !_.isEmpty(input.countries)) {
-        return true;
-      }
-
-      if (_.isArray(input.activities) && !_.isEmpty(input.activities)) {
-        return true;
-      }
-
-      if (_.isArray(input.subactivities) && !_.isEmpty(input.subactivities)) {
-        return true;
-      }
-
-      if (_.isArray(input.organisationTypes) && !_.isEmpty(input.organisationTypes)) {
-        return true;
-      }
-
-      return false;
+      return isCountryDefined(input) ||
+        isActivityDefined(input) ||
+        isSubactivityDefined(input) ||
+        isOrganisationTypeDefined(input);
     },
 
     map = function(input) {
@@ -36,25 +39,25 @@ define(function(require) {
         });
       }
 
-      if (_.isArray(input.countries) && !_.isEmpty(input.countries)) {
+      if (isCountryDefined(input)) {
         mapped = _.extend(mapped, {
           'FILTER-COVERAGE': input.countries.join(';')
         });
       }
 
-      if (_.isArray(input.activities) && !_.isEmpty(input.activities)) {
+      if (isActivityDefined(input)) {
         mapped = _.extend(mapped, {
           'FILTER-LEVEL2': input.activities.join(';')
         });
       }
 
-      if (_.isArray(input.subactivities) && !_.isEmpty(input.subactivities)) {
+      if (isSubactivityDefined(input)) {
         mapped = _.extend(mapped, {
           'FILTER-LEVEL3': input.subactivities.join(';')
         });
       }
 
-      if (_.isArray(input.organisationTypes) && !_.isEmpty(input.organisationTypes)) {
+      if (isOrganisationTypeDefined(input)) {
         mapped = _.extend(mapped, {
           'FILTER-COORD_ORG_NAME': input.organisationTypes.join(';')
         });
