@@ -91,22 +91,88 @@ define(function(require) {
           expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-COVERAGE');
         });
 
-        it('should map only defaults and defined input properties', function() {
+        it('should map activities', function() {
           var input = {
-            keyword: 'foo'
+            activities: ['ac1', 'ac2']
+          }
+
+          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+            'FILTER-LEVEL2': 'ac1;ac2'
+          }));
+        });
+
+        it('should not map activities if its empty array', function() {
+          var input = {
+            activities: []
           };
 
-          expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-COVERAGE');
+          expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-LEVEL2');
+        });
+
+        it('should map subactivities', function() {
+          var input = {
+            subactivities: ['sub1', 'sub2']
+          }
+
+          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+            'FILTER-LEVEL3': 'sub1;sub2'
+          }));
+        });
+
+        it('should not map subactivities if its empty array', function() {
+          var input = {
+            subactivities: []
+          };
+
+          expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-LEVEL3');
+        });
+
+        it('should map type of organisation', function() {
+          var input = {
+            organisationTypes: ['org1', 'org2']
+          }
+
+          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+            'FILTER-COORD_ORG_NAME': 'org1;org2'
+          }));
+        });
+
+        it('should not map type of organisation if its empty array', function() {
+          var input = {
+            organisationTypes: []
+          };
+
+          expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-COORD_ORG_NAME');
+        });
+
+        it('should map only defaults and defined input properties', function() {
+          var input = {
+              keyword: 'foo'
+            },
+            mapped = searchInputMapper.map(input);
+
+          expect(_.keys(mapped)).not.toContain('FILTER-COVERAGE');
+          expect(_.keys(mapped)).not.toContain('FILTER-LEVEL2');
+          expect(_.keys(mapped)).not.toContain('FILTER-LEVEL3');
+          expect(_.keys(mapped)).not.toContain('FILTER-COORD_ORG_NAME');
         });
 
         it('should map proper search type for advanced search', function() {
-          var input = {
+          var inputs = [{
             countries: ['pl']
-          };
+          }, {
+            activities: ['ac1']
+          }, {
+            subactivities: ['sub1']
+          }, {
+            organisationTypes: ['org1']
+          }];
 
-          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-            'searchType': 'advanced'
-          }))
+          _.each(inputs, function(input) {
+            expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+              'searchType': 'advanced'
+            }));
+          });
         });
       });
     });
