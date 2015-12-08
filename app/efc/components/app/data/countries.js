@@ -1,36 +1,99 @@
 define(function(require) {
   return [{
-    id: 'pl',
-    title: 'Poland'
+    id: 'AT',
+    title: 'Austria'
   }, {
-    id: 'de',
-    title: 'Germany'
+    id: 'AL',
+    title: 'Albania'
   }, {
-    id: 'be',
+    id: 'BE',
     title: 'Belgium'
   }, {
-    id: 'lu',
+    id: 'BG',
+    title: 'Bulgaria'
+  }, {
+    id: 'CY',
+    title: 'Cyprus'
+  }, {
+    id: 'CR',
+    title: 'Croatia'
+  }, {
+    id: 'CZ',
+    title: 'Czech Republic'
+  }, {
+    id: 'DK',
+    title: 'Denmark'
+  }, {
+    id: 'EE',
+    title: 'Estonia'
+  }, {
+    id: 'FI',
+    title: 'Finland'
+  }, {
+    id: 'ML',
+    title: 'Former Yugoslav Republic of Macedonia'
+  }, {
+    id: 'FR',
+    title: 'France'
+  }, {
+    id: 'DE',
+    title: 'Germany'
+  }, {
+    id: 'EL',
+    title: 'Greece'
+  }, {
+    id: 'HU',
+    title: 'Hungary'
+  }, {
+    id: 'IE',
+    title: 'Ireland'
+  }, {
+    id: 'IT',
+    title: 'Italy'
+  }, {
+    id: 'LV',
+    title: 'Latvia'
+  }, {
+    id: 'LU',
     title: 'Luxembourg'
   }, {
-    id: 'es',
-    title: 'Spain'
+    id: 'MT',
+    title: 'Malta'
   }, {
-    id: 'ne',
+    id: 'ME',
+    title: 'Montenegro'
+  }, {
+    id: 'NL',
     title: 'Netherlands'
   }, {
-    id: 'ch',
-    title: 'Switzerland'
+    id: 'PL',
+    title: 'Poland'
   }, {
-    id: 'ua',
-    title: 'Ukraine'
+    id: 'PT',
+    title: 'Portugal'
   }, {
-    id: 'ru',
-    title: 'Russia'
-  }, {
-    id: 'ro',
+    id: 'RO',
     title: 'Romania'
   }, {
-    id: 'cz',
-    title: 'Czech Republic'
+    id: 'RS',
+    title: 'Serbia'
+  }, {
+    id: 'SK',
+    title: 'Slovakia'
+  }, {
+    id: 'SI',
+    title: 'Slovenia'
+  }, {
+    id: 'SI',
+    title: 'Slovenia'
+  }, {
+    id: 'ES',
+    title: 'Spain'
+  }, {
+    id: 'SE',
+    title: 'Sweden'
+  }, {
+    id: 'UK',
+    title: 'United Kingdom'
   }]
 });
