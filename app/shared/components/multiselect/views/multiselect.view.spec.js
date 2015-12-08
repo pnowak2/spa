@@ -179,6 +179,22 @@ define(function(require) {
         });
       });
 
+      describe('.didSelectionChange()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.didSelectionChange).toEqual(jasmine.any(Function));
+        });
+
+        it('should trigger view event', function() {
+          spyOn(MultiselectView.prototype, 'trigger');
+
+          var view = new MultiselectView;
+
+          view.didSelectionChange();
+
+          expect(view.trigger).toHaveBeenCalledWith('multiselect:change');
+        });
+      });
+
       describe('.selectedItems()', function() {
         it('should be defined', function() {
           expect(MultiselectView.prototype.selectedItems).toEqual(jasmine.any(Function));
@@ -307,6 +323,38 @@ define(function(require) {
           expect(foundSelectElement).toEqual(fakeSelectElement);
         });
       });
+
+      describe('.disable()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.disable).toEqual(jasmine.any(Function));
+        });
+
+        it('should disable select element', function() {
+          var view = new MultiselectView;
+
+          view.render();
+
+          expect(view.getSelectElement()).not.toHaveAttr('disabled');
+          view.disable();
+          expect(view.getSelectElement()).toHaveAttr('disabled');
+        });
+      });
+
+      describe('.enable()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.enable).toEqual(jasmine.any(Function));
+        });
+
+        it('should enable select element', function() {
+          var view = new MultiselectView;
+
+          view.render().disable();
+
+          expect(view.getSelectElement()).toHaveAttr('disabled');
+          view.enable();
+          expect(view.getSelectElement()).not.toHaveAttr('disabled');
+        });
+      });
     });
 
     describe('events', function() {
@@ -314,7 +362,8 @@ define(function(require) {
         it('should define proper events', function() {
           expect(MultiselectView.prototype.events).toEqual({
             'select2:select select': 'didClickSelectItem',
-            'select2:unselect select': 'didClickUnselectItem'
+            'select2:unselect select': 'didClickUnselectItem',
+            'change select': 'didSelectionChange'
           });
         });
       });

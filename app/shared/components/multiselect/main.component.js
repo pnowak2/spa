@@ -10,6 +10,10 @@ define(function(require) {
       this.listenTo(this.view, 'multiselect:selected', function(data) {
         this.trigger('multiselect:selected', data);
       });
+
+      this.listenTo(this.view, 'multiselect:change', function() {
+        this.trigger('multiselect:change');
+      });
     },
 
     selectedItems: function() {
@@ -30,6 +34,14 @@ define(function(require) {
 
     unselectAll: function() {
       this.view.unselectAll();
+    },
+
+    disable: function() {
+      this.view.disable();
+    },
+
+    enable: function() {
+      this.view.enable();
     }
   });
 });

@@ -11,7 +11,8 @@ define(function(require) {
 
     events: {
       'select2:select select': 'didClickSelectItem',
-      'select2:unselect select': 'didClickUnselectItem'
+      'select2:unselect select': 'didClickUnselectItem',
+      'change select': 'didSelectionChange'
     },
 
     defaults: {
@@ -52,6 +53,10 @@ define(function(require) {
       this.collection.unselectItem(itemId);
     },
 
+    didSelectionChange: function() {
+      this.trigger('multiselect:change');
+    },
+
     selectedItems: function() {
       return _.map(this.collection.selectedItems(), function(model) {
         return model.toJSON();
@@ -78,6 +83,14 @@ define(function(require) {
 
     getSelectElement: function() {
       return this.$el.find('select');
+    },
+
+    disable: function() {
+      this.getSelectElement().prop('disabled', true);
+    },
+
+    enable: function() {
+      this.getSelectElement().prop('disabled', false);
     },
 
     render: function() {

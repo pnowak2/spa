@@ -125,6 +125,36 @@ define(function(require) {
           expect(component.view.unselectAll).toHaveBeenCalled();
         });
       });
+
+      describe('.disable()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.disable).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          spyOn(MultiselectView.prototype, 'disable');
+          var component = new MultiselectComponent;
+
+          component.disable();
+
+          expect(component.view.disable).toHaveBeenCalled();
+        });
+      });
+
+      describe('.enable()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.enable).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          spyOn(MultiselectView.prototype, 'enable');
+          var component = new MultiselectComponent;
+
+          component.enable();
+
+          expect(component.view.enable).toHaveBeenCalled();
+        });
+      });
     });
 
     describe('events', function() {
@@ -138,6 +168,17 @@ define(function(require) {
         });
 
         component.view.trigger('multiselect:selected', fakeData);
+      });
+
+      it('should trigger event for selection changed', function(done) {
+        var component = new MultiselectComponent;
+
+        component.on('multiselect:change', function() {
+          expect(true).toBe(true);
+          done();
+        });
+
+        component.view.trigger('multiselect:change');
       });
     });
   });
