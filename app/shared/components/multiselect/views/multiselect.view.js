@@ -11,8 +11,7 @@ define(function(require) {
 
     events: {
       'select2:select select': 'didClickSelectItem',
-      'select2:unselect select': 'didClickUnselectItem',
-      'change select': 'didSelectionChange'
+      'select2:unselect select': 'didClickUnselectItem'
     },
 
     defaults: {
@@ -24,6 +23,7 @@ define(function(require) {
 
       this.collection = new MultiSelectCollection(items);
       this.listenTo(this.collection, 'reset', this.render);
+      this.listenTo(this.collection, 'change', this.didSelectionChange);
     },
 
     didClickSelectItem: function(e) {
@@ -53,11 +53,8 @@ define(function(require) {
       this.collection.unselectItem(itemId);
     },
 
-    didSelectionChange: function(e) {
-      var self = this;
-      _.defer(function() {
-        self.trigger('multiselect:change');
-      });
+    didSelectionChange: function(model) {
+      this.trigger('multiselect:change', model.toJSON());
     },
 
     selectedItems: function() {

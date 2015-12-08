@@ -171,14 +171,15 @@ define(function(require) {
       });
 
       it('should trigger event for selection changed', function(done) {
-        var component = new MultiselectComponent;
+        var component = new MultiselectComponent,
+          fakeItem = {};
 
-        component.on('multiselect:change', function() {
-          expect(true).toBe(true);
+        component.on('multiselect:change', function(item) {
+          expect(item).toBe(fakeItem);
           done();
         });
 
-        component.view.trigger('multiselect:change');
+        component.view.trigger('multiselect:change', fakeItem);
       });
     });
   });

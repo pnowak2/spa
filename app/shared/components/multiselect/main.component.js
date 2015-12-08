@@ -11,8 +11,8 @@ define(function(require) {
         this.trigger('multiselect:selected', data);
       });
 
-      this.listenTo(this.view, 'multiselect:change', function() {
-        this.trigger('multiselect:change');
+      this.listenTo(this.view, 'multiselect:change', function(item) {
+        this.trigger('multiselect:change', item);
       });
     },
 

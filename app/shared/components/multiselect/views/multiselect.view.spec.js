@@ -184,15 +184,20 @@ define(function(require) {
           expect(MultiselectView.prototype.didSelectionChange).toEqual(jasmine.any(Function));
         });
 
-        it('should trigger view event', function(done) {
-          var view = new MultiselectView;
+        it('should trigger view event', function() {
+          spyOn(MultiselectView.prototype, 'trigger');
 
-          spyOn(MultiselectView.prototype, 'trigger').and.callFake(function() {
-            expect(view.trigger).toHaveBeenCalledWith('multiselect:change');
-            done();
-          });
+          var view = new MultiselectView,
+            fakeModel = {
+              toJSON: function() {}
+            },
+            fakeJSON = {};
 
-          view.didSelectionChange();
+          spyOn(fakeModel, 'toJSON').and.returnValue(fakeJSON);
+
+          view.didSelectionChange(fakeModel);
+
+          expect(view.trigger).toHaveBeenCalledWith('multiselect:change', fakeJSON);
         });
       });
 
@@ -363,8 +368,7 @@ define(function(require) {
         it('should define proper events', function() {
           expect(MultiselectView.prototype.events).toEqual({
             'select2:select select': 'didClickSelectItem',
-            'select2:unselect select': 'didClickUnselectItem',
-            'change select': 'didSelectionChange'
+            'select2:unselect select': 'didClickUnselectItem'
           });
         });
       });
@@ -378,6 +382,17 @@ define(function(require) {
           view.collection.reset([]);
 
           expect(view.render).toHaveBeenCalled();
+        });
+
+        it('should call method when collection changes', function() {
+          spyOn(MultiselectView.prototype, 'didSelectionChange');
+
+          var view = new MultiselectView,
+            fakeItem = {};
+
+          view.collection.trigger('change', fakeItem);
+
+          expect(view.didSelectionChange).toHaveBeenCalledWith(fakeItem);
         });
       });
     });
