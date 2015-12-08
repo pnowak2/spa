@@ -13,9 +13,9 @@ define(function(require) {
             '17',
             'Project title',
             'Project description',
-            'not important',
             '2015',
-            'PL|DE|BE'
+            'PL|DE|BE',
+            'Coordinating Organisation'
           ]
         ]
       },
@@ -26,17 +26,17 @@ define(function(require) {
             '11',
             'Title 1',
             'Description 1',
-            'not important',
             '2011',
-            'PL|DE'
+            'PL|DE',
+            'Organisation'
           ],
           [
             '16',
             'Title 2',
             'Description 2',
-            'not important',
             '2012',
-            'FR'
+            'FR',
+            'Organisation'
           ],
         ]
       },
@@ -47,9 +47,9 @@ define(function(require) {
             '17',
             'Project title',
             'Project description',
-            'not important',
             '2015',
-            ''
+            '',
+            'Organisation'
           ]
         ]
       }

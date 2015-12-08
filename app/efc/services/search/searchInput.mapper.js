@@ -59,7 +59,7 @@ define(function(require) {
 
       if (isOrganisationTypeDefined(input)) {
         mapped = _.extend(mapped, {
-          'FILTER-COORD_ORG_NAME': input.organisationTypes.join(';')
+          'FILTER-COORD_ORG_TYPE': input.organisationTypes.join(';')
         });
       }
 

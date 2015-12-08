@@ -133,7 +133,7 @@ define(function(require) {
           }
 
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-            'FILTER-COORD_ORG_NAME': 'org1;org2'
+            'FILTER-COORD_ORG_TYPE': 'org1;org2'
           }));
         });
 
