@@ -89,6 +89,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // advanced searh component
     'app/efc/components/searching/advanced-search/main.component.spec',
     'app/efc/components/searching/advanced-search/views/advancedSearch.view.spec',
+    'app/efc/components/searching/advanced-search/services/advancedSearch.service.spec',
 
     // results list component
     'app/efc/components/results/list/results-list/main.component.spec',
