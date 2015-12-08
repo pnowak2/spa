@@ -184,14 +184,15 @@ define(function(require) {
           expect(MultiselectView.prototype.didSelectionChange).toEqual(jasmine.any(Function));
         });
 
-        it('should trigger view event', function() {
-          spyOn(MultiselectView.prototype, 'trigger');
-
+        it('should trigger view event', function(done) {
           var view = new MultiselectView;
 
-          view.didSelectionChange();
+          spyOn(MultiselectView.prototype, 'trigger').and.callFake(function() {
+            expect(view.trigger).toHaveBeenCalledWith('multiselect:change');
+            done();
+          });
 
-          expect(view.trigger).toHaveBeenCalledWith('multiselect:change');
+          view.didSelectionChange();
         });
       });
 

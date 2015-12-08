@@ -53,8 +53,11 @@ define(function(require) {
       this.collection.unselectItem(itemId);
     },
 
-    didSelectionChange: function() {
-      this.trigger('multiselect:change');
+    didSelectionChange: function(e) {
+      var self = this;
+      _.defer(function() {
+        self.trigger('multiselect:change');
+      });
     },
 
     selectedItems: function() {
