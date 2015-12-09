@@ -72,11 +72,6 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/util/constants.spec',
     'app/efc/routers/efc.router.spec',
 
-    // services
-    'app/efc/services/search/searchInput.mapper.spec',
-    'app/efc/services/search/searchResult.mapper.spec',
-    'app/efc/services/search/search.service.spec',
-
     //search
     'app/efc/components/searching/search/main.component.spec',
     'app/efc/components/searching/search/views/search.view.spec',
@@ -86,10 +81,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/searching/search-box/models/searchBox.model.spec',
     'app/efc/components/searching/search-box/views/searchBox.view.spec',
 
-    // advanced searh component
+    // advanced search component
     'app/efc/components/searching/advanced-search/main.component.spec',
     'app/efc/components/searching/advanced-search/views/advancedSearch.view.spec',
-    'app/efc/components/searching/advanced-search/services/advancedSearch.service.spec',
+    'app/efc/components/searching/advanced-search/services/advanced-search/advancedSearch.service.spec',
 
     // results list component
     'app/efc/components/results/list/results-list/main.component.spec',
@@ -100,7 +95,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // searchable results list component
     'app/efc/components/results/list/searchable-results-list/main.component.spec',
-    'app/efc/components/results/list/searchable-results-list/views/searchableResultsList.view.spec'
+    'app/efc/components/results/list/searchable-results-list/views/searchableResultsList.view.spec',
+    'app/efc/components/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
+    'app/efc/components/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
+    'app/efc/components/results/list/searchable-results-list/services/search/search.service.spec',
 
   ], function() {
     window.onload();

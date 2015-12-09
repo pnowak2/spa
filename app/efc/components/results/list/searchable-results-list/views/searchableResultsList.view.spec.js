@@ -4,7 +4,7 @@ define(function(require) {
     SearchableResultsListView = require('./searchableResultsList.view'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
-    searchService = require('app/efc/services/search/search.service'),
+    searchService = require('../services/search/search.service'),
     RSVP = require('rsvp'),
     _ = require('underscore');
 

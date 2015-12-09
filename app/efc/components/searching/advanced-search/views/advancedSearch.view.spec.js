@@ -2,7 +2,7 @@ define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
     AdvancedSearchView = require('./advancedSearch.view'),
-    advancedSearchService = require('../services/advancedSearch.service'),
+    advancedSearchService = require('../services/advanced-search/advancedSearch.service'),
     MultiselectComponent = require('app/shared/components/multiselect/main.component');
 
   describe('Advanced Search View', function() {

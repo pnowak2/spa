@@ -1,7 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     MultiselectComponent = require('app/shared/components/multiselect/main.component'),
-    advancedSearchService = require('../services/advancedSearch.service'),
+    advancedSearchService = require('../services/advanced-search/advancedSearch.service'),
     Mustache = require('mustache'),
     tpl = require('text!../templates/advancedSearch.tpl.html');
 
