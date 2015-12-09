@@ -1,6 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     MultiselectComponent = require('app/shared/components/multiselect/main.component'),
+    advancedSearchService = require('../services/advancedSearch.service'),
     Mustache = require('mustache'),
     tpl = require('text!../templates/advancedSearch.tpl.html');
 
@@ -11,19 +12,17 @@ define(function(require) {
       'click a.efc-advanced-search__clear': 'didClickClearFilters'
     },
 
-    initialize: function(data) {
-      data = data || {};
-
-      this.countries = new MultiselectComponent(data.countries, {
+    initialize: function() {
+      this.countries = new MultiselectComponent(advancedSearchService.allCountries(), {
         placeholder: 'All'
       });
-      this.activities = new MultiselectComponent(data.activities, {
+      this.activities = new MultiselectComponent(advancedSearchService.allActivities(), {
         placeholder: 'All'
       });
-      this.subactivities = new MultiselectComponent(data.subactivities, {
+      this.subactivities = new MultiselectComponent(advancedSearchService.subactivitiesByActivityId(), {
         placeholder: 'All'
       });
-      this.organisationTypes = new MultiselectComponent(data.organisationTypes, {
+      this.organisationTypes = new MultiselectComponent(advancedSearchService.allOrganisationTypes(), {
         placeholder: 'All'
       });
     },

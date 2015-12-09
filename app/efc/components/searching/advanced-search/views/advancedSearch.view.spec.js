@@ -2,6 +2,7 @@ define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
     AdvancedSearchView = require('./advancedSearch.view'),
+    advancedSearchService = require('../services/advancedSearch.service'),
     MultiselectComponent = require('app/shared/components/multiselect/main.component');
 
   describe('Advanced Search View', function() {
@@ -33,28 +34,28 @@ define(function(require) {
 
       it('should have countries properly defined', function() {
         expect(this.view.countries).toEqual(jasmine.any(MultiselectComponent));
-        expect(this.view.countries.initialize).toHaveBeenCalledWith(this.fakeData.countries, {
+        expect(this.view.countries.initialize).toHaveBeenCalledWith(advancedSearchService.allCountries(), {
           placeholder: 'All'
         });
       });
 
       it('should have activities properly defined', function() {
         expect(this.view.activities).toEqual(jasmine.any(MultiselectComponent));
-        expect(this.view.activities.initialize).toHaveBeenCalledWith(this.fakeData.activities, {
+        expect(this.view.activities.initialize).toHaveBeenCalledWith(advancedSearchService.allActivities(), {
           placeholder: 'All'
         });
       });
 
       it('should have subactivities properly defined', function() {
         expect(this.view.subactivities).toEqual(jasmine.any(MultiselectComponent));
-        expect(this.view.subactivities.initialize).toHaveBeenCalledWith(this.fakeData.subactivities, {
+        expect(this.view.subactivities.initialize).toHaveBeenCalledWith(advancedSearchService.subactivitiesByActivityId(), {
           placeholder: 'All'
         });
       });
 
       it('should have organisationTypes properly defined', function() {
         expect(this.view.organisationTypes).toEqual(jasmine.any(MultiselectComponent));
-        expect(this.view.organisationTypes.initialize).toHaveBeenCalledWith(this.fakeData.organisationTypes, {
+        expect(this.view.organisationTypes.initialize).toHaveBeenCalledWith(advancedSearchService.allOrganisationTypes(), {
           placeholder: 'All'
         });
       });
@@ -72,53 +73,53 @@ define(function(require) {
 
     describe('api', function() {
       describe('.getCriteria()', function() {
+
         beforeEach(function() {
-          this.fakeData = {
-            countries: [{
-              id: 'pl',
-              selected: true
-            }, {
-              id: 'de',
-              selected: false
-            }, {
-              id: 'be',
-              selected: true
-            }],
+          spyOn(advancedSearchService, 'allCountries').and.returnValue([{
+            id: 'pl',
+            selected: true
+          }, {
+            id: 'de',
+            selected: false
+          }, {
+            id: 'be',
+            selected: true
+          }]);
 
-            activities: [{
-              id: 'act1',
-              selected: false
-            }, {
-              id: 'act2',
-              selected: true
-            }, {
-              id: 'act3',
-              selected: true
-            }],
+          spyOn(advancedSearchService, 'allActivities').and.returnValue([{
+            id: 'act1',
+            selected: false
+          }, {
+            id: 'act2',
+            selected: true
+          }, {
+            id: 'act3',
+            selected: true
+          }]);
 
-            subactivities: [{
-              id: 'sub1',
-              selected: true
-            }, {
-              id: 'sub2',
-              selected: true
-            }, {
-              id: 'sub3',
-              selected: false
-            }],
+          spyOn(advancedSearchService, 'subactivitiesByActivityId').and.returnValue([{
+            id: 'sub1',
+            selected: true
+          }, {
+            id: 'sub2',
+            selected: true
+          }, {
+            id: 'sub3',
+            selected: false
+          }]);
 
-            organisationTypes: [{
-              id: 'org1',
-              selected: false
-            }, {
-              id: 'org2',
-              selected: true
-            }, {
-              id: 'org3',
-              selected: false
-            }]
-          },
-          this.view = new AdvancedSearchView(this.fakeData);
+          spyOn(advancedSearchService, 'allOrganisationTypes').and.returnValue([{
+            id: 'org1',
+            selected: false
+          }, {
+            id: 'org2',
+            selected: true
+          }, {
+            id: 'org3',
+            selected: false
+          }]);
+
+          this.view = new AdvancedSearchView;
         });
 
         it('should be defined', function() {

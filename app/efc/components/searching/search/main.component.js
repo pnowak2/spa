@@ -3,8 +3,8 @@ define(function(require) {
     SearchView = require('./views/search.view');
 
   return Component.extend({
-    initialize: function(data) {
-      this.view = new SearchView(data);
+    initialize: function() {
+      this.view = new SearchView;
 
       this.listenTo(this.view, 'search:search', function(criteria) {
         this.trigger('search:search', criteria);

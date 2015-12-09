@@ -7,9 +7,9 @@ define(function(require) {
   return Backbone.View.extend({
     className: 'efc-search',
 
-    initialize: function(data) {
-      this.searchBox = new SearchBoxComponent(data);
-      this.advancedSearch = new AdvancedSearchComponent(data);
+    initialize: function() {
+      this.searchBox = new SearchBoxComponent;
+      this.advancedSearch = new AdvancedSearchComponent;
 
       this.listenTo(this.searchBox, 'search-box:search', this.didRequestSearch);
       this.listenTo(this.searchBox, 'search-box:more', this.didRequestMore);

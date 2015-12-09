@@ -3,8 +3,8 @@ define(function(require) {
     AdvancedSearchView = require('./views/advancedSearch.view');
 
   return Component.extend({
-    initialize: function(data) {
-      this.view = new AdvancedSearchView(data);
+    initialize: function() {
+      this.view = new AdvancedSearchView;
     },
 
     getCriteria: function() {
