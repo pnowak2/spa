@@ -43,6 +43,23 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.hasItems()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.hasItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new MultiselectComponent,
+            fakeHasItems = [];
+
+          spyOn(component.view, 'hasItems').and.returnValue(fakeHasItems);
+
+          var hasItems = component.hasItems();
+
+          expect(hasItems).toBe(fakeHasItems);
+        });
+      });
+
       describe('.selectedItems()', function() {
         it('should be defined', function() {
           expect(MultiselectComponent.prototype.selectedItems).toEqual(jasmine.any(Function));

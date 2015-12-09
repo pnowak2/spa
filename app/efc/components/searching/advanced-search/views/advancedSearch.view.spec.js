@@ -49,7 +49,8 @@ define(function(require) {
       it('should have subactivities properly defined', function() {
         expect(this.view.subactivities).toEqual(jasmine.any(MultiselectComponent));
         expect(this.view.subactivities.initialize).toHaveBeenCalledWith(advancedSearchService.subactivitiesByActivityId(), {
-          placeholder: 'All'
+          placeholder: 'All',
+          disabled: true
         });
       });
 
@@ -206,6 +207,12 @@ define(function(require) {
         it('should clear organisation types component', function() {
           expect(this.view.organisationTypes.unselectAll).toHaveBeenCalled();
         });
+      });
+    });
+
+    describe('.didActivityChange()', function() {
+      it('should behave...', function() {
+        fail();
       });
     });
 

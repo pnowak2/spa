@@ -20,11 +20,14 @@ define(function(require) {
         placeholder: 'All'
       });
       this.subactivities = new MultiselectComponent(advancedSearchService.subactivitiesByActivityId(), {
-        placeholder: 'All'
+        placeholder: 'All',
+        disabled: true
       });
       this.organisationTypes = new MultiselectComponent(advancedSearchService.allOrganisationTypes(), {
         placeholder: 'All'
       });
+
+      this.listenTo(this.activities, 'multiselect:change', this.didActivityChange);
     },
 
     getCriteria: function() {
@@ -50,6 +53,27 @@ define(function(require) {
       this.activities.unselectAll();
       this.subactivities.unselectAll();
       this.organisationTypes.unselectAll();
+    },
+
+    didActivityChange: function() {
+      var selectedActivities = this.activities.selectedItems(),
+        selectedActivity,
+        subactivitiesByActivity;
+
+      if (_.size(selectedActivities) === 1) {
+        selectedActivity = _.first(selectedActivities);
+        subactivitiesByActivity = advancedSearchService.subactivitiesByActivityId(selectedActivity.id);
+        this.subactivities.update(subactivitiesByActivity);
+
+        if (this.subactivities.hasItems()) {
+          this.subactivities.enable();
+        } else {
+          this.subactivities.disable();
+        }
+      } else {
+        this.subactivities.update([]);
+        this.subactivities.disable();
+      }
     },
 
     render: function() {

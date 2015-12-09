@@ -16,6 +16,10 @@ define(function(require) {
       });
     },
 
+    hasItems: function() {
+      return this.view.hasItems();
+    },
+
     selectedItems: function() {
       return this.view.selectedItems();
     },

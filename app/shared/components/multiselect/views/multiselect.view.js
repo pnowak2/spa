@@ -63,6 +63,10 @@ define(function(require) {
       });
     },
 
+    hasItems: function() {
+      return !this.collection.isEmpty();
+    },
+
     hasSelection: function() {
       return this.collection.hasSelection();
     },
@@ -96,7 +100,8 @@ define(function(require) {
     render: function() {
       var html = Mustache.render(tpl, {
         items: this.collection.toJSON(),
-        multiple: this.options.multiple
+        multiple: this.options.multiple,
+        disabled: this.options.disabled
       });
 
       this.$el.html(html);

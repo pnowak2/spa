@@ -201,6 +201,27 @@ define(function(require) {
         });
       });
 
+      describe('.hasItems()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.hasItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if collection is not empty', function() {
+          var view = new MultiselectView([{
+            id: 1
+          }, {
+            id: 2
+          }]);
+
+          expect(view.hasItems()).toBe(true);
+        });
+
+        it('should return false if collection is empty', function() {
+          var view = new MultiselectView;
+          expect(view.hasItems()).toBe(false);
+        });
+      });
+
       describe('.selectedItems()', function() {
         it('should be defined', function() {
           expect(MultiselectView.prototype.selectedItems).toEqual(jasmine.any(Function));
@@ -442,6 +463,13 @@ define(function(require) {
             multiple: false
           }
           expect(this.view.render().$el.find('select')).not.toHaveAttr('multiple');
+        });
+
+        it('should render disabled select', function() {
+          this.view.options = {
+            disabled: true
+          }
+          expect(this.view.render().$el.find('select')).toHaveAttr('disabled');
         });
 
         it('should render three option elements with proper data', function() {
