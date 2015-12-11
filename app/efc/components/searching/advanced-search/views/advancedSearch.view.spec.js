@@ -224,9 +224,9 @@ define(function(require) {
 
       describe('no activity selected', function() {
         beforeEach(function() {
-          spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([]);
-
           this.view = new AdvancedSearchView;
+          spyOn(this.view.activities, 'selectedItems').and.returnValue([]);
+
           this.view.render();
           this.view.didActivityChange();
         });
@@ -242,15 +242,14 @@ define(function(require) {
 
       describe('more than one activity selected', function() {
         beforeEach(function() {
-          spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([{
+          this.view = new AdvancedSearchView;
+          spyOn(this.view.activities, 'selectedItems').and.returnValue([{
             id: '1',
             title: 'one'
           }, {
             id: '2',
             title: 'two'
           }]);
-
-          this.view = new AdvancedSearchView;
           this.view.render();
           this.view.didActivityChange();
         });
@@ -266,13 +265,14 @@ define(function(require) {
 
       describe('one activity selected, no subactivities', function() {
         beforeEach(function() {
-          spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([{
-            id: '1',
-            title: 'one'
-          }]);
           spyOn(advancedSearchService, 'subactivitiesByActivityId').and.returnValue([]);
 
           this.view = new AdvancedSearchView;
+          spyOn(this.view.activities, 'selectedItems').and.returnValue([{
+            id: '1',
+            title: 'one'
+          }]);
+
           this.view.render();
           this.view.didActivityChange();
         });
@@ -288,16 +288,16 @@ define(function(require) {
 
       describe('one activity selected, subactivities available', function() {
         beforeEach(function() {
-          spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([{
-            id: '1',
-            title: 'one'
-          }]);
           spyOn(advancedSearchService, 'subactivitiesByActivityId').and.returnValue([{
             id: '2',
             title: 'two'
           }]);
 
           this.view = new AdvancedSearchView;
+          spyOn(this.view.activities, 'selectedItems').and.returnValue([{
+            id: '1',
+            title: 'one'
+          }]);
           this.view.render();
           this.view.didActivityChange();
         });
