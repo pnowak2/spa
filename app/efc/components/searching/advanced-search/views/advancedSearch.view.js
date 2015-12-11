@@ -71,7 +71,7 @@ define(function(require) {
           this.subactivities.disable();
         }
       } else {
-        this.subactivities.update([]);
+        this.subactivities.clear();
         this.subactivities.disable();
       }
     },

@@ -127,6 +127,22 @@ define(function(require) {
         });
       });
 
+      describe('.clear()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.clear).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new MultiselectComponent;
+
+          spyOn(component.view, 'clear');
+
+          component.clear();
+
+          expect(component.view.clear).toHaveBeenCalled();
+        });
+      });
+
       describe('.unselectAll()', function() {
         it('should be defined', function() {
           expect(MultiselectComponent.prototype.unselectAll).toEqual(jasmine.any(Function));

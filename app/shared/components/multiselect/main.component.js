@@ -36,6 +36,10 @@ define(function(require) {
       this.view.update(items);
     },
 
+    clear: function() {
+      this.view.clear();
+    },
+
     unselectAll: function() {
       this.view.unselectAll();
     },

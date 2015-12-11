@@ -310,6 +310,22 @@ define(function(require) {
         });
       });
 
+      describe('.update', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.clear).toEqual(jasmine.any(Function));
+        });
+
+        it('should update collection with empty array', function() {
+          spyOn(MultiselectView.prototype, 'update');
+
+          var view = new MultiselectView;
+
+          view.clear();
+
+          expect(view.update).toHaveBeenCalledWith([]);
+        });
+      });
+
       describe('.unselectAll()', function() {
         it('should be defined', function() {
           expect(MultiselectView.prototype.unselectAll).toEqual(jasmine.any(Function));

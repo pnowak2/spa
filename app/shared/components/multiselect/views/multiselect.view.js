@@ -80,6 +80,10 @@ define(function(require) {
       this.collection.reset(items);
     },
 
+    clear: function() {
+      this.update([]);
+    },
+
     unselectAll: function() {
       this.collection.unselectAll();
       this.render();
