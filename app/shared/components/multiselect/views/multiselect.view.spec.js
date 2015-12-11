@@ -315,7 +315,7 @@ define(function(require) {
           expect(MultiselectView.prototype.clear).toEqual(jasmine.any(Function));
         });
 
-        it('should update collection with empty array', function() {
+        it('should remove all items by updating collection with empty array', function() {
           spyOn(MultiselectView.prototype, 'update');
 
           var view = new MultiselectView;
