@@ -50,6 +50,10 @@ define(function(require) {
 
     enable: function() {
       this.view.enable();
+    },
+
+    isEnabled: function() {
+      return this.view.isEnabled();
     }
   });
 });

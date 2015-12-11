@@ -101,6 +101,10 @@ define(function(require) {
       this.getSelectElement().prop('disabled', false);
     },
 
+    isEnabled: function() {
+      return this.getSelectElement().prop('disabled');
+    },
+
     render: function() {
       var html = Mustache.render(tpl, {
         items: this.collection.toJSON(),

@@ -398,6 +398,30 @@ define(function(require) {
           expect(view.getSelectElement()).not.toHaveAttr('disabled');
         });
       });
+
+      describe('.isEnabled()', function() {
+        beforeEach(function() {
+          this.view = new MultiselectView;
+        });
+
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.isEnabled).toEqual(jasmine.any(Function));
+        });
+
+        it('should return false if is disabled', function() {
+          this.view.render();
+          this.view.disable();
+
+          expect(this.view.getSelectElement()).toBeDisabled();
+        });
+
+        it('should return true if is not disabled', function() {
+          this.view.render();
+          this.view.enable();
+
+          expect(this.view.getSelectElement()).not.toBeDisabled();
+        });
+      });
     });
 
     describe('events', function() {

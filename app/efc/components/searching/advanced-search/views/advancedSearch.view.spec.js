@@ -211,8 +211,107 @@ define(function(require) {
     });
 
     describe('.didActivityChange()', function() {
-      it('should behave...', function() {
-        fail();
+      beforeEach(function() {
+        spyOn(MultiselectComponent.prototype, 'enable');
+        spyOn(MultiselectComponent.prototype, 'disable');
+        spyOn(MultiselectComponent.prototype, 'clear');
+        spyOn(MultiselectComponent.prototype, 'update');
+      });
+
+      it('should be defined', function() {
+        expect(AdvancedSearchView.prototype.didActivityChange).toEqual(jasmine.any(Function));
+      });
+
+      describe('no activity selected', function() {
+        beforeEach(function() {
+          spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([]);
+
+          this.view = new AdvancedSearchView;
+          this.view.render();
+          this.view.didActivityChange();
+        });
+
+        it('should clear subactivities', function() {
+          expect(this.view.subactivities.clear).toHaveBeenCalled();
+        });
+
+        it('should disable subactivities', function() {
+          expect(this.view.subactivities.disable).toHaveBeenCalled();
+        });
+      });
+
+      describe('more than one activity selected', function() {
+        beforeEach(function() {
+          spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([{
+            id: '1',
+            title: 'one'
+          }, {
+            id: '2',
+            title: 'two'
+          }]);
+
+          this.view = new AdvancedSearchView;
+          this.view.render();
+          this.view.didActivityChange();
+        });
+
+        it('should clear subactivities', function() {
+          expect(this.view.subactivities.clear).toHaveBeenCalled();
+        });
+
+        it('should disable subactivities', function() {
+          expect(this.view.subactivities.disable).toHaveBeenCalled();
+        });
+      });
+
+      describe('one activity selected, no subactivities', function() {
+        beforeEach(function() {
+          spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([{
+            id: '1',
+            title: 'one'
+          }]);
+          spyOn(advancedSearchService, 'subactivitiesByActivityId').and.returnValue([]);
+
+          this.view = new AdvancedSearchView;
+          this.view.render();
+          this.view.didActivityChange();
+        });
+
+        it('should update subactivities with empty array', function() {
+          expect(this.view.subactivities.update).toHaveBeenCalledWith([]);
+        });
+
+        it('should disable subactivities', function() {
+          expect(this.view.subactivities.disable).toHaveBeenCalled();
+        });
+      });
+
+      describe('one activity selected, subactivities available', function() {
+        beforeEach(function() {
+          spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([{
+            id: '1',
+            title: 'one'
+          }]);
+          spyOn(advancedSearchService, 'subactivitiesByActivityId').and.returnValue([{
+            id: '2',
+            title: 'two'
+          }]);
+
+          this.view = new AdvancedSearchView;
+          this.view.render();
+          this.view.didActivityChange();
+        });
+
+        it('should update subactivities with correct items', function() {
+          expect(this.view.subactivities.update).toHaveBeenCalledWith([{
+            id: '2',
+            title: 'two'
+          }]);
+        });
+
+        it('should enable subactivities', function() {
+          expect(this.view.subactivities.enable).toHaveBeenCalled();
+        });
       });
     });
 

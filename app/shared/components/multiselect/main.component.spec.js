@@ -188,6 +188,23 @@ define(function(require) {
           expect(component.view.enable).toHaveBeenCalled();
         });
       });
+
+      describe('.isEnabled()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.isEnabled).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var fakeEnabled = {};
+
+          spyOn(MultiselectView.prototype, 'isEnabled').and.returnValue(fakeEnabled);
+
+          var component = new MultiselectComponent,
+            isEnabled = component.isEnabled();
+
+          expect(isEnabled).toBe(fakeEnabled);
+        });
+      });
     });
 
     describe('events', function() {
