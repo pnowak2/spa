@@ -10,7 +10,8 @@ requirejs.config({
     text: 'lib/text/text',
     select2: 'lib/select2/js/select2.full.min',
     rsvp: 'lib/rsvp/rsvp.min',
-    modernizr: 'lib/modernizr/modernizr-custom.min'
+    modernizr: 'lib/modernizr/modernizr-custom.min',
+    leaflet: 'lib/leaflet/leaflet'
   },
   shim: {
     modernizr: {}
