@@ -11,6 +11,7 @@ requirejs.config({
     rsvp: '../lib/rsvp/rsvp.min',
     modernizr: '../lib/modernizr/modernizr-custom.min',
     leaflet: '../lib/leaflet/leaflet',
+    leafletmarkercluster: '../lib/leaflet.markercluster/dist/leaflet.markercluster',
     jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
     'jasmine-html': ['../lib/jasmine/lib/jasmine-core/jasmine-html'],
     'jasmine-boot': ['../lib/jasmine/lib/jasmine-core/boot'],
@@ -19,6 +20,9 @@ requirejs.config({
   },
   shim: {
     'modernizr': {},
+    'leafletmarkercluster': {
+      deps: ['leaflet']
+    },
     'jasmine-html': {
       deps: ['jasmine']
     },
@@ -47,6 +51,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // util
     'app/shared/util/constants.spec',
+
+    // map component
+    'app/shared/components/map/main.component.spec',
+    'app/shared/components/map/views/map.view.spec',
 
     // pager component
     'app/shared/components/pager/main.component.spec',

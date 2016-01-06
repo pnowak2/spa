@@ -11,10 +11,14 @@ requirejs.config({
     select2: 'lib/select2/js/select2.full.min',
     rsvp: 'lib/rsvp/rsvp.min',
     modernizr: 'lib/modernizr/modernizr-custom.min',
-    leaflet: 'lib/leaflet/leaflet'
+    leaflet: 'lib/leaflet/leaflet',
+    leafletmarkercluster: 'lib/leaflet.markercluster/dist/leaflet.markercluster'
   },
   shim: {
-    modernizr: {}
+    modernizr: {},
+    leafletmarkercluster: {
+      deps: ['leaflet']
+    }
   }
 });
 

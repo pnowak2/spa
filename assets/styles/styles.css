@@ -471,3 +471,9 @@
   color: #666;
   text-decoration:underline;
 }
+
+/* Map */
+.efc-map {
+  height: 600px;
+  background-color: #666;
+}
