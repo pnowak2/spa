@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    constants = require('app/efc/util/constants'),
     Mustache = require('mustache'),
     Leaflet = require('leaflet'),
     MarkerCluster = require('leafletmarkercluster');
@@ -7,14 +8,14 @@ define(function(require) {
   return Backbone.View.extend({
     className: 'efc-map',
 
-    tileUrl: 'http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png',
+    tileUrl: constants.map.TILEURL,
 
     initMap: function() {
       var map = this.map = Leaflet.map(this.el);
-      map.setView(new Leaflet.LatLng(51.505, -0.09), 5);
+      map.setView(new Leaflet.LatLng(-37.82, 175.24), 13);
       map.addLayer(new Leaflet.TileLayer(this.tileUrl, {
         minZoom: 1,
-        maxZoom: 15
+        maxZoom: 16
       }));
 
       var markers = this.markers = Leaflet.markerClusterGroup({
@@ -40,7 +41,7 @@ define(function(require) {
       return marker;
     },
 
-    updateMarkers: function(markerComponents) {
+    showMarkerComponents: function(markerComponents) {
       this.markers.clearLayers();
       var markersArray = _.map(markerComponents, this.toLeafletMarker);
       this.markers.addLayers(markersArray);

@@ -7,8 +7,8 @@ define(function(require) {
       this.view = new MapView;
     },
 
-    updateMarkers: function(markers) {
-      this.view.updateMarkers(markers);
+    showMarkerComponents: function(markers) {
+      this.view.showMarkerComponents(markers);
     }
   });
 });

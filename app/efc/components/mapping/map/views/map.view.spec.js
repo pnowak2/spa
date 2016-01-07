@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    constants = require('app/efc/util/constants'),
     MapView = require('./map.view');
 
   describe('Map View', function() {
@@ -10,12 +11,16 @@ define(function(require) {
     });
 
     describe('properties', function() {
-      it('.tagName', function() {
+      it('.tagName should be defined', function() {
         expect(MapView.prototype.tagName).toEqual('div');
       });
 
       it('.className should be defined', function() {
         expect(MapView.prototype.className).toEqual('efc-map');
+      });
+
+      it('.tileUrl should be defined', function() {
+        expect(MapView.prototype.tileUrl).toEqual(constants.map.TILEURL);
       });
     });
 
@@ -26,9 +31,9 @@ define(function(require) {
         });
       });
 
-      describe('.updateMarkers', function() {
+      describe('.showMarkerComponents', function() {
         it('should be defined', function() {
-          expect(MapView.prototype.updateMarkers).toEqual(jasmine.any(Function));
+          expect(MapView.prototype.showMarkerComponents).toEqual(jasmine.any(Function));
         });
       });
     });
