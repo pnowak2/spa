@@ -20,9 +20,15 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.update', function() {
+      describe('.initMap', function() {
         it('should be defined', function() {
-          expect(MapView.prototype.update).toEqual(jasmine.any(Function));
+          expect(MapView.prototype.initMap).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.updateMarkers', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.updateMarkers).toEqual(jasmine.any(Function));
         });
       });
     });

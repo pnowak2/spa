@@ -52,10 +52,6 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // util
     'app/shared/util/constants.spec',
 
-    // map component
-    'app/shared/components/map/main.component.spec',
-    'app/shared/components/map/views/map.view.spec',
-
     // pager component
     'app/shared/components/pager/main.component.spec',
     'app/shared/components/pager/models/pager.model.spec',
@@ -108,6 +104,16 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
     'app/efc/components/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
     'app/efc/components/results/list/searchable-results-list/services/search/search.service.spec',
+
+    // map component
+    'app/efc/components/mapping/map/main.component.spec',
+    'app/efc/components/mapping/map/views/map.view.spec',
+
+    // project marker component
+    'app/efc/components/mapping/markers/project/main.component.spec',
+    'app/efc/components/mapping/markers/project/models/projectMarker.model.spec',
+    'app/efc/components/mapping/markers/project/views/projectMarker.view.spec',
+
 
   ], function() {
     window.onload();

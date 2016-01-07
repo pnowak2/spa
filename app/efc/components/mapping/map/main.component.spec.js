@@ -21,20 +21,20 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.update', function() {
+      describe('.updateMarkers', function() {
         it('should be defined', function() {
-          expect(MapComponent.prototype.update).toEqual(jasmine.any(Function));
+          expect(MapComponent.prototype.updateMarkers).toEqual(jasmine.any(Function));
         });
 
         it('should delegate to view', function() {
           var component = new MapComponent,
             fakeMarkers = [];
 
-          spyOn(component.view, 'update');
+          spyOn(component.view, 'updateMarkers');
 
-          component.update(fakeMarkers);
+          component.updateMarkers(fakeMarkers);
 
-          expect(component.view.update).toHaveBeenCalledWith(fakeMarkers);
+          expect(component.view.updateMarkers).toHaveBeenCalledWith(fakeMarkers);
         });
       });
     });

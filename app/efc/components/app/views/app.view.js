@@ -4,8 +4,10 @@ define(function(require) {
     SearchComponent = require('app/efc/components/searching/search/main.component'),
     SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
-    MapComponent = require('app/shared/components/map/main.component'),
-    tabsDataSource = require('../data/tabs');
+    MapComponent = require('app/efc/components/mapping/map/main.component'),
+    tabsDataSource = require('../data/tabs'),
+    ProjectMarkerComponent = require('app/efc/components/mapping/markers/project/main.component');
+
 
   return Backbone.View.extend({
     initialize: function(attrs) {
@@ -30,7 +32,20 @@ define(function(require) {
       // $('.efc-results-container').append(this.tabSwitcher.render().view.el);
       // $('.efc-results-container').append(this.searchableList.render().view.el);
       $('.efc-results-container').append(this.map.render().view.el);
-      this.map.view.update();
+      this.map.view.initMap();
+      this.map.view.updateMarkers([
+        new ProjectMarkerComponent({
+          markerData: {
+            id: 2,
+            lat: 51.5,
+            lng: -0.09,
+            title: 'Hanseatic Tradition for VET:Mobility Strategies for Promoting Enterprenership Skills of VET Students',
+            activity: 'Strand1: European Remembrance',
+            coordinator: 'Netherhall Educational Association',
+            summary: 'More and more VET institutions are willing to arrange international placements and apprenticeships for their students. The ET2020 strategic priority No1 "Making lifelong learning and mobility a re...'
+          }
+        })
+      ]);
     }
   });
 });
