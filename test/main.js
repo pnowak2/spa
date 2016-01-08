@@ -113,10 +113,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/mapping/map/main.component.spec',
     'app/efc/components/mapping/map/views/map.view.spec',
 
-    // project marker component
-    'app/efc/components/mapping/markers/project/main.component.spec',
-    'app/efc/components/mapping/markers/project/models/projectMarker.model.spec',
-    'app/efc/components/mapping/markers/project/views/projectMarker.view.spec',
+    // project popup component
+    'app/efc/components/mapping/popups/project/main.component.spec',
+    'app/efc/components/mapping/popups/project/models/projectPopup.model.spec',
+    'app/efc/components/mapping/popups/project/views/projectPopup.view.spec',
 
 
   ], function() {

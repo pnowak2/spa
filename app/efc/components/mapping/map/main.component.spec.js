@@ -21,20 +21,20 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.showMarkerComponents', function() {
+      describe('.showMarkers', function() {
         it('should be defined', function() {
-          expect(MapComponent.prototype.showMarkerComponents).toEqual(jasmine.any(Function));
+          expect(MapComponent.prototype.showMarkers).toEqual(jasmine.any(Function));
         });
 
         it('should delegate to view', function() {
           var component = new MapComponent,
             fakeMarkers = [];
 
-          spyOn(component.view, 'showMarkerComponents');
+          spyOn(component.view, 'showMarkers');
 
-          component.showMarkerComponents(fakeMarkers);
+          component.showMarkers(fakeMarkers);
 
-          expect(component.view.showMarkerComponents).toHaveBeenCalledWith(fakeMarkers);
+          expect(component.view.showMarkers).toHaveBeenCalledWith(fakeMarkers);
         });
       });
     });

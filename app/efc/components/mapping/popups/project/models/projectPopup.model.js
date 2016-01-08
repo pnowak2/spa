@@ -4,8 +4,6 @@ define(function(require) {
   return Backbone.Model.extend({
     defaults: {
       id: '',
-      lat: null,
-      lng: null,
       title: '',
       activity: '',
       coordinator: '',

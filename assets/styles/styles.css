@@ -480,31 +480,31 @@
 }
 
 /* Marker bubble */
-.efc-marker-bubble {
+.efc-map-popup {
   width: 250px;
   color: #333;
 }
 
-.efc-marker-bubble__title {
+.efc-map-popup__title {
   text-align: center;
   font-size: 14px;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
-.efc-marker-bubble__description {
+.efc-map-popup__description {
   color: #999;
 }
 
-.efc-marker-bubble__field {
+.efc-map-popup__field {
   margin-bottom: 5px;
 }
 
-.efc-marker-bubble__link {
+.efc-map-popup__link {
   margin-top: 10px;
   text-align: center;
 }
 
-.efc-marker-bubble__label {
+.efc-map-popup__label {
   font-weight: bold;
 }

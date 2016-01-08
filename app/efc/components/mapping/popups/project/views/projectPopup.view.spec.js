@@ -1,48 +1,46 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    ProjectMarkerView = require('./projectMarker.view'),
-    ProjectMarkerModel = require('../models/projectMarker.model');
+    ProjectPopupView = require('./projectPopup.view'),
+    ProjectPopupModel = require('../models/projectPopup.model');
 
-  describe('Project Marker View', function() {
+  describe('Project Popup View', function() {
     describe('type', function() {
       it('should be of view', function() {
-        expect(ProjectMarkerView.prototype).toEqual(jasmine.any(Backbone.View));
+        expect(ProjectPopupView.prototype).toEqual(jasmine.any(Backbone.View));
       });
     });
 
     describe('properties', function() {
       it('.className should be defined', function() {
-        expect(ProjectMarkerView.prototype.className).toEqual('efc-marker-bubble');
+        expect(ProjectPopupView.prototype.className).toEqual('efc-map-popup');
       });
     });
 
     describe('creation', function() {
       it('should have model defined', function() {
-        var view = new ProjectMarkerView;
+        var view = new ProjectPopupView;
 
-        expect(view.model).toEqual(jasmine.any(ProjectMarkerModel));
+        expect(view.model).toEqual(jasmine.any(ProjectPopupModel));
       });
 
-      it('should initialize model with marker data', function() {
-        spyOn(ProjectMarkerModel.prototype, 'initialize');
+      it('should initialize model with popup data', function() {
+        spyOn(ProjectPopupModel.prototype, 'initialize');
 
-        var fakeMarkerData = {},
-          view = new ProjectMarkerView({
-            markerData: fakeMarkerData
+        var fakePopupData = {},
+          view = new ProjectPopupView({
+            popupData: fakePopupData
           });
 
-        expect(view.model.initialize).toHaveBeenCalledWith(jasmine.objectContaining(fakeMarkerData));
+        expect(view.model.initialize).toHaveBeenCalledWith(jasmine.objectContaining(fakePopupData));
       });
     });
 
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
-          this.view = new ProjectMarkerView({
-            markerData: {
+          this.view = new ProjectPopupView({
+            popupData: {
               id: '52',
-              lat: 1,
-              lng: 2,
               title: 'Project Title',
               activity: 'Project Activity',
               coordinator: 'Project Coordinator',
@@ -65,7 +63,7 @@ define(function(require) {
         });
 
         it('should render link to project details', function() {
-          var link = this.view.$el.find('.efc-marker-bubble__more-link');
+          var link = this.view.$el.find('.efc-map-popup__more-link');
           expect(link).toHaveAttr('href', '/programmes/europe-for-citizens/projects/efc-project-details-page/?nodeRef=52');
           expect(link).toHaveAttr('target', '_blank');
           expect(link).toContainText('Show project card');

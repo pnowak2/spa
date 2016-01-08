@@ -52,26 +52,24 @@ define(function(require) {
       });
     },
 
-    toLeafletMarker: function(markerComponent) {
-      var markerState = markerComponent.getState(),
-        marker = Leaflet.marker([
-          markerState.lat,
-          markerState.lng
-        ]),
-        markerPopup = markerComponent.render().view.el;
+    toLeafletMarker: function(marker) {
+      var leafletMarker = Leaflet.marker([
+        marker.lat,
+        marker.lng
+      ]);
 
-      marker.bindPopup(markerPopup);
+      leafletMarker.bindPopup(marker.popupContent);
 
-      return marker;
+      return leafletMarker;
     },
 
-    toLeafletMarkers: function(markerComponents) {
-      return _.map(markerComponents, this.toLeafletMarker, this);
+    toLeafletMarkers: function(markers) {
+      return _.map(markers, this.toLeafletMarker, this);
     },
 
-    showMarkerComponents: function(markerComponents) {
+    showMarkers: function(markers) {
       this.clusterGroupLayer.clearLayers();
-      var markersArray = this.toLeafletMarkers(markerComponents);
+      var markersArray = this.toLeafletMarkers(markers);
       this.clusterGroupLayer.addLayers(markersArray);
     }
   });

@@ -1,15 +1,15 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    ProjectMarkerModel = require('../models/projectMarker.model'),
+    ProjectPopupModel = require('../models/projectPopup.model'),
     Mustache = require('mustache'),
-    tpl = require('text!../templates/projectMarkerPopup.tpl.html');
+    tpl = require('text!../templates/projectPopup.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-marker-bubble',
+    className: 'efc-map-popup',
 
     initialize: function(options) {
       options = options || {};
-      this.model = new ProjectMarkerModel(options.markerData);
+      this.model = new ProjectPopupModel(options.popupData);
     },
 
     render: function() {

@@ -3,8 +3,7 @@ define(function(require) {
     _ = require('underscore'),
     Leaflet = require('leaflet'),
     constants = require('app/efc/util/constants'),
-    MapView = require('./map.view'),
-    ProjectMarkerComponent = require('app/efc/components/mapping/markers/project/main.component');
+    MapView = require('./map.view');
 
   describe('Map View', function() {
     describe('type', function() {
@@ -173,18 +172,14 @@ define(function(require) {
         });
 
         it('should return correct marker instance', function() {
-          var markerComponent = new ProjectMarkerComponent;
-          expect(this.view.toLeafletMarker(markerComponent)).toEqual(jasmine.any(Leaflet.Marker));
+          expect(this.view.toLeafletMarker({})).toEqual(jasmine.any(Leaflet.Marker));
         });
 
         it('should create marker with correct lat and lng', function() {
-          var markerComponent = new ProjectMarkerComponent({
-              markerData: {
-                lat: 2,
-                lng: 4
-              }
-            }),
-            marker = this.view.toLeafletMarker(markerComponent);
+          var marker = this.view.toLeafletMarker({
+            lat: 2,
+            lng: 4
+          });
 
           expect(marker.getLatLng()).toEqual({
             lat: 2,
@@ -193,10 +188,11 @@ define(function(require) {
         });
 
         it('should bind correct popup', function() {
-          var markerComponent = new ProjectMarkerComponent,
-            marker = this.view.toLeafletMarker(markerComponent);
+          var marker = this.view.toLeafletMarker({
+            popupContent: 'the popup content'
+          });
 
-          expect(marker.bindPopup).toHaveBeenCalledWith(markerComponent.render().view.el);
+          expect(marker.bindPopup).toHaveBeenCalledWith('the popup content');
         });
       });
 
@@ -206,15 +202,11 @@ define(function(require) {
         });
 
         it('should convert marker components to leaflet markers', function() {
-
           var view = new MapView,
-            markerComponents = [new ProjectMarkerComponent({
-              markerData: {
-                lat: 2,
-                lng: 4
-              }
-            })],
-            markers = view.toLeafletMarkers(markerComponents);
+            markers = view.toLeafletMarkers([{
+              lat: 2,
+              lng: 4
+            }]);
 
           expect(markers.length).toBe(1);
           expect(markers[0]).toEqual(jasmine.any(Leaflet.Marker));
@@ -225,7 +217,7 @@ define(function(require) {
         });
       });
 
-      describe('.showMarkerComponents', function() {
+      describe('.showMarkers', function() {
         beforeEach(function() {
           this.view = new MapView;
           this.view.initMap();
@@ -235,11 +227,11 @@ define(function(require) {
         });
 
         it('should be defined', function() {
-          expect(MapView.prototype.showMarkerComponents).toEqual(jasmine.any(Function));
+          expect(MapView.prototype.showMarkers).toEqual(jasmine.any(Function));
         });
 
         it('should clear all existing markers', function() {
-          this.view.showMarkerComponents();
+          this.view.showMarkers();
           expect(this.view.clusterGroupLayer.clearLayers).toHaveBeenCalled();
         });
 
@@ -247,7 +239,7 @@ define(function(require) {
           var fakeMarkers = [];
           spyOn(this.view, 'toLeafletMarkers').and.returnValue(fakeMarkers);
 
-          this.view.showMarkerComponents();
+          this.view.showMarkers();
 
           expect(this.view.clusterGroupLayer.addLayers).toHaveBeenCalledWith(fakeMarkers);
         });
