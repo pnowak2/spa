@@ -71,6 +71,13 @@ define(function(require) {
       this.clusterGroupLayer.clearLayers();
       var markersArray = this.toLeafletMarkers(markers);
       this.clusterGroupLayer.addLayers(markersArray);
+    },
+
+    render: function() {
+      var init = _.bind(this.initMap, this);
+      _.defer(init);
+
+      return this;
     }
   });
 });

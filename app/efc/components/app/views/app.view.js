@@ -32,8 +32,6 @@ define(function(require) {
       $('.efc-results-container').append(this.tabSwitcher.render().view.el);
       $('.efc-results-container').append(this.searchableList.render().view.el);
       $('.efc-results-container').append(this.searchableMap.render().view.el);
-
-      this.searchableMap.view.mapComponent.view.initMap();
     }
   });
 });
