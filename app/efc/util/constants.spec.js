@@ -16,7 +16,7 @@ define(function(require) {
 
     describe('map urls', function() {
       it('.TILEURL should be defined', function() {
-        expect(constants.map.TILEURL).toEqual('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png');
+        expect(constants.map.TILEURL).toEqual('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
       });
     });
   });

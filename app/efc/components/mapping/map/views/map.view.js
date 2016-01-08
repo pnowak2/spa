@@ -8,24 +8,51 @@ define(function(require) {
   return Backbone.View.extend({
     className: 'efc-map',
 
-    tileUrl: constants.map.TILEURL,
+    defaults: {
+      tileUrl: constants.map.TILEURL,
+      initialZoom: 5,
+      initialPosition: [-37.82, 175.24],
+      minZoom: 1,
+      maxZoom: 16
+    },
 
     initMap: function() {
-      var map = this.map = Leaflet.map(this.el);
-      map.setView(new Leaflet.LatLng(-37.82, 175.24), 13);
-      map.addLayer(new Leaflet.TileLayer(this.tileUrl, {
-        minZoom: 1,
-        maxZoom: 16
-      }));
+      this.map = Leaflet.map(this.el);
 
-      var markers = this.markers = Leaflet.markerClusterGroup({
+      this.map.setView(
+        this.defaults.initialPosition,
+        this.defaults.initialZoom
+      );
+
+      this.map.addLayer(
+        new Leaflet.TileLayer(this.defaults.tileUrl, {
+          minZoom: this.defaults.minZoom,
+          maxZoom: this.defaults.maxZoom
+        })
+      );
+
+      this.map.on('dragend', function(e) {
+        this.trigger('dragend', {
+          bounds: this.map.getBounds(),
+          zoom: this.map.getZoom()
+        });
+      }, this);
+
+      this.map.on('zoomend', function(e) {
+        this.trigger('zoomend', {
+          bounds: this.map.getBounds(),
+          zoom: this.map.getZoom()
+        });
+      });
+
+      this.markers = Leaflet.markerClusterGroup({
         chunkedLoading: true,
         spiderfyOnMaxZoom: true,
         showCoverageOnHover: false,
         zoomToBoundsOnClick: true
       });
 
-      map.addLayer(markers);
+      this.map.addLayer(this.markers);
     },
 
     toLeafletMarker: function(markerComponent) {

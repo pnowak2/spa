@@ -18,10 +18,6 @@ define(function(require) {
       it('.className should be defined', function() {
         expect(MapView.prototype.className).toEqual('efc-map');
       });
-
-      it('.tileUrl should be defined', function() {
-        expect(MapView.prototype.tileUrl).toEqual(constants.map.TILEURL);
-      });
     });
 
     describe('api', function() {
@@ -34,6 +30,20 @@ define(function(require) {
       describe('.showMarkerComponents', function() {
         it('should be defined', function() {
           expect(MapView.prototype.showMarkerComponents).toEqual(jasmine.any(Function));
+        });
+      });
+    });
+
+    describe('events', function() {
+      describe('custom', function() {
+        it('should trigger drag end event', function() {
+          var view = new MapView;
+          spyOn(view, 'trigger');
+
+          view.initMap();
+          view.map.fire('dragend');
+
+          expect(view.trigger).toHaveBeenCalledWith('dragend');
         });
       });
     });
