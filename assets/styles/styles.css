@@ -403,6 +403,7 @@
 /* Searchable Results List */
 .efc-searchable-results-list {
   padding: 0;
+  display: none;
 }
 
 .efc-searchable-results-list .efc-pager {
