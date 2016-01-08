@@ -12,6 +12,13 @@ define(function(require) {
       });
     });
 
+    describe('creation', function() {
+      it('should have proper view defined', function() {
+        var component = new SearchableResultsListComponent;
+        expect(component.view).toEqual(jasmine.any(SearchableResultsListView));
+      });
+    });
+
     describe('api', function() {
       describe('.onSearchRequest()', function() {
         it('should be defined', function() {

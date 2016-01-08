@@ -2,7 +2,7 @@ define(function(require) {
   return [{
     title: 'Map',
     identifier: 'map',
-    targetSelector: ''
+    targetSelector: '.efc-searchable-results-map'
   }, {
     title: 'List',
     identifier: 'list',

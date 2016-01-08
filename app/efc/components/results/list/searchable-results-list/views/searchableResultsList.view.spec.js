@@ -387,6 +387,10 @@ define(function(require) {
           this.view = new SearchableResultsListView;
         });
 
+        it('should return view object', function() {
+          expect(this.view.render()).toBe(this.view);
+        });
+
         it('should append results list component', function() {
           this.view.render();
           expect(this.view.$el).toContainHtml(this.view.resultsListComponent.render().view.$el);
