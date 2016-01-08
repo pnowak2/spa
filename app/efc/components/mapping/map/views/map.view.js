@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    _ = require('underscore'),
     constants = require('app/efc/util/constants'),
     Mustache = require('mustache'),
     Leaflet = require('leaflet'),
@@ -10,49 +11,45 @@ define(function(require) {
 
     defaults: {
       tileUrl: constants.map.TILEURL,
-      initialZoom: 5,
+      initialZoom: 13,
       initialPosition: [-37.82, 175.24],
       minZoom: 1,
       maxZoom: 16
     },
 
     initMap: function() {
-      this.map = Leaflet.map(this.el);
+      this.map = this.createMap();
+      this.tileLayer = this.createTileLayer();
+      this.clusterGroupLayer = this.createClusterGroupLayer();
 
-      this.map.setView(
+      this.map.addLayer(this.tileLayer);
+      this.map.addLayer(this.clusterGroupLayer);
+    },
+
+    createMap: function() {
+      var map = Leaflet.map(this.el);
+      map.setView(
         this.defaults.initialPosition,
         this.defaults.initialZoom
       );
 
-      this.map.addLayer(
-        new Leaflet.TileLayer(this.defaults.tileUrl, {
-          minZoom: this.defaults.minZoom,
-          maxZoom: this.defaults.maxZoom
-        })
-      );
+      return map;
+    },
 
-      this.map.on('dragend', function(e) {
-        this.trigger('dragend', {
-          bounds: this.map.getBounds(),
-          zoom: this.map.getZoom()
-        });
-      }, this);
-
-      this.map.on('zoomend', function(e) {
-        this.trigger('zoomend', {
-          bounds: this.map.getBounds(),
-          zoom: this.map.getZoom()
-        });
+    createTileLayer: function() {
+      return Leaflet.tileLayer(this.defaults.tileUrl, {
+        minZoom: this.defaults.minZoom,
+        maxZoom: this.defaults.maxZoom
       });
+    },
 
-      this.markers = Leaflet.markerClusterGroup({
+    createClusterGroupLayer: function() {
+      return Leaflet.markerClusterGroup({
         chunkedLoading: true,
         spiderfyOnMaxZoom: true,
         showCoverageOnHover: false,
         zoomToBoundsOnClick: true
       });
-
-      this.map.addLayer(this.markers);
     },
 
     toLeafletMarker: function(markerComponent) {
@@ -68,10 +65,14 @@ define(function(require) {
       return marker;
     },
 
+    toLeafletMarkers: function(markerComponents) {
+      return _.map(markerComponents, this.toLeafletMarker, this);
+    },
+
     showMarkerComponents: function(markerComponents) {
-      this.markers.clearLayers();
-      var markersArray = _.map(markerComponents, this.toLeafletMarker);
-      this.markers.addLayers(markersArray);
+      this.clusterGroupLayer.clearLayers();
+      var markersArray = this.toLeafletMarkers(markerComponents);
+      this.clusterGroupLayer.addLayers(markersArray);
     }
   });
 });
