@@ -19,12 +19,15 @@ define(function(require) {
     },
 
     initMap: function() {
-      this.map = this.createMap();
-      this.tileLayer = this.createTileLayer();
-      this.clusterGroupLayer = this.createClusterGroupLayer();
+      if (!this.map) {
+        this.map = this.createMap();
 
-      this.map.addLayer(this.tileLayer);
-      this.map.addLayer(this.clusterGroupLayer);
+        this.tileLayer = this.createTileLayer();
+        this.clusterGroupLayer = this.createClusterGroupLayer();
+
+        this.map.addLayer(this.tileLayer);
+        this.map.addLayer(this.clusterGroupLayer);
+      }
     },
 
     createMap: function() {
