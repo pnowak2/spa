@@ -10,7 +10,7 @@ define(function(require) {
     className: 'efc-map',
 
     defaults: {
-      tileUrl: constants.map.TILEURL,
+      tileUrl: constants.urls.TILEURL,
       initialZoom: 13,
       initialPosition: [-37.82, 175.24],
       minZoom: 1,

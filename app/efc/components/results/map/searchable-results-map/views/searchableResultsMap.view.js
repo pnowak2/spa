@@ -14,10 +14,10 @@ define(function(require) {
 
     onSearchRequest: function(searchCriteria) {
       this.didSearchSucceed(markersDataSource);
-    },
 
-    performSearch: function(criteria) {
-
+      // searchService.search(criteria)
+      //   .then(this.didSearchSucceed)
+      //   .catch(this.didSearchFail);
     },
 
     didSearchSucceed: function(data) {

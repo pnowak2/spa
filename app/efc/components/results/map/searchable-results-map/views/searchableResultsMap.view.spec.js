@@ -41,16 +41,6 @@
          });
        });
 
-       describe('.performSearch()', function() {
-         beforeEach(function() {
-           this.view = new SearchableResultsMapView;
-         });
-
-         it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.performSearch).toEqual(jasmine.any(Function));
-         });
-       });
-
        describe('.didSearchSucceed()', function() {
          it('should be defined', function() {
            expect(SearchableResultsMapView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));

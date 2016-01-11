@@ -11,7 +11,7 @@ define(function(require) {
 
       return new RSVP.Promise(function(resolve, reject) {
         $.ajax({
-          url: constants.rest.SEARCH,
+          url: constants.urls.SEARCH_LIST,
           dataType: 'json',
           method: 'GET',
           data: searchInputMapper.map(criteria)
