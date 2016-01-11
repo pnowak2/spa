@@ -41,6 +41,12 @@
          });
        });
 
+       describe('.prepareMarkersData', function() {
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.prepareMarkersData).toEqual(jasmine.any(Function));
+         });
+       });
+
        describe('.didSearchSucceed()', function() {
          it('should be defined', function() {
            expect(SearchableResultsMapView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));

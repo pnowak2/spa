@@ -20,8 +20,8 @@ define(function(require) {
       //   .catch(this.didSearchFail);
     },
 
-    didSearchSucceed: function(data) {
-      var markers = _.map(data, function(marker) {
+    prepareMarkersData: function(data) {
+      return _.map(data, function(marker) {
         var popupComponent = new ProjectPopupComponent({
           popupData: {
             id: marker[2],
@@ -38,7 +38,10 @@ define(function(require) {
           popupContent: popupComponent.render().view.el
         }
       });
+    },
 
+    didSearchSucceed: function(data) {
+      var markers = this.prepareMarkersData(data);
       this.mapComponent.showMarkers(markers);
     },
 
