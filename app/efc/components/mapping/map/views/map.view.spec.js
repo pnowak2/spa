@@ -87,9 +87,11 @@ define(function(require) {
           expect(this.view.createMap()).toEqual(jasmine.any(Leaflet.Map));
         });
 
-        it('should have map instance referencing view element', function() {
+        it('should have map instance referencing view element and with correct map options', function() {
           this.view.createMap();
-          expect(Leaflet.map).toHaveBeenCalledWith(this.view.el);
+          expect(Leaflet.map).toHaveBeenCalledWith(this.view.el, {
+            fullscreenControl: true
+          });
         });
 
         it('should set map view with default position and zoom', function() {

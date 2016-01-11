@@ -12,11 +12,15 @@ requirejs.config({
     rsvp: 'lib/rsvp/rsvp.min',
     modernizr: 'lib/modernizr/modernizr-custom.min',
     leaflet: 'lib/leaflet/leaflet',
-    leafletmarkercluster: 'lib/leaflet.markercluster/dist/leaflet.markercluster'
+    leafletmarkercluster: 'lib/leaflet.markercluster/dist/leaflet.markercluster',
+    leafletfullscreen: 'lib/leaflet.fullscreen/dist/leaflet.fullscreen'
   },
   shim: {
     modernizr: {},
     leafletmarkercluster: {
+      deps: ['leaflet']
+    },
+    leafletfullscreen: {
       deps: ['leaflet']
     }
   }

@@ -4,7 +4,8 @@ define(function(require) {
     constants = require('app/efc/util/constants'),
     Mustache = require('mustache'),
     Leaflet = require('leaflet'),
-    MarkerCluster = require('leafletmarkercluster');
+    MarkerCluster = require('leafletmarkercluster'),
+    Fullscreen = require('leafletfullscreen');
 
   return Backbone.View.extend({
     className: 'efc-map',
@@ -27,7 +28,9 @@ define(function(require) {
     },
 
     createMap: function() {
-      var map = Leaflet.map(this.el);
+      var map = Leaflet.map(this.el, {
+        fullscreenControl: true
+      });
       map.setView(
         this.defaults.initialPosition,
         this.defaults.initialZoom
