@@ -1,9 +1,5 @@
 define(function(require) {
-  var map = function(input) {
+  var inputMapper = require('app/efc/components/results/list/searchable-results-list/services/search/searchInput.mapper');
 
-  };
-
-  return {
-    map: map
-  };
+  return inputMapper;
 });

@@ -9,15 +9,14 @@ define(function(require) {
     className: 'efc-searchable-results-map',
 
     initialize: function() {
+      _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
       this.mapComponent = new MapComponent;
     },
 
     onSearchRequest: function(searchCriteria) {
-      this.didSearchSucceed(markersDataSource);
-
-      // searchService.search(criteria)
-      //   .then(this.didSearchSucceed)
-      //   .catch(this.didSearchFail);
+      searchService.search(criteria)
+        .then(this.didSearchSucceed)
+        .catch(this.didSearchFail);
     },
 
     prepareMarkersData: function(data) {

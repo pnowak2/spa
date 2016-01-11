@@ -1,19 +1,17 @@
 define(function(require) {
   var _ = require('underscore'),
-    searchInputMapper = require('./searchInput.mapper');
+    mapInputMapper = require('./searchInput.mapper'),
+    listInputMapper = require('app/efc/components/results/list/searchable-results-list/services/search/searchInput.mapper');
+
 
   describe('Search Input Mapper', function() {
     describe('creation', function() {
       it('should be defined', function() {
-        expect(searchInputMapper).toEqual(jasmine.any(Object));
+        expect(mapInputMapper).toEqual(jasmine.any(Object));
       });
-    });
 
-    describe('api', function() {
-      describe('.map', function() {
-        it('should be defined', function() {
-          expect(searchInputMapper.map).toEqual(jasmine.any(Function));
-        });
+      it('should be the list search input mapper', function() {
+        expect(mapInputMapper).toBe(listInputMapper)
       });
     });
   });

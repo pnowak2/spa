@@ -1,5 +1,22 @@
 define(function(require) {
-  var searchResultMapper = require('./searchResult.mapper');
+  var searchResultMapper = require('./searchResult.mapper'),
+
+    testResponses = {
+      noData: {
+        total: '0',
+        items: []
+      },
+      allDataOneRow: {
+        total: '1',
+        items: [{
+          id: '17',
+          title: 'Project title',
+          description: 'Project description',
+          activity: 'Project activity',
+          coordinator: 'Project coordinator'
+        }]
+      }
+    };
 
   describe('Search Result Mapper', function() {
     describe('creation', function() {
@@ -12,6 +29,33 @@ define(function(require) {
       describe('.map', function() {
         it('should be defined', function() {
           expect(searchResultMapper.map).toEqual(jasmine.any(Function));
+        });
+
+        it('should return default empty object when invoked without response', function() {
+          expect(searchResultMapper.map()).toEqual({
+            total: 0,
+            items: []
+          });
+        });
+
+        it('should convert total to number if it is string', function() {
+          var mapped = searchResultMapper.map(testResponses.noData);
+          expect(mapped.total).toEqual(jasmine.any(Number));
+        });
+
+        it('should map response with one row to object', function() {
+          var mapped = searchResultMapper.map(testResponses.allDataOneRow);
+
+          expect(mapped).toEqual({
+            total: 1,
+            items: [{
+              id: '17',
+              title: 'Project title',
+              description: 'Project description',
+              activity: 'Project activity',
+              coordinator: 'Project coordinator'
+            }]
+          })
         });
       });
     });
