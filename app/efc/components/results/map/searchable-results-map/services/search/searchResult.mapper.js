@@ -4,15 +4,21 @@ define(function(require) {
     map = function(response) {
       var total, items, response = response || {};
 
-      total = parseInt(response['total'], 10) || 0;
+    total = parseInt(response['iTotalRecords'], 10) || 0;
 
-      items = _.map(response['items'], function(responseItem) {
+      items = _.map(response['aaData'], function(responseItem) {
+        var id = responseItem[0],
+          title = responseItem[1],
+          description = responseItem[2],
+          activity = responseItem[3],
+          coordinator = responseItem[4];
+
         return {
-          id: responseItem.id,
-          title: responseItem.title,
-          description: responseItem.description,
-          activity: responseItem.activity,
-          coordinator: responseItem.coordinator
+          id: id,
+          title: title,
+          description: description,
+          activity: activity,
+          coordinator: coordinator
         }
       });
 

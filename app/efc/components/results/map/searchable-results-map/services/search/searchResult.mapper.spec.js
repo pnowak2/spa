@@ -7,14 +7,16 @@ define(function(require) {
         items: []
       },
       allDataOneRow: {
-        total: '1',
-        items: [{
-          id: '17',
-          title: 'Project title',
-          description: 'Project description',
-          activity: 'Project activity',
-          coordinator: 'Project coordinator'
-        }]
+        iTotalRecords: '1',
+        aaData: [
+          [
+            '17',
+            'Project title',
+            'Project description',
+            'Project activity',
+            'Project coordinator'
+          ]
+        ]
       }
     };
 

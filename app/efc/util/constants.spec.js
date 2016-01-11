@@ -14,7 +14,7 @@ define(function(require) {
       });
 
       it('.SEARCH_MAP should be defined', function() {
-        expect(constants.urls.SEARCH_MAP).toEqual('');
+        expect(constants.urls.SEARCH_MAP).toEqual('/programmes/service/es/search-map');
       });
 
       it('.TILEURL should be defined', function() {

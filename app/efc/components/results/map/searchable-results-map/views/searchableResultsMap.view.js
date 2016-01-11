@@ -2,6 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     _ = require('underscore'),
     MapComponent = require('app/efc/components/mapping/map/main.component'),
+    searchService = require('../services/search/search.service'),
     ProjectPopupComponent = require('app/efc/components/mapping/popups/project/main.component'),
     markersDataSource = require('../services/search/data/markers');
 
@@ -14,7 +15,7 @@ define(function(require) {
     },
 
     onSearchRequest: function(searchCriteria) {
-      searchService.search(criteria)
+      searchService.search(searchCriteria)
         .then(this.didSearchSucceed)
         .catch(this.didSearchFail);
     },
