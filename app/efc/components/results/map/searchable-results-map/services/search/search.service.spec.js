@@ -11,16 +11,7 @@ define(function(require) {
         success: {
           status: 200,
           dataType: 'json',
-          responseText: JSON.stringify({
-            total: 1,
-            markers: [{
-              id: '17',
-              title: 'Project title',
-              description: 'Project description',
-              activity: 'Project Activity',
-              coordinator: 'Project Coordinator'
-            }]
-          })
+          responseText: '{}'
         },
         error: {
           status: 500
