@@ -3,6 +3,7 @@ define(function(require) {
     RSVP = require('rsvp'),
     searchInputMapper = require('./searchInput.mapper'),
     searchResultMapper = require('./searchResult.mapper'),
+    markersDataSource = require('./data/markers'),
     constants = require('app/efc/util/constants');
 
   return {
@@ -10,6 +11,7 @@ define(function(require) {
       criteria = criteria || {};
 
       return new RSVP.Promise(function(resolve, reject) {
+        // resolve(searchResultMapper.map(markersDataSource));
         $.ajax({
           url: constants.urls.SEARCH_MAP,
           dataType: 'json',
