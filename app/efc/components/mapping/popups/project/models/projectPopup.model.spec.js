@@ -13,9 +13,9 @@ define(function(require) {
         expect(ProjectPopupModel.prototype.defaults).toEqual({
           id: '',
           title: '',
+          description: '',
           activity: '',
-          coordinator: '',
-          summary: ''
+          coordinator: ''
         });
       });
     });

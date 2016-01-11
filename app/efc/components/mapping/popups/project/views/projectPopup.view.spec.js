@@ -42,9 +42,9 @@ define(function(require) {
             popupData: {
               id: '52',
               title: 'Project Title',
+              description: 'Project Description',
               activity: 'Project Activity',
-              coordinator: 'Project Coordinator',
-              summary: 'Project Summary'
+              coordinator: 'Project Coordinator'
             }
           });
 
@@ -57,9 +57,9 @@ define(function(require) {
 
         it('should render bubble properties', function() {
           expect(this.view.$el).toContainHtml('Project Title');
+          expect(this.view.$el).toContainHtml('Project Description');
           expect(this.view.$el).toContainHtml('Project Activity');
           expect(this.view.$el).toContainHtml('Project Coordinator');
-          expect(this.view.$el).toContainHtml('Project Summary');
         });
 
         it('should render link to project details', function() {

@@ -24,8 +24,8 @@ define(function(require) {
       it('.defaults should be properly defined', function() {
         expect(MapView.prototype.defaults).toEqual({
           tileUrl: constants.urls.TILEURL,
-          initialZoom: 13,
-          initialPosition: [-37.82, 175.24],
+          initialZoom: 4,
+          initialPosition: [48, 9],
           minZoom: 1,
           maxZoom: 16
         })

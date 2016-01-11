@@ -1,6 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     _ = require('underscore'),
+    app = require('app/app.module'),
     MapComponent = require('app/efc/components/mapping/map/main.component'),
     searchService = require('../services/search/search.service'),
     ProjectPopupComponent = require('app/efc/components/mapping/popups/project/main.component'),
@@ -20,33 +21,38 @@ define(function(require) {
         .catch(this.didSearchFail);
     },
 
-    prepareMarkersData: function(data) {
-      return _.map(data, function(marker) {
-        var popupComponent = new ProjectPopupComponent({
-          popupData: {
-            id: marker[2],
-            title: marker[3],
-            activity: marker[4],
-            coordinator: marker[5],
-            summary: marker[6]
-          }
-        });
-
-        return {
-          lat: marker[0],
-          lng: marker[1],
-          popupContent: popupComponent.render().view.el
-        }
-      });
-    },
-
     didSearchSucceed: function(data) {
+      data = data || {};
+
       var markers = this.prepareMarkersData(data);
       this.mapComponent.showMarkers(markers);
     },
 
     didSearchFail: function(error) {
+      app.showError(error);
+    },
 
+    prepareMarkersData: function(data) {
+      data = data || {};
+
+      return _.map(data.items, function(item) {
+        var popupComponent = new ProjectPopupComponent({
+            popupData: {
+              id: item.id,
+              title: item.title,
+              description: item.description,
+              activity: item.activity,
+              coordinator: item.coordinator
+            }
+          }),
+          popupContent = popupComponent.render().view.$el.html();
+
+        return {
+          lat: item.lat,
+          lng: item.lng,
+          popupContent: popupContent
+        }
+      });
     },
 
     render: function() {

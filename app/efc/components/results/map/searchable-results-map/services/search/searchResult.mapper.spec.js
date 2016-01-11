@@ -11,6 +11,8 @@ define(function(require) {
         aaData: [
           [
             '17',
+            20,
+            40,
             'Project title',
             'Project description',
             'Project activity',
@@ -52,6 +54,8 @@ define(function(require) {
             total: 1,
             items: [{
               id: '17',
+              lat: 20,
+              lng: 40,
               title: 'Project title',
               description: 'Project description',
               activity: 'Project activity',

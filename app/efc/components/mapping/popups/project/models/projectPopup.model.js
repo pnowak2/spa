@@ -5,9 +5,9 @@ define(function(require) {
     defaults: {
       id: '',
       title: '',
+      description: '',
       activity: '',
-      coordinator: '',
-      summary: ''
+      coordinator: ''
     }
   })
 });

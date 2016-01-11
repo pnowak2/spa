@@ -12,8 +12,8 @@ define(function(require) {
 
     defaults: {
       tileUrl: constants.urls.TILEURL,
-      initialZoom: 13,
-      initialPosition: [-37.82, 175.24],
+      initialZoom: 4,
+      initialPosition: [48, 9],
       minZoom: 1,
       maxZoom: 16
     },
