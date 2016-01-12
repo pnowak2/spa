@@ -57,10 +57,10 @@ define(function(require) {
     toLeafletMarker: function(marker) {
       var leafletMarker = new PruneCluster.Marker(
         marker.lat,
-        marker.lng
+        marker.lng, {
+          popup: marker.popupContent
+        }
       );
-
-      leafletMarker.data.popup = marker.popupContent;
 
       return leafletMarker;
     },
