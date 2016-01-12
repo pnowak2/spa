@@ -5,24 +5,30 @@
 
 .prunecluster-small {
 	background-color: #89C94F;
+	background-color: rgba(137, 201, 79, .5);
 }
 
 .prunecluster-small div {
 	background-color: #5BA731;
+	background-color: rgba(91, 167, 49, .7);
 }
 
 .prunecluster-medium {
 	background-color: #F8A338;
+	background-color: rgba(248, 163, 56, .5);
 }
 
 .prunecluster-medium div {
 	background-color: #E78303;
+	background-color: rgba(231, 131, 3, .7);
 }
 
 .prunecluster-large {
-	background-color: #F87465;
+	background-color: #F8A096;
+	background-color: rgba(248, 160, 150, .5);
 }
 
 .prunecluster-large div {
-	background-color: #F53C26;
+	background-color: #F57566;
+	background-color: rgba(245, 117, 102, .7);
 }

@@ -18,7 +18,7 @@ define(function(require) {
       });
 
       it('.TILEURL should be defined', function() {
-        expect(constants.urls.TILEURL).toEqual('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        expect(constants.urls.TILEURL).toEqual('http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}');
       });
     });
   });
