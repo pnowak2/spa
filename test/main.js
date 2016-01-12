@@ -11,7 +11,7 @@ requirejs.config({
     rsvp: '../lib/rsvp/rsvp.min',
     modernizr: '../lib/modernizr/modernizr-custom.min',
     leaflet: '../lib/leaflet/leaflet',
-    leafletmarkercluster: '../lib/leaflet.markercluster/dist/leaflet.markercluster',
+    leafletprunecluster: '../lib/leaflet.prunecluster/PruneCluster',
     leafletfullscreen: '../lib/leaflet.fullscreen/dist/leaflet.fullscreen',
     jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
     'jasmine-html': ['../lib/jasmine/lib/jasmine-core/jasmine-html'],
@@ -21,7 +21,7 @@ requirejs.config({
   },
   shim: {
     'modernizr': {},
-    'leafletmarkercluster': {
+    'leafletprunecluster': {
       deps: ['leaflet']
     },
     'leafletfullscreen': {

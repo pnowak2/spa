@@ -1,7 +1,7 @@
 define(function(require) {
   var generate = function() {
     var generated = [],
-      count = 500;
+      count = 1000;
 
     for (var i = 1; i <= count; i++) {
       var rnd_lat, rnd_lng;

@@ -4,7 +4,7 @@ define(function(require) {
     constants = require('app/efc/util/constants'),
     Mustache = require('mustache'),
     Leaflet = require('leaflet'),
-    MarkerCluster = require('leafletmarkercluster'),
+    LeafletPruneCluster = require('leafletprunecluster'),
     Fullscreen = require('leafletfullscreen');
 
   return Backbone.View.extend({
@@ -50,21 +50,16 @@ define(function(require) {
     },
 
     createClusterGroupLayer: function() {
-      return Leaflet.markerClusterGroup({
-        chunkedLoading: true,
-        spiderfyOnMaxZoom: true,
-        showCoverageOnHover: false,
-        zoomToBoundsOnClick: true
-      });
+      return new PruneClusterForLeaflet;
     },
 
     toLeafletMarker: function(marker) {
-      var leafletMarker = Leaflet.marker([
+      var leafletMarker = new PruneCluster.Marker(
         marker.lat,
         marker.lng
-      ]);
+      );
 
-      leafletMarker.bindPopup(marker.popupContent);
+      leafletMarker.data.popup = marker.popupContent;
 
       return leafletMarker;
     },
@@ -74,9 +69,10 @@ define(function(require) {
     },
 
     showMarkers: function(markers) {
-      this.clusterGroupLayer.clearLayers();
+      this.clusterGroupLayer.RemoveMarkers();
       var markersArray = this.toLeafletMarkers(markers);
-      this.clusterGroupLayer.addLayers(markersArray);
+      this.clusterGroupLayer.RegisterMarkers(markersArray);
+      this.clusterGroupLayer.ProcessView();
     },
 
     render: function() {

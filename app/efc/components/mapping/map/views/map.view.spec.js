@@ -2,6 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     _ = require('underscore'),
     Leaflet = require('leaflet'),
+    LeafletPruneCluster = require('leafletprunecluster'),
     constants = require('app/efc/util/constants'),
     MapView = require('./map.view');
 
@@ -133,10 +134,6 @@ define(function(require) {
 
       describe('.createClusterGroupLayer()', function() {
         beforeEach(function() {
-          this.fakeClusterGroupLayer = {};
-
-          spyOn(Leaflet, 'markerClusterGroup').and.callThrough();
-
           this.view = new MapView;
         });
 
@@ -145,17 +142,7 @@ define(function(require) {
         });
 
         it('should return correct cluster group layer instance', function() {
-          expect(this.view.createClusterGroupLayer()).toEqual(jasmine.any(Leaflet.MarkerClusterGroup));
-        });
-
-        it('should initialize cluster group layer with correct defaults', function() {
-          this.view.createClusterGroupLayer();
-          expect(Leaflet.markerClusterGroup).toHaveBeenCalledWith({
-            chunkedLoading: true,
-            spiderfyOnMaxZoom: true,
-            showCoverageOnHover: false,
-            zoomToBoundsOnClick: true
-          });
+          expect(this.view.createClusterGroupLayer()).toEqual(jasmine.any(PruneClusterForLeaflet));
         });
       });
 
@@ -163,8 +150,7 @@ define(function(require) {
         beforeEach(function() {
           this.fakeMarker = {};
 
-          spyOn(Leaflet, 'marker').and.callThrough();
-          spyOn(Leaflet.Marker.prototype, 'bindPopup');
+          spyOn(PruneCluster, 'Marker').and.callThrough();
 
           this.view = new MapView;
         });
@@ -174,7 +160,7 @@ define(function(require) {
         });
 
         it('should return correct marker instance', function() {
-          expect(this.view.toLeafletMarker({})).toEqual(jasmine.any(Leaflet.Marker));
+          expect(this.view.toLeafletMarker({})).toEqual(jasmine.any(PruneCluster.Marker));
         });
 
         it('should create marker with correct lat and lng', function() {
@@ -183,7 +169,7 @@ define(function(require) {
             lng: 4
           });
 
-          expect(marker.getLatLng()).toEqual({
+          expect(marker.position).toEqual({
             lat: 2,
             lng: 4
           });
@@ -194,7 +180,7 @@ define(function(require) {
             popupContent: 'the popup content'
           });
 
-          expect(marker.bindPopup).toHaveBeenCalledWith('the popup content');
+          expect(marker.data.popup).toEqual('the popup content');
         });
       });
 
@@ -211,8 +197,8 @@ define(function(require) {
             }]);
 
           expect(markers.length).toBe(1);
-          expect(markers[0]).toEqual(jasmine.any(Leaflet.Marker));
-          expect(markers[0].getLatLng()).toEqual({
+          expect(markers[0]).toEqual(jasmine.any(PruneCluster.Marker));
+          expect(markers[0].position).toEqual({
             lat: 2,
             lng: 4
           });
@@ -224,8 +210,8 @@ define(function(require) {
           this.view = new MapView;
           this.view.initMap();
 
-          spyOn(this.view.clusterGroupLayer, 'clearLayers');
-          spyOn(this.view.clusterGroupLayer, 'addLayers');
+          spyOn(this.view.clusterGroupLayer, 'RemoveMarkers');
+          spyOn(this.view.clusterGroupLayer, 'RegisterMarkers');
         });
 
         it('should be defined', function() {
@@ -234,7 +220,7 @@ define(function(require) {
 
         it('should clear all existing markers', function() {
           this.view.showMarkers();
-          expect(this.view.clusterGroupLayer.clearLayers).toHaveBeenCalled();
+          expect(this.view.clusterGroupLayer.RemoveMarkers).toHaveBeenCalled();
         });
 
         it('should add markers to layer', function() {
@@ -243,7 +229,7 @@ define(function(require) {
 
           this.view.showMarkers();
 
-          expect(this.view.clusterGroupLayer.addLayers).toHaveBeenCalledWith(fakeMarkers);
+          expect(this.view.clusterGroupLayer.RegisterMarkers).toHaveBeenCalledWith(fakeMarkers);
         });
       });
     });
