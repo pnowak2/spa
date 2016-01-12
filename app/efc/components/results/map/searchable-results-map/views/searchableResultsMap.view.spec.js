@@ -145,8 +145,49 @@
          });
        });
 
-       describe('.prepareMarkersData', function() {
+       describe('.prepareMarkerData()', function() {
          beforeEach(function() {
+           this.view = new SearchableResultsMapView;
+         });
+
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.prepareMarkerData).toEqual(jasmine.any(Function));
+         });
+
+         it('should not throw if invoked without arguments', function() {
+           var self = this;
+           expect(function() {
+             self.view.prepareMarkerData();
+           }).not.toThrow();
+         });
+
+         it('convert data item to marker data', function() {
+           var dataItem = {
+               id: '1',
+               lat: 2,
+               lng: 4,
+               title: 'Project title',
+               description: 'Project description',
+               activity: 'Project activity',
+               coordinator: 'Project coordinator'
+             },
+             marker = this.view.prepareMarkerData(dataItem),
+             popupContent = new ProjectPopupComponent({
+               popupData: dataItem
+             }).render().view.el;
+
+           expect(marker.lat).toEqual(2);
+           expect(marker.lng).toEqual(4);
+           expect(marker.popupContent.outerHTML).toEqual(popupContent.outerHTML);
+         });
+       });
+
+       describe('.prepareMarkersData()', function() {
+         beforeEach(function() {
+           this.data = {
+             total: 1,
+             items: [{}]
+           }
            this.view = new SearchableResultsMapView;
          });
 
@@ -161,29 +202,21 @@
            }).not.toThrow();
          });
 
-         it('should convert data to correct array of marker descriptors', function() {
-           var data = {
-               total: 1,
-               items: [{
-                 id: '1',
-                 lat: 2,
-                 lng: 4,
-                 title: 'Project title',
-                 description: 'Project description',
-                 activity: 'Project activity',
-                 coordinator: 'Project coordinator'
-               }]
-             },
-             markers = this.view.prepareMarkersData(data),
-             popupContent = new ProjectPopupComponent({
-               popupData: data.items[0]
-             }).render().view.$el.html();
+         it('should return array of markers', function() {
+           var markers = this.view.prepareMarkersData(this.data);
+           expect(markers).toEqual(jasmine.any(Array));
+           expect(markers.length).toEqual(1);
+         });
 
-           expect(markers).toEqual([{
-             lat: 2,
-             lng: 4,
-             popupContent: popupContent
-           }]);
+         it('should convert array of markers with factory method', function() {
+           var fakePreparedMarkerData = {},
+             markers;
+
+           spyOn(SearchableResultsMapView.prototype, 'prepareMarkerData').and.returnValue(fakePreparedMarkerData);
+
+           markers = this.view.prepareMarkersData(this.data);
+
+           expect(markers[0]).toBe(fakePreparedMarkerData);
          });
        });
      });

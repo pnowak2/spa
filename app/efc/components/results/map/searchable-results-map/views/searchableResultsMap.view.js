@@ -31,27 +31,30 @@ define(function(require) {
       app.showError(error);
     },
 
+    prepareMarkerData: function(dataItem) {
+      dataItem = dataItem || {};
+
+      var popupComponent = new ProjectPopupComponent({
+          popupData: {
+            id: dataItem.id,
+            title: dataItem.title,
+            description: dataItem.description,
+            activity: dataItem.activity,
+            coordinator: dataItem.coordinator
+          }
+        }),
+        popupContent = popupComponent.render().view.el;
+
+      return {
+        lat: dataItem.lat,
+        lng: dataItem.lng,
+        popupContent: popupContent
+      }
+    },
+
     prepareMarkersData: function(data) {
       data = data || {};
-
-      return _.map(data.items, function(item) {
-        var popupComponent = new ProjectPopupComponent({
-            popupData: {
-              id: item.id,
-              title: item.title,
-              description: item.description,
-              activity: item.activity,
-              coordinator: item.coordinator
-            }
-          }),
-          popupContent = popupComponent.render().view.$el.html();
-
-        return {
-          lat: item.lat,
-          lng: item.lng,
-          popupContent: popupContent
-        }
-      });
+      return _.map(data.items, this.prepareMarkerData);
     },
 
     render: function() {
