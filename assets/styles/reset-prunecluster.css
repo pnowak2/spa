@@ -1,0 +1,28 @@
+.prunecluster {
+	color: #fff;
+	font-weight: bold;
+}
+
+.prunecluster-small {
+	background-color: #89C94F;
+}
+
+.prunecluster-small div {
+	background-color: #5BA731;
+}
+
+.prunecluster-medium {
+	background-color: #F8A338;
+}
+
+.prunecluster-medium div {
+	background-color: #E78303;
+}
+
+.prunecluster-large {
+	background-color: #F87465;
+}
+
+.prunecluster-large div {
+	background-color: #F53C26;
+}
