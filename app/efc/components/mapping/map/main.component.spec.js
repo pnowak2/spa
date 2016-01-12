@@ -21,7 +21,22 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.showMarkers', function() {
+      describe('.initMap()', function() {
+        it('should be defined', function() {
+          expect(MapComponent.prototype.initMap).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new MapComponent;
+          spyOn(component.view, 'initMap');
+
+          component.initMap();
+
+          expect(component.view.initMap).toHaveBeenCalled();
+        });
+      });
+
+      describe('.showMarkers()', function() {
         it('should be defined', function() {
           expect(MapComponent.prototype.showMarkers).toEqual(jasmine.any(Function));
         });

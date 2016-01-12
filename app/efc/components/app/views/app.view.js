@@ -20,6 +20,14 @@ define(function(require) {
       });
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
+
+      this.render();
+      this.searchableMap.initMap();
+      this.requestInitialSearch();
+    },
+
+    requestInitialSearch: function() {
+      this.onSearchRequest({});
     },
 
     onSearchRequest: function(searchCriteria) {

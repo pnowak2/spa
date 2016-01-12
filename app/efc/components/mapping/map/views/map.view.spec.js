@@ -241,17 +241,6 @@ define(function(require) {
 
           expect(view.render()).toBe(view);
         });
-
-        it('should init the map after call stack has been cleared', function(done) {
-          var view = new MapView;
-
-          spyOn(MapView.prototype, 'initMap').and.callFake(function() {
-            expect(this).toBe(view);
-            done();
-          });
-
-          view.render();
-        });
       });
     });
   });

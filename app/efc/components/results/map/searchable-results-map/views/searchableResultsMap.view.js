@@ -14,6 +14,10 @@ define(function(require) {
       this.mapComponent = new MapComponent;
     },
 
+    initMap: function() {
+      this.mapComponent.initMap();
+    },
+
     onSearchRequest: function(searchCriteria) {
       searchService.search(searchCriteria)
         .then(this.didSearchSucceed)

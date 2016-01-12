@@ -45,6 +45,21 @@
      });
 
      describe('api', function() {
+       describe('.initMap()', function() {
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.initMap).toEqual(jasmine.any(Function));
+         });
+
+         it('should delegate to map component', function() {
+           var view = new SearchableResultsMapView;
+           spyOn(view.mapComponent, 'initMap');
+
+           view.initMap();
+
+           expect(view.mapComponent.initMap).toHaveBeenCalled();
+         });
+       });
+
        describe('.onSearchRequest()', function() {
          beforeEach(function() {
            spyOn(SearchableResultsMapView.prototype, 'didSearchSucceed');

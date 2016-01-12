@@ -33,7 +33,5 @@ define(function(require) {
     EFCComponent = require('app/efc/components/app/main.component'),
     efcComponent = new EFCComponent;
 
-  efcComponent.render();
-
   Backbone.history.start();
 });

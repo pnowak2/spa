@@ -6,6 +6,10 @@ define(function(require) {
   return Component.extend({
     initialize: function() {
       this.view = new AppView;
+    },
+
+    requestInitialSearch: function() {
+      this.view.requestInitialSearch();
     }
   });
 });

@@ -76,9 +76,6 @@ define(function(require) {
     },
 
     render: function() {
-      var init = _.bind(this.initMap, this);
-      _.defer(init);
-
       return this;
     }
   });

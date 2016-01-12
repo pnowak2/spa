@@ -18,6 +18,21 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.initMap()', function() {
+        it('should be defined', function() {
+          expect(SearchableResultsMapComponent.prototype.initMap).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new SearchableResultsMapComponent;
+          spyOn(component.view, 'initMap');
+
+          component.initMap();
+
+          expect(component.view.initMap).toHaveBeenCalled();
+        });
+      });
+
       describe('.onSearchRequest()', function() {
         it('should be defined', function() {
           expect(SearchableResultsMapComponent.prototype.onSearchRequest).toEqual(jasmine.any(Function));

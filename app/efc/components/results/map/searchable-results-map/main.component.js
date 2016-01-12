@@ -7,6 +7,10 @@ define(function(require) {
       this.view = new SearchableResultsMapView;
     },
 
+    initMap: function() {
+      this.view.initMap();
+    },
+
     onSearchRequest: function(searchCriteria) {
       this.view.onSearchRequest(searchCriteria);
     }
