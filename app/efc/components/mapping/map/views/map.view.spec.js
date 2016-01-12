@@ -91,6 +91,7 @@ define(function(require) {
         it('should have map instance referencing view element and with correct map options', function() {
           this.view.createMap();
           expect(Leaflet.map).toHaveBeenCalledWith(this.view.el, {
+            attributionControl: false,
             fullscreenControl: true
           });
         });

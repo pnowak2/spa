@@ -12,7 +12,7 @@ requirejs.config({
     rsvp: 'lib/rsvp/rsvp.min',
     modernizr: 'lib/modernizr/modernizr-custom.min',
     leaflet: 'lib/leaflet/leaflet',
-    leafletprunecluster: 'lib/leaflet.prunecluster/PruneCluster',
+    leafletprunecluster: 'lib/leaflet.prunecluster/dist/PruneCluster',
     leafletfullscreen: 'lib/leaflet.fullscreen/dist/leaflet.fullscreen'
   },
   shim: {

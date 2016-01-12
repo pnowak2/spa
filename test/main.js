@@ -11,7 +11,7 @@ requirejs.config({
     rsvp: '../lib/rsvp/rsvp.min',
     modernizr: '../lib/modernizr/modernizr-custom.min',
     leaflet: '../lib/leaflet/leaflet',
-    leafletprunecluster: '../lib/leaflet.prunecluster/PruneCluster',
+    leafletprunecluster: '../lib/leaflet.prunecluster/dist/PruneCluster',
     leafletfullscreen: '../lib/leaflet.fullscreen/dist/leaflet.fullscreen',
     jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
     'jasmine-html': ['../lib/jasmine/lib/jasmine-core/jasmine-html'],

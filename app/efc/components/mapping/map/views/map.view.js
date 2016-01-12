@@ -31,6 +31,7 @@ define(function(require) {
 
     createMap: function() {
       var map = Leaflet.map(this.el, {
+        attributionControl: false,
         fullscreenControl: true
       });
 
