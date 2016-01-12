@@ -11,7 +11,7 @@ define(function(require) {
       criteria = criteria || {};
 
       return new RSVP.Promise(function(resolve, reject) {
-        // resolve(searchResultMapper.map(markersDataSource));
+        // resolve(searchResultMapper.map(markersDataSource.generate()));
         $.ajax({
           url: constants.urls.SEARCH_MAP,
           dataType: 'json',
