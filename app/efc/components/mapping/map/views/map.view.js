@@ -21,7 +21,6 @@ define(function(require) {
     initMap: function() {
       if (!this.map) {
         this.map = this.createMap();
-
         this.tileLayer = this.createTileLayer();
         this.clusterGroupLayer = this.createClusterGroupLayer();
 
@@ -34,6 +33,7 @@ define(function(require) {
       var map = Leaflet.map(this.el, {
         fullscreenControl: true
       });
+
       map.setView(
         this.defaults.initialPosition,
         this.defaults.initialZoom
