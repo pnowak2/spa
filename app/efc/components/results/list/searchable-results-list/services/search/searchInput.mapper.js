@@ -24,6 +24,17 @@ define(function(require) {
         isOrganisationTypeDefined(input);
     },
 
+    isMatchAll = function(input) {
+      if (input.keyword ||
+        isCountryDefined(input) ||
+        isCountryDefined(input) ||
+        isCountryDefined(input)) {
+        return false
+      } else {
+        return true;
+      }
+    },
+
     map = function(input) {
       input = input || {};
 
@@ -66,6 +77,12 @@ define(function(require) {
       if (isAdvanced(input)) {
         mapped = _.extend(mapped, {
           'searchType': 'advanced'
+        });
+      }
+
+      if (isMatchAll(input)) {
+        mapped = _.extend(mapped, {
+          'searchType': 'matchAll'
         });
       }
 

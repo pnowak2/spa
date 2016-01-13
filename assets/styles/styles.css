@@ -296,9 +296,9 @@
 .efc-tabs {
     padding: 0;
     margin: 0;
-    background-color: #074a8b;
-    border-top: 1px solid #4B8AC8;
-    border-bottom: 1px solid #4B8AC8;
+    background-color: #274e85;
+    border-top: 1px solid #5477A8;
+    border-bottom: 1px solid #5477A8;
     border-left: 0;
     border-right: 0;
     font-size: 0;
@@ -322,15 +322,19 @@
 }
 
 .efc-tabs__tab--selected {
-    background-color: #0762af;
+    background-color: #3D6D9D;
 }
 
 .efc-tabs__tab:hover {
-    background-color: #0774bb;
+    background-color: #2D5792;
+}
+
+.efc-tabs__tab--selected:hover {
+    background-color: #4275A8;
 }
 
 .efc-tabs__tab:last-child {
-    border-left: 1px solid #4B8AC8;
+    border-left: 1px solid #5680AB;
 }
 
 /* Pager */
