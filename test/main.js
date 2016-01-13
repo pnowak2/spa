@@ -12,7 +12,7 @@ requirejs.config({
     modernizr: '../lib/modernizr/modernizr-custom.min',
     leaflet: '../lib/leaflet/leaflet',
     leafletprunecluster: '../lib/leaflet.prunecluster/dist/PruneCluster',
-    leafletfullscreen: '../lib/leaflet.fullscreen/dist/leaflet.fullscreen',
+    leafletfullscreen: '../lib/leaflet.fullscreen/dist/Leaflet.fullscreen',
     jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
     'jasmine-html': ['../lib/jasmine/lib/jasmine-core/jasmine-html'],
     'jasmine-boot': ['../lib/jasmine/lib/jasmine-core/boot'],
