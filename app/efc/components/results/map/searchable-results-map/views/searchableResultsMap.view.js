@@ -50,6 +50,7 @@ define(function(require) {
         popupContent = popupComponent.render().view.el;
 
       return {
+        id: dataItem.id,
         lat: dataItem.lat,
         lng: dataItem.lng,
         popupContent: popupContent

@@ -178,7 +178,7 @@
 
          it('convert data item to marker data', function() {
            var dataItem = {
-               id: '1',
+               id: '123',
                lat: 2,
                lng: 4,
                title: 'Project title',
@@ -191,6 +191,7 @@
                popupData: dataItem
              }).render().view.el;
 
+           expect(marker.id).toEqual('123');
            expect(marker.lat).toEqual(2);
            expect(marker.lng).toEqual(4);
            expect(marker.popupContent.outerHTML).toEqual(popupContent.outerHTML);

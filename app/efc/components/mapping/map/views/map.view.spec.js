@@ -164,6 +164,14 @@ define(function(require) {
           expect(this.view.toLeafletMarker({})).toEqual(jasmine.any(PruneCluster.Marker));
         });
 
+        it('should create marker with correct id', function() {
+          var marker = this.view.toLeafletMarker({
+            id: 123
+          });
+
+          expect(marker.data.id).toEqual(123);
+        });
+
         it('should create marker with correct lat and lng', function() {
           var marker = this.view.toLeafletMarker({
             lat: 2,

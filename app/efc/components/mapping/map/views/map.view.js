@@ -58,6 +58,7 @@ define(function(require) {
       var leafletMarker = new PruneCluster.Marker(
         marker.lat,
         marker.lng, {
+          id: marker.id,
           popup: marker.popupContent
         }
       );
