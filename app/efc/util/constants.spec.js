@@ -18,7 +18,7 @@ define(function(require) {
       });
 
       it('.TILEURL should be defined', function() {
-        expect(constants.urls.TILEURL).toEqual('http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}');
+        expect(constants.urls.TILEURL).toEqual('https://ec.europa.eu/migrant-integration/assets/img/openlayersTiles/ewsi/{z}/{x}/{y}.png');
       });
     });
   });

@@ -54,7 +54,7 @@
   width: 100px;
   overflow: visible;
   color: #fff;
-  background-color: #fdbe00;
+  background-color: #f05a22;
   font-size: 19px;
   position: relative;
   outline-style:none;
@@ -83,7 +83,7 @@
     width: 0;
     height: 0;
     border-top: 7px solid transparent;
-    border-right: 7px solid #fdbe00;
+    border-right: 7px solid #f05a22;
     border-bottom: 7px solid transparent;
     border-left: 7px solid transparent;
 }

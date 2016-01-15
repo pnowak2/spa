@@ -26,9 +26,9 @@ define(function(require) {
         expect(MapView.prototype.defaults).toEqual({
           tileUrl: constants.urls.TILEURL,
           initialZoom: 4,
-          initialPosition: [48, 9],
-          minZoom: 1,
-          maxZoom: 16
+          initialPosition: [51, 17],
+          minZoom: 4,
+          maxZoom: 7
         })
       });
     });
