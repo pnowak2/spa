@@ -345,6 +345,8 @@
 }
 
 .efc-pager__page,
+.efc-pager__page:hover,
+.efc-pager__page:focus,
 .efc-pager__page:visited {
   box-sizing: border-box;
   float: left;
@@ -371,7 +373,7 @@
 .efc-pager__page--selected,
 .efc-pager__page--selected:hover,
 .efc-pager__page--selected:visited {
-  background: #FDBE00;
+  background: #F05A22;
   color: #fff;
   font-weight: bold;
 }
