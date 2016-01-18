@@ -498,7 +498,7 @@ define(function(require) {
           expect(this.$el.find('select')).toHaveAttr('multiple');
         });
 
-        it('should render multiple options select', function() {
+        it('should render single option select', function() {
           this.view.options = {
             multiple: false
           }
