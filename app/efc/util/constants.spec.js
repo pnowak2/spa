@@ -16,10 +16,6 @@ define(function(require) {
       it('.SEARCH_MAP should be defined', function() {
         expect(constants.urls.SEARCH_MAP).toEqual('/programmes/service/es/search-map');
       });
-
-      it('.TILEURL should be defined', function() {
-        expect(constants.urls.TILEURL).toEqual('https://ec.europa.eu/migrant-integration/assets/img/openlayersTiles/ewsi/{z}/{x}/{y}.png');
-      });
     });
   });
 });

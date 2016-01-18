@@ -3,7 +3,7 @@ define(function(require) {
     _ = require('underscore'),
     Leaflet = require('leaflet'),
     LeafletPruneCluster = require('leafletprunecluster'),
-    constants = require('app/efc/util/constants'),
+    constants = require('app/shared/util/constants'),
     MapView = require('./map.view');
 
   describe('Map View', function() {
@@ -24,7 +24,7 @@ define(function(require) {
 
       it('.defaults should be properly defined', function() {
         expect(MapView.prototype.defaults).toEqual({
-          tileUrl: constants.urls.TILEURL,
+          tileUrl: constants.urls.MAP_TILEURL,
           initialZoom: 4,
           initialPosition: [51, 17],
           minZoom: 4,

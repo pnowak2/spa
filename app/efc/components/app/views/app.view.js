@@ -5,7 +5,7 @@ define(function(require) {
     SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     SearchableResultsMapComponent = require('app/efc/components/results/map/searchable-results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
-    MapComponent = require('app/efc/components/mapping/map/main.component'),
+    MapComponent = require('app/shared/components/mapping/map/main.component'),
     tabsDataSource = require('../data/tabs');
 
   return Backbone.View.extend({

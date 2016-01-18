@@ -1,8 +1,8 @@
  define(function(require) {
    var Backbone = require('backbone'),
      SearchableResultsMapView = require('./searchableResultsMap.view'),
-     ProjectPopupComponent = require('app/efc/components/mapping/popups/project/main.component'),
-     MapComponent = require('app/efc/components/mapping/map/main.component'),
+     ProjectPopupComponent = require('app/shared/components/mapping/popups/project/main.component'),
+     MapComponent = require('app/shared/components/mapping/map/main.component'),
      searchService = require('../services/search/search.service'),
      RSVP = require('rsvp'),
      app = require('app/app.module'),

@@ -77,6 +77,15 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/multiselect/models/selectItem.model.spec',
     'app/shared/components/multiselect/collections/multiselect.collection.spec',
 
+    // map component
+    'app/shared/components/mapping/map/main.component.spec',
+    'app/shared/components/mapping/map/views/map.view.spec',
+
+    // project popup component
+    'app/shared/components/mapping/popups/project/main.component.spec',
+    'app/shared/components/mapping/popups/project/models/projectPopup.model.spec',
+    'app/shared/components/mapping/popups/project/views/projectPopup.view.spec',
+
     // util
     'app/efc/util/constants.spec',
     'app/efc/routers/efc.router.spec',
@@ -114,17 +123,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/results/map/searchable-results-map/views/searchableResultsMap.view.spec',
     'app/efc/components/results/map/searchable-results-map/services/search/searchInput.mapper.spec',
     'app/efc/components/results/map/searchable-results-map/services/search/searchResult.mapper.spec',
-    'app/efc/components/results/map/searchable-results-map/services/search/search.service.spec',
-
-    // map component
-    'app/efc/components/mapping/map/main.component.spec',
-    'app/efc/components/mapping/map/views/map.view.spec',
-
-    // project popup component
-    'app/efc/components/mapping/popups/project/main.component.spec',
-    'app/efc/components/mapping/popups/project/models/projectPopup.model.spec',
-    'app/efc/components/mapping/popups/project/views/projectPopup.view.spec',
-
+    'app/efc/components/results/map/searchable-results-map/services/search/search.service.spec'
 
   ], function() {
     window.onload();

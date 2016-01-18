@@ -14,5 +14,11 @@ define(function(require) {
       });
     });
 
+    describe('urls', function() {
+      it('.TILEURL should be defined', function() {
+        expect(constants.urls.MAP_TILEURL).toEqual('https://ec.europa.eu/migrant-integration/assets/img/openlayersTiles/ewsi/{z}/{x}/{y}.png');
+      });
+    });
+
   });
 });

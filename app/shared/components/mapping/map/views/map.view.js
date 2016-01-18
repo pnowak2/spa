@@ -1,7 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     _ = require('underscore'),
-    constants = require('app/efc/util/constants'),
+    constants = require('app/shared/util/constants'),
     Mustache = require('mustache'),
     Leaflet = require('leaflet'),
     LeafletPruneCluster = require('leafletprunecluster'),
@@ -11,7 +11,7 @@ define(function(require) {
     className: 'efc-map',
 
     defaults: {
-      tileUrl: constants.urls.TILEURL,
+      tileUrl: constants.urls.MAP_TILEURL,
       initialZoom: 4,
       initialPosition: [51, 17],
       minZoom: 4,

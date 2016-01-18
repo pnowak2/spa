@@ -2,9 +2,9 @@ define(function(require) {
   var Backbone = require('backbone'),
     _ = require('underscore'),
     app = require('app/app.module'),
-    MapComponent = require('app/efc/components/mapping/map/main.component'),
+    MapComponent = require('app/shared/components/mapping/map/main.component'),
     searchService = require('../services/search/search.service'),
-    ProjectPopupComponent = require('app/efc/components/mapping/popups/project/main.component');
+    ProjectPopupComponent = require('app/shared/components/mapping/popups/project/main.component');
 
   return Backbone.View.extend({
     className: 'efc-searchable-results-map',
