@@ -5,7 +5,8 @@ define(function(require) {
     Mustache = require('mustache'),
     Leaflet = require('leaflet'),
     LeafletPruneCluster = require('leafletprunecluster'),
-    Fullscreen = require('leafletfullscreen');
+    Fullscreen = require('leafletfullscreen'),
+    EasyButton = require('leafleteasybutton');
 
   return Backbone.View.extend({
     className: 'efc-map',
@@ -18,12 +19,18 @@ define(function(require) {
       maxZoom: 7
     },
 
+    initialize: function() {
+      _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton');
+    },
+
     initMap: function() {
       if (!this.map) {
         this.map = this.createMap();
+        this.buttonsBar = this.createButtonsBar();
         this.tileLayer = this.createTileLayer();
         this.clusterGroupLayer = this.createClusterGroupLayer();
 
+        this.buttonsBar.addTo(this.map);
         this.map.addLayer(this.tileLayer);
         this.map.addLayer(this.clusterGroupLayer);
       }
@@ -31,8 +38,7 @@ define(function(require) {
 
     createMap: function() {
       var map = Leaflet.map(this.el, {
-        attributionControl: false,
-        fullscreenControl: true
+        attributionControl: false
       });
 
       map.setView(
@@ -41,6 +47,40 @@ define(function(require) {
       );
 
       return map;
+    },
+
+    createButtonsBar: function() {
+      var homeBtn = this.createHomeButton(),
+        fullScreenBtn = this.createFullscreenButton(),
+        printBtn = this.createPrintButton();
+
+      return Leaflet.easyBar([homeBtn, fullScreenBtn, printBtn], {
+        position: 'topleft'
+      });
+    },
+
+    createHomeButton: function() {
+      return Leaflet.easyButton('fa-home', this.didClickHomeButton);
+    },
+
+    createFullscreenButton: function() {
+      return Leaflet.easyButton('fa-arrows-alt', this.didClickFullscreenButton);
+    },
+
+    createPrintButton: function() {
+      return Leaflet.easyButton('fa-print', this.didClickPrintButton);
+    },
+
+    didClickHomeButton: function(btn, map) {
+      map.setView(this.defaults.initialPosition, this.defaults.initialZoom);
+    },
+
+    didClickFullscreenButton: function(btn, map) {
+      map.toggleFullscreen();
+    },
+
+    didClickPrintButton: function(btn, map) {
+      window.print();
     },
 
     createTileLayer: function() {

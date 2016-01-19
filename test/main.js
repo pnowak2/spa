@@ -13,6 +13,7 @@ requirejs.config({
     leaflet: '../lib/leaflet/leaflet',
     leafletprunecluster: '../lib/leaflet.prunecluster/dist/PruneCluster',
     leafletfullscreen: '../lib/leaflet.fullscreen/dist/Leaflet.fullscreen',
+    leafleteasybutton: '../lib/leaflet.easybutton/dist/easy-button',
     jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
     'jasmine-html': ['../lib/jasmine/lib/jasmine-core/jasmine-html'],
     'jasmine-boot': ['../lib/jasmine/lib/jasmine-core/boot'],
@@ -25,6 +26,9 @@ requirejs.config({
       deps: ['leaflet']
     },
     'leafletfullscreen': {
+      deps: ['leaflet']
+    },
+    'leafleteasybutton': {
       deps: ['leaflet']
     },
     'jasmine-html': {

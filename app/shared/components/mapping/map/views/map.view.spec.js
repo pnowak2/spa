@@ -37,9 +37,11 @@ define(function(require) {
       describe('.initMap', function() {
         beforeEach(function() {
           this.fakeMap = jasmine.createSpyObj('map', ['addLayer']);
+          this.fakeButtonsBar = jasmine.createSpyObj('buttonsBar', ['addTo']);
           this.fakeTileLayer = {};
           this.fakeClusterGroupLayer = {};
           spyOn(MapView.prototype, 'createMap').and.returnValue(this.fakeMap);
+          spyOn(MapView.prototype, 'createButtonsBar').and.returnValue(this.fakeButtonsBar);
           spyOn(MapView.prototype, 'createTileLayer').and.returnValue(this.fakeTileLayer);
           spyOn(MapView.prototype, 'createClusterGroupLayer').and.returnValue(this.fakeClusterGroupLayer);
 
@@ -55,12 +57,20 @@ define(function(require) {
           expect(this.view.map).toBe(this.fakeMap);
         });
 
+        it('should create buttons bar instance', function() {
+          expect(this.view.buttonsBar).toBe(this.fakeButtonsBar);
+        });
+
         it('should create tile layer instance', function() {
           expect(this.view.tileLayer).toBe(this.fakeTileLayer);
         });
 
         it('should create cluster group layer instance', function() {
           expect(this.view.clusterGroupLayer).toBe(this.fakeClusterGroupLayer);
+        });
+
+        it('should add buttons bar to the map', function() {
+          expect(this.view.buttonsBar.addTo).toHaveBeenCalledWith(this.view.map);
         });
 
         it('should add tile layer to the map', function() {
@@ -91,8 +101,7 @@ define(function(require) {
         it('should have map instance referencing view element and with correct map options', function() {
           this.view.createMap();
           expect(Leaflet.map).toHaveBeenCalledWith(this.view.el, {
-            attributionControl: false,
-            fullscreenControl: true
+            attributionControl: false
           });
         });
 
@@ -102,6 +111,158 @@ define(function(require) {
             this.view.defaults.initialPosition,
             this.view.defaults.initialZoom
           );
+        });
+      });
+
+      describe('.createButtonsBar()', function() {
+        beforeEach(function() {
+          this.fakeEasyBar = {};
+          this.fakeHomeButton = {};
+          this.fakeFullscreenButton = {};
+          this.fakePrintButton = {};
+
+          spyOn(Leaflet, 'easyBar').and.returnValue(this.fakeEasyBar);
+          spyOn(MapView.prototype, 'createHomeButton').and.returnValue(this.fakeHomeButton);
+          spyOn(MapView.prototype, 'createFullscreenButton').and.returnValue(this.fakeFullscreenButton);
+          spyOn(MapView.prototype, 'createPrintButton').and.returnValue(this.fakePrintButton);
+
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.createButtonsBar).toEqual(jasmine.any(Function));
+        });
+
+        it('should return correct buttons bar instance', function() {
+          expect(this.view.createButtonsBar()).toEqual(this.fakeEasyBar);
+        });
+
+        it('create buttons bar with correct buttons and position', function() {
+          this.view.createButtonsBar();
+
+          expect(Leaflet.easyBar).toHaveBeenCalledWith([
+            this.fakeHomeButton,
+            this.fakeFullscreenButton,
+            this.fakePrintButton
+          ], {
+            position: 'topleft'
+          });
+        });
+      });
+
+      describe('.createHomeButton()', function() {
+        beforeEach(function() {
+          this.fakeButton = {};
+          spyOn(Leaflet, 'easyButton').and.returnValue(this.fakeButton);
+
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.createHomeButton).toEqual(jasmine.any(Function));
+        });
+
+        it('return correctly initialized button', function() {
+          var btn = this.view.createHomeButton();
+
+          expect(Leaflet.easyButton).toHaveBeenCalledWith('fa-home', this.view.didClickHomeButton);
+          expect(btn).toBe(this.fakeButton);
+        });
+      });
+
+      describe('.createFullscreenButton()', function() {
+        beforeEach(function() {
+          this.fakeButton = {};
+          spyOn(Leaflet, 'easyButton').and.returnValue(this.fakeButton);
+
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.createFullscreenButton).toEqual(jasmine.any(Function));
+        });
+
+        it('return correctly initialized button', function() {
+          var btn = this.view.createFullscreenButton();
+
+          expect(Leaflet.easyButton).toHaveBeenCalledWith('fa-arrows-alt', this.view.didClickFullscreenButton);
+          expect(btn).toBe(this.fakeButton);
+        });
+      });
+
+      describe('.createPrintButton()', function() {
+        beforeEach(function() {
+          this.fakeButton = {};
+          spyOn(Leaflet, 'easyButton').and.returnValue(this.fakeButton);
+
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.createPrintButton).toEqual(jasmine.any(Function));
+        });
+
+        it('return correctly initialized button', function() {
+          var btn = this.view.createPrintButton();
+
+          expect(Leaflet.easyButton).toHaveBeenCalledWith('fa-print', this.view.didClickPrintButton);
+          expect(btn).toBe(this.fakeButton);
+        });
+      });
+
+      describe('.didClickHomeButton()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.didClickHomeButton).toEqual(jasmine.any(Function));
+        });
+
+        it('should reset position and zoom to default states', function() {
+          var fakeBtn = {},
+            fakeMap = jasmine.createSpyObj('map', ['setView']);
+
+          this.view.didClickHomeButton(fakeBtn, fakeMap);
+
+          expect(fakeMap.setView).toHaveBeenCalledWith(this.view.defaults.initialPosition, this.view.defaults.initialZoom);
+        });
+      });
+
+      describe('.didClickFullscreenButton()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.didClickFullscreenButton).toEqual(jasmine.any(Function));
+        });
+
+        it('should toggle map to fullscreen back and forth', function() {
+          var fakeBtn = {},
+            fakeMap = jasmine.createSpyObj('map', ['toggleFullscreen']);
+
+          this.view.didClickFullscreenButton(fakeBtn, fakeMap);
+
+          expect(fakeMap.toggleFullscreen).toHaveBeenCalled();
+        });
+      });
+
+      describe('.didClickPrintButton()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.didClickPrintButton).toEqual(jasmine.any(Function));
+        });
+
+        it('should print the map', function() {
+          spyOn(window, 'print');
+
+          this.view.didClickPrintButton();
+
+          expect(window.print).toHaveBeenCalled();
         });
       });
 

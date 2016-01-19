@@ -13,7 +13,8 @@ requirejs.config({
     modernizr: 'lib/modernizr/modernizr-custom.min',
     leaflet: 'lib/leaflet/leaflet',
     leafletprunecluster: 'lib/leaflet.prunecluster/dist/PruneCluster',
-    leafletfullscreen: 'lib/leaflet.fullscreen/dist/Leaflet.fullscreen'
+    leafletfullscreen: 'lib/leaflet.fullscreen/dist/Leaflet.fullscreen',
+    leafleteasybutton: 'lib/leaflet.easybutton/dist/easy-button'
   },
   shim: {
     modernizr: {},
@@ -21,6 +22,9 @@ requirejs.config({
       deps: ['leaflet']
     },
     leafletfullscreen: {
+      deps: ['leaflet']
+    },
+    leafleteasybutton: {
       deps: ['leaflet']
     }
   }
