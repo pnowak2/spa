@@ -34,7 +34,13 @@ define(function(require) {
             title: 'Europe for Citizens',
             description: 'Mapping platform',
             startYear: '2015',
-            countries: ['pl', 'lu']
+            countries: [{
+              code: 'pl',
+              fullName: 'Poland'
+            }, {
+              code: 'lu',
+              fullName: 'Luxembourg'
+            }]
           })
         });
 
@@ -104,8 +110,8 @@ define(function(require) {
           });
 
           it('should have images with proper title', function() {
-            expect(this.$td.find('img').first()).toHaveAttr('title', 'pl');
-            expect(this.$td.find('img').last()).toHaveAttr('title', 'lu');
+            expect(this.$td.find('img').first()).toHaveAttr('title', 'Poland');
+            expect(this.$td.find('img').last()).toHaveAttr('title', 'Luxembourg');
           });
         });
       });

@@ -3,9 +3,10 @@ define(function(require) {
     countriesDatasource = require('app/efc/data/countries.datasource'),
 
     map = function(response) {
-      var total, items, response = response || {};
-
-      total = parseInt(response['iTotalRecords'], 10) || 0;
+      var response = response || {},
+        total = parseInt(response['iTotalRecords'], 10) || 0,
+        allCountries = countriesDatasource.getItems(),
+        items;
 
       items = _.map(response['aaData'], function(responseItem) {
         var id = responseItem[0],
@@ -13,10 +14,18 @@ define(function(require) {
           description = responseItem[2],
           startYear = responseItem[3],
           countries = _.chain(responseItem[4].split('|'))
-          .map(function(country) {
-            return country.toLowerCase();
-          })
           .compact()
+          .map(function(country) {
+            var code = country.toLowerCase(),
+              fullName = (_.findWhere(allCountries, {
+                id: country
+              }) || {}).title || ''
+
+            return {
+              code: code,
+              fullName: fullName
+            }
+          })
           .value();
 
         return {

@@ -40,6 +40,19 @@ define(function(require) {
           ],
         ]
       },
+      allDataOneRowWithWrongCountry: {
+        iTotalRecords: '1',
+        aaData: [
+          [
+            '17',
+            'Project title',
+            'Project description',
+            '2015',
+            'PL|XY',
+            'Coordinating'
+          ]
+        ]
+      },
       noCountriesOneRow: {
         iTotalRecords: '1',
         aaData: [
@@ -90,7 +103,16 @@ define(function(require) {
               title: 'Project title',
               description: 'Project description',
               startYear: '2015',
-              countries: ['pl', 'de', 'be']
+              countries: [{
+                code: 'pl',
+                fullName: 'Poland'
+              }, {
+                code: 'de',
+                fullName: 'Germany'
+              }, {
+                code: 'be',
+                fullName: 'Belgium'
+              }]
             }]
           })
         });
@@ -105,13 +127,43 @@ define(function(require) {
               title: 'Title 1',
               description: 'Description 1',
               startYear: '2011',
-              countries: ['pl', 'de']
+              countries: [{
+                code: 'pl',
+                fullName: 'Poland'
+              }, {
+                code: 'de',
+                fullName: 'Germany'
+              }]
             }, {
               id: '16',
               title: 'Title 2',
               description: 'Description 2',
               startYear: '2012',
-              countries: ['fr']
+              countries: [{
+                code: 'fr',
+                fullName: 'France'
+              }]
+            }]
+          })
+        });
+
+        it('should map response with wrong country to object', function() {
+          var mapped = searchResultMapper.map(testResponses.allDataOneRowWithWrongCountry);
+
+          expect(mapped).toEqual({
+            total: 1,
+            items: [{
+              id: '17',
+              title: 'Project title',
+              description: 'Project description',
+              startYear: '2015',
+              countries: [{
+                code: 'pl',
+                fullName: 'Poland'
+              }, {
+                code: 'xy',
+                fullName: ''
+              }]
             }]
           })
         });
