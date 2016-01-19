@@ -33,6 +33,16 @@ define(function(require) {
       });
     });
 
+    describe('creation', function() {
+      it('should bind callback methods', function() {
+        spyOn(_, 'bindAll');
+
+        var view = new MapView;
+
+        expect(_.bindAll).toHaveBeenCalledWith(view, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton');
+      });
+    });
+
     describe('api', function() {
       describe('.initMap', function() {
         beforeEach(function() {
