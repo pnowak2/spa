@@ -1,5 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
+    countriesDatasource = require('app/efc/data/countries.datasource'),
 
     map = function(response) {
       var total, items, response = response || {};

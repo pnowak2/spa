@@ -1,10 +1,10 @@
 define(function(require) {
   var _ = require('underscore'),
     advancedSearchService = require('./advancedSearch.service'),
-    countriesDataSource = require('./data/countries'),
-    activitiesDataSource = require('./data/activities'),
-    subactivitiesDataSource = require('./data/subactivities'),
-    organisationTypesDataSource = require('./data/organisationTypes');
+    countriesDataSource = require('app/efc/data/countries.datasource'),
+    activitiesDataSource = require('app/efc/data/activities.datasource'),
+    subactivitiesDataSource = require('app/efc/data/subactivities.datasource'),
+    organisationTypesDataSource = require('app/efc/data/organisationTypes.datasource');
 
   describe('api', function() {
 

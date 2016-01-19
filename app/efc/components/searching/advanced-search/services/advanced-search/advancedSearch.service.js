@@ -1,9 +1,9 @@
 define(function(require) {
   _ = require('underscore'),
-  countriesDataSource = require('./data/countries'),
-  activitiesDataSource = require('./data/activities'),
-  subactivitiesDataSource = require('./data/subactivities'),
-  organisationTypesDataSource = require('./data/organisationTypes');
+  countriesDataSource = require('app/efc/data/countries.datasource'),
+  activitiesDataSource = require('app/efc/data/activities.datasource'),
+  subactivitiesDataSource = require('app/efc/data/subactivities.datasource'),
+  organisationTypesDataSource = require('app/efc/data/organisationTypes.datasource');
 
   allCountries = function() {
     return countriesDataSource.getItems();
