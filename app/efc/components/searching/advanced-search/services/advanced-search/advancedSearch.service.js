@@ -6,21 +6,21 @@ define(function(require) {
   organisationTypesDataSource = require('./data/organisationTypes');
 
   allCountries = function() {
-    return countriesDataSource.getData();
+    return countriesDataSource.getItems();
   },
 
   allActivities = function() {
-    return activitiesDataSource.getData();
+    return activitiesDataSource.getItems();
   },
 
   subactivitiesByActivityId = function(activityId) {
-    return _.where(subactivitiesDataSource.getData(), {
+    return _.where(subactivitiesDataSource.getItems(), {
       activityId: activityId
     });
   },
 
   allOrganisationTypes = function() {
-    return organisationTypesDataSource.getData()
+    return organisationTypesDataSource.getItems()
   };
 
   return {

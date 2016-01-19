@@ -1,6 +1,6 @@
 define(function(require) {
   return {
-    getData: function() {
+    getItems: function() {
       return [{
         id: '31052686',
         activityId: '31052685',

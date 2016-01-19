@@ -1,6 +1,6 @@
 define(function(require) {
   return {
-    getData: function() {
+    getItems: function() {
       return [{
         id: '31060124',
         title: 'Civil Society Organisation'

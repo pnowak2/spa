@@ -9,19 +9,19 @@ define(function(require) {
   describe('api', function() {
 
     beforeEach(function() {
-      spyOn(countriesDataSource, 'getData').and.returnValue([{
+      spyOn(countriesDataSource, 'getItems').and.returnValue([{
         id: '1'
       }, {
         id: '2'
       }]);
 
-      spyOn(activitiesDataSource, 'getData').and.returnValue([{
+      spyOn(activitiesDataSource, 'getItems').and.returnValue([{
         id: '1'
       }, {
         id: '2'
       }]);
 
-      spyOn(subactivitiesDataSource, 'getData').and.returnValue([{
+      spyOn(subactivitiesDataSource, 'getItems').and.returnValue([{
         id: '1',
         activityId: '10'
       }, {
@@ -38,7 +38,7 @@ define(function(require) {
         activityId: '10'
       }]);
 
-      spyOn(organisationTypesDataSource, 'getData').and.returnValue([{
+      spyOn(organisationTypesDataSource, 'getItems').and.returnValue([{
         id: '1'
       }, {
         id: '2'
@@ -51,7 +51,7 @@ define(function(require) {
       });
 
       it('should retrieve all countries', function() {
-        expect(advancedSearchService.allCountries()).toEqual(countriesDataSource.getData());
+        expect(advancedSearchService.allCountries()).toEqual(countriesDataSource.getItems());
       });
     });
 
@@ -61,7 +61,7 @@ define(function(require) {
       });
 
       it('should retrieve all activities', function() {
-        expect(advancedSearchService.allActivities()).toEqual(activitiesDataSource.getData());
+        expect(advancedSearchService.allActivities()).toEqual(activitiesDataSource.getItems());
       });
     });
 
@@ -105,7 +105,7 @@ define(function(require) {
       });
 
       it('should retrieve all organisation types', function() {
-        expect(advancedSearchService.allOrganisationTypes()).toEqual(organisationTypesDataSource.getData());
+        expect(advancedSearchService.allOrganisationTypes()).toEqual(organisationTypesDataSource.getItems());
       });
     });
   });
