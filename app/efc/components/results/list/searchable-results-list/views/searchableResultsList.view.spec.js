@@ -3,6 +3,7 @@ define(function(require) {
     app = require('app/app.module'),
     SearchableResultsListView = require('./searchableResultsList.view'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
+    PageStatsComponent = require('app/shared/components/page-stats/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
     searchService = require('../services/search/search.service'),
     RSVP = require('rsvp'),
@@ -27,6 +28,10 @@ define(function(require) {
 
       it('should have pager component defined', function() {
         expect(this.view.pagerComponent).toEqual(jasmine.any(PagerComponent));
+      });
+
+      it('should have page stats component defined', function() {
+        expect(this.view.pageStatsComponent).toEqual(jasmine.any(PageStatsComponent));
       });
 
       it('should bind callback methods with view object', function() {
@@ -318,6 +323,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(ResultsListComponent.prototype, 'update');
           spyOn(PagerComponent.prototype, 'update');
+          spyOn(PageStatsComponent.prototype, 'update');
 
           this.view = new SearchableResultsListView;
           this.fakeData = {
@@ -348,6 +354,13 @@ define(function(require) {
           expect(this.view.pagerComponent.update).toHaveBeenCalledWith(jasmine.objectContaining({
             totalItems: 1000
           }));
+        });
+
+        it('should update page stats component with data from pager', function() {
+          var fakePagerState = {};
+          spyOn(PagerComponent.prototype, 'getState').and.returnValue(fakePagerState);
+          this.view.didSearchSucceed(this.fakeData);
+          expect(this.view.pageStatsComponent.update).toHaveBeenCalledWith(fakePagerState);
         });
       });
 
@@ -399,6 +412,11 @@ define(function(require) {
         it('should append pager component', function() {
           this.view.render();
           expect(this.view.$el).toContainHtml(this.view.pagerComponent.render().view.$el);
+        });
+
+        it('should append page stats component', function() {
+          this.view.render();
+          expect(this.view.$el).toContainHtml(this.view.pageStatsComponent.render().view.$el);
         });
       });
     });

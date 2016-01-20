@@ -86,7 +86,7 @@ define(function(require) {
           expect(this.view.render()).toBe(this.view);
         });
 
-        it('should', function() {
+        it('should render proper stats text', function() {
           var el = this.view.render().el;
 
           expect(el).toContainText('Showing 11 to 20 of 162 entries');
@@ -98,6 +98,32 @@ define(function(require) {
           });
 
           expect(el).toContainText('Showing 21 to 30 of 222 entries');
+        });
+
+        it('should be hidden total items is zero', function() {
+          var view1 = new PageStatsView({
+              displayStartItem: 0,
+              displayEndItem: 0,
+              totalItems: 0
+            }),
+            view2 = new PageStatsView({
+              displayStartItem: 1,
+              displayEndItem: 1,
+              totalItems: 0
+            }),
+            view3 = new PageStatsView({
+              displayStartItem: 1,
+              displayEndItem: 1,
+              totalItems: 1
+            });
+
+          view1.render();
+          view2.render();
+          view3.render();
+
+          expect(view1.$el.css('display')).toEqual('none')
+          expect(view2.$el.css('display')).toEqual('none')
+          expect(view3.$el.css('display')).toEqual('block')
         });
       });
     });

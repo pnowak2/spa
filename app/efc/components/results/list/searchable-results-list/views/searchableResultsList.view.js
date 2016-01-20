@@ -4,6 +4,7 @@ define(function(require) {
     Backbone = require('backbone'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),
+    PageStatsComponent = require('app/shared/components/page-stats/main.component'),
     searchService = require('../services/search/search.service');
 
   return Backbone.View.extend({
@@ -11,8 +12,10 @@ define(function(require) {
 
     initialize: function() {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
+      this.pageStatsComponent = new PageStatsComponent;
       this.resultsListComponent = new ResultsListComponent;
       this.pagerComponent = new PagerComponent;
+
       this.cachedCriteria = {};
 
       this.startListeningPager();
@@ -73,6 +76,7 @@ define(function(require) {
       this.pagerComponent.update({
         totalItems: data.total
       });
+      this.pageStatsComponent.update(this.pagerComponent.getState());
     },
 
     didSearchFail: function(error) {
@@ -80,6 +84,7 @@ define(function(require) {
     },
 
     render: function() {
+      this.$el.append(this.pageStatsComponent.render().view.el);
       this.$el.append(this.resultsListComponent.render().view.el);
       this.$el.append(this.pagerComponent.render().view.el);
 

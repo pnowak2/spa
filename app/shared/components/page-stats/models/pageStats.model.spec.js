@@ -20,6 +20,28 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.hasItems()', function() {
+        it('should be defined', function() {
+          expect(PageStatsModel.prototype.hasItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if total items is above zero', function() {
+          var model1 = new PageStatsModel({
+              totalItems: 0
+            }),
+            model2 = new PageStatsModel({
+              totalItems: -1
+            }),
+            model3 = new PageStatsModel({
+              totalItems: 3
+            });
+
+          expect(model1.hasItems()).toBe(false);
+          expect(model2.hasItems()).toBe(false);
+          expect(model3.hasItems()).toBe(true);
+        });
+      });
+
       describe('.update()', function() {
         it('should be defined', function() {
           expect(PageStatsModel.prototype.update).toEqual(jasmine.any(Function));

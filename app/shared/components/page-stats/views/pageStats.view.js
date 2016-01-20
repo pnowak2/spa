@@ -24,6 +24,8 @@ define(function(require) {
 
       this.$el.html(html);
 
+      this.$el.toggle(this.model.hasItems());
+
       return this;
     }
   });

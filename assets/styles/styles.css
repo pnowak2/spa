@@ -386,6 +386,13 @@
   cursor: text;
 }
 
+/* Page stats */
+
+.efc-page-stats__details {
+  text-align: center;
+  font-size: 11px;
+}
+
 /* Results list */
 
 .efc-results-list__no-data {
@@ -431,7 +438,8 @@
 
 .efc-results-table th {
 	padding:20px 10px;
-	border-bottom:1px solid #e0e0e0;
+  border-bottom:1px solid #e0e0e0;
+	border-top:1px solid #e0e0e0;
 	background: #fff;
   font-size: 14px;
   font-weight: bold;

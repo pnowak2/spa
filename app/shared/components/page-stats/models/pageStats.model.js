@@ -8,6 +8,10 @@ define(function(require) {
       totalItems: 0
     },
 
+    hasItems: function() {
+      return this.get('totalItems') > 0;
+    },
+
     update: function(options) {
       this.set(options);
     }
