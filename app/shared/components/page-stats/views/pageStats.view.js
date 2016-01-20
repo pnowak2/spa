@@ -8,8 +8,6 @@ define(function(require) {
     className: 'efc-page-stats',
 
     initialize: function(options) {
-      _.bindAll(this, 'render');
-
       this.model = new PageStatsModel(options);
 
       this.listenTo(this.model, 'change', this.render);

@@ -22,14 +22,6 @@ define(function(require) {
         expect(view.model).toEqual(jasmine.any(PageStatsModel));
       });
 
-      it('should bind view methods', function() {
-        spyOn(_, 'bindAll');
-
-        var view = new PageStatsView;
-
-        expect(_.bindAll).toHaveBeenCalledWith(view, 'render');
-      });
-
       it('should have model initialized with options', function() {
         spyOn(PageStatsModel.prototype, 'initialize');
 
