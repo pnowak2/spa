@@ -177,10 +177,35 @@ define(function(require) {
       return (this.getCurrentPage() - 1) * this.getPageSize();
     },
 
+    getDisplayStartItem: function() {
+      if (this.getTotalItems() === 0) {
+        return 0
+      } else {
+        return this.getStartFromItem() + 1
+      }
+    },
+
+    getDisplayEndItem: function() {
+      var displayStartItem = this.getDisplayStartItem(),
+        pageSize = this.getPageSize(),
+        totalItems = this.getTotalItems(),
+        pageEnd;
+
+      pageEnd = _.min([displayStartItem + pageSize - 1, totalItems])
+
+      if (this.getTotalItems() === 0) {
+        return 0;
+      }
+
+      return pageEnd;
+    },
+
     toJSON: function() {
       var attrs = this.constructor.__super__.toJSON.call(this),
         serialized = _.assign(attrs, {
           startFromItem: this.getStartFromItem(),
+          displayStartItem: this.getDisplayStartItem(),
+          displayEndItem: this.getDisplayEndItem(),
           pagesCount: this.getPagesCount(),
           hasItems: this.hasItems(),
           isFirstPage: this.isFirstPageSelected(),

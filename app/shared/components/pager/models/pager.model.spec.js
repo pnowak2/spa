@@ -524,11 +524,17 @@ define(function(require) {
               totalItems: 100,
               pageSize: 10,
               currentPage: 7
+            }),
+            model4 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 1
             });
 
           expect(model1.getStartFromItem()).toEqual(10);
           expect(model2.getStartFromItem()).toEqual(10);
           expect(model3.getStartFromItem()).toEqual(60);
+          expect(model4.getStartFromItem()).toEqual(0);
         });
 
         it('should return proper value if current page bigger than pages available', function() {
@@ -559,6 +565,122 @@ define(function(require) {
           });
 
           expect(model.getStartFromItem()).toEqual(0);
+        });
+      });
+
+      describe('.getDisplayStartItem()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.getDisplayStartItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should return number of starting item in current page window', function() {
+          var model1 = new PagerModel({
+              totalItems: 20,
+              pageSize: 10,
+              currentPage: 1
+            }),
+            model2 = new PagerModel({
+              totalItems: 20,
+              pageSize: 10,
+              currentPage: 2
+            }),
+            model3 = new PagerModel({
+              totalItems: 15,
+              pageSize: 10,
+              currentPage: 2
+            }),
+            model4 = new PagerModel({
+              totalItems: 15,
+              pageSize: 10,
+              currentPage: 3
+            }),
+            model5 = new PagerModel({
+              totalItems: 0,
+              pageSize: 10,
+              currentPage: 1
+            }),
+            model6 = new PagerModel({
+              totalItems: 10,
+              pageSize: 10,
+              currentPage: 2
+            }),
+            model7 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 7
+            }),
+            model8 = new PagerModel({
+              totalItems: 91,
+              pageSize: 10,
+              currentPage: 10
+            });
+
+          expect(model1.getDisplayStartItem()).toEqual(1);
+          expect(model2.getDisplayStartItem()).toEqual(11);
+          expect(model3.getDisplayStartItem()).toEqual(11);
+          expect(model4.getDisplayStartItem()).toEqual(11);
+          expect(model5.getDisplayStartItem()).toEqual(0);
+          expect(model6.getDisplayStartItem()).toEqual(1);
+          expect(model7.getDisplayStartItem()).toEqual(61);
+          expect(model8.getDisplayStartItem()).toEqual(91);
+        });
+      });
+
+      describe('.getDisplayEndItem()', function() {
+        it('should be defined', function() {
+          expect(PagerModel.prototype.getDisplayEndItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should return number of ending item in current page window', function() {
+          var model1 = new PagerModel({
+              totalItems: 20,
+              pageSize: 10,
+              currentPage: 1
+            }),
+            model2 = new PagerModel({
+              totalItems: 20,
+              pageSize: 10,
+              currentPage: 2
+            }),
+            model3 = new PagerModel({
+              totalItems: 15,
+              pageSize: 10,
+              currentPage: 2
+            }),
+            model4 = new PagerModel({
+              totalItems: 15,
+              pageSize: 10,
+              currentPage: 3
+            }),
+            model5 = new PagerModel({
+              totalItems: 0,
+              pageSize: 10,
+              currentPage: 1
+            }),
+            model6 = new PagerModel({
+              totalItems: 10,
+              pageSize: 10,
+              currentPage: 2
+            }),
+            model7 = new PagerModel({
+              totalItems: 100,
+              pageSize: 10,
+              currentPage: 7
+            }),
+            model8 = new PagerModel({
+              totalItems: 91,
+              pageSize: 10,
+              currentPage: 10
+            });
+
+          expect(model1.getDisplayEndItem()).toEqual(10);
+          expect(model2.getDisplayEndItem()).toEqual(20);
+          expect(model3.getDisplayEndItem()).toEqual(15);
+          expect(model4.getDisplayEndItem()).toEqual(15);
+          expect(model5.getDisplayEndItem()).toEqual(0);
+          expect(model6.getDisplayEndItem()).toEqual(10);
+          expect(model7.getDisplayEndItem()).toEqual(70);
+          expect(model8.getDisplayEndItem()).toEqual(91);
         });
       });
 
@@ -1122,6 +1244,8 @@ define(function(require) {
             currentPage: 1,
             pageWindowSize: 3,
             startFromItem: 0,
+            displayStartItem: 1,
+            displayEndItem: 10,
             pagesCount: 10,
             hasItems: true,
             isFirstPage: true,
