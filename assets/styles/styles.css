@@ -380,6 +380,7 @@
 
 .efc-pager__page--disabled,
 .efc-pager__page--disabled:hover,
+.efc-pager__page--disabled:focus,
 .efc-pager__page--disabled:visited {
   background: #ddd;
   color: #999;
