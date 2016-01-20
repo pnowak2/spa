@@ -178,7 +178,7 @@ define(function(require) {
     },
 
     getDisplayStartItem: function() {
-      if (this.getTotalItems() === 0) {
+      if (!this.hasItems()) {
         return 0
       } else {
         return this.getStartFromItem() + 1
@@ -191,11 +191,11 @@ define(function(require) {
         totalItems = this.getTotalItems(),
         pageEnd;
 
-      pageEnd = _.min([displayStartItem + pageSize - 1, totalItems])
-
-      if (this.getTotalItems() === 0) {
+      if (!this.hasItems()) {
         return 0;
       }
+
+      pageEnd = _.min([displayStartItem + pageSize - 1, totalItems])
 
       return pageEnd;
     },
