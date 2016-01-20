@@ -68,6 +68,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/pager/views/pager.view.spec',
     'app/shared/components/pager/views/page.view.spec',
 
+    // page stats component
+    'app/shared/components/page-stats/main.component.spec',
+    'app/shared/components/page-stats/models/pageStats.model.spec',
+    'app/shared/components/page-stats/views/pageStats.view.spec',
+
     // tab switcher component
     'app/shared/components/tab-switcher/main.component.spec',
     'app/shared/components/tab-switcher/models/tab.model.spec',
