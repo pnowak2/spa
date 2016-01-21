@@ -20,6 +20,8 @@ define(function(require) {
     },
 
     initialize: function() {
+      this.clusterLayers = [];
+
       _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton');
     },
 
@@ -94,27 +96,43 @@ define(function(require) {
       return new PruneClusterForLeaflet;
     },
 
-    toLeafletMarker: function(marker) {
-      var leafletMarker = new PruneCluster.Marker(
-        marker.lat,
-        marker.lng, {
-          id: marker.id,
-          popup: marker.popupContent
-        }
-      );
-
-      return leafletMarker;
+    toLeafletMarker: function(markers) {
+      return _.map(markers, function(marker) {
+        return new PruneCluster.Marker(
+          marker.lat,
+          marker.lng, {
+            id: marker.id,
+            popup: marker.popupContent
+          }
+        )
+      });
     },
 
     toLeafletMarkers: function(markers) {
       return _.map(markers, this.toLeafletMarker, this);
     },
 
+    clearClusterLayers: function() {
+      _.each(this.clusterLayers, function(clusterLayer) {
+        this.map.removeLayer(clusterLayer);
+      }, this);
+
+      this.clusterLayers = [];
+    },
+
     showMarkers: function(markers) {
-      this.clusterGroupLayer.RemoveMarkers();
+      this.clearClusterLayers();
+
       var markersArray = this.toLeafletMarkers(markers);
-      this.clusterGroupLayer.RegisterMarkers(markersArray);
-      this.clusterGroupLayer.ProcessView();
+
+      _.each(markersArray, function(countryMarkers) {
+        var clusterGroupLayer = this.createClusterGroupLayer();
+        this.clusterLayers.push(clusterGroupLayer);
+
+        clusterGroupLayer.RegisterMarkers(countryMarkers);
+        clusterGroupLayer.ProcessView();
+        this.map.addLayer(clusterGroupLayer);
+      }, this);
     },
 
     render: function() {

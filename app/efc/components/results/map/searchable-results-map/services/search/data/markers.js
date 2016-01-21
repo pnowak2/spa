@@ -4,7 +4,7 @@ define(function(require) {
     generate = function() {
       var generated = [],
         countryMarkers = [],
-        countryCount = 5,
+        countryCount = _.random(5, 15),
         markersPerCountryCount,
         rnd_lat,
         rnd_lng,
@@ -13,7 +13,7 @@ define(function(require) {
 
       for (i = 1; i <= countryCount; i++) {
         countryMarkers = [];
-        markersPerCountryCount = _.random(50, 100);
+        markersPerCountryCount = _.random(100, 1000);
 
         for (j = 1; j <= markersPerCountryCount; j++) {
           rnd_lat = 42 + 12 * Math.random();
