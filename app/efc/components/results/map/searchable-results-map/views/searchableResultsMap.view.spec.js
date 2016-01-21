@@ -164,7 +164,10 @@
          beforeEach(function() {
            this.data = {
              total: 1,
-             itemsByCountry: [{}]
+             itemsByCountry: [
+               [{ /* country data */ }],
+               [{ /* country data */ }]
+             ]
            }
            this.view = new SearchableResultsMapView;
          });
@@ -183,7 +186,7 @@
          it('should return array of markers', function() {
            var markers = this.view.prepareMarkersData(this.data);
            expect(markers).toEqual(jasmine.any(Array));
-           expect(markers.length).toEqual(1);
+           expect(markers.length).toEqual(2);
          });
 
          it('should convert array of markers with factory method', function() {
