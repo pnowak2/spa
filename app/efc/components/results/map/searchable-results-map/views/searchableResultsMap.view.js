@@ -35,31 +35,33 @@ define(function(require) {
       app.showError(error);
     },
 
-    prepareMarkerData: function(dataItem) {
-      dataItem = dataItem || {};
-
-      var popupComponent = new ProjectPopupComponent({
-          popupData: {
-            id: dataItem.id,
-            title: dataItem.title,
-            description: dataItem.description,
-            activity: dataItem.activity,
-            coordinator: dataItem.coordinator
-          }
-        }),
-        popupContent = popupComponent.render().view.el;
-
-      return {
-        id: dataItem.id,
-        lat: dataItem.lat,
-        lng: dataItem.lng,
-        popupContent: popupContent
-      }
-    },
-
     prepareMarkersData: function(data) {
       data = data || {};
-      return _.map(data.items, this.prepareMarkerData);
+      return _.map(data.itemsByCountry, this.prepareMarkersByCountryData);
+    },
+
+    prepareMarkersByCountryData: function(countryItems) {
+      return _.map(countryItems, function(countryItem) {
+        countryItem = countryItem || {};
+
+        var popupComponent = new ProjectPopupComponent({
+            popupData: {
+              id: countryItem.id,
+              title: countryItem.title,
+              description: countryItem.description,
+              activity: countryItem.activity,
+              coordinator: countryItem.coordinator
+            }
+          }),
+          popupContent = popupComponent.render().view.el;
+
+        return {
+          id: countryItem.id,
+          lat: countryItem.lat,
+          lng: countryItem.lng,
+          popupContent: popupContent
+        }
+      });
     },
 
     render: function() {

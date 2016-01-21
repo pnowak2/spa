@@ -160,49 +160,11 @@
          });
        });
 
-       describe('.prepareMarkerData()', function() {
-         beforeEach(function() {
-           this.view = new SearchableResultsMapView;
-         });
-
-         it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.prepareMarkerData).toEqual(jasmine.any(Function));
-         });
-
-         it('should not throw if invoked without arguments', function() {
-           var self = this;
-           expect(function() {
-             self.view.prepareMarkerData();
-           }).not.toThrow();
-         });
-
-         it('convert data item to marker data', function() {
-           var dataItem = {
-               id: '123',
-               lat: 2,
-               lng: 4,
-               title: 'Project title',
-               description: 'Project description',
-               activity: 'Project activity',
-               coordinator: 'Project coordinator'
-             },
-             marker = this.view.prepareMarkerData(dataItem),
-             popupContent = new ProjectPopupComponent({
-               popupData: dataItem
-             }).render().view.el;
-
-           expect(marker.id).toEqual('123');
-           expect(marker.lat).toEqual(2);
-           expect(marker.lng).toEqual(4);
-           expect(marker.popupContent.outerHTML).toEqual(popupContent.outerHTML);
-         });
-       });
-
        describe('.prepareMarkersData()', function() {
          beforeEach(function() {
            this.data = {
              total: 1,
-             items: [{}]
+             itemsByCountry: [{}]
            }
            this.view = new SearchableResultsMapView;
          });
@@ -228,11 +190,69 @@
            var fakePreparedMarkerData = {},
              markers;
 
-           spyOn(SearchableResultsMapView.prototype, 'prepareMarkerData').and.returnValue(fakePreparedMarkerData);
+           spyOn(SearchableResultsMapView.prototype, 'prepareMarkersByCountryData').and.returnValue(fakePreparedMarkerData);
 
            markers = this.view.prepareMarkersData(this.data);
 
            expect(markers[0]).toBe(fakePreparedMarkerData);
+         });
+       });
+
+       describe('.prepareMarkersByCountryData()', function() {
+         beforeEach(function() {
+           this.view = new SearchableResultsMapView;
+         });
+
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.prepareMarkersByCountryData).toEqual(jasmine.any(Function));
+         });
+
+         it('should not throw if invoked without arguments', function() {
+           var self = this;
+           expect(function() {
+             self.view.prepareMarkersByCountryData();
+           }).not.toThrow();
+         });
+
+         it('should convert country items to marker data items', function() {
+           var countryItem1 = {
+               id: '123',
+               lat: 2,
+               lng: 4,
+               title: 'Project title 1',
+               description: 'Project description 1',
+               activity: 'Project activity 1',
+               coordinator: 'Project coordinator 1'
+             },
+             countryItem2 = {
+               id: '456',
+               lat: 3,
+               lng: 5,
+               title: 'Project title 2',
+               description: 'Project description 2',
+               activity: 'Project activity 2',
+               coordinator: 'Project coordinator 2'
+             },
+             countryItems = [countryItem1, countryItem2],
+             markersByCountry = this.view.prepareMarkersByCountryData(countryItems),
+             popupContent1 = new ProjectPopupComponent({
+               popupData: countryItem1
+             }).render().view.el,
+             popupContent2 = new ProjectPopupComponent({
+               popupData: countryItem2
+             }).render().view.el;
+
+           expect(markersByCountry.length).toBe(2);
+
+           expect(markersByCountry[0].id).toEqual('123');
+           expect(markersByCountry[0].lat).toEqual(2);
+           expect(markersByCountry[0].lng).toEqual(4);
+           expect(markersByCountry[0].popupContent.outerHTML).toEqual(popupContent1.outerHTML);
+
+           expect(markersByCountry[1].id).toEqual('456');
+           expect(markersByCountry[1].lat).toEqual(3);
+           expect(markersByCountry[1].lng).toEqual(5);
+           expect(markersByCountry[1].popupContent.outerHTML).toEqual(popupContent2.outerHTML);
          });
        });
      });

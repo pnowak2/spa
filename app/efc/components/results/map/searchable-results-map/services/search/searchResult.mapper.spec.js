@@ -6,17 +6,48 @@ define(function(require) {
         total: '0',
         items: []
       },
-      allDataOneRow: {
-        iTotalRecords: '1',
+      dataTwoCountriesTwoRowsEach: {
+        iTotalRecords: '4',
         aaData: [
           [
-            '17',
-            20,
-            40,
-            'Project title',
-            'Project description',
-            'Project activity',
-            'Project coordinator'
+            [
+              'id-pl-1',
+              1,
+              2,
+              'Project title (pl-1)',
+              'Project description (pl-1)',
+              'Project activity (pl-1)',
+              'Project coordinator (pl-1)'
+            ],
+            [
+              'id-pl-2',
+              3,
+              4,
+              'Project title (pl-2)',
+              'Project description (pl-2)',
+              'Project activity (pl-2)',
+              'Project coordinator (pl-2)'
+            ]
+          ],
+          [
+            [
+              'id-be-1',
+              5,
+              6,
+              'Project title (be-1)',
+              'Project description (be-1)',
+              'Project activity (be-1)',
+              'Project coordinator (be-1)'
+            ],
+            [
+              'id-be-2',
+              7,
+              8,
+              'Project title (be-2)',
+              'Project description (be-2)',
+              'Project activity (be-2)',
+              'Project coordinator (be-2)'
+            ]
           ]
         ]
       }
@@ -38,7 +69,7 @@ define(function(require) {
         it('should return default empty object when invoked without response', function() {
           expect(searchResultMapper.map()).toEqual({
             total: 0,
-            items: []
+            itemsByCountry: []
           });
         });
 
@@ -47,20 +78,47 @@ define(function(require) {
           expect(mapped.total).toEqual(jasmine.any(Number));
         });
 
-        it('should map response with one row to object', function() {
-          var mapped = searchResultMapper.map(testResponses.allDataOneRow);
+        it('should map response to object', function() {
+          var mapped = searchResultMapper.map(testResponses.dataTwoCountriesTwoRowsEach);
 
           expect(mapped).toEqual({
-            total: 1,
-            items: [{
-              id: '17',
-              lat: 20,
-              lng: 40,
-              title: 'Project title',
-              description: 'Project description',
-              activity: 'Project activity',
-              coordinator: 'Project coordinator'
-            }]
+            total: 4,
+            itemsByCountry: [
+              [{
+                id: 'id-pl-1',
+                lat: 1,
+                lng: 2,
+                title: 'Project title (pl-1)',
+                description: 'Project description (pl-1)',
+                activity: 'Project activity (pl-1)',
+                coordinator: 'Project coordinator (pl-1)'
+              }, {
+                id: 'id-pl-2',
+                lat: 3,
+                lng: 4,
+                title: 'Project title (pl-2)',
+                description: 'Project description (pl-2)',
+                activity: 'Project activity (pl-2)',
+                coordinator: 'Project coordinator (pl-2)'
+              }],
+              [{
+                id: 'id-be-1',
+                lat: 5,
+                lng: 6,
+                title: 'Project title (be-1)',
+                description: 'Project description (be-1)',
+                activity: 'Project activity (be-1)',
+                coordinator: 'Project coordinator (be-1)'
+              }, {
+                id: 'id-be-2',
+                lat: 7,
+                lng: 8,
+                title: 'Project title (be-2)',
+                description: 'Project description (be-2)',
+                activity: 'Project activity (be-2)',
+                coordinator: 'Project coordinator (be-2)'
+              }]
+            ]
           })
         });
       });
