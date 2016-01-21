@@ -41,6 +41,12 @@ define(function(require) {
 
         expect(_.bindAll).toHaveBeenCalledWith(view, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton');
       });
+
+      it('should create default cluster layers array', function() {
+        var view = new MapView;
+
+        expect(view.clusterLayers).toEqual([]);
+      });
     });
 
     describe('api', function() {
@@ -49,7 +55,7 @@ define(function(require) {
           this.fakeMap = jasmine.createSpyObj('map', ['addLayer']);
           this.fakeButtonsBar = jasmine.createSpyObj('buttonsBar', ['addTo']);
           this.fakeTileLayer = {};
-          this.fakeClusterGroupLayer = {};
+
           spyOn(MapView.prototype, 'createMap').and.returnValue(this.fakeMap);
           spyOn(MapView.prototype, 'createButtonsBar').and.returnValue(this.fakeButtonsBar);
           spyOn(MapView.prototype, 'createTileLayer').and.returnValue(this.fakeTileLayer);
@@ -75,20 +81,12 @@ define(function(require) {
           expect(this.view.tileLayer).toBe(this.fakeTileLayer);
         });
 
-        it('should create cluster group layer instance', function() {
-          expect(this.view.clusterGroupLayer).toBe(this.fakeClusterGroupLayer);
-        });
-
         it('should add buttons bar to the map', function() {
           expect(this.view.buttonsBar.addTo).toHaveBeenCalledWith(this.view.map);
         });
 
         it('should add tile layer to the map', function() {
           expect(this.view.map.addLayer).toHaveBeenCalledWith(this.fakeTileLayer);
-        });
-
-        it('should add cluster group layer to the map', function() {
-          expect(this.view.map.addLayer).toHaveBeenCalledWith(this.fakeClusterGroupLayer);
         });
       });
 
@@ -304,6 +302,108 @@ define(function(require) {
         });
       });
 
+      describe('.showMarkers()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+          this.fakeLeafletMarkers = {};
+
+          spyOn(this.view, 'clearClusterLayers');
+          spyOn(this.view, 'createClusterLayersWithMarkers');
+          spyOn(this.view, 'toLeafletMarkers').and.returnValue(this.fakeLeafletMarkers);
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.showMarkers).toEqual(jasmine.any(Function));
+        });
+
+        it('should clear cluster layers', function() {
+          this.view.showMarkers();
+          expect(this.view.clearClusterLayers).toHaveBeenCalled();
+        });
+
+        it('should create cluster layers with markers', function() {
+          this.view.showMarkers();
+
+          expect(this.view.createClusterLayersWithMarkers).toHaveBeenCalledWith(this.fakeLeafletMarkers);
+        });
+      });
+
+      describe('.toLeafletMarkers()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.toLeafletMarkers).toEqual(jasmine.any(Function));
+        });
+
+        it('should convert marker components to leaflet markers', function() {
+          var markersData = [
+            [{
+              id: '123',
+              lat: 2,
+              lng: 4,
+              popupContent: 'Popup content 1'
+            }],
+            [{
+              id: '456',
+              lat: 3,
+              lng: 5,
+              popupContent: 'Popup content 2'
+            }]
+          ];
+
+          var view = new MapView,
+            markers = view.toLeafletMarkers(markersData);
+
+          expect(markers.length).toBe(2);
+
+          expect(markers[0][0]).toEqual(jasmine.any(PruneCluster.Marker));
+          expect(markers[0][0].data.id).toEqual('123');
+          expect(markers[0][0].data.popup).toEqual('Popup content 1');
+          expect(markers[0][0].position).toEqual({
+            lat: 2,
+            lng: 4
+          });
+
+          expect(markers[1][0]).toEqual(jasmine.any(PruneCluster.Marker));
+          expect(markers[1][0].data.id).toEqual('456');
+          expect(markers[1][0].data.popup).toEqual('Popup content 2');
+          expect(markers[1][0].position).toEqual({
+            lat: 3,
+            lng: 5
+          });
+        });
+      });
+
+      describe('.clearClusterLayers()', function() {
+        beforeEach(function() {
+          this.fakeLayer1 = {},
+          this.fakeLayer2 = {};
+
+          this.view = new MapView;
+          this.view.initMap();
+
+          spyOn(this.view.map, 'removeLayer');
+          this.view.clusterLayers = [this.fakeLayer1, this.fakeLayer2];
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.clearClusterLayers).toEqual(jasmine.any(Function));
+        });
+
+        it('should remove registered cluster layers from map', function() {
+          this.view.clearClusterLayers();
+
+          expect(this.view.map.removeLayer).toHaveBeenCalledWith(this.fakeLayer1);
+          expect(this.view.map.removeLayer).toHaveBeenCalledWith(this.fakeLayer2);
+        });
+
+        it('should empty cluster layers array', function() {
+          expect(this.view.clusterLayers).toEqual([this.fakeLayer1, this.fakeLayer2]);
+
+          this.view.clearClusterLayers();
+
+          expect(this.view.clusterLayers).toEqual([]);
+        });
+      });
+
       describe('.createClusterGroupLayer()', function() {
         beforeEach(function() {
           this.view = new MapView;
@@ -315,101 +415,6 @@ define(function(require) {
 
         it('should return correct cluster group layer instance', function() {
           expect(this.view.createClusterGroupLayer()).toEqual(jasmine.any(PruneClusterForLeaflet));
-        });
-      });
-
-      describe('.toLeafletMarker()', function() {
-        beforeEach(function() {
-          this.fakeMarker = {};
-
-          spyOn(PruneCluster, 'Marker').and.callThrough();
-
-          this.view = new MapView;
-        });
-
-        it('should be defined', function() {
-          expect(MapView.prototype.toLeafletMarker).toEqual(jasmine.any(Function));
-        });
-
-        it('should return correct marker instance', function() {
-          expect(this.view.toLeafletMarker({})).toEqual(jasmine.any(PruneCluster.Marker));
-        });
-
-        it('should create marker with correct id', function() {
-          var marker = this.view.toLeafletMarker({
-            id: 123
-          });
-
-          expect(marker.data.id).toEqual(123);
-        });
-
-        it('should create marker with correct lat and lng', function() {
-          var marker = this.view.toLeafletMarker({
-            lat: 2,
-            lng: 4
-          });
-
-          expect(marker.position).toEqual({
-            lat: 2,
-            lng: 4
-          });
-        });
-
-        it('should bind correct popup', function() {
-          var marker = this.view.toLeafletMarker({
-            popupContent: 'the popup content'
-          });
-
-          expect(marker.data.popup).toEqual('the popup content');
-        });
-      });
-
-      describe('.toLeafletMarkers()', function() {
-        it('should be defined', function() {
-          expect(MapView.prototype.toLeafletMarkers).toEqual(jasmine.any(Function));
-        });
-
-        it('should convert marker components to leaflet markers', function() {
-          var view = new MapView,
-            markers = view.toLeafletMarkers([{
-              lat: 2,
-              lng: 4
-            }]);
-
-          expect(markers.length).toBe(1);
-          expect(markers[0]).toEqual(jasmine.any(PruneCluster.Marker));
-          expect(markers[0].position).toEqual({
-            lat: 2,
-            lng: 4
-          });
-        });
-      });
-
-      describe('.showMarkers', function() {
-        beforeEach(function() {
-          this.view = new MapView;
-          this.view.initMap();
-
-          spyOn(this.view.clusterGroupLayer, 'RemoveMarkers');
-          spyOn(this.view.clusterGroupLayer, 'RegisterMarkers');
-        });
-
-        it('should be defined', function() {
-          expect(MapView.prototype.showMarkers).toEqual(jasmine.any(Function));
-        });
-
-        it('should clear all existing markers', function() {
-          this.view.showMarkers();
-          expect(this.view.clusterGroupLayer.RemoveMarkers).toHaveBeenCalled();
-        });
-
-        it('should add markers to layer', function() {
-          var fakeMarkers = [];
-          spyOn(this.view, 'toLeafletMarkers').and.returnValue(fakeMarkers);
-
-          this.view.showMarkers();
-
-          expect(this.view.clusterGroupLayer.RegisterMarkers).toHaveBeenCalledWith(fakeMarkers);
         });
       });
     });

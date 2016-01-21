@@ -30,11 +30,9 @@ define(function(require) {
         this.map = this.createMap();
         this.buttonsBar = this.createButtonsBar();
         this.tileLayer = this.createTileLayer();
-        this.clusterGroupLayer = this.createClusterGroupLayer();
 
-        this.buttonsBar.addTo(this.map);
         this.map.addLayer(this.tileLayer);
-        this.map.addLayer(this.clusterGroupLayer);
+        this.buttonsBar.addTo(this.map);
       }
     },
 
@@ -92,24 +90,25 @@ define(function(require) {
       });
     },
 
-    createClusterGroupLayer: function() {
-      return new PruneClusterForLeaflet;
+    showMarkers: function(markersData) {
+      var leafletMarkers = this.toLeafletMarkers(markersData);
+
+      this.clearClusterLayers();
+      this.createClusterLayersWithMarkers(leafletMarkers);
     },
 
-    toLeafletMarker: function(markers) {
-      return _.map(markers, function(marker) {
-        return new PruneCluster.Marker(
-          marker.lat,
-          marker.lng, {
-            id: marker.id,
-            popup: marker.popupContent
-          }
-        )
+    toLeafletMarkers: function(markersData) {
+      return _.map(markersData, function(markersByCountry) {
+        return _.map(markersByCountry, function(marker) {
+          return new PruneCluster.Marker(
+            marker.lat,
+            marker.lng, {
+              id: marker.id,
+              popup: marker.popupContent
+            }
+          );
+        });
       });
-    },
-
-    toLeafletMarkers: function(markers) {
-      return _.map(markers, this.toLeafletMarker, this);
     },
 
     clearClusterLayers: function() {
@@ -120,23 +119,18 @@ define(function(require) {
       this.clusterLayers = [];
     },
 
-    showMarkers: function(markers) {
-      this.clearClusterLayers();
+    createClusterLayersWithMarkers: function(leafletMarkers) {
+      _.each(leafletMarkers, function(countryLeafletMarkers) {
+        var countryClusterLayer = this.createClusterGroupLayer();
 
-      var markersArray = this.toLeafletMarkers(markers);
-
-      _.each(markersArray, function(countryMarkers) {
-        var clusterGroupLayer = this.createClusterGroupLayer();
-        this.clusterLayers.push(clusterGroupLayer);
-
-        clusterGroupLayer.RegisterMarkers(countryMarkers);
-        clusterGroupLayer.ProcessView();
-        this.map.addLayer(clusterGroupLayer);
+        countryClusterLayer.RegisterMarkers(countryLeafletMarkers);
+        this.map.addLayer(countryClusterLayer);
+        this.clusterLayers.push(countryClusterLayer);
       }, this);
     },
 
-    render: function() {
-      return this;
+    createClusterGroupLayer: function() {
+      return new PruneClusterForLeaflet;
     }
   });
 });
