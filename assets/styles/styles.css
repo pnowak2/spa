@@ -356,7 +356,7 @@
   padding: 8px 10px;
   margin-right: 2px;
   outline: none;
-  background: #ccc;
+  background: #d7d7d7;
   text-decoration: none;
   border-radius: 3px;
   font-family: sans-serif;
@@ -364,6 +364,7 @@
   font-weight: normal;
   color: #666;
   line-height: 1;
+  border: 1px solid rgb(201, 201, 201);
 }
 
 .efc-pager__page--last {
@@ -376,14 +377,15 @@
   background: #F05A22;
   color: #fff;
   font-weight: bold;
+  border: 1px solid #C85429;
 }
 
 .efc-pager__page--disabled,
 .efc-pager__page--disabled:hover,
 .efc-pager__page--disabled:focus,
 .efc-pager__page--disabled:visited {
-  background: #ddd;
-  color: #999;
+  background: #eaeaea;
+  color: #adadad;
   cursor: text;
 }
 
