@@ -404,6 +404,47 @@ define(function(require) {
         });
       });
 
+      describe('.createClusterLayersWithMarkers()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+          this.view.initMap();
+
+          this.marker1 = {};
+          this.marker2 = {};
+          this.leafletMarkers = [
+            [this.marker1],
+            [this.marker2]
+          ];
+
+          this.fakeClusterGroupLayer = jasmine.createSpyObj('cluster', ['RegisterMarkers']);
+
+          spyOn(PruneClusterForLeaflet.prototype, 'RegisterMarkers');
+          spyOn(this.view.map, 'addLayer');
+          spyOn(this.view, 'createClusterGroupLayer').and.returnValue(this.fakeClusterGroupLayer);
+
+          this.view.createClusterLayersWithMarkers(this.leafletMarkers);
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.createClusterLayersWithMarkers).toEqual(jasmine.any(Function));
+        });
+
+        it('should register markers on cluster layer', function() {
+          expect(this.fakeClusterGroupLayer.RegisterMarkers).toHaveBeenCalledWith([this.marker1]);
+          expect(this.fakeClusterGroupLayer.RegisterMarkers).toHaveBeenCalledWith([this.marker2]);
+          expect(this.fakeClusterGroupLayer.RegisterMarkers.calls.count()).toEqual(2);
+        });
+
+        it('should add cluster layers to map', function() {
+          expect(this.view.map.addLayer).toHaveBeenCalledWith(this.fakeClusterGroupLayer);
+          expect(this.view.map.addLayer.calls.count()).toEqual(2);
+        });
+
+        it('should push created cluster group layers to view cluster layers', function() {
+          expect(this.view.clusterLayers).toEqual([this.fakeClusterGroupLayer, this.fakeClusterGroupLayer]);
+        });
+      });
+
       describe('.createClusterGroupLayer()', function() {
         beforeEach(function() {
           this.view = new MapView;
