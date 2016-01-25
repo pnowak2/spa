@@ -13,6 +13,10 @@ define(function(require) {
       this.listenTo(this.view, 'search-box:more', function() {
         this.trigger('search-box:more');
       });
+
+      this.listenTo(this.view, 'search-box:key-down', function(keyCode) {
+        this.trigger('search-box:key-down', keyCode);
+      });
     }
   });
 });

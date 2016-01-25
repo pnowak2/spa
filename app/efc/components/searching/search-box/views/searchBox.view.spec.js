@@ -174,6 +174,22 @@ define(function(require) {
           SearchBoxView.prototype.didPressKey(this.fakeEventWithOtherKey);
           expect(SearchBoxView.prototype.requestSearch).not.toHaveBeenCalled();
         });
+
+        it('should trigger key down event for other keys than enter', function() {
+          spyOn(SearchBoxView.prototype, 'trigger');
+
+          SearchBoxView.prototype.didPressKey(this.fakeEventWithOtherKey);
+
+          expect(SearchBoxView.prototype.trigger).toHaveBeenCalledWith('search-box:key-down', this.fakeEventWithOtherKey.which);
+        });
+
+        it('should not trigger key down event for enter key', function() {
+          spyOn(SearchBoxView.prototype, 'trigger');
+
+          SearchBoxView.prototype.didPressKey(this.fakeEventWithEnter);
+
+          expect(SearchBoxView.prototype.trigger).not.toHaveBeenCalled();
+        });
       });
 
       describe('.getFormData()', function() {

@@ -40,6 +40,17 @@ define(function(require) {
 
         component.view.trigger('search-box:more');
       });
+
+      it('should trigger event on key down', function(done) {
+        var component = new SearchBoxComponent;
+
+        component.on('search-box:key-down', function(keyCode) {
+          expect(keyCode).toEqual('a');
+          done();
+        });
+
+        component.view.trigger('search-box:key-down', 'a');
+      });
     });
   });
 });

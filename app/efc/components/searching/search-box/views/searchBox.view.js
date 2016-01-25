@@ -34,7 +34,10 @@ define(function(require) {
       if (e.which === constants.keys.ENTER) {
         e.preventDefault();
         this.requestSearch();
+      } else {
+        this.trigger('search-box:key-down', e.which);
       }
+
     },
 
     toggleMoreButtonStateToClosed: function() {
