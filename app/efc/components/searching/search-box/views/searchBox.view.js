@@ -37,7 +37,6 @@ define(function(require) {
       } else {
         this.trigger('search-box:key-down', e.which);
       }
-
     },
 
     toggleMoreButtonStateToClosed: function() {
