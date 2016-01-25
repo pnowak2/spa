@@ -28,7 +28,10 @@ define(function(require) {
           initialZoom: 4,
           initialPosition: [51, 17],
           minZoom: 4,
-          maxZoom: 7
+          maxZoom: 7,
+          zoomClusterSizeTrigger: 5,
+          countryClusterSize: 10000,
+          localClusterSize: 120
         })
       });
     });
@@ -39,7 +42,7 @@ define(function(require) {
 
         var view = new MapView;
 
-        expect(_.bindAll).toHaveBeenCalledWith(view, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton');
+        expect(_.bindAll).toHaveBeenCalledWith(view, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap');
       });
 
       it('should create default cluster layers array', function() {
@@ -119,6 +122,16 @@ define(function(require) {
             this.view.defaults.initialPosition,
             this.view.defaults.initialZoom
           );
+        });
+
+        it('should call appropriate method after zoom end', function() {
+          spyOn(this.view, 'didZoomMap');
+
+          var map = this.view.createMap();
+
+          map.fire('zoomend');
+
+          expect(this.view.didZoomMap).toHaveBeenCalled();
         });
       });
 
@@ -271,6 +284,40 @@ define(function(require) {
           this.view.didClickPrintButton();
 
           expect(window.print).toHaveBeenCalled();
+        });
+      });
+
+      describe('.didZoomMap()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+          this.view.initMap();
+
+          this.belgiumCluster = jasmine.createSpyObj('be', ['ProcessView']);
+          this.belgiumCluster.Cluster = {};
+
+          this.view.clusterLayers = [this.belgiumCluster];
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.didZoomMap).toEqual(jasmine.any(Function));
+        });
+
+        it('should set country cluster size for country zoom levels', function() {
+          spyOn(this.view.map, 'getZoom').and.returnValue(4);
+
+          this.view.didZoomMap();
+
+          expect(this.belgiumCluster.Cluster.Size).toEqual(this.view.defaults.countryClusterSize);
+          expect(this.belgiumCluster.ProcessView).toHaveBeenCalled();
+        });
+
+        it('should set local cluster size for local zoom levels', function() {
+          spyOn(this.view.map, 'getZoom').and.returnValue(7);
+
+          this.view.didZoomMap();
+
+          expect(this.belgiumCluster.Cluster.Size).toEqual(this.view.defaults.localClusterSize);
+          expect(this.belgiumCluster.ProcessView).toHaveBeenCalled();
         });
       });
 
@@ -447,6 +494,8 @@ define(function(require) {
 
       describe('.createClusterGroupLayer()', function() {
         beforeEach(function() {
+          spyOn(PruneClusterForLeaflet.prototype, 'initialize').and.callThrough();
+
           this.view = new MapView;
         });
 
@@ -456,6 +505,10 @@ define(function(require) {
 
         it('should return correct cluster group layer instance', function() {
           expect(this.view.createClusterGroupLayer()).toEqual(jasmine.any(PruneClusterForLeaflet));
+        });
+
+        it('should be initialized with appropriate initial cluster size', function() {
+          expect(this.view.createClusterGroupLayer().initialize).toHaveBeenCalledWith(this.view.defaults.countryClusterSize);
         });
       });
     });

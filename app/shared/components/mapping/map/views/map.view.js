@@ -16,13 +16,16 @@ define(function(require) {
       initialZoom: 4,
       initialPosition: [51, 17],
       minZoom: 4,
-      maxZoom: 7
+      maxZoom: 7,
+      zoomClusterSizeTrigger: 5,
+      countryClusterSize: 10000,
+      localClusterSize: 120
     },
 
     initialize: function() {
       this.clusterLayers = [];
 
-      _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton');
+      _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap');
     },
 
     initMap: function() {
@@ -45,6 +48,8 @@ define(function(require) {
         this.defaults.initialPosition,
         this.defaults.initialZoom
       );
+
+      map.on('zoomend', this.didZoomMap);
 
       return map;
     },
@@ -81,6 +86,18 @@ define(function(require) {
 
     didClickPrintButton: function(btn, map) {
       window.print();
+    },
+
+    didZoomMap: function() {
+      _.each(this.clusterLayers, function(countryClusterLayer) {
+        var zoomClusterSizeTrigger = this.defaults.zoomClusterSizeTrigger,
+          countryClusterSize = this.defaults.countryClusterSize,
+          localClusterSize = this.defaults.localClusterSize,
+          clusterSize = this.map.getZoom() <= zoomClusterSizeTrigger ? countryClusterSize : localClusterSize;
+
+        countryClusterLayer.Cluster.Size = clusterSize;
+        countryClusterLayer.ProcessView();
+      }, this);
     },
 
     createTileLayer: function() {
@@ -130,7 +147,7 @@ define(function(require) {
     },
 
     createClusterGroupLayer: function() {
-      return new PruneClusterForLeaflet;
+      return new PruneClusterForLeaflet(this.defaults.countryClusterSize);
     }
   });
 });
