@@ -89,7 +89,7 @@ define(function(require) {
         });
       });
 
-      describe('.toggleMoreButtonStateToClosed', function() {
+      describe('.toggleMoreButtonStateToClosed()', function() {
         it('should be defined', function() {
           expect(SearchBoxView.prototype.toggleMoreButtonStateToClosed).toEqual(jasmine.any(Function));
         });
@@ -106,7 +106,24 @@ define(function(require) {
         });
       });
 
-      describe('.toggleMoreButtonState', function() {
+      describe('.toggleMoreButtonStateToOpened()', function() {
+        it('should be defined', function() {
+          expect(SearchBoxView.prototype.toggleMoreButtonStateToOpened).toEqual(jasmine.any(Function));
+        });
+
+        it('should add open class', function() {
+          spyOn($.prototype, 'addClass');
+          spyOn(SearchBoxView.prototype, 'getMoreButton').and.returnValue($.prototype);
+
+          var view = new SearchBoxView;
+
+          view.toggleMoreButtonStateToOpened();
+
+          expect(view.getMoreButton().addClass).toHaveBeenCalledWith('efc-searchbox__more-button--open');
+        });
+      });
+
+      describe('.toggleMoreButtonState()', function() {
         it('should be defined', function() {
           expect(SearchBoxView.prototype.toggleMoreButtonState).toEqual(jasmine.any(Function));
         });
@@ -123,7 +140,7 @@ define(function(require) {
         });
       });
 
-      describe('.getMoreButton', function() {
+      describe('.getMoreButton()', function() {
         it('should be defined', function() {
           expect(SearchBoxView.prototype.getMoreButton).toEqual(jasmine.any(Function));
         });

@@ -17,6 +17,40 @@ define(function(require) {
       });
     });
 
+    describe('api', function() {
+      describe('.toggleMoreButtonStateToOpened()', function() {
+        it('should be defined', function() {
+          expect(SearchBoxComponent.prototype.toggleMoreButtonStateToOpened).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new SearchBoxComponent;
+
+          spyOn(component.view, 'toggleMoreButtonStateToOpened');
+
+          component.toggleMoreButtonStateToOpened();
+
+          expect(component.view.toggleMoreButtonStateToOpened).toHaveBeenCalled();
+        });
+      });
+
+      describe('.toggleMoreButtonStateToClosed()', function() {
+        it('should be defined', function() {
+          expect(SearchBoxComponent.prototype.toggleMoreButtonStateToClosed).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new SearchBoxComponent;
+
+          spyOn(component.view, 'toggleMoreButtonStateToClosed');
+
+          component.toggleMoreButtonStateToClosed();
+
+          expect(component.view.toggleMoreButtonStateToClosed).toHaveBeenCalled();
+        });
+      });
+    });
+
     describe('events', function() {
       it('should trigger event on search action', function(done) {
         var component = new SearchBoxComponent,

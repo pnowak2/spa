@@ -17,6 +17,14 @@ define(function(require) {
       this.listenTo(this.view, 'search-box:key-down', function(keyCode) {
         this.trigger('search-box:key-down', keyCode);
       });
+    },
+
+    toggleMoreButtonStateToOpened: function() {
+      this.view.toggleMoreButtonStateToOpened();
+    },
+
+    toggleMoreButtonStateToClosed: function() {
+      this.view.toggleMoreButtonStateToClosed();
     }
   });
 });

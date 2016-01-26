@@ -43,6 +43,10 @@ define(function(require) {
       this.getMoreButton().removeClass('efc-searchbox__more-button--open');
     },
 
+    toggleMoreButtonStateToOpened: function() {
+      this.getMoreButton().addClass('efc-searchbox__more-button--open');
+    },
+
     toggleMoreButtonState: function() {
       this.getMoreButton().toggleClass('efc-searchbox__more-button--open');
     },
