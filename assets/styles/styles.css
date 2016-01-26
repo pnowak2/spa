@@ -7,7 +7,7 @@
 }
 
 /* Results Container */
-.efc-results-container {
+.efc-results-container, .efc-legal-note {
   margin: 0 -9px 0 -15px;
 }
 
@@ -529,4 +529,12 @@
 
 .efc-map-popup__label {
   font-weight: bold;
+}
+
+/* Legal note */
+.efc-legal-note {
+    padding: 10px;
+    font-size: 9px;
+    background-color: #2A5077;
+    color: #AEC6DA;
 }
