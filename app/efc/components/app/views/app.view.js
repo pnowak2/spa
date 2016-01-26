@@ -5,13 +5,10 @@ define(function(require) {
     SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     SearchableResultsMapComponent = require('app/efc/components/results/map/searchable-results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
-    MapComponent = require('app/shared/components/mapping/map/main.component'),
     tabsDataSource = require('../data/tabs');
 
   return Backbone.View.extend({
-    initialize: function(attrs) {
-      _.bindAll(this, 'onSearchRequest');
-
+    initialize: function() {
       this.search = new SearchComponent;
       this.searchableList = new SearchableResultsListComponent;
       this.searchableMap = new SearchableResultsMapComponent;
@@ -19,11 +16,11 @@ define(function(require) {
         tabDescriptors: tabsDataSource
       });
 
-      this.listenTo(this.search, 'search:search', this.onSearchRequest);
-
       this.render();
       this.searchableMap.initMap();
       this.requestInitialSearch();
+
+      this.listenTo(this.search, 'search:search', this.onSearchRequest);
     },
 
     requestInitialSearch: function() {
@@ -40,6 +37,8 @@ define(function(require) {
       $('.efc-results-container').append(this.tabSwitcher.render().view.el);
       $('.efc-results-container').append(this.searchableList.render().view.el);
       $('.efc-results-container').append(this.searchableMap.render().view.el);
+
+      return this;
     }
   });
 });
