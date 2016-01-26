@@ -13,6 +13,7 @@ define(function(require) {
 
       this.listenTo(this.searchBox, 'search-box:search', this.didRequestSearch);
       this.listenTo(this.searchBox, 'search-box:more', this.didRequestMore);
+      this.listenTo(this.searchBox, 'search-box:key-down', this.didPressKeyInSearchbox);
     },
 
     didRequestSearch: function(searchBoxCriteria) {
@@ -28,6 +29,13 @@ define(function(require) {
 
     didRequestMore: function() {
       this.advancedSearch.toggle();
+    },
+
+    didPressKeyInSearchbox: function() {
+      if (this.advancedSearch.hasSelections()) {
+        this.advancedSearch.show();
+        this.searchBox.toggleMoreButtonStateToOpened();
+      }
     },
 
     render: function() {

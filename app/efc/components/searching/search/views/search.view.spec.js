@@ -90,12 +90,44 @@ define(function(require) {
           expect(view.advancedSearch.toggle).toHaveBeenCalled();
         });
       });
+
+      describe('.didPressKeyInSearchbox()', function() {
+        beforeEach(function() {
+          this.view = new SearchView;
+
+          spyOn(this.view.advancedSearch, 'show');
+          spyOn(this.view.searchBox, 'toggleMoreButtonStateToOpened');
+        });
+
+        it('should be defined', function() {
+          expect(SearchView.prototype.didPressKeyInSearchbox).toEqual(jasmine.any(Function));
+        });
+
+        it('should show advanced search and toggle more button to open if there are any selections active', function() {
+          spyOn(this.view.advancedSearch, 'hasSelections').and.returnValue(true);
+
+          this.view.didPressKeyInSearchbox();
+
+          expect(this.view.advancedSearch.show).toHaveBeenCalled();
+          expect(this.view.searchBox.toggleMoreButtonStateToOpened).toHaveBeenCalled();
+        });
+
+        it('should not show advanced search nor toggle more button to open if there are no selections active', function() {
+          spyOn(this.view.advancedSearch, 'hasSelections').and.returnValue(false);
+
+          this.view.didPressKeyInSearchbox();
+
+          expect(this.view.advancedSearch.show).not.toHaveBeenCalled();
+          expect(this.view.searchBox.toggleMoreButtonStateToOpened).not.toHaveBeenCalled();
+        });
+      });
     });
 
     describe('events', function() {
       beforeEach(function() {
         spyOn(SearchView.prototype, 'didRequestSearch');
         spyOn(SearchView.prototype, 'didRequestMore');
+        spyOn(SearchView.prototype, 'didPressKeyInSearchbox');
 
         this.view = new SearchView;
       });
@@ -110,6 +142,11 @@ define(function(require) {
       it('should call method on search box more event', function() {
         this.view.searchBox.trigger('search-box:more')
         expect(this.view.didRequestMore).toHaveBeenCalled();
+      });
+
+      it('should call method on search key down event', function() {
+        this.view.searchBox.trigger('search-box:key-down')
+        expect(this.view.didPressKeyInSearchbox).toHaveBeenCalled();
       });
     });
 
