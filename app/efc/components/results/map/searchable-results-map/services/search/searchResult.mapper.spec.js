@@ -52,7 +52,7 @@ define(function(require) {
         ]
       },
       dataWithMissingCoordinates: {
-        iTotalRecords: '2',
+        iTotalRecords: '4',
         aaData: [
           [
             [
@@ -165,11 +165,11 @@ define(function(require) {
           })
         });
 
-        it('should map response to object ommiting those without coordinates', function() {
+        it('should map response to object omitting those without coordinates', function() {
           var mapped = searchResultMapper.map(testResponses.dataWithMissingCoordinates);
 
           expect(mapped).toEqual({
-            total: 2,
+            total: 4,
             itemsByCountry: [
               [{
                 id: 'id-pl-1',
