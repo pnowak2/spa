@@ -100,7 +100,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // efc app component
     'app/efc/components/landing-page/main.component.spec',
-    'app/efc/components/landing-page/views/app.view.spec',
+    'app/efc/components/landing-page/views/landingPage.view.spec',
 
     //search
     'app/efc/components/searching/search/main.component.spec',

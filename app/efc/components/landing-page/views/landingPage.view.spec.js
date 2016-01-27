@@ -1,7 +1,7 @@
 define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
-    EFCAppView = require('./app.view'),
+    EFCAppView = require('./landingPage.view'),
     SearchComponent = require('app/efc/components/searching/search/main.component'),
     SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     SearchableResultsMapComponent = require('app/efc/components/results/map/searchable-results-map/main.component'),

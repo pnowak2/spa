@@ -1,6 +1,6 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    EFCAppView = require('./views/app.view'),
+    EFCAppView = require('./views/landingPage.view'),
     EFCAppComponent = require('./main.component');
 
   describe('EfC App Component', function() {
