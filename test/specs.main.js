@@ -61,17 +61,17 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/util/constants.spec',
 
     // pager component
-    'app/shared/components/pager/main.component.spec',
-    'app/shared/components/pager/models/pager.model.spec',
-    'app/shared/components/pager/models/page.model.spec',
-    'app/shared/components/pager/collections/page.collection.spec',
-    'app/shared/components/pager/views/pager.view.spec',
-    'app/shared/components/pager/views/page.view.spec',
+    'app/shared/components/paging/pager/main.component.spec',
+    'app/shared/components/paging/pager/models/pager.model.spec',
+    'app/shared/components/paging/pager/models/page.model.spec',
+    'app/shared/components/paging/pager/collections/page.collection.spec',
+    'app/shared/components/paging/pager/views/pager.view.spec',
+    'app/shared/components/paging/pager/views/page.view.spec',
 
     // page stats component
-    'app/shared/components/page-stats/main.component.spec',
-    'app/shared/components/page-stats/models/pageStats.model.spec',
-    'app/shared/components/page-stats/views/pageStats.view.spec',
+    'app/shared/components/paging/page-stats/main.component.spec',
+    'app/shared/components/paging/page-stats/models/pageStats.model.spec',
+    'app/shared/components/paging/page-stats/views/pageStats.view.spec',
 
     // tab switcher component
     'app/shared/components/tab-switcher/main.component.spec',

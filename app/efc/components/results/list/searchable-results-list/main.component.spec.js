@@ -1,8 +1,6 @@
 define(function(require) {
   var Component = require('app/core/component'),
     SearchableResultsListComponent = require('./main.component'),
-    ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
-    PagerComponent = require('app/shared/components/pager/main.component'),
     SearchableResultsListView = require('./views/searchableResultsList.view');
 
   describe('Searchable Results List Component', function() {

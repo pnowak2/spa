@@ -3,8 +3,8 @@ define(function(require) {
     app = require('app/shared/modules/app.module'),
     Backbone = require('backbone'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
-    PagerComponent = require('app/shared/components/pager/main.component'),
-    PageStatsComponent = require('app/shared/components/page-stats/main.component'),
+    PagerComponent = require('app/shared/components/paging/pager/main.component'),
+    PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
     searchService = require('../services/search/search.service');
 
   return Backbone.View.extend({
