@@ -92,7 +92,7 @@ define(function(require) {
           expect(el).toContainText('Showing 21 to 30 of 222 entries');
         });
 
-        it('should be hidden total items is zero', function() {
+        it('should be hidden if total items is zero', function() {
           var view1 = new PageStatsView({
               displayStartItem: 0,
               displayEndItem: 0,
