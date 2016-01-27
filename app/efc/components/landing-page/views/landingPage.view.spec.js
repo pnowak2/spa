@@ -1,7 +1,7 @@
 define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
-    EFCAppView = require('./landingPage.view'),
+    LandingPageView = require('./landingPage.view'),
     SearchComponent = require('app/efc/components/searching/search/main.component'),
     SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     SearchableResultsMapComponent = require('app/efc/components/results/map/searchable-results-map/main.component'),
@@ -11,18 +11,18 @@ define(function(require) {
   describe('EFC App View', function() {
     describe('type', function() {
       it('should be of view', function() {
-        expect(EFCAppView.prototype).toEqual(jasmine.any(Backbone.View));
+        expect(LandingPageView.prototype).toEqual(jasmine.any(Backbone.View));
       });
     });
 
     describe('creation', function() {
       beforeEach(function() {
-        spyOn(EFCAppView.prototype, 'render');
-        spyOn(EFCAppView.prototype, 'requestInitialSearch');
+        spyOn(LandingPageView.prototype, 'render');
+        spyOn(LandingPageView.prototype, 'requestInitialSearch');
         spyOn(SearchableResultsMapComponent.prototype, 'initMap');
         spyOn(TabSwitcherComponent.prototype, 'initialize');
 
-        this.view = new EFCAppView;
+        this.view = new LandingPageView;
       });
 
       it('should have search component defined ', function() {
@@ -63,13 +63,13 @@ define(function(require) {
     describe('api', function() {
       describe('.requestInitialSearch()', function() {
         beforeEach(function() {
-          spyOn(EFCAppView.prototype, 'onSearchRequest');
+          spyOn(LandingPageView.prototype, 'onSearchRequest');
 
-          this.view = new EFCAppView;
+          this.view = new LandingPageView;
         });
 
         it('should be defined', function() {
-          expect(EFCAppView.prototype.requestInitialSearch).toEqual(jasmine.any(Function));
+          expect(LandingPageView.prototype.requestInitialSearch).toEqual(jasmine.any(Function));
         });
 
         it('should call on search request handler', function() {
@@ -84,11 +84,11 @@ define(function(require) {
           spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
           spyOn(SearchableResultsMapComponent.prototype, 'onSearchRequest');
 
-          this.view = new EFCAppView;
+          this.view = new LandingPageView;
         });
 
         it('should be defined', function() {
-          expect(EFCAppView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+          expect(LandingPageView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
         });
 
         it('should delegate to searchable list component', function() {
@@ -112,10 +112,10 @@ define(function(require) {
     describe('events', function() {
       describe('custom', function() {
         it('should listen to search component "search" event', function() {
-          spyOn(EFCAppView.prototype, 'requestInitialSearch');
-          spyOn(EFCAppView.prototype, 'onSearchRequest');
+          spyOn(LandingPageView.prototype, 'requestInitialSearch');
+          spyOn(LandingPageView.prototype, 'onSearchRequest');
 
-          var view = new EFCAppView,
+          var view = new LandingPageView,
             fakeSearchCriteria = {};
 
           view.search.trigger('search:search', fakeSearchCriteria);
@@ -131,7 +131,7 @@ define(function(require) {
           jasmine.getFixtures().fixturesPath = 'fixtures';
           loadFixtures('efc.landing-page.fixture.html');
 
-          this.view = new EFCAppView;
+          this.view = new LandingPageView;
           this.view.render();
         });
 
