@@ -97,11 +97,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // util
     'app/efc/util/constants.spec',
-    'app/efc/routers/efc.router.spec',
 
     // efc app component
-    'app/efc/components/app/main.component.spec',
-    'app/efc/components/app/views/app.view.spec',
+    'app/efc/components/landing-page/main.component.spec',
+    'app/efc/components/landing-page/views/app.view.spec',
 
     //search
     'app/efc/components/searching/search/main.component.spec',

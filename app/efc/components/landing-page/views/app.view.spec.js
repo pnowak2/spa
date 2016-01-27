@@ -129,7 +129,7 @@ define(function(require) {
       describe('.render()', function() {
         beforeEach(function() {
           jasmine.getFixtures().fixturesPath = 'fixtures';
-          loadFixtures('efc-app.fixture.html');
+          loadFixtures('efc.landing-page.fixture.html');
 
           this.view = new EFCAppView;
           this.view.render();

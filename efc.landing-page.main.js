@@ -34,7 +34,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     modernizr = require('modernizr'),
     app = require('app/app.module'),
-    EFCComponent = require('app/efc/components/app/main.component'),
+    EFCComponent = require('app/efc/components/landing-page/main.component'),
     efcComponent = new EFCComponent;
 
   Backbone.history.start();
