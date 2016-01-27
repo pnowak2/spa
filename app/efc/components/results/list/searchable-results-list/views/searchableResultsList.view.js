@@ -1,6 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
-    app = require('app/app.module'),
+    app = require('app/shared/modules/app.module'),
     Backbone = require('backbone'),
     ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/pager/main.component'),

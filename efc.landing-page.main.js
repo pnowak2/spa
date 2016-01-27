@@ -33,7 +33,7 @@ requirejs.config({
 define(function(require) {
   var Backbone = require('backbone'),
     modernizr = require('modernizr'),
-    app = require('app/app.module'),
+    app = require('app/shared/modules/app.module'),
     EFCComponent = require('app/efc/components/landing-page/main.component'),
     efcComponent = new EFCComponent;
 

@@ -55,7 +55,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/core/utils.spec',
 
     // app
-    'app/app.module.spec',
+    'app/shared/modules/app.module.spec',
 
     // util
     'app/shared/util/constants.spec',

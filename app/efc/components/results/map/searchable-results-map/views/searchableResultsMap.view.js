@@ -1,7 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     _ = require('underscore'),
-    app = require('app/app.module'),
+    app = require('app/shared/modules/app.module'),
     MapComponent = require('app/shared/components/mapping/map/main.component'),
     searchService = require('../services/search/search.service'),
     ProjectPopupComponent = require('app/shared/components/mapping/popups/project/main.component');

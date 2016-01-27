@@ -1,6 +1,6 @@
 define(function(require) {
   var app = require('./app.module'),
-    Module = require('./core/module'),
+    Module = require('app/core/module'),
     Backbone = require('backbone'),
     $ = require('jquery');
 

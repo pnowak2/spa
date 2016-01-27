@@ -5,7 +5,7 @@
      MapComponent = require('app/shared/components/mapping/map/main.component'),
      searchService = require('../services/search/search.service'),
      RSVP = require('rsvp'),
-     app = require('app/app.module'),
+  app = require('app/shared/modules/app.module'),
      _ = require('underscore');
 
    describe('Searchable Results Map View', function() {
