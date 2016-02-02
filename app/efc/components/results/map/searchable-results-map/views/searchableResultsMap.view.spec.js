@@ -1,11 +1,12 @@
  define(function(require) {
    var Backbone = require('backbone'),
+     $ = require('jquery'),
      SearchableResultsMapView = require('./searchableResultsMap.view'),
      ProjectPopupComponent = require('app/shared/components/mapping/popups/project/main.component'),
      MapComponent = require('app/shared/components/mapping/map/main.component'),
      searchService = require('../services/search/search.service'),
      RSVP = require('rsvp'),
-  app = require('app/shared/modules/app.module'),
+     app = require('app/shared/modules/app.module'),
      _ = require('underscore');
 
    describe('Searchable Results Map View', function() {
@@ -258,6 +259,28 @@
            expect(markersByCountry[1].popupContent.outerHTML).toEqual(popupContent2.outerHTML);
          });
        });
+
+       describe('.getMapContainer()', function() {
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.getMapContainer, 'getMapContainer').toEqual(jasmine.any(Function));
+         });
+
+         it('should return map container element', function() {
+           var view = new SearchableResultsMapView,
+             fakeMapContainer = {};
+           view.render();
+
+           spyOn($.prototype, 'find').and.callFake(function(selector) {
+             if (selector === '.efc-searchable-results-map__map-container') {
+               return fakeMapContainer;
+             }
+           });
+
+           var mapContainer = view.getMapContainer();
+
+           expect(mapContainer).toBe(fakeMapContainer);
+         });
+       });
      });
 
      describe('rendering', function() {
@@ -270,9 +293,14 @@
            expect(this.view.render()).toBe(this.view);
          });
 
-         it('should append results map component', function() {
+         it('should render legal note', function() {
            this.view.render();
-           expect(this.view.$el).toContainHtml(this.view.mapComponent.render().view.$el.html());
+           expect(this.view.$el).toContainElement('.efc-searchable-results-map__legal-note');
+         });
+
+         it('should render results map component', function() {
+           this.view.render();
+           expect(this.view.$el.find('.efc-searchable-results-map__map-container')).toContainHtml(this.view.mapComponent.render().view.$el.html());
          });
        });
      });

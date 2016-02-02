@@ -531,8 +531,8 @@
   font-weight: bold;
 }
 
-/* Legal note */
-.efc-legal-note {
+/* Searchable results map */
+.efc-searchable-results-map__legal-note {
     padding: 10px;
     font-size: 9px;
     background-color: #2A5077;

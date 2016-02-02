@@ -4,7 +4,9 @@ define(function(require) {
     app = require('app/shared/modules/app.module'),
     MapComponent = require('app/shared/components/mapping/map/main.component'),
     searchService = require('../services/search/search.service'),
-    ProjectPopupComponent = require('app/shared/components/mapping/popups/project/main.component');
+    ProjectPopupComponent = require('app/shared/components/mapping/popups/project/main.component'),
+    tpl = require('text!../templates/searchableResultsMap.tpl.html'),
+    Mustache = require('mustache');
 
   return Backbone.View.extend({
     className: 'efc-searchable-results-map',
@@ -64,8 +66,15 @@ define(function(require) {
       });
     },
 
+    getMapContainer: function() {
+      return this.$el.find('.efc-searchable-results-map__map-container');
+    },
+
     render: function() {
-      this.$el.append(this.mapComponent.render().view.el);
+      var html = Mustache.render(tpl);
+
+      this.$el.html(html);
+      this.getMapContainer().html(this.mapComponent.render().view.el);
 
       return this;
     }
