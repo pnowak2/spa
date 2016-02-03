@@ -45,13 +45,47 @@ define(function(require) {
       }]);
     });
 
+    describe('.allCallYears()', function() {
+      it('should be defined', function() {
+        expect(advancedSearchService.allCallYears).toEqual(jasmine.any(Function));
+      });
+
+      it('should return array with correct size', function() {
+        var years = advancedSearchService.allCallYears(),
+          startYear = 2014,
+          currentYear = new Date().getFullYear();
+
+        expect(years.length).toEqual(_.range(startYear, currentYear + 1).length);
+      });
+
+      it('should have correct first item', function() {
+        var years = advancedSearchService.allCallYears();
+
+        expect(_.first(years)).toEqual({
+          id: 2014,
+          title: 2014
+        });
+      });
+
+      it('have have correct last item', function() {
+        var years = advancedSearchService.allCallYears(),
+          currentYear = new Date().getFullYear();
+
+        expect(_.last(years)).toEqual({
+          id: currentYear,
+          title: currentYear
+        });
+      });
+    });
+
     describe('.allCountries()', function() {
       it('should be defined', function() {
         expect(advancedSearchService.allCountries).toEqual(jasmine.any(Function));
       });
 
       it('should retrieve all countries', function() {
-        expect(advancedSearchService.allCountries()).toEqual(countriesDataSource.getItems());
+        var countries = countriesDataSource.getItems();
+        expect(advancedSearchService.allCountries()).toEqual(countries);
       });
     });
 

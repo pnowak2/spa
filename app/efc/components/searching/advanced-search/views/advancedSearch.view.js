@@ -13,6 +13,9 @@ define(function(require) {
     },
 
     initialize: function() {
+      this.callYears = new MultiselectComponent(advancedSearchService.allCallYears(), {
+        placeholder: 'All'
+      });
       this.countries = new MultiselectComponent(advancedSearchService.allCountries(), {
         placeholder: 'All'
       });
@@ -32,6 +35,7 @@ define(function(require) {
 
     getCriteria: function() {
       return {
+        callYears: _.pluck(this.callYears.selectedItems(), 'id'),
         countries: _.pluck(this.countries.selectedItems(), 'id'),
         activities: _.pluck(this.activities.selectedItems(), 'id'),
         subactivities: _.pluck(this.subactivities.selectedItems(), 'id'),
@@ -40,7 +44,8 @@ define(function(require) {
     },
 
     hasSelections: function() {
-      return this.countries.hasSelection() ||
+      return this.callYears.hasSelection() ||
+        this.countries.hasSelection() ||
         this.activities.hasSelection() ||
         this.subactivities.hasSelection() ||
         this.organisationTypes.hasSelection();
@@ -49,6 +54,7 @@ define(function(require) {
     didClickClearFilters: function(e) {
       e.preventDefault();
 
+      this.callYears.unselectAll();
       this.countries.unselectAll();
       this.activities.unselectAll();
       this.subactivities.unselectAll();
@@ -81,6 +87,7 @@ define(function(require) {
 
       this.$el.html(html);
 
+      this.$el.find('#efc-year').append(this.callYears.render().view.el);
       this.$el.find('#efc-country').append(this.countries.render().view.el);
       this.$el.find('#efc-activity').append(this.activities.render().view.el);
       this.$el.find('#efc-subactivity').append(this.subactivities.render().view.el);

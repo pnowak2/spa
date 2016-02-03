@@ -5,6 +5,19 @@ define(function(require) {
   subactivitiesDataSource = require('app/efc/data/subactivities.datasource'),
   organisationTypesDataSource = require('app/efc/data/organisationTypes.datasource');
 
+  allCallYears = function() {
+    var startYear = 2014,
+      currentYear = new Date().getFullYear(),
+      yearsRange = _.range(startYear, currentYear + 1);
+
+    return _.map(yearsRange, function(year) {
+      return {
+        id: year,
+        title: year
+      }
+    });
+  },
+
   allCountries = function() {
     return countriesDataSource.getItems();
   },
@@ -24,6 +37,7 @@ define(function(require) {
   };
 
   return {
+    allCallYears: allCallYears,
     allCountries: allCountries,
     allActivities: allActivities,
     subactivitiesByActivityId: subactivitiesByActivityId,

@@ -24,6 +24,13 @@ define(function(require) {
         }).not.toThrow();
       });
 
+      it('should have call years properly defined', function() {
+        expect(this.view.callYears).toEqual(jasmine.any(MultiselectComponent));
+        expect(this.view.callYears.initialize).toHaveBeenCalledWith(advancedSearchService.allCallYears(), {
+          placeholder: 'All'
+        });
+      });
+
       it('should have countries properly defined', function() {
         expect(this.view.countries).toEqual(jasmine.any(MultiselectComponent));
         expect(this.view.countries.initialize).toHaveBeenCalledWith(advancedSearchService.allCountries(), {
@@ -68,6 +75,17 @@ define(function(require) {
       describe('.getCriteria()', function() {
 
         beforeEach(function() {
+          spyOn(advancedSearchService, 'allCallYears').and.returnValue([{
+            id: 2014,
+            selected: true
+          }, {
+            id: 2015,
+            selected: false
+          }, {
+            id: 2016,
+            selected: true
+          }]);
+
           spyOn(advancedSearchService, 'allCountries').and.returnValue([{
             id: 'pl',
             selected: true
@@ -119,6 +137,10 @@ define(function(require) {
           expect(AdvancedSearchView.prototype.getCriteria).toEqual(jasmine.any(Function));
         });
 
+        it('should return array with call years keys', function() {
+          expect(this.view.getCriteria().callYears).toEqual([2014, 2016]);
+        });
+
         it('should return array with country keys', function() {
           expect(this.view.getCriteria().countries).toEqual(['pl', 'be']);
         });
@@ -144,9 +166,10 @@ define(function(require) {
         it('should return true if any criteria components has selection', function() {
           var view = new AdvancedSearchView;
 
+          spyOn(view.callYears, 'hasSelection').and.returnValue(true);
           spyOn(view.countries, 'hasSelection').and.returnValue(false);
           spyOn(view.activities, 'hasSelection').and.returnValue(false);
-          spyOn(view.subactivities, 'hasSelection').and.returnValue(true);
+          spyOn(view.subactivities, 'hasSelection').and.returnValue(false);
           spyOn(view.organisationTypes, 'hasSelection').and.returnValue(false);
 
           expect(view.hasSelections()).toBe(true);
@@ -155,6 +178,7 @@ define(function(require) {
         it('should return false if none of criteria components has selection', function() {
           var view = new AdvancedSearchView;
 
+          spyOn(view.callYears, 'hasSelection').and.returnValue(false);
           spyOn(view.countries, 'hasSelection').and.returnValue(false);
           spyOn(view.activities, 'hasSelection').and.returnValue(false);
           spyOn(view.subactivities, 'hasSelection').and.returnValue(false);
@@ -167,6 +191,7 @@ define(function(require) {
       describe('.didClickClearFilters()', function() {
         beforeEach(function() {
           this.view = new AdvancedSearchView;
+          spyOn(this.view.callYears, 'unselectAll');
           spyOn(this.view.countries, 'unselectAll');
           spyOn(this.view.activities, 'unselectAll');
           spyOn(this.view.subactivities, 'unselectAll');
@@ -182,6 +207,10 @@ define(function(require) {
 
         it('should prevent default action', function() {
           expect(this.fakeEvent.preventDefault).toHaveBeenCalled();
+        });
+
+        it('should clear call years component', function() {
+          expect(this.view.callYears.unselectAll).toHaveBeenCalled();
         });
 
         it('should clear countries component', function() {
@@ -350,8 +379,18 @@ define(function(require) {
           expect(this.$el.find('.efc-advanced-search__header > a.efc-advanced-search__clear')).toContainText('Clear filters');
         });
 
-        it('should render four sections', function() {
-          expect(this.$el.find('.efc-advanced-search__section')).toHaveLength(4);
+        it('should render five sections', function() {
+          expect(this.$el.find('.efc-advanced-search__section')).toHaveLength(5);
+        });
+
+        it('should render call years section', function() {
+          expect(this.$el).toContainElement('#efc-year.efc-advanced-search__section');
+          expect(this.$el.find('#efc-year > label')).toContainText('Year');
+        });
+
+        it('should render years', function() {
+          var $subview = this.view.callYears.render().view.$el;
+          expect(this.$el.find('#efc-year')).toContainHtml($subview);
         });
 
         it('should render country section', function() {
