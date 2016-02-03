@@ -1,6 +1,10 @@
 define(function(require) {
   var _ = require('underscore'),
 
+    isCallYearDefined = function(input) {
+      return _.isArray(input.callYears) && !_.isEmpty(input.callYears);
+    },
+
     isCountryDefined = function(input) {
       return _.isArray(input.countries) && !_.isEmpty(input.countries);
     },
@@ -36,6 +40,12 @@ define(function(require) {
       if (input.keyword) {
         mapped = _.extend(mapped, {
           'KEYWORD': input.keyword
+        });
+      }
+
+      if (isCallYearDefined(input)) {
+        mapped = _.extend(mapped, {
+          'FILTER-CALL_YEAR': input.callYears.join(';')
         });
       }
 

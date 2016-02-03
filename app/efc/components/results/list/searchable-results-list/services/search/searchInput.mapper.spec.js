@@ -10,7 +10,7 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.map', function() {
+      describe('.map()', function() {
         it('should be defined', function() {
           expect(searchInputMapper.map).toEqual(jasmine.any(Function));
         });
@@ -71,6 +71,24 @@ define(function(require) {
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
             KEYWORD: 'foo'
           }));
+        });
+
+        it('should map call years', function() {
+          var input = {
+            callYears: [2015, 2016]
+          };
+
+          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+            'FILTER-CALL_YEAR': '2015;2016'
+          }));
+        });
+
+        it('should not map call years if its empty array', function() {
+          var input = {
+            callYears: []
+          };
+
+          expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-CALL_YEAR');
         });
 
         it('should map countries', function() {
