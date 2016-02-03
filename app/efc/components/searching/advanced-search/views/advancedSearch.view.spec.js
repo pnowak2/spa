@@ -15,15 +15,7 @@ define(function(require) {
     describe('creation', function() {
       beforeEach(function() {
         spyOn(MultiselectComponent.prototype, 'initialize');
-
-        this.fakeData = {
-          countries: 'countries',
-          activities: 'activities',
-          subactivities: 'subactivities',
-          organisationTypes: 'organisationTypes',
-        };
-
-        this.view = new AdvancedSearchView(this.fakeData);
+        this.view = new AdvancedSearchView();
       });
 
       it('should not throw if created without arguments', function() {
