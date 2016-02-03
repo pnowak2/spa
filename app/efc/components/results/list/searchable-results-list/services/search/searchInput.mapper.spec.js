@@ -169,6 +169,7 @@ define(function(require) {
             },
             mapped = searchInputMapper.map(input);
 
+          expect(_.keys(mapped)).not.toContain('FILTER-CALL_YEAR');
           expect(_.keys(mapped)).not.toContain('FILTER-COVERAGE');
           expect(_.keys(mapped)).not.toContain('FILTER-LEVEL2');
           expect(_.keys(mapped)).not.toContain('FILTER-LEVEL3');
@@ -177,6 +178,8 @@ define(function(require) {
 
         it('should map proper search type for advanced search', function() {
           var inputs = [{
+            callYears: [2014]
+          }, {
             countries: ['pl']
           }, {
             activities: ['ac1']

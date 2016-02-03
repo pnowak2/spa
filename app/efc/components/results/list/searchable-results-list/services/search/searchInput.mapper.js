@@ -22,7 +22,8 @@ define(function(require) {
     },
 
     isAdvanced = function(input) {
-      return isCountryDefined(input) ||
+      return isCallYearDefined(input) ||
+        isCountryDefined(input) ||
         isActivityDefined(input) ||
         isSubactivityDefined(input) ||
         isOrganisationTypeDefined(input);
