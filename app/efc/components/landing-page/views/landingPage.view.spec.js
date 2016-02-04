@@ -3,10 +3,9 @@ define(function(require) {
     Backbone = require('backbone'),
     LandingPageView = require('./landingPage.view'),
     SearchComponent = require('app/efc/components/searching/search/main.component'),
-    SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     SearchableResultsMapComponent = require('app/efc/components/results/map/searchable-results-map/main.component'),
-    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
-    tabsDataSource = require('../data/tabs');
+    SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
+    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
 
   describe('EFC App View', function() {
     describe('type', function() {
@@ -43,7 +42,17 @@ define(function(require) {
 
       it('should initialize tab switcher with proper data', function() {
         expect(this.view.tabSwitcher.initialize).toHaveBeenCalledWith({
-          tabDescriptors: tabsDataSource
+          tabDescriptors: [{
+            title: 'Map',
+            identifier: 'map',
+            targetSelector: '.' + this.view.searchableMap.view.className,
+            selected: true
+          }, {
+            title: 'List',
+            identifier: 'list',
+            targetSelector: '.' + this.view.searchableList.view.className,
+            selected: false
+          }]
         })
       });
 

@@ -2,10 +2,9 @@ define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
     SearchComponent = require('app/efc/components/searching/search/main.component'),
-    SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
     SearchableResultsMapComponent = require('app/efc/components/results/map/searchable-results-map/main.component'),
-    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
-    tabsDataSource = require('../data/tabs');
+    SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
+    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
 
   return Backbone.View.extend({
     initialize: function() {
@@ -13,7 +12,17 @@ define(function(require) {
       this.searchableList = new SearchableResultsListComponent;
       this.searchableMap = new SearchableResultsMapComponent;
       this.tabSwitcher = new TabSwitcherComponent({
-        tabDescriptors: tabsDataSource
+        tabDescriptors: [{
+          title: 'Map',
+          identifier: 'map',
+          targetSelector: '.' + this.searchableMap.view.className,
+          selected: true
+        }, {
+          title: 'List',
+          identifier: 'list',
+          targetSelector: '.' + this.searchableList.view.className,
+          selected: false
+        }]
       });
 
       this.render();
