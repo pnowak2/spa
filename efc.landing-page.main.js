@@ -33,9 +33,9 @@ requirejs.config({
 define(function(require) {
   var Backbone = require('backbone'),
     modernizr = require('modernizr'),
-    app = require('app/shared/modules/app.module'),
-    EFCComponent = require('app/efc/components/landing-page/main.component'),
-    efcComponent = new EFCComponent;
+    applicationModule = require('app/shared/modules/app.module'),
+    EfCLandingPage = require('app/efc/components/landing-page/main.component'),
+    efcLandingPage = new EfCLandingPage;
 
   Backbone.history.start();
 });
