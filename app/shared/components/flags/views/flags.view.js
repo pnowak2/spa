@@ -34,8 +34,8 @@ define(function(require) {
 
     render: function() {
       var html = Mustache.render(tpl, this.collection.itemsData());
-
       this.$el.html(html);
+
       this.getToggleContainer().toggle(this.collection.hasRestItems());
 
       return this;

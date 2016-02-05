@@ -177,7 +177,7 @@ define(function(require) {
           expect(view.render().getToggleContainer().css('display')).toEqual('block');
         });
 
-        xit('should render..', function() {
+        it('should render..', function() {
           var view = new FlagsView([{
             code: 'pl'
           }, {
@@ -196,7 +196,7 @@ define(function(require) {
             code: 'cr'
           }]);
 
-          expect(view.render().$el.html()).toEqual('');
+          fail();
         });
       });
     });
