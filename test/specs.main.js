@@ -95,6 +95,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/mapping/popups/project/models/projectPopup.model.spec',
     'app/shared/components/mapping/popups/project/views/projectPopup.view.spec',
 
+    // flags component
+    'app/shared/components/flags/main.component.spec',
+    'app/shared/components/flags/collections/flags.collection.spec',
+    'app/shared/components/flags/views/flags.view.spec',
+
     // util
     'app/efc/util/constants.spec',
 
