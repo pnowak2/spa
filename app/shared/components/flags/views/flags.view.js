@@ -15,12 +15,17 @@ define(function(require) {
       'click .efc-flags__toggle': 'didClickToggle'
     },
 
-    didClickToggle: function() {
+    didClickToggle: function(evt) {
+      evt.preventDefault();
       this.getRestContainer().toggle();
     },
 
     getRestContainer: function() {
       return this.$el.find('.efc-flags__rest');
+    },
+
+    getToggleContainer: function() {
+      return this.$el.find('.efc-flags__toggle-container');
     },
 
     getToggleElement: function() {
@@ -29,7 +34,9 @@ define(function(require) {
 
     render: function() {
       var html = Mustache.render(tpl, this.collection.itemsData());
+
       this.$el.html(html);
+      this.getToggleContainer().toggle(this.collection.hasRestItems());
 
       return this;
     }

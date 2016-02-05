@@ -45,12 +45,23 @@ define(function(require) {
           expect(FlagsView.prototype.didClickToggle).toEqual(jasmine.any(Function));
         });
 
+        it('should prevent default action', function() {
+          var view = new FlagsView,
+            fakeEvent = jasmine.createSpyObj('evt', ['preventDefault']);
+
+          view.didClickToggle(fakeEvent);
+
+          expect(fakeEvent.preventDefault).toHaveBeenCalled();
+        });
+
         it('should toggle rest container', function() {
           var view = new FlagsView,
-            fakeContainer = jasmine.createSpyObj('container', ['toggle']);
+            fakeContainer = jasmine.createSpyObj('container', ['toggle']),
+            fakeEvent = jasmine.createSpyObj('evt', ['preventDefault']);
+
           spyOn(FlagsView.prototype, 'getRestContainer').and.returnValue(fakeContainer);
 
-          view.didClickToggle();
+          view.didClickToggle(fakeEvent);
 
           expect(fakeContainer.toggle).toHaveBeenCalled();
         });
@@ -93,6 +104,25 @@ define(function(require) {
           expect(view.getToggleElement()).toBe(fakeTriggerElement);
         });
       });
+
+      describe('.getToggleContainer()', function() {
+        it('should be defined', function() {
+          expect(FlagsView.prototype.getToggleContainer).toEqual(jasmine.any(Function));
+        });
+
+        it('should reference proper subelement', function() {
+          var fakeContainer = {},
+            view = new FlagsView;
+
+          spyOn($.prototype, 'find').and.callFake(function(selector) {
+            if (selector === '.efc-flags__toggle-container') {
+              return fakeContainer;
+            }
+          });
+
+          expect(view.getToggleContainer()).toBe(fakeContainer);
+        });
+      });
     });
 
     describe('events', function() {
@@ -112,28 +142,62 @@ define(function(require) {
 
           expect(view.render()).toBe(view);
         });
-      });
 
-      xit('should render..', function() {
-        var view = new FlagsView([{
-          code: 'pl'
-        }, {
-          code: 'de'
-        }, {
-          code: 'be'
-        }, {
-          code: 'fr'
-        }, {
-          code: 'lu'
-        }, {
-          code: 'ch'
-        }, {
-          code: 'gr'
-        }, {
-          code: 'cr'
-        }]);
+        it('should not render toggle container if no rest items are available', function() {
+          var view = new FlagsView([{
+            code: 'pl'
+          }, {
+            code: 'de'
+          }, {
+            code: 'be'
+          }]);
 
-        expect(view.render().$el.html()).toEqual('');
+          expect(view.render().getToggleContainer().css('display')).toEqual('none');
+        });
+
+        it('should render toggle container if rest items are available', function() {
+          var view = new FlagsView([{
+            code: 'pl'
+          }, {
+            code: 'de'
+          }, {
+            code: 'be'
+          }, {
+            code: 'fr'
+          }, {
+            code: 'lu'
+          }, {
+            code: 'ch'
+          }, {
+            code: 'gr'
+          }, {
+            code: 'cr'
+          }]);
+
+          expect(view.render().getToggleContainer().css('display')).toEqual('block');
+        });
+
+        xit('should render..', function() {
+          var view = new FlagsView([{
+            code: 'pl'
+          }, {
+            code: 'de'
+          }, {
+            code: 'be'
+          }, {
+            code: 'fr'
+          }, {
+            code: 'lu'
+          }, {
+            code: 'ch'
+          }, {
+            code: 'gr'
+          }, {
+            code: 'cr'
+          }]);
+
+          expect(view.render().$el.html()).toEqual('');
+        });
       });
     });
   });

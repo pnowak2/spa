@@ -147,6 +147,30 @@ define(function(require) {
         });
       });
 
+      describe('.hasRestItems()', function() {
+        it('should be defined', function() {
+          expect(FlagsCollection.prototype.hasRestItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true only if rest items is not empty', function() {
+          var fakeRestItems = [{}, {}],
+            collection = new FlagsCollection(fakeRestItems);
+
+          spyOn(FlagsCollection.prototype, 'restItems').and.returnValue(fakeRestItems);
+
+          expect(collection.hasRestItems()).toBe(true);
+        });
+
+        it('should return false only if rest items is empty', function() {
+          var fakeRestItems = [],
+            collection = new FlagsCollection(fakeRestItems);
+
+          spyOn(FlagsCollection.prototype, 'restItems').and.returnValue(fakeRestItems);
+
+          expect(collection.hasRestItems()).toBe(false);
+        });
+      });
+
       describe('.itemsData()', function() {
         it('should be defined', function() {
           expect(FlagsCollection.prototype.itemsData).toEqual(jasmine.any(Function));

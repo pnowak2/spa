@@ -20,6 +20,10 @@ define(function(require) {
       return allItems.slice(initialItems.length);
     },
 
+    hasRestItems: function() {
+      return !_.isEmpty(this.restItems());
+    },
+
     itemsData: function() {
       return {
         allItems: this.allItems(),

@@ -538,3 +538,18 @@
     background-color: #2A5077;
     color: #AEC6DA;
 }
+
+/* Flags */
+.efc-flags__rest {
+  display: none;
+}
+
+.efc-flags__toggle-container {
+  text-align: center;
+}
+
+.efc-flags__toggle {
+  font-size: 11px;
+  color: #666;
+  text-decoration: underline;
+}
