@@ -131,7 +131,7 @@ define(function(require) {
           });
 
           it('should render show more link', function() {
-            expect(this.$el.find('.efc-flags__toggle-more-label')).toContainText('Show more');
+            expect(this.$el.find('.efc-flags__toggle-all-label')).toContainText('Show all');
           });
 
           it('should render show less link', function() {
