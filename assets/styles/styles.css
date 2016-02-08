@@ -569,3 +569,7 @@
 .efc-flags--collapsed .efc-flags__toggle-less-label {
   display: none;
 }
+
+.efc-flags--short .efc-flags__toggle-container {
+  display: none;
+}

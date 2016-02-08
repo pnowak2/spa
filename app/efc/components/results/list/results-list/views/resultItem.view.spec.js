@@ -1,7 +1,8 @@
 define(function(require) {
   var Backbone = require('backbone'),
     ResultItemView = require('./resultItem.view'),
-    ResultModel = require('../models/result.model');
+    ResultModel = require('../models/result.model'),
+    FlagsComponent = require('app/shared/components/flags/main.component');
 
   describe('Result List Item View', function() {
     describe('type', function() {
@@ -22,6 +23,33 @@ define(function(require) {
       describe('.tagName', function() {
         it('should be tr', function() {
           expect(ResultItemView.prototype.tagName).toEqual('tr');
+        });
+      });
+    });
+
+    describe('api', function() {
+      describe('.createFlagsComponent()', function() {
+        beforeEach(function() {
+          this.view = new ResultItemView({
+            model: new ResultModel
+          });
+
+          spyOn(FlagsComponent.prototype, 'initialize').and.callThrough();
+          spyOn(this.view.model, 'toJSON').and.returnValue({
+            countries: 'fake countries'
+          });
+        });
+
+        it('should be defined', function() {
+          expect(ResultItemView.prototype.createFlagsComponent).toEqual(jasmine.any(Function));
+        });
+
+        it('should return flags component', function() {
+          expect(this.view.createFlagsComponent()).toEqual(jasmine.any(FlagsComponent));
+        });
+
+        it('should initialize flags component with countries from model', function() {
+          expect(this.view.createFlagsComponent().initialize).toHaveBeenCalledWith('fake countries');
         });
       });
     });
@@ -94,24 +122,20 @@ define(function(require) {
             this.$td = this.$el.find('td').last();
           });
 
-          it('should contain country images', function() {
-            expect(this.$td.find('img')).toHaveLength(2);
+          it('should have proper class name', function() {
+            expect(this.$td).toHaveClass('efc-results-table__countries');
           });
 
-          it('should have images with default placeholder image', function() {
-            this.$td.find('img').each(function() {
-              expect(this).toHaveAttr('src', '/programmes/valor/images/blank.png');
-            });
-          });
+          it('should render flags component inside', function() {
+            var flags = new FlagsComponent([{
+              code: 'pl',
+              fullName: 'Poland'
+            }, {
+              code: 'lu',
+              fullName: 'Luxembourg'
+            }]);
 
-          it('should have images with proper css class', function() {
-            expect(this.$td.find('img').first()).toHaveAttr('class', 'flag pl');
-            expect(this.$td.find('img').last()).toHaveAttr('class', 'flag lu');
-          });
-
-          it('should have images with proper title', function() {
-            expect(this.$td.find('img').first()).toHaveAttr('title', 'Poland');
-            expect(this.$td.find('img').last()).toHaveAttr('title', 'Luxembourg');
+            expect(this.$td).toContainHtml(flags.render().view.$el);
           });
         });
       });

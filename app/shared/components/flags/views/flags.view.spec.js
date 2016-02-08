@@ -3,6 +3,16 @@ define(function(require) {
     $ = require('jquery'),
     FlagsView = require('./flags.view'),
     FlagsCollection = require('../collections/flags.collection'),
+    threeFlags = [{
+      code: 'pl',
+      fullName: 'Poland'
+    }, {
+      code: 'de',
+      fullName: 'Germany'
+    }, {
+      code: 'be',
+      fullName: 'Belgium'
+    }],
     eightFlags = [{
       code: 'pl',
       fullName: 'Poland'
@@ -106,35 +116,91 @@ define(function(require) {
 
     describe('rendering', function() {
       describe('.render()', function() {
-        beforeEach(function() {
-          this.view = new FlagsView(eightFlags);
-          this.$el = this.view.render().$el;
+        describe('Common', function() {
+          beforeEach(function() {
+            this.view = new FlagsView(threeFlags);
+            this.$el = this.view.render().$el;
+          });
+
+          it('should return view itself', function() {
+            expect(this.view.render()).toBe(this.view);
+          });
+
+          it('should add collapsed class to root element', function() {
+            expect(this.view.render().$el).toHaveClass('efc-flags--collapsed');
+          });
+
+          it('should render show more link', function() {
+            expect(this.$el.find('.efc-flags__toggle-more-label')).toContainText('Show more');
+          });
+
+          it('should render show less link', function() {
+            expect(this.$el.find('.efc-flags__toggle-less-label')).toContainText('Show less');
+          });
+
+          it('should have first country with proper css class and country title', function() {
+            var firstImg = this.$el.find('img').first();
+            expect(firstImg).toHaveClass('pl');
+            expect(firstImg.attr('title')).toEqual('Poland');
+          });
+
+          it('should have second country with proper css class and country title', function() {
+            var firstImg = this.$el.find('img').eq(1);
+            expect(firstImg).toHaveClass('de');
+            expect(firstImg.attr('title')).toEqual('Germany');
+          });
+
+          it('should have third country with proper css class and country title', function() {
+            var firstImg = this.$el.find('img').eq(2);
+            expect(firstImg).toHaveClass('be');
+            expect(firstImg.attr('title')).toEqual('Belgium');
+          });
         });
 
-        it('should return view itself', function() {
-          expect(this.view.render()).toBe(this.view);
+        describe('Small number of countries', function() {
+          beforeEach(function() {
+            this.view = new FlagsView(threeFlags);
+            this.$el = this.view.render().$el;
+          });
+
+          it('should render 3 images', function() {
+            expect(this.$el.find('img').length).toBe(3);
+          });
+
+          it('should have initial items in separate section', function() {
+            expect(this.$el.find('.efc-flags__initial img').length).toBe(3);
+          });
+
+          it('should have rest section empty', function() {
+            expect(this.$el.find('.efc-flags__rest img').length).toBe(0);
+          });
+
+          it('should add short class', function() {
+            expect(this.$el).toHaveClass('efc-flags--short');
+          });
         });
 
-        it('should add collapsed class to root element', function() {
-          expect(this.view.render().$el).toHaveClass('efc-flags--collapsed');
-        });
+        describe('Big number of countries', function() {
+          beforeEach(function() {
+            this.view = new FlagsView(eightFlags);
+            this.$el = this.view.render().$el;
+          });
 
-        it('should render 8 images', function() {
-          expect(this.$el.find('img').length).toBe(8);
-        });
+          it('should render 8 images', function() {
+            expect(this.$el.find('img').length).toBe(8);
+          });
 
-        it('should have first country with proper css class and country title', function() {
-          var firstImg = this.$el.find('img').first();
-          expect(firstImg).toHaveClass('pl');
-          expect(firstImg.attr('title')).toEqual('Poland');
-        });
+          it('should have initial items in separate section', function() {
+            expect(this.$el.find('.efc-flags__initial img').length).toBe(6);
+          });
 
-        it('should render show more link', function() {
-          expect(this.$el.find('.efc-flags__toggle-more-label')).toContainText('Show more');
-        });
+          it('should have rest items in separate section', function() {
+            expect(this.$el.find('.efc-flags__rest img').length).toBe(2);
+          });
 
-        it('should render show less link', function() {
-          expect(this.$el.find('.efc-flags__toggle-less-label')).toContainText('Show less');
+          it('should not add short class', function() {
+            expect(this.$el).not.toHaveClass('efc-flags--short');
+          });
         });
       });
     });

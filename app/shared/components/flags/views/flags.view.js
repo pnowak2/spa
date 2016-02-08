@@ -24,6 +24,9 @@ define(function(require) {
       var html = Mustache.render(tpl, this.collection.itemsData());
 
       this.$el.addClass('efc-flags--collapsed');
+      if (!this.collection.hasRestItems()) {
+        this.$el.addClass('efc-flags--short');
+      }
       this.$el.html(html);
 
       return this;
