@@ -17,26 +17,14 @@ define(function(require) {
 
     didClickToggle: function(evt) {
       evt.preventDefault();
-      this.getRestContainer().toggle();
-    },
-
-    getRestContainer: function() {
-      return this.$el.find('.efc-flags__rest');
-    },
-
-    getToggleContainer: function() {
-      return this.$el.find('.efc-flags__toggle-container');
-    },
-
-    getToggleElement: function() {
-      return this.$el.find('.efc-flags__toggle');
+      this.$el.toggleClass('efc-flags--collapsed');
     },
 
     render: function() {
       var html = Mustache.render(tpl, this.collection.itemsData());
-      this.$el.html(html);
 
-      this.getToggleContainer().toggle(this.collection.hasRestItems());
+      this.$el.addClass('efc-flags--collapsed');
+      this.$el.html(html);
 
       return this;
     }

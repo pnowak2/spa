@@ -2,7 +2,32 @@ define(function(require) {
   var Backbone = require('backbone'),
     $ = require('jquery'),
     FlagsView = require('./flags.view'),
-    FlagsCollection = require('../collections/flags.collection');
+    FlagsCollection = require('../collections/flags.collection'),
+    eightFlags = [{
+      code: 'pl',
+      fullName: 'Poland'
+    }, {
+      code: 'de',
+      fullName: 'Germany'
+    }, {
+      code: 'be',
+      fullName: 'Belgium'
+    }, {
+      code: 'fr',
+      fullName: 'France'
+    }, {
+      code: 'lu',
+      fullName: 'Luxembourg'
+    }, {
+      code: 'ch',
+      fullName: 'Switzerland'
+    }, {
+      code: 'gr',
+      fullName: 'Greece'
+    }, {
+      code: 'cr',
+      fullName: 'Croatia'
+    }];
 
   describe('Flags View Component', function() {
     describe('type', function() {
@@ -54,73 +79,17 @@ define(function(require) {
           expect(fakeEvent.preventDefault).toHaveBeenCalled();
         });
 
-        it('should toggle rest container', function() {
+        it('should toggle collapsed class on root element', function() {
           var view = new FlagsView,
-            fakeContainer = jasmine.createSpyObj('container', ['toggle']),
             fakeEvent = jasmine.createSpyObj('evt', ['preventDefault']);
 
-          spyOn(FlagsView.prototype, 'getRestContainer').and.returnValue(fakeContainer);
+          view.render();
+
+          spyOn(view.$el, 'toggleClass');
 
           view.didClickToggle(fakeEvent);
 
-          expect(fakeContainer.toggle).toHaveBeenCalled();
-        });
-      });
-
-      describe('.getRestContainer()', function() {
-        it('should be defined', function() {
-          expect(FlagsView.prototype.getRestContainer).toEqual(jasmine.any(Function));
-        });
-
-        it('should reference proper subelement', function() {
-          var fakeRestContainer = {},
-            view = new FlagsView;
-
-          spyOn($.prototype, 'find').and.callFake(function(selector) {
-            if (selector === '.efc-flags__rest') {
-              return fakeRestContainer;
-            }
-          });
-
-          expect(view.getRestContainer()).toBe(fakeRestContainer);
-        });
-      });
-
-      describe('.getToggleElement()', function() {
-        it('should be defined', function() {
-          expect(FlagsView.prototype.getToggleElement).toEqual(jasmine.any(Function));
-        });
-
-        it('should reference proper subelement', function() {
-          var fakeTriggerElement = {},
-            view = new FlagsView;
-
-          spyOn($.prototype, 'find').and.callFake(function(selector) {
-            if (selector === '.efc-flags__toggle') {
-              return fakeTriggerElement;
-            }
-          });
-
-          expect(view.getToggleElement()).toBe(fakeTriggerElement);
-        });
-      });
-
-      describe('.getToggleContainer()', function() {
-        it('should be defined', function() {
-          expect(FlagsView.prototype.getToggleContainer).toEqual(jasmine.any(Function));
-        });
-
-        it('should reference proper subelement', function() {
-          var fakeContainer = {},
-            view = new FlagsView;
-
-          spyOn($.prototype, 'find').and.callFake(function(selector) {
-            if (selector === '.efc-flags__toggle-container') {
-              return fakeContainer;
-            }
-          });
-
-          expect(view.getToggleContainer()).toBe(fakeContainer);
+          expect(view.$el.toggleClass).toHaveBeenCalledWith('efc-flags--collapsed')
         });
       });
     });
@@ -137,66 +106,35 @@ define(function(require) {
 
     describe('rendering', function() {
       describe('.render()', function() {
+        beforeEach(function() {
+          this.view = new FlagsView(eightFlags);
+          this.$el = this.view.render().$el;
+        });
+
         it('should return view itself', function() {
-          var view = new FlagsView();
-
-          expect(view.render()).toBe(view);
+          expect(this.view.render()).toBe(this.view);
         });
 
-        it('should not render toggle container if no rest items are available', function() {
-          var view = new FlagsView([{
-            code: 'pl'
-          }, {
-            code: 'de'
-          }, {
-            code: 'be'
-          }]);
-
-          expect(view.render().getToggleContainer().css('display')).toEqual('none');
+        it('should add collapsed class to root element', function() {
+          expect(this.view.render().$el).toHaveClass('efc-flags--collapsed');
         });
 
-        it('should render toggle container if rest items are available', function() {
-          var view = new FlagsView([{
-            code: 'pl'
-          }, {
-            code: 'de'
-          }, {
-            code: 'be'
-          }, {
-            code: 'fr'
-          }, {
-            code: 'lu'
-          }, {
-            code: 'ch'
-          }, {
-            code: 'gr'
-          }, {
-            code: 'cr'
-          }]);
-
-          expect(view.render().getToggleContainer().css('display')).toEqual('block');
+        it('should render 8 images', function() {
+          expect(this.$el.find('img').length).toBe(8);
         });
 
-        it('should render..', function() {
-          var view = new FlagsView([{
-            code: 'pl'
-          }, {
-            code: 'de'
-          }, {
-            code: 'be'
-          }, {
-            code: 'fr'
-          }, {
-            code: 'lu'
-          }, {
-            code: 'ch'
-          }, {
-            code: 'gr'
-          }, {
-            code: 'cr'
-          }]);
+        it('should have first country with proper css class and country title', function() {
+          var firstImg = this.$el.find('img').first();
+          expect(firstImg).toHaveClass('pl');
+          expect(firstImg.attr('title')).toEqual('Poland');
+        });
 
-          fail();
+        it('should render show more link', function() {
+          expect(this.$el.find('.efc-flags__toggle-more-label')).toContainText('Show more');
+        });
+
+        it('should render show less link', function() {
+          expect(this.$el.find('.efc-flags__toggle-less-label')).toContainText('Show less');
         });
       });
     });

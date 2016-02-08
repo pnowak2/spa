@@ -540,10 +540,6 @@
 }
 
 /* Flags */
-.efc-flags__rest {
-  display: none;
-}
-
 .efc-flags__toggle-container {
   text-align: center;
 }
@@ -552,4 +548,24 @@
   font-size: 11px;
   color: #666;
   text-decoration: underline;
+}
+
+.efc-flags__toggle:focus {
+  outline: none;
+}
+
+.efc-flags--collapsed .efc-flags__rest {
+  display: none;
+}
+
+.efc-flags__toggle-more-label {
+  display: none;
+}
+
+.efc-flags--collapsed .efc-flags__toggle-more-label {
+  display: block;
+}
+
+.efc-flags--collapsed .efc-flags__toggle-less-label {
+  display: none;
 }
