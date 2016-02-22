@@ -103,9 +103,13 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // util
     'app/efc/util/constants.spec',
 
-    // efc app component
+    // efc landing page component
     'app/efc/components/landing-page/main.component.spec',
     'app/efc/components/landing-page/views/landingPage.view.spec',
+
+    // efc project partners page component
+    'app/efc/components/project-partners-page/main.component.spec',
+    'app/efc/components/project-partners-page/views/projectPartnersPage.view.spec',
 
     //search
     'app/efc/components/searching/search/main.component.spec',
