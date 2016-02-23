@@ -25,6 +25,18 @@ define(function(require) {
           expect(searchInputMapper.map()).toEqual(jasmine.objectContaining({
             iDisplayStart: 0,
             iDisplayLength: 10,
+            searchType: 'matchAll'
+          }));
+        });
+
+        it('should return proper defaults if called with just keyword', function() {
+          var input = {
+            keyword: 'foo'
+          };
+
+          expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+            iDisplayStart: 0,
+            iDisplayLength: 10,
             searchType: 'simple'
           }));
         });

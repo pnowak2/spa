@@ -12,7 +12,7 @@ define(function(require) {
         var id = responseItem[0],
           title = responseItem[1],
           description = responseItem[2],
-          startYear = responseItem[3],
+          callYear = responseItem[3],
           countries = _.chain(responseItem[4].split('|'))
           .compact()
           .map(function(country) {
@@ -32,7 +32,7 @@ define(function(require) {
           id: id,
           title: title,
           description: description,
-          startYear: startYear,
+          callYear: callYear,
           countries: countries
         }
       });

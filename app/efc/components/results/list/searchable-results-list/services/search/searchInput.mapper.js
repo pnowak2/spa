@@ -28,6 +28,15 @@ define(function(require) {
         isSubactivityDefined(input) ||
         isOrganisationTypeDefined(input);
     },
+	
+    isMatchAll = function(input) {
+      return !input.keyword &&
+        !isCallYearDefined(input) &&
+        !isCountryDefined(input) &&
+        !isActivityDefined(input) &&
+        !isSubactivityDefined(input) &&
+        !isOrganisationTypeDefined(input);
+    },
 
     map = function(input) {
       input = input || {};
@@ -77,6 +86,12 @@ define(function(require) {
       if (isAdvanced(input)) {
         mapped = _.extend(mapped, {
           'searchType': 'advanced'
+        });
+      }
+	  
+      if (isMatchAll(input)) {
+        mapped = _.extend(mapped, {
+          'searchType': 'matchAll'
         });
       }
 

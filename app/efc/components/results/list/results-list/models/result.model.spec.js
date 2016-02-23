@@ -18,7 +18,7 @@ define(function(require) {
           id: '',
           title: '',
           description: '',
-          startYear: '',
+          callYear: '',
           countries: []
         });
       });

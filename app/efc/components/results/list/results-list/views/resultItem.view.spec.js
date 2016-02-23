@@ -61,7 +61,7 @@ define(function(require) {
             id: '52',
             title: 'Europe for Citizens',
             description: 'Mapping platform',
-            startYear: '2015',
+            callYear: '2015',
             countries: [{
               code: 'pl',
               fullName: 'Poland'

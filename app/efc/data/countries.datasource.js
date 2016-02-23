@@ -17,7 +17,7 @@ define(function(require) {
         id: 'CY',
         title: 'Cyprus'
       }, {
-        id: 'CR',
+        id: 'HR',
         title: 'Croatia'
       }, {
         id: 'CZ',
@@ -55,6 +55,9 @@ define(function(require) {
       }, {
         id: 'LV',
         title: 'Latvia'
+      }, {
+        id: 'LT',
+        title: 'Lithuania'
       }, {
         id: 'LU',
         title: 'Luxembourg'
