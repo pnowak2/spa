@@ -143,10 +143,6 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/landing-page/results/map/searchable-results-map/services/search/search.service.spec',
 
     // efc project partners page component
-    'app/efc/components/project-partners-page/layout/main.component.spec',
-    'app/efc/components/project-partners-page/layout/views/projectPartnersPage.view.spec',
-
-    // efc partners map component
     'app/efc/components/project-partners-page/partners-map/main.component.spec',
     'app/efc/components/project-partners-page/partners-map/views/partnersMap.view.spec',
     'app/efc/components/project-partners-page/partners-map/services/projectPartners.service.spec',

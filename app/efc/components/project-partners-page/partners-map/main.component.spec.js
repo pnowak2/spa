@@ -1,9 +1,9 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    PartnersMapComponent = require('./main.component'),
-    PartnersMapView = require('./views/partnersMap.view');
+    PartnersMapView = require('./views/partnersMap.view'),
+    PartnersMapComponent = require('./main.component');
 
-  describe('Partners Map Component', function() {
+  describe('EfC Project Partners Component', function() {
     describe('type', function() {
       it('should be of component', function() {
         expect(PartnersMapComponent.prototype).toEqual(jasmine.any(Component));
@@ -15,22 +15,15 @@ define(function(require) {
         var component = new PartnersMapComponent;
         expect(component.view).toEqual(jasmine.any(PartnersMapView));
       });
-    });
 
-    describe('api', function() {
-      describe('.initMap()', function() {
-        it('should be defined', function() {
-          expect(PartnersMapComponent.prototype.initMap).toEqual(jasmine.any(Function));
-        });
+      it('should initialize view with project id', function() {
+        spyOn(PartnersMapView.prototype, 'initialize');
 
-        it('should delegate to view', function() {
-          var component = new PartnersMapComponent;
-          spyOn(component.view, 'initMap');
+        var params = {},
+          component = new PartnersMapComponent(params);
 
-          component.initMap();
+        expect(component.view.initialize).toHaveBeenCalledWith(params);
 
-          expect(component.view.initMap).toHaveBeenCalled();
-        });
       });
     });
   });

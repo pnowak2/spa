@@ -3,12 +3,8 @@ define(function(require) {
     PartnersMapView = require('./views/partnersMap.view');
 
   return Component.extend({
-    initialize: function() {
-      this.view = new PartnersMapView;
-    },
-
-    initMap: function() {
-      this.view.initMap();
+    initialize: function(criteria) {
+      this.view = new PartnersMapView(criteria);
     }
   });
 });
