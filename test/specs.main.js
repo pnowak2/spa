@@ -144,7 +144,14 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // efc project partners page component
     'app/efc/components/project-partners-page/layout/main.component.spec',
-    'app/efc/components/project-partners-page/layout/views/projectPartnersPage.view.spec'
+    'app/efc/components/project-partners-page/layout/views/projectPartnersPage.view.spec',
+
+    // efc partners map component
+    'app/efc/components/project-partners-page/partners-map/main.component.spec',
+    'app/efc/components/project-partners-page/partners-map/views/partnersMap.view.spec',
+    'app/efc/components/project-partners-page/partners-map/services/projectPartners.service.spec',
+    'app/efc/components/project-partners-page/partners-map/services/projectPartnersInput.mapper.spec',
+    'app/efc/components/project-partners-page/partners-map/services/projectPartnersResult.mapper.spec'
 
   ], function() {
     window.onload();
