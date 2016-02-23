@@ -1,8 +1,8 @@
 define(function(require) {
   var Backbone = require('backbone'),
     SearchView = require('./search.view'),
-    SearchBoxComponent = require('app/efc/components/searching/search-box/main.component'),
-    AdvancedSearchComponent = require('app/efc/components/searching/advanced-search/main.component');
+    SearchBoxComponent = require('app/efc/components/landing-page/searching/search-box/main.component'),
+    AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component');
 
   describe('Search View', function() {
     describe('type', function() {

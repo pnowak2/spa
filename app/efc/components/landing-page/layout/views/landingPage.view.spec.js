@@ -2,9 +2,9 @@ define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
     LandingPageView = require('./landingPage.view'),
-    SearchComponent = require('app/efc/components/searching/search/main.component'),
-    SearchableResultsMapComponent = require('app/efc/components/results/map/searchable-results-map/main.component'),
-    SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
+    SearchComponent = require('app/efc/components/landing-page/searching/search/main.component'),
+    SearchableResultsMapComponent = require('app/efc/components/landing-page/results/map/searchable-results-map/main.component'),
+    SearchableResultsListComponent = require('app/efc/components/landing-page/results/list/searchable-results-list/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
 
   describe('EFC App View', function() {

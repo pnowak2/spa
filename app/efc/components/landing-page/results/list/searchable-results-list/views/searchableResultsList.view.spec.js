@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     app = require('app/shared/modules/app.module'),
     SearchableResultsListView = require('./searchableResultsList.view'),
-    ResultsListComponent = require('app/efc/components/results/list/results-list/main.component'),
+    ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),
     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
     PagerComponent = require('app/shared/components/paging/pager/main.component'),
     searchService = require('../services/search/search.service'),

@@ -104,47 +104,47 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/util/constants.spec',
 
     // efc landing page component
-    'app/efc/components/landing-page/main.component.spec',
-    'app/efc/components/landing-page/views/landingPage.view.spec',
-
-    // efc project partners page component
-    'app/efc/components/project-partners-page/main.component.spec',
-    'app/efc/components/project-partners-page/views/projectPartnersPage.view.spec',
+    'app/efc/components/landing-page/layout/main.component.spec',
+    'app/efc/components/landing-page/layout/views/landingPage.view.spec',
 
     //search
-    'app/efc/components/searching/search/main.component.spec',
-    'app/efc/components/searching/search/views/search.view.spec',
+    'app/efc/components/landing-page/searching/search/main.component.spec',
+    'app/efc/components/landing-page/searching/search/views/search.view.spec',
 
     // search box component
-    'app/efc/components/searching/search-box/main.component.spec',
-    'app/efc/components/searching/search-box/models/searchBox.model.spec',
-    'app/efc/components/searching/search-box/views/searchBox.view.spec',
+    'app/efc/components/landing-page/searching/search-box/main.component.spec',
+    'app/efc/components/landing-page/searching/search-box/models/searchBox.model.spec',
+    'app/efc/components/landing-page/searching/search-box/views/searchBox.view.spec',
 
     // advanced search component
-    'app/efc/components/searching/advanced-search/main.component.spec',
-    'app/efc/components/searching/advanced-search/views/advancedSearch.view.spec',
-    'app/efc/components/searching/advanced-search/services/advanced-search/advancedSearch.service.spec',
+    'app/efc/components/landing-page/searching/advanced-search/main.component.spec',
+    'app/efc/components/landing-page/searching/advanced-search/views/advancedSearch.view.spec',
+    'app/efc/components/landing-page/searching/advanced-search/services/advanced-search/advancedSearch.service.spec',
 
     // results list component
-    'app/efc/components/results/list/results-list/main.component.spec',
-    'app/efc/components/results/list/results-list/models/result.model.spec',
-    'app/efc/components/results/list/results-list/collections/results.collection.spec',
-    'app/efc/components/results/list/results-list/views/resultsList.view.spec',
-    'app/efc/components/results/list/results-list/views/resultItem.view.spec',
+    'app/efc/components/landing-page/results/list/results-list/main.component.spec',
+    'app/efc/components/landing-page/results/list/results-list/models/result.model.spec',
+    'app/efc/components/landing-page/results/list/results-list/collections/results.collection.spec',
+    'app/efc/components/landing-page/results/list/results-list/views/resultsList.view.spec',
+    'app/efc/components/landing-page/results/list/results-list/views/resultItem.view.spec',
 
     // searchable results list component
-    'app/efc/components/results/list/searchable-results-list/main.component.spec',
-    'app/efc/components/results/list/searchable-results-list/views/searchableResultsList.view.spec',
-    'app/efc/components/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
-    'app/efc/components/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
-    'app/efc/components/results/list/searchable-results-list/services/search/search.service.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/main.component.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/views/searchableResultsList.view.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec',
 
     // searchable results map component
-    'app/efc/components/results/map/searchable-results-map/main.component.spec',
-    'app/efc/components/results/map/searchable-results-map/views/searchableResultsMap.view.spec',
-    'app/efc/components/results/map/searchable-results-map/services/search/searchInput.mapper.spec',
-    'app/efc/components/results/map/searchable-results-map/services/search/searchResult.mapper.spec',
-    'app/efc/components/results/map/searchable-results-map/services/search/search.service.spec'
+    'app/efc/components/landing-page/results/map/searchable-results-map/main.component.spec',
+    'app/efc/components/landing-page/results/map/searchable-results-map/views/searchableResultsMap.view.spec',
+    'app/efc/components/landing-page/results/map/searchable-results-map/services/search/searchInput.mapper.spec',
+    'app/efc/components/landing-page/results/map/searchable-results-map/services/search/searchResult.mapper.spec',
+    'app/efc/components/landing-page/results/map/searchable-results-map/services/search/search.service.spec',
+
+    // efc project partners page component
+    'app/efc/components/project-partners-page/layout/main.component.spec',
+    'app/efc/components/project-partners-page/layout/views/projectPartnersPage.view.spec'
 
   ], function() {
     window.onload();

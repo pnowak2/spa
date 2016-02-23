@@ -1,7 +1,7 @@
 define(function(require) {
   var _ = require('underscore'),
     mapInputMapper = require('./searchInput.mapper'),
-    listInputMapper = require('app/efc/components/results/list/searchable-results-list/services/search/searchInput.mapper');
+    listInputMapper = require('app/efc/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper');
 
 
   describe('Search Input Mapper', function() {

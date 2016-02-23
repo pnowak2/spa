@@ -1,9 +1,9 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    SearchComponent = require('app/efc/components/searching/search/main.component'),
-    SearchableResultsMapComponent = require('app/efc/components/results/map/searchable-results-map/main.component'),
-    SearchableResultsListComponent = require('app/efc/components/results/list/searchable-results-list/main.component'),
+    SearchComponent = require('app/efc/components/landing-page/searching/search/main.component'),
+    SearchableResultsMapComponent = require('app/efc/components/landing-page/results/map/searchable-results-map/main.component'),
+    SearchableResultsListComponent = require('app/efc/components/landing-page/results/list/searchable-results-list/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
 
   return Backbone.View.extend({
