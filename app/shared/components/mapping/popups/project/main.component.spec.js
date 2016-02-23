@@ -31,23 +31,5 @@ define(function(require) {
 
       });
     });
-
-    describe('api', function() {
-      describe('.getState()', function() {
-        it('should be defined', function() {
-          expect(ProjectPopupComponent.prototype.getState).toEqual(jasmine.any(Function));
-        });
-
-        it('should delegate to models JSON', function() {
-          var fakePopupModelJSON = {},
-            component = new ProjectPopupComponent;
-
-          spyOn(component.view.model, 'toJSON').and.returnValue(fakePopupModelJSON);
-
-          expect(component.getState()).toBe(fakePopupModelJSON);
-
-        });
-      });
-    });
   });
 });

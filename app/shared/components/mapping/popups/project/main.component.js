@@ -9,10 +9,6 @@ define(function(require) {
       this.view = new ProjectPopupView({
         popupData: options.popupData
       });
-    },
-
-    getState: function() {
-      return this.view.model.toJSON();
     }
   });
 });
