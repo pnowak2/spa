@@ -16,6 +16,10 @@ define(function(require) {
       it('.SEARCH_MAP should be defined', function() {
         expect(constants.urls.SEARCH_MAP).toEqual('/programmes/service/es/search/map?index=efc&indexTypeSearch=projectPublicSearch');
       });
+
+      it('.PROJECT_PARTNERS should be defined', function() {
+        expect(constants.urls.PROJECT_PARTNERS).toEqual('/programmes/service/findProjectPartners');
+      });
     });
   });
 });
