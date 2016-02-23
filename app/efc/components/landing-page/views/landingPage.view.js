@@ -9,24 +9,24 @@ define(function(require) {
   return Backbone.View.extend({
     initialize: function() {
       this.search = new SearchComponent;
-      this.searchableList = new SearchableResultsListComponent;
-      this.searchableMap = new SearchableResultsMapComponent;
+      this.searchableResultsList = new SearchableResultsListComponent;
+      this.searchableResultsMap = new SearchableResultsMapComponent;
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'Map',
           identifier: 'map',
-          targetSelector: '.' + this.searchableMap.view.className,
+          targetSelector: '.' + this.searchableResultsMap.view.className,
           selected: true
         }, {
           title: 'List',
           identifier: 'list',
-          targetSelector: '.' + this.searchableList.view.className,
+          targetSelector: '.' + this.searchableResultsList.view.className,
           selected: false
         }]
       });
 
       this.render();
-      this.searchableMap.initMap();
+      this.searchableResultsMap.initMap();
       this.requestInitialSearch();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
@@ -37,15 +37,15 @@ define(function(require) {
     },
 
     onSearchRequest: function(searchCriteria) {
-      this.searchableList.onSearchRequest(searchCriteria);
-      this.searchableMap.onSearchRequest(searchCriteria);
+      this.searchableResultsList.onSearchRequest(searchCriteria);
+      this.searchableResultsMap.onSearchRequest(searchCriteria);
     },
 
     render: function() {
       $('.efc-search-container').append(this.search.render().view.el);
       $('.efc-results-container').append(this.tabSwitcher.render().view.el);
-      $('.efc-results-container').append(this.searchableList.render().view.el);
-      $('.efc-results-container').append(this.searchableMap.render().view.el);
+      $('.efc-results-container').append(this.searchableResultsList.render().view.el);
+      $('.efc-results-container').append(this.searchableResultsMap.render().view.el);
 
       return this;
     }

@@ -29,11 +29,11 @@ define(function(require) {
       });
 
       it('should have searchable list component defined', function() {
-        expect(this.view.searchableList).toEqual(jasmine.any(SearchableResultsListComponent));
+        expect(this.view.searchableResultsList).toEqual(jasmine.any(SearchableResultsListComponent));
       });
 
       it('should have searchable map component defined', function() {
-        expect(this.view.searchableMap).toEqual(jasmine.any(SearchableResultsMapComponent));
+        expect(this.view.searchableResultsMap).toEqual(jasmine.any(SearchableResultsMapComponent));
       });
 
       it('should have tab switcher component defined', function() {
@@ -45,12 +45,12 @@ define(function(require) {
           tabDescriptors: [{
             title: 'Map',
             identifier: 'map',
-            targetSelector: '.' + this.view.searchableMap.view.className,
+            targetSelector: '.' + this.view.searchableResultsMap.view.className,
             selected: true
           }, {
             title: 'List',
             identifier: 'list',
-            targetSelector: '.' + this.view.searchableList.view.className,
+            targetSelector: '.' + this.view.searchableResultsList.view.className,
             selected: false
           }]
         })
@@ -61,7 +61,7 @@ define(function(require) {
       });
 
       it('should init the searchable map', function() {
-        expect(this.view.searchableMap.initMap).toHaveBeenCalled();
+        expect(this.view.searchableResultsMap.initMap).toHaveBeenCalled();
       });
 
       it('should request initial search', function() {
@@ -105,7 +105,7 @@ define(function(require) {
 
           this.view.onSearchRequest(fakeSearchCriteria);
 
-          expect(this.view.searchableList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+          expect(this.view.searchableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
         });
 
         it('should delegate to searchable map component', function() {
@@ -113,7 +113,7 @@ define(function(require) {
 
           this.view.onSearchRequest(fakeSearchCriteria);
 
-          expect(this.view.searchableMap.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+          expect(this.view.searchableResultsMap.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
         });
       });
     });
@@ -159,12 +159,12 @@ define(function(require) {
         });
 
         it('should render searchable list component to appropriate container', function() {
-          var markup = this.view.searchableList.render().el;
+          var markup = this.view.searchableResultsList.render().el;
           expect($('.efc-results-container')).toContainHtml(markup);
         });
 
         it('should render searchable map component to appropriate container', function() {
-          var markup = this.view.searchableMap.render().el;
+          var markup = this.view.searchableResultsMap.render().el;
           expect($('.efc-results-container')).toContainHtml(markup);
         });
       });
