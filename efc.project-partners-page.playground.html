@@ -12,9 +12,17 @@
 		<link rel="stylesheet" type="text/css" href="assets/styles/reset-easybutton.css">
 		<link rel="stylesheet" type="text/css" href="assets/styles/reset.css">
 		<link rel="stylesheet" type="text/css" href="assets/styles/styles.css">
-		<style>
 
-		</style>
+		<!-- Bootstrap with server params -->
+		<script>
+			var requirejs = {
+			  config: {
+			    'efc.project-partners-page.main': {
+			      projectId: '6'
+			    }
+			  }
+			}
+		</script>
 		<script data-main="efc.project-partners-page.main" src="lib/requirejs/require.js"></script>
 	</head>
 	<body>

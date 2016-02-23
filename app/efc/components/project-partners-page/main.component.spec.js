@@ -15,6 +15,16 @@ define(function(require) {
         var component = new ProjectPartnersComponent;
         expect(component.view).toEqual(jasmine.any(ProjectPartnersView));
       });
+
+      it('should initialize view with project id', function() {
+        spyOn(ProjectPartnersView.prototype, 'initialize');
+
+        var params = {},
+          component = new ProjectPartnersComponent(params);
+
+        expect(component.view.initialize).toHaveBeenCalledWith(params);
+
+      });
     });
   });
 });

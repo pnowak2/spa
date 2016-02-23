@@ -32,9 +32,10 @@ requirejs.config({
 define(function(require) {
   var Backbone = require('backbone'),
     modernizr = require('modernizr'),
+    module = require('module'),
     applicationModule = require('app/shared/modules/app.module'),
     EfCProjectPartnersPage = require('app/efc/components/project-partners-page/main.component'),
-    efcProjectPartnersPage = new EfCProjectPartnersPage;
+    efcProjectPartnersPage = new EfCProjectPartnersPage(module.config());
 
   Backbone.history.start();
 });

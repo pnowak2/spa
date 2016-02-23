@@ -3,8 +3,8 @@ define(function(require) {
     ProjectPartnersView = require('./views/projectPartnersPage.view');
 
   return Component.extend({
-    initialize: function() {
-      this.view = new ProjectPartnersView;
+    initialize: function(config) {
+      this.view = new ProjectPartnersView(config);
     }
   });
 });
