@@ -505,6 +505,7 @@
 .efc-map-popup {
   width: 250px;
   color: #333;
+  background-color: #fff;
 }
 
 .efc-map-popup__title {
