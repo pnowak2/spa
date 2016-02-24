@@ -381,6 +381,23 @@ define(function(require) {
           expect(MapView.prototype.toLeafletMarkers).toEqual(jasmine.any(Function));
         });
 
+        it('should create proper marker icon', function() {
+          var fakeIcon = {};
+          spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(fakeIcon);
+
+          markersData = [
+            [{
+              id: '123',
+              markerColor: 'blue'
+            }]
+          ];
+
+          var view = new MapView,
+            markers = view.toLeafletMarkers(markersData);
+
+          expect(markers[0][0].data.icon).toEqual(fakeIcon);
+        });
+
         it('should convert marker components to leaflet markers', function() {
           var markersData = [
             [{
@@ -510,6 +527,41 @@ define(function(require) {
 
         it('should be initialized with appropriate initial cluster size', function() {
           expect(this.view.createClusterGroupLayer().initialize).toHaveBeenCalledWith(this.view.defaults.countryClusterSize);
+        });
+      });
+
+      describe('.createMarkerIcon()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.createMarkerIcon).toEqual(jasmine.any(Function));
+        });
+
+        it('should return correct icon type', function() {
+          expect(this.view.createMarkerIcon()).toEqual(jasmine.any(Leaflet.Icon));
+        });
+
+        it('should create default icon', function() {
+          expect(this.view.createMarkerIcon()).toEqual(jasmine.any(Leaflet.Icon.Default));
+        });
+
+        it('should create icon with appropriate anchor and sizes', function() {
+          var icon = this.view.createMarkerIcon('blue');
+          expect(icon.options.shadowUrl).toContain('marker-shadow.png');
+          expect(icon.options.iconSize).toEqual([25, 41]);
+          expect(icon.options.iconAnchor).toEqual([12, 41]);
+          expect(icon.options.popupAnchor).toEqual([1, -34]);
+          expect(icon.options.shadowSize).toEqual([41, 41]);
+        });
+
+        it('should create any color marker icon', function() {
+          var iconBlue = this.view.createMarkerIcon('blue'),
+            iconGreen = this.view.createMarkerIcon('green');
+
+          expect(iconBlue.options.iconUrl).toContain('marker-blue.png');
+          expect(iconGreen.options.iconUrl).toContain('marker-green.png');
         });
       });
     });

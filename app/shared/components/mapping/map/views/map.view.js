@@ -118,15 +118,17 @@ define(function(require) {
     toLeafletMarkers: function(markersData) {
       return _.map(markersData, function(markersByCountry) {
         return _.map(markersByCountry, function(marker) {
+          var icon = this.createMarkerIcon(marker.color);
           return new PruneCluster.Marker(
             marker.lat,
             marker.lng, {
               id: marker.id,
-              popup: marker.popupContent
+              popup: marker.popupContent,
+              icon: icon
             }
           );
-        });
-      });
+        }, this);
+      }, this);
     },
 
     clearClusterLayers: function() {
@@ -149,6 +151,24 @@ define(function(require) {
 
     createClusterGroupLayer: function() {
       return new PruneClusterForLeaflet(this.defaults.countryClusterSize);
+    },
+
+    createMarkerIcon: function(markerColor) {
+      var path = Leaflet.Icon.Default.imagePath,
+        icon = new Leaflet.Icon.Default();
+
+      if (markerColor) {
+        icon = Leaflet.icon({
+          iconUrl: path + '/marker-' + markerColor + '.png',
+          shadowUrl: path + '/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        });
+      }
+
+      return icon;
     }
   });
 });
