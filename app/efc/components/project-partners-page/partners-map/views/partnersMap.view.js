@@ -1,6 +1,7 @@
 define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
+    app = require('app/shared/modules/app.module'),
     MapComponent = require('app/shared/components/mapping/map/main.component'),
     projectPartnersService = require('../services/projectPartners.service');
 
@@ -16,10 +17,28 @@ define(function(require) {
     },
 
     requestInitialSearch: function(criteria) {
-      this.onSearchRequest(criteria);
+      this.onFindRequest(criteria);
     },
 
-    onSearchRequest: function(criteria) {
+    onFindRequest: function(criteria) {
+      projectPartnersService.find(criteria)
+        .then(this.didFindSucceed)
+        .catch(this.didFindFail);
+    },
+
+    didFindSucceed: function(data) {
+      data = data || {};
+
+      var markers = this.prepareMarkersData(data);
+      this.mapComponent.showMarkers(markers);
+    },
+
+    didFindFail: function(error) {
+      app.showError(error);
+    },
+
+    prepareMarkersData: function(data) {
+      data = data || {};
 
     },
 

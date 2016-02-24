@@ -2,7 +2,10 @@ define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
     PartnersMapView = require('./partnersMap.view'),
-    MapComponent = require('app/shared/components/mapping/map/main.component');
+    MapComponent = require('app/shared/components/mapping/map/main.component'),
+    projectPartnersService = require('../services/projectPartners.service'),
+    RSVP = require('rsvp'),
+    app = require('app/shared/modules/app.module');
 
   describe('EFC Project Partners View', function() {
     describe('type', function() {
@@ -58,7 +61,7 @@ define(function(require) {
     describe('api', function() {
       describe('.requestInitialSearch()', function() {
         beforeEach(function() {
-          spyOn(PartnersMapView.prototype, 'onSearchRequest');
+          spyOn(PartnersMapView.prototype, 'onFindRequest');
           this.view = new PartnersMapView;
         });
 
@@ -71,17 +74,116 @@ define(function(require) {
 
           this.view.requestInitialSearch(fakeCriteria)
 
-          expect(this.view.onSearchRequest).toHaveBeenCalledWith(fakeCriteria);
+          expect(this.view.onFindRequest).toHaveBeenCalledWith(fakeCriteria);
         });
       });
 
-      describe('.onSearchRequest()', function() {
+      describe('.onFindRequest()', function() {
         beforeEach(function() {
           this.view = new PartnersMapView;
         });
 
         it('should be defined', function() {
-          expect(PartnersMapView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+          expect(PartnersMapView.prototype.onFindRequest).toEqual(jasmine.any(Function));
+        });
+
+        it('should not throw if called without args', function() {
+          var self = this;
+          expect(function() {
+            self.view.onFindRequest();
+          }).not.toThrow();
+        });
+
+        it('should call partners service with argument provided', function() {
+          spyOn(projectPartnersService, 'find').and.returnValue(RSVP.Promise.resolve());
+
+          var fakeProjectId = '6';
+
+          this.view.onFindRequest(fakeProjectId);
+
+          expect(projectPartnersService.find).toHaveBeenCalledWith(fakeProjectId);
+        });
+
+        it('should call success method after find done', function(done) {
+          spyOn(projectPartnersService, 'find').and.returnValue(RSVP.Promise.resolve('success'));
+
+          this.view.didFindSucceed = function(data) {
+            expect(data).toEqual('success');
+            done();
+          }
+
+          this.view.onFindRequest({});
+        });
+
+        it('should call failure method after search failed', function(done) {
+          spyOn(projectPartnersService, 'find').and.returnValue(RSVP.Promise.reject('error'));
+
+          this.view.didFindFail = function(error) {
+            expect(error).toEqual('error');
+            done();
+          }
+
+          this.view.onFindRequest({});
+        });
+      });
+
+      describe('.didFindSucceed()', function() {
+        beforeEach(function() {
+          this.fakePreparedMarkersData = {},
+          this.view = new PartnersMapView;
+
+          spyOn(PartnersMapView.prototype, 'prepareMarkersData').and.returnValue(this.fakePreparedMarkersData)
+          spyOn(this.view.mapComponent, 'showMarkers');
+        });
+
+        it('should be defined', function() {
+          expect(PartnersMapView.prototype.didFindSucceed).toEqual(jasmine.any(Function));
+        });
+
+        it('should update map component with prepared markers data', function() {
+          var fakeData = {};
+
+          this.view.didFindSucceed(fakeData);
+          expect(this.view.prepareMarkersData).toHaveBeenCalledWith(fakeData);
+        });
+
+        it('should show markers on map component', function() {
+          this.view.didFindSucceed();
+          expect(this.view.mapComponent.showMarkers).toHaveBeenCalledWith(this.fakePreparedMarkersData);
+        });
+      });
+
+      describe('.didSearchFail()', function() {
+        it('should be defined', function() {
+          expect(PartnersMapView.prototype.didFindFail).toEqual(jasmine.any(Function));
+        });
+
+        it('should show error message', function() {
+          spyOn(app, 'showError');
+
+          var view = new PartnersMapView,
+            fakeError = {};
+
+          view.didFindFail(fakeError);
+
+          expect(app.showError).toHaveBeenCalledWith(fakeError);
+        });
+      });
+
+      describe('.prepareMarkersData()', function() {
+        beforeEach(function() {
+          this.view = new PartnersMapView;
+        });
+
+        it('should be defined', function() {
+          expect(PartnersMapView.prototype.prepareMarkersData).toEqual(jasmine.any(Function));
+        });
+
+        it('should not throw if invoked without arguments', function() {
+          var self = this;
+          expect(function() {
+            self.view.prepareMarkersData();
+          }).not.toThrow();
         });
       });
     });
