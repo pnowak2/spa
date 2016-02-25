@@ -21,11 +21,11 @@ define(function(require) {
     render: function() {
       var tpl,
         type = this.options.type,
-        data = this.options.data;
+        data = this.options.data || {};
 
-      if (type == 'organisation') {
+      if (type === 'organisation') {
         tpl = tplOrganisation;
-      } else if (type == 'project') {
+      } else if (type === 'project') {
         tpl = tplProject;
       }
 
