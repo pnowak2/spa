@@ -90,10 +90,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/mapping/map/main.component.spec',
     'app/shared/components/mapping/map/views/map.view.spec',
 
-    // project popup component
-    'app/shared/components/mapping/popups/project/main.component.spec',
-    'app/shared/components/mapping/popups/project/models/projectPopup.model.spec',
-    'app/shared/components/mapping/popups/project/views/projectPopup.view.spec',
+    // popup component
+    'app/shared/components/mapping/popup/main.component.spec',
+    'app/shared/components/mapping/popup/views/popup.view.spec',
 
     // flags component
     'app/shared/components/flags/main.component.spec',

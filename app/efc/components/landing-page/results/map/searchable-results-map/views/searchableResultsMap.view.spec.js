@@ -2,7 +2,7 @@
    var Backbone = require('backbone'),
      $ = require('jquery'),
      SearchableResultsMapView = require('./searchableResultsMap.view'),
-     ProjectPopupComponent = require('app/shared/components/mapping/popups/project/main.component'),
+     ProjectPopupComponent = require('app/shared/components/mapping/popup/main.component'),
      MapComponent = require('app/shared/components/mapping/map/main.component'),
      searchService = require('../services/search/search.service'),
      RSVP = require('rsvp'),
@@ -240,10 +240,12 @@
              countryItems = [countryItem1, countryItem2],
              markersByCountry = this.view.prepareMarkersByCountryData(countryItems),
              popupContent1 = new ProjectPopupComponent({
-               popupData: countryItem1
+               type: 'project',
+               data: countryItem1
              }).render().view.el,
              popupContent2 = new ProjectPopupComponent({
-               popupData: countryItem2
+            type: 'project',
+               data: countryItem2
              }).render().view.el;
 
            expect(markersByCountry.length).toBe(2);
