@@ -1,5 +1,6 @@
 define(function(require) {
-  var searchResultMapper = require('./searchResult.mapper'),
+  var activitiesDataSource = require('app/efc/data/activities.datasource'),
+    searchResultMapper = require('./searchResult.mapper'),
 
     testResponses = {
       noData: {
@@ -16,7 +17,7 @@ define(function(require) {
               '2',
               'Project title (pl-1)',
               'Project description (pl-1)',
-              'Project activity (pl-1)',
+              'id-activity-1',
               'Project coordinator (pl-1)'
             ],
             [
@@ -25,7 +26,7 @@ define(function(require) {
               '4',
               'Project title (pl-2)',
               'Project description (pl-2)',
-              'Project activity (pl-2)',
+              'id-activity-1',
               'Project coordinator (pl-2)'
             ]
           ],
@@ -36,7 +37,7 @@ define(function(require) {
               '6',
               'Project title (be-1)',
               'Project description (be-1)',
-              'Project activity (be-1)',
+              'id-activity-2',
               'Project coordinator (be-1)'
             ],
             [
@@ -45,7 +46,7 @@ define(function(require) {
               '8',
               'Project title (be-2)',
               'Project description (be-2)',
-              'Project activity (be-2)',
+              'id-activity-2',
               'Project coordinator (be-2)'
             ]
           ]
@@ -61,7 +62,7 @@ define(function(require) {
               '2',
               'Project title (pl-1)',
               'Project description (pl-1)',
-              'Project activity (pl-1)',
+              'id-activity-1',
               'Project coordinator (pl-1)'
             ],
             [
@@ -70,7 +71,7 @@ define(function(require) {
               '4',
               'Project title (pl-2)',
               'Project description (pl-2)',
-              'Project activity (pl-2)',
+              'id-activity-1',
               'Project coordinator (pl-2)'
             ],
             [
@@ -79,7 +80,7 @@ define(function(require) {
               '',
               'Project title (pl-3)',
               'Project description (pl-3)',
-              'Project activity (pl-3)',
+              'id-activity-2',
               'Project coordinator (pl-3)'
             ],
             [
@@ -88,7 +89,7 @@ define(function(require) {
               '',
               'Project title (pl-4)',
               'Project description (pl-4)',
-              'Project activity (pl-4)',
+              'id-activity-2',
               'Project coordinator (pl-4)'
             ]
           ]
@@ -105,6 +106,16 @@ define(function(require) {
 
     describe('api', function() {
       describe('.map', function() {
+        beforeEach(function() {
+          spyOn(activitiesDataSource, 'getItems').and.returnValue([{
+            id: 'id-activity-1',
+            title: 'Activity 1 description'
+          }, {
+            id: 'id-activity-2',
+            title: 'Activity 2 description'
+          }]);
+        });
+
         it('should be defined', function() {
           expect(searchResultMapper.map).toEqual(jasmine.any(Function));
         });
@@ -133,7 +144,7 @@ define(function(require) {
                 lng: '2',
                 title: 'Project title (pl-1)',
                 description: 'Project description (pl-1)',
-                activity: 'Project activity (pl-1)',
+                activity: 'Activity 1 description',
                 coordinator: 'Project coordinator (pl-1)'
               }, {
                 id: 'id-pl-2',
@@ -141,7 +152,7 @@ define(function(require) {
                 lng: '4',
                 title: 'Project title (pl-2)',
                 description: 'Project description (pl-2)',
-                activity: 'Project activity (pl-2)',
+                activity: 'Activity 1 description',
                 coordinator: 'Project coordinator (pl-2)'
               }],
               [{
@@ -150,7 +161,7 @@ define(function(require) {
                 lng: '6',
                 title: 'Project title (be-1)',
                 description: 'Project description (be-1)',
-                activity: 'Project activity (be-1)',
+                activity: 'Activity 2 description',
                 coordinator: 'Project coordinator (be-1)'
               }, {
                 id: 'id-be-2',
@@ -158,7 +169,7 @@ define(function(require) {
                 lng: '8',
                 title: 'Project title (be-2)',
                 description: 'Project description (be-2)',
-                activity: 'Project activity (be-2)',
+                activity: 'Activity 2 description',
                 coordinator: 'Project coordinator (be-2)'
               }]
             ]
@@ -177,7 +188,7 @@ define(function(require) {
                 lng: '2',
                 title: 'Project title (pl-1)',
                 description: 'Project description (pl-1)',
-                activity: 'Project activity (pl-1)',
+                activity: 'Activity 1 description',
                 coordinator: 'Project coordinator (pl-1)'
               }]
             ]

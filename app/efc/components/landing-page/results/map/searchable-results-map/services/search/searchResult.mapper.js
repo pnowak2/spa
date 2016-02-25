@@ -1,5 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
+    activitiesDataSource = require('app/efc/data/activities.datasource'),
 
     map = function(response) {
       var total,
@@ -16,7 +17,7 @@ define(function(require) {
               lng = countryResponseItem[2],
               title = countryResponseItem[3],
               description = countryResponseItem[4],
-              activity = countryResponseItem[5],
+              activity = findActivityDescription(countryResponseItem[5]),
               coordinator = countryResponseItem[6];
 
             return {
@@ -35,13 +36,21 @@ define(function(require) {
           .value();
 
         itemsByCountry.push(oneCountryItems)
-      });
+      }, this);
 
       return {
         total: total,
         itemsByCountry: itemsByCountry
       }
-    };
+    },
+
+    findActivityDescription = function(activityCode) {
+      var foundItem = _.findWhere(activitiesDataSource.getItems(), {
+        id: activityCode
+      });
+
+      return (foundItem || {}).title
+    }
 
   return {
     map: map
