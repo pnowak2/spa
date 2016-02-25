@@ -18,7 +18,15 @@ define(function(require) {
     describe('creation', function() {
       it('should throw an exception if the type is not defined', function() {
         expect(function() {
-          new PopupView();
+          new PopupView;
+        }).toThrowError('Invalid popup type');
+      });
+
+      it('should throw an exception if the type is not allowed', function() {
+        expect(function() {
+          new PopupView({
+            type: 'mariquita'
+          });
         }).toThrowError('Invalid popup type');
       });
     });
@@ -99,7 +107,7 @@ define(function(require) {
             expect(this.view.$el).toContainHtml('type');
           });
 
-          it('should render bubble type property', function() {
+          it('should render bubble role property', function() {
             expect(this.view.$el).toContainHtml('role');
           });
 
@@ -111,7 +119,7 @@ define(function(require) {
             expect(this.view.$el).toContainHtml('website');
           });
 
-          it('should render link to project details', function() {
+          it('should render proper bubble website', function() {
             var link = this.view.$el.find('.efc-map-popup__website-link');
             expect(link).toHaveAttr('href', 'website');
             expect(link).toHaveAttr('target', '_blank');
