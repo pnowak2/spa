@@ -4,7 +4,7 @@ define(function(require) {
     app = require('app/shared/modules/app.module'),
     MapComponent = require('app/shared/components/mapping/map/main.component'),
     searchService = require('../services/search/search.service'),
-    ProjectPopupComponent = require('app/shared/components/mapping/popup/main.component'),
+    PopupComponent = require('app/shared/components/mapping/popup/main.component'),
     tpl = require('text!../templates/searchableResultsMap.tpl.html'),
     Mustache = require('mustache');
 
@@ -46,7 +46,7 @@ define(function(require) {
       return _.map(countryItems, function(countryItem) {
         countryItem = countryItem || {};
 
-        var popupComponent = new ProjectPopupComponent({
+        var popupComponent = new PopupComponent({
             type: 'project',
             data: {
               id: countryItem.id,

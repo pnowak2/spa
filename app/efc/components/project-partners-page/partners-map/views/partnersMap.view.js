@@ -3,6 +3,7 @@ define(function(require) {
     Backbone = require('backbone'),
     app = require('app/shared/modules/app.module'),
     MapComponent = require('app/shared/components/mapping/map/main.component'),
+    PopupComponent = require('app/shared/components/mapping/popup/main.component'),
     projectPartnersService = require('../services/projectPartners.service');
 
   return Backbone.View.extend({
