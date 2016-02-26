@@ -6,7 +6,8 @@ define(function(require) {
     Leaflet = require('leaflet'),
     LeafletPruneCluster = require('leafletprunecluster'),
     Fullscreen = require('leafletfullscreen'),
-    EasyButton = require('leafleteasybutton');
+    EasyButton = require('leafleteasybutton'),
+    tpl = require('text!../templates/map.tpl.html');
 
   return Backbone.View.extend({
     className: 'efc-map',
@@ -40,7 +41,7 @@ define(function(require) {
     },
 
     createMap: function() {
-      var map = Leaflet.map(this.el, {
+      var map = Leaflet.map(this.getMapContainerElement(), {
         attributionControl: false,
         worldCopyJump: true
       });
@@ -171,8 +172,15 @@ define(function(require) {
       return icon;
     },
 
-    getMapContainer: function() {
-      return this.$el.find('.efc-map__map-container');
+    getMapContainerElement: function() {
+      return this.$el.find('.efc-map__map-container').get(0);
+    },
+
+    render: function() {
+      var html = Mustache.render(tpl);
+      this.$el.append(html);
+
+      return this;
     }
   });
 });

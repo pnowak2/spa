@@ -53,7 +53,7 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.initMap', function() {
+      describe('.initMap()', function() {
         beforeEach(function() {
           this.fakeMap = jasmine.createSpyObj('map', ['addLayer']);
           this.fakeButtonsBar = jasmine.createSpyObj('buttonsBar', ['addTo']);
@@ -111,8 +111,12 @@ define(function(require) {
         });
 
         it('should have map instance referencing view element and with correct map options', function() {
+          var fakeMapContainer = {};
+          spyOn(this.view, 'getMapContainerElement').and.returnValue(fakeMapContainer);
+
           this.view.createMap();
-          expect(Leaflet.map).toHaveBeenCalledWith(this.view.el, {
+
+          expect(Leaflet.map).toHaveBeenCalledWith(fakeMapContainer, {
             attributionControl: false,
             worldCopyJump: true
           });
@@ -287,6 +291,7 @@ define(function(require) {
       describe('.didZoomMap()', function() {
         beforeEach(function() {
           this.view = new MapView;
+          this.view.render();
           this.view.initMap();
 
           this.belgiumCluster = jasmine.createSpyObj('be', ['ProcessView']);
@@ -439,6 +444,7 @@ define(function(require) {
           this.fakeLayer2 = {};
 
           this.view = new MapView;
+          this.view.render();
           this.view.initMap();
 
           spyOn(this.view.map, 'removeLayer');
@@ -468,6 +474,7 @@ define(function(require) {
       describe('.createClusterLayersWithMarkers()', function() {
         beforeEach(function() {
           this.view = new MapView;
+          this.view.render();
           this.view.initMap();
 
           this.marker1 = {};
@@ -561,9 +568,9 @@ define(function(require) {
         });
       });
 
-      describe('.getMapContainer()', function() {
+      describe('.getMapContainerElement()', function() {
         it('should be defined', function() {
-          expect(MapView.prototype.getMapContainer, 'getMapContainer').toEqual(jasmine.any(Function));
+          expect(MapView.prototype.getMapContainerElement).toEqual(jasmine.any(Function));
         });
 
         it('should return map container element', function() {
@@ -572,11 +579,17 @@ define(function(require) {
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
             if (selector === '.efc-map__map-container') {
-              return fakeMapContainer;
+              return {
+                get: function(index) {
+                  if (index === 0) {
+                    return fakeMapContainer
+                  }
+                }
+              };
             }
           });
 
-          var mapContainer = view.getMapContainer();
+          var mapContainer = view.getMapContainerElement();
 
           expect(mapContainer).toBe(fakeMapContainer);
         });
@@ -585,11 +598,24 @@ define(function(require) {
 
     describe('rendering', function() {
       describe('.render()', function() {
-        it('should return view object', function() {
-          var view = new MapView;
-
-          expect(view.render()).toBe(view);
+        beforeEach(function() {
+          this.view = new MapView;
         });
+
+        it('should return view object', function() {
+          expect(this.view.render()).toBe(this.view);
+        });
+
+        it('should render map component', function() {
+          this.view.render();
+          expect(this.view.$el).toContainElement('.efc-map__map-container');
+        });
+
+        it('should render legal note', function() {
+          this.view.render();
+          expect(this.view.$el).toContainElement('.efc-map__legal-note');
+        });
+
       });
     });
   });

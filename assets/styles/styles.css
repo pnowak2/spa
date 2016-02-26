@@ -496,9 +496,16 @@
 }
 
 /* Map */
-.efc-map {
+.efc-map__map-container {
   height: 600px;
   background-color: #848484;
+}
+
+.efc-map__legal-note {
+    padding: 10px;
+    font-size: 9px;
+    background-color: #2A5077;
+    color: #AEC6DA;
 }
 
 /* Marker bubble */
@@ -530,14 +537,6 @@
 
 .efc-map-popup__label {
   font-weight: bold;
-}
-
-/* Searchable results map */
-.efc-searchable-results-map__legal-note {
-    padding: 10px;
-    font-size: 9px;
-    background-color: #2A5077;
-    color: #AEC6DA;
 }
 
 /* Flags */

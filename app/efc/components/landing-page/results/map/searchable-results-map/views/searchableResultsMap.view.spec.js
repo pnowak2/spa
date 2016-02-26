@@ -244,7 +244,7 @@
                data: countryItem1
              }).render().view.el,
              popupContent2 = new ProjectPopupComponent({
-            type: 'project',
+               type: 'project',
                data: countryItem2
              }).render().view.el;
 
@@ -261,28 +261,6 @@
            expect(markersByCountry[1].popupContent.outerHTML).toEqual(popupContent2.outerHTML);
          });
        });
-
-       describe('.getMapContainer()', function() {
-         it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.getMapContainer, 'getMapContainer').toEqual(jasmine.any(Function));
-         });
-
-         it('should return map container element', function() {
-           var view = new SearchableResultsMapView,
-             fakeMapContainer = {};
-           view.render();
-
-           spyOn($.prototype, 'find').and.callFake(function(selector) {
-             if (selector === '.efc-searchable-results-map__map-container') {
-               return fakeMapContainer;
-             }
-           });
-
-           var mapContainer = view.getMapContainer();
-
-           expect(mapContainer).toBe(fakeMapContainer);
-         });
-       });
      });
 
      describe('rendering', function() {
@@ -295,14 +273,9 @@
            expect(this.view.render()).toBe(this.view);
          });
 
-         it('should render legal note', function() {
-           this.view.render();
-           expect(this.view.$el).toContainElement('.efc-searchable-results-map__legal-note');
-         });
-
          it('should render results map component', function() {
            this.view.render();
-           expect(this.view.$el.find('.efc-searchable-results-map__map-container')).toContainHtml(this.view.mapComponent.render().view.$el.html());
+           expect(this.view.$el).toContainHtml(this.view.mapComponent.render().view.$el.html());
          });
        });
      });

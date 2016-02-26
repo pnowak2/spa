@@ -5,7 +5,6 @@ define(function(require) {
     MapComponent = require('app/shared/components/mapping/map/main.component'),
     searchService = require('../services/search/search.service'),
     PopupComponent = require('app/shared/components/mapping/popup/main.component'),
-    tpl = require('text!../templates/searchableResultsMap.tpl.html'),
     Mustache = require('mustache');
 
   return Backbone.View.extend({
@@ -72,10 +71,7 @@ define(function(require) {
     },
 
     render: function() {
-      var html = Mustache.render(tpl);
-
-      this.$el.html(html);
-      this.getMapContainer().html(this.mapComponent.render().view.el);
+      this.$el.html(this.mapComponent.render().view.el);
 
       return this;
     }
