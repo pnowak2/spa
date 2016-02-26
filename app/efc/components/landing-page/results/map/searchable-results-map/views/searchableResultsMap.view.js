@@ -41,7 +41,14 @@ define(function(require) {
 
     prepareMarkersData: function(data) {
       data = data || {};
-      return _.map(data.itemsByCountry, this.prepareMarkersByCountryData);
+
+      var total = data.total,
+        markers = _.map(data.markers, this.prepareMarkersByCountryData);
+
+      return {
+        total: total,
+        markers: markers
+      }
     },
 
     prepareMarkersByCountryData: function(countryItems) {

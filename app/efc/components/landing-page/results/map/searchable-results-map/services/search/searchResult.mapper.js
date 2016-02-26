@@ -40,7 +40,7 @@ define(function(require) {
 
       return {
         total: total,
-        itemsByCountry: itemsByCountry
+        markers: itemsByCountry
       }
     },
 

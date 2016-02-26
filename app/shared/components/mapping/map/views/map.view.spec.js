@@ -354,7 +354,11 @@ define(function(require) {
       describe('.showMarkers()', function() {
         beforeEach(function() {
           this.view = new MapView;
-          this.fakeLeafletMarkers = {};
+          this.fakeLeafletMarkers = [];
+          this.fakeData = {
+            total: 2,
+            markers: []
+          }
 
           spyOn(this.view, 'clearClusterLayers');
           spyOn(this.view, 'createClusterLayersWithMarkers');
@@ -363,6 +367,12 @@ define(function(require) {
 
         it('should be defined', function() {
           expect(MapView.prototype.showMarkers).toEqual(jasmine.any(Function));
+        });
+
+        it('should convert data to leaflet markers', function() {
+          this.view.showMarkers(this.fakeData);
+
+          expect(this.view.toLeafletMarkers).toHaveBeenCalledWith(this.fakeData.markers);
         });
 
         it('should clear cluster layers', function() {

@@ -43,13 +43,13 @@ define(function(require) {
 
         it('should delegate to view', function() {
           var component = new MapComponent,
-            fakeMarkers = [];
+            fakeMarkersData = [];
 
           spyOn(component.view, 'showMarkers');
 
-          component.showMarkers(fakeMarkers);
+          component.showMarkers(fakeMarkersData);
 
-          expect(component.view.showMarkers).toHaveBeenCalledWith(fakeMarkers);
+          expect(component.view.showMarkers).toHaveBeenCalledWith(fakeMarkersData);
         });
       });
     });

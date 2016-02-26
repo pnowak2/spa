@@ -123,7 +123,7 @@ define(function(require) {
         it('should return default empty object when invoked without response', function() {
           expect(searchResultMapper.map()).toEqual({
             total: 0,
-            itemsByCountry: []
+            markers: []
           });
         });
 
@@ -137,7 +137,7 @@ define(function(require) {
 
           expect(mapped).toEqual({
             total: 4,
-            itemsByCountry: [
+            markers: [
               [{
                 id: 'id-pl-1',
                 lat: '1',
@@ -181,7 +181,7 @@ define(function(require) {
 
           expect(mapped).toEqual({
             total: 4,
-            itemsByCountry: [
+            markers: [
               [{
                 id: 'id-pl-1',
                 lat: '1',

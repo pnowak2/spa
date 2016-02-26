@@ -11,8 +11,8 @@ define(function(require) {
       this.view.initMap();
     },
 
-    showMarkers: function(markers) {
-      this.view.showMarkers(markers);
+    showMarkers: function(markersData) {
+      this.view.showMarkers(markersData);
     }
   });
 });

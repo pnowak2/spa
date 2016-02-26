@@ -109,8 +109,10 @@ define(function(require) {
       });
     },
 
-    showMarkers: function(markersData) {
-      var leafletMarkers = this.toLeafletMarkers(markersData);
+    showMarkers: function(data) {
+      data = data || {};
+
+      var leafletMarkers = this.toLeafletMarkers(data.markers);
 
       this.clearClusterLayers();
       this.createClusterLayersWithMarkers(leafletMarkers);

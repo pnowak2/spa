@@ -171,8 +171,8 @@
        describe('.prepareMarkersData()', function() {
          beforeEach(function() {
            this.data = {
-             total: 1,
-             itemsByCountry: [
+             total: 2,
+             markers: [
                [{ /* country data */ }],
                [{ /* country data */ }]
              ]
@@ -191,10 +191,16 @@
            }).not.toThrow();
          });
 
-         it('should return array of markers', function() {
-           var markers = this.view.prepareMarkersData(this.data);
-           expect(markers).toEqual(jasmine.any(Array));
-           expect(markers.length).toEqual(2);
+         it('should return object with total markers count', function() {
+           var markersData = this.view.prepareMarkersData(this.data);
+           expect(markersData.total).toEqual(2);
+         });
+
+         it('should return object with array of markers', function() {
+           var markersData = this.view.prepareMarkersData(this.data);
+           expect(markersData).toEqual(jasmine.any(Object));
+           expect(markersData.markers).toEqual(jasmine.any(Array));
+           expect(markersData.markers.length).toEqual(2);
          });
 
          it('should convert array of markers with factory method', function() {
@@ -203,9 +209,9 @@
 
            spyOn(SearchableResultsMapView.prototype, 'prepareMarkersByCountryData').and.returnValue(fakePreparedMarkerData);
 
-           markers = this.view.prepareMarkersData(this.data);
+           markersData = this.view.prepareMarkersData(this.data);
 
-           expect(markers[0]).toBe(fakePreparedMarkerData);
+           expect(markersData.markers[0]).toBe(fakePreparedMarkerData);
          });
        });
 
