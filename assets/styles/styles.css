@@ -539,6 +539,15 @@
   font-weight: bold;
 }
 
+/* Searchable Results Map */
+.efc-searchable-results-map__map-country-search-explanation {
+  padding: 10px;
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+  background-color: #F05A22;
+}
+
 /* Flags */
 .efc-flags__toggle-container {
   text-align: center;

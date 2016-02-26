@@ -5,7 +5,8 @@ define(function(require) {
     MapComponent = require('app/shared/components/mapping/map/main.component'),
     searchService = require('../services/search/search.service'),
     PopupComponent = require('app/shared/components/mapping/popup/main.component'),
-    Mustache = require('mustache');
+    Mustache = require('mustache'),
+    tpl = require('text!../templates/searchable-results-map.tpl.html');
 
   return Backbone.View.extend({
     className: 'efc-searchable-results-map',
@@ -23,6 +24,8 @@ define(function(require) {
       searchService.search(searchCriteria)
         .then(this.didSearchSucceed)
         .catch(this.didSearchFail);
+
+      this.toggleCountryExplanation(searchCriteria);
     },
 
     didSearchSucceed: function(data) {
@@ -66,12 +69,25 @@ define(function(require) {
       });
     },
 
+    toggleCountryExplanation: function(searchCriteria) {
+      searchCriteria = searchCriteria || {};
+      var hasCountryCriteria = !_.isEmpty(searchCriteria.countries);
+
+      this.getCountryExplanationContainer().toggle(hasCountryCriteria);
+    },
+
     getMapContainer: function() {
       return this.$el.find('.efc-searchable-results-map__map-container');
     },
 
+    getCountryExplanationContainer: function() {
+      return this.$el.find('.efc-searchable-results-map__map-country-search-explanation');
+    },
+
     render: function() {
-      this.$el.html(this.mapComponent.render().view.el);
+      var html = Mustache.render(tpl);
+      this.$el.append(html);
+      this.getMapContainer().append(this.mapComponent.render().view.el);
 
       return this;
     }

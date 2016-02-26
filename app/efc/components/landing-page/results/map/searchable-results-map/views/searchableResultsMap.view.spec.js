@@ -113,6 +113,13 @@
 
            this.view.onSearchRequest({});
          });
+
+         it('should toggle country explanation based on search criteria', function() {
+           spyOn(SearchableResultsMapView.prototype, 'toggleCountryExplanation');
+           this.view.onSearchRequest(this.fakeSearchCriteria);
+
+           expect(this.view.toggleCountryExplanation).toHaveBeenCalledWith(this.fakeSearchCriteria);
+         });
        });
 
        describe('.didSearchSucceed()', function() {
@@ -261,6 +268,70 @@
            expect(markersByCountry[1].popupContent.outerHTML).toEqual(popupContent2.outerHTML);
          });
        });
+
+       describe('.toggleCountryExplanation()', function() {
+         beforeEach(function() {
+           this.view = new SearchableResultsMapView;
+           this.view.render();
+
+           spyOn($.prototype, 'toggle');
+         });
+
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.toggleCountryExplanation).toEqual(jasmine.any(Function));
+         });
+
+         it('should hide country explanation if not searching by country', function() {
+
+           this.view.toggleCountryExplanation({
+             countries: []
+           });
+
+           expect(this.view.getCountryExplanationContainer().toggle).toHaveBeenCalledWith(false);
+         });
+
+         it('should show country explanation if searching by country', function() {
+           this.view.toggleCountryExplanation({
+             countries: ['2014']
+           });
+
+           expect(this.view.getCountryExplanationContainer().toggle).toHaveBeenCalledWith(true);
+         });
+       });
+
+       describe('.getMapContainer()', function() {
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.getMapContainer).toEqual(jasmine.any(Function));
+         });
+
+         it('should retrieve correct element', function() {
+           spyOn($.prototype, 'find').and.callFake(function(selector) {
+             if (selector === '.efc-searchable-results-map__map-container') {
+               return 'fakeMapContainer'
+             }
+           });
+
+           var view = new SearchableResultsMapView;
+           expect(view.getMapContainer()).toBe('fakeMapContainer');
+         });
+       });
+
+       describe('.getCountryExplanationContainer()', function() {
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.getCountryExplanationContainer).toEqual(jasmine.any(Function));
+         });
+
+         it('should retrieve correct element', function() {
+           spyOn($.prototype, 'find').and.callFake(function(selector) {
+             if (selector === '.efc-searchable-results-map__map-country-search-explanation') {
+               return 'fakeCountryExplanationContainer'
+             }
+           });
+
+           var view = new SearchableResultsMapView;
+           expect(view.getCountryExplanationContainer()).toBe('fakeCountryExplanationContainer');
+         });
+       });
      });
 
      describe('rendering', function() {
@@ -273,9 +344,19 @@
            expect(this.view.render()).toBe(this.view);
          });
 
+         it('should render country search explanation', function() {
+           this.view.render();
+           expect(this.view.$el).toContainElement('.efc-searchable-results-map__map-country-search-explanation');
+         });
+
+         it('should render map container', function() {
+           this.view.render();
+           expect(this.view.$el).toContainElement('.efc-searchable-results-map__map-container');
+         });
+
          it('should render results map component', function() {
            this.view.render();
-           expect(this.view.$el).toContainHtml(this.view.mapComponent.render().view.$el.html());
+           expect(this.view.$el.find('.efc-searchable-results-map__map-container')).toContainHtml(this.view.mapComponent.render().view.$el.html());
          });
        });
      });

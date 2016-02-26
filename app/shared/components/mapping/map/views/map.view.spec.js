@@ -606,7 +606,7 @@ define(function(require) {
           expect(this.view.render()).toBe(this.view);
         });
 
-        it('should render map component', function() {
+        it('should render map container', function() {
           this.view.render();
           expect(this.view.$el).toContainElement('.efc-map__map-container');
         });
@@ -615,7 +615,6 @@ define(function(require) {
           this.view.render();
           expect(this.view.$el).toContainElement('.efc-map__legal-note');
         });
-
       });
     });
   });
