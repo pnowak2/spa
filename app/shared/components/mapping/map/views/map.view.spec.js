@@ -28,7 +28,7 @@ define(function(require) {
           initialZoom: 4,
           initialPosition: [51, 17],
           minZoom: 4,
-          maxZoom: 11,
+          maxZoom: 7,
           zoomClusterSizeTrigger: 5,
           countryClusterSize: 900,
           localClusterSize: 120
