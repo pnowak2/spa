@@ -169,6 +169,10 @@ define(function(require) {
       }
 
       return icon;
+    },
+
+    getMapContainer: function() {
+      return this.$el.find('.efc-map__map-container');
     }
   });
 });

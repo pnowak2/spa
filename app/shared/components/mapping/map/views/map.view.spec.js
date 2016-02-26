@@ -95,8 +95,9 @@ define(function(require) {
 
       describe('.createMap()', function() {
         beforeEach(function() {
-          spyOn(Leaflet, 'map').and.callThrough();
-          spyOn(Leaflet.Map.prototype, 'setView').and.callThrough();
+          this.fakeMap = jasmine.createSpyObj('map', ['setView', 'on']);
+          spyOn(Leaflet, 'map').and.returnValue(this.fakeMap);
+          spyOn(Leaflet.Map.prototype, 'setView');
 
           this.view = new MapView;
         });
@@ -106,7 +107,7 @@ define(function(require) {
         });
 
         it('should return correct map instance', function() {
-          expect(this.view.createMap()).toEqual(jasmine.any(Leaflet.Map));
+          expect(this.view.createMap()).toEqual(this.fakeMap);
         });
 
         it('should have map instance referencing view element and with correct map options', function() {
@@ -125,14 +126,9 @@ define(function(require) {
           );
         });
 
-        it('should call appropriate method after zoom end', function() {
-          spyOn(this.view, 'didZoomMap');
-
+        it('should listen to map zoom end event', function() {
           var map = this.view.createMap();
-
-          map.fire('zoomend');
-
-          expect(this.view.didZoomMap).toHaveBeenCalled();
+          expect(map.on).toHaveBeenCalledWith('zoomend', this.view.didZoomMap);
         });
       });
 
@@ -562,6 +558,27 @@ define(function(require) {
 
           expect(iconBlue.options.iconUrl).toContain('marker-blue.png');
           expect(iconGreen.options.iconUrl).toContain('marker-green.png');
+        });
+      });
+
+      describe('.getMapContainer()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.getMapContainer, 'getMapContainer').toEqual(jasmine.any(Function));
+        });
+
+        it('should return map container element', function() {
+          var view = new MapView,
+            fakeMapContainer = {};
+
+          spyOn($.prototype, 'find').and.callFake(function(selector) {
+            if (selector === '.efc-map__map-container') {
+              return fakeMapContainer;
+            }
+          });
+
+          var mapContainer = view.getMapContainer();
+
+          expect(mapContainer).toBe(fakeMapContainer);
         });
       });
     });
