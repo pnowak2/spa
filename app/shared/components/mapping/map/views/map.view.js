@@ -116,6 +116,12 @@ define(function(require) {
 
       this.clearClusterLayers();
       this.createClusterLayersWithMarkers(leafletMarkers);
+      this.updateItemsCount(data.total);
+    },
+
+    updateItemsCount: function(total) {
+      total = total || 0;
+      this.getItemsCountElement().html(total);
     },
 
     toLeafletMarkers: function(markersData) {
@@ -176,6 +182,14 @@ define(function(require) {
 
     getMapContainerElement: function() {
       return this.$el.find('.efc-map__map-container').get(0);
+    },
+
+    getItemsCountContainer: function() {
+      return this.$el.find('.efc-map__items-count-container');
+    },
+
+    getItemsCountElement: function() {
+      return this.$el.find('.efc-map__items-count');
     },
 
     render: function() {

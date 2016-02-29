@@ -362,6 +362,7 @@ define(function(require) {
 
           spyOn(this.view, 'clearClusterLayers');
           spyOn(this.view, 'createClusterLayersWithMarkers');
+          spyOn(this.view, 'updateItemsCount');
           spyOn(this.view, 'toLeafletMarkers').and.returnValue(this.fakeLeafletMarkers);
         });
 
@@ -382,8 +383,36 @@ define(function(require) {
 
         it('should create cluster layers with markers', function() {
           this.view.showMarkers();
-
           expect(this.view.createClusterLayersWithMarkers).toHaveBeenCalledWith(this.fakeLeafletMarkers);
+        });
+
+        it('should update items count', function() {
+          this.view.showMarkers(this.fakeData);
+          expect(this.view.updateItemsCount).toHaveBeenCalledWith(this.fakeData.total);
+        });
+      });
+
+      describe('.updateItemsCount()', function() {
+        beforeEach(function() {
+          this.fakeItemsCountHtmlEl = jasmine.createSpyObj('html', ['html']);
+          spyOn(MapView.prototype, 'getItemsCountElement').and.returnValue(this.fakeItemsCountHtmlEl);
+
+          this.view = new MapView;
+          this.view.render();
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.updateItemsCount).toEqual(jasmine.any(Function));
+        });
+
+        it('should update number of items found with given number', function() {
+          this.view.updateItemsCount(242);
+          expect(this.view.getItemsCountElement().html).toHaveBeenCalledWith(242);
+        });
+
+        it('should put zero count if total items found is not defined', function() {
+          this.view.updateItemsCount();
+          expect(this.view.getItemsCountElement().html).toHaveBeenCalledWith(0);
         });
       });
 
@@ -556,7 +585,7 @@ define(function(require) {
           expect(this.view.createMarkerIcon()).toEqual(jasmine.any(Leaflet.Icon));
         });
 
-        it('should create default icon', function() {
+        it('should create default icon if no params provided', function() {
           expect(this.view.createMarkerIcon()).toEqual(jasmine.any(Leaflet.Icon.Default));
         });
 
@@ -572,9 +601,11 @@ define(function(require) {
         it('should create any color marker icon', function() {
           var iconBlue = this.view.createMarkerIcon('blue'),
             iconGreen = this.view.createMarkerIcon('green');
+          iconYellow = this.view.createMarkerIcon('yellow');
 
           expect(iconBlue.options.iconUrl).toContain('marker-blue.png');
           expect(iconGreen.options.iconUrl).toContain('marker-green.png');
+          expect(iconYellow.options.iconUrl).toContain('marker-yellow.png');
         });
       });
 
@@ -599,9 +630,45 @@ define(function(require) {
             }
           });
 
-          var mapContainer = view.getMapContainerElement();
+          expect(view.getMapContainerElement()).toBe(fakeMapContainer);
+        });
+      });
 
-          expect(mapContainer).toBe(fakeMapContainer);
+      describe('.getItemsCountElement()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.getItemsCountElement).toEqual(jasmine.any(Function));
+        });
+
+        it('should return items count element', function() {
+          var view = new MapView,
+            fakeItemsCountElement = {};
+
+          spyOn($.prototype, 'find').and.callFake(function(selector) {
+            if (selector === '.efc-map__items-count') {
+              return fakeItemsCountElement;
+            }
+          });
+
+          expect(view.getItemsCountElement()).toBe(fakeItemsCountElement);
+        });
+      });
+
+      describe('.getItemsCountContainer()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.getItemsCountContainer).toEqual(jasmine.any(Function));
+        });
+
+        it('should return items count container element', function() {
+          var view = new MapView,
+            fakeItemsCountContainer = {};
+
+          spyOn($.prototype, 'find').and.callFake(function(selector) {
+            if (selector === '.efc-map__items-count-container') {
+              return fakeItemsCountContainer;
+            }
+          });
+
+          expect(view.getItemsCountContainer()).toBe(fakeItemsCountContainer);
         });
       });
     });
@@ -614,6 +681,22 @@ define(function(require) {
 
         it('should return view object', function() {
           expect(this.view.render()).toBe(this.view);
+        });
+
+        it('should render items count container', function() {
+          this.view.render();
+          expect(this.view.$el).toContainElement('.efc-map__items-count-container');
+        });
+
+        it('should render items count element', function() {
+          this.view.render();
+          expect(this.view.$el.find('.efc-map__items-count-container')).toContainElement('.efc-map__items-count');
+        });
+
+        it('should render items count label', function() {
+          this.view.render();
+          expect(this.view.$el.find('.efc-map__items-count-container')).toContainText('Showing');
+          expect(this.view.$el.find('.efc-map__items-count-container')).toContainText('item(s)');
         });
 
         it('should render map container', function() {
