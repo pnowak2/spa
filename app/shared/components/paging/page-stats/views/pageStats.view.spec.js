@@ -81,7 +81,7 @@ define(function(require) {
         it('should render proper stats text', function() {
           var el = this.view.render().el;
 
-          expect(el).toContainText('Showing 11 to 20 of 162 entries');
+          expect(el).toContainText('Showing 11 to 20 of 162 items');
 
           this.view.update({
             displayStartItem: 21,
@@ -89,7 +89,7 @@ define(function(require) {
             totalItems: 222
           });
 
-          expect(el).toContainText('Showing 21 to 30 of 222 entries');
+          expect(el).toContainText('Showing 21 to 30 of 222 items');
         });
 
         it('should be hidden if total items is zero', function() {
