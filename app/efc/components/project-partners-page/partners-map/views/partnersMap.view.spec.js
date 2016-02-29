@@ -97,11 +97,13 @@ define(function(require) {
         it('should call partners service with argument provided', function() {
           spyOn(projectPartnersService, 'find').and.returnValue(RSVP.Promise.resolve());
 
-          var fakeProjectId = '6';
+          var fakeCriteria = {
+            projectId: '6'
+          };
 
-          this.view.onFindRequest(fakeProjectId);
+          this.view.onFindRequest(fakeCriteria);
 
-          expect(projectPartnersService.find).toHaveBeenCalledWith(fakeProjectId);
+          expect(projectPartnersService.find).toHaveBeenCalledWith(fakeCriteria);
         });
 
         it('should call success method after find done', function(done) {
