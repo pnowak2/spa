@@ -396,6 +396,7 @@ define(function(require) {
         beforeEach(function() {
           this.fakeItemsCountHtmlEl = jasmine.createSpyObj('html', ['html']);
           spyOn(MapView.prototype, 'getItemsCountElement').and.returnValue(this.fakeItemsCountHtmlEl);
+          spyOn(MapView.prototype, 'getItemsCountContainer').and.returnValue(jasmine.createSpyObj('ctr', ['show']));
 
           this.view = new MapView;
           this.view.render();
@@ -403,6 +404,11 @@ define(function(require) {
 
         it('should be defined', function() {
           expect(MapView.prototype.updateItemsCount).toEqual(jasmine.any(Function));
+        });
+
+        it('should display items count container', function() {
+          this.view.updateItemsCount();
+          expect(this.view.getItemsCountContainer().show).toHaveBeenCalled();
         });
 
         it('should update number of items found with given number', function() {

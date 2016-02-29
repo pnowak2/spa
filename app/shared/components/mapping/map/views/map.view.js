@@ -122,6 +122,7 @@ define(function(require) {
     updateItemsCount: function(total) {
       total = total || 0;
       this.getItemsCountElement().html(total);
+      this.getItemsCountContainer().show();
     },
 
     toLeafletMarkers: function(markersData) {
