@@ -14,20 +14,26 @@ define(function(require) {
           type: 'Coordinator type',
           role: 'Coordinator role',
           address: 'Coordinator address',
-          website: 'Coordinator website'
+          website: 'Coordinator website',
+          lat: '2',
+          lng: '4'
         },
         partners: [{
           name: 'Partner 1 name',
           type: 'Partner 1 type',
           role: 'Partner 1 role',
           address: 'Partner 1 address',
-          website: 'Partner 1 website'
+          website: 'Partner 1 website',
+          lat: '3',
+          lng: '5'
         }, {
           name: 'Partner 2 name',
           type: 'Partner 2 type',
           role: 'Partner 2 role',
           address: 'Partner 2 address',
-          website: 'Partner 2 website'
+          website: 'Partner 2 website',
+          lat: '4',
+          lng: '6'
         }]
       }
     };
@@ -63,20 +69,26 @@ define(function(require) {
               type: 'Coordinator type',
               role: 'Coordinator role',
               address: 'Coordinator address',
-              website: 'Coordinator website'
+              website: 'Coordinator website',
+              lat: '2',
+              lng: '4'
             },
             partners: [{
               name: 'Partner 1 name',
               type: 'Partner 1 type',
               role: 'Partner 1 role',
               address: 'Partner 1 address',
-              website: 'Partner 1 website'
+              website: 'Partner 1 website',
+              lat: '3',
+              lng: '5'
             }, {
               name: 'Partner 2 name',
               type: 'Partner 2 type',
               role: 'Partner 2 role',
               address: 'Partner 2 address',
-              website: 'Partner 2 website'
+              website: 'Partner 2 website',
+              lat: '4',
+              lng: '6'
             }]
           })
         });

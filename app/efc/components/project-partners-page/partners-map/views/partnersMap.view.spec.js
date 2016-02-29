@@ -3,6 +3,7 @@ define(function(require) {
     Backbone = require('backbone'),
     PartnersMapView = require('./partnersMap.view'),
     MapComponent = require('app/shared/components/mapping/map/main.component'),
+    PopupComponent = require('app/shared/components/mapping/popup/main.component'),
     projectPartnersService = require('../services/projectPartners.service'),
     RSVP = require('rsvp'),
     app = require('app/shared/modules/app.module');
@@ -30,6 +31,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
+        spyOn(_, 'bindAll').and.callThrough();
         spyOn(PartnersMapView.prototype, 'render');
         spyOn(PartnersMapView.prototype, 'requestInitialSearch');
         spyOn(MapComponent.prototype, 'initMap');
@@ -39,6 +41,10 @@ define(function(require) {
         };
 
         this.view = new PartnersMapView(this.fakeCriteria);
+      });
+
+      it('should bind callback methods with view object', function() {
+        expect(_.bindAll).toHaveBeenCalledWith(this.view, 'didFindSucceed', 'didFindFail');
       });
 
       it('should have map component defined', function() {
@@ -174,6 +180,14 @@ define(function(require) {
 
       describe('.prepareMarkersData()', function() {
         beforeEach(function() {
+          this.data = {
+            total: 3,
+            coordinator: {},
+            partners: [
+              [{ /* Partner data */ }],
+              [{ /* Partner data */ }]
+            ]
+          }
           this.view = new PartnersMapView;
         });
 
@@ -186,6 +200,79 @@ define(function(require) {
           expect(function() {
             self.view.prepareMarkersData();
           }).not.toThrow();
+        });
+
+        it('should return object with total markers count', function() {
+          var markersData = this.view.prepareMarkersData(this.data);
+          expect(markersData.total).toEqual(3);
+        });
+
+        it('should have coordinator as first cluster group', function() {
+          var coordinator = {},
+            fakeCoordinatorMapMarker = {};
+
+          spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, color) {
+            if (markerData === coordinator && color === 'blue') {
+              return fakeCoordinatorMapMarker
+            }
+          });
+
+          var markersData = this.view.prepareMarkersData({
+            coordinator: coordinator
+          });
+
+          expect(markersData.markers[0][0]).toBe(fakeCoordinatorMapMarker)
+        });
+
+        it('should partners as second cluster group', function() {
+          var partner = {},
+            fakePartnerMapMarker = {};
+
+          spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, color) {
+            if (markerData === partner && color === undefined) {
+              return fakePartnerMapMarker
+            }
+          });
+
+          var markersData = this.view.prepareMarkersData({
+            partners: [partner]
+          });
+
+          expect(markersData.markers[1][0]).toBe(fakePartnerMapMarker)
+        });
+      });
+
+      describe('.toMapMarker()', function() {
+        beforeEach(function() {
+          this.view = new PartnersMapView;
+        });
+
+        it('should be defined', function() {
+          expect(PartnersMapView.prototype.toMapMarker).toEqual(jasmine.any(Function));
+        });
+
+        it('should convert raw marker data to format accepted by map', function() {
+          var markerData = {
+              name: 'Coordinator name',
+              type: 'Coordinator type',
+              role: 'Coordinator role',
+              address: 'Coordinator address',
+              website: 'Coordinator website',
+              lat: '2',
+              lng: '4'
+            },
+
+            popupContent = new PopupComponent({
+              type: 'organisation',
+              data: markerData
+            }).render().view.el,
+
+            mapMarker = this.view.toMapMarker(markerData, 'blue');
+
+          expect(mapMarker.lat).toEqual('2');
+          expect(mapMarker.lng).toEqual('4');
+          expect(mapMarker.color).toEqual('blue');
+          expect(mapMarker.popupContent.outerHTML).toEqual(popupContent.outerHTML);
         });
       });
     });

@@ -18,7 +18,7 @@ define(function(require) {
       });
 
       it('.PROJECT_PARTNERS should be defined', function() {
-        expect(constants.urls.PROJECT_PARTNERS).toEqual('/programmes/service/findProjectPartners');
+        expect(constants.urls.PROJECT_PARTNERS).toEqual('/valor/details/projectCoordinatorPartners');
       });
     });
   });
