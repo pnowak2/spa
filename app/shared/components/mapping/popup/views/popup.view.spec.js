@@ -31,15 +31,53 @@ define(function(require) {
       });
     });
 
+    describe('api', function() {
+      describe('.externalizeLinks()', function() {
+        beforeEach(function() {
+          this.view = new PopupView({
+            type: PopupView.prototype.allowedTypes[0],
+            data: {}
+          });
+        });
+
+        it('should be defined', function() {
+          expect(PopupView.prototype.externalizeLinks).toEqual(jasmine.any(Function));
+        });
+
+        it('should externalize links marked with proper attribute', function() {
+          this.view.$el = $('<div><a href="google.com" rel="external">link</a></div>');
+          this.view.externalizeLinks();
+
+          expect(this.view.$el.find('a').first().attr('href')).toEqual('http://google.com');
+        });
+
+        it('should not externalize links not marked', function() {
+          this.view.$el = $('<div><a href="/my/site">link</a></div>');
+          this.view.externalizeLinks();
+
+          expect(this.view.$el.find('a').first().attr('href')).toEqual('/my/site');
+        });
+      });
+    });
+
     describe('rendering', function() {
       describe('.render()', function() {
+        beforeEach(function() {
+          spyOn(PopupView.prototype, 'externalizeLinks');
 
-        it('should return view itself', function() {
-          var view = new PopupView({
+          this.view = new PopupView({
             type: 'project',
             data: {}
           });
-          expect(view.render()).toBe(view);
+        });
+
+        it('should return view itself', function() {
+          expect(this.view.render()).toBe(this.view);
+        });
+
+        it('should externalize links', function() {
+          this.view.render();
+          expect(this.view.externalizeLinks).toHaveBeenCalled();
         });
 
         describe('Project', function() {
@@ -123,11 +161,10 @@ define(function(require) {
             var link = this.view.$el.find('.efc-map-popup__website-link');
             expect(link).toHaveAttr('href', 'website');
             expect(link).toHaveAttr('target', '_blank');
+            expect(link).toHaveAttr('rel', 'external');
             expect(link).toContainText('website');
           });
         });
-
-
       });
     });
   });

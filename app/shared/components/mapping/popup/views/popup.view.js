@@ -18,6 +18,12 @@ define(function(require) {
       }
     },
 
+    externalizeLinks: function() {
+      this.$el.find('a[rel="external"]:not([href^="http://"]):not([href^="https://"])').each(function() {
+        $(this).attr('href', 'http://' + $(this).attr('href'));
+      });
+    },
+
     render: function() {
       var tpl,
         type = this.options.type,
@@ -31,6 +37,7 @@ define(function(require) {
 
       var html = Mustache.render(tpl, data);
       this.$el.html(html);
+      this.externalizeLinks();
 
       return this;
     }
