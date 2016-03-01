@@ -93,14 +93,20 @@ define(function(require) {
 
     didZoomMap: function() {
       _.each(this.clusterLayers, function(countryClusterLayer) {
-        var zoomClusterSizeTrigger = this.options.zoomClusterSizeTrigger,
-          countryClusterSize = this.options.countryClusterSize,
-          localClusterSize = this.options.localClusterSize,
-          clusterSize = this.map.getZoom() <= zoomClusterSizeTrigger ? countryClusterSize : localClusterSize;
+        var clusterSize = this.calculateClusterSize(this.map.getZoom());
 
         countryClusterLayer.Cluster.Size = clusterSize;
         countryClusterLayer.ProcessView();
       }, this);
+    },
+
+    calculateClusterSize: function(zoomLevel) {
+      var zoomClusterSizeTrigger = this.options.zoomClusterSizeTrigger,
+        countryClusterSize = this.options.countryClusterSize,
+        localClusterSize = this.options.localClusterSize,
+        clusterSize = (zoomLevel < zoomClusterSizeTrigger ? countryClusterSize : localClusterSize);
+
+      return clusterSize;
     },
 
     createTileLayer: function() {
@@ -161,7 +167,8 @@ define(function(require) {
     },
 
     createClusterGroupLayer: function() {
-      return new PruneClusterForLeaflet(this.options.countryClusterSize);
+      var clusterSize = this.calculateClusterSize(this.map.getZoom());
+      return new PruneClusterForLeaflet(clusterSize);
     },
 
     createMarkerIcon: function(markerColor) {

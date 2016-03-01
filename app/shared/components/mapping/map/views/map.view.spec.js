@@ -322,22 +322,31 @@ define(function(require) {
           expect(MapView.prototype.didZoomMap).toEqual(jasmine.any(Function));
         });
 
-        it('should set country cluster size for country zoom levels', function() {
-          spyOn(this.view.map, 'getZoom').and.returnValue(4);
+        it('should set cluster size to value calculated based on zoom level', function() {
+          spyOn(MapView.prototype, 'calculateClusterSize').and.returnValue(2);
 
           this.view.didZoomMap();
 
-          expect(this.belgiumCluster.Cluster.Size).toEqual(this.view.options.countryClusterSize);
+          expect(this.belgiumCluster.Cluster.Size).toEqual(2);
           expect(this.belgiumCluster.ProcessView).toHaveBeenCalled();
+        });
+      });
+
+      describe('.calculateClusterSize()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.calculateClusterSize).toEqual(jasmine.any(Function));
+        });
+
+        it('should set country cluster size for country zoom levels', function() {
+          expect(this.view.calculateClusterSize(4)).toEqual(this.view.options.countryClusterSize);
         });
 
         it('should set local cluster size for local zoom levels', function() {
-          spyOn(this.view.map, 'getZoom').and.returnValue(7);
-
-          this.view.didZoomMap();
-
-          expect(this.belgiumCluster.Cluster.Size).toEqual(this.view.options.localClusterSize);
-          expect(this.belgiumCluster.ProcessView).toHaveBeenCalled();
+          expect(this.view.calculateClusterSize(5)).toEqual(this.view.options.localClusterSize);
         });
       });
 
@@ -581,6 +590,8 @@ define(function(require) {
           spyOn(PruneClusterForLeaflet.prototype, 'initialize').and.callThrough();
 
           this.view = new MapView;
+          this.view.render();
+          this.view.initMap();
         });
 
         it('should be defined', function() {
@@ -592,7 +603,9 @@ define(function(require) {
         });
 
         it('should be initialized with appropriate initial cluster size', function() {
-          expect(this.view.createClusterGroupLayer().initialize).toHaveBeenCalledWith(this.view.options.countryClusterSize);
+          spyOn(MapView.prototype, 'calculateClusterSize').and.returnValue(2);
+
+          expect(this.view.createClusterGroupLayer().initialize).toHaveBeenCalledWith(2);
         });
       });
 
