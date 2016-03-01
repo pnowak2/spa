@@ -34,6 +34,7 @@ define(function(require) {
         spyOn(_, 'bindAll').and.callThrough();
         spyOn(PartnersMapView.prototype, 'render');
         spyOn(PartnersMapView.prototype, 'requestInitialSearch');
+        spyOn(MapComponent.prototype, 'initialize');
         spyOn(MapComponent.prototype, 'initMap');
 
         this.fakeCriteria = {
@@ -49,6 +50,13 @@ define(function(require) {
 
       it('should have map component defined', function() {
         expect(this.view.mapComponent).toEqual(jasmine.any(MapComponent));
+      });
+
+      it('should initialize map component with proper options', function() {
+        expect(this.view.mapComponent.initialize).toHaveBeenCalledWith({
+          countryClusterSize: 15,
+          localClusterSize: 15
+        });
       });
 
       it('should render the component', function() {

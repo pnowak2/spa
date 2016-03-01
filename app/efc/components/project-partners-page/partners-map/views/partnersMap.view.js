@@ -13,7 +13,10 @@ define(function(require) {
     initialize: function(criteria) {
       _.bindAll(this, 'didFindSucceed', 'didFindFail');
 
-      this.mapComponent = new MapComponent;
+      this.mapComponent = new MapComponent({
+        countryClusterSize: 15,
+        localClusterSize: 15
+      });
 
       this.render();
       this.mapComponent.initMap();
