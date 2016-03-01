@@ -20,5 +20,12 @@
 	<label class="efc-map-popup__label">
 		Website:
 	</label>
-	<a href="{{website}}" class="efc-map-popup__website-link" href="#" target="_blank" rel="external">{{website}}</a>
+
+  {{#website}}
+      <a href="{{website}}" class="efc-map-popup__website-link" href="#" target="_blank" rel="external">{{website}}</a>
+  {{/website}}
+
+  {{^website}}
+      <span class="efc-map-popup__website-link-placeholder">(Website not provided)</span>
+  {{/website}}
 </div>

@@ -171,12 +171,33 @@ define(function(require) {
             expect(this.view.$el).toContainHtml('website');
           });
 
+          it('should not render website placeholder', function() {
+            expect(this.view.$el).not.toContainText('(Website not provided)');
+          });
+
           it('should render proper bubble website', function() {
             var link = this.view.$el.find('.efc-map-popup__website-link');
             expect(link).toHaveAttr('href', 'website');
             expect(link).toHaveAttr('target', '_blank');
             expect(link).toHaveAttr('rel', 'external');
             expect(link).toContainText('website');
+          });
+
+          it('should show website placeholder if website is not provided', function() {
+            var view = new PopupView({
+              type: 'organisation',
+              data: {
+                name: 'name',
+                type: 'type',
+                role: 'role',
+                address: 'address'
+              }
+            });
+
+            view.render();
+
+            expect(view.$el).not.toContainElement('.efc-map-popup__website-link');
+            expect(view.$el).toContainText('(Website not provided)');
           });
         });
       });

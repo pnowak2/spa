@@ -556,6 +556,10 @@
   margin-bottom: 10px;
 }
 
+.efc-map-popup__website-link-placeholder {
+  color: #999;
+}
+
 /* Map items count */
 .efc-map__items-count-container {
   display: none;
