@@ -18,6 +18,14 @@ define(function(require) {
       it('should be initialized with proper view', function() {
         expect(this.mapComponent.view).toEqual(jasmine.any(MapView));
       });
+
+      it('should pass options to view', function() {
+        spyOn(MapView.prototype, 'initialize');
+        var fakeOptions = {},
+          component = new MapComponent(fakeOptions);
+
+        expect(component.view.initialize).toHaveBeenCalledWith(fakeOptions);
+      });
     });
 
     describe('api', function() {

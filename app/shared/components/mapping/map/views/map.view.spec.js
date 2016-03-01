@@ -50,6 +50,24 @@ define(function(require) {
 
         expect(view.clusterLayers).toEqual([]);
       });
+
+      it('should create options prefilled with defaults', function() {
+        view = new MapView;
+        expect(view.options).toEqual(MapView.prototype.defaults);
+      });
+
+      it('should accept options to override defaults', function() {
+        var options = {
+            a: 'a',
+            b: 'b',
+            minZoom: 1
+          },
+          view = new MapView(options);
+
+        expect(view.options.a).toEqual('a');
+        expect(view.options.b).toEqual('b');
+        expect(view.options.minZoom).toEqual(1);
+      });
     });
 
     describe('api', function() {
@@ -125,8 +143,8 @@ define(function(require) {
         it('should set map view with default position and zoom', function() {
           var map = this.view.createMap();
           expect(map.setView).toHaveBeenCalledWith(
-            this.view.defaults.initialPosition,
-            this.view.defaults.initialZoom
+            this.view.options.initialPosition,
+            this.view.options.initialZoom
           );
         });
 
@@ -247,7 +265,7 @@ define(function(require) {
 
           this.view.didClickHomeButton(fakeBtn, fakeMap);
 
-          expect(fakeMap.setView).toHaveBeenCalledWith(this.view.defaults.initialPosition, this.view.defaults.initialZoom);
+          expect(fakeMap.setView).toHaveBeenCalledWith(this.view.options.initialPosition, this.view.options.initialZoom);
         });
       });
 
@@ -309,7 +327,7 @@ define(function(require) {
 
           this.view.didZoomMap();
 
-          expect(this.belgiumCluster.Cluster.Size).toEqual(this.view.defaults.countryClusterSize);
+          expect(this.belgiumCluster.Cluster.Size).toEqual(this.view.options.countryClusterSize);
           expect(this.belgiumCluster.ProcessView).toHaveBeenCalled();
         });
 
@@ -318,7 +336,7 @@ define(function(require) {
 
           this.view.didZoomMap();
 
-          expect(this.belgiumCluster.Cluster.Size).toEqual(this.view.defaults.localClusterSize);
+          expect(this.belgiumCluster.Cluster.Size).toEqual(this.view.options.localClusterSize);
           expect(this.belgiumCluster.ProcessView).toHaveBeenCalled();
         });
       });
@@ -340,12 +358,12 @@ define(function(require) {
           expect(this.view.createTileLayer()).toEqual(jasmine.any(Leaflet.TileLayer));
         });
 
-        it('should initialize tile layer with correct defaults', function() {
+        it('should initialize tile layer with correct options', function() {
           this.view.createTileLayer();
           expect(Leaflet.tileLayer).toHaveBeenCalledWith(
-            this.view.defaults.tileUrl, {
-              minZoom: this.view.defaults.minZoom,
-              maxZoom: this.view.defaults.maxZoom
+            this.view.options.tileUrl, {
+              minZoom: this.view.options.minZoom,
+              maxZoom: this.view.options.maxZoom
             }
           );
         });
@@ -574,7 +592,7 @@ define(function(require) {
         });
 
         it('should be initialized with appropriate initial cluster size', function() {
-          expect(this.view.createClusterGroupLayer().initialize).toHaveBeenCalledWith(this.view.defaults.countryClusterSize);
+          expect(this.view.createClusterGroupLayer().initialize).toHaveBeenCalledWith(this.view.options.countryClusterSize);
         });
       });
 

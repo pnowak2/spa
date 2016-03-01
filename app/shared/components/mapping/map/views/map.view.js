@@ -23,7 +23,8 @@ define(function(require) {
       localClusterSize: 120
     },
 
-    initialize: function() {
+    initialize: function(options) {
+      this.options = _.extend({}, this.defaults, options);
       this.clusterLayers = [];
 
       _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap');
@@ -47,8 +48,8 @@ define(function(require) {
       });
 
       map.setView(
-        this.defaults.initialPosition,
-        this.defaults.initialZoom
+        this.options.initialPosition,
+        this.options.initialZoom
       );
 
       map.on('zoomend', this.didZoomMap);
@@ -79,7 +80,7 @@ define(function(require) {
     },
 
     didClickHomeButton: function(btn, map) {
-      map.setView(this.defaults.initialPosition, this.defaults.initialZoom);
+      map.setView(this.options.initialPosition, this.options.initialZoom);
     },
 
     didClickFullscreenButton: function(btn, map) {
@@ -92,9 +93,9 @@ define(function(require) {
 
     didZoomMap: function() {
       _.each(this.clusterLayers, function(countryClusterLayer) {
-        var zoomClusterSizeTrigger = this.defaults.zoomClusterSizeTrigger,
-          countryClusterSize = this.defaults.countryClusterSize,
-          localClusterSize = this.defaults.localClusterSize,
+        var zoomClusterSizeTrigger = this.options.zoomClusterSizeTrigger,
+          countryClusterSize = this.options.countryClusterSize,
+          localClusterSize = this.options.localClusterSize,
           clusterSize = this.map.getZoom() <= zoomClusterSizeTrigger ? countryClusterSize : localClusterSize;
 
         countryClusterLayer.Cluster.Size = clusterSize;
@@ -103,9 +104,9 @@ define(function(require) {
     },
 
     createTileLayer: function() {
-      return Leaflet.tileLayer(this.defaults.tileUrl, {
-        minZoom: this.defaults.minZoom,
-        maxZoom: this.defaults.maxZoom
+      return Leaflet.tileLayer(this.options.tileUrl, {
+        minZoom: this.options.minZoom,
+        maxZoom: this.options.maxZoom
       });
     },
 
@@ -160,7 +161,7 @@ define(function(require) {
     },
 
     createClusterGroupLayer: function() {
-      return new PruneClusterForLeaflet(this.defaults.countryClusterSize);
+      return new PruneClusterForLeaflet(this.options.countryClusterSize);
     },
 
     createMarkerIcon: function(markerColor) {
