@@ -57,6 +57,20 @@ define(function(require) {
 
           expect(this.view.$el.find('a').first().attr('href')).toEqual('/my/site');
         });
+
+        it('should not externalize links already externalized with http', function() {
+          this.view.$el = $('<div><a href="http://google.pl">link</a></div>');
+          this.view.externalizeLinks();
+
+          expect(this.view.$el.find('a').first().attr('href')).toEqual('http://google.pl');
+        });
+
+        it('should not externalize links already externalized with https', function() {
+          this.view.$el = $('<div><a href="https://google.be">link</a></div>');
+          this.view.externalizeLinks();
+
+          expect(this.view.$el.find('a').first().attr('href')).toEqual('https://google.be');
+        });
       });
     });
 
