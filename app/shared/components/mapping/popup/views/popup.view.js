@@ -1,6 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     Mustache = require('mustache'),
+    $ = require('jquery'),
     _ = require('underscore'),
     tplProject = require('text!../templates/projectPopup.tpl.html'),
     tplOrganisation = require('text!../templates/organisationPopup.tpl.html');
