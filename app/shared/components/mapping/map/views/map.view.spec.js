@@ -732,7 +732,7 @@ define(function(require) {
 
         it('should render items count label', function() {
           this.view.render();
-          expect(this.view.$el.find('.efc-map__items-count-container')).toContainText('Showing');
+          expect(this.view.$el.find('.efc-map__items-count-container')).toContainText('Found');
           expect(this.view.$el.find('.efc-map__items-count-container')).toContainText('item(s)');
         });
 
