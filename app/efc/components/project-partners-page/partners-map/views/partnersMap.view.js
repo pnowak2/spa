@@ -54,7 +54,7 @@ define(function(require) {
         partnersGroup = _.map(data.partners, function(partner) {
           return this.toMapMarker(partner);
         }, this),
-        markers = [coordinatorGroup, partnersGroup];
+        markers = [partnersGroup, coordinatorGroup];
 
       return {
         total: total,

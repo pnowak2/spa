@@ -215,24 +215,7 @@ define(function(require) {
           expect(markersData.total).toEqual(3);
         });
 
-        it('should have coordinator as first cluster group', function() {
-          var coordinator = {},
-            fakeCoordinatorMapMarker = {};
-
-          spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, color) {
-            if (markerData === coordinator && color === 'blue') {
-              return fakeCoordinatorMapMarker
-            }
-          });
-
-          var markersData = this.view.prepareMarkersData({
-            coordinator: coordinator
-          });
-
-          expect(markersData.markers[0][0]).toBe(fakeCoordinatorMapMarker)
-        });
-
-        it('should partners as second cluster group', function() {
+        it('should have partners as first cluster group', function() {
           var partner = {},
             fakePartnerMapMarker = {};
 
@@ -246,7 +229,24 @@ define(function(require) {
             partners: [partner]
           });
 
-          expect(markersData.markers[1][0]).toBe(fakePartnerMapMarker)
+          expect(markersData.markers[0][0]).toBe(fakePartnerMapMarker)
+        });
+
+        it('should have coordinator as second cluster group', function() {
+          var coordinator = {},
+            fakeCoordinatorMapMarker = {};
+
+          spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, color) {
+            if (markerData === coordinator && color === 'blue') {
+              return fakeCoordinatorMapMarker
+            }
+          });
+
+          var markersData = this.view.prepareMarkersData({
+            coordinator: coordinator
+          });
+
+          expect(markersData.markers[1][0]).toBe(fakeCoordinatorMapMarker)
         });
       });
 
