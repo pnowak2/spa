@@ -450,31 +450,7 @@ define(function(require) {
       });
 
       describe('.toLeafletMarkers()', function() {
-        it('should be defined', function() {
-          expect(MapView.prototype.toLeafletMarkers).toEqual(jasmine.any(Function));
-        });
-
-        it('should create proper marker icon', function() {
-          var fakeIcon = {};
-          spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(fakeIcon);
-
-          markersData = [
-            [{
-              id: '123',
-              markerName: 'blue'
-            }]
-          ];
-
-          var view = new MapView,
-            markers = view.toLeafletMarkers(markersData);
-
-          expect(markers[0][0].data.icon).toEqual(fakeIcon);
-        });
-
-        it('should convert marker components to leaflet markers', function() {
-          var fakeMarkerIcon = {};
-          spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(fakeMarkerIcon);
-
+        beforeEach(function() {
           var markersData = [
             [{
               id: '123',
@@ -482,48 +458,56 @@ define(function(require) {
               lng: 4,
               markerName: 'blue',
               popupContent: 'Popup content 1'
-            }],
-            [{
-              id: '456',
-              lat: 3,
-              lng: 5,
-              popupContent: 'Popup content 2'
             }]
           ];
 
-          var view = new MapView,
-            markers = view.toLeafletMarkers(markersData);
+          this.fakeIcon = {};
+          spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(this.fakeIcon);
+          this.view = new MapView,
+          this.markers = view.toLeafletMarkers(markersData);
+        });
 
-          expect(markers.length).toBe(2);
+        it('should be defined', function() {
+          expect(MapView.prototype.toLeafletMarkers).toEqual(jasmine.any(Function));
+        });
 
-          expect(markers[0][0]).toEqual(jasmine.any(PruneCluster.Marker));
-          expect(markers[0][0].data.id).toEqual('123');
-          expect(markers[0][0].data.popup).toEqual('Popup content 1');
-          expect(markers[0][0].data.icon).toEqual(fakeMarkerIcon);
-          expect(markers[0][0].data.popupOptions).toEqual({
+        it('should have proper markers count', function() {
+          expect(this.markers.length).toBe(1);
+        });
+
+        it('should proper marker type ', function() {
+          expect(this.markers[0][0]).toEqual(jasmine.any(PruneCluster.Marker));
+        });
+
+        it('should create proper marker icon', function() {
+          expect(this.markers[0][0].data.icon).toEqual(this.fakeIcon);
+        });
+
+        it('should have proper marker id', function() {
+          expect(this.markers[0][0].data.id).toEqual('123');
+        });
+
+        it('should have proper marker popup', function() {
+          expect(this.markers[0][0].data.popup).toEqual('Popup content 1');
+        });
+
+        it('should have proper marker popup options', function() {
+          expect(this.markers[0][0].data.popupOptions).toEqual({
             autoPanPadding: [48, 42]
           });
-          expect(markers[0][0].position).toEqual({
+        });
+
+        it('should have proper marker position', function() {
+          expect(this.markers[0][0].position).toEqual({
             lat: 2,
             lng: 4
           });
+        });
 
-          expect(markers[1][0]).toEqual(jasmine.any(PruneCluster.Marker));
-          expect(markers[1][0].data.id).toEqual('456');
-          expect(markers[1][0].data.popup).toEqual('Popup content 2');
-          expect(markers[1][0].data.icon).toEqual(fakeMarkerIcon);
-          expect(markers[0][0].data.popupOptions).toEqual({
-            autoPanPadding: [48, 42]
-          });
-          expect(markers[1][0].position).toEqual({
-            lat: 3,
-            lng: 5
-          });
-
-          expect(view.createMarkerIcon.calls.count()).toEqual(2);
-          expect(view.createMarkerIcon.calls.allArgs()).toEqual([
-            ['blue'],
-            [undefined]
+        it('should create proper marker icon', function() {
+          expect(this.view.createMarkerIcon.calls.count()).toEqual(1);
+          expect(this.view.createMarkerIcon.calls.allArgs()).toEqual([
+            ['blue']
           ]);
         });
       });
