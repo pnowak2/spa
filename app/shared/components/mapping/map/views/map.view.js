@@ -141,7 +141,10 @@ define(function(require) {
             marker.lng, {
               id: marker.id,
               popup: marker.popupContent,
-              icon: icon
+              icon: icon,
+              popupOptions: {
+                autoPanPadding: [48, 42],
+              }
             }
           );
         }, this);

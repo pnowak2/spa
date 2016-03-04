@@ -500,6 +500,9 @@ define(function(require) {
           expect(markers[0][0].data.id).toEqual('123');
           expect(markers[0][0].data.popup).toEqual('Popup content 1');
           expect(markers[0][0].data.icon).toEqual(fakeMarkerIcon);
+          expect(markers[0][0].data.popupOptions).toEqual({
+            autoPanPadding: [48, 42]
+          });
           expect(markers[0][0].position).toEqual({
             lat: 2,
             lng: 4
@@ -509,6 +512,9 @@ define(function(require) {
           expect(markers[1][0].data.id).toEqual('456');
           expect(markers[1][0].data.popup).toEqual('Popup content 2');
           expect(markers[1][0].data.icon).toEqual(fakeMarkerIcon);
+          expect(markers[0][0].data.popupOptions).toEqual({
+            autoPanPadding: [48, 42]
+          });
           expect(markers[1][0].position).toEqual({
             lat: 3,
             lng: 5
