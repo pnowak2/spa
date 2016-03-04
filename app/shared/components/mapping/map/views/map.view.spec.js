@@ -461,7 +461,7 @@ define(function(require) {
           markersData = [
             [{
               id: '123',
-              markerColor: 'blue'
+              markerName: 'blue'
             }]
           ];
 
@@ -472,11 +472,15 @@ define(function(require) {
         });
 
         it('should convert marker components to leaflet markers', function() {
+          var fakeMarkerIcon = {};
+          spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(fakeMarkerIcon);
+
           var markersData = [
             [{
               id: '123',
               lat: 2,
               lng: 4,
+              markerName: 'blue',
               popupContent: 'Popup content 1'
             }],
             [{
@@ -495,6 +499,7 @@ define(function(require) {
           expect(markers[0][0]).toEqual(jasmine.any(PruneCluster.Marker));
           expect(markers[0][0].data.id).toEqual('123');
           expect(markers[0][0].data.popup).toEqual('Popup content 1');
+          expect(markers[0][0].data.icon).toEqual(fakeMarkerIcon);
           expect(markers[0][0].position).toEqual({
             lat: 2,
             lng: 4
@@ -503,10 +508,17 @@ define(function(require) {
           expect(markers[1][0]).toEqual(jasmine.any(PruneCluster.Marker));
           expect(markers[1][0].data.id).toEqual('456');
           expect(markers[1][0].data.popup).toEqual('Popup content 2');
+          expect(markers[1][0].data.icon).toEqual(fakeMarkerIcon);
           expect(markers[1][0].position).toEqual({
             lat: 3,
             lng: 5
           });
+
+          expect(view.createMarkerIcon.calls.count()).toEqual(2);
+          expect(view.createMarkerIcon.calls.allArgs()).toEqual([
+            ['blue'],
+            [undefined]
+          ]);
         });
       });
 
@@ -626,8 +638,10 @@ define(function(require) {
           expect(this.view.createMarkerIcon()).toEqual(jasmine.any(Leaflet.Icon.Default));
         });
 
-        it('should create icon with appropriate anchor and sizes', function() {
+        it('should create blue icon with appropriate anchor and sizes', function() {
           var icon = this.view.createMarkerIcon('blue');
+
+          expect(icon.options.iconUrl).toContain('marker-blue.png');
           expect(icon.options.shadowUrl).toContain('marker-shadow.png');
           expect(icon.options.iconSize).toEqual([25, 41]);
           expect(icon.options.iconAnchor).toEqual([12, 41]);
@@ -635,14 +649,16 @@ define(function(require) {
           expect(icon.options.shadowSize).toEqual([41, 41]);
         });
 
-        it('should create any color marker icon', function() {
-          var iconBlue = this.view.createMarkerIcon('blue'),
-            iconGreen = this.view.createMarkerIcon('green');
-          iconYellow = this.view.createMarkerIcon('yellow');
+        it('should create medium blue icon with appropriate anchor and sizes', function() {
+          var icon = this.view.createMarkerIcon('blue-medium');
 
-          expect(iconBlue.options.iconUrl).toContain('marker-blue.png');
-          expect(iconGreen.options.iconUrl).toContain('marker-green.png');
-          expect(iconYellow.options.iconUrl).toContain('marker-yellow.png');
+          expect(icon.options.iconUrl).toContain('marker-blue-medium.png');
+          expect(icon.options.shadowUrl).toContain('marker-shadow.png');
+          expect(icon.options.iconSize).toEqual([29, 48]);
+          expect(icon.options.iconAnchor).toEqual([17, 48]);
+          expect(icon.options.shadowAnchor).toEqual([16, 41]);
+          expect(icon.options.popupAnchor).toEqual([-2, -41]);
+          expect(icon.options.shadowSize).toEqual([41, 41]);
         });
       });
 

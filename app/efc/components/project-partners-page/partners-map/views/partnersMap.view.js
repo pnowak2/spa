@@ -49,12 +49,12 @@ define(function(require) {
 
       var total = data.total,
         coordinatorGroup = _.map([data.coordinator], function(coordinator) {
-          return this.toMapMarker(coordinator, 'blue');
+          return this.toMapMarker(coordinator, 'blue-medium');
         }, this),
         partnersGroup = _.map(data.partners, function(partner) {
           return this.toMapMarker(partner);
         }, this),
-        markers = [partnersGroup, coordinatorGroup];
+        markers = [coordinatorGroup, partnersGroup];
 
       return {
         total: total,
@@ -62,7 +62,7 @@ define(function(require) {
       }
     },
 
-    toMapMarker: function(markerData, color) {
+    toMapMarker: function(markerData, markerName) {
       markerData = markerData || {};
 
       var popupComponent = new PopupComponent({
@@ -74,7 +74,7 @@ define(function(require) {
       return {
         lat: markerData.lat,
         lng: markerData.lng,
-        color: color,
+        markerName: markerName,
         popupContent: popupContent
       }
     },

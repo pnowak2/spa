@@ -215,29 +215,12 @@ define(function(require) {
           expect(markersData.total).toEqual(3);
         });
 
-        it('should have partners as first cluster group', function() {
-          var partner = {},
-            fakePartnerMapMarker = {};
-
-          spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, color) {
-            if (markerData === partner && color === undefined) {
-              return fakePartnerMapMarker
-            }
-          });
-
-          var markersData = this.view.prepareMarkersData({
-            partners: [partner]
-          });
-
-          expect(markersData.markers[0][0]).toBe(fakePartnerMapMarker)
-        });
-
-        it('should have coordinator as second cluster group', function() {
+        it('should have coordinator as first cluster group with medium blue icon', function() {
           var coordinator = {},
             fakeCoordinatorMapMarker = {};
 
-          spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, color) {
-            if (markerData === coordinator && color === 'blue') {
+          spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, markerName) {
+            if (markerData === coordinator && markerName === 'blue-medium') {
               return fakeCoordinatorMapMarker
             }
           });
@@ -246,7 +229,24 @@ define(function(require) {
             coordinator: coordinator
           });
 
-          expect(markersData.markers[1][0]).toBe(fakeCoordinatorMapMarker)
+          expect(markersData.markers[0][0]).toBe(fakeCoordinatorMapMarker)
+        });
+
+        it('should have partners as second cluster group with default icons', function() {
+          var partner = {},
+            fakePartnerMapMarker = {};
+
+          spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, markerName) {
+            if (markerData === partner && markerName === undefined) {
+              return fakePartnerMapMarker
+            }
+          });
+
+          var markersData = this.view.prepareMarkersData({
+            partners: [partner]
+          });
+
+          expect(markersData.markers[1][0]).toBe(fakePartnerMapMarker)
         });
       });
 
@@ -279,7 +279,7 @@ define(function(require) {
 
           expect(mapMarker.lat).toEqual('2');
           expect(mapMarker.lng).toEqual('4');
-          expect(mapMarker.color).toEqual('blue');
+          expect(mapMarker.markerName).toEqual('blue');
           expect(mapMarker.popupContent.outerHTML).toEqual(popupContent.outerHTML);
         });
       });

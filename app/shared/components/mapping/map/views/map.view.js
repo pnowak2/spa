@@ -135,7 +135,7 @@ define(function(require) {
     toLeafletMarkers: function(markersData) {
       return _.map(markersData, function(markersByCountry) {
         return _.map(markersByCountry, function(marker) {
-          var icon = this.createMarkerIcon(marker.color);
+          var icon = this.createMarkerIcon(marker.markerName);
           return new PruneCluster.Marker(
             marker.lat,
             marker.lng, {
@@ -171,22 +171,32 @@ define(function(require) {
       return new PruneClusterForLeaflet(clusterSize);
     },
 
-    createMarkerIcon: function(markerColor) {
+    createMarkerIcon: function(markerName) {
       var path = Leaflet.Icon.Default.imagePath,
-        icon = new Leaflet.Icon.Default();
+        defaultIcon = new Leaflet.Icon.Default();
 
-      if (markerColor) {
-        icon = Leaflet.icon({
-          iconUrl: path + '/marker-' + markerColor + '.png',
+      if (markerName === 'blue') {
+        return Leaflet.icon({
+          iconUrl: path + '/marker-' + markerName + '.png',
           shadowUrl: path + '/marker-shadow.png',
           iconSize: [25, 41],
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           shadowSize: [41, 41]
         });
+      } else if (markerName === 'blue-medium') {
+        return Leaflet.icon({
+          iconUrl: path + '/marker-' + markerName + '.png',
+          shadowUrl: path + '/marker-shadow.png',
+          iconSize: [29, 48],
+          iconAnchor: [17, 48],
+          shadowAnchor: [16, 41],
+          popupAnchor: [-2, -41],
+          shadowSize: [41, 41]
+        });
+      } else {
+        return defaultIcon;
       }
-
-      return icon;
     },
 
     getMapContainerElement: function() {
