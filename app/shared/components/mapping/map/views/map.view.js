@@ -16,7 +16,7 @@ define(function(require) {
       tileUrl: constants.urls.MAP_TILEURL,
       initialZoom: 4,
       initialPosition: [51, 17],
-      minZoom: 4,
+      minZoom: 3,
       maxZoom: 7,
       zoomClusterSizeTrigger: 5,
       countryClusterSize: 900,
