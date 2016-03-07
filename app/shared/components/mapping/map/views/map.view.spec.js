@@ -22,18 +22,38 @@ define(function(require) {
         expect(MapView.prototype.className).toEqual('efc-map');
       });
 
-      it('.defaults should be properly defined', function() {
-        expect(MapView.prototype.defaults).toEqual({
-          tileUrl: constants.urls.MAP_TILEURL,
-          initialZoom: 4,
-          initialPosition: [51, 17],
-          minZoom: 3,
-          maxZoom: 7,
-          zoomClusterSizeTrigger: 5,
-          countryClusterSize: 900,
-          localClusterSize: 120
-        })
+      it('should have default tiles url defined', function() {
+        expect(MapView.prototype.defaults.tileUrl).toEqual(constants.urls.MAP_TILEURL);
       });
+
+      it('should have default initial position defined', function() {
+        expect(MapView.prototype.defaults.initialPosition).toEqual([53, 17]);
+      });
+
+      it('should have default initial zoom defined', function() {
+        expect(MapView.prototype.defaults.initialZoom).toEqual(4);
+      });
+
+      it('should have default minimum zoom defined', function() {
+        expect(MapView.prototype.defaults.minZoom).toEqual(3);
+      });
+
+      it('should have default maximum zoom defined', function() {
+        expect(MapView.prototype.defaults.maxZoom).toEqual(7);
+      });
+
+      it('should have default zoom cluster size trigger defined', function() {
+        expect(MapView.prototype.defaults.zoomClusterSizeTrigger).toEqual(5);
+      });
+
+      it('should have default country cluster size defined', function() {
+        expect(MapView.prototype.defaults.countryClusterSize).toEqual(900);
+      });
+
+      it('should have default local cluster size defined', function() {
+        expect(MapView.prototype.defaults.localClusterSize).toEqual(120);
+      });
+
     });
 
     describe('creation', function() {
