@@ -403,23 +403,22 @@
 
 /* Results list */
 
-.efc-results-list__no-data {
+.efc-results-table__no-data {
   text-align: center;
   padding: 10px;
 }
 
-.efc-results-list__title {
+.efc-results-table__title {
   width: 340px;
 }
 
-.efc-results-list__year {
-  width: 40px;
+.efc-results-table__year {
+  width: 70px;
   text-align: center;
 }
 
-.efc-results-list__countries {
+.efc-results-table__countries {
   width: 100px;
-  text-align: center;
 }
 
 /* Searchable Results List */
