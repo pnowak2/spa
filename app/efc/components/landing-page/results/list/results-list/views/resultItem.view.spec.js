@@ -58,7 +58,7 @@ define(function(require) {
       beforeEach(function() {
         this.view = new ResultItemView({
           model: new ResultModel({
-            id: '52',
+            id: '53',
             title: 'Europe for Citizens',
             description: 'Mapping platform',
             callYear: '2015',
@@ -90,7 +90,7 @@ define(function(require) {
           });
 
           it('should contain link to result card', function() {
-            expect(this.$td).toContainElement('a[href="/programmes/europe-for-citizens/projects/efc-project-details-page/?nodeRef=52"]');
+            expect(this.$td).toContainElement('a[href="/programmes/europe-for-citizens/projects/efc-project-details-page/?nodeRef=53"]');
           });
 
           it('should have link to result card which opens in new window', function() {
