@@ -4,7 +4,7 @@ define(function(require) {
       ENTER: 13
     },
     urls: {
-      MAP_TILEURL: 'https://ec.europa.eu/migrant-integration/assets/img/openlayersTiles/ewsi/{z}/{x}/{y}.png'
+      MAP_TILEURL: 'http://ec.europa.eu/dgs/education_culture/repository/openlayerstiles/{z}/{x}/{y}.png'
     }
   }
 });
