@@ -2,17 +2,16 @@ define(function(require) {
   var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
+    RSVP = require('rsvp'),
     app = require('app/shared/modules/app.module'),
     MapComponent = require('app/shared/components/mapping/map/main.component'),
-    PartnersMapComponent = require('app/shared/components/mapping/partners-map/main.component'),
-    PopupComponent = require('app/shared/components/mapping/popup/main.component'),
-    projectPartnersService = require('../services/projectPartners.service');
+    PopupComponent = require('app/shared/components/mapping/popup/main.component');
 
   return Backbone.View.extend({
     className: 'efc-partners-map',
 
-    initialize: function(criteria) {
-      _.bindAll(this, 'didFindSucceed', 'didFindFail');
+    initialize: function(options) {
+      this.options = options || {};
 
       this.mapComponent = new MapComponent({
         countryClusterSize: 15,
@@ -21,28 +20,14 @@ define(function(require) {
 
       this.render();
       this.mapComponent.initMap();
-      this.requestInitialSearch(criteria);
+      this.showMarkers(this.options.data);
     },
 
-    requestInitialSearch: function(criteria) {
-      this.onFindRequest(criteria);
-    },
-
-    onFindRequest: function(criteria) {
-      projectPartnersService.find(criteria)
-        .then(this.didFindSucceed)
-        .catch(this.didFindFail);
-    },
-
-    didFindSucceed: function(data) {
+    showMarkers: function(data) {
       data = data || {};
 
       var markers = this.prepareMarkersData(data);
       this.mapComponent.showMarkers(markers);
-    },
-
-    didFindFail: function(error) {
-      app.showError(error);
     },
 
     prepareMarkersData: function(data) {
@@ -81,8 +66,7 @@ define(function(require) {
     },
 
     render: function() {
-      $('.efc-project-partners-container').append(this.mapComponent.render().view.el);
-
+      this.$el.html(this.mapComponent.render().view.el)
       return this;
     }
   });

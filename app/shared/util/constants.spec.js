@@ -16,7 +16,7 @@ define(function(require) {
 
     describe('urls', function() {
       it('.TILEURL should be defined', function() {
-        expect(constants.urls.MAP_TILEURL).toEqual('http://ec.europa.eu/dgs/education_culture/repository/openlayerstiles/{z}/{x}/{y}.png');
+        expect(constants.urls.MAP_TILEURL).toEqual('http://europa.eu/webtools/maps/tiles/osm-ec/{z}/{x}/{y}.png');
       });
     });
 
