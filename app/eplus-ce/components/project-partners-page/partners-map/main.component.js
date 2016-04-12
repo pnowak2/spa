@@ -1,10 +1,5 @@
 define(function(require) {
-  var Component = require('app/core/component'),
-    PartnersMapView = require('./views/partnersMap.view');
+  var EfCPartnersMapComponent = require('app/efc/components/project-partners-page/partners-map/main.component');
 
-  return Component.extend({
-    initialize: function(criteria) {
-      this.view = new PartnersMapView(criteria);
-    }
-  });
+  return EfCPartnersMapComponent;
 });

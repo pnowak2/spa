@@ -1,30 +1,10 @@
 define(function(require) {
-  var Component = require('app/core/component'),
-    PartnersMapView = require('./views/partnersMap.view'),
-    PartnersMapComponent = require('./main.component');
+  var PartnersMapComponent = require('./main.component'),
+    EfCPartnersMapComponent = require('app/efc/components/project-partners-page/partners-map/main.component');
 
   describe('Eplus-CE Project Partners Component', function() {
-    describe('type', function() {
-      it('should be of component', function() {
-        expect(PartnersMapComponent.prototype).toEqual(jasmine.any(Component));
-      });
-    });
-
-    describe('creation', function() {
-      it('should have proper view defined', function() {
-        var component = new PartnersMapComponent;
-        expect(component.view).toEqual(jasmine.any(PartnersMapView));
-      });
-
-      it('should initialize view with project id', function() {
-        spyOn(PartnersMapView.prototype, 'initialize');
-
-        var params = {},
-          component = new PartnersMapComponent(params);
-
-        expect(component.view.initialize).toHaveBeenCalledWith(params);
-
-      });
+    it('should use EfC partners map component', function() {
+      expect(PartnersMapComponent).toBe(EfCPartnersMapComponent);
     });
   });
 });
