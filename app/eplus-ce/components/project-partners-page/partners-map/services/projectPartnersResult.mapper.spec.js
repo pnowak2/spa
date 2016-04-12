@@ -38,7 +38,7 @@ define(function(require) {
       }
     };
 
-  describe('EfC Project Partners Result Mapper', function() {
+  describe('Eplus-CE Project Partners Result Mapper', function() {
     describe('creation', function() {
       it('should be defined', function() {
         expect(projectPartnersResultMapper).toEqual(jasmine.any(Object));

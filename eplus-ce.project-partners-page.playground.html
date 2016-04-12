@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>title</title>
+		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/leaflet/leaflet.css">
+		<link rel="stylesheet" type="text/css" href="lib/leaflet.prunecluster/dist/LeafletStyleSheet.css">
+		<link rel="stylesheet" type="text/css" href="lib/leaflet.fullscreen/dist/leaflet.fullscreen.css">
+		<link rel="stylesheet" type="text/css" href="lib/leaflet.easybutton/dist/easy-button.css">
+		<link rel="stylesheet" type="text/css" href="assets/styles/reset-prunecluster.css">
+		<link rel="stylesheet" type="text/css" href="assets/styles/reset-easybutton.css">
+		<link rel="stylesheet" type="text/css" href="assets/styles/reset.css">
+		<link rel="stylesheet" type="text/css" href="assets/styles/styles.css">
+
+		<!-- Bootstrap with server params -->
+		<script>
+			var requirejs = {
+			  config: {
+			    'eplus-ce.project-partners-page.main': {
+			      projectId: '6'
+			    }
+			  }
+			}
+		</script>
+		<script data-main="eplus-ce.project-partners-page.main" src="lib/requirejs/require.js"></script>
+	</head>
+	<body>
+		<div class="app">
+			<div class="efc-project-partners-container"></div>
+		</div>
+	</body>
+</html>

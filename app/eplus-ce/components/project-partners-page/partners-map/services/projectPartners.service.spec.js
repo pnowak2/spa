@@ -2,7 +2,7 @@ define(function(require) {
   var projectPartnersService = require('./projectPartners.service'),
     projectPartnersInputMapper = require('./projectPartnersInput.mapper'),
     projectPartnersResultMapper = require('./projectPartnersResult.mapper'),
-    constants = require('app/efc/util/constants'),
+    constants = require('app/eplus-ce/util/constants'),
     RSVP = require('rsvp'),
     $ = require('jquery'),
 
@@ -19,7 +19,7 @@ define(function(require) {
       }
     };
 
-  describe('EfC Project Partners Service', function() {
+  describe('Eplus-CE Project Partners Service', function() {
     beforeEach(function() {
       jasmine.Ajax.install();
     });

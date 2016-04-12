@@ -27,5 +27,43 @@ define(function(require) {
         expect(component.view.initialize).toHaveBeenCalledWith(options);
       });
     });
+
+    describe('api', function() {
+      describe('.initMap()', function() {
+        it('should be defined', function() {
+          expect(PartnersMapComponent.prototype.initMap).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new PartnersMapComponent;
+          spyOn(component.view, 'initMap');
+
+          component.initMap();
+
+          expect(component.view.initMap).toHaveBeenCalled();
+        });
+      });
+      
+      describe('.showMarkers()', function() {
+        beforeEach(function() {
+          this.component = new PartnersMapComponent;
+        });
+
+        it('should be defined', function() {
+          expect(PartnersMapComponent.prototype.showMarkers).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          spyOn(PartnersMapView.prototype, 'showMarkers');
+
+          var fakeData = {};
+
+          this.component.showMarkers(fakeData);
+
+          expect(this.component.view.showMarkers).toHaveBeenCalledWith(fakeData);
+        });
+
+      });
+    });
   });
 });

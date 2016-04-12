@@ -55,21 +55,24 @@ define(function(require) {
           localClusterSize: 15
         });
       });
-
-      it('should render the component', function() {
-        expect(this.view.render).toHaveBeenCalled();
-      });
-
-      it('should init the map', function() {
-        expect(this.view.mapComponent.initMap).toHaveBeenCalled();
-      });
-
-      it('should show markers', function() {
-        expect(this.view.showMarkers).toHaveBeenCalledWith(this.fakeOptions.data);
-      });
     });
 
     describe('api', function() {
+       describe('.initMap()', function() {
+         it('should be defined', function() {
+           expect(PartnersMapView.prototype.initMap).toEqual(jasmine.any(Function));
+         });
+
+         it('should delegate to map component', function() {
+           var view = new PartnersMapView;
+           spyOn(view.mapComponent, 'initMap');
+
+           view.initMap();
+
+           expect(view.mapComponent.initMap).toHaveBeenCalled();
+         });
+       });
+
       describe('.showMarkers()', function() {
         beforeEach(function() {
           this.view = new PartnersMapView;
@@ -98,7 +101,6 @@ define(function(require) {
 
         	expect(this.view.mapComponent.showMarkers).toHaveBeenCalledWith(fakeMarkers);
         });
-
       });
 
       describe('.prepareMarkersData()', function() {

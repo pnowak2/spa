@@ -150,7 +150,17 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/project-partners-page/partners-map/views/partnersMap.view.spec',
     'app/efc/components/project-partners-page/partners-map/services/projectPartners.service.spec',
     'app/efc/components/project-partners-page/partners-map/services/projectPartnersInput.mapper.spec',
-    'app/efc/components/project-partners-page/partners-map/services/projectPartnersResult.mapper.spec'
+    'app/efc/components/project-partners-page/partners-map/services/projectPartnersResult.mapper.spec',
+
+    // util
+    'app/eplus-ce/util/constants.spec',
+
+    // eplus-ce project partners page component
+    'app/eplus-ce/components/project-partners-page/partners-map/main.component.spec',
+    'app/eplus-ce/components/project-partners-page/partners-map/views/partnersMap.view.spec',
+    'app/eplus-ce/components/project-partners-page/partners-map/services/projectPartners.service.spec',
+    'app/eplus-ce/components/project-partners-page/partners-map/services/projectPartnersInput.mapper.spec',
+    'app/eplus-ce/components/project-partners-page/partners-map/services/projectPartnersResult.mapper.spec'
 
   ], function() {
     window.onload();

@@ -1,7 +1,7 @@
 define(function(require) {
   var projectPartnersInputMapper = require('./projectPartnersInput.mapper');
 
-  describe('EfC Project Partners Input Mapper', function() {
+  describe('Eplus-CE Project Partners Input Mapper', function() {
     describe('creation', function() {
       it('should be defined', function() {
         expect(projectPartnersInputMapper).toEqual(jasmine.any(Object));

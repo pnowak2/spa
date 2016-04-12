@@ -17,10 +17,10 @@ define(function(require) {
         countryClusterSize: 15,
         localClusterSize: 15
       });
+    },
 
-      this.render();
+    initMap: function() {
       this.mapComponent.initMap();
-      this.showMarkers(this.options.data);
     },
 
     showMarkers: function(data) {
