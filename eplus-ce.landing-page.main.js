@@ -30,6 +30,11 @@ requirejs.config({
   }
 });
 
+// http://www.manuel-strehl.de/dev/load_jquery_before_requirejs.en.html
+define('jquery', [], function() {
+  return jQuery;
+});
+
 define(function(require) {
   var Backbone = require('backbone'),
     modernizr = require('modernizr'),
