@@ -158,6 +158,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // eplus-ce landing page component
     'app/eplus-ce/components/landing-page/layout/main.component.spec',
     'app/eplus-ce/components/landing-page/layout/views/landingPage.view.spec',
+
+    // eplus-ce results map component
+    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component.spec',
+    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/views/searchableResultsMap.view.spec'
   ], function() {
     window.onload();
   });

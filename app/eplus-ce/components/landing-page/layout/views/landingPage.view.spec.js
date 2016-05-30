@@ -2,7 +2,8 @@ define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
     LandingPageView = require('./landingPage.view'),
-    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
+    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
+    SearchableResultsMapComponent = require('app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component');
 
   describe('Eplus/CE Landing Page View', function() {
     describe('type', function() {
@@ -21,6 +22,10 @@ define(function(require) {
 
       it('should have tab switcher component defined', function() {
         expect(this.view.tabSwitcher).toEqual(jasmine.any(TabSwitcherComponent));
+      });
+
+      it('should have searchable map component defined', function() {
+        expect(this.view.searchableResultsMap).toEqual(jasmine.any(SearchableResultsMapComponent));
       });
 
       it('should initialize tab switcher with proper data', function() {
@@ -62,6 +67,12 @@ define(function(require) {
           var markup = this.view.tabSwitcher.render().el;
           expect($('.eplus-ce-tab-switcher-container')).not.toBeEmpty();
           expect($('.eplus-ce-tab-switcher-container')).toContainHtml(markup);
+        });
+
+        it('should render searchable map component to appropriate container', function() {
+          var markup = this.view.searchableResultsMap.render().el;
+          expect($('.eplus-ce-map-container')).not.toBeEmpty();
+          expect($('.eplus-ce-map-container')).toContainHtml(markup);
         });
       });
     });
