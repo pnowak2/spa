@@ -153,7 +153,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/project-partners-page/partners-map/services/projectPartnersResult.mapper.spec',
 
     // eplus-ce project partners page component
-    'app/eplus-ce/components/project-partners-page/partners-map/main.component.spec'
+    'app/eplus-ce/components/project-partners-page/partners-map/main.component.spec',
+
+    // eplus-ce landing page component
+    'app/eplus-ce/components/landing-page/layout/main.component.spec',
+    'app/eplus-ce/components/landing-page/layout/views/landingPage.view.spec',
   ], function() {
     window.onload();
   });
