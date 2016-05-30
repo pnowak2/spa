@@ -9,11 +9,13 @@ define(function(require) {
         tabDescriptors: [{
           title: 'List',
           identifier: 'list',
-          selected: false
+          targetSelector: '#troggleTextOrSearch',
+          selected: true
         }, {
           title: 'Map',
           identifier: 'map',
-          selected: true
+          targetSelector: '.eplus-ce-map-container',
+          selected: false
         }]
       });
 
