@@ -22,6 +22,7 @@ define(function(require) {
 
     didClickTab: function(identifier) {
       this.collection.selectTab(identifier);
+      this.trigger('tab-switcher:tab:selected', identifier);
     },
 
     didModelSelectionChange: function(tabModel) {

@@ -52,5 +52,19 @@ define(function(require) {
         });
       });
     });
+
+    describe('events', function() {
+      it('should trigger event on tab selection', function(done) {
+        var component = new TabSwitcherComponent,
+          fakeTabIdentifier = 'fake-tab-id';
+
+        component.on('tab-switcher:tab:selected', function(identifier) {
+          expect(identifier).toBe(fakeTabIdentifier);
+          done();
+        });
+
+        component.view.trigger('tab-switcher:tab:selected', fakeTabIdentifier);
+      });
+    });
   });
 });

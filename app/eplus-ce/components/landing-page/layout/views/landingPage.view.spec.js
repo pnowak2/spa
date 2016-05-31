@@ -75,6 +75,37 @@ define(function(require) {
           expect(this.view.searchableResultsMap.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
         });
       });
+
+      describe('.didSelectTab()', function() {
+        beforeEach(function () {
+          this.view = new LandingPageView;
+        })
+
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.didSelectTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should trigger resize event', function(done) {
+          $(window).resize(function () { 
+            expect(true).toBe(true);
+            done();
+          });
+
+          this.view.didSelectTab();
+        });
+      });
+    });
+
+    describe('events', function() {
+      it('should listen to tab switcher tab selection events', function() {
+        spyOn(LandingPageView.prototype, 'didSelectTab');
+
+        var view = new LandingPageView;
+
+        view.tabSwitcher.trigger('tab-switcher:tab:selected');
+
+        expect(view.didSelectTab).toHaveBeenCalled();
+      });
     });
 
     describe('rendering', function() {

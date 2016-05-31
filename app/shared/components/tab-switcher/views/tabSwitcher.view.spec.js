@@ -74,6 +74,16 @@ define(function(require) {
 
           expect(view.collection.selectTab).toHaveBeenCalledWith('tab-id');
         });
+
+        it('should trigger view event with tab details', function() {
+          spyOn(TabSwitcherView.prototype, 'trigger');
+
+          var view = new TabSwitcherView;
+
+          view.didClickTab('tab-id');
+
+          expect(view.trigger).toHaveBeenCalledWith('tab-switcher:tab:selected', 'tab-id');
+        });
       });
 
       describe('.didModelSelectionChange', function() {

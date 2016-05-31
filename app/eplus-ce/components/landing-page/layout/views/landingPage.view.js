@@ -6,7 +6,7 @@ define(function(require) {
 
   return Backbone.View.extend({
     initialize: function() {
-    	this.searchableResultsMap = new SearchableResultsMapComponent;
+      this.searchableResultsMap = new SearchableResultsMapComponent;
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'List',
@@ -23,10 +23,24 @@ define(function(require) {
 
       this.render();
       this.searchableResultsMap.initMap();
+      this.listenTo(this.tabSwitcher, 'tab-switcher:tab:selected', this.didSelectTab);
     },
 
     onSearchRequest: function(searchCriteria) {
       this.searchableResultsMap.onSearchRequest(searchCriteria);
+    },
+
+    // Hack to force map to redraw
+    didSelectTab: function(identifier) {
+      if (document.createEvent) {
+        // W3C
+        var ev = document.createEvent('Event');
+        ev.initEvent('resize', true, true);
+        window.dispatchEvent(ev);
+      } else {
+        // IE
+        document.fireEvent('onresize');
+      }
     },
 
     render: function() {
