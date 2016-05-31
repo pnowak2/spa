@@ -22,6 +22,11 @@ define(function(require) {
       });
 
       this.render();
+      this.searchableResultsMap.initMap();
+    },
+
+    onSearchRequest: function(searchCriteria) {
+      this.searchableResultsMap.onSearchRequest(searchCriteria);
     },
 
     render: function() {

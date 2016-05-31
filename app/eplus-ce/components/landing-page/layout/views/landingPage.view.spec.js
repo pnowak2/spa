@@ -16,6 +16,7 @@ define(function(require) {
       beforeEach(function() {
         spyOn(TabSwitcherComponent.prototype, 'initialize');
         spyOn(LandingPageView.prototype, 'render');
+        spyOn(SearchableResultsMapComponent.prototype, 'initMap');
 
         this.view = new LandingPageView;
       });
@@ -46,6 +47,33 @@ define(function(require) {
 
       it('should render the component', function() {
         expect(this.view.render).toHaveBeenCalled();
+      });
+
+      it('should init the searchable map', function() {
+        expect(this.view.searchableResultsMap.initMap).toHaveBeenCalled();
+      });
+
+    });
+
+    describe('api', function() {
+      describe('.onSearchRequest()', function() {
+        beforeEach(function() {
+          spyOn(SearchableResultsMapComponent.prototype, 'onSearchRequest');
+
+          this.view = new LandingPageView;
+        });
+
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to searchable map component', function() {
+          var fakeSearchCriteria = {};
+
+          this.view.onSearchRequest(fakeSearchCriteria);
+
+          expect(this.view.searchableResultsMap.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+        });
       });
     });
 

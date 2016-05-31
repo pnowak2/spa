@@ -5,6 +5,14 @@ define(function(require) {
   return Component.extend({
     initialize: function(attrs) {
       this.view = new SearchableResultsMapView;
+    },
+
+    initMap: function() {
+      this.view.initMap();
+    },
+
+    onSearchRequest: function(searchCriteria) {
+      this.view.onSearchRequest(searchCriteria);
     }
   });
 });
