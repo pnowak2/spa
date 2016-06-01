@@ -7,7 +7,7 @@ define(function(require) {
   return Backbone.View.extend({
     tagName: 'ul',
 
-    className: 'efc-tabs',
+    className: 'vlr-tabs',
 
     initialize: function(tabDescriptors) {
       this.collection = new TabsCollection(tabDescriptors);

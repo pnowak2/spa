@@ -9,7 +9,7 @@ define(function(require) {
     tpl = require('text!../templates/pager.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-pager',
+    className: 'vlr-pager',
 
     initialize: function(options) {
       if (!_.has(options, ['model'])) {
@@ -25,10 +25,10 @@ define(function(require) {
     },
 
     events: {
-      'click .efc-pager__page--first': 'didClickFirstPageButton',
-      'click .efc-pager__page--previous': 'didClickPreviousPageButton',
-      'click .efc-pager__page--next': 'didClickNextPageButton',
-      'click .efc-pager__page--last': 'didClickLastPageButton'
+      'click .vlr-pager__page--first': 'didClickFirstPageButton',
+      'click .vlr-pager__page--previous': 'didClickPreviousPageButton',
+      'click .vlr-pager__page--next': 'didClickNextPageButton',
+      'click .vlr-pager__page--last': 'didClickLastPageButton'
     },
 
     update: function(data) {
@@ -83,7 +83,7 @@ define(function(require) {
     },
 
     getPagesContainer: function() {
-      return this.$el.find('.efc-pager__pages');
+      return this.$el.find('.vlr-pager__pages');
     },
 
     render: function() {

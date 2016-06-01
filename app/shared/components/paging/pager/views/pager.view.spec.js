@@ -71,7 +71,7 @@ define(function(require) {
       });
 
       it('.className should be defined', function() {
-        expect(PagerView.prototype.className).toEqual('efc-pager');
+        expect(PagerView.prototype.className).toEqual('vlr-pager');
       });
     });
 
@@ -269,7 +269,7 @@ define(function(require) {
           var result = view.getPagesContainer();
 
           expect(result).toBe(fakeContainer);
-          expect(view.$el.find).toHaveBeenCalledWith('.efc-pager__pages');
+          expect(view.$el.find).toHaveBeenCalledWith('.vlr-pager__pages');
         });
       });
     });
@@ -331,22 +331,22 @@ define(function(require) {
           });
 
           it('should define click event on go to first page button', function() {
-            this.view.render().$el.find('.efc-pager__page--first').trigger('click');
+            this.view.render().$el.find('.vlr-pager__page--first').trigger('click');
             expect(this.view.didClickFirstPageButton).toHaveBeenCalled();
           });
 
           it('should define click event on go to previous page button', function() {
-            this.view.render().$el.find('.efc-pager__page--previous').trigger('click');
+            this.view.render().$el.find('.vlr-pager__page--previous').trigger('click');
             expect(this.view.didClickPreviousPageButton).toHaveBeenCalled();
           });
 
           it('should define click event on go to next page button', function() {
-            this.view.render().$el.find('.efc-pager__page--next').trigger('click');
+            this.view.render().$el.find('.vlr-pager__page--next').trigger('click');
             expect(this.view.didClickNextPageButton).toHaveBeenCalled();
           });
 
           it('should define click event on go to last page button', function() {
-            this.view.render().$el.find('.efc-pager__page--last').trigger('click');
+            this.view.render().$el.find('.vlr-pager__page--last').trigger('click');
             expect(this.view.didClickLastPageButton).toHaveBeenCalled();
           });
         });
@@ -370,12 +370,12 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--first')).toContainText('First');
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--previous')).toContainText('Previous');
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--next')).toContainText('Next');
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--last')).toContainText('Last');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--first')).toContainText('First');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--previous')).toContainText('Previous');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--next')).toContainText('Next');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--last')).toContainText('Last');
 
-          expect(view.render().$el.find('span.efc-pager__pages')).toContainText('3');
+          expect(view.render().$el.find('span.vlr-pager__pages')).toContainText('3');
         });
 
         it('should disable go to first button when first page is selected', function() {
@@ -387,11 +387,11 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--first')).toHaveClass('efc-pager__page--disabled');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--first')).toHaveClass('vlr-pager__page--disabled');
 
           view.model.nextPage();
 
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--first')).not.toHaveClass('efc-pager__page--disabled');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--first')).not.toHaveClass('vlr-pager__page--disabled');
         });
 
         it('should disable go to previous button when first page is selected', function() {
@@ -403,11 +403,11 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--previous')).toHaveClass('efc-pager__page--disabled');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--previous')).toHaveClass('vlr-pager__page--disabled');
 
           view.model.nextPage();
 
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--previous')).not.toHaveClass('efc-pager__page--disabled');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--previous')).not.toHaveClass('vlr-pager__page--disabled');
         });
 
         it('should disable go to next button when last page is selected', function() {
@@ -419,11 +419,11 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--next')).toHaveClass('efc-pager__page--disabled');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--next')).toHaveClass('vlr-pager__page--disabled');
 
           view.model.previousPage();
 
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--next')).not.toHaveClass('efc-pager__page--disabled');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--next')).not.toHaveClass('vlr-pager__page--disabled');
         });
 
         it('should disable go to last button when last page is selected', function() {
@@ -435,11 +435,11 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--last')).toHaveClass('efc-pager__page--disabled');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--last')).toHaveClass('vlr-pager__page--disabled');
 
           view.model.previousPage();
 
-          expect(view.render().$el.find('a[href="#"].efc-pager__page--last')).not.toHaveClass('efc-pager__page--disabled');
+          expect(view.render().$el.find('a[href="#"].vlr-pager__page--last')).not.toHaveClass('vlr-pager__page--disabled');
         });
 
         it('should be hidden if just one page is available', function() {

@@ -7,7 +7,7 @@ define(function(require) {
     select2 = require('select2');
 
   return Backbone.View.extend({
-    className: 'efc-multiselect',
+    className: 'vlr-multiselect',
 
     events: {
       'select2:select select': 'didClickSelectItem',

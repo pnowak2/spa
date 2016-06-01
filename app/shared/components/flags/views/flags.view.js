@@ -5,27 +5,27 @@ define(function(require) {
     tpl = require('text!../templates/flags.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-flags',
+    className: 'vlr-flags',
 
     initialize: function(flagDescriptors) {
       this.collection = new FlagsCollection(flagDescriptors);
     },
 
     events: {
-      'click .efc-flags__toggle': 'didClickToggle'
+      'click .vlr-flags__toggle': 'didClickToggle'
     },
 
     didClickToggle: function(evt) {
       evt.preventDefault();
-      this.$el.toggleClass('efc-flags--collapsed');
+      this.$el.toggleClass('vlr-flags--collapsed');
     },
 
     render: function() {
       var html = Mustache.render(tpl, this.collection.itemsData());
 
-      this.$el.addClass('efc-flags--collapsed');
+      this.$el.addClass('vlr-flags--collapsed');
       if (!this.collection.hasRestItems()) {
-        this.$el.addClass('efc-flags--short');
+        this.$el.addClass('vlr-flags--short');
       }
       this.$el.html(html);
 

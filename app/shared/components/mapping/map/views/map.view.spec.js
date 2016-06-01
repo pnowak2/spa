@@ -19,7 +19,7 @@ define(function(require) {
       });
 
       it('.className should be defined', function() {
-        expect(MapView.prototype.className).toEqual('efc-map');
+        expect(MapView.prototype.className).toEqual('vlr-map');
       });
 
       it('should have default tiles url defined', function() {
@@ -682,7 +682,7 @@ define(function(require) {
             fakeMapContainer = {};
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
-            if (selector === '.efc-map__map-container') {
+            if (selector === '.vlr-map__map-container') {
               return {
                 get: function(index) {
                   if (index === 0) {
@@ -707,7 +707,7 @@ define(function(require) {
             fakeItemsCountElement = {};
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
-            if (selector === '.efc-map__items-count') {
+            if (selector === '.vlr-map__items-count') {
               return fakeItemsCountElement;
             }
           });
@@ -726,7 +726,7 @@ define(function(require) {
             fakeItemsCountContainer = {};
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
-            if (selector === '.efc-map__items-count-container') {
+            if (selector === '.vlr-map__items-count-container') {
               return fakeItemsCountContainer;
             }
           });
@@ -748,28 +748,28 @@ define(function(require) {
 
         it('should render items count container', function() {
           this.view.render();
-          expect(this.view.$el).toContainElement('.efc-map__items-count-container');
+          expect(this.view.$el).toContainElement('.vlr-map__items-count-container');
         });
 
         it('should render items count element', function() {
           this.view.render();
-          expect(this.view.$el.find('.efc-map__items-count-container')).toContainElement('.efc-map__items-count');
+          expect(this.view.$el.find('.vlr-map__items-count-container')).toContainElement('.vlr-map__items-count');
         });
 
         it('should render items count label', function() {
           this.view.render();
-          expect(this.view.$el.find('.efc-map__items-count-container')).toContainText('Found');
-          expect(this.view.$el.find('.efc-map__items-count-container')).toContainText('item(s)');
+          expect(this.view.$el.find('.vlr-map__items-count-container')).toContainText('Found');
+          expect(this.view.$el.find('.vlr-map__items-count-container')).toContainText('item(s)');
         });
 
         it('should render map container', function() {
           this.view.render();
-          expect(this.view.$el).toContainElement('.efc-map__map-container');
+          expect(this.view.$el).toContainElement('.vlr-map__map-container');
         });
 
         it('should render legal note', function() {
           this.view.render();
-          expect(this.view.$el).toContainElement('.efc-map__legal-note');
+          expect(this.view.$el).toContainElement('.vlr-map__legal-note');
         });
       });
     });

@@ -8,7 +8,7 @@ define(function(require) {
     PopupComponent = require('app/shared/components/mapping/popup/main.component');
 
   return Backbone.View.extend({
-    className: 'efc-partners-map',
+    className: 'vlr-partners-map',
 
     initialize: function(options) {
       this.options = options || {};

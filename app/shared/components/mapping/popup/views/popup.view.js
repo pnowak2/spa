@@ -7,7 +7,7 @@ define(function(require) {
     tplOrganisation = require('text!../templates/organisationPopup.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-map-popup',
+    className: 'vlr-map-popup',
 
     allowedTypes: ['project', 'organisation'],
 

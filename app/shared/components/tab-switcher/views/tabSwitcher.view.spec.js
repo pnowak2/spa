@@ -40,7 +40,7 @@ define(function(require) {
       });
 
       it('.className', function() {
-        expect(TabSwitcherView.prototype.className).toEqual('efc-tabs');
+        expect(TabSwitcherView.prototype.className).toEqual('vlr-tabs');
       });
     });
 

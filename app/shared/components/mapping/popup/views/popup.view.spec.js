@@ -11,7 +11,7 @@ define(function(require) {
 
     describe('properties', function() {
       it('.className should be defined', function() {
-        expect(PopupView.prototype.className).toEqual('efc-map-popup');
+        expect(PopupView.prototype.className).toEqual('vlr-map-popup');
       });
     });
 
@@ -127,8 +127,8 @@ define(function(require) {
           });
 
           it('should render link to project details', function() {
-            var link = this.view.$el.find('.efc-map-popup__more-link');
-            expect(link).toHaveAttr('href', '/programmes/europe-for-citizens/projects/efc-project-details-page/?nodeRef=52');
+            var link = this.view.$el.find('.vlr-map-popup__more-link');
+            expect(link).toHaveAttr('href', '/programmes/europe-for-citizens/projects/vlr-project-details-page/?nodeRef=52');
             expect(link).toHaveAttr('target', '_blank');
             expect(link).toContainText('Show project card');
           });
@@ -176,7 +176,7 @@ define(function(require) {
           });
 
           it('should render proper bubble website', function() {
-            var link = this.view.$el.find('.efc-map-popup__website-link');
+            var link = this.view.$el.find('.vlr-map-popup__website-link');
             expect(link).toHaveAttr('href', 'website');
             expect(link).toHaveAttr('target', '_blank');
             expect(link).toHaveAttr('rel', 'external');
@@ -196,7 +196,7 @@ define(function(require) {
 
             view.render();
 
-            expect(view.$el).not.toContainElement('.efc-map-popup__website-link');
+            expect(view.$el).not.toContainElement('.vlr-map-popup__website-link');
             expect(view.$el).toContainText('(Website not provided)');
           });
         });

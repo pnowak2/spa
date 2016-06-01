@@ -23,7 +23,7 @@ define(function(require) {
 
       describe('.className', function() {
         it('should be defined', function() {
-          expect(PartnersMapView.prototype.className).toEqual('efc-partners-map');
+          expect(PartnersMapView.prototype.className).toEqual('vlr-partners-map');
         });
       });
     });

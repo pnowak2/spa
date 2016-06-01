@@ -10,7 +10,7 @@ define(function(require) {
     tpl = require('text!../templates/map.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-map',
+    className: 'vlr-map',
 
     defaults: {
       tileUrl: constants.urls.MAP_TILEURL,
@@ -203,15 +203,15 @@ define(function(require) {
     },
 
     getMapContainerElement: function() {
-      return this.$el.find('.efc-map__map-container').get(0);
+      return this.$el.find('.vlr-map__map-container').get(0);
     },
 
     getItemsCountContainer: function() {
-      return this.$el.find('.efc-map__items-count-container');
+      return this.$el.find('.vlr-map__items-count-container');
     },
 
     getItemsCountElement: function() {
-      return this.$el.find('.efc-map__items-count');
+      return this.$el.find('.vlr-map__items-count');
     },
 
     render: function() {
