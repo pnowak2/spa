@@ -52,6 +52,13 @@
   font-weight: bold;
 }
 
+.vlr-map-popup__badges {
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  color: #999;
+}
+
 .vlr-map-popup__description {
   color: #999;
 }
