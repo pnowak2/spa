@@ -128,7 +128,7 @@ define(function(require) {
 
           it('should render link to project details', function() {
             var link = this.view.$el.find('.vlr-map-popup__more-link');
-            expect(link).toHaveAttr('href', '/programmes/europe-for-citizens/projects/vlr-project-details-page/?nodeRef=52');
+            expect(link).toHaveAttr('href', '/programmes/europe-for-citizens/projects/efc-project-details-page/?nodeRef=52');
             expect(link).toHaveAttr('target', '_blank');
             expect(link).toContainText('Show project card');
           });
