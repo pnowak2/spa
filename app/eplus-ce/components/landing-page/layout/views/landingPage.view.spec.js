@@ -15,6 +15,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
+        spyOn(_, 'bindAll').and.callThrough();
         spyOn(TabSwitcherComponent.prototype, 'initialize');
         spyOn(LandingPageView.prototype, 'render');
         spyOn(LandingPageView.prototype, 'setupDomEvents');
@@ -22,6 +23,10 @@ define(function(require) {
 
         this.view = new LandingPageView;
       });
+
+     it('should bind callback methods with view object', function() {
+       expect(_.bindAll).toHaveBeenCalledWith(this.view, 'didClickSearchButton');
+     });
 
       it('should have tab switcher component defined', function() {
         expect(this.view.tabSwitcher).toEqual(jasmine.any(TabSwitcherComponent));
@@ -79,7 +84,7 @@ define(function(require) {
       });
 
       describe('.didClickSearchButton()', function() {
-        beforeEach(function () {
+        beforeEach(function() {
           this.view = new LandingPageView;
         })
 
@@ -89,15 +94,24 @@ define(function(require) {
 
         it('should build search criteria', function() {
           spyOn(searchCriteriaBuilder, 'getCriteria');
-          
+
           this.view.didClickSearchButton();
 
           expect(searchCriteriaBuilder.getCriteria).toHaveBeenCalled();
         });
+
+        it('should call map component with search criteria', function() {
+          spyOn(this.view.searchableResultsMap, 'onSearchRequest');
+          spyOn(searchCriteriaBuilder, 'getCriteria').and.returnValue('fakeCriteria');
+
+          this.view.didClickSearchButton();
+
+          expect(this.view.searchableResultsMap.onSearchRequest).toHaveBeenCalledWith('fakeCriteria');
+        });
       });
 
       describe('.didSelectTab()', function() {
-        beforeEach(function () {
+        beforeEach(function() {
           this.view = new LandingPageView;
         })
 
@@ -106,7 +120,7 @@ define(function(require) {
         });
 
         it('should trigger resize event', function(done) {
-          $(window).resize(function () { 
+          $(window).resize(function() {
             expect(true).toBe(true);
             done();
           });

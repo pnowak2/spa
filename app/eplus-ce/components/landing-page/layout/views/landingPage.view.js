@@ -7,6 +7,8 @@ define(function(require) {
 
   return Backbone.View.extend({
     initialize: function() {
+      _.bindAll(this, 'didClickSearchButton');
+
       this.searchableResultsMap = new SearchableResultsMapComponent;
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
@@ -32,8 +34,9 @@ define(function(require) {
       Backbone.$('#btnSearch').click(this.didClickSearchButton);
     },
 
-    didClickSearchButton: function () {
+    didClickSearchButton: function() {
       var criteria = searchCriteriaBuilder.getCriteria();
+      this.searchableResultsMap.onSearchRequest(criteria);
     },
 
     // Hack to force map to redraw
