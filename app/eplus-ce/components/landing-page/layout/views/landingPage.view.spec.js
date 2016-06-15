@@ -3,7 +3,8 @@ define(function(require) {
     Backbone = require('backbone'),
     LandingPageView = require('./landingPage.view'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
-    SearchableResultsMapComponent = require('app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component');
+    SearchableResultsMapComponent = require('app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component'),
+    searchCriteriaBuilder = require('../util/searchCriteriaBuilder');
 
   describe('Eplus/CE Landing Page View', function() {
     describe('type', function() {
@@ -16,6 +17,7 @@ define(function(require) {
       beforeEach(function() {
         spyOn(TabSwitcherComponent.prototype, 'initialize');
         spyOn(LandingPageView.prototype, 'render');
+        spyOn(LandingPageView.prototype, 'setupDomEvents');
         spyOn(SearchableResultsMapComponent.prototype, 'initMap');
 
         this.view = new LandingPageView;
@@ -53,26 +55,44 @@ define(function(require) {
         expect(this.view.searchableResultsMap.initMap).toHaveBeenCalled();
       });
 
+      it('should setup dom events', function() {
+        expect(this.view.setupDomEvents).toHaveBeenCalled();
+      });
     });
 
     describe('api', function() {
-      describe('.onSearchRequest()', function() {
+      describe('.setupDomEvents()', function() {
         beforeEach(function() {
-          spyOn(SearchableResultsMapComponent.prototype, 'onSearchRequest');
+          jasmine.getFixtures().fixturesPath = 'fixtures';
+          loadFixtures('eplus-ce.landing-page.fixture.html');
 
           this.view = new LandingPageView;
         });
 
         it('should be defined', function() {
-          expect(LandingPageView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+          expect(LandingPageView.prototype.setupDomEvents).toEqual(jasmine.any(Function));
         });
 
-        it('should delegate to searchable map component', function() {
-          var fakeSearchCriteria = {};
+        it('should bind to search button click event', function() {
+          expect('#btnSearch').toHandle('click', this.view.didClickSearchButton);
+        });
+      });
 
-          this.view.onSearchRequest(fakeSearchCriteria);
+      describe('.didClickSearchButton()', function() {
+        beforeEach(function () {
+          this.view = new LandingPageView;
+        })
 
-          expect(this.view.searchableResultsMap.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.didClickSearchButton).toEqual(jasmine.any(Function));
+        });
+
+        it('should build search criteria', function() {
+          spyOn(searchCriteriaBuilder, 'getCriteria');
+          
+          this.view.didClickSearchButton();
+
+          expect(searchCriteriaBuilder.getCriteria).toHaveBeenCalled();
         });
       });
 
