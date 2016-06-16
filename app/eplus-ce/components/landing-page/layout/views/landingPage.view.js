@@ -35,8 +35,7 @@ define(function(require) {
     },
 
     didClickSearchButton: function() {
-      var criteria = searchCriteriaBuilder.getCriteria();
-      this.searchableResultsMap.onSearchRequest(criteria);
+      this.searchableResultsMap.onSearchRequest(searchCriteriaBuilder.getCriteria());
     },
 
     // Hack to force map to redraw
