@@ -152,6 +152,21 @@ define(function(require) {
             this.view.options.initialZoom
           );
         });
+
+        it('should listen to map zoom end event', function() {
+          var map = this.view.createMap();
+          expect(map.on).toHaveBeenCalledWith('zoomend', this.view.didZoomMap);
+        });
+
+        it('should listen to map drag end event', function() {
+          var map = this.view.createMap();
+          expect(map.on).toHaveBeenCalledWith('dragend', this.view.didDragMap);
+        });
+
+        it('should listen to map resize event', function() {
+          var map = this.view.createMap();
+          expect(map.on).toHaveBeenCalledWith('resize', this.view.didResizeMap);
+        });
       });
 
       describe('.createTileLayers()', function() {
@@ -219,6 +234,54 @@ define(function(require) {
         it('should put zero count if total items found is not defined', function() {
           this.view.updateItemsCount();
           expect(this.view.getItemsCountElement().html).toHaveBeenCalledWith(0);
+        });
+      });
+
+      describe('.didZoomMap()', function() {
+        beforeEach(function() {
+          spyOn(MapView.prototype, 'trigger');
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.didZoomMap).toEqual(jasmine.any(Function));
+        });
+
+        it('should trigger bounds changed event', function() {
+          this.view.didZoomMap();
+          expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed');
+        });
+      });
+
+      describe('.didDragMap()', function() {
+        beforeEach(function() {
+          spyOn(MapView.prototype, 'trigger');
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.didDragMap).toEqual(jasmine.any(Function));
+        });
+
+        it('should trigger bounds changed event', function() {
+          this.view.didDragMap();
+          expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed');
+        });
+      });
+
+      describe('.didResizeMap()', function() {
+        beforeEach(function() {
+          spyOn(MapView.prototype, 'trigger');
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.didResizeMap).toEqual(jasmine.any(Function));
+        });
+
+        it('should trigger bounds changed event', function() {
+          this.view.didResizeMap();
+          expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed');
         });
       });
 

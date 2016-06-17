@@ -50,6 +50,10 @@ define(function(require) {
         this.options.initialZoom
       );
 
+      map.on('zoomend', this.didZoomMap);
+      map.on('dragend', this.didDragMap);
+      map.on('resize', this.didResizeMap);
+
       return map;
     },
 
@@ -70,6 +74,18 @@ define(function(require) {
       total = total || 0;
       this.getItemsCountElement().html(total);
       this.getItemsCountContainer().show();
+    },
+
+    didZoomMap: function () {
+      this.trigger('map:bounds-changed');
+    },
+
+    didDragMap: function () {
+      this.trigger('map:bounds-changed');
+    },
+
+    didResizeMap: function () {
+      this.trigger('map:bounds-changed');
     },
 
     createButtonsBar: function() {

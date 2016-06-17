@@ -61,5 +61,19 @@ define(function(require) {
         });
       });
     });
+
+    describe('events', function() {
+      it('should trigger event on map bounds change', function(done) {
+        var component = new MapComponent,
+          fakeEventDetails = {};
+
+        component.on('map:bounds-changed', function(mapDetails) {
+          expect(fakeEventDetails).toBe(mapDetails);
+          done();
+        });
+
+        component.view.trigger('map:bounds-changed', fakeEventDetails);
+      });
+    });
   });
 });

@@ -5,6 +5,9 @@ define(function(require) {
   return Component.extend({
     initialize: function(options) {
       this.view = new MapView(options);
+      this.listenTo(this.view, 'map:bounds-changed', function(mapDetails) {
+        this.trigger('map:bounds-changed', mapDetails);
+      });
     },
 
     initMap: function() {
