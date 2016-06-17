@@ -13,6 +13,7 @@ define(function(require) {
     className: 'vlr-map',
 
     defaults: {
+      tileUrls: [constants.urls.MAP_TILEURL],
       initialZoom: 4,
       initialPosition: [53, 17],
       minZoom: 3,

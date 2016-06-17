@@ -28,6 +28,10 @@ define(function(require) {
         expect(MapView.prototype.defaults).toEqual(jasmine.any(Object));
       });
 
+      it('should have default tile urls defined', function() {
+        expect(MapView.prototype.defaults.tileUrls).toEqual([constants.urls.MAP_TILEURL]);
+      });
+
       it('should have default initial position defined', function() {
         expect(MapView.prototype.defaults.initialPosition).toEqual([53, 17]);
       });
