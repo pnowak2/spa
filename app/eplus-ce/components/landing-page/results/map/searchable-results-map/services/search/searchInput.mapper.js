@@ -1,7 +1,7 @@
 define(function(require) {
   var _ = require('underscore'),
 
-    map = function(response) {
+    map = function(input) {
       return {}
     };
 
