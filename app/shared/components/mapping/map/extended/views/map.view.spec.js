@@ -193,6 +193,35 @@ define(function(require) {
         });
       });
 
+      describe('.updateItemsCount()', function() {
+        beforeEach(function() {
+          spyOn(MapView.prototype, 'getItemsCountElement').and.returnValue(jasmine.createSpyObj('html', ['html']));
+          spyOn(MapView.prototype, 'getItemsCountContainer').and.returnValue(jasmine.createSpyObj('ctr', ['show']));
+
+          this.view = new MapView;
+          this.view.render();
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.updateItemsCount).toEqual(jasmine.any(Function));
+        });
+
+        it('should display items count container', function() {
+          this.view.updateItemsCount();
+          expect(this.view.getItemsCountContainer().show).toHaveBeenCalled();
+        });
+
+        it('should update number of items found with given number', function() {
+          this.view.updateItemsCount(242);
+          expect(this.view.getItemsCountElement().html).toHaveBeenCalledWith(242);
+        });
+
+        it('should put zero count if total items found is not defined', function() {
+          this.view.updateItemsCount();
+          expect(this.view.getItemsCountElement().html).toHaveBeenCalledWith(0);
+        });
+      });
+
       describe('.createButtonsBar()', function() {
         beforeEach(function() {
           this.fakeEasyBar = {};
