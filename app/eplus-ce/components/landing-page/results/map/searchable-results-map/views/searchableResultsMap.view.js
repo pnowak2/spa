@@ -16,7 +16,7 @@ define(function(require) {
     },
 
     onSearchRequest: function(searchCriteria) {
-      console.log('searchablemap', searchCriteria);
+
     },
 
     didSearchSucceed: function(data) {

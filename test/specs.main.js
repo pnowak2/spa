@@ -103,7 +103,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/flags/collections/flags.collection.spec',
     'app/shared/components/flags/views/flags.view.spec',
 
-    // util
+    // efc util
     'app/efc/util/constants.spec',
 
     // efc landing page component
@@ -152,6 +152,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/project-partners-page/partners-map/services/projectPartnersInput.mapper.spec',
     'app/efc/components/project-partners-page/partners-map/services/projectPartnersResult.mapper.spec',
 
+    // eplus-ce util
+    'app/eplus-ce/util/constants.spec',
+
     // eplus-ce project partners page component
     'app/eplus-ce/components/project-partners-page/partners-map/main.component.spec',
 
@@ -162,7 +165,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // eplus-ce results map component
     'app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component.spec',
-    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/views/searchableResultsMap.view.spec'
+    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/views/searchableResultsMap.view.spec',
+    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/services/search/search.service.spec',
+    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/services/search/searchInput.mapper.spec',
+    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/services/search/searchResult.mapper.spec'
+
   ], function() {
     window.onload();
   });
