@@ -55,7 +55,7 @@ define(function(require) {
 
         var view = new MapView;
 
-        expect(_.bindAll).toHaveBeenCalledWith(view, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton');
+        expect(_.bindAll).toHaveBeenCalledWith(view, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap', 'didMoveMap', 'didResizeMap');
       });
 
       it('should create options prefilled with defaults', function() {
@@ -160,7 +160,7 @@ define(function(require) {
 
         it('should listen to map drag end event', function() {
           var map = this.view.createMap();
-          expect(map.on).toHaveBeenCalledWith('dragend', this.view.didDragMap);
+          expect(map.on).toHaveBeenCalledWith('moveend', this.view.didMoveMap);
         });
 
         it('should listen to map resize event', function() {
@@ -253,18 +253,18 @@ define(function(require) {
         });
       });
 
-      describe('.didDragMap()', function() {
+      describe('.didMoveMap()', function() {
         beforeEach(function() {
           spyOn(MapView.prototype, 'trigger');
           this.view = new MapView;
         });
 
         it('should be defined', function() {
-          expect(MapView.prototype.didDragMap).toEqual(jasmine.any(Function));
+          expect(MapView.prototype.didMoveMap).toEqual(jasmine.any(Function));
         });
 
         it('should trigger bounds changed event', function() {
-          this.view.didDragMap();
+          this.view.didMoveMap();
           expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed');
         });
       });
