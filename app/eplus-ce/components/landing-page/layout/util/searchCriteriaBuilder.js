@@ -19,6 +19,10 @@ define(function(require) {
     },
 
     getQueryParametersAsObject = function(str) {
+      if(!str.match(/(=)/g)) {
+        return {}
+      }
+
       var queryStringWithoutUrl = str.replace(/.*\?/, ''),
         queryParams = queryStringWithoutUrl.split("&");
 

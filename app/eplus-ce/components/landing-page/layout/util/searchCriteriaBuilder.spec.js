@@ -64,7 +64,7 @@ define(function(require) {
         expect(queryObj).toEqual({
           a: 'b',
           c: 'd'
-        })
+        });
       });
 
       it('should extract params from query without url but with question mark', function() {
@@ -73,7 +73,7 @@ define(function(require) {
         expect(queryObj).toEqual({
           a: 'b',
           c: 'd'
-        })
+        });
       });
 
       it('should extract params from query without url but with trailing ampersand', function() {
@@ -82,7 +82,7 @@ define(function(require) {
         expect(queryObj).toEqual({
           a: 'b',
           c: 'd'
-        })
+        });
       });
 
       it('should extract params from query with url', function() {
@@ -91,7 +91,13 @@ define(function(require) {
         expect(queryObj).toEqual({
           a: 'b',
           c: 'd'
-        })
+        });
+      });
+
+      it('should extract params from query with url and no params', function() {
+        var queryObj = searchCriteriaBuilder.getQueryParametersAsObject('/server');
+
+        expect(queryObj).toEqual({});
       });
     });
   });
