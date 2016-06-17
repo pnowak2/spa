@@ -78,10 +78,13 @@ define(function(require) {
     describe('api', function() {
       describe('.initMap()', function() {
         beforeEach(function() {
+          this.fakeMap = jasmine.createSpyObj('map', ['addLayer']);
           this.fakeButtonsBar = jasmine.createSpyObj('buttonsBar', ['addTo']);
+          this.fakeTileLayers = [{}];
 
           spyOn(MapView.prototype, 'createMap').and.returnValue(this.fakeMap);
           spyOn(MapView.prototype, 'createButtonsBar').and.returnValue(this.fakeButtonsBar);
+          spyOn(MapView.prototype, 'createTileLayers').and.returnValue(this.fakeTileLayers);
 
           this.view = new MapView;
           this.view.initMap();
@@ -95,12 +98,21 @@ define(function(require) {
           expect(this.view.map).toBe(this.fakeMap);
         });
 
+        it('should create tile layer instance', function() {
+          expect(this.view.tileLayers).toBe(this.fakeTileLayers);
+        });
+
         it('should create buttons bar instance', function() {
           expect(this.view.buttonsBar).toBe(this.fakeButtonsBar);
         });
 
         it('should add buttons bar to the map', function() {
           expect(this.view.buttonsBar.addTo).toHaveBeenCalledWith(this.view.map);
+        });
+
+        it('should add tile layers to the map', function() {
+          expect(this.view.map.addLayer).toHaveBeenCalledWith(this.fakeTileLayers[0]);
+          expect(this.view.map.addLayer.calls.count()).toEqual(1);
         });
       });
 
@@ -139,6 +151,35 @@ define(function(require) {
             this.view.options.initialPosition,
             this.view.options.initialZoom
           );
+        });
+      });
+
+      describe('.createTileLayers()', function() {
+        beforeEach(function() {
+          spyOn(Leaflet, 'tileLayer').and.callThrough();
+
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.createTileLayers).toEqual(jasmine.any(Function));
+        });
+
+        it('should return correct tile layer instances', function() {
+          var tileLayers = this.view.createTileLayers();
+
+          _.each(tileLayers, function(tileLayer) {
+            expect(tileLayer).toEqual(jasmine.any(Leaflet.TileLayer));
+          });
+        });
+
+        it('should initialize tile layer with correct options', function() {
+          var tileLayers = this.view.createTileLayers();
+          
+          expect(tileLayers[0]._url).toEqual(this.view.options.tileUrls[0]);
+          expect(tileLayers[0].options.minZoom).toEqual(this.view.options.minZoom);
+          expect(tileLayers[0].options.maxZoom).toEqual(this.view.options.maxZoom);
+          
         });
       });
 

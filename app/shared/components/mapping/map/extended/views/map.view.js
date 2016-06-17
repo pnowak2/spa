@@ -26,12 +26,16 @@ define(function(require) {
       this.options = _.extend({}, this.defaults, options);
     },
 
-    initMap: function () {
+    initMap: function() {
       if (!this.map) {
         this.map = this.createMap();
+        this.tileLayers = this.createTileLayers();
         this.buttonsBar = this.createButtonsBar();
-
         this.buttonsBar.addTo(this.map);
+
+        _.each(this.tileLayers, function(tileLayer) {
+          this.map.addLayer(tileLayer);
+        }, this);
       }
     },
 
@@ -47,6 +51,15 @@ define(function(require) {
       );
 
       return map;
+    },
+
+    createTileLayers: function() {
+      return _.map(this.options.tileUrls, function(tileUrl) {
+        return Leaflet.tileLayer(tileUrl, {
+          minZoom: this.options.minZoom,
+          maxZoom: this.options.maxZoom
+        });
+      }, this);
     },
 
     showMarkers: function(data) {
