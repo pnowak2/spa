@@ -3,7 +3,7 @@
      $ = require('jquery'),
      SearchableResultsMapView = require('./searchableResultsMap.view'),
      PopupComponent = require('app/shared/components/mapping/popup/main.component'),
-     MapComponent = require('app/shared/components/mapping/map/main.component'),
+     MapComponent = require('app/shared/components/mapping/map/simple/main.component'),
      searchService = require('../services/search/search.service'),
      RSVP = require('rsvp'),
      app = require('app/shared/modules/app.module'),

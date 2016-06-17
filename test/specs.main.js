@@ -86,9 +86,13 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/multiselect/models/selectItem.model.spec',
     'app/shared/components/multiselect/collections/multiselect.collection.spec',
 
-    // map component
-    'app/shared/components/mapping/map/main.component.spec',
-    'app/shared/components/mapping/map/views/map.view.spec',
+    // simple map component
+    'app/shared/components/mapping/map/simple/main.component.spec',
+    'app/shared/components/mapping/map/simple/views/map.view.spec',
+
+    // extended map component
+    'app/shared/components/mapping/map/extended/main.component.spec',
+    'app/shared/components/mapping/map/extended/views/map.view.spec',
 
     // partners map component
     'app/shared/components/mapping/partners-map/main.component.spec',

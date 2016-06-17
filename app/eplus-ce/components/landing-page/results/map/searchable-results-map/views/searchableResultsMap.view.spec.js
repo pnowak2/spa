@@ -3,7 +3,7 @@
      $ = require('jquery'),
      _ = require('underscore'),
      SearchableResultsMapView = require('./searchableResultsMap.view'),
-     MapComponent = require('app/shared/components/mapping/map/main.component');
+     MapComponent = require('app/shared/components/mapping/map/extended/main.component');
 
    describe('Eplus/CE Searchable Results Map View', function() {
      describe('type', function() {

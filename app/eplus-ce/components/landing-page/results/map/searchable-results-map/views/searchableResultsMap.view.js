@@ -1,7 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     _ = require('underscore'),
-    MapComponent = require('app/shared/components/mapping/map/main.component');
+    MapComponent = require('app/shared/components/mapping/map/extended/main.component');
 
   return Backbone.View.extend({
   	className: 'eplus-ce-searchable-results-map',

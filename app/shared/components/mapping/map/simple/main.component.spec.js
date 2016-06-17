@@ -3,7 +3,7 @@ define(function(require) {
     MapComponent = require('./main.component'),
     MapView = require('./views/map.view');
 
-  describe('Map component', function() {
+  describe('Simple Map component', function() {
     describe('type', function() {
       it('should be of component', function() {
         expect(MapComponent.prototype).toEqual(jasmine.any(Component));

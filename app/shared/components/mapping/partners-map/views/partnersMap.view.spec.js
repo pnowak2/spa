@@ -2,7 +2,7 @@ define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
     PartnersMapView = require('./partnersMap.view'),
-    MapComponent = require('app/shared/components/mapping/map/main.component'),
+    MapComponent = require('app/shared/components/mapping/map/simple/main.component'),
     PopupComponent = require('app/shared/components/mapping/popup/main.component'),
     RSVP = require('rsvp'),
     app = require('app/shared/modules/app.module');

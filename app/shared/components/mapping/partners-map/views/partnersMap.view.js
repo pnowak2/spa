@@ -4,7 +4,7 @@ define(function(require) {
     Backbone = require('backbone'),
     RSVP = require('rsvp'),
     app = require('app/shared/modules/app.module'),
-    MapComponent = require('app/shared/components/mapping/map/main.component'),
+    MapComponent = require('app/shared/components/mapping/map/simple/main.component'),
     PopupComponent = require('app/shared/components/mapping/popup/main.component');
 
   return Backbone.View.extend({

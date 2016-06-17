@@ -6,7 +6,7 @@ define(function(require) {
     constants = require('app/shared/util/constants'),
     MapView = require('./map.view');
 
-  describe('Map View', function() {
+  describe('Simple Map View', function() {
     describe('type', function() {
       it('should be of view', function() {
         expect(MapView.prototype).toEqual(jasmine.any(Backbone.View));
@@ -495,7 +495,7 @@ define(function(require) {
           expect(this.markers.length).toBe(1);
         });
 
-        it('should proper marker type ', function() {
+        it('should have proper marker type ', function() {
           expect(this.markers[0][0]).toEqual(jasmine.any(PruneCluster.Marker));
         });
 
