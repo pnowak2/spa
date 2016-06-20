@@ -70,6 +70,27 @@ define(function(require) {
 
     },
 
+    isMinZoom: function () {
+      return this.map.getZoom() <= this.map.getMinZoom();
+    },
+
+    isMaxZoom: function () {
+      return this.map.getZoom() >= this.map.getMaxZoom();
+    },
+
+    getState: function () {
+      return {
+        currentZoom: this.map.getZoom(),
+        minZoom: this.map.getMinZoom(),
+        maxZoom: this.map.getMaxZoom(),
+        isMinZoom: this.isMinZoom(),
+        isMaxZoom: this.isMaxZoom(),
+        bounds: {
+          
+        }
+      }
+    },
+
     updateItemsCount: function(total) {
       total = total || 0;
       this.getItemsCountElement().html(total);
@@ -77,15 +98,15 @@ define(function(require) {
     },
 
     didZoomMap: function () {
-      this.trigger('map:bounds-changed');
+      this.trigger('map:bounds-changed', this.getState());
     },
 
     didMoveMap: function () {
-      this.trigger('map:bounds-changed');
+      this.trigger('map:bounds-changed', this.getState());
     },
 
     didResizeMap: function () {
-      this.trigger('map:bounds-changed');
+      this.trigger('map:bounds-changed', this.getState());
     },
 
     createButtonsBar: function() {

@@ -208,6 +208,103 @@ define(function(require) {
         });
       });
 
+      describe('.isMinZoom()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.isMinZoom).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if current zoom is set to minimum', function() {
+          var view = new MapView;
+          view.map = {
+            getZoom: jasmine.createSpy('getZoom').and.returnValue(2),
+            getMinZoom: jasmine.createSpy('getMinZoom').and.returnValue(2)
+          }
+
+          expect(view.isMinZoom()).toBe(true);
+        });
+
+        it('should return false if current zoom is not set to minimum', function() {
+          var view = new MapView;
+          view.map = {
+            getZoom: jasmine.createSpy('getZoom').and.returnValue(4),
+            getMinZoom: jasmine.createSpy('getMinZoom').and.returnValue(2)
+          }
+
+          expect(view.isMinZoom()).toBe(false);
+        });
+      });
+
+      describe('.isMaxZoom()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.isMaxZoom).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if current zoom is set to maximum', function() {
+          var view = new MapView;
+          view.map = {
+            getZoom: jasmine.createSpy('getZoom').and.returnValue(10),
+            getMaxZoom: jasmine.createSpy('getMinZoom').and.returnValue(10)
+          }
+
+          expect(view.isMaxZoom()).toBe(true);
+        });
+
+        it('should return false if current zoom is not set to maximum', function() {
+          var view = new MapView;
+          view.map = {
+            getZoom: jasmine.createSpy('getZoom').and.returnValue(4),
+            getMaxZoom: jasmine.createSpy('getMinZoom').and.returnValue(10)
+          }
+
+          expect(view.isMaxZoom()).toBe(false);
+        });
+      });
+
+      describe('.getState()', function() {
+        beforeEach(function () {
+          this.view = new MapView;
+
+          this.view.map = {
+            getZoom: jasmine.createSpy('getZoom').and.returnValue(7),
+            getMinZoom: jasmine.createSpy('getMinZoom').and.returnValue(2),
+            getMaxZoom: jasmine.createSpy('getMaxZoom').and.returnValue(10)
+          }
+
+          spyOn(this.view, 'isMinZoom').and.returnValue(true);
+          spyOn(this.view, 'isMaxZoom').and.returnValue(true);
+
+          this.state = this.view.getState();
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.getState).toEqual(jasmine.any(Function));
+        });
+
+        it('should contain current zoom information', function() {
+          expect(this.state.currentZoom).toEqual(7);
+        });
+
+        it('should contain minimum zoom information', function() {
+          expect(this.state.minZoom).toEqual(2);
+        });
+
+        it('should contain maximum zoom information', function() {
+          expect(this.state.maxZoom).toEqual(10);
+        });
+
+        it('should contain information if current zoom is set to minimum', function() {         
+          expect(this.state.isMinZoom).toEqual(true);
+        });
+
+        it('should contain information if current zoom is set to maximum', function() {         
+          expect(this.state.isMaxZoom).toEqual(true);
+        });
+
+        it('should contain bounds object', function() {
+          expect(this.state.bounds).toEqual(jasmine.any(Object));
+        });
+      });
+
       describe('.updateItemsCount()', function() {
         beforeEach(function() {
           spyOn(MapView.prototype, 'getItemsCountElement').and.returnValue(jasmine.createSpyObj('html', ['html']));
@@ -239,6 +336,9 @@ define(function(require) {
 
       describe('.didZoomMap()', function() {
         beforeEach(function() {
+          this.fakeState = {};
+
+          spyOn(MapView.prototype, 'getState').and.returnValue(this.fakeState);
           spyOn(MapView.prototype, 'trigger');
           this.view = new MapView;
         });
@@ -249,12 +349,14 @@ define(function(require) {
 
         it('should trigger bounds changed event', function() {
           this.view.didZoomMap();
-          expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed');
+          expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed', this.fakeState);
         });
       });
 
       describe('.didMoveMap()', function() {
         beforeEach(function() {
+          this.fakeState = {};
+          spyOn(MapView.prototype, 'getState').and.returnValue(this.fakeState);
           spyOn(MapView.prototype, 'trigger');
           this.view = new MapView;
         });
@@ -265,12 +367,14 @@ define(function(require) {
 
         it('should trigger bounds changed event', function() {
           this.view.didMoveMap();
-          expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed');
+          expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed', this.fakeState);
         });
       });
 
       describe('.didResizeMap()', function() {
         beforeEach(function() {
+          this.fakeState = {};
+          spyOn(MapView.prototype, 'getState').and.returnValue(this.fakeState);
           spyOn(MapView.prototype, 'trigger');
           this.view = new MapView;
         });
@@ -281,7 +385,7 @@ define(function(require) {
 
         it('should trigger bounds changed event', function() {
           this.view.didResizeMap();
-          expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed');
+          expect(this.view.trigger).toHaveBeenCalledWith('map:bounds-changed', this.fakeState);
         });
       });
 
