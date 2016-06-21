@@ -262,7 +262,9 @@ define(function(require) {
 
       describe('.getState()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView({
+            initialZoom: 5
+          });
 
           this.view.map = {
             getZoom: jasmine.createSpy('getZoom').and.returnValue(7),
@@ -300,6 +302,10 @@ define(function(require) {
 
         it('should contain current zoom information', function() {
           expect(this.state.currentZoom).toEqual(7);
+        });
+
+        it('should contain initial zoom information', function() {
+          expect(this.state.initialZoom).toEqual(5);
         });
 
         it('should contain minimum zoom information', function() {

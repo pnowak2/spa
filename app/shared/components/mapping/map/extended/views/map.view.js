@@ -83,6 +83,7 @@ define(function(require) {
 
       return {
         currentZoom: this.map.getZoom(),
+        initialZoom: this.options.initialZoom,
         minZoom: this.map.getMinZoom(),
         maxZoom: this.map.getMaxZoom(),
         isMinZoom: this.isMinZoom(),
