@@ -21,7 +21,7 @@ define(function(require) {
     },
 
     initialize: function(options) {
-      _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap', 'didMoveMap', 'didResizeMap');
+      _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap', 'didDragMap', 'didResizeMap');
 
       this.options = _.extend({}, this.defaults, options);
     },
@@ -51,7 +51,7 @@ define(function(require) {
       );
 
       map.on('zoomend', this.didZoomMap);
-      map.on('moveend', this.didMoveMap);
+      map.on('dragend', this.didDragMap);
       map.on('resize', this.didResizeMap);
 
       return map;
@@ -118,7 +118,7 @@ define(function(require) {
       this.trigger('map:bounds-changed', this.getState());
     },
 
-    didMoveMap: function () {
+    didDragMap: function () {
       this.trigger('map:bounds-changed', this.getState());
     },
 

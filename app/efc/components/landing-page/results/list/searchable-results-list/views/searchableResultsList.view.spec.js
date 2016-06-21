@@ -209,7 +209,7 @@ define(function(require) {
           spyOn(SearchableResultsListView.prototype, 'prepareSearchCriteria');
           spyOn(PagerComponent.prototype, 'getState').and.returnValue(fakePagerStatus);
 
-          this.view.onSearchRequest(fakeSearchCriteria, fakePagerStatus);
+          this.view.onSearchRequest(fakeSearchCriteria);
 
           expect(this.view.prepareSearchCriteria).toHaveBeenCalledWith(fakeSearchCriteria, fakePagerStatus);
         });
