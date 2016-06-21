@@ -79,6 +79,8 @@ define(function(require) {
     },
 
     getState: function () {
+      var bounds = this.map.getBounds();
+
       return {
         currentZoom: this.map.getZoom(),
         minZoom: this.map.getMinZoom(),
@@ -86,7 +88,22 @@ define(function(require) {
         isMinZoom: this.isMinZoom(),
         isMaxZoom: this.isMaxZoom(),
         bounds: {
-          
+          northEast: {
+            lat: bounds.getNorthEast().lat,
+            lng: bounds.getNorthEast().lng
+          },
+          northWest: {
+            lat: bounds.getNorthWest().lat,
+            lng: bounds.getNorthWest().lng
+          },
+          southEast: {
+            lat: bounds.getSouthEast().lat,
+            lng: bounds.getSouthEast().lng
+          },
+          southWest: {
+            lat: bounds.getSouthWest().lat,
+            lng: bounds.getSouthWest().lng
+          }
         }
       }
     },

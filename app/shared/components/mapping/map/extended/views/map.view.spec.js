@@ -190,11 +190,11 @@ define(function(require) {
 
         it('should initialize tile layer with correct options', function() {
           var tileLayers = this.view.createTileLayers();
-          
+
           expect(tileLayers[0]._url).toEqual(this.view.options.tileUrls[0]);
           expect(tileLayers[0].options.minZoom).toEqual(this.view.options.minZoom);
           expect(tileLayers[0].options.maxZoom).toEqual(this.view.options.maxZoom);
-          
+
         });
       });
 
@@ -261,14 +261,32 @@ define(function(require) {
       });
 
       describe('.getState()', function() {
-        beforeEach(function () {
+        beforeEach(function() {
           this.view = new MapView;
 
           this.view.map = {
             getZoom: jasmine.createSpy('getZoom').and.returnValue(7),
             getMinZoom: jasmine.createSpy('getMinZoom').and.returnValue(2),
-            getMaxZoom: jasmine.createSpy('getMaxZoom').and.returnValue(10)
-          }
+            getMaxZoom: jasmine.createSpy('getMaxZoom').and.returnValue(10),
+            getBounds: jasmine.createSpy('getBounds').and.returnValue({
+              getNorthEast: jasmine.createSpy('getNorthEast').and.returnValue({
+                lat: 52,
+                lng: 22
+              }),
+              getNorthWest: jasmine.createSpy('getNorthWest').and.returnValue({
+                lat: 50,
+                lng: 20
+              }),
+              getSouthEast: jasmine.createSpy('getSouthEast').and.returnValue({
+                lat: 54,
+                lng: 24
+              }),
+              getSouthWest: jasmine.createSpy('getSouthWest').and.returnValue({
+                lat: 56,
+                lng: 26
+              })
+            })
+          };
 
           spyOn(this.view, 'isMinZoom').and.returnValue(true);
           spyOn(this.view, 'isMaxZoom').and.returnValue(true);
@@ -292,16 +310,36 @@ define(function(require) {
           expect(this.state.maxZoom).toEqual(10);
         });
 
-        it('should contain information if current zoom is set to minimum', function() {         
+        it('should contain information if current zoom is set to minimum', function() {
           expect(this.state.isMinZoom).toEqual(true);
         });
 
-        it('should contain information if current zoom is set to maximum', function() {         
+        it('should contain information if current zoom is set to maximum', function() {
           expect(this.state.isMaxZoom).toEqual(true);
         });
 
         it('should contain bounds object', function() {
           expect(this.state.bounds).toEqual(jasmine.any(Object));
+        });
+
+        it('should contain bounds for north east', function() {
+          expect(this.state.bounds.northEast.lat).toEqual(52);
+          expect(this.state.bounds.northEast.lng).toEqual(22);
+        });
+
+        it('should contain bounds for north west', function() {
+          expect(this.state.bounds.northWest.lat).toEqual(50);
+          expect(this.state.bounds.northWest.lng).toEqual(20);
+        });
+
+        it('should contain bounds for south east', function() {
+          expect(this.state.bounds.southEast.lat).toEqual(54);
+          expect(this.state.bounds.southEast.lng).toEqual(24);
+        });
+
+        it('should contain bounds for south west', function() {
+          expect(this.state.bounds.southWest.lat).toEqual(56);
+          expect(this.state.bounds.southWest.lng).toEqual(26);
         });
       });
 

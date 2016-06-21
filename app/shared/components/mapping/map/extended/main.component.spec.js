@@ -44,6 +44,22 @@ define(function(require) {
         });
       });
 
+      describe('.getState()', function() {
+        it('should be defined', function() {
+          expect(MapComponent.prototype.getState).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var fakeState = {};
+          spyOn(MapView.prototype, 'getState').and.returnValue(fakeState);
+
+          var component = new MapComponent;
+
+          expect(component.getState()).toBe(fakeState);
+
+        });
+      });
+
       describe('.showMarkers()', function() {
         it('should be defined', function() {
           expect(MapComponent.prototype.showMarkers).toEqual(jasmine.any(Function));
@@ -67,8 +83,8 @@ define(function(require) {
         var component = new MapComponent,
           fakeEventDetails = {};
 
-        component.on('map:bounds-changed', function(mapDetails) {
-          expect(fakeEventDetails).toBe(mapDetails);
+        component.on('map:bounds-changed', function(mapState) {
+          expect(fakeEventDetails).toBe(mapState);
           done();
         });
 

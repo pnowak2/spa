@@ -10,7 +10,7 @@ define(function(require) {
 
     describe('urls', function() {
       it('.SEARCH_MAP should be defined', function() {
-        expect(constants.urls.SEARCH_MAP).toEqual('/programmes/service/es/search/map');
+        expect(constants.urls.SEARCH_MAP).toEqual('/programmes/service/es/search/clustermap');
       });
     });
   });

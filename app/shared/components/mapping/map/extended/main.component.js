@@ -5,13 +5,17 @@ define(function(require) {
   return Component.extend({
     initialize: function(options) {
       this.view = new MapView(options);
-      this.listenTo(this.view, 'map:bounds-changed', function(mapDetails) {
-        this.trigger('map:bounds-changed', mapDetails);
+      this.listenTo(this.view, 'map:bounds-changed', function(mapState) {
+        this.trigger('map:bounds-changed', mapState);
       });
     },
 
     initMap: function() {
       this.view.initMap();
+    },
+
+    getState: function () {
+      return this.view.getState();
     },
 
     showMarkers: function(markersData) {
