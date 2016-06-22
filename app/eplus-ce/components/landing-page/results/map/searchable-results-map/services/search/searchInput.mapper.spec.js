@@ -66,8 +66,8 @@ define(function(require) {
           }
 
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-            top_left_lat: 52,
-            top_left_lon: 53
+            topLeftLat: 52,
+            topLeftLon: 53
           }));
         });
 
@@ -82,8 +82,8 @@ define(function(require) {
           }
 
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-            bottom_right_lat: 54,
-            bottom_right_lon: 55
+            bottomRightLat: 54,
+            bottomRightLon: 55
           }));
         });
 
