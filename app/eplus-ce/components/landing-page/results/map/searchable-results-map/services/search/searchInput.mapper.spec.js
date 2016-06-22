@@ -25,36 +25,33 @@ define(function(require) {
           expect(searchInputMapper.map()).toEqual(jasmine.objectContaining({}));
         });
 
-        it('should contain proper clustering method for maximum zoom level', function() {
+        it('should contain minimum zoom level', function() {
           var input = {
-            isMinZoom: false,
-            isMaxZoom: true
+            minZoom: 2
           }
 
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-            clustering: 'none'
+            minZoom: 2
           }));
         });
 
-        it('should contain proper clustering method for minimum zoom level', function() {
+        it('should contain maximum zoom level', function() {
           var input = {
-            isMinZoom: true,
-            isMaxZoom: false
+            maxZoom: 7
           }
 
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-            clustering: 'country'
+            maxZoom: 7
           }));
         });
 
-        it('should contain proper clustering method for medium zoom level', function() {
+        it('should contain current zoom level', function() {
           var input = {
-            isMinZoom: false,
-            isMaxZoom: false
+            currentZoom: 7
           }
 
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-            clustering: 'boundary'
+            currentZoom: 7
           }));
         });
 
@@ -115,7 +112,7 @@ define(function(require) {
                 }
               }
             },
-            excludedKeys = ['currentZoom', 'initialZoom', 'minZoom', 'maxZoom', 'isMinZoom', 'isMaxZoom', 'bounds'];
+            excludedKeys = ['bounds'];
 
           var mapped = searchInputMapper.map(input);
 

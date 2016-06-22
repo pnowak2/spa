@@ -52,7 +52,8 @@ define(function(require) {
     },
 
     didSearchSucceed: function(data) {
-
+      var preparedMarkersData = this.prepareMarkersData(data);
+      this.mapComponent.showMarkers(preparedMarkersData);
     },
 
     didSearchFail: function(error) {
@@ -60,6 +61,17 @@ define(function(require) {
     },
 
     prepareMarkersData: function(data) {
+      data = data || {};
+
+      var total = data.total;
+
+      return {
+        total: total,
+        items: undefined
+      }
+    },
+
+    prepareItems: function(items) {
 
     },
 

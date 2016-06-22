@@ -1,6 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
-    excludedKeys = ['currentZoom', 'initialZoom', 'minZoom', 'maxZoom', 'isMinZoom', 'isMaxZoom', 'bounds'],
+    excludedKeys = ['bounds'],
 
     map = function(input) {
       input = input || {};

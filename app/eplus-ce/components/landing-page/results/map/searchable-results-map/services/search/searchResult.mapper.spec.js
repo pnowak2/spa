@@ -56,7 +56,12 @@ define(function(require) {
 
             it('should have items property', function() {
               expect(this.mapped.items).toEqual(jasmine.any(Array));
-              expect(this.mapped.items.length).toEqual(0);
+              expect(this.mapped.items.length).toEqual(1);
+            });
+
+            it('should have items property with subitems', function() {
+              expect(this.mapped.items[0]).toEqual(jasmine.any(Array));
+              expect(this.mapped.items[0].length).toEqual(0);
             });
           });
         });
@@ -75,31 +80,36 @@ define(function(require) {
 
             it('should have items property', function() {
               expect(this.mapped.items).toEqual(jasmine.any(Array));
-              expect(this.mapped.items.length).toEqual(2);
+              expect(this.mapped.items.length).toEqual(1);
+            });
+
+            it('should have items property with subitems', function() {
+              expect(this.mapped.items[0]).toEqual(jasmine.any(Array));
+              expect(this.mapped.items[0].length).toEqual(2);
             });
           });
 
           describe('cluster', function() {
             it('item should have type property', function() {
-              expect(this.mapped.items[0]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][0]).toEqual(jasmine.objectContaining({
                 type: 'cluster'
               }));
             });
 
             it('item should have items count property', function() {
-              expect(this.mapped.items[0]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][0]).toEqual(jasmine.objectContaining({
                 itemsCount: 10
               }));
             });
 
             it('item should have latitude property', function() {
-              expect(this.mapped.items[0]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][0]).toEqual(jasmine.objectContaining({
                 lat: 51
               }));
             });
 
             it('item should have longitude property', function() {
-              expect(this.mapped.items[0]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][0]).toEqual(jasmine.objectContaining({
                 lng: 24
               }));
             });
@@ -107,67 +117,67 @@ define(function(require) {
 
           describe('marker', function() {
             it('item should have type property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 type: 'marker'
               }));
             });
 
             it('item should have latitude property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 lat: 55
               }));
             });
 
             it('item should have longitude property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 lng: 28
               }));
             });
 
             it('item should have id property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 id: '1'
               }));
             });
 
             it('item should have good practice property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 goodPractice: false
               }));
             });
 
             it('item should have success story property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 successStory: false
               }));
             });
 
             it('item should have title property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 title: 'Project Title 1'
               }));
             });
 
             it('item should have programme property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 programme: 'Project Programme 1'
               }));
             });
 
             it('item should have action type property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 actionType: 'Project Action Type 1'
               }));
             });
 
             it('item should have coordinator property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 coordinator: 'Project Coordinator 1'
               }));
             });
 
             it('item should have countries property', function() {
-              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+              expect(this.mapped.items[0][1]).toEqual(jasmine.objectContaining({
                 countries: ['pl', 'de', 'be']
               }));
             });

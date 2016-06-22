@@ -6,6 +6,7 @@
      RSVP = require('rsvp'),
      SearchableResultsMapView = require('./searchableResultsMap.view'),
      MapComponent = require('app/shared/components/mapping/map/extended/main.component'),
+     PopupComponent = require('app/shared/components/mapping/popup/main.component'),
      searchService = require('../services/search/search.service');
 
    describe('Eplus/CE Searchable Results Map View', function() {
@@ -238,6 +239,10 @@
 
        describe('.didSearchSucceed()', function() {
          beforeEach(function() {
+           this.fakePreparedMarkersData = {}
+           spyOn(SearchableResultsMapView.prototype, 'prepareMarkersData').and.returnValue(this.fakePreparedMarkersData)
+           spyOn(MapComponent.prototype, 'showMarkers');
+
            this.view = new SearchableResultsMapView;
          });
 
@@ -250,6 +255,18 @@
            expect(function() {
              self.view.didSearchSucceed();
            }).not.toThrow();
+         });
+
+         it('should prepare markers for display', function() {
+          var fakeData = {};
+           this.view.didSearchSucceed(fakeData);
+
+           expect(this.view.prepareMarkersData).toHaveBeenCalledWith(fakeData);
+         });
+
+         it('should update map component with data', function() {
+           this.view.didSearchSucceed();
+           expect(this.view.mapComponent.showMarkers).toHaveBeenCalledWith(this.fakePreparedMarkersData);
          });
        });
 
@@ -272,6 +289,10 @@
 
        describe('.prepareMarkersData()', function() {
          beforeEach(function() {
+           this.data = {
+             total: 2,
+             items: []
+           }
            this.view = new SearchableResultsMapView;
          });
 
@@ -284,6 +305,17 @@
            expect(function() {
              self.view.prepareMarkersData();
            }).not.toThrow();
+         });
+
+         it('should return object with total markers count', function() {
+           var markersData = this.view.prepareMarkersData(this.data);
+           expect(markersData.total).toEqual(2);
+         });
+       });
+
+       describe('.prepareItems()', function() {
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.prepareItems).toEqual(jasmine.any(Function));
          });
        });
      });
