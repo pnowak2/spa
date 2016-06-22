@@ -20,8 +20,18 @@ define(function(require) {
                 lat: item.lat,
                 lng: item.lon,
                 id: item.id,
-                badges: '',
-                title: item.title
+                goodPractice: item.goodPractice,
+                successStory: item.successStory,
+                title: item.title,
+                programme: item.programme,
+                actionType: item.actionType,
+                coordinator: item.coordinator,
+                countries: _.chain(item.countries.split('|'))
+                	.compact()
+                	.map(function(countryCode) {
+                		return countryCode.toLowerCase()
+                	})
+                  .value()
               }
               break;
           }

@@ -200,11 +200,28 @@ define(function(require) {
 
       describe('.showMarkers()', function() {
         beforeEach(function() {
+          spyOn(MapView.prototype, 'updateItemsCount');
+          this.fakeData = {
+            total: 2
+          }
+
           this.view = new MapView;
         });
 
         it('should be defined', function() {
           expect(MapView.prototype.showMarkers).toEqual(jasmine.any(Function));
+        });
+
+        it('should work without arguments', function() {
+          expect(function () {
+            this.view.showMarkers((void 0));
+          }).not.toThrow();
+          
+        });
+
+        it('should update items count', function() {
+          this.view.showMarkers(this.fakeData);
+          expect(this.view.updateItemsCount).toHaveBeenCalledWith(this.fakeData.total);
         });
       });
 

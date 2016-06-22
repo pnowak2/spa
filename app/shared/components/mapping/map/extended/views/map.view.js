@@ -67,7 +67,8 @@ define(function(require) {
     },
 
     showMarkers: function(data) {
-
+      data = data || {};
+      this.updateItemsCount(data.total);
     },
 
     isMinZoom: function () {

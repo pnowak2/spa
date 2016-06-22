@@ -6,39 +6,14 @@ define(function(require) {
         total: 0,
         items: []
       },
-      clustersOnly: {
-        total: 10,
+      mixed: {
+        total: 11,
         items: [{
           type: 'cluster',
           itemsCount: 10,
           lat: 51,
           lon: 24
-        }]
-      },
-      mixed: {
-        total: 10,
-        items: [{
-          type: 'cluster',
-          itemsCount: 9,
-          lat: 51,
-          lon: 24
         }, {
-          type: 'marker',
-          lat: 54,
-          lon: 27,
-          id: '1',
-          goodPractice: true,
-          successStory: true,
-          title: 'Project Title',
-          programme: 'Project Programme',
-          actionType: 'Project Action Type',
-          coordinator: 'Project Coordinator',
-          countries: 'PL|DE|BE'
-        }]
-      },
-      markersOnly: {
-        total: 4,
-        items: [{
           type: 'marker',
           lat: 55,
           lon: 28,
@@ -49,42 +24,6 @@ define(function(require) {
           programme: 'Project Programme 1',
           actionType: 'Project Action Type 1',
           coordinator: 'Project Coordinator 1',
-          countries: 'PL|DE|BE'
-        }, {
-          type: 'marker',
-          lat: 56,
-          lon: 29,
-          id: '2',
-          goodPractice: true,
-          successStory: false,
-          title: 'Project Title 2',
-          programme: 'Project Programme 2',
-          actionType: 'Project Action Type 2',
-          coordinator: 'Project Coordinator 2',
-          countries: 'PL|DE|BE'
-        }, {
-          type: 'marker',
-          lat: 57,
-          lon: 30,
-          id: '3',
-          goodPractice: false,
-          successStory: true,
-          title: 'Project Title 3',
-          programme: 'Project Programme 3',
-          actionType: 'Project Action Type 3',
-          coordinator: 'Project Coordinator 3',
-          countries: 'PL|DE|BE'
-        }, {
-          type: 'marker',
-          lat: 58,
-          lon: 31,
-          id: '4',
-          goodPractice: true,
-          successStory: true,
-          title: 'Project Title 4',
-          programme: 'Project Programme 4',
-          actionType: 'Project Action Type 4',
-          coordinator: 'Project Coordinator 4',
           countries: 'PL|DE|BE'
         }]
       }
@@ -103,56 +42,134 @@ define(function(require) {
           expect(searchResultMapper.map).toEqual(jasmine.any(Function));
         });
 
-        describe('clustered only response', function() {
+        describe('without data', function() {
           beforeEach(function() {
-            this.mapped = searchResultMapper.map(testResponses.clustersOnly);
+            this.mapped = searchResultMapper.map(testResponses.noData);
           });
 
-          it('should have total property', function() {
-            expect(this.mapped).toEqual(jasmine.objectContaining({
-              total: 10
-            }));
-          });
+          describe('common properties', function() {
+            it('should have total property', function() {
+              expect(this.mapped).toEqual(jasmine.objectContaining({
+                total: 0
+              }));
+            });
 
-          it('should have items property', function() {
-            expect(this.mapped.items).toEqual(jasmine.any(Array));
-            expect(this.mapped.items.length).toEqual(1);
-          });
-
-          it('should have cluster item with proper data', function() {
-            expect(this.mapped.items[0]).toEqual({
-              type: 'cluster',
-              itemsCount: 10,
-              lat: 51,
-              lng: 24
+            it('should have items property', function() {
+              expect(this.mapped.items).toEqual(jasmine.any(Array));
+              expect(this.mapped.items.length).toEqual(0);
             });
           });
         });
 
-        describe('markers only response', function() {
+        describe('with data', function() {
           beforeEach(function() {
-            this.mapped = searchResultMapper.map(testResponses.markersOnly);
+            this.mapped = searchResultMapper.map(testResponses.mixed);
           });
 
-          it('should have total property', function() {
-            expect(this.mapped).toEqual(jasmine.objectContaining({
-              total: 4
-            }));
+          describe('common properties', function() {
+            it('should have total property', function() {
+              expect(this.mapped).toEqual(jasmine.objectContaining({
+                total: 11
+              }));
+            });
+
+            it('should have items property', function() {
+              expect(this.mapped.items).toEqual(jasmine.any(Array));
+              expect(this.mapped.items.length).toEqual(2);
+            });
           });
 
-          it('should have items property', function() {
-            expect(this.mapped.items).toEqual(jasmine.any(Array));
-            expect(this.mapped.items.length).toEqual(4);
+          describe('cluster', function() {
+            it('item should have type property', function() {
+              expect(this.mapped.items[0]).toEqual(jasmine.objectContaining({
+                type: 'cluster'
+              }));
+            });
+
+            it('item should have items count property', function() {
+              expect(this.mapped.items[0]).toEqual(jasmine.objectContaining({
+                itemsCount: 10
+              }));
+            });
+
+            it('item should have latitude property', function() {
+              expect(this.mapped.items[0]).toEqual(jasmine.objectContaining({
+                lat: 51
+              }));
+            });
+
+            it('item should have longitude property', function() {
+              expect(this.mapped.items[0]).toEqual(jasmine.objectContaining({
+                lng: 24
+              }));
+            });
           });
 
-          it('should have marker item with proper data', function() {
-            expect(this.mapped.items[0]).toEqual({
-              type: 'marker',
-              lat: 55,
-              lng: 28,
-              id: '1',
-              badges: '',
-              title: 'Project Title 1'
+          describe('marker', function() {
+            it('item should have type property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                type: 'marker'
+              }));
+            });
+
+            it('item should have latitude property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                lat: 55
+              }));
+            });
+
+            it('item should have longitude property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                lng: 28
+              }));
+            });
+
+            it('item should have id property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                id: '1'
+              }));
+            });
+
+            it('item should have good practice property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                goodPractice: false
+              }));
+            });
+
+            it('item should have success story property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                successStory: false
+              }));
+            });
+
+            it('item should have title property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                title: 'Project Title 1'
+              }));
+            });
+
+            it('item should have programme property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                programme: 'Project Programme 1'
+              }));
+            });
+
+            it('item should have action type property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                actionType: 'Project Action Type 1'
+              }));
+            });
+
+            it('item should have coordinator property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                coordinator: 'Project Coordinator 1'
+              }));
+            });
+
+            it('item should have countries property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                countries: ['pl', 'de', 'be']
+              }));
             });
           });
         });

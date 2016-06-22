@@ -3,7 +3,8 @@ define(function(require) {
     _ = require('underscore'),
     app = require('app/shared/modules/app.module'),
     searchService = require('../services/search/search.service'),
-    MapComponent = require('app/shared/components/mapping/map/extended/main.component');
+    MapComponent = require('app/shared/components/mapping/map/extended/main.component'),
+    PopupComponent = require('app/shared/components/mapping/popup/main.component');
 
   return Backbone.View.extend({
     className: 'eplus-ce-searchable-results-map',
