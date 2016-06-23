@@ -253,11 +253,11 @@
              countryItems = [countryItem1, countryItem2],
              markersByCountry = this.view.prepareMarkersByCountryData(countryItems),
              popupContent1 = new PopupComponent({
-               type: 'project',
+               type: 'efc-project',
                data: countryItem1
              }).render().view.el,
              popupContent2 = new PopupComponent({
-               type: 'project',
+               type: 'efc-project',
                data: countryItem2
              }).render().view.el;
 

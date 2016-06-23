@@ -80,7 +80,7 @@ define(function(require) {
           spyOn(PopupView.prototype, 'externalizeLinks');
 
           this.view = new PopupView({
-            type: 'project',
+            type: 'efc-project',
             data: {}
           });
         });
@@ -94,11 +94,11 @@ define(function(require) {
           expect(this.view.externalizeLinks).toHaveBeenCalled();
         });
 
-        describe('Project', function() {
+        describe('EfC Project', function() {
           describe('All data present', function() {
             beforeEach(function() {
               this.view = new PopupView({
-                type: 'project',
+                type: 'efc-project',
                 data: {
                   id: '52',
                   badges: 'Good Practice & Success Story',
@@ -158,7 +158,7 @@ define(function(require) {
           describe('Missing sections', function() {
             beforeEach(function() {
               this.view = new PopupView({
-                type: 'project',
+                type: 'efc-project',
                 data: {}
               });
 
@@ -204,10 +204,10 @@ define(function(require) {
         });
 
 
-        describe('Organisation', function() {
+        describe('EfC Organisation', function() {
           beforeEach(function() {
             this.view = new PopupView({
-              type: 'organisation',
+              type: 'efc-organisation',
               data: {
                 id: '52',
                 name: 'name',
@@ -255,7 +255,7 @@ define(function(require) {
 
           it('should show website placeholder if website is not provided', function() {
             var view = new PopupView({
-              type: 'organisation',
+              type: 'efc-organisation',
               data: {
                 name: 'name',
                 type: 'type',

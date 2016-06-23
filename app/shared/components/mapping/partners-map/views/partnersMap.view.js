@@ -52,7 +52,7 @@ define(function(require) {
       markerData = markerData || {};
 
       var popupComponent = new PopupComponent({
-          type: 'organisation',
+          type: 'efc-organisation',
           data: markerData
         }),
         popupContent = popupComponent.render().view.el;

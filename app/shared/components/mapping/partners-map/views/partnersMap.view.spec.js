@@ -188,7 +188,7 @@ define(function(require) {
             },
 
             popupContent = new PopupComponent({
-              type: 'organisation',
+              type: 'efc-organisation',
               data: markerData
             }).render().view.el,
 

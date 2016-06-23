@@ -56,7 +56,7 @@ define(function(require) {
         countryItem = countryItem || {};
 
         var popupComponent = new PopupComponent({
-            type: 'project',
+            type: 'efc-project',
             data: {
               id: countryItem.id,
               title: countryItem.title,

@@ -97,10 +97,11 @@ define(function(require) {
     },
 
     prepareMarkerItem: function(item) {
-      var popupContent = new PopupComponent({
-        type: 'project',
-        data: item
-      });
+      var popupComponent = new PopupComponent({
+          type: 'efc-project',
+          data: {}
+        }),
+        popupContent = popupComponent.render().view.el;
 
       return {
         type: 'marker',
@@ -111,9 +112,9 @@ define(function(require) {
     },
 
     prepareMarkerBadges: function(item) {
-      if(item.goodPractice && item.successStory) {
+      if (item.goodPractice && item.successStory) {
         return 'Good Practice & Success Story';
-      } else if(item.goodPractice) {
+      } else if (item.goodPractice) {
         return 'Good Practice';
       } else if (item.successStory) {
         return 'Success Story';
@@ -127,7 +128,7 @@ define(function(require) {
         maxCount = 5,
         result = _.first(countries, maxCount).join(', ');
 
-      if((countries.length) > maxCount) {
+      if ((countries.length) > maxCount) {
         result += ', ...';
       }
 
