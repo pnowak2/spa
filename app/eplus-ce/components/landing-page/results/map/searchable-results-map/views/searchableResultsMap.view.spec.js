@@ -363,65 +363,144 @@
            expect(preparedItems.length).toBe(0);
          });
        });
-     });
 
-     describe('.prepareClusterItem()', function() {
-       beforeEach(function() {
-         this.item = {
-           type: 'cluster',
-           lat: 52,
-           lng: 22,
-           itemsCount: 6
-         };
-         this.view = new SearchableResultsMapView;
+
+       describe('.prepareClusterItem()', function() {
+         beforeEach(function() {
+           this.item = {
+             type: 'cluster',
+             lat: 52,
+             lng: 22,
+             itemsCount: 6
+           };
+           this.view = new SearchableResultsMapView;
+         });
+
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.prepareClusterItem).toEqual(jasmine.any(Function));
+         });
+
+         it('should create proper cluster item', function() {
+           var preparedItem = this.view.prepareClusterItem(this.item);
+
+           expect(preparedItem).toEqual({
+             type: 'cluster',
+             lat: 52,
+             lng: 22,
+             itemsCount: 6
+           })
+         });
        });
 
-       it('should be defined', function() {
-         expect(SearchableResultsMapView.prototype.prepareClusterItem).toEqual(jasmine.any(Function));
+       describe('.prepareMarkerItem()', function() {
+         beforeEach(function() {
+           this.item = {
+             type: 'marker',
+             lat: 54,
+             lng: 24,
+             id: 6,
+             goodPractice: true,
+             successStory: true,
+             title: 'Project Title',
+             programme: 'Project Programme',
+             actionType: 'Project Action Type',
+             coordinator: 'Project Coordinator',
+             countries: ['pl', 'de', 'be']
+           };
+           this.view = new SearchableResultsMapView;
+         });
+
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.prepareMarkerItem).toEqual(jasmine.any(Function));
+         });
+
+         it('should create proper marker item', function() {
+           var preparedItem = this.view.prepareMarkerItem(this.item);
+
+           expect(preparedItem).toEqual({
+             type: 'marker',
+             lat: 54,
+             lng: 24,
+             popupContent: ''
+           });
+         });
        });
 
-       it('should create proper cluster item', function() {
-         var preparedItem = this.view.prepareClusterItem(this.item);
+       describe('.prepareMarkerBadges()', function() {
+         beforeEach(function() {
+           this.view = new SearchableResultsMapView;
+         });
 
-         expect(preparedItem).toEqual({
-           type: 'cluster',
-           lat: 52,
-           lng: 22,
-           itemsCount: 6
-         })
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.prepareMarkerBadges).toEqual(jasmine.any(Function));
+         });
+
+         it('should have good practice', function() {
+           var item = {
+             goodPractice: true
+           };
+
+           expect(this.view.prepareMarkerBadges(item)).toEqual('Good Practice');
+         });
+
+         it('should have success story', function() {
+           var item = {
+             successStory: true
+           };
+
+           expect(this.view.prepareMarkerBadges(item)).toEqual('Success Story');
+         });
+
+         it('should have good practice and success story', function() {
+           var item = {
+             goodPractice: true,
+             successStory: true
+           };
+
+           expect(this.view.prepareMarkerBadges(item)).toEqual('Good Practice & Success Story');
+         });
+
+         it('should not have any badge', function() {
+           var item = {
+             goodPractice: false,
+             successStory: false
+           };
+
+           expect(this.view.prepareMarkerBadges(item)).toEqual('');
+         });
        });
-     });
 
-     describe('.prepareMarkerItem()', function() {
-       beforeEach(function() {
-         this.item = {
-           type: 'marker',
-           lat: 54,
-           lng: 24,
-           id: 6,
-           goodPractice: true,
-           successStory: true,
-           title: 'Project Title',
-           programme: 'Project Programme',
-           actionType: 'Project Action Type',
-           coordinator: 'Project Coordinator',
-           countries: ['pl', 'de', 'be']
-         };
-         this.view = new SearchableResultsMapView;
-       });
+       describe('.prepareMarkerCountries()', function() {
+         beforeEach(function() {
+           this.view = new SearchableResultsMapView;
+         });
 
-       it('should be defined', function() {
-         expect(SearchableResultsMapView.prototype.prepareMarkerItem).toEqual(jasmine.any(Function));
-       });
+         it('should be defined', function() {
+           expect(SearchableResultsMapView.prototype.prepareMarkerCountries).toEqual(jasmine.any(Function));
+         });
 
-       it('should create proper marker item', function() {
-         var preparedItem = this.view.prepareMarkerItem(this.item);
+         it('should have comma separated countries if less than five', function() {
+           var item = {
+             countries: ['pl', 'de', 'be', 'es', 'fr']
+           };
 
-         expect(preparedItem).toEqual({
-           type: 'marker',
-           lat: 54,
-           lng: 24,
-           popupContent: ''
+           expect(this.view.prepareMarkerCountries(item)).toEqual('pl, de, be, es, fr');
+         });
+
+         it('should have comma separated countries with dots if more than five', function() {
+           var item = {
+             countries: ['pl', 'de', 'be', 'es', 'fr', 'ro', 'cz']
+           };
+           
+           expect(this.view.prepareMarkerCountries(item)).toEqual('pl, de, be, es, fr, ...');
+         });
+
+         it('should not have any countries', function() {
+           var item = {
+             countries: []
+           };
+           
+           expect(this.view.prepareMarkerCountries(item)).toEqual('');
          });
        });
      });

@@ -97,11 +97,39 @@ define(function(require) {
     },
 
     prepareMarkerItem: function(item) {
+      var popupContent = new PopupComponent({
+        type: 'project',
+        data: item
+      });
+
       return {
         type: 'marker',
         lat: item.lat,
         lng: item.lng,
         popupContent: ''
+      }
+    },
+
+    prepareMarkerBadges: function(item) {
+      if(item.goodPractice && item.successStory) {
+        return 'Good Practice & Success Story';
+      } else if(item.goodPractice) {
+        return 'Good Practice';
+      } else if (item.successStory) {
+        return 'Success Story';
+      } else {
+        return ''
+      }
+    },
+
+    prepareMarkerCountries: function(item) {
+      var countries = item.countries || [],
+        maxCount = 5;
+
+      if((countries.length) > maxCount) {
+        return (_.first(countries, maxCount).join(', ') + ', ...');
+      } else {
+        return countries.join(', ');
       }
     },
 
