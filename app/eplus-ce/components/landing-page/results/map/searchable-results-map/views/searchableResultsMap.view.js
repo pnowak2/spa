@@ -98,8 +98,16 @@ define(function(require) {
 
     prepareMarkerItem: function(item) {
       var popupComponent = new PopupComponent({
-          type: 'efc-project',
-          data: {}
+          type: 'eplus-project',
+          data: {
+            id: item.id,
+            title: item.title,
+            badges: this.prepareMarkerBadges(item),
+            countries: this.prepareMarkerCountries(item),
+            programme: item.programme,
+            actionType: item.actionType,
+            coordinator: item.coordinator
+          }
         }),
         popupContent = popupComponent.render().view.el;
 
@@ -107,7 +115,7 @@ define(function(require) {
         type: 'marker',
         lat: item.lat,
         lng: item.lng,
-        popupContent: ''
+        popupContent: popupContent
       }
     },
 

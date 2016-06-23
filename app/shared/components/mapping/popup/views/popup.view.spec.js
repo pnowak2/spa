@@ -94,19 +94,17 @@ define(function(require) {
           expect(this.view.externalizeLinks).toHaveBeenCalled();
         });
 
-        describe('EfC Project', function() {
+        describe('Eplus/CE Project', function() {
           describe('All data present', function() {
             beforeEach(function() {
               this.view = new PopupView({
-                type: 'efc-project',
+                type: 'eplus-project',
                 data: {
                   id: '52',
                   badges: 'Good Practice & Success Story',
                   programme: 'Erasmus+',
                   title: 'Project Title',
-                  description: 'Project Description',
                   actionType: 'Project Action Type',
-                  activity: 'Project Activity',
                   coordinator: 'Project Coordinator',
                   countries: 'PL, DE, BE'
                 }
@@ -117,6 +115,7 @@ define(function(require) {
 
             it('should render bubble programme', function() {
               expect(this.view.$el).toContainHtml('Erasmus+');
+              console.log(this.view.$el.html())
             });
 
             it('should render bubble title', function() {
@@ -127,16 +126,8 @@ define(function(require) {
               expect(this.view.$el).toContainHtml('Good Practice & Success Story');
             });
 
-            it('should render bubble description', function() {
-              expect(this.view.$el).toContainHtml('Project Description');
-            });
-
             it('should render bubble action type', function() {
               expect(this.view.$el).toContainHtml('Project Action Type');
-            });
-
-            it('should render bubble activity', function() {
-              expect(this.view.$el).toContainHtml('Project Activity');
             });
 
             it('should render bubble coordinator', function() {
@@ -145,6 +136,87 @@ define(function(require) {
 
             it('should render bubble countries', function() {
               expect(this.view.$el).toContainHtml('PL, DE, BE');
+            });
+
+            it('should render link to project details', function() {
+              var link = this.view.$el.find('.vlr-map-popup__more-link');
+              expect(link).toHaveAttr('href', '/programmes/erasmus-plus/projects/project-details-page/?nodeRef=52');
+              expect(link).toHaveAttr('target', '_blank');
+              expect(link).toContainText('Show project card');
+            });
+          });
+
+          describe('Missing sections', function() {
+            beforeEach(function() {
+              this.view = new PopupView({
+                type: 'eplus-project',
+                data: {}
+              });
+
+              this.view.render();
+            });
+
+            it('should not render title section', function() {
+              expect(this.view.$el).not.toContainElement('.vlr-map-popup__title');
+            });
+
+            it('should not render badges section', function() {
+              expect(this.view.$el).not.toContainElement('.vlr-map-popup__badges');
+            });
+
+            it('should not render programme section', function() {
+              expect(this.view.$el).not.toContainHtml('Programme:');
+            });
+
+            it('should not render action type section', function() {
+              expect(this.view.$el).not.toContainHtml('Action Type:');
+            });
+
+            it('should not render coordinator section', function() {
+              expect(this.view.$el).not.toContainHtml('Coordinator:');
+            });
+
+            it('should not render countries section', function() {
+              expect(this.view.$el).not.toContainHtml('Countries:');
+            });
+
+            it('should not render link section', function() {
+              expect(this.view.$el).not.toContainElement('.vlr-map-popup__link');
+            });
+          });
+        });
+
+        describe('EfC Project', function() {
+          describe('All data present', function() {
+            beforeEach(function() {
+              this.view = new PopupView({
+                type: 'efc-project',
+                data: {
+                  id: '52',
+                  title: 'Project Title',
+                  description: 'Project Description',
+                  activity: 'Project Activity',
+                  coordinator: 'Project Coordinator'
+                }
+              });
+
+              this.view.render();
+            });
+
+            it('should render bubble title', function() {
+              expect(this.view.$el).toContainHtml('Project Title');
+            });
+
+            it('should render bubble description', function() {
+              expect(this.view.$el).toContainHtml('Project Description');
+            });
+
+            it('should render bubble activity', function() {
+              expect(this.view.$el).toContainHtml('Project Activity');
+            });
+
+            it('should render bubble coordinator', function() {
+              expect(this.view.$el).toContainHtml('Project Coordinator');
             });
 
             it('should render link to project details', function() {
@@ -169,28 +241,12 @@ define(function(require) {
               expect(this.view.$el).not.toContainElement('.vlr-map-popup__title');
             });
 
-            it('should not render badges section', function() {
-              expect(this.view.$el).not.toContainElement('.vlr-map-popup__badges');
-            });
-
-            it('should not render programme section', function() {
-              expect(this.view.$el).not.toContainHtml('Programme:');
-            });
-
-            it('should not render action type section', function() {
-              expect(this.view.$el).not.toContainHtml('Action Type:');
-            });
-
             it('should not render activity section', function() {
               expect(this.view.$el).not.toContainHtml('Activity:');
             });
 
             it('should not render coordinator section', function() {
               expect(this.view.$el).not.toContainHtml('Coordinator:');
-            });
-
-            it('should not render countries section', function() {
-              expect(this.view.$el).not.toContainHtml('Countries:');
             });
 
             it('should not render description section', function() {
@@ -202,7 +258,6 @@ define(function(require) {
             });
           });
         });
-
 
         describe('EfC Organisation', function() {
           beforeEach(function() {

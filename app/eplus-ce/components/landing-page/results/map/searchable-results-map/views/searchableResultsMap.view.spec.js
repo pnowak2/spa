@@ -394,14 +394,24 @@
 
        describe('.prepareMarkerItem()', function() {
          beforeEach(function() {
+
+           spyOn(SearchableResultsMapView.prototype, 'prepareMarkerBadges').and.returnValue('fake badges');
+           spyOn(SearchableResultsMapView.prototype, 'prepareMarkerCountries').and.returnValue('fake countries');
+           spyOn(PopupComponent.prototype, 'initialize').and.callThrough();
+           spyOn(PopupComponent.prototype, 'render').and.returnValue({
+             view: {
+               el: 'fake rendered popup'
+             }
+           })
+
            this.item = {
              type: 'marker',
              lat: 54,
              lng: 24,
              id: 6,
+             title: 'Project Title',
              goodPractice: true,
              successStory: true,
-             title: 'Project Title',
              programme: 'Project Programme',
              actionType: 'Project Action Type',
              coordinator: 'Project Coordinator',
@@ -414,6 +424,32 @@
            expect(SearchableResultsMapView.prototype.prepareMarkerItem).toEqual(jasmine.any(Function));
          });
 
+         it('should build marker badges text', function() {
+           this.view.prepareMarkerItem(this.item);
+           expect(this.view.prepareMarkerBadges).toHaveBeenCalledWith(this.item);
+         });
+
+         it('should build marker countries text', function() {
+           this.view.prepareMarkerItem(this.item);
+           expect(this.view.prepareMarkerCountries).toHaveBeenCalledWith(this.item);
+         });
+
+         it('should properly inintialize popup component', function() {
+           var item = this.view.prepareMarkerItem(this.item);
+           expect(PopupComponent.prototype.initialize).toHaveBeenCalledWith({
+             type: 'eplus-project',
+             data: {
+               id: 6,
+               title: 'Project Title',
+               badges: 'fake badges',
+               countries: 'fake countries',
+               programme: 'Project Programme',
+               actionType: 'Project Action Type',
+               coordinator: 'Project Coordinator'
+             }
+           });
+         });
+
          it('should create proper marker item', function() {
            var preparedItem = this.view.prepareMarkerItem(this.item);
 
@@ -421,7 +457,7 @@
              type: 'marker',
              lat: 54,
              lng: 24,
-             popupContent: ''
+             popupContent: 'fake rendered popup'
            });
          });
        });
@@ -491,7 +527,7 @@
            var item = {
              countries: ['pl', 'de', 'be', 'es', 'fr', 'ro', 'cz']
            };
-           
+
            expect(this.view.prepareMarkerCountries(item)).toEqual('pl, de, be, es, fr, ...');
          });
 
@@ -499,7 +535,7 @@
            var item = {
              countries: []
            };
-           
+
            expect(this.view.prepareMarkerCountries(item)).toEqual('');
          });
        });
