@@ -124,13 +124,14 @@ define(function(require) {
 
     prepareMarkerCountries: function(item) {
       var countries = item.countries || [],
-        maxCount = 5;
+        maxCount = 5,
+        result = _.first(countries, maxCount).join(', ');
 
       if((countries.length) > maxCount) {
-        return (_.first(countries, maxCount).join(', ') + ', ...');
-      } else {
-        return countries.join(', ');
+        result += ', ...';
       }
+
+      return result;
     },
 
     render: function() {

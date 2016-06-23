@@ -481,10 +481,10 @@
 
          it('should have comma separated countries if less than five', function() {
            var item = {
-             countries: ['pl', 'de', 'be', 'es', 'fr']
+             countries: ['pl', 'de', 'be', 'es']
            };
 
-           expect(this.view.prepareMarkerCountries(item)).toEqual('pl, de, be, es, fr');
+           expect(this.view.prepareMarkerCountries(item)).toEqual('pl, de, be, es');
          });
 
          it('should have comma separated countries with dots if more than five', function() {
