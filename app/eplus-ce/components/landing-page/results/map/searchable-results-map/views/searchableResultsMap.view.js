@@ -113,6 +113,7 @@ define(function(require) {
 
       return {
         type: 'marker',
+        id: item.id,
         lat: item.lat,
         lng: item.lng,
         popupContent: popupContent

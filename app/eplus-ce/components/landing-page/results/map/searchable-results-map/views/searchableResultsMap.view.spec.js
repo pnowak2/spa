@@ -455,6 +455,7 @@
 
            expect(preparedItem).toEqual({
              type: 'marker',
+             id: 6,
              lat: 54,
              lng: 24,
              popupContent: 'fake rendered popup'
