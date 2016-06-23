@@ -13,7 +13,7 @@ define(function(require) {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
       this.mapComponent = new MapComponent;
       this.listenTo(this.mapComponent, 'map:bounds-changed', this.onMapBoundsChanged);
-      
+
       this.cachedCriteria = {};
     },
 
@@ -63,16 +63,46 @@ define(function(require) {
     prepareMarkersData: function(data) {
       data = data || {};
 
-      var total = data.total;
+      var total = data.total,
+        items = this.prepareItems(data.items);
 
       return {
         total: total,
-        items: undefined
+        items: items
       }
     },
 
     prepareItems: function(items) {
+      return _.map(items, function(subitems) {
+        return _.map(subitems, function(item) {
+          switch (item.type) {
+            case 'cluster':
+              return this.prepareClusterItem(item);
+              break;
+            case 'marker':
+              return this.prepareMarkerItem(item);
+              break;
+          }
+        }, this);
+      }, this);
+    },
 
+    prepareClusterItem: function(item) {
+      return {
+        type: 'cluster',
+        itemsCount: item.itemsCount,
+        lat: item.lat,
+        lng: item.lng
+      }
+    },
+
+    prepareMarkerItem: function(item) {
+      return {
+        type: 'marker',
+        lat: item.lat,
+        lng: item.lng,
+        popupContent: ''
+      }
     },
 
     render: function() {

@@ -258,7 +258,7 @@
          });
 
          it('should prepare markers for display', function() {
-          var fakeData = {};
+           var fakeData = {};
            this.view.didSearchSucceed(fakeData);
 
            expect(this.view.prepareMarkersData).toHaveBeenCalledWith(fakeData);
@@ -291,8 +291,14 @@
          beforeEach(function() {
            this.data = {
              total: 2,
-             items: []
-           }
+             items: [
+               []
+             ]
+           };
+           this.fakePreparedItems = [];
+
+           spyOn(SearchableResultsMapView.prototype, 'prepareItems').and.returnValue(this.fakePreparedItems);
+
            this.view = new SearchableResultsMapView;
          });
 
@@ -311,11 +317,111 @@
            var markersData = this.view.prepareMarkersData(this.data);
            expect(markersData.total).toEqual(2);
          });
+
+         it('should return object with prepared items', function() {
+           var markersData = this.view.prepareMarkersData(this.data);
+
+           expect(this.view.prepareItems).toHaveBeenCalledWith(this.data.items);
+           expect(markersData.items).toBe(this.fakePreparedItems);
+         });
        });
 
        describe('.prepareItems()', function() {
+         beforeEach(function() {
+           this.items = [
+             [{
+               type: 'cluster'
+             }],
+             [{
+               type: 'marker'
+             }]
+           ];
+           this.fakePreparedClusterItem = {};
+           this.fakePreparedMarkerItem = {};
+
+           spyOn(SearchableResultsMapView.prototype, 'prepareClusterItem').and.returnValue(this.fakePreparedClusterItem);
+           spyOn(SearchableResultsMapView.prototype, 'prepareMarkerItem').and.returnValue(this.fakePreparedMarkerItem);
+
+           this.view = new SearchableResultsMapView;
+         });
+
          it('should be defined', function() {
            expect(SearchableResultsMapView.prototype.prepareItems).toEqual(jasmine.any(Function));
+         });
+
+         it('should return prepared items', function() {
+           var preparedItems = this.view.prepareItems(this.items);
+
+           expect(preparedItems[0][0]).toBe(this.fakePreparedClusterItem);
+           expect(preparedItems[1][0]).toBe(this.fakePreparedMarkerItem);
+         });
+
+         it('should handle empty items', function() {
+           var preparedItems = this.view.prepareItems([]);
+
+           expect(preparedItems).toEqual(jasmine.any(Array));
+           expect(preparedItems.length).toBe(0);
+         });
+       });
+     });
+
+     describe('.prepareClusterItem()', function() {
+       beforeEach(function() {
+         this.item = {
+           type: 'cluster',
+           lat: 52,
+           lng: 22,
+           itemsCount: 6
+         };
+         this.view = new SearchableResultsMapView;
+       });
+
+       it('should be defined', function() {
+         expect(SearchableResultsMapView.prototype.prepareClusterItem).toEqual(jasmine.any(Function));
+       });
+
+       it('should create proper cluster item', function() {
+         var preparedItem = this.view.prepareClusterItem(this.item);
+
+         expect(preparedItem).toEqual({
+           type: 'cluster',
+           lat: 52,
+           lng: 22,
+           itemsCount: 6
+         })
+       });
+     });
+
+     describe('.prepareMarkerItem()', function() {
+       beforeEach(function() {
+         this.item = {
+           type: 'marker',
+           lat: 54,
+           lng: 24,
+           id: 6,
+           goodPractice: true,
+           successStory: true,
+           title: 'Project Title',
+           programme: 'Project Programme',
+           actionType: 'Project Action Type',
+           coordinator: 'Project Coordinator',
+           countries: ['pl', 'de', 'be']
+         };
+         this.view = new SearchableResultsMapView;
+       });
+
+       it('should be defined', function() {
+         expect(SearchableResultsMapView.prototype.prepareMarkerItem).toEqual(jasmine.any(Function));
+       });
+
+       it('should create proper marker item', function() {
+         var preparedItem = this.view.prepareMarkerItem(this.item);
+
+         expect(preparedItem).toEqual({
+           type: 'marker',
+           lat: 54,
+           lng: 24,
+           popupContent: ''
          });
        });
      });
