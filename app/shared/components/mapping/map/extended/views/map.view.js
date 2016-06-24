@@ -71,6 +71,10 @@ define(function(require) {
       this.updateItemsCount(data.total);
     },
 
+    clearMarkers: function() {
+
+    },
+
     isMinZoom: function () {
       return this.map.getZoom() <= this.map.getMinZoom();
     },

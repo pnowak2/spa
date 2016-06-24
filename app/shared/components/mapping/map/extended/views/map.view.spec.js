@@ -225,6 +225,12 @@ define(function(require) {
         });
       });
 
+      describe('.clearMarkers()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.clearMarkers).toEqual(jasmine.any(Function));
+        });
+      });
+
       describe('.isMinZoom()', function() {
         it('should be defined', function() {
           expect(MapView.prototype.isMinZoom).toEqual(jasmine.any(Function));
