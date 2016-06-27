@@ -213,16 +213,178 @@ define(function(require) {
         });
 
         it('should work without arguments', function() {
-          expect(function () {
+          expect(function() {
             this.view.showMarkers((void 0));
           }).not.toThrow();
-          
+
         });
 
         it('should update items count', function() {
           this.view.showMarkers(this.fakeData);
           expect(this.view.updateItemsCount).toHaveBeenCalledWith(this.fakeData.total);
         });
+      });
+
+      describe('.toLeafletMarkers()', function() {
+        beforeEach(function() {
+          var items = [{
+            type: 'marker',
+            lat: 51,
+            lng: 21,
+            id: 'one',
+            popupContent: 'Popup One'
+          }, {
+            type: 'marker',
+            lat: 52,
+            lng: 22,
+            group: 'pl',
+            id: 'two',
+            popupContent: 'Popup Two'
+          }, {
+            type: 'marker',
+            lat: 53,
+            lng: 23,
+            group: 'de',
+            id: 'three',
+            popupContent: 'Popup Three'
+          }, {
+            type: 'marker',
+            lat: 54,
+            lng: 24,
+            group: 'pl',
+            id: 'four',
+            popupContent: 'Popup Four'
+          }, {
+            type: 'cluster',
+            lat: 55,
+            lng: 25,
+            itemsCount: 22
+          }, {
+            type: 'cluster',
+            lat: 56,
+            lng: 26,
+            itemsCount: 12
+          }];
+
+          this.view = new MapView;
+          this.leafletMarkers = view.toLeafletMarkers(items);
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.toLeafletMarkers).toEqual(jasmine.any(Function));
+        });
+
+        describe('Collection properties', function() {
+          it('should have proper grouped markers count', function() {
+            expect(this.leafletMarkers.length).toBe(3);
+          });
+        });
+
+        describe('First element in collection', function() {
+          it('should have one marker', function() {
+            expect(this.leafletMarkers[0].length).toBe(1);
+          });
+
+          it('should have proper marker type ', function() {
+            expect(this.leafletMarkers[0][0]).toEqual(jasmine.any(PruneCluster.Marker));
+          });
+
+          it('should have proper marker position', function() {
+            expect(this.leafletMarkers[0][0].position).toEqual({
+              lat: 51,
+              lng: 21
+            });
+          });
+
+          it('should have proper marker id', function() {
+            expect(this.leafletMarkers[0][0].data.id).toEqual('one');
+          });
+
+          it('should have proper marker popup', function() {
+            expect(this.leafletMarkers[0][0].data.popup).toEqual('Popup One');
+          });
+
+          it('should have proper marker popup options', function() {
+            expect(this.leafletMarkers[0][0].data.popupOptions).toEqual({
+              autoPanPadding: [48, 42]
+            });
+          });
+        });
+
+        describe('Second element in collection', function() {
+          it('should have two markers', function() {
+            expect(this.leafletMarkers[1].length).toBe(2);
+          });
+
+          it('should have proper marker type ', function() {
+            expect(this.leafletMarkers[1][0]).toEqual(jasmine.any(PruneCluster.Marker));
+            expect(this.leafletMarkers[1][1]).toEqual(jasmine.any(PruneCluster.Marker));
+          });
+
+          it('should have proper marker position', function() {
+            expect(this.leafletMarkers[1][0].position).toEqual({
+              lat: 52,
+              lng: 22
+            });
+
+            expect(this.leafletMarkers[1][1].position).toEqual({
+              lat: 54,
+              lng: 24
+            });
+          });
+
+          it('should have proper marker id', function() {
+            expect(this.leafletMarkers[1][0].data.id).toEqual('two');
+            expect(this.leafletMarkers[1][1].data.id).toEqual('four');
+          });
+
+          it('should have proper marker popup', function() {
+            expect(this.leafletMarkers[1][0].data.popup).toEqual('Popup Two');
+            expect(this.leafletMarkers[1][1].data.popup).toEqual('Popup Four');
+          });
+
+          it('should have proper marker popup options', function() {
+            expect(this.leafletMarkers[1][0].data.popupOptions).toEqual({
+              autoPanPadding: [48, 42]
+            });
+
+            expect(this.leafletMarkers[1][1].data.popupOptions).toEqual({
+              autoPanPadding: [48, 42]
+            });
+          });
+        });
+
+        describe('Third element in collection', function() {
+          it('should have one marker', function() {
+            expect(this.leafletMarkers[2].length).toBe(1);
+          });
+
+          it('should have proper marker type ', function() {
+            expect(this.leafletMarkers[2][0]).toEqual(jasmine.any(PruneCluster.Marker));
+          });
+
+          it('should have proper marker position', function() {
+            expect(this.leafletMarkers[2][0].position).toEqual({
+              lat: 53,
+              lng: 23
+            });
+          });
+
+          it('should have proper marker id', function() {
+            expect(this.leafletMarkers[2][0].data.id).toEqual('three');
+          });
+
+          it('should have proper marker popup', function() {
+            expect(this.leafletMarkers[2][0].data.popup).toEqual('Popup Three');
+          });
+
+          it('should have proper marker popup options', function() {
+            expect(this.leafletMarkers[2][0].data.popupOptions).toEqual({
+              autoPanPadding: [48, 42]
+            });
+          });
+        });
+
       });
 
       describe('.clearMarkers()', function() {

@@ -73,10 +73,34 @@ define(function(require) {
       data = data || {};
 
       _.map(data.items, function(item) {
-        
+
       });
 
       this.updateItemsCount(data.total);
+    },
+
+    toLeafletMarkers: function(items) {
+      return _.chain(items)
+        .where({
+          type: 'marker'
+        })
+        .groupBy('group')
+        .values()
+        .map(function(items) {
+          return _.map(items, function(item) {
+            return new PruneCluster.Marker(
+              item.lat,
+              item.lng, {
+                id: item.id,
+                popup: item.popupContent,
+                popupOptions: {
+                  autoPanPadding: [48, 42],
+                }
+              }
+            );
+          })
+        })
+        .value()
     },
 
     clearMarkers: function() {
