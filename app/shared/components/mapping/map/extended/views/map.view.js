@@ -24,6 +24,9 @@ define(function(require) {
       _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap', 'didDragMap', 'didResizeMap');
 
       this.options = _.extend({}, this.defaults, options);
+
+      this.clusterMarkers = [];
+      this.markers = [];
     },
 
     initMap: function() {
@@ -68,6 +71,11 @@ define(function(require) {
 
     showMarkers: function(data) {
       data = data || {};
+
+      _.map(data.items, function(item) {
+        
+      });
+
       this.updateItemsCount(data.total);
     },
 
@@ -75,15 +83,15 @@ define(function(require) {
 
     },
 
-    isMinZoom: function () {
+    isMinZoom: function() {
       return this.map.getZoom() <= this.map.getMinZoom();
     },
 
-    isMaxZoom: function () {
+    isMaxZoom: function() {
       return this.map.getZoom() >= this.map.getMaxZoom();
     },
 
-    getState: function () {
+    getState: function() {
       var bounds = this.map.getBounds();
 
       return {
@@ -120,15 +128,15 @@ define(function(require) {
       this.getItemsCountContainer().show();
     },
 
-    didZoomMap: function () {
+    didZoomMap: function() {
       this.trigger('map:bounds-changed', this.getState());
     },
 
-    didDragMap: function () {
+    didDragMap: function() {
       this.trigger('map:bounds-changed', this.getState());
     },
 
-    didResizeMap: function () {
+    didResizeMap: function() {
       this.trigger('map:bounds-changed', this.getState());
     },
 

@@ -2,8 +2,7 @@ define(function(require) {
   var _ = require('underscore'),
 
     mapItems = function(items) {
-      return _.map(items, function(subitems) {
-        return _.map(subitems, function(item) {
+      return _.map(items, function(item) {
           switch (item.type) {
             case 'cluster':
               return {
@@ -16,6 +15,7 @@ define(function(require) {
             case 'marker':
               return {
                 type: item.type,
+                group: item.group,
                 lat: item.lat,
                 lng: item.lon,
                 id: item.id,
@@ -34,7 +34,6 @@ define(function(require) {
               }
               break;
           }
-        });
       });
     },
 

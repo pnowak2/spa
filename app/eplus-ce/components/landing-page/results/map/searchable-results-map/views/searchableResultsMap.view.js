@@ -73,17 +73,15 @@ define(function(require) {
     },
 
     prepareItems: function(items) {
-      return _.map(items, function(subitems) {
-        return _.map(subitems, function(item) {
-          switch (item.type) {
-            case 'cluster':
-              return this.prepareClusterItem(item);
-              break;
-            case 'marker':
-              return this.prepareMarkerItem(item);
-              break;
-          }
-        }, this);
+      return _.map(items, function(item) {
+        switch (item.type) {
+          case 'cluster':
+            return this.prepareClusterItem(item);
+            break;
+          case 'marker':
+            return this.prepareMarkerItem(item);
+            break;
+        }
       }, this);
     },
 
@@ -113,6 +111,7 @@ define(function(require) {
 
       return {
         type: 'marker',
+        group: item.group,
         id: item.id,
         lat: item.lat,
         lng: item.lng,

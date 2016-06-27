@@ -291,9 +291,7 @@
          beforeEach(function() {
            this.data = {
              total: 2,
-             items: [
-               []
-             ]
+             items: []
            };
            this.fakePreparedItems = [];
 
@@ -328,14 +326,11 @@
 
        describe('.prepareItems()', function() {
          beforeEach(function() {
-           this.items = [
-             [{
-               type: 'cluster'
-             }],
-             [{
-               type: 'marker'
-             }]
-           ];
+           this.items = [{
+             type: 'cluster'
+           }, {
+             type: 'marker'
+           }];
            this.fakePreparedClusterItem = {};
            this.fakePreparedMarkerItem = {};
 
@@ -352,8 +347,8 @@
          it('should return prepared items', function() {
            var preparedItems = this.view.prepareItems(this.items);
 
-           expect(preparedItems[0][0]).toBe(this.fakePreparedClusterItem);
-           expect(preparedItems[1][0]).toBe(this.fakePreparedMarkerItem);
+           expect(preparedItems[0]).toBe(this.fakePreparedClusterItem);
+           expect(preparedItems[1]).toBe(this.fakePreparedMarkerItem);
          });
 
          it('should handle empty items', function() {
@@ -406,6 +401,7 @@
 
            this.item = {
              type: 'marker',
+             group: 'pl',
              lat: 54,
              lng: 24,
              id: 6,
@@ -455,6 +451,7 @@
 
            expect(preparedItem).toEqual({
              type: 'marker',
+             group: 'pl',
              id: 6,
              lat: 54,
              lng: 24,

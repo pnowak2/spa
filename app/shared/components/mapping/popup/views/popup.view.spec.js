@@ -94,7 +94,7 @@ define(function(require) {
           expect(this.view.externalizeLinks).toHaveBeenCalled();
         });
 
-        describe('Eplus/CE Project', function() {
+        describe('Eplus Project', function() {
           describe('All data present', function() {
             beforeEach(function() {
               this.view = new PopupView({
@@ -115,7 +115,6 @@ define(function(require) {
 
             it('should render bubble programme', function() {
               expect(this.view.$el).toContainHtml('Erasmus+');
-              console.log(this.view.$el.html())
             });
 
             it('should render bubble title', function() {
