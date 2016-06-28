@@ -80,6 +80,8 @@ define(function(require) {
     },
 
     toLeafletMarkers: function(items) {
+      var self = this;
+
       return _.chain(items)
         .where({
           type: 'marker'
@@ -92,6 +94,7 @@ define(function(require) {
               item.lat,
               item.lng, {
                 id: item.id,
+                icon: self.createMarkerIcon(item.icon),
                 popup: item.popupContent,
                 popupOptions: {
                   autoPanPadding: [48, 42],
@@ -101,6 +104,36 @@ define(function(require) {
           })
         })
         .value()
+    },
+
+    createMarkerIcon: function(icon, data) {
+      data = data || {};
+
+      var path = Leaflet.Icon.Default.imagePath;
+
+      switch(icon) {
+        case 'marker-blue':
+          return Leaflet.icon({
+            iconUrl: path + '/marker-' + icon + '.png',
+            shadowUrl: path + '/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+          });
+          break;
+        case 'cluster':
+          return new Leaflet.DivIcon({
+            html: '<div><span>' + data.population + '</span></div>',
+            className: 'prunecluster prunecluster-medium',
+            iconSize: Leaflet.point(38, 38)
+          });
+          break;
+        default:
+          return new Leaflet.Icon.Default()
+      }
+
+      return defaultIcon;
     },
 
     clearMarkers: function() {

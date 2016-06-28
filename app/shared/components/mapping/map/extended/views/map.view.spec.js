@@ -229,6 +229,7 @@ define(function(require) {
         beforeEach(function() {
           var items = [{
             type: 'marker',
+            icon: 'marker-blue',
             lat: 51,
             lng: 21,
             id: 'one',
@@ -242,6 +243,7 @@ define(function(require) {
             popupContent: 'Popup Two'
           }, {
             type: 'marker',
+            icon: 'marker-green',
             lat: 53,
             lng: 23,
             group: 'de',
@@ -266,6 +268,9 @@ define(function(require) {
             itemsCount: 12
           }];
 
+          this.fakeIcon = {};
+          spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(this.fakeIcon);
+
           this.view = new MapView;
           this.leafletMarkers = view.toLeafletMarkers(items);
         });
@@ -287,6 +292,11 @@ define(function(require) {
 
           it('should have proper marker type ', function() {
             expect(this.leafletMarkers[0][0]).toEqual(jasmine.any(PruneCluster.Marker));
+          });
+
+          it('should have proper marker icon', function() {
+            expect(this.view.createMarkerIcon).toHaveBeenCalledWith('marker-blue');
+            expect(this.leafletMarkers[0][0].data.icon).toEqual(this.fakeIcon);
           });
 
           it('should have proper marker position', function() {
@@ -319,6 +329,12 @@ define(function(require) {
           it('should have proper marker type ', function() {
             expect(this.leafletMarkers[1][0]).toEqual(jasmine.any(PruneCluster.Marker));
             expect(this.leafletMarkers[1][1]).toEqual(jasmine.any(PruneCluster.Marker));
+          });
+
+          it('should have proper marker icon', function() {
+            expect(this.view.createMarkerIcon).toHaveBeenCalledWith(undefined);
+            expect(this.leafletMarkers[1][0].data.icon).toEqual(this.fakeIcon);
+            expect(this.leafletMarkers[1][1].data.icon).toEqual(this.fakeIcon);
           });
 
           it('should have proper marker position', function() {
@@ -363,6 +379,11 @@ define(function(require) {
             expect(this.leafletMarkers[2][0]).toEqual(jasmine.any(PruneCluster.Marker));
           });
 
+          it('should have proper marker icon', function() {
+            expect(this.view.createMarkerIcon).toHaveBeenCalledWith('marker-green');
+            expect(this.leafletMarkers[2][0].data.icon).toEqual(this.fakeIcon);
+          });
+
           it('should have proper marker position', function() {
             expect(this.leafletMarkers[2][0].position).toEqual({
               lat: 53,
@@ -384,7 +405,43 @@ define(function(require) {
             });
           });
         });
+      });
 
+      describe('.createMarkerIcon()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.createMarkerIcon).toEqual(jasmine.any(Function));
+        });
+
+        it('should create default icon if no params provided', function() {
+          expect(this.view.createMarkerIcon()).toEqual(jasmine.any(Leaflet.Icon.Default));
+        });
+
+        it('should create blue marker icon', function() {
+          var icon = this.view.createMarkerIcon('marker-blue');
+
+          expect(icon).toEqual(jasmine.any(Leaflet.Icon));
+          expect(icon.options.iconUrl).toContain('marker-blue.png');
+          expect(icon.options.shadowUrl).toContain('marker-shadow.png');
+          expect(icon.options.iconSize).toEqual([25, 41]);
+          expect(icon.options.iconAnchor).toEqual([12, 41]);
+          expect(icon.options.popupAnchor).toEqual([1, -34]);
+          expect(icon.options.shadowSize).toEqual([41, 41]);
+        });
+
+        it('should create cluster icon', function() {
+          var icon = this.view.createMarkerIcon('cluster', {
+            population: 22
+          });
+
+          expect(icon).toEqual(jasmine.any(Leaflet.DivIcon));
+          expect(icon.options.html).toEqual('<div><span>22</span></div>');
+          expect(icon.options.className).toEqual('prunecluster prunecluster-medium');
+          expect(icon.options.iconSize).toEqual(Leaflet.point(38, 38));
+        });
       });
 
       describe('.clearMarkers()', function() {
