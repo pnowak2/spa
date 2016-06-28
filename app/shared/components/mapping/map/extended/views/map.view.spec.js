@@ -55,7 +55,7 @@ define(function(require) {
 
         var view = new MapView;
 
-        expect(_.bindAll).toHaveBeenCalledWith(view, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap', 'didDragMap', 'didResizeMap');
+        expect(_.bindAll).toHaveBeenCalledWith(view, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didClickClusterMarker', 'didZoomMap', 'didDragMap', 'didResizeMap');
       });
 
       it('should create options prefilled with defaults', function() {
@@ -407,6 +407,71 @@ define(function(require) {
         });
       });
 
+      describe('.toClusterMarkers()', function() {
+        beforeEach(function() {
+          this.items = [{
+            type: 'marker'
+          }, {
+            type: 'marker'
+          }, {
+            type: 'marker'
+          }, {
+            type: 'cluster',
+            lat: 55,
+            lng: 25,
+            itemsCount: 22
+          }, {
+            type: 'cluster',
+            lat: 56,
+            lng: 26,
+            itemsCount: 12
+          }];
+          this.fakeIcon = {};
+          spyOn(Leaflet.Marker.prototype, 'on');
+          spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(this.fakeIcon);
+
+          this.view = new MapView;
+          this.clusterMarkers = view.toClusterMarkers(this.items);
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.toClusterMarkers).toEqual(jasmine.any(Function));
+        });
+
+        describe('Collection properties', function() {
+          it('should have proper cluster markers count', function() {
+            expect(this.clusterMarkers.length).toBe(2);
+          });
+        });
+
+        describe('First element in collection', function() {
+          it('should have proper marker type ', function() {
+            expect(this.clusterMarkers[0]).toEqual(jasmine.any(Leaflet.Marker));
+          });
+
+          it('should have proper marker icon', function() {
+            expect(this.view.createMarkerIcon).toHaveBeenCalledWith('cluster', {
+              population: 22
+            });
+            expect(this.clusterMarkers[0].options.icon).toEqual(this.fakeIcon);
+          });
+
+          it('should have proper marker position', function() {
+            expect(this.clusterMarkers[0].getLatLng()).toEqual({
+              lat: 55,
+              lng: 25
+            });
+          });
+
+          it('should have click event defined', function() {
+          var view = new MapView,
+           clusterMarkers = view.toClusterMarkers(this.items);
+
+            expect(this.clusterMarkers[0].on).toHaveBeenCalledWith('click', view.didClickClusterMarker);
+          });
+        });
+      });
+
       describe('.createMarkerIcon()', function() {
         beforeEach(function() {
           this.view = new MapView;
@@ -617,6 +682,29 @@ define(function(require) {
         it('should put zero count if total items found is not defined', function() {
           this.view.updateItemsCount();
           expect(this.view.getItemsCountElement().html).toHaveBeenCalledWith(0);
+        });
+      });
+
+      describe('.didClickClusterMarker()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+          this.view.map = {
+            getZoom: jasmine.createSpy('getZoom').and.returnValue(6),
+            setView: jasmine.createSpy('setView')
+          }
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.didClickClusterMarker).toEqual(jasmine.any(Function));
+        });
+
+        it('should behave...', function() {
+          var fakeEvent = {
+            latlng: [52, 42]
+          }
+          this.view.didClickClusterMarker(fakeEvent);
+
+          expect(this.view.map.setView).toHaveBeenCalledWith([52, 42], 7);
         });
       });
 

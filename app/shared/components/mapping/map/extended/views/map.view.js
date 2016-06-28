@@ -21,7 +21,7 @@ define(function(require) {
     },
 
     initialize: function(options) {
-      _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap', 'didDragMap', 'didResizeMap');
+      _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didClickClusterMarker', 'didZoomMap', 'didDragMap', 'didResizeMap');
 
       this.options = _.extend({}, this.defaults, options);
 
@@ -80,8 +80,6 @@ define(function(require) {
     },
 
     toLeafletMarkers: function(items) {
-      var self = this;
-
       return _.chain(items)
         .where({
           type: 'marker'
@@ -94,16 +92,35 @@ define(function(require) {
               item.lat,
               item.lng, {
                 id: item.id,
-                icon: self.createMarkerIcon(item.icon),
+                icon: this.createMarkerIcon(item.icon),
                 popup: item.popupContent,
                 popupOptions: {
                   autoPanPadding: [48, 42],
                 }
               }
             );
-          })
-        })
+          }, this)
+        }, this)
         .value()
+    },
+
+    toClusterMarkers: function(items) {
+      return _.chain(items)
+        .where({
+          type: 'cluster'
+        })
+        .map(function(item) {
+          var clusterMarker = Leaflet.marker([item.lat, item.lng], {
+            icon: this.createMarkerIcon('cluster', {
+              population: item.itemsCount
+            })
+          });
+
+          clusterMarker.on('click', this.didClickClusterMarker);
+
+          return clusterMarker;
+        }, this)
+        .value();
     },
 
     createMarkerIcon: function(icon, data) {
@@ -111,7 +128,7 @@ define(function(require) {
 
       var path = Leaflet.Icon.Default.imagePath;
 
-      switch(icon) {
+      switch (icon) {
         case 'marker-blue':
           return Leaflet.icon({
             iconUrl: path + '/marker-' + icon + '.png',
@@ -183,6 +200,10 @@ define(function(require) {
       total = total || 0;
       this.getItemsCountElement().html(total);
       this.getItemsCountContainer().show();
+    },
+
+    didClickClusterMarker: function(e) {
+      this.map.setView(e.latlng, this.map.getZoom() + 1);
     },
 
     didZoomMap: function() {
