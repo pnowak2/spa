@@ -19,7 +19,7 @@ define(function(require) {
       minZoom: 3,
       maxZoom: 7,
       clusterSizeOnMaxZoomLevel: 120,
-      boundaryFactor: 1.2
+      boundaryFactor: .33
     },
 
     initialize: function(options) {
@@ -156,7 +156,7 @@ define(function(require) {
     },
 
     calculateClusterSize: function() {
-      if(this.isMaxZoom()) {
+      if (this.isMaxZoom()) {
         return this.options.clusterSizeOnMaxZoomLevel;
       } else {
         return .0000000000001;
@@ -167,7 +167,7 @@ define(function(require) {
 
     },
 
-    createClusterGroupLayer: function () {
+    createClusterGroupLayer: function() {
       return new PruneClusterForLeaflet(this.calculateClusterSize());
     },
 
@@ -180,7 +180,12 @@ define(function(require) {
     },
 
     getState: function() {
-      var bounds = this.map.getBounds();
+      var bounds = this.calculateBounds() || {
+        northEast: {},
+        northWest: {},
+        southEast: {},
+        southWest: {}
+      };
 
       return {
         currentZoom: this.map.getZoom(),
@@ -191,21 +196,52 @@ define(function(require) {
         isMaxZoom: this.isMaxZoom(),
         bounds: {
           northEast: {
-            lat: bounds.getNorthEast().lat,
-            lng: bounds.getNorthEast().lng
+            lat: bounds.northEast.lat,
+            lng: bounds.northEast.lng
           },
           northWest: {
-            lat: bounds.getNorthWest().lat,
-            lng: bounds.getNorthWest().lng
+            lat: bounds.northWest.lat,
+            lng: bounds.northWest.lng
           },
           southEast: {
-            lat: bounds.getSouthEast().lat,
-            lng: bounds.getSouthEast().lng
+            lat: bounds.southEast.lat,
+            lng: bounds.southEast.lng
           },
           southWest: {
-            lat: bounds.getSouthWest().lat,
-            lng: bounds.getSouthWest().lng
+            lat: bounds.southWest.lat,
+            lng: bounds.southWest.lng
           }
+        }
+      }
+    },
+
+    calculateBounds: function() {
+      var originalBounds = this.map.getBounds(),
+        bounds = {
+          northEast: originalBounds.getNorthEast(),
+          northWest: originalBounds.getNorthWest(),
+          southEast: originalBounds.getSouthEast(),
+          southWest: originalBounds.getSouthWest()
+        },
+        boundsWith = bounds.northEast.lng - bounds.northWest.lng,
+        boundsHeight = bounds.northEast.lat - bounds.southEast.lat;
+
+      return {
+        northEast: {
+          lat: bounds.northEast.lat + this.options.boundaryFactor * boundsHeight,
+          lng: bounds.northEast.lng + this.options.boundaryFactor * boundsWith
+        },
+        northWest: {
+          lat: bounds.northWest.lat + this.options.boundaryFactor * boundsHeight,
+          lng: bounds.northWest.lng - this.options.boundaryFactor * boundsWith
+        },
+        southEast: {
+          lat: bounds.southEast.lat - this.options.boundaryFactor * boundsHeight,
+          lng: bounds.southEast.lng + this.options.boundaryFactor * boundsWith
+        },
+        southWest: {
+          lat: bounds.southWest.lat - this.options.boundaryFactor * boundsHeight,
+          lng: bounds.southWest.lng - this.options.boundaryFactor * boundsWith
         }
       }
     },

@@ -53,7 +53,7 @@ define(function(require) {
       });
 
       it('should have default for increased boundary factor', function() {
-        expect(MapView.prototype.defaults.boundaryFactor).toEqual(1.2);
+        expect(MapView.prototype.defaults.boundaryFactor).toEqual(.33);
       });
     });
 
@@ -472,8 +472,8 @@ define(function(require) {
           });
 
           it('should have click event defined', function() {
-          var view = new MapView,
-           clusterMarkers = view.toClusterMarkers(this.items);
+            var view = new MapView,
+              clusterMarkers = view.toClusterMarkers(this.items);
 
             expect(this.clusterMarkers[0].on).toHaveBeenCalledWith('click', view.didClickClusterMarker);
           });
@@ -499,8 +499,8 @@ define(function(require) {
           });
 
           it('should have click event defined', function() {
-          var view = new MapView,
-           clusterMarkers = view.toClusterMarkers(this.items);
+            var view = new MapView,
+              clusterMarkers = view.toClusterMarkers(this.items);
 
             expect(this.clusterMarkers[1].on).toHaveBeenCalledWith('click', view.didClickClusterMarker);
           });
@@ -655,26 +655,27 @@ define(function(require) {
           this.view.map = {
             getZoom: jasmine.createSpy('getZoom').and.returnValue(7),
             getMinZoom: jasmine.createSpy('getMinZoom').and.returnValue(2),
-            getMaxZoom: jasmine.createSpy('getMaxZoom').and.returnValue(10),
-            getBounds: jasmine.createSpy('getBounds').and.returnValue({
-              getNorthEast: jasmine.createSpy('getNorthEast').and.returnValue({
-                lat: 52,
-                lng: 22
-              }),
-              getNorthWest: jasmine.createSpy('getNorthWest').and.returnValue({
-                lat: 50,
-                lng: 20
-              }),
-              getSouthEast: jasmine.createSpy('getSouthEast').and.returnValue({
-                lat: 54,
-                lng: 24
-              }),
-              getSouthWest: jasmine.createSpy('getSouthWest').and.returnValue({
-                lat: 56,
-                lng: 26
-              })
-            })
+            getMaxZoom: jasmine.createSpy('getMaxZoom').and.returnValue(10)
           };
+
+          spyOn(this.view, 'calculateBounds').and.returnValue({
+            northEast: {
+              lat: 52,
+              lng: 22
+            },
+            northWest: {
+              lat: 50,
+              lng: 20
+            },
+            southEast: {
+              lat: 54,
+              lng: 24
+            },
+            southWest: {
+              lat: 56,
+              lng: 26
+            }
+          });
 
           spyOn(this.view, 'isMinZoom').and.returnValue(true);
           spyOn(this.view, 'isMaxZoom').and.returnValue(true);
@@ -732,6 +733,90 @@ define(function(require) {
         it('should contain bounds for south west', function() {
           expect(this.state.bounds.southWest.lat).toEqual(56);
           expect(this.state.bounds.southWest.lng).toEqual(26);
+        });
+      });
+
+      describe('.calculateBounds()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+          this.view.map = {
+            getBounds: jasmine.createSpy('getBounds').and.returnValue({
+              getNorthEast: function() {
+                return {
+                  lat: 10,
+                  lng: 10
+                };
+              },
+              getNorthWest: function() {
+                return {
+                  lat: 10,
+                  lng: -10
+                };
+              },
+              getSouthEast: function() {
+                return {
+                  lat: -10,
+                  lng: 10
+                };
+              },
+              getSouthWest: function() {
+                return {
+                  lat: -10,
+                  lng: -10
+                };
+              }
+            })
+          }
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.calculateBounds).toEqual(jasmine.any(Function));
+        });
+
+        it('should return map bounds with boundaryFactor set to 0', function() {
+          this.view.options.boundaryFactor = 0;
+
+          expect(this.view.calculateBounds()).toEqual({
+            northEast: {
+              lat: 10,
+              lng: 10
+            },
+            northWest: {
+              lat: 10,
+              lng: -10
+            },
+            southEast: {
+              lat: -10,
+              lng: 10
+            },
+            southWest: {
+              lat: -10,
+              lng: -10
+            }
+          });
+        });
+
+        it('should return map bounds with boundaryFactor set to 1', function() {
+          this.view.options.boundaryFactor = 1;
+          
+          expect(this.view.calculateBounds()).toEqual({
+            northEast: {
+              lat: 30,
+              lng: 30
+            },
+            northWest: {
+              lat: 30,
+              lng: -30
+            },
+            southEast: {
+              lat: -30,
+              lng: 30
+            },
+            southWest: {
+              lat: -30,
+              lng: -30
+            }
+          });
         });
       });
 
