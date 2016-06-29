@@ -470,6 +470,33 @@ define(function(require) {
             expect(this.clusterMarkers[0].on).toHaveBeenCalledWith('click', view.didClickClusterMarker);
           });
         });
+
+        describe('Second element in collection', function() {
+          it('should have proper marker type ', function() {
+            expect(this.clusterMarkers[1]).toEqual(jasmine.any(Leaflet.Marker));
+          });
+
+          it('should have proper marker icon', function() {
+            expect(this.view.createMarkerIcon).toHaveBeenCalledWith('cluster', {
+              population: 12
+            });
+            expect(this.clusterMarkers[1].options.icon).toEqual(this.fakeIcon);
+          });
+
+          it('should have proper marker position', function() {
+            expect(this.clusterMarkers[1].getLatLng()).toEqual({
+              lat: 56,
+              lng: 26
+            });
+          });
+
+          it('should have click event defined', function() {
+          var view = new MapView,
+           clusterMarkers = view.toClusterMarkers(this.items);
+
+            expect(this.clusterMarkers[1].on).toHaveBeenCalledWith('click', view.didClickClusterMarker);
+          });
+        });
       });
 
       describe('.createMarkerIcon()', function() {
