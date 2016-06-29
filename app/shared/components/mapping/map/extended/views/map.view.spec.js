@@ -47,6 +47,10 @@ define(function(require) {
       it('should have default maximum zoom defined', function() {
         expect(MapView.prototype.defaults.maxZoom).toEqual(7);
       });
+
+      it('should have default cluster size for ', function() {
+        expect(MapView.prototype.defaults.clusterSizeOnMaxZoomLevel).toEqual(120);
+      });
     });
 
     describe('creation', function() {
@@ -539,6 +543,50 @@ define(function(require) {
       describe('.clearMarkers()', function() {
         it('should be defined', function() {
           expect(MapView.prototype.clearMarkers).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.createClusterGroupLayer()', function() {
+        beforeEach(function() {
+          spyOn(MapView.prototype, 'calculateClusterSize').and.returnValue(222);
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.createClusterGroupLayer).toEqual(jasmine.any(Function));
+        });
+
+        it('should return correct cluster group layer instance', function() {
+          expect(this.view.createClusterGroupLayer()).toEqual(jasmine.any(PruneClusterForLeaflet));
+        });
+
+        it('should be initialized with appropriate initial cluster size', function() {
+          spyOn(PruneClusterForLeaflet.prototype, 'initialize');
+
+          expect(this.view.createClusterGroupLayer().initialize).toHaveBeenCalledWith(222);
+        });
+      });
+
+      describe('.calculateClusterSize()', function() {
+        beforeEach(function() {
+          this.view = new MapView;
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.calculateClusterSize).toEqual(jasmine.any(Function));
+        });
+
+        it('should return minimum clustering for zoom levels other than maximum', function() {
+          spyOn(MapView.prototype, 'isMaxZoom').and.returnValue(false);
+
+          expect(this.view.calculateClusterSize()).toBe(.0000000000001);
+        });
+
+        it('should return default clustering for zoom level maximum', function() {
+          spyOn(MapView.prototype, 'isMaxZoom').and.returnValue(true);
+          this.view.options.clusterSizeOnMaxZoomLevel = 850;
+
+          expect(this.view.calculateClusterSize()).toBe(850);
         });
       });
 

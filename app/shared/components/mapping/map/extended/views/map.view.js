@@ -18,6 +18,7 @@ define(function(require) {
       initialPosition: [53, 17],
       minZoom: 3,
       maxZoom: 7,
+      clusterSizeOnMaxZoomLevel: 120
     },
 
     initialize: function(options) {
@@ -153,8 +154,20 @@ define(function(require) {
       return defaultIcon;
     },
 
+    calculateClusterSize: function() {
+      if(this.isMaxZoom()) {
+        return this.options.clusterSizeOnMaxZoomLevel;
+      } else {
+        return .0000000000001;
+      }
+    },
+
     clearMarkers: function() {
 
+    },
+
+    createClusterGroupLayer: function () {
+      return new PruneClusterForLeaflet(this.calculateClusterSize());
     },
 
     isMinZoom: function() {
