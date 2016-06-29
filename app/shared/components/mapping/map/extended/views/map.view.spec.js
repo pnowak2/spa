@@ -51,6 +51,10 @@ define(function(require) {
       it('should have default cluster size for ', function() {
         expect(MapView.prototype.defaults.clusterSizeOnMaxZoomLevel).toEqual(120);
       });
+
+      it('should have default for increased boundary factor', function() {
+        expect(MapView.prototype.defaults.boundaryFactor).toEqual(1.2);
+      });
     });
 
     describe('creation', function() {

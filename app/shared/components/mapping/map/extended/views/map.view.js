@@ -18,7 +18,8 @@ define(function(require) {
       initialPosition: [53, 17],
       minZoom: 3,
       maxZoom: 7,
-      clusterSizeOnMaxZoomLevel: 120
+      clusterSizeOnMaxZoomLevel: 120,
+      boundaryFactor: 1.2
     },
 
     initialize: function(options) {
