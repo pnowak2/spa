@@ -12,6 +12,14 @@ define(function(require) {
       input.bottomRightLat = input.bounds.southEast.lat;
       input.bottomRightLon = input.bounds.southEast.lng;
 
+      if (input.isMaxZoom) {
+        input.clustering = 'none';
+      } else if (input.currentZoom <= input.minZoom + 1) {
+        input.clustering = 'country';
+      } else {
+        input.clustering = 'boundary';
+      }
+
       return _.omit(input, 'bounds');
     };
 
