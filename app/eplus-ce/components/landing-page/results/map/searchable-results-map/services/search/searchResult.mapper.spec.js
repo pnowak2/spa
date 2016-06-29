@@ -26,6 +26,18 @@ define(function(require) {
           actionType: 'Project Action Type 1',
           coordinator: 'Project Coordinator 1',
           countries: 'PL|DE|BE'
+        }, {
+          type: 'marker',
+          lat: 56,
+          lon: 29,
+          id: '2',
+          goodPractice: false,
+          successStory: false,
+          title: 'Project Title 2',
+          programme: 'Project Programme 2',
+          actionType: 'Project Action Type 2',
+          coordinator: 'Project Coordinator 2',
+          countries: undefined
         }]
       }
     };
@@ -76,7 +88,7 @@ define(function(require) {
 
             it('should have items property', function() {
               expect(this.mapped.items).toEqual(jasmine.any(Array));
-              expect(this.mapped.items.length).toEqual(2);
+              expect(this.mapped.items.length).toEqual(3);
             });
           });
 
@@ -176,6 +188,12 @@ define(function(require) {
             it('item should have countries property', function() {
               expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
                 countries: ['pl', 'de', 'be']
+              }));
+            });
+
+            it('item should have countries property even if countries is not defined', function() {
+              expect(this.mapped.items[2]).toEqual(jasmine.objectContaining({
+                countries: []
               }));
             });
           });

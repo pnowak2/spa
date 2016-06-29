@@ -25,7 +25,7 @@ define(function(require) {
                 programme: item.programme,
                 actionType: item.actionType,
                 coordinator: item.coordinator,
-                countries: _.chain(item.countries.split('|'))
+                countries: _.chain((item.countries || '').split('|'))
                   .compact()
                   .map(function(countryCode) {
                     return countryCode.toLowerCase()
