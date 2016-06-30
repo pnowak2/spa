@@ -32,7 +32,7 @@ define(function(require) {
       if (!this.map) {
         this.map = this.createMap();
         this.tileLayers = this.createTileLayers();
-        this.markersLayerGroup = new Leaflet.LayerGroup;
+        this.markersLayerGroup = Leaflet.layerGroup();
         this.buttonsBar = this.createButtonsBar();
         this.buttonsBar.addTo(this.map);
 
@@ -235,25 +235,25 @@ define(function(require) {
           southEast: originalBounds.getSouthEast(),
           southWest: originalBounds.getSouthWest()
         },
-        boundsWith = bounds.northEast.lng - bounds.northWest.lng,
-        boundsHeight = bounds.northEast.lat - bounds.southEast.lat;
+        boundsWith = parseFloat(bounds.northEast.lng) - parseFloat(bounds.northWest.lng),
+        boundsHeight = parseFloat(bounds.northEast.lat) - parseFloat(bounds.southEast.lat);
 
       return {
         northEast: {
-          lat: bounds.northEast.lat + this.options.boundaryFactor * boundsHeight,
-          lng: bounds.northEast.lng + this.options.boundaryFactor * boundsWith
+          lat: parseFloat(bounds.northEast.lat) + this.options.boundaryFactor * boundsHeight,
+          lng: parseFloat(bounds.northEast.lng) + this.options.boundaryFactor * boundsWith
         },
         northWest: {
-          lat: bounds.northWest.lat + this.options.boundaryFactor * boundsHeight,
-          lng: bounds.northWest.lng - this.options.boundaryFactor * boundsWith
+          lat: parseFloat(bounds.northWest.lat) + this.options.boundaryFactor * boundsHeight,
+          lng: parseFloat(bounds.northWest.lng) - this.options.boundaryFactor * boundsWith
         },
         southEast: {
-          lat: bounds.southEast.lat - this.options.boundaryFactor * boundsHeight,
-          lng: bounds.southEast.lng + this.options.boundaryFactor * boundsWith
+          lat: parseFloat(bounds.southEast.lat) - this.options.boundaryFactor * boundsHeight,
+          lng: parseFloat(bounds.southEast.lng) + this.options.boundaryFactor * boundsWith
         },
         southWest: {
-          lat: bounds.southWest.lat - this.options.boundaryFactor * boundsHeight,
-          lng: bounds.southWest.lng - this.options.boundaryFactor * boundsWith
+          lat: parseFloat(bounds.southWest.lat) - this.options.boundaryFactor * boundsHeight,
+          lng: parseFloat(bounds.southWest.lng) - this.options.boundaryFactor * boundsWith
         }
       }
     },

@@ -818,26 +818,26 @@ define(function(require) {
             getBounds: jasmine.createSpy('getBounds').and.returnValue({
               getNorthEast: function() {
                 return {
-                  lat: 10,
-                  lng: 10
+                  lat: "10",
+                  lng: "10"
                 };
               },
               getNorthWest: function() {
                 return {
-                  lat: 10,
-                  lng: -10
+                  lat: "10",
+                  lng: "-10"
                 };
               },
               getSouthEast: function() {
                 return {
-                  lat: -10,
-                  lng: 10
+                  lat: "-10",
+                  lng: "10"
                 };
               },
               getSouthWest: function() {
                 return {
-                  lat: -10,
-                  lng: -10
+                  lat: "-10",
+                  lng: "-10"
                 };
               }
             })
