@@ -130,6 +130,9 @@ define(function(require) {
           spyOn(Leaflet, 'map').and.returnValue(this.fakeMap);
           spyOn(Leaflet.Map.prototype, 'setView');
 
+          this.fakeDebouncedHandler = function () {}
+          spyOn(_, 'debounce').and.returnValue(this.fakeDebouncedHandler);
+
           this.view = new MapView;
         });
 
@@ -163,17 +166,32 @@ define(function(require) {
 
         it('should listen to map zoom end event', function() {
           var map = this.view.createMap();
-          expect(map.on).toHaveBeenCalledWith('zoomend', this.view.didZoomMap);
+          expect(map.on).toHaveBeenCalledWith('zoomend', this.fakeDebouncedHandler);
+        });
+
+        it('should debounce map zoom end event', function() {
+          var map = this.view.createMap();
+          expect(_.debounce).toHaveBeenCalledWith(this.view.didZoomMap, 400);
         });
 
         it('should listen to map drag end event', function() {
           var map = this.view.createMap();
-          expect(map.on).toHaveBeenCalledWith('dragend', this.view.didDragMap);
+          expect(map.on).toHaveBeenCalledWith('dragend', this.fakeDebouncedHandler);
+        });
+
+        it('should debounce map drag end event', function() {
+          var map = this.view.createMap();
+          expect(_.debounce).toHaveBeenCalledWith(this.view.didDragMap, 400);
         });
 
         it('should listen to map resize event', function() {
           var map = this.view.createMap();
-          expect(map.on).toHaveBeenCalledWith('resize', this.view.didResizeMap);
+          expect(map.on).toHaveBeenCalledWith('resize', this.fakeDebouncedHandler);
+        });
+
+        it('should debounce map resize event', function() {
+          var map = this.view.createMap();
+          expect(_.debounce).toHaveBeenCalledWith(this.view.didResizeMap, 400);
         });
       });
 

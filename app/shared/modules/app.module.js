@@ -13,13 +13,13 @@ define(function(require) {
       var self = this;
       $(document)
         .ajaxStart(function() {
-          self.blockUI();
+//          self.blockUI();
         })
         .ajaxStop(function() {
-          self.unblockUI();
+//          self.unblockUI();
         })
         .ajaxError(function(event, jqxhr, settings, thrownError) {
-          self.unblockUI();
+//          self.unblockUI();
         });
     },
 

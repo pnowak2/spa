@@ -55,9 +55,9 @@ define(function(require) {
         this.options.initialZoom
       );
 
-      map.on('zoomend', this.didZoomMap);
-      map.on('dragend', this.didDragMap);
-      map.on('resize', this.didResizeMap);
+      map.on('zoomend', _.debounce(this.didZoomMap, 400));
+      map.on('dragend', _.debounce(this.didDragMap, 400));
+      map.on('resize', _.debounce(this.didResizeMap, 400));
 
       return map;
     },
