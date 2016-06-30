@@ -226,10 +226,20 @@ define(function(require) {
 
       describe('.showMarkers()', function() {
         beforeEach(function() {
-          spyOn(MapView.prototype, 'updateItemsCount');
           this.fakeData = {
-            total: 2
+            total: 2,
+            items: []
           }
+
+          this.fakeLeafletMarkers = [[]];
+          this.fakeClusterMarkers = [];
+
+          spyOn(MapView.prototype, 'updateItemsCount');
+          spyOn(MapView.prototype, 'clearAllMarkers');
+          spyOn(MapView.prototype, 'toLeafletMarkers').and.returnValue(this.fakeLeafletMarkers);
+          spyOn(MapView.prototype, 'toClusterMarkers').and.returnValue(this.fakeClusterMarkers);
+          spyOn(MapView.prototype, 'registerPointMarkers');
+          spyOn(MapView.prototype, 'registerClusterMarkers');
 
           this.view = new MapView;
         });
@@ -242,12 +252,49 @@ define(function(require) {
           expect(function() {
             this.view.showMarkers((void 0));
           }).not.toThrow();
+        });
 
+        it('should clear markers', function() {
+          this.view.showMarkers();
+
+          expect(this.view.clearAllMarkers).toHaveBeenCalled();
+        });
+
+        it('should register point markers', function() {
+          this.view.showMarkers(this.fakeData);
+
+          expect(this.view.toLeafletMarkers).toHaveBeenCalledWith(this.fakeData.items);
+          expect(this.view.registerPointMarkers).toHaveBeenCalledWith(this.fakeLeafletMarkers);
+        });
+
+        it('should register cluster markers', function() {
+          this.view.showMarkers(this.fakeData);
+
+          expect(this.view.toClusterMarkers).toHaveBeenCalledWith(this.fakeData.items);
+          expect(this.view.registerClusterMarkers).toHaveBeenCalledWith(this.fakeClusterMarkers);
         });
 
         it('should update items count', function() {
           this.view.showMarkers(this.fakeData);
           expect(this.view.updateItemsCount).toHaveBeenCalledWith(this.fakeData.total);
+        });
+      });
+
+      describe('.registerPointMarkers()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.registerPointMarkers).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.registerClusterMarkers()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.registerClusterMarkers).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.clearAllMarkers()', function() {
+        it('should be defined', function() {
+          expect(MapView.prototype.clearAllMarkers).toEqual(jasmine.any(Function));
         });
       });
 
@@ -559,12 +606,6 @@ define(function(require) {
           expect(icon.options.html).toEqual('<div><span>22</span></div>');
           expect(icon.options.className).toEqual('prunecluster prunecluster-medium');
           expect(icon.options.iconSize).toEqual(Leaflet.point(38, 38));
-        });
-      });
-
-      describe('.clearMarkers()', function() {
-        it('should be defined', function() {
-          expect(MapView.prototype.clearMarkers).toEqual(jasmine.any(Function));
         });
       });
 

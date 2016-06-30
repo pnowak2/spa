@@ -74,11 +74,27 @@ define(function(require) {
     showMarkers: function(data) {
       data = data || {};
 
-      _.map(data.items, function(item) {
+      var markers = this.toLeafletMarkers(data.items),
+        clusters = this.toClusterMarkers(data.items);
 
-      });
+      this.clearAllMarkers();
+
+      this.registerPointMarkers(markers);
+      this.registerClusterMarkers(clusters);
 
       this.updateItemsCount(data.total);
+    },
+
+    registerPointMarkers: function(markers) {
+
+    },
+
+    registerClusterMarkers: function(markers) {
+
+    },
+
+    clearAllMarkers: function() {
+
     },
 
     toLeafletMarkers: function(items) {
@@ -161,10 +177,6 @@ define(function(require) {
       } else {
         return .0000000000001;
       }
-    },
-
-    clearMarkers: function() {
-
     },
 
     createClusterGroupLayer: function() {
