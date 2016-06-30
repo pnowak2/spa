@@ -154,7 +154,7 @@ define(function(require) {
       var path = Leaflet.Icon.Default.imagePath;
 
       switch (icon) {
-        case 'marker-blue':
+        case 'blue':
           return Leaflet.icon({
             iconUrl: path + '/marker-' + icon + '.png',
             shadowUrl: path + '/marker-shadow.png',

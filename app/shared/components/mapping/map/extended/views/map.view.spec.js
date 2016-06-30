@@ -354,7 +354,7 @@ define(function(require) {
         beforeEach(function() {
           var items = [{
             type: 'marker',
-            icon: 'marker-blue',
+            icon: 'blue',
             lat: 51,
             lng: 21,
             id: 'one',
@@ -420,7 +420,7 @@ define(function(require) {
           });
 
           it('should have proper marker icon', function() {
-            expect(this.view.createMarkerIcon).toHaveBeenCalledWith('marker-blue');
+            expect(this.view.createMarkerIcon).toHaveBeenCalledWith('blue');
             expect(this.leafletMarkers[0][0].data.icon).toEqual(this.fakeIcon);
           });
 
@@ -638,7 +638,7 @@ define(function(require) {
         });
 
         it('should create blue marker icon', function() {
-          var icon = this.view.createMarkerIcon('marker-blue');
+          var icon = this.view.createMarkerIcon('blue');
 
           expect(icon).toEqual(jasmine.any(Leaflet.Icon));
           expect(icon.options.iconUrl).toContain('marker-blue.png');
