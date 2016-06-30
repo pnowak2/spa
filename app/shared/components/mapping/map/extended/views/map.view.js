@@ -85,12 +85,19 @@ define(function(require) {
       this.updateItemsCount(data.total);
     },
 
-    registerPointMarkers: function(markerGroups) {
-
+    registerPointMarkers: function(groupedMarkers) {
+      _.each(groupedMarkers, function(markers) {
+        var layer = this.createClusterGroupLayer();
+        
+        layer.RegisterMarkers(markers);
+        layer.addTo(this.markersLayerGroup);
+      }, this);
     },
 
     registerClusterMarkers: function(markers) {
-
+      _.each(markers, function(marker) {
+        marker.addTo(this.markersLayerGroup);
+      }, this);
     },
 
     clearAllMarkers: function() {

@@ -10,17 +10,7 @@ define(function(require) {
     },
 
     initializeAjaxEvents: function() {
-      var self = this;
-      $(document)
-        .ajaxStart(function() {
-         self.blockUI();
-        })
-        .ajaxStop(function() {
-         self.unblockUI();
-        })
-        .ajaxError(function(event, jqxhr, settings, thrownError) {
-         self.unblockUI();
-        });
+
     },
 
     showInfo: function(message) {},

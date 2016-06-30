@@ -64,21 +64,6 @@ define(function(require) {
           spyOn(app, 'blockUI');
           spyOn(app, 'unblockUI');
         });
-
-        it('should block UI when ajax call starts', function() {
-          $.event.trigger('ajaxStart');
-          expect(app.blockUI).toHaveBeenCalled();
-        });
-
-        it('should unblock UI when ajax call stops', function() {
-          $.event.trigger('ajaxStop');
-          expect(app.unblockUI).toHaveBeenCalled();
-        });
-
-        it('should unblock UI when ajax call failed', function() {
-          $.event.trigger('ajaxError');
-          expect(app.unblockUI).toHaveBeenCalled();
-        });
       });
     });
   });

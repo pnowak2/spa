@@ -288,14 +288,50 @@ define(function(require) {
       });
 
       describe('.registerPointMarkers()', function() {
+        beforeEach(function () {
+          this.fakeClusterGroupLayer = {
+            RegisterMarkers: jasmine.createSpy('Register Markers'),
+            addTo: jasmine.createSpy('addTo')
+          };
+          this.fakeMarker = {};
+          this.fakeGroupedMarkers = [this.fakeMarker];
+          this.fakeMarkers = [this.fakeGroupedMarkers];
+
+          spyOn(MapView.prototype, 'createClusterGroupLayer').and.returnValue(this.fakeClusterGroupLayer);
+
+          this.view = new MapView;
+          this.view.markersLayerGroup = 'fake markers layer group';
+          this.view.registerPointMarkers(this.fakeMarkers);
+        });
+
         it('should be defined', function() {
           expect(MapView.prototype.registerPointMarkers).toEqual(jasmine.any(Function));
+        });
+
+        it('should register goruped markers to cluster layer', function() {
+          expect(this.fakeClusterGroupLayer.RegisterMarkers).toHaveBeenCalledWith(this.fakeGroupedMarkers);
+        });
+
+        it('should add markers to markers layer group', function() {
+          expect(this.fakeClusterGroupLayer.addTo).toHaveBeenCalledWith('fake markers layer group');         
         });
       });
 
       describe('.registerClusterMarkers()', function() {
         it('should be defined', function() {
           expect(MapView.prototype.registerClusterMarkers).toEqual(jasmine.any(Function));
+        });
+
+        it('should add markers to markers layer group', function() {
+          var view = new MapView,
+            fakeClusterMarker = jasmine.createSpyObj('fakeMarker', ['addTo']),
+            fakeClusterMarkers = [fakeClusterMarker];
+
+          view.markersLayerGroup = 'fake markers layer group';
+
+          view.registerClusterMarkers(fakeClusterMarkers);
+
+          expect(fakeClusterMarker.addTo).toHaveBeenCalledWith('fake markers layer group');
         });
       });
 
