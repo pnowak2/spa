@@ -818,26 +818,26 @@ define(function(require) {
             getBounds: jasmine.createSpy('getBounds').and.returnValue({
               getNorthEast: function() {
                 return {
-                  lat: "10",
-                  lng: "10"
+                  lat: "10.00000000000001",
+                  lng: "10.00000000000001"
                 };
               },
               getNorthWest: function() {
                 return {
-                  lat: "10",
-                  lng: "-10"
+                  lat: "10.00000000000001",
+                  lng: "-10.00000000000001"
                 };
               },
               getSouthEast: function() {
                 return {
-                  lat: "-10",
-                  lng: "10"
+                  lat: "-10.00000000000001",
+                  lng: "10.00000000000001"
                 };
               },
               getSouthWest: function() {
                 return {
-                  lat: "-10",
-                  lng: "-10"
+                  lat: "-10.00000000000001",
+                  lng: "-10.00000000000001"
                 };
               }
             })
@@ -853,20 +853,20 @@ define(function(require) {
 
           expect(this.view.calculateBounds()).toEqual({
             northEast: {
-              lat: 10,
-              lng: 10
+              lat: 10.00000000000001,
+              lng: 10.00000000000001
             },
             northWest: {
-              lat: 10,
-              lng: -10
+              lat: 10.00000000000001,
+              lng: -10.00000000000001
             },
             southEast: {
-              lat: -10,
-              lng: 10
+              lat: -10.00000000000001,
+              lng: 10.00000000000001
             },
             southWest: {
-              lat: -10,
-              lng: -10
+              lat: -10.00000000000001,
+              lng: -10.00000000000001
             }
           });
         });
@@ -876,20 +876,20 @@ define(function(require) {
           
           expect(this.view.calculateBounds()).toEqual({
             northEast: {
-              lat: 30,
-              lng: 30
+              lat: 30.00000000000003,
+              lng: 30.00000000000003
             },
             northWest: {
-              lat: 30,
-              lng: -30
+              lat: 30.00000000000003,
+              lng: -30.00000000000003
             },
             southEast: {
-              lat: -30,
-              lng: 30
+              lat: -30.00000000000003,
+              lng: 30.00000000000003
             },
             southWest: {
-              lat: -30,
-              lng: -30
+              lat: -30.00000000000003,
+              lng: -30.00000000000003
             }
           });
         });

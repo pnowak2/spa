@@ -240,20 +240,20 @@ define(function(require) {
 
       return {
         northEast: {
-          lat: parseFloat(bounds.northEast.lat) + this.options.boundaryFactor * boundsHeight,
-          lng: parseFloat(bounds.northEast.lng) + this.options.boundaryFactor * boundsWith
+          lat: Leaflet.Util.formatNum(parseFloat(bounds.northEast.lat) + this.options.boundaryFactor * boundsHeight, 14),
+          lng: Leaflet.Util.formatNum(parseFloat(bounds.northEast.lng) + this.options.boundaryFactor * boundsWith, 14)
         },
         northWest: {
-          lat: parseFloat(bounds.northWest.lat) + this.options.boundaryFactor * boundsHeight,
-          lng: parseFloat(bounds.northWest.lng) - this.options.boundaryFactor * boundsWith
+          lat: Leaflet.Util.formatNum(parseFloat(bounds.northWest.lat) + this.options.boundaryFactor * boundsHeight, 14),
+          lng: Leaflet.Util.formatNum(parseFloat(bounds.northWest.lng) - this.options.boundaryFactor * boundsWith, 14)
         },
         southEast: {
-          lat: parseFloat(bounds.southEast.lat) - this.options.boundaryFactor * boundsHeight,
-          lng: parseFloat(bounds.southEast.lng) + this.options.boundaryFactor * boundsWith
+          lat: Leaflet.Util.formatNum(parseFloat(bounds.southEast.lat) - this.options.boundaryFactor * boundsHeight, 14),
+          lng: Leaflet.Util.formatNum(parseFloat(bounds.southEast.lng) + this.options.boundaryFactor * boundsWith, 14)
         },
         southWest: {
-          lat: parseFloat(bounds.southWest.lat) - this.options.boundaryFactor * boundsHeight,
-          lng: parseFloat(bounds.southWest.lng) - this.options.boundaryFactor * boundsWith
+          lat: Leaflet.Util.formatNum(parseFloat(bounds.southWest.lat) - this.options.boundaryFactor * boundsHeight, 14),
+          lng: Leaflet.Util.formatNum(parseFloat(bounds.southWest.lng) - this.options.boundaryFactor * boundsWith, 14)
         }
       }
     },
