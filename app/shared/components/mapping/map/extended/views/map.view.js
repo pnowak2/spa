@@ -175,7 +175,7 @@ define(function(require) {
       if (this.isMaxZoom()) {
         return this.options.clusterSizeOnMaxZoomLevel;
       } else {
-        return .0000000000001;
+        return 1;
       }
     },
 

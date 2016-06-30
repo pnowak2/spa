@@ -658,7 +658,7 @@ define(function(require) {
         it('should return minimum clustering for zoom levels other than maximum', function() {
           spyOn(MapView.prototype, 'isMaxZoom').and.returnValue(false);
 
-          expect(this.view.calculateClusterSize()).toBe(.0000000000001);
+          expect(this.view.calculateClusterSize()).toBe(1);
         });
 
         it('should return default clustering for zoom level maximum', function() {
