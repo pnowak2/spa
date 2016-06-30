@@ -110,6 +110,10 @@ define(function(require) {
           expect(this.view.tileLayers).toBe(this.fakeTileLayers);
         });
 
+        it('should create markers layer group instance', function() {
+          expect(this.view.markersLayerGroup).toEqual(jasmine.any(Leaflet.LayerGroup));
+        });
+
         it('should create buttons bar instance', function() {
           expect(this.view.buttonsBar).toBe(this.fakeButtonsBar);
         });
@@ -120,7 +124,10 @@ define(function(require) {
 
         it('should add tile layers to the map', function() {
           expect(this.view.map.addLayer).toHaveBeenCalledWith(this.fakeTileLayers[0]);
-          expect(this.view.map.addLayer.calls.count()).toEqual(1);
+        });
+
+        it('should add markers layer group to the map', function() {
+          expect(this.view.map.addLayer).toHaveBeenCalledWith(this.view.markersLayerGroup);
         });
       });
 
@@ -295,6 +302,15 @@ define(function(require) {
       describe('.clearAllMarkers()', function() {
         it('should be defined', function() {
           expect(MapView.prototype.clearAllMarkers).toEqual(jasmine.any(Function));
+        });
+
+        it('should clear markers layer group', function() {
+          var view = new MapView();
+          view.markersLayerGroup = jasmine.createSpyObj('mlg', ['clearLayers']);
+
+          view.clearAllMarkers();
+
+          expect(view.markersLayerGroup.clearLayers).toHaveBeenCalled();
         });
       });
 

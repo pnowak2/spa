@@ -26,21 +26,21 @@ define(function(require) {
       _.bindAll(this, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didClickClusterMarker', 'didZoomMap', 'didDragMap', 'didResizeMap');
 
       this.options = _.extend({}, this.defaults, options);
-
-      this.clusterMarkers = [];
-      this.markers = [];
     },
 
     initMap: function() {
       if (!this.map) {
         this.map = this.createMap();
         this.tileLayers = this.createTileLayers();
+        this.markersLayerGroup = new Leaflet.LayerGroup;
         this.buttonsBar = this.createButtonsBar();
         this.buttonsBar.addTo(this.map);
 
         _.each(this.tileLayers, function(tileLayer) {
           this.map.addLayer(tileLayer);
         }, this);
+
+        this.map.addLayer(this.markersLayerGroup);
       }
     },
 
@@ -74,18 +74,18 @@ define(function(require) {
     showMarkers: function(data) {
       data = data || {};
 
-      var markers = this.toLeafletMarkers(data.items),
+      var markerGroups = this.toLeafletMarkers(data.items),
         clusters = this.toClusterMarkers(data.items);
 
       this.clearAllMarkers();
 
-      this.registerPointMarkers(markers);
+      this.registerPointMarkers(markerGroups);
       this.registerClusterMarkers(clusters);
 
       this.updateItemsCount(data.total);
     },
 
-    registerPointMarkers: function(markers) {
+    registerPointMarkers: function(markerGroups) {
 
     },
 
@@ -94,7 +94,7 @@ define(function(require) {
     },
 
     clearAllMarkers: function() {
-
+      this.markersLayerGroup.clearLayers();
     },
 
     toLeafletMarkers: function(items) {
