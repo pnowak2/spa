@@ -159,6 +159,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // eplus-ce util
     'app/eplus-ce/util/constants.spec',
 
+    // eplus-ce router
+    'app/eplus-ce/routers/landing-page.router.spec',
+
     // eplus-ce project partners page component
     'app/eplus-ce/components/project-partners-page/partners-map/main.component.spec',
 
