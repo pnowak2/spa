@@ -4,7 +4,8 @@ define(function(require) {
     LandingPageView = require('./landingPage.view'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
     SearchableResultsMapComponent = require('app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component'),
-    searchCriteriaBuilder = require('../util/searchCriteriaBuilder');
+    searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
+    router = require('app/eplus-ce/routers/landing-page.router');
 
   describe('Eplus/CE Landing Page View', function() {
     describe('type', function() {
@@ -24,9 +25,9 @@ define(function(require) {
         this.view = new LandingPageView;
       });
 
-     it('should bind callback methods with view object', function() {
-       expect(_.bindAll).toHaveBeenCalledWith(this.view, 'didClickSearchButton');
-     });
+      it('should bind callback methods with view object', function() {
+        expect(_.bindAll).toHaveBeenCalledWith(this.view, 'didClickSearchButton');
+      });
 
       it('should have tab switcher component defined', function() {
         expect(this.view.tabSwitcher).toEqual(jasmine.any(TabSwitcherComponent));
@@ -85,7 +86,15 @@ define(function(require) {
 
       describe('.didClickSearchButton()', function() {
         beforeEach(function() {
+          this.fakeCriteria = {
+            KEYWORD: 'bar'
+          };
+
           this.view = new LandingPageView;
+
+          spyOn(router, 'navigate');
+          spyOn(SearchableResultsMapComponent.prototype, 'onSearchRequest');
+          spyOn(searchCriteriaBuilder, 'getCriteria').and.returnValue(this.fakeCriteria);
         })
 
         it('should be defined', function() {
@@ -93,20 +102,46 @@ define(function(require) {
         });
 
         it('should build search criteria', function() {
-          spyOn(searchCriteriaBuilder, 'getCriteria');
-
           this.view.didClickSearchButton();
-
           expect(searchCriteriaBuilder.getCriteria).toHaveBeenCalled();
         });
 
         it('should call map component with search criteria', function() {
-          spyOn(this.view.searchableResultsMap, 'onSearchRequest');
-          spyOn(searchCriteriaBuilder, 'getCriteria').and.returnValue('fakeCriteria');
-
           this.view.didClickSearchButton();
+          expect(this.view.searchableResultsMap.onSearchRequest).toHaveBeenCalledWith(this.fakeCriteria);
+        });
 
-          expect(this.view.searchableResultsMap.onSearchRequest).toHaveBeenCalledWith('fakeCriteria');
+        it('should include keyword in URL', function() {
+          this.view.didClickSearchButton();
+          expect(router.navigate).toHaveBeenCalledWith('keyword/bar');
+        });
+      });
+
+      describe('.didRouteSearchByKeyword', function() {
+        beforeEach(function() {
+          setFixtures('<input id="filterSimpleSearch"><input id="btnSearch" type="button">');
+          spyOnEvent('#btnSearch', 'click')
+
+          spyOn(window, 'decodeURIComponent').and.returnValue('uri decoded keyword');
+
+          this.view = new LandingPageView;
+          this.view.didRouteSearchByKeyword('my keyword');
+        });
+
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.didRouteSearchByKeyword).toEqual(jasmine.any(Function));
+        });
+
+        it('should decode keyword for URI', function() {
+          expect(window.decodeURIComponent).toHaveBeenCalledWith('my keyword');
+        });
+
+        it('should place decoded keyword to input box of search', function() {
+          expect('#filterSimpleSearch').toHaveValue('uri decoded keyword')
+        });
+
+        it('should force button search click event', function() {
+          expect('click').toHaveBeenTriggeredOn('#btnSearch')
         });
       });
 
@@ -139,6 +174,16 @@ define(function(require) {
         view.tabSwitcher.trigger('tab-switcher:tab:selected');
 
         expect(view.didSelectTab).toHaveBeenCalled();
+      });
+
+      it('should listen to router search by keyword event', function() {
+        spyOn(LandingPageView.prototype, 'didRouteSearchByKeyword');
+
+        var view = new LandingPageView;
+
+        router.trigger('route:search:keyword');
+
+        expect(view.didRouteSearchByKeyword).toHaveBeenCalled();
       });
     });
 

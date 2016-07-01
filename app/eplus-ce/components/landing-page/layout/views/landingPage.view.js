@@ -3,7 +3,8 @@ define(function(require) {
     Backbone = require('backbone'),
     SearchableResultsMapComponent = require('app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
-    searchCriteriaBuilder = require('../util/searchCriteriaBuilder');
+    searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
+    router = require('app/eplus-ce/routers/landing-page.router');
 
   return Backbone.View.extend({
     initialize: function() {
@@ -27,6 +28,7 @@ define(function(require) {
       this.render();
       this.searchableResultsMap.initMap();
       this.listenTo(this.tabSwitcher, 'tab-switcher:tab:selected', this.didSelectTab);
+      this.listenTo(router, 'route:search:keyword', this.didRouteSearchByKeyword);
       this.setupDomEvents();
     },
 
@@ -35,7 +37,15 @@ define(function(require) {
     },
 
     didClickSearchButton: function() {
-      this.searchableResultsMap.onSearchRequest(searchCriteriaBuilder.getCriteria());
+      var criteria = searchCriteriaBuilder.getCriteria();
+
+      this.searchableResultsMap.onSearchRequest(criteria);
+      router.navigate('keyword/' + criteria.KEYWORD);
+    },
+
+    didRouteSearchByKeyword: function(keyword) {
+      Backbone.$('#filterSimpleSearch').val(decodeURIComponent(keyword));
+      Backbone.$('#btnSearch').click();
     },
 
     // Hack to force map to redraw
