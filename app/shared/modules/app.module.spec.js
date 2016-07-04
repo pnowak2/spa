@@ -61,9 +61,68 @@ define(function(require) {
     describe('events', function() {
       describe('ajax', function() {
         beforeEach(function() {
+          jasmine.clock().install();
+
           spyOn(app, 'blockUI');
           spyOn(app, 'unblockUI');
         });
+
+        afterEach(function() {
+          jasmine.clock().uninstall();
+        });
+
+        it('should not block UI if ajax activity stops before given time', function() {
+          $.event.trigger('ajaxStart');
+
+          expect(app.blockUI).not.toHaveBeenCalled();
+
+          jasmine.clock().tick(790);
+
+          expect(app.blockUI).not.toHaveBeenCalled();
+
+          $.event.trigger('ajaxStop');
+          jasmine.clock().tick(100);
+
+          expect(app.blockUI).not.toHaveBeenCalled();
+        });
+
+        it('should not block UI if ajax activity gets error before given time', function() {
+          $.event.trigger('ajaxStart');
+
+          expect(app.blockUI).not.toHaveBeenCalled();
+
+          jasmine.clock().tick(790);
+
+          expect(app.blockUI).not.toHaveBeenCalled();
+
+          $.event.trigger('ajaxError');
+          jasmine.clock().tick(100);
+
+          expect(app.blockUI).not.toHaveBeenCalled();
+        });
+
+        it('should block UI if ajax activity is longer than given time', function() {
+          $.event.trigger('ajaxStart');
+
+          jasmine.clock().tick(790);
+
+          expect(app.blockUI).not.toHaveBeenCalled();
+
+          jasmine.clock().tick(40);
+          $.event.trigger('ajaxStop');
+
+          expect(app.blockUI).toHaveBeenCalled();
+        });
+
+        it('should unblock UI when ajax call stops', function() {
+          $.event.trigger('ajaxStop');
+          expect(app.unblockUI).toHaveBeenCalled();
+        });
+
+        it('should unblock UI when ajax call failed', function() {
+          $.event.trigger('ajaxError');
+          expect(app.unblockUI).toHaveBeenCalled();
+});
       });
     });
   });
