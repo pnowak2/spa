@@ -187,7 +187,7 @@ define(function(require) {
 
             it('item should have countries property', function() {
               expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
-                countries: ['pl', 'de', 'be']
+                countries: ['PL', 'DE', 'BE']
               }));
             });
 

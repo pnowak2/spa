@@ -27,9 +27,6 @@ define(function(require) {
                 coordinator: item.coordinator,
                 countries: _.chain((item.countries || '').split('|'))
                   .compact()
-                  .map(function(countryCode) {
-                    return countryCode.toLowerCase()
-                  })
                   .value()
               }
               break;
