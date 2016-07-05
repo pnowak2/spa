@@ -20,7 +20,7 @@ define(function(require) {
         input.clustering = 'boundary';
       }
 
-      return _.omit(input, 'bounds');
+      return _.omit(input, 'bounds', 'sort');
     };
 
   return {

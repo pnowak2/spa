@@ -213,6 +213,7 @@ define(function(require) {
 
           it('should remove redundant properties', function() {
             var input = {
+                sort: 'whatever',
                 currentZoom: 5,
                 initialZoom: 4,
                 minZoom: 2,
@@ -226,7 +227,7 @@ define(function(require) {
                   }
                 }
               },
-              excludedKeys = ['bounds'];
+              excludedKeys = ['bounds', 'sort'];
 
             var mapped = searchInputMapper.map(input);
 
