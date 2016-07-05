@@ -14,7 +14,7 @@ define(function(require) {
 		describe('creation', function() {
 			it('should be initialized with proper view', function() {
 				var component = new PopupComponent({
-					type : 'efc-project'
+					type : 'project'
 				});
 				expect(component.view).toEqual(jasmine.any(PopupView));
 			});
@@ -23,7 +23,7 @@ define(function(require) {
 				spyOn(PopupView.prototype, 'initialize');
 
 				var fakeOptions = {
-					type : 'efc-project',
+					type : 'project',
 					data : {}
 				}, component = new PopupComponent(fakeOptions);
 

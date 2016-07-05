@@ -17,7 +17,7 @@ define(function(require) {
       });
 
       it('.className should be defined', function() {
-        expect(MultiselectView.prototype.className).toEqual('vlr-multiselect');
+        expect(MultiselectView.prototype.className).toEqual('efc-multiselect');
       });
     });
 

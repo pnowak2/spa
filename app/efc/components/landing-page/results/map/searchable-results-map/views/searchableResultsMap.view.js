@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     _ = require('underscore'),
     app = require('app/shared/modules/app.module'),
-    MapComponent = require('app/shared/components/mapping/map/simple/main.component'),
+    MapComponent = require('app/shared/components/mapping/map/main.component'),
     searchService = require('../services/search/search.service'),
     PopupComponent = require('app/shared/components/mapping/popup/main.component'),
     Mustache = require('mustache'),
@@ -56,7 +56,7 @@ define(function(require) {
         countryItem = countryItem || {};
 
         var popupComponent = new PopupComponent({
-            type: 'efc-project',
+            type: 'project',
             data: {
               id: countryItem.id,
               title: countryItem.title,

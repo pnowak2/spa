@@ -8,10 +8,6 @@ define(function(require) {
       options = options || {};
 
       this.view = new TabSwitcherView(options.tabDescriptors);
-
-      this.listenTo(this.view, 'tab-switcher:tab:selected', function(identifier) {
-        this.trigger('tab-switcher:tab:selected', identifier);
-      });
     },
 
     update: function(data) {

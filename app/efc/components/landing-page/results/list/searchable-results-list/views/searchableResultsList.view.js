@@ -4,6 +4,7 @@ define(function(require) {
     Backbone = require('backbone'),
     ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/paging/pager/main.component'),
+    ExportLinkComponent = require('app/shared/components/export-link/main.component'),
     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
     searchService = require('../services/search/search.service');
 
@@ -12,12 +13,13 @@ define(function(require) {
 
     initialize: function() {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
+      this.exportLinkComponent = new ExportLinkComponent;
       this.pageStatsComponent = new PageStatsComponent;
       this.resultsListComponent = new ResultsListComponent;
       this.pagerComponent = new PagerComponent;
 
       this.cachedCriteria = {};
-
+      this.listenTo(this.exportLinkComponent, 'exportLink:click', this.onExportResultsRequest);
       this.startListeningPager();
     },
 
@@ -63,6 +65,10 @@ define(function(require) {
       this.performSearch(criteria);
     },
 
+    onExportResultsRequest: function () {
+
+    },
+
     performSearch: function(criteria) {
       searchService.search(criteria)
         .then(this.didSearchSucceed)
@@ -77,13 +83,16 @@ define(function(require) {
         totalItems: data.total
       });
       this.pageStatsComponent.update(this.pagerComponent.getState());
+      this.exportLinkComponent.toggle(data.total > 0);
     },
 
     didSearchFail: function(error) {
       app.showError(error);
+      this.exportLinkComponent.hide();
     },
 
     render: function() {
+      this.$el.append(this.exportLinkComponent.render().view.el);
       this.$el.append(this.pageStatsComponent.render().view.el);
       this.$el.append(this.resultsListComponent.render().view.el);
       this.$el.append(this.pagerComponent.render().view.el);

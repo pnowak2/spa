@@ -3,6 +3,7 @@ define(function(require) {
     app = require('app/shared/modules/app.module'),
     SearchableResultsListView = require('./searchableResultsList.view'),
     ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),
+    ExportLinkComponent = require('app/shared/components/export-link/main.component'),
     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
     PagerComponent = require('app/shared/components/paging/pager/main.component'),
     searchService = require('../services/search/search.service'),
@@ -32,6 +33,10 @@ define(function(require) {
 
       it('should have page stats component defined', function() {
         expect(this.view.pageStatsComponent).toEqual(jasmine.any(PageStatsComponent));
+      });
+
+      it('should have export link component defined', function() {
+        expect(this.view.exportLinkComponent).toEqual(jasmine.any(ExportLinkComponent));
       });
 
       it('should bind callback methods with view object', function() {
@@ -209,7 +214,7 @@ define(function(require) {
           spyOn(SearchableResultsListView.prototype, 'prepareSearchCriteria');
           spyOn(PagerComponent.prototype, 'getState').and.returnValue(fakePagerStatus);
 
-          this.view.onSearchRequest(fakeSearchCriteria);
+          this.view.onSearchRequest(fakeSearchCriteria, fakePagerStatus);
 
           expect(this.view.prepareSearchCriteria).toHaveBeenCalledWith(fakeSearchCriteria, fakePagerStatus);
         });
@@ -275,6 +280,16 @@ define(function(require) {
         });
       });
 
+      describe('.onExportResultsRequest()', function() {
+        beforeEach(function() {
+          this.view = new SearchableResultsListView;
+        });
+
+        it('it should be defined', function() {
+          expect(SearchableResultsListView.prototype.onExportResultsRequest).toEqual(jasmine.any(Function));
+        });
+      });
+
       describe('.performSearch()', function() {
         beforeEach(function() {
           this.view = new SearchableResultsListView;
@@ -324,6 +339,7 @@ define(function(require) {
           spyOn(ResultsListComponent.prototype, 'update');
           spyOn(PagerComponent.prototype, 'update');
           spyOn(PageStatsComponent.prototype, 'update');
+          spyOn(ExportLinkComponent.prototype, 'toggle');
 
           this.view = new SearchableResultsListView;
           this.fakeData = {
@@ -362,22 +378,45 @@ define(function(require) {
           this.view.didSearchSucceed(this.fakeData);
           expect(this.view.pageStatsComponent.update).toHaveBeenCalledWith(fakePagerState);
         });
+
+        it('should hide export link component if no items found', function() {
+          this.view.didSearchSucceed({
+            total: 0
+          });
+
+          expect(this.view.exportLinkComponent.toggle).toHaveBeenCalledWith(false);
+        });
+
+        it('should show export link component if items were found', function() {
+          this.view.didSearchSucceed({
+            total: 1
+          });
+          
+          expect(this.view.exportLinkComponent.toggle).toHaveBeenCalledWith(true);
+        });
       });
 
       describe('.didSearchFail()', function() {
+        beforeEach(function () {
+          spyOn(app, 'showError');
+          spyOn(ExportLinkComponent.prototype, 'hide');
+
+          this.view = new SearchableResultsListView;
+          this.fakeError = {};
+
+          this.view.didSearchFail(this.fakeError);
+        })
+
         it('should be defined', function() {
           expect(SearchableResultsListView.prototype.didSearchFail).toEqual(jasmine.any(Function));
         });
 
         it('should show error message', function() {
-          spyOn(app, 'showError');
+          expect(app.showError).toHaveBeenCalledWith(this.fakeError);
+        });
 
-          var view = new SearchableResultsListView,
-            fakeError = {};
-
-          view.didSearchFail(fakeError);
-
-          expect(app.showError).toHaveBeenCalledWith(fakeError);
+        it('should hide export link component', function() {
+          expect(this.view.exportLinkComponent.hide).toHaveBeenCalled();
         });
       });
     });
@@ -391,6 +430,14 @@ define(function(require) {
 
           expect(view.onPageRequest).toHaveBeenCalled();
         });
+
+        it('should listen to export link click event', function() {
+          spyOn(SearchableResultsListView.prototype, 'onExportResultsRequest');
+          var view = new SearchableResultsListView;
+          view.exportLinkComponent.trigger('exportLink:click');
+
+          expect(view.onExportResultsRequest).toHaveBeenCalled();
+        });
       });
     });
 
@@ -402,6 +449,11 @@ define(function(require) {
 
         it('should return view object', function() {
           expect(this.view.render()).toBe(this.view);
+        });
+
+        it('should append export link component', function() {
+          this.view.render();
+          expect(this.view.$el).toContainHtml(this.view.exportLinkComponent.render().view.$el);
         });
 
         it('should append results list component', function() {

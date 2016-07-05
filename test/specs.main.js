@@ -73,6 +73,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/paging/page-stats/models/pageStats.model.spec',
     'app/shared/components/paging/page-stats/views/pageStats.view.spec',
 
+    // export link component
+    'app/shared/components/export-link/main.component.spec',
+    'app/shared/components/export-link/views/exportLink.view.spec',
+
     // tab switcher component
     'app/shared/components/tab-switcher/main.component.spec',
     'app/shared/components/tab-switcher/models/tab.model.spec',
@@ -86,13 +90,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/multiselect/models/selectItem.model.spec',
     'app/shared/components/multiselect/collections/multiselect.collection.spec',
 
-    // simple map component
-    'app/shared/components/mapping/map/simple/main.component.spec',
-    'app/shared/components/mapping/map/simple/views/map.view.spec',
-
-    // extended map component
-    'app/shared/components/mapping/map/extended/main.component.spec',
-    'app/shared/components/mapping/map/extended/views/map.view.spec',
+    // map component
+    'app/shared/components/mapping/map/main.component.spec',
+    'app/shared/components/mapping/map/views/map.view.spec',
 
     // partners map component
     'app/shared/components/mapping/partners-map/main.component.spec',
@@ -107,7 +107,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/flags/collections/flags.collection.spec',
     'app/shared/components/flags/views/flags.view.spec',
 
-    // efc util
+    // util
     'app/efc/util/constants.spec',
 
     // efc landing page component
@@ -141,6 +141,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
     'app/efc/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
     'app/efc/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/services/export/export.service.spec',
 
     // searchable results map component
     'app/efc/components/landing-page/results/map/searchable-results-map/main.component.spec',
@@ -156,27 +157,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/project-partners-page/partners-map/services/projectPartnersInput.mapper.spec',
     'app/efc/components/project-partners-page/partners-map/services/projectPartnersResult.mapper.spec',
 
-    // eplus-ce util
-    'app/eplus-ce/util/constants.spec',
-
-    // eplus-ce router
-    'app/eplus-ce/routers/landing-page.router.spec',
-
     // eplus-ce project partners page component
-    'app/eplus-ce/components/project-partners-page/partners-map/main.component.spec',
-
-    // eplus-ce landing page component
-    'app/eplus-ce/components/landing-page/layout/main.component.spec',
-    'app/eplus-ce/components/landing-page/layout/views/landingPage.view.spec',
-    'app/eplus-ce/components/landing-page/layout/util/searchCriteriaBuilder.spec',
-
-    // eplus-ce results map component
-    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component.spec',
-    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/views/searchableResultsMap.view.spec',
-    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/services/search/search.service.spec',
-    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/services/search/searchInput.mapper.spec',
-    'app/eplus-ce/components/landing-page/results/map/searchable-results-map/services/search/searchResult.mapper.spec'
-
+    'app/eplus-ce/components/project-partners-page/partners-map/main.component.spec'
   ], function() {
     window.onload();
   });

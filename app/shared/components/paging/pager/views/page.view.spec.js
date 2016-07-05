@@ -25,7 +25,7 @@ define(function(require) {
       });
 
       it('.className should be defined', function() {
-        expect(PageView.prototype.className).toEqual('vlr-pager__page');
+        expect(PageView.prototype.className).toEqual('efc-pager__page');
       });
 
       it('href - should have href set to #', function() {
@@ -92,7 +92,7 @@ define(function(require) {
           });
 
           expect(view.render().$el).toBeMatchedBy('a[href="#"]');
-          expect(view.render().$el).not.toHaveClass('vlr-pager__page--selected');
+          expect(view.render().$el).not.toHaveClass('efc-pager__page--selected');
           expect(view.render().$el).toContainText('5');
         });
 
@@ -104,7 +104,7 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el).toBeMatchedBy('a.vlr-pager__page--selected[href="#"]');
+          expect(view.render().$el).toBeMatchedBy('a.efc-pager__page--selected[href="#"]');
           expect(view.render().$el).toContainText('2');
         });
       });

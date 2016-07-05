@@ -128,6 +128,13 @@ define(function(require) {
           this.testComponent.toggle();
           expect(this.testComponent.view.$el.toggle).toHaveBeenCalled();
         });
+
+        it('should pass boolean param to view element', function() {
+           spyOn(this.testComponent.view.$el, 'toggle');
+          this.testComponent.toggle(true);
+
+          expect(this.testComponent.view.$el.toggle).toHaveBeenCalledWith(true);
+        });
       });
     });
   });

@@ -40,7 +40,7 @@ define(function(require) {
       });
 
       it('.className', function() {
-        expect(TabSwitcherView.prototype.className).toEqual('vlr-tabs');
+        expect(TabSwitcherView.prototype.className).toEqual('efc-tabs');
       });
     });
 
@@ -73,16 +73,6 @@ define(function(require) {
           view.didClickTab('tab-id');
 
           expect(view.collection.selectTab).toHaveBeenCalledWith('tab-id');
-        });
-
-        it('should trigger view event with tab details', function() {
-          spyOn(TabSwitcherView.prototype, 'trigger');
-
-          var view = new TabSwitcherView;
-
-          view.didClickTab('tab-id');
-
-          expect(view.trigger).toHaveBeenCalledWith('tab-switcher:tab:selected', 'tab-id');
         });
       });
 

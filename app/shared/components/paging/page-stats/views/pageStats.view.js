@@ -5,7 +5,7 @@ define(function(require) {
     tpl = require('text!../templates/pageStats.tpl.html');
 
   return Backbone.View.extend({
-    className: 'vlr-page-stats',
+    className: 'efc-page-stats',
 
     initialize: function(options) {
       this.model = new PageStatsModel(options);

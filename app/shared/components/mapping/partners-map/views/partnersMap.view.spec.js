@@ -2,7 +2,7 @@ define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
     PartnersMapView = require('./partnersMap.view'),
-    MapComponent = require('app/shared/components/mapping/map/simple/main.component'),
+    MapComponent = require('app/shared/components/mapping/map/main.component'),
     PopupComponent = require('app/shared/components/mapping/popup/main.component'),
     RSVP = require('rsvp'),
     app = require('app/shared/modules/app.module');
@@ -23,7 +23,7 @@ define(function(require) {
 
       describe('.className', function() {
         it('should be defined', function() {
-          expect(PartnersMapView.prototype.className).toEqual('vlr-partners-map');
+          expect(PartnersMapView.prototype.className).toEqual('efc-partners-map');
         });
       });
     });
@@ -188,7 +188,7 @@ define(function(require) {
             },
 
             popupContent = new PopupComponent({
-              type: 'efc-organisation',
+              type: 'organisation',
               data: markerData
             }).render().view.el,
 
