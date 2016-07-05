@@ -168,7 +168,7 @@ define(function(require) {
           return new Leaflet.DivIcon({
             html: '<div><span>' + data.population + '</span></div>',
             className: 'prunecluster prunecluster-medium',
-            iconSize: Leaflet.point(38, 38)
+            iconSize: Leaflet.point(40, 40)
           });
           break;
         default:

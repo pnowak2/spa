@@ -657,7 +657,7 @@ define(function(require) {
           expect(icon).toEqual(jasmine.any(Leaflet.DivIcon));
           expect(icon.options.html).toEqual('<div><span>22</span></div>');
           expect(icon.options.className).toEqual('prunecluster prunecluster-medium');
-          expect(icon.options.iconSize).toEqual(Leaflet.point(38, 38));
+          expect(icon.options.iconSize).toEqual(Leaflet.point(40, 40));
         });
       });
 
