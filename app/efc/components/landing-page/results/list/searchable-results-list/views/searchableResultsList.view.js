@@ -6,7 +6,8 @@ define(function(require) {
     PagerComponent = require('app/shared/components/paging/pager/main.component'),
     ExportLinkComponent = require('app/shared/components/export-link/main.component'),
     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
-    searchService = require('../services/search/search.service');
+    searchService = require('../services/search/search.service'),
+    exportService = require('../services/export/export.service');
 
   return Backbone.View.extend({
     className: 'efc-searchable-results-list',
@@ -66,7 +67,7 @@ define(function(require) {
     },
 
     onExportResultsRequest: function () {
-
+      exportService.export(this.cachedCriteria);
     },
 
     performSearch: function(criteria) {

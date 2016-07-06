@@ -76,7 +76,7 @@ define(function(require) {
           });
 
           it('should contain proper text', function() {
-            expect(this.$el.find('a.vlr-export-link__button')).toContainText('Download list as Excel (max. 1000 lines)');
+            expect(this.$el.find('a.vlr-export-link__button')).toHaveText('Download list as Excel');
           });
 
           it('should contain proper anchor', function() {

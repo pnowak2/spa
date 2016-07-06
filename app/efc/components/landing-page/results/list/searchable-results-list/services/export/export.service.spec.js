@@ -2,110 +2,62 @@ define(function(require) {
   var exportService = require('./export.service'),
     searchInputMapper = require('../search/searchInput.mapper'),
     constants = require('app/efc/util/constants'),
-    RSVP = require('rsvp'),
-    $ = require('jquery'),
-
-    testResponses = {
-      export: {
-        success: {
-          status: 200,
-          responseText: "{}"
-        },
-        error: {
-          status: 500
-        }
-      }
-    };
+    $ = require('jquery');
 
   describe('Search Service', function() {
-    beforeEach(function() {
-      jasmine.Ajax.install();
-    });
-
-    afterEach(function() {
-      jasmine.Ajax.uninstall();
-    });
-
     describe('api', function() {
-      describe('.search()', function() {
-        describe('properties', function() {
-          it('should be defined', function() {
-            expect(exportService.search).toEqual(jasmine.any(Function));
+      describe('.export()', function() {
+        beforeEach(function() {
+          spyOn(exportService, 'getWindow').and.returnValue({
+            location: ''
           });
 
-          it('should return promise', function() {
-            expect(exportService.search()).toEqual(jasmine.any(RSVP.Promise));
-          });
+          constants.urls.EXPORT_LIST = '/context?existing-params'
         });
 
-        describe('successful response', function() {
-          beforeEach(function() {
-            jasmine.Ajax
-              .stubRequest(/.*/)
-              .andReturn(testResponses.export.success);
-          });
-
-          it('should resolve successful response', function(done) {
-            var testRequest = function() {
-              expect(true).toBe(true);
-            };
-
-            exportService.search()
-              .then(testRequest)
-              .catch(fail)
-              .finally(done);
-          });
-
-          it('should use proper REST url and method', function(done) {
-            var testRequest = function() {
-              request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toContain(constants.urls.EXPORT_LIST);
-              expect(request.method).toBe('GET');
-            };
-
-            exportService.search()
-              .then(testRequest)
-              .catch(fail)
-              .finally(done);
-          });
-
-          it('should map input criteria to data object', function(done) {
-            var fakeMappedData = {
-                foo: 'bar'
-              },
-              testRequest = function() {
-                expect($.ajax).toHaveBeenCalledWith(jasmine.objectContaining({
-                  data: fakeMappedData
-                }))
-              };
-
-            spyOn(searchInputMapper, 'map').and.returnValue(fakeMappedData);
-            spyOn($, 'ajax').and.callThrough();
-
-            exportService.search()
-              .then(testRequest)
-              .catch(fail)
-              .finally(done);
-          });
+        it('should be defined', function() {
+          expect(exportService.export).toEqual(jasmine.any(Function));
         });
 
-        describe('error response', function() {
-          beforeEach(function() {
-            jasmine.Ajax
-              .stubRequest(/.*/)
-              .andReturn(testResponses.export.error);
-          });
+        it('should not throw if called without params', function() {
+          expect(function() {
+            exportService.export()
+          }).not.toThrow();
+        });
 
-          it('should reject error response', function(done) {
-            var testFailedRequest = function(errorStatus) {
-              expect(errorStatus).toEqual('error');
+        it('should handle lack of input criteria', function() {
+          spyOn(searchInputMapper, 'map').and.returnValue({})
+
+          exportService.export({});
+
+          expect(exportService.getWindow().location).toEqual('/context?existing-params&');
+        });
+
+        it('should got to location with criteria params url encoded', function() {
+          var fakeInput = {
+              keyword: 'bar',
+              countries: 'pl'
+            },
+            fakeMappedCriteria = {
+              KEYWORD: 'mappedKeyword',
+              COUNTRIES: 'mappedCountries'
             };
 
-            exportService.search()
-              .then(fail)
-              .catch(testFailedRequest)
-              .finally(done);
-          });
+          spyOn(searchInputMapper, 'map').and.returnValue(fakeMappedCriteria)
+
+          exportService.export(fakeInput);
+
+          expect(exportService.getWindow().location).toEqual('/context?existing-params&KEYWORD=mappedKeyword&COUNTRIES=mappedCountries');
+        });
+      });
+
+      describe('.getWindow()', function() {
+        it('should be defined', function() {
+          expect(exportService.getWindow).toEqual(jasmine.any(Function));
+        });
+
+        it('should return global window object', function() {
+          expect(exportService.getWindow()).toBe(window);
         });
       });
     });

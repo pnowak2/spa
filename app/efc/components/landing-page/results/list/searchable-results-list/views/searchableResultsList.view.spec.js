@@ -7,6 +7,7 @@ define(function(require) {
     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
     PagerComponent = require('app/shared/components/paging/pager/main.component'),
     searchService = require('../services/search/search.service'),
+    exportService = require('../services/export/export.service'),
     RSVP = require('rsvp'),
     _ = require('underscore');
 
@@ -282,11 +283,23 @@ define(function(require) {
 
       describe('.onExportResultsRequest()', function() {
         beforeEach(function() {
+          spyOn(exportService, 'export');
+
           this.view = new SearchableResultsListView;
+          this.cachedCriteria = {
+            foo: 'bar'
+          }
+
+          this.view.cachedCriteria = this.cachedCriteria;
+          this.view.onExportResultsRequest();
         });
 
         it('it should be defined', function() {
           expect(SearchableResultsListView.prototype.onExportResultsRequest).toEqual(jasmine.any(Function));
+        });
+
+        it('should call export service with cached criteria', function() {
+          expect(exportService.export).toHaveBeenCalledWith(this.cachedCriteria);
         });
       });
 

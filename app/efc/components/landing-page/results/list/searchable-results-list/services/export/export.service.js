@@ -1,25 +1,20 @@
 define(function(require) {
   var $ = require('jquery'),
-    RSVP = require('rsvp'),
     searchInputMapper = require('../search/searchInput.mapper'),
     constants = require('app/efc/util/constants');
 
   return {
-    search: function(criteria) {
+    export: function(criteria) {
       criteria = criteria || {};
+      var url = constants.urls.EXPORT_LIST,
+        params = $.param(searchInputMapper.map(criteria)),
+        wdw = this.getWindow();
 
-      return new RSVP.Promise(function(resolve, reject) {
-        $.ajax({
-          url: constants.urls.EXPORT_LIST,
-          dataType: 'json',
-          method: 'GET',
-          data: searchInputMapper.map(criteria)
-        }).done(function(response) {
-          resolve();
-        }).fail(function(jqXHR, textStatus) {
-          reject(textStatus);
-        });
-      });
+        wdw.location = url + "&" + params;
+    },
+
+    getWindow: function () {
+      return window;
     }
   }
 });
