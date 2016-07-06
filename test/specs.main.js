@@ -73,9 +73,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/paging/page-stats/models/pageStats.model.spec',
     'app/shared/components/paging/page-stats/views/pageStats.view.spec',
 
-    // export link component
-    'app/shared/components/export-link/main.component.spec',
-    'app/shared/components/export-link/views/exportLink.view.spec',
+    // actions toolbar component
+    'app/shared/components/actions-toolbar/main.component.spec',
+    'app/shared/components/actions-toolbar/views/actionsToolbar.view.spec',
 
     // tab switcher component
     'app/shared/components/tab-switcher/main.component.spec',

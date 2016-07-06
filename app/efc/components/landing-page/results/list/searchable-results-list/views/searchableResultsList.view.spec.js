@@ -3,7 +3,7 @@ define(function(require) {
     app = require('app/shared/modules/app.module'),
     SearchableResultsListView = require('./searchableResultsList.view'),
     ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),
-    ExportLinkComponent = require('app/shared/components/export-link/main.component'),
+    ActionsToolbarComponent = require('app/shared/components/actions-toolbar/main.component'),
     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
     PagerComponent = require('app/shared/components/paging/pager/main.component'),
     searchService = require('../services/search/search.service'),
@@ -36,8 +36,8 @@ define(function(require) {
         expect(this.view.pageStatsComponent).toEqual(jasmine.any(PageStatsComponent));
       });
 
-      it('should have export link component defined', function() {
-        expect(this.view.exportLinkComponent).toEqual(jasmine.any(ExportLinkComponent));
+      it('should have actions toolbar component defined', function() {
+        expect(this.view.actionsToolbarComponent).toEqual(jasmine.any(ActionsToolbarComponent));
       });
 
       it('should bind callback methods with view object', function() {
@@ -352,7 +352,7 @@ define(function(require) {
           spyOn(ResultsListComponent.prototype, 'update');
           spyOn(PagerComponent.prototype, 'update');
           spyOn(PageStatsComponent.prototype, 'update');
-          spyOn(ExportLinkComponent.prototype, 'toggle');
+          spyOn(ActionsToolbarComponent.prototype, 'toggle');
 
           this.view = new SearchableResultsListView;
           this.fakeData = {
@@ -392,27 +392,27 @@ define(function(require) {
           expect(this.view.pageStatsComponent.update).toHaveBeenCalledWith(fakePagerState);
         });
 
-        it('should hide export link component if no items found', function() {
+        it('should hide actions toolbar component if no items found', function() {
           this.view.didSearchSucceed({
             total: 0
           });
 
-          expect(this.view.exportLinkComponent.toggle).toHaveBeenCalledWith(false);
+          expect(this.view.actionsToolbarComponent.toggle).toHaveBeenCalledWith(false);
         });
 
-        it('should show export link component if items were found', function() {
+        it('should show actions toolbar component if items were found', function() {
           this.view.didSearchSucceed({
             total: 1
           });
           
-          expect(this.view.exportLinkComponent.toggle).toHaveBeenCalledWith(true);
+          expect(this.view.actionsToolbarComponent.toggle).toHaveBeenCalledWith(true);
         });
       });
 
       describe('.didSearchFail()', function() {
         beforeEach(function () {
           spyOn(app, 'showError');
-          spyOn(ExportLinkComponent.prototype, 'hide');
+          spyOn(ActionsToolbarComponent.prototype, 'hide');
 
           this.view = new SearchableResultsListView;
           this.fakeError = {};
@@ -428,8 +428,8 @@ define(function(require) {
           expect(app.showError).toHaveBeenCalledWith(this.fakeError);
         });
 
-        it('should hide export link component', function() {
-          expect(this.view.exportLinkComponent.hide).toHaveBeenCalled();
+        it('should hide actions toolbar component', function() {
+          expect(this.view.actionsToolbarComponent.hide).toHaveBeenCalled();
         });
       });
     });
@@ -444,10 +444,10 @@ define(function(require) {
           expect(view.onPageRequest).toHaveBeenCalled();
         });
 
-        it('should listen to export link click event', function() {
+        it('should listen to actions toolbar component export link click event', function() {
           spyOn(SearchableResultsListView.prototype, 'onExportResultsRequest');
           var view = new SearchableResultsListView;
-          view.exportLinkComponent.trigger('exportLink:click');
+          view.actionsToolbarComponent.trigger('actionsToolbar:export:click');
 
           expect(view.onExportResultsRequest).toHaveBeenCalled();
         });
@@ -464,9 +464,9 @@ define(function(require) {
           expect(this.view.render()).toBe(this.view);
         });
 
-        it('should append export link component', function() {
+        it('should append actions toolbar component', function() {
           this.view.render();
-          expect(this.view.$el).toContainHtml(this.view.exportLinkComponent.render().view.$el);
+          expect(this.view.$el).toContainHtml(this.view.actionsToolbarComponent.render().view.$el);
         });
 
         it('should append results list component', function() {

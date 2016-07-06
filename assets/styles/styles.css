@@ -403,16 +403,16 @@
 
 /* Export Link */
 
-.vlr-export-link {
+.vlr-actions-toolbar {
   font-size: 11px;
   padding: 10px 0px;
   text-align: center;
   background-color: #131C2A;
 }
 
-a.vlr-export-link__button,
-a.vlr-export-link__button:hover,
-a.vlr-export-link__button:visited {
+a.vlr-actions-toolbar__export,
+a.vlr-actions-toolbar__export:hover,
+a.vlr-actions-toolbar__export:visited {
     color: #fff;
 }
 

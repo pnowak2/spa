@@ -1,18 +1,18 @@
 define(function(require) {
   var Mustache = require('mustache'),
     Backbone = require('backbone'),
-    tpl = require('text!../templates/export-link.tpl.html');
+    tpl = require('text!../templates/actions-toolbar.tpl.html');
 
   return Backbone.View.extend({
-    className: 'vlr-export-link',
+    className: 'vlr-actions-toolbar',
 
     events: {
-    	'click .vlr-export-link__button': 'didClickExportLink'
+    	'click .vlr-actions-toolbar__export': 'didClickExportLink'
     },
 
     didClickExportLink: function (e) {
     	e.preventDefault();
-    	this.trigger('exportLink:click');
+    	this.trigger('actionsToolbar:export:click');
     },
 
     render: function () {

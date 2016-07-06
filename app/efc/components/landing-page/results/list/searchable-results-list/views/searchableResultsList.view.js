@@ -4,7 +4,7 @@ define(function(require) {
     Backbone = require('backbone'),
     ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),
     PagerComponent = require('app/shared/components/paging/pager/main.component'),
-    ExportLinkComponent = require('app/shared/components/export-link/main.component'),
+    ActionsToolbarComponent = require('app/shared/components/actions-toolbar/main.component'),
     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
     searchService = require('../services/search/search.service'),
     exportService = require('../services/export/export.service');
@@ -14,13 +14,13 @@ define(function(require) {
 
     initialize: function() {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
-      this.exportLinkComponent = new ExportLinkComponent;
+      this.actionsToolbarComponent = new ActionsToolbarComponent;
       this.pageStatsComponent = new PageStatsComponent;
       this.resultsListComponent = new ResultsListComponent;
       this.pagerComponent = new PagerComponent;
 
       this.cachedCriteria = {};
-      this.listenTo(this.exportLinkComponent, 'exportLink:click', this.onExportResultsRequest);
+      this.listenTo(this.actionsToolbarComponent, 'actionsToolbar:export:click', this.onExportResultsRequest);
       this.startListeningPager();
     },
 
@@ -84,16 +84,16 @@ define(function(require) {
         totalItems: data.total
       });
       this.pageStatsComponent.update(this.pagerComponent.getState());
-      this.exportLinkComponent.toggle(data.total > 0);
+      this.actionsToolbarComponent.toggle(data.total > 0);
     },
 
     didSearchFail: function(error) {
       app.showError(error);
-      this.exportLinkComponent.hide();
+      this.actionsToolbarComponent.hide();
     },
 
     render: function() {
-      this.$el.append(this.exportLinkComponent.render().view.el);
+      this.$el.append(this.actionsToolbarComponent.render().view.el);
       this.$el.append(this.pageStatsComponent.render().view.el);
       this.$el.append(this.resultsListComponent.render().view.el);
       this.$el.append(this.pagerComponent.render().view.el);
