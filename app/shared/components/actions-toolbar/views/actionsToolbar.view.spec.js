@@ -76,7 +76,7 @@ define(function(require) {
           });
 
           it('should contain proper text', function() {
-            expect(this.$el.find('a.vlr-actions-toolbar__export')).toHaveText('Download list as Excel');
+            expect(this.$el.find('a.vlr-actions-toolbar__export')).toHaveText('Download as Excel');
           });
 
           it('should contain proper anchor', function() {

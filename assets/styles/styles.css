@@ -413,7 +413,11 @@
 a.vlr-actions-toolbar__export,
 a.vlr-actions-toolbar__export:hover,
 a.vlr-actions-toolbar__export:visited {
-    color: #fff;
+  color: #fff;
+  background-image: url(../images/excel-icon.png);
+  background-repeat: no-repeat;
+  padding-left: 22px;
+  background-position: left center;
 }
 
 /* Results list */
