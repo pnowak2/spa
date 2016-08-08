@@ -3,13 +3,14 @@ define(function(require) {
     Mustache = require('mustache'),
     $ = require('jquery'),
     _ = require('underscore'),
-    tplProject = require('text!../templates/projectPopup.tpl.html'),
-    tplOrganisation = require('text!../templates/organisationPopup.tpl.html');
+    tplEfCProject = require('text!../templates/efc-projectPopup.tpl.html'),
+    tplEplusProject = require('text!../templates/eplus-projectPopup.tpl.html'),
+    tplEfCOrganisation = require('text!../templates/efc-organisationPopup.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-map-popup',
+    className: 'vlr-map-popup',
 
-    allowedTypes: ['project', 'organisation'],
+    allowedTypes: ['efc-project', 'efc-organisation', 'eplus-project'],
 
     initialize: function(options) {
       this.options = options || {};
@@ -30,10 +31,12 @@ define(function(require) {
         type = this.options.type,
         data = this.options.data || {};
 
-      if (type === 'organisation') {
-        tpl = tplOrganisation;
-      } else if (type === 'project') {
-        tpl = tplProject;
+      if (type === 'efc-organisation') {
+        tpl = tplEfCOrganisation;
+      } else if (type === 'efc-project') {
+        tpl = tplEfCProject;
+      } else if (type === 'eplus-project') {
+        tpl = tplEplusProject;
       }
 
       var html = Mustache.render(tpl, data);

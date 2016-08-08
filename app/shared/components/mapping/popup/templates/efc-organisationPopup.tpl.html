@@ -1,0 +1,31 @@
+<div class="vlr-map-popup__field">
+	<div class="vlr-map-popup__org-title">{{name}}</div>
+</div>
+
+<div class="vlr-map-popup__field">
+	<div class="vlr-map-popup__org-type-role">
+	  <div>{{type}}</div>
+	  <div>{{role}}</div>
+  </div>
+</div>
+
+<div class="vlr-map-popup__field">
+	<label class="vlr-map-popup__label">
+		Address:
+	</label>
+	<span class="vlr-map-popup__value">{{address}}</span>
+</div>
+
+<div class="vlr-map-popup__field">
+	<label class="vlr-map-popup__label">
+		Website:
+	</label>
+
+  {{#website}}
+      <a href="{{website}}" class="vlr-map-popup__website-link" href="#" target="_blank" rel="external">{{website}}</a>
+  {{/website}}
+
+  {{^website}}
+      <span class="vlr-map-popup__website-link-placeholder">(Website not provided)</span>
+  {{/website}}
+</div>

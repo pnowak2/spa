@@ -4,11 +4,11 @@ define(function(require) {
     Backbone = require('backbone'),
     RSVP = require('rsvp'),
     app = require('app/shared/modules/app.module'),
-    MapComponent = require('app/shared/components/mapping/map/main.component'),
+    MapComponent = require('app/shared/components/mapping/map/simple/main.component'),
     PopupComponent = require('app/shared/components/mapping/popup/main.component');
 
   return Backbone.View.extend({
-    className: 'efc-partners-map',
+    className: 'vlr-partners-map',
 
     initialize: function(options) {
       this.options = options || {};
@@ -52,7 +52,7 @@ define(function(require) {
       markerData = markerData || {};
 
       var popupComponent = new PopupComponent({
-          type: 'organisation',
+          type: 'efc-organisation',
           data: markerData
         }),
         popupContent = popupComponent.render().view.el;

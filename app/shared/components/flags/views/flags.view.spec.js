@@ -48,7 +48,7 @@ define(function(require) {
 
     describe('properties', function() {
       it('should have proper class name defined', function() {
-        expect(FlagsView.prototype.className).toEqual('efc-flags');
+        expect(FlagsView.prototype.className).toEqual('vlr-flags');
       });
     });
 
@@ -99,7 +99,7 @@ define(function(require) {
 
           view.didClickToggle(fakeEvent);
 
-          expect(view.$el.toggleClass).toHaveBeenCalledWith('efc-flags--collapsed')
+          expect(view.$el.toggleClass).toHaveBeenCalledWith('vlr-flags--collapsed')
         });
       });
     });
@@ -108,7 +108,7 @@ define(function(require) {
       describe('dom', function() {
         it('should define proper events', function() {
           expect(FlagsView.prototype.events).toEqual({
-            'click .efc-flags__toggle': 'didClickToggle'
+            'click .vlr-flags__toggle': 'didClickToggle'
           });
         });
       });
@@ -127,15 +127,15 @@ define(function(require) {
           });
 
           it('should add collapsed class to root element', function() {
-            expect(this.view.render().$el).toHaveClass('efc-flags--collapsed');
+            expect(this.view.render().$el).toHaveClass('vlr-flags--collapsed');
           });
 
           it('should render show more link', function() {
-            expect(this.$el.find('.efc-flags__toggle-all-label')).toContainText('Show all');
+            expect(this.$el.find('.vlr-flags__toggle-all-label')).toContainText('Show all');
           });
 
           it('should render show less link', function() {
-            expect(this.$el.find('.efc-flags__toggle-less-label')).toContainText('Show less');
+            expect(this.$el.find('.vlr-flags__toggle-less-label')).toContainText('Show less');
           });
 
           it('should have first country with proper css class and country title', function() {
@@ -168,15 +168,15 @@ define(function(require) {
           });
 
           it('should have initial items in separate section', function() {
-            expect(this.$el.find('.efc-flags__initial img').length).toBe(3);
+            expect(this.$el.find('.vlr-flags__initial img').length).toBe(3);
           });
 
           it('should have rest section empty', function() {
-            expect(this.$el.find('.efc-flags__rest img').length).toBe(0);
+            expect(this.$el.find('.vlr-flags__rest img').length).toBe(0);
           });
 
           it('should add short class', function() {
-            expect(this.$el).toHaveClass('efc-flags--short');
+            expect(this.$el).toHaveClass('vlr-flags--short');
           });
         });
 
@@ -191,15 +191,15 @@ define(function(require) {
           });
 
           it('should have initial items in separate section', function() {
-            expect(this.$el.find('.efc-flags__initial img').length).toBe(6);
+            expect(this.$el.find('.vlr-flags__initial img').length).toBe(6);
           });
 
           it('should have rest items in separate section', function() {
-            expect(this.$el.find('.efc-flags__rest img').length).toBe(2);
+            expect(this.$el.find('.vlr-flags__rest img').length).toBe(2);
           });
 
           it('should not add short class', function() {
-            expect(this.$el).not.toHaveClass('efc-flags--short');
+            expect(this.$el).not.toHaveClass('vlr-flags--short');
           });
         });
       });

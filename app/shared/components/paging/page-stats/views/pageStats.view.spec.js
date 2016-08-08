@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('properties', function() {
       it('.className should be defined', function() {
-        expect(PageStatsView.prototype.className).toEqual('efc-page-stats');
+        expect(PageStatsView.prototype.className).toEqual('vlr-page-stats');
       });
     });
 

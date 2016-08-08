@@ -3,11 +3,9 @@ define(function(require) {
     app = require('app/shared/modules/app.module'),
     SearchableResultsListView = require('./searchableResultsList.view'),
     ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),
-    ActionsToolbarComponent = require('app/shared/components/actions-toolbar/main.component'),
     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
     PagerComponent = require('app/shared/components/paging/pager/main.component'),
     searchService = require('../services/search/search.service'),
-    exportService = require('../services/export/export.service'),
     RSVP = require('rsvp'),
     _ = require('underscore');
 
@@ -34,10 +32,6 @@ define(function(require) {
 
       it('should have page stats component defined', function() {
         expect(this.view.pageStatsComponent).toEqual(jasmine.any(PageStatsComponent));
-      });
-
-      it('should have actions toolbar component defined', function() {
-        expect(this.view.actionsToolbarComponent).toEqual(jasmine.any(ActionsToolbarComponent));
       });
 
       it('should bind callback methods with view object', function() {
@@ -215,7 +209,7 @@ define(function(require) {
           spyOn(SearchableResultsListView.prototype, 'prepareSearchCriteria');
           spyOn(PagerComponent.prototype, 'getState').and.returnValue(fakePagerStatus);
 
-          this.view.onSearchRequest(fakeSearchCriteria, fakePagerStatus);
+          this.view.onSearchRequest(fakeSearchCriteria);
 
           expect(this.view.prepareSearchCriteria).toHaveBeenCalledWith(fakeSearchCriteria, fakePagerStatus);
         });
@@ -281,28 +275,6 @@ define(function(require) {
         });
       });
 
-      describe('.onExportResultsRequest()', function() {
-        beforeEach(function() {
-          spyOn(exportService, 'export');
-
-          this.view = new SearchableResultsListView;
-          this.cachedCriteria = {
-            foo: 'bar'
-          }
-
-          this.view.cachedCriteria = this.cachedCriteria;
-          this.view.onExportResultsRequest();
-        });
-
-        it('it should be defined', function() {
-          expect(SearchableResultsListView.prototype.onExportResultsRequest).toEqual(jasmine.any(Function));
-        });
-
-        it('should call export service with cached criteria', function() {
-          expect(exportService.export).toHaveBeenCalledWith(this.cachedCriteria);
-        });
-      });
-
       describe('.performSearch()', function() {
         beforeEach(function() {
           this.view = new SearchableResultsListView;
@@ -352,7 +324,6 @@ define(function(require) {
           spyOn(ResultsListComponent.prototype, 'update');
           spyOn(PagerComponent.prototype, 'update');
           spyOn(PageStatsComponent.prototype, 'update');
-          spyOn(ActionsToolbarComponent.prototype, 'toggle');
 
           this.view = new SearchableResultsListView;
           this.fakeData = {
@@ -391,45 +362,22 @@ define(function(require) {
           this.view.didSearchSucceed(this.fakeData);
           expect(this.view.pageStatsComponent.update).toHaveBeenCalledWith(fakePagerState);
         });
-
-        it('should hide actions toolbar component if no items found', function() {
-          this.view.didSearchSucceed({
-            total: 0
-          });
-
-          expect(this.view.actionsToolbarComponent.toggle).toHaveBeenCalledWith(false);
-        });
-
-        it('should show actions toolbar component if items were found', function() {
-          this.view.didSearchSucceed({
-            total: 1
-          });
-          
-          expect(this.view.actionsToolbarComponent.toggle).toHaveBeenCalledWith(true);
-        });
       });
 
       describe('.didSearchFail()', function() {
-        beforeEach(function () {
-          spyOn(app, 'showError');
-          spyOn(ActionsToolbarComponent.prototype, 'hide');
-
-          this.view = new SearchableResultsListView;
-          this.fakeError = {};
-
-          this.view.didSearchFail(this.fakeError);
-        })
-
         it('should be defined', function() {
           expect(SearchableResultsListView.prototype.didSearchFail).toEqual(jasmine.any(Function));
         });
 
         it('should show error message', function() {
-          expect(app.showError).toHaveBeenCalledWith(this.fakeError);
-        });
+          spyOn(app, 'showError');
 
-        it('should hide actions toolbar component', function() {
-          expect(this.view.actionsToolbarComponent.hide).toHaveBeenCalled();
+          var view = new SearchableResultsListView,
+            fakeError = {};
+
+          view.didSearchFail(fakeError);
+
+          expect(app.showError).toHaveBeenCalledWith(fakeError);
         });
       });
     });
@@ -443,14 +391,6 @@ define(function(require) {
 
           expect(view.onPageRequest).toHaveBeenCalled();
         });
-
-        it('should listen to actions toolbar component export link click event', function() {
-          spyOn(SearchableResultsListView.prototype, 'onExportResultsRequest');
-          var view = new SearchableResultsListView;
-          view.actionsToolbarComponent.trigger('actionsToolbar:export:click');
-
-          expect(view.onExportResultsRequest).toHaveBeenCalled();
-        });
       });
     });
 
@@ -462,11 +402,6 @@ define(function(require) {
 
         it('should return view object', function() {
           expect(this.view.render()).toBe(this.view);
-        });
-
-        it('should append actions toolbar component', function() {
-          this.view.render();
-          expect(this.view.$el).toContainHtml(this.view.actionsToolbarComponent.render().view.$el);
         });
 
         it('should append results list component', function() {

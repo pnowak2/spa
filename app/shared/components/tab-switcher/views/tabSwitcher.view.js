@@ -7,7 +7,7 @@ define(function(require) {
   return Backbone.View.extend({
     tagName: 'ul',
 
-    className: 'efc-tabs',
+    className: 'vlr-tabs',
 
     initialize: function(tabDescriptors) {
       this.collection = new TabsCollection(tabDescriptors);
@@ -22,6 +22,7 @@ define(function(require) {
 
     didClickTab: function(identifier) {
       this.collection.selectTab(identifier);
+      this.trigger('tab-switcher:tab:selected', identifier);
     },
 
     didModelSelectionChange: function(tabModel) {

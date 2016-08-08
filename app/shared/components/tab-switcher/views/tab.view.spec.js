@@ -31,7 +31,7 @@ define(function(require) {
       });
 
       it('.className should be defined', function() {
-        expect(TabView.prototype.className).toEqual('efc-tabs__tab');
+        expect(TabView.prototype.className).toEqual('vlr-tabs__tab');
       });
     });
 
@@ -89,7 +89,7 @@ define(function(require) {
           });
 
           expect(view.render().$el).toBeMatchedBy('li');
-          expect(view.render().$el).not.toHaveClass('efc-selected');
+          expect(view.render().$el).not.toHaveClass('vlr-selected');
           expect(view.render().$el).toContainText('My Tab');
         });
 
@@ -102,7 +102,7 @@ define(function(require) {
             })
           });
 
-          expect(view.render().$el).toBeMatchedBy('li.efc-tabs__tab--selected');
+          expect(view.render().$el).toBeMatchedBy('li.vlr-tabs__tab--selected');
           expect(view.render().$el).toContainText('My Tab');
         });
       });

@@ -1,0 +1,52 @@
+{{#title}}
+	<div class="vlr-map-popup__field">
+		<div class="vlr-map-popup__title">{{title}}</div>
+		{{#badges}}
+			<div class="vlr-map-popup__badges">
+				{{badges}}
+			</div>
+		{{/badges}}
+	</div>
+{{/title}}
+
+{{#programme}}
+	<div class="vlr-map-popup__field">
+		<label class="vlr-map-popup__label">
+			Programme:
+		</label>
+		<span class="vlr-map-popup__value">{{programme}}</span>
+	</div>
+{{/programme}}
+
+{{#actionType}}
+	<div class="vlr-map-popup__field">
+		<label class="vlr-map-popup__label">
+			Action Type:
+		</label>
+		<span class="vlr-map-popup__value">{{actionType}}</span>
+	</div>
+{{/actionType}}
+
+{{#coordinator}}
+	<div class="vlr-map-popup__field">
+		<label class="vlr-map-popup__label">
+			Coordinator:
+		</label>
+		<span class="vlr-map-popup__value">{{coordinator}}</span>
+	</div>
+{{/coordinator}}
+
+{{#countries}}
+	<div class="vlr-map-popup__field">
+		<label class="vlr-map-popup__label">
+			Countries:
+		</label>
+		<span class="vlr-map-popup__value">{{countries}}</span>
+	</div>
+{{/countries}}
+
+{{#id}}
+	<div class="vlr-map-popup__link">
+		<a href="/programmes/erasmus-plus/projects/eplus-project-details-page/?nodeRef={{id}}" class="vlr-map-popup__more-link" href="#" target="_blank">Show project card</a>
+	</div>
+{{/id}}
