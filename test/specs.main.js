@@ -112,16 +112,17 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/searching/search-box/models/searchBox.model.spec',
     'app/shared/components/searching/search-box/views/searchBox.view.spec',
 
+    //search component
+    'app/shared/components/searching/search/main.component.spec',
+    'app/shared/components/searching/search/views/search.view.spec',
+    'app/shared/components/searching/search/components/dummyAdvancedSearch/main.component.spec',
+
     // efc util
     'app/efc/util/constants.spec',
 
     // efc landing page component
     'app/efc/components/landing-page/layout/main.component.spec',
     'app/efc/components/landing-page/layout/views/landingPage.view.spec',
-
-    //search
-    'app/efc/components/landing-page/searching/search/main.component.spec',
-    'app/efc/components/landing-page/searching/search/views/search.view.spec',
 
     // advanced search component
     'app/efc/components/landing-page/searching/advanced-search/main.component.spec',

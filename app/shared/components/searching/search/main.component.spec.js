@@ -15,6 +15,15 @@ define(function(require) {
         var component = new SearchComponent;
         expect(component.view).toEqual(jasmine.any(SearchView));
       });
+
+      it('should pass options to its view', function() {
+        spyOn(SearchView.prototype, 'initialize');
+
+        var fakeOptions = { foo: 'bar' },
+          component = new SearchComponent(fakeOptions);
+
+        expect(SearchView.prototype.initialize).toHaveBeenCalledWith(fakeOptions);
+      });
     });
 
     describe('events', function() {

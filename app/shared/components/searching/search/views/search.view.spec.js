@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     SearchView = require('./search.view'),
     SearchBoxComponent = require('app/shared/components/searching/search-box/main.component'),
-    AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component');
+    DummyAdvancedSearchComponent = require('../components/dummyAdvancedSearch/main.component');
 
   describe('Search View', function() {
     describe('type', function() {
@@ -20,8 +20,17 @@ define(function(require) {
         expect(this.view.searchBox).toEqual(jasmine.any(SearchBoxComponent));
       });
 
-      it('should have advanced search component defined', function() {
-        expect(this.view.advancedSearch).toEqual(jasmine.any(AdvancedSearchComponent));
+      it('should have default dummy advanced search component defined if not provided', function() {
+        expect(this.view.advancedSearch).toEqual(jasmine.any(DummyAdvancedSearchComponent));
+      });
+
+      it('should have passed advanced search component defined if provided', function() {
+        var fakeASC = {},
+          view = new SearchView({
+            advancedSearchComponent: fakeASC
+          });
+
+        expect(view.advancedSearch).toBe(fakeASC);
       });
     });
 
@@ -31,7 +40,7 @@ define(function(require) {
       });
 
       it('.className should be defined', function() {
-        expect(SearchView.prototype.className).toEqual('efc-search');
+        expect(SearchView.prototype.className).toEqual('vlr-search');
       });
     });
 
@@ -55,7 +64,7 @@ define(function(require) {
             };
 
           spyOn(SearchView.prototype, 'trigger');
-          spyOn(AdvancedSearchComponent.prototype, 'getCriteria').and.returnValue(fakeAdvancedSearchState);
+          spyOn(DummyAdvancedSearchComponent.prototype, 'getCriteria').and.returnValue(fakeAdvancedSearchState);
 
           this.view.didRequestSearch(fakeSearchBoxCriteria);
 

@@ -2,7 +2,8 @@ define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
     LandingPageView = require('./landingPage.view'),
-    SearchComponent = require('app/efc/components/landing-page/searching/search/main.component'),
+    SearchComponent = require('app/shared/components/searching/search/main.component'),
+    AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component'),
     SearchableResultsMapComponent = require('app/efc/components/landing-page/results/map/searchable-results-map/main.component'),
     SearchableResultsListComponent = require('app/efc/components/landing-page/results/list/searchable-results-list/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
@@ -20,12 +21,18 @@ define(function(require) {
         spyOn(LandingPageView.prototype, 'requestInitialSearch');
         spyOn(SearchableResultsMapComponent.prototype, 'initMap');
         spyOn(TabSwitcherComponent.prototype, 'initialize');
+        spyOn(SearchComponent.prototype, 'initialize');
 
         this.view = new LandingPageView;
       });
 
       it('should have search component defined ', function() {
         expect(this.view.search).toEqual(jasmine.any(SearchComponent));
+      });
+
+      it('should initialize search component with correct advanced search component in options', function() {
+        var passedOptions = SearchComponent.prototype.initialize.calls.mostRecent().args[0];
+        expect(passedOptions.advancedSearchComponent).toEqual(jasmine.any(AdvancedSearchComponent));
       });
 
       it('should have searchable list component defined', function() {

@@ -1,15 +1,18 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
+    Component = require('app/core/component'),
     SearchBoxComponent = require('app/shared/components/searching/search-box/main.component'),
-    AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component');
+    DummyAdvancedSearchComponent = require('../components/dummyAdvancedSearch/main.component');
 
   return Backbone.View.extend({
-    className: 'efc-search',
+    className: 'vlr-search',
 
-    initialize: function() {
+    initialize: function(options) {
+      options = options || {};
+
       this.searchBox = new SearchBoxComponent;
-      this.advancedSearch = new AdvancedSearchComponent;
+      this.advancedSearch = options.advancedSearchComponent || new DummyAdvancedSearchComponent;
 
       this.listenTo(this.searchBox, 'search-box:search', this.didRequestSearch);
       this.listenTo(this.searchBox, 'search-box:more', this.didRequestMore);
