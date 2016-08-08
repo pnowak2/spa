@@ -23,7 +23,7 @@ define(function(require) {
       });
 
       it('.className', function() {
-        expect(SearchBoxView.prototype.className).toEqual('efc-searchbox');
+        expect(SearchBoxView.prototype.className).toEqual('vlr-searchbox');
       });
     });
 
@@ -102,7 +102,7 @@ define(function(require) {
 
           view.toggleMoreButtonStateToClosed();
 
-          expect(view.getMoreButton().removeClass).toHaveBeenCalledWith('efc-searchbox__more-button--open');
+          expect(view.getMoreButton().removeClass).toHaveBeenCalledWith('vlr-searchbox__more-button--open');
         });
       });
 
@@ -119,7 +119,7 @@ define(function(require) {
 
           view.toggleMoreButtonStateToOpened();
 
-          expect(view.getMoreButton().addClass).toHaveBeenCalledWith('efc-searchbox__more-button--open');
+          expect(view.getMoreButton().addClass).toHaveBeenCalledWith('vlr-searchbox__more-button--open');
         });
       });
 
@@ -136,7 +136,7 @@ define(function(require) {
 
           view.toggleMoreButtonState();
 
-          expect(view.getMoreButton().toggleClass).toHaveBeenCalledWith('efc-searchbox__more-button--open');
+          expect(view.getMoreButton().toggleClass).toHaveBeenCalledWith('vlr-searchbox__more-button--open');
         });
       });
 
@@ -154,7 +154,7 @@ define(function(require) {
           var result = view.getMoreButton();
 
           expect(result).toBe(fakeEl);
-          expect(view.$el.find).toHaveBeenCalledWith('.efc-searchbox__more-button');
+          expect(view.$el.find).toHaveBeenCalledWith('.vlr-searchbox__more-button');
         });
       });
 
@@ -277,9 +277,9 @@ define(function(require) {
       describe('dom', function() {
         it('should be properly defined', function() {
           expect(SearchBoxView.prototype.events).toEqual({
-            'click .efc-searchbox__search-button': 'didClickSearchButton',
-            'click .efc-searchbox__more-button': 'didClickMoreButton',
-            'keypress .efc-searchbox__input': 'didPressKey'
+            'click .vlr-searchbox__search-button': 'didClickSearchButton',
+            'click .vlr-searchbox__more-button': 'didClickMoreButton',
+            'keypress .vlr-searchbox__input': 'didPressKey'
           });
         });
       });
@@ -319,12 +319,12 @@ define(function(require) {
           expect(view.$el.find('input')).toHaveAttr('placeholder', 'Find...');
           expect(view.$el.find('input')).toHaveAttr('value', 'test search');
 
-          expect(view.$el.find('button')).toHaveClass('efc-searchbox__search-button');
+          expect(view.$el.find('button')).toHaveClass('vlr-searchbox__search-button');
           expect(view.$el.find('button')).toContainText('Search');
 
-          expect(view.$el.find('button')).toHaveClass('efc-searchbox__more-button');
+          expect(view.$el.find('button')).toHaveClass('vlr-searchbox__more-button');
 
-          expect(view.$el.find('.efc-searchbox__tooltip')).toContainText('Click here to open advanced search');
+          expect(view.$el.find('.vlr-searchbox__tooltip')).toContainText('Click here to open advanced search');
         });
       });
     });

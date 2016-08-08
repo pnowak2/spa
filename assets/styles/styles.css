@@ -260,28 +260,28 @@
 }
 
 /* Search Box */
-.efc-searchbox {
+.vlr-searchbox {
     border-radius: 3px;
     height: 40px;
     position: relative;
 }
 
-.efc-searchbox__input-container {
+.vlr-searchbox__input-container {
     overflow: hidden;
 }
 
-.efc-searchbox__buttons-container {
+.vlr-searchbox__buttons-container {
     width: 140px;
     float: right;
     font-size: 0;
 }
 
-.efc-searchbox__input-container,
-.efc-searchbox__buttons-container {
+.vlr-searchbox__input-container,
+.vlr-searchbox__buttons-container {
     height: 100%;
 }
 
-.efc-searchbox__input {
+.vlr-searchbox__input {
   width: 100%;
   font-size: 19px;
   padding: 0 15px;
@@ -289,7 +289,7 @@
   border-radius: 3px 0 0 3px;
 }
 
-.efc-searchbox__search-button {
+.vlr-searchbox__search-button {
   width: 100px;
   overflow: visible;
   color: #fff;
@@ -302,9 +302,9 @@
   cursor: pointer;
 }
 
-.efc-searchbox__input,
-.efc-searchbox__search-button,
-.efc-searchbox__more-button {
+.vlr-searchbox__input,
+.vlr-searchbox__search-button,
+.vlr-searchbox__more-button {
   height: 100%;
   border: 0;
   margin: 0;
@@ -312,7 +312,7 @@
   vertical-align: top;
 }
 
-.efc-searchbox__search-button:after {
+.vlr-searchbox__search-button:after {
     content: '';
     position: absolute;
     display: block;
@@ -327,7 +327,7 @@
     border-left: 7px solid transparent;
 }
 
-.efc-searchbox__more-button {
+.vlr-searchbox__more-button {
   display: inline-block;
   width: 40px;
   background: #084886;
@@ -341,7 +341,7 @@
 
 }
 
-.csstransforms .efc-searchbox__more-button--open {
+.csstransforms .vlr-searchbox__more-button--open {
   -webkit-transition: background-color .35s linear;
   -moz-transition: background-color .35s linear;
   -ms-transition: background-color .35s linear;
@@ -349,7 +349,7 @@
   transition: background-color .35s linear;
 }
 
-.efc-searchbox__bars_container {
+.vlr-searchbox__bars_container {
   width: 16px;
   height: 14px;
   position: absolute;
@@ -361,9 +361,9 @@
   right: 0;
 }
 
-.efc-searchbox__bar1,
-.efc-searchbox__bar2,
-.efc-searchbox__bar3 {
+.vlr-searchbox__bar1,
+.vlr-searchbox__bar2,
+.vlr-searchbox__bar3 {
   display: block;
   position: absolute;
   height: 2px;
@@ -384,19 +384,19 @@
   transition: .35s ease-in-out;
 }
 
-.efc-searchbox__bar1 {
+.vlr-searchbox__bar1 {
   top: 0px;
 }
 
-.efc-searchbox__bar2 {
+.vlr-searchbox__bar2 {
   top: 5px;
 }
 
-.efc-searchbox__bar3 {
+.vlr-searchbox__bar3 {
   top: 10px;
 }
 
-.csstransforms .efc-searchbox__more-button--open .efc-searchbox__bar1 {
+.csstransforms .vlr-searchbox__more-button--open .vlr-searchbox__bar1 {
   top: 6px;
   -webkit-transform: rotate(135deg);
   -moz-transform: rotate(135deg);
@@ -405,11 +405,11 @@
   transform: rotate(135deg);
 }
 
-.csstransforms .efc-searchbox__more-button--open .efc-searchbox__bar2 {
+.csstransforms .vlr-searchbox__more-button--open .vlr-searchbox__bar2 {
   opacity: 0;
 }
 
-.csstransforms .efc-searchbox__more-button--open .efc-searchbox__bar3{
+.csstransforms .vlr-searchbox__more-button--open .vlr-searchbox__bar3{
   top: 6px;
   -webkit-transform: rotate(-135deg);
   -moz-transform: rotate(-135deg);
@@ -418,7 +418,7 @@
   transform: rotate(-135deg);
 }
 
-.efc-searchbox__tooltip {
+.vlr-searchbox__tooltip {
   box-sizing: border-box;
   position: absolute;
   width: 140px;
@@ -440,7 +440,7 @@
   transform: translate(0, 0);
 }
 
-.efc-searchbox__tooltip:after {
+.vlr-searchbox__tooltip:after {
     content: '';
     position: absolute;
     display: block;
@@ -454,7 +454,7 @@
     border-left: 7px solid transparent;
 }
 
-.efc-searchbox__more-button--open .efc-searchbox__tooltip {
+.vlr-searchbox__more-button--open .vlr-searchbox__tooltip {
   -webkit-transform: translate(0, 15px); 
   -moz-transform: translate(0, 15px); 
   -o-transform: translate(0, 15px); 

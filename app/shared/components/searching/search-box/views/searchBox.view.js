@@ -6,12 +6,12 @@ define(function(require) {
     tpl = require('text!../templates/searchBox.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-searchbox',
+    className: 'vlr-searchbox',
 
     events: {
-      'click .efc-searchbox__search-button': 'didClickSearchButton',
-      'click .efc-searchbox__more-button': 'didClickMoreButton',
-      'keypress .efc-searchbox__input': 'didPressKey'
+      'click .vlr-searchbox__search-button': 'didClickSearchButton',
+      'click .vlr-searchbox__more-button': 'didClickMoreButton',
+      'keypress .vlr-searchbox__input': 'didPressKey'
     },
 
     initialize: function() {
@@ -40,19 +40,19 @@ define(function(require) {
     },
 
     toggleMoreButtonStateToClosed: function() {
-      this.getMoreButton().removeClass('efc-searchbox__more-button--open');
+      this.getMoreButton().removeClass('vlr-searchbox__more-button--open');
     },
 
     toggleMoreButtonStateToOpened: function() {
-      this.getMoreButton().addClass('efc-searchbox__more-button--open');
+      this.getMoreButton().addClass('vlr-searchbox__more-button--open');
     },
 
     toggleMoreButtonState: function() {
-      this.getMoreButton().toggleClass('efc-searchbox__more-button--open');
+      this.getMoreButton().toggleClass('vlr-searchbox__more-button--open');
     },
 
     getMoreButton: function() {
-      return this.$el.find('.efc-searchbox__more-button');
+      return this.$el.find('.vlr-searchbox__more-button');
     },
 
     getFormData: function() {
