@@ -1,7 +1,7 @@
 define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
-    SearchableResultsMapComponent = require('app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component'),
+    ResultsMapComponent = require('app/eplus-ce/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
     searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
     router = require('app/eplus-ce/routers/landing-page.router');
@@ -10,7 +10,7 @@ define(function(require) {
     initialize: function() {
       _.bindAll(this, 'didClickSearchButton');
 
-      this.searchableResultsMap = new SearchableResultsMapComponent;
+      this.resultsMap = new ResultsMapComponent;
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'List',
@@ -26,7 +26,7 @@ define(function(require) {
       });
 
       this.render();
-      this.searchableResultsMap.initMap();
+      this.resultsMap.initMap();
       this.listenTo(this.tabSwitcher, 'tab-switcher:tab:selected', this.didSelectTab);
       this.listenTo(router, 'route:search:keyword', this.didRouteSearchByKeyword);
       this.setupDomEvents();
@@ -39,7 +39,7 @@ define(function(require) {
     didClickSearchButton: function() {
       var criteria = searchCriteriaBuilder.getCriteria();
 
-      this.searchableResultsMap.onSearchRequest(criteria);
+      this.resultsMap.onSearchRequest(criteria);
       router.navigate('keyword/' + criteria.KEYWORD);
     },
 
@@ -65,7 +65,7 @@ define(function(require) {
       Backbone.$('.eplus-ce-tab-switcher-container')
         .append(this.tabSwitcher.render().view.el);
       Backbone.$('.eplus-ce-map-container')
-        .append(this.searchableResultsMap.render().view.el);
+        .append(this.resultsMap.render().view.el);
 
       return this;
     }

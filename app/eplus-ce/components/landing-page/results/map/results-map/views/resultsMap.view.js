@@ -7,7 +7,7 @@ define(function(require) {
     PopupComponent = require('app/shared/components/mapping/popup/main.component');
 
   return Backbone.View.extend({
-    className: 'eplus-ce-searchable-results-map',
+    className: 'eplus-ce-results-map',
 
     initialize: function() {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');

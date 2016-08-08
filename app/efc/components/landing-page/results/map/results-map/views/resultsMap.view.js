@@ -6,10 +6,10 @@ define(function(require) {
     searchService = require('../services/search/search.service'),
     PopupComponent = require('app/shared/components/mapping/popup/main.component'),
     Mustache = require('mustache'),
-    tpl = require('text!../templates/searchable-results-map.tpl.html');
+    tpl = require('text!../templates/results-map.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-searchable-results-map',
+    className: 'efc-results-map',
 
     initialize: function() {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
@@ -84,11 +84,11 @@ define(function(require) {
     },
 
     getMapContainer: function() {
-      return this.$el.find('.efc-searchable-results-map__map-container');
+      return this.$el.find('.efc-results-map__map-container');
     },
 
     getCountryExplanationContainer: function() {
-      return this.$el.find('.efc-searchable-results-map__map-country-search-explanation');
+      return this.$el.find('.efc-results-map__map-country-search-explanation');
     },
 
     render: function() {

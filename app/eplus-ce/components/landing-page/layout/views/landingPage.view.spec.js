@@ -3,7 +3,7 @@ define(function(require) {
     Backbone = require('backbone'),
     LandingPageView = require('./landingPage.view'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
-    SearchableResultsMapComponent = require('app/eplus-ce/components/landing-page/results/map/searchable-results-map/main.component'),
+    ResultsMapComponent = require('app/eplus-ce/components/landing-page/results/map/results-map/main.component'),
     searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
     router = require('app/eplus-ce/routers/landing-page.router');
 
@@ -20,7 +20,7 @@ define(function(require) {
         spyOn(TabSwitcherComponent.prototype, 'initialize');
         spyOn(LandingPageView.prototype, 'render');
         spyOn(LandingPageView.prototype, 'setupDomEvents');
-        spyOn(SearchableResultsMapComponent.prototype, 'initMap');
+        spyOn(ResultsMapComponent.prototype, 'initMap');
 
         this.view = new LandingPageView;
       });
@@ -33,8 +33,8 @@ define(function(require) {
         expect(this.view.tabSwitcher).toEqual(jasmine.any(TabSwitcherComponent));
       });
 
-      it('should have searchable map component defined', function() {
-        expect(this.view.searchableResultsMap).toEqual(jasmine.any(SearchableResultsMapComponent));
+      it('should have results map component defined', function() {
+        expect(this.view.resultsMap).toEqual(jasmine.any(ResultsMapComponent));
       });
 
       it('should initialize tab switcher with proper data', function() {
@@ -57,8 +57,8 @@ define(function(require) {
         expect(this.view.render).toHaveBeenCalled();
       });
 
-      it('should init the searchable map', function() {
-        expect(this.view.searchableResultsMap.initMap).toHaveBeenCalled();
+      it('should init the results map', function() {
+        expect(this.view.resultsMap.initMap).toHaveBeenCalled();
       });
 
       it('should setup dom events', function() {
@@ -93,7 +93,7 @@ define(function(require) {
           this.view = new LandingPageView;
 
           spyOn(router, 'navigate');
-          spyOn(SearchableResultsMapComponent.prototype, 'onSearchRequest');
+          spyOn(ResultsMapComponent.prototype, 'onSearchRequest');
           spyOn(searchCriteriaBuilder, 'getCriteria').and.returnValue(this.fakeCriteria);
         })
 
@@ -108,7 +108,7 @@ define(function(require) {
 
         it('should call map component with search criteria', function() {
           this.view.didClickSearchButton();
-          expect(this.view.searchableResultsMap.onSearchRequest).toHaveBeenCalledWith(this.fakeCriteria);
+          expect(this.view.resultsMap.onSearchRequest).toHaveBeenCalledWith(this.fakeCriteria);
         });
 
         it('should include keyword in URL', function() {
@@ -207,8 +207,8 @@ define(function(require) {
           expect($('.eplus-ce-tab-switcher-container')).toContainHtml(markup);
         });
 
-        it('should render searchable map component to appropriate container', function() {
-          var markup = this.view.searchableResultsMap.render().el;
+        it('should render results map component to appropriate container', function() {
+          var markup = this.view.resultsMap.render().el;
           expect($('.eplus-ce-map-container')).not.toBeEmpty();
           expect($('.eplus-ce-map-container')).toContainHtml(markup);
         });

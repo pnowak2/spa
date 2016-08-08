@@ -3,7 +3,7 @@ define(function(require) {
     PartnersMapView = require('./views/partnersMap.view'),
     PartnersMapComponent = require('./main.component');
 
-  describe('EfC Project Partners Component', function() {
+  describe('EfC Project Partners Map Component', function() {
     describe('type', function() {
       it('should be of component', function() {
         expect(PartnersMapComponent.prototype).toEqual(jasmine.any(Component));

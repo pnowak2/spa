@@ -1,7 +1,7 @@
  define(function(require) {
    var Backbone = require('backbone'),
      $ = require('jquery'),
-     SearchableResultsMapView = require('./searchableResultsMap.view'),
+     ResultsMapView = require('./resultsMap.view'),
      PopupComponent = require('app/shared/components/mapping/popup/main.component'),
      MapComponent = require('app/shared/components/mapping/map/simple/main.component'),
      searchService = require('../services/search/search.service'),
@@ -9,23 +9,23 @@
      app = require('app/shared/modules/app.module'),
      _ = require('underscore');
 
-   describe('Searchable Results Map View', function() {
+   describe('EfC Results Map View', function() {
      describe('type', function() {
        it('should be of view', function() {
-         expect(SearchableResultsMapView.prototype).toEqual(jasmine.any(Backbone.View));
+         expect(ResultsMapView.prototype).toEqual(jasmine.any(Backbone.View));
        });
      });
 
      describe('properties', function() {
        describe('.tagName', function() {
          it('should be div', function() {
-           expect(SearchableResultsMapView.prototype.tagName).toEqual('div');
+           expect(ResultsMapView.prototype.tagName).toEqual('div');
          });
        });
 
        describe('.className', function() {
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.className).toEqual('efc-searchable-results-map');
+           expect(ResultsMapView.prototype.className).toEqual('efc-results-map');
          });
        });
      });
@@ -33,7 +33,7 @@
      describe('creation', function() {
        beforeEach(function() {
          spyOn(_, 'bindAll').and.callThrough();
-         this.view = new SearchableResultsMapView;
+         this.view = new ResultsMapView;
        });
 
        it('should have results map component defined', function() {
@@ -48,11 +48,11 @@
      describe('api', function() {
        describe('.initMap()', function() {
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.initMap).toEqual(jasmine.any(Function));
+           expect(ResultsMapView.prototype.initMap).toEqual(jasmine.any(Function));
          });
 
          it('should delegate to map component', function() {
-           var view = new SearchableResultsMapView;
+           var view = new ResultsMapView;
            spyOn(view.mapComponent, 'initMap');
 
            view.initMap();
@@ -63,14 +63,14 @@
 
        describe('.onSearchRequest()', function() {
          beforeEach(function() {
-           spyOn(SearchableResultsMapView.prototype, 'didSearchSucceed');
-           spyOn(SearchableResultsMapView.prototype, 'didSearchFail');
+           spyOn(ResultsMapView.prototype, 'didSearchSucceed');
+           spyOn(ResultsMapView.prototype, 'didSearchFail');
 
-           this.view = new SearchableResultsMapView;
+           this.view = new ResultsMapView;
          });
 
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+           expect(ResultsMapView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
          });
 
          it('should not throw if called without args', function() {
@@ -115,7 +115,7 @@
          });
 
          it('should toggle country explanation based on search criteria', function() {
-           spyOn(SearchableResultsMapView.prototype, 'toggleCountryExplanation');
+           spyOn(ResultsMapView.prototype, 'toggleCountryExplanation');
            this.view.onSearchRequest(this.fakeSearchCriteria);
 
            expect(this.view.toggleCountryExplanation).toHaveBeenCalledWith(this.fakeSearchCriteria);
@@ -125,14 +125,14 @@
        describe('.didSearchSucceed()', function() {
          beforeEach(function() {
            this.fakePreparedMarkersData = {},
-           this.view = new SearchableResultsMapView;
+           this.view = new ResultsMapView;
 
-           spyOn(SearchableResultsMapView.prototype, 'prepareMarkersData').and.returnValue(this.fakePreparedMarkersData)
+           spyOn(ResultsMapView.prototype, 'prepareMarkersData').and.returnValue(this.fakePreparedMarkersData)
            spyOn(this.view.mapComponent, 'showMarkers');
          });
 
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
+           expect(ResultsMapView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
          });
 
          it('should not throw if invoked without arguments', function() {
@@ -153,13 +153,13 @@
 
        describe('.didSearchFail()', function() {
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.didSearchFail).toEqual(jasmine.any(Function));
+           expect(ResultsMapView.prototype.didSearchFail).toEqual(jasmine.any(Function));
          });
 
          it('should show error message', function() {
            spyOn(app, 'showError');
 
-           var view = new SearchableResultsMapView,
+           var view = new ResultsMapView,
              fakeError = {};
 
            view.didSearchFail(fakeError);
@@ -177,11 +177,11 @@
                [{ /* country data */ }]
              ]
            }
-           this.view = new SearchableResultsMapView;
+           this.view = new ResultsMapView;
          });
 
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.prepareMarkersData).toEqual(jasmine.any(Function));
+           expect(ResultsMapView.prototype.prepareMarkersData).toEqual(jasmine.any(Function));
          });
 
          it('should not throw if invoked without arguments', function() {
@@ -207,7 +207,7 @@
            var fakePreparedMarkerData = {},
              markers;
 
-           spyOn(SearchableResultsMapView.prototype, 'prepareMarkersByCountryData').and.returnValue(fakePreparedMarkerData);
+           spyOn(ResultsMapView.prototype, 'prepareMarkersByCountryData').and.returnValue(fakePreparedMarkerData);
 
            markersData = this.view.prepareMarkersData(this.data);
 
@@ -217,11 +217,11 @@
 
        describe('.prepareMarkersByCountryData()', function() {
          beforeEach(function() {
-           this.view = new SearchableResultsMapView;
+           this.view = new ResultsMapView;
          });
 
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.prepareMarkersByCountryData).toEqual(jasmine.any(Function));
+           expect(ResultsMapView.prototype.prepareMarkersByCountryData).toEqual(jasmine.any(Function));
          });
 
          it('should not throw if invoked without arguments', function() {
@@ -277,14 +277,14 @@
 
        describe('.toggleCountryExplanation()', function() {
          beforeEach(function() {
-           this.view = new SearchableResultsMapView;
+           this.view = new ResultsMapView;
            this.view.render();
 
            spyOn($.prototype, 'toggle');
          });
 
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.toggleCountryExplanation).toEqual(jasmine.any(Function));
+           expect(ResultsMapView.prototype.toggleCountryExplanation).toEqual(jasmine.any(Function));
          });
 
          it('should hide country explanation if not searching by country', function() {
@@ -307,34 +307,34 @@
 
        describe('.getMapContainer()', function() {
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.getMapContainer).toEqual(jasmine.any(Function));
+           expect(ResultsMapView.prototype.getMapContainer).toEqual(jasmine.any(Function));
          });
 
          it('should retrieve correct element', function() {
            spyOn($.prototype, 'find').and.callFake(function(selector) {
-             if (selector === '.efc-searchable-results-map__map-container') {
+             if (selector === '.efc-results-map__map-container') {
                return 'fakeMapContainer'
              }
            });
 
-           var view = new SearchableResultsMapView;
+           var view = new ResultsMapView;
            expect(view.getMapContainer()).toBe('fakeMapContainer');
          });
        });
 
        describe('.getCountryExplanationContainer()', function() {
          it('should be defined', function() {
-           expect(SearchableResultsMapView.prototype.getCountryExplanationContainer).toEqual(jasmine.any(Function));
+           expect(ResultsMapView.prototype.getCountryExplanationContainer).toEqual(jasmine.any(Function));
          });
 
          it('should retrieve correct element', function() {
            spyOn($.prototype, 'find').and.callFake(function(selector) {
-             if (selector === '.efc-searchable-results-map__map-country-search-explanation') {
+             if (selector === '.efc-results-map__map-country-search-explanation') {
                return 'fakeCountryExplanationContainer'
              }
            });
 
-           var view = new SearchableResultsMapView;
+           var view = new ResultsMapView;
            expect(view.getCountryExplanationContainer()).toBe('fakeCountryExplanationContainer');
          });
        });
@@ -343,7 +343,7 @@
      describe('rendering', function() {
        describe('.render()', function() {
          beforeEach(function() {
-           this.view = new SearchableResultsMapView;
+           this.view = new ResultsMapView;
          });
 
          it('should return view object', function() {
@@ -352,17 +352,17 @@
 
          it('should render country search explanation', function() {
            this.view.render();
-           expect(this.view.$el).toContainElement('.efc-searchable-results-map__map-country-search-explanation');
+           expect(this.view.$el).toContainElement('.efc-results-map__map-country-search-explanation');
          });
 
          it('should render map container', function() {
            this.view.render();
-           expect(this.view.$el).toContainElement('.efc-searchable-results-map__map-container');
+           expect(this.view.$el).toContainElement('.efc-results-map__map-container');
          });
 
          it('should render results map component', function() {
            this.view.render();
-           expect(this.view.$el.find('.efc-searchable-results-map__map-container')).toContainHtml(this.view.mapComponent.render().view.$el.html());
+           expect(this.view.$el.find('.efc-results-map__map-container')).toContainHtml(this.view.mapComponent.render().view.$el.html());
          });
        });
      });

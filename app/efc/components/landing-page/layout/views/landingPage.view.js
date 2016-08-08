@@ -3,8 +3,8 @@ define(function(require) {
     Backbone = require('backbone'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
     AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component'),
-    SearchableResultsMapComponent = require('app/efc/components/landing-page/results/map/searchable-results-map/main.component'),
-    SearchableResultsListComponent = require('app/efc/components/landing-page/results/list/searchable-results-list/main.component'),
+    PageableResultsListComponent = require('app/efc/components/landing-page/results/list/pageable-results-list/main.component'),
+    ResultsMapComponent = require('app/efc/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
 
   return Backbone.View.extend({
@@ -12,24 +12,24 @@ define(function(require) {
       this.search = new SearchComponent({
         advancedSearchComponent: new AdvancedSearchComponent
       });
-      this.searchableResultsList = new SearchableResultsListComponent;
-      this.searchableResultsMap = new SearchableResultsMapComponent;
+      this.pageableResultsList = new PageableResultsListComponent;
+      this.resultsMap = new ResultsMapComponent;
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'Map',
           identifier: 'map',
-          targetSelector: '.' + this.searchableResultsMap.view.className,
+          targetSelector: '.' + this.resultsMap.view.className,
           selected: true
         }, {
           title: 'List',
           identifier: 'list',
-          targetSelector: '.' + this.searchableResultsList.view.className,
+          targetSelector: '.' + this.pageableResultsList.view.className,
           selected: false
         }]
       });
 
       this.render();
-      this.searchableResultsMap.initMap();
+      this.resultsMap.initMap();
       this.requestInitialSearch();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
@@ -40,15 +40,15 @@ define(function(require) {
     },
 
     onSearchRequest: function(searchCriteria) {
-      this.searchableResultsList.onSearchRequest(searchCriteria);
-      this.searchableResultsMap.onSearchRequest(searchCriteria);
+      this.pageableResultsList.onSearchRequest(searchCriteria);
+      this.resultsMap.onSearchRequest(searchCriteria);
     },
 
     render: function() {
       $('.efc-search-container').append(this.search.render().view.el);
       $('.efc-results-container').append(this.tabSwitcher.render().view.el);
-      $('.efc-results-container').append(this.searchableResultsList.render().view.el);
-      $('.efc-results-container').append(this.searchableResultsMap.render().view.el);
+      $('.efc-results-container').append(this.pageableResultsList.render().view.el);
+      $('.efc-results-container').append(this.resultsMap.render().view.el);
 
       return this;
     }

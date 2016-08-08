@@ -1,10 +1,10 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    SearchableResultsMapView = require('./views/searchableResultsMap.view');
+    ResultsMapView = require('./views/resultsMap.view');
 
   return Component.extend({
     initialize: function(attrs) {
-      this.view = new SearchableResultsMapView;
+      this.view = new ResultsMapView;
     },
 
     initMap: function() {

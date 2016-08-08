@@ -551,13 +551,13 @@
   width: 100px;
 }
 
-/* Searchable Results List */
-.efc-searchable-results-list {
+/* EfC Results List */
+.efc-pageable-results-list {
   padding: 0;
   display: none;
 }
 
-.efc-searchable-results-list .vlr-pager {
+.efc-pageable-results-list .vlr-pager {
   padding: 10px;
 }
 
@@ -624,8 +624,8 @@
   text-decoration:underline;
 }
 
-/* Searchable Results Map */
-.efc-searchable-results-map__map-country-search-explanation {
+/* EfC Results Map Search Explanation */
+.efc-results-map__map-country-search-explanation {
   padding: 10px;
   color: #fff;
   font-size: 11px;

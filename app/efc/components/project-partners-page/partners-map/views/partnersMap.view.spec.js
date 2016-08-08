@@ -7,7 +7,7 @@ define(function(require) {
     RSVP = require('rsvp'),
     app = require('app/shared/modules/app.module');
 
-  describe('EfC Project Partners View', function() {
+  describe('EfC Project Partners Map View', function() {
     describe('type', function() {
       it('should be of view', function() {
         expect(PartnersMapView.prototype).toEqual(jasmine.any(Backbone.View));
