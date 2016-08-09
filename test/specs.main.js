@@ -124,19 +124,19 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/landing-page/layout/main.component.spec',
     'app/efc/components/landing-page/layout/views/landingPage.view.spec',
 
-    // advanced search component
+    // efc advanced search component
     'app/efc/components/landing-page/searching/advanced-search/main.component.spec',
     'app/efc/components/landing-page/searching/advanced-search/views/advancedSearch.view.spec',
     'app/efc/components/landing-page/searching/advanced-search/services/advanced-search/advancedSearch.service.spec',
 
-    // results list component
+    // efc results list component
     'app/efc/components/landing-page/results/list/results-list/main.component.spec',
     'app/efc/components/landing-page/results/list/results-list/models/result.model.spec',
     'app/efc/components/landing-page/results/list/results-list/collections/results.collection.spec',
     'app/efc/components/landing-page/results/list/results-list/views/resultsList.view.spec',
     'app/efc/components/landing-page/results/list/results-list/views/resultItem.view.spec',
 
-    // pageable results list component
+    // efc pageable results list component
     'app/efc/components/landing-page/results/list/pageable-results-list/main.component.spec',
     'app/efc/components/landing-page/results/list/pageable-results-list/views/pageableResultsList.view.spec',
     'app/efc/components/landing-page/results/list/pageable-results-list/services/search/searchInput.mapper.spec',
@@ -157,26 +157,26 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/project-partners-page/partners-map/services/projectPartnersInput.mapper.spec',
     'app/efc/components/project-partners-page/partners-map/services/projectPartnersResult.mapper.spec',
 
-    // eplus-ce util
-    'app/eplus-ce/util/constants.spec',
+    // eplus util
+    'app/eplus/util/constants.spec',
 
-    // eplus-ce router
-    'app/eplus-ce/routers/landing-page.router.spec',
+    // eplus router
+    'app/eplus/routers/landing-page.router.spec',
 
-    // eplus-ce project partners page component
-    'app/eplus-ce/components/project-partners-page/partners-map/main.component.spec',
+    // eplus project partners page component
+    'app/eplus/components/project-partners-page/partners-map/main.component.spec',
 
-    // eplus-ce landing page component
-    'app/eplus-ce/components/landing-page/layout/main.component.spec',
-    'app/eplus-ce/components/landing-page/layout/views/landingPage.view.spec',
-    'app/eplus-ce/components/landing-page/layout/util/searchCriteriaBuilder.spec',
+    // eplus landing page component
+    'app/eplus/components/landing-page/layout/main.component.spec',
+    'app/eplus/components/landing-page/layout/views/landingPage.view.spec',
+    'app/eplus/components/landing-page/layout/util/searchCriteriaBuilder.spec',
 
-    // eplus-ce results map component
-    'app/eplus-ce/components/landing-page/results/map/results-map/main.component.spec',
-    'app/eplus-ce/components/landing-page/results/map/results-map/views/resultsMap.view.spec',
-    'app/eplus-ce/components/landing-page/results/map/results-map/services/search/search.service.spec',
-    'app/eplus-ce/components/landing-page/results/map/results-map/services/search/searchInput.mapper.spec',
-    'app/eplus-ce/components/landing-page/results/map/results-map/services/search/searchResult.mapper.spec'
+    // eplus results map component
+    'app/eplus/components/landing-page/results/map/results-map/main.component.spec',
+    'app/eplus/components/landing-page/results/map/results-map/views/resultsMap.view.spec',
+    'app/eplus/components/landing-page/results/map/results-map/services/search/search.service.spec',
+    'app/eplus/components/landing-page/results/map/results-map/services/search/searchInput.mapper.spec',
+    'app/eplus/components/landing-page/results/map/results-map/services/search/searchResult.mapper.spec'
 
   ], function() {
     window.onload();

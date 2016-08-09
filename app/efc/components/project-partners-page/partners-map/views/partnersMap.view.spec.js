@@ -161,7 +161,7 @@ define(function(require) {
       describe('.render()', function() {
         beforeEach(function() {
           jasmine.getFixtures().fixturesPath = 'fixtures';
-          loadFixtures('project-partners-page.fixture.html');
+          loadFixtures('efc.project-partners-page.fixture.html');
 
           this.view = new PartnersMapView;
           this.view.render();
