@@ -15,7 +15,6 @@
     color: #AEC6DA;
 }
 
-
 /* Map items count */
 .vlr-map__items-count-container {
   display: none;
@@ -251,10 +250,11 @@
 }
 
 /* Search Container */
-.efc-search-container {
+.efc-search-container,
+.ce-search-container {
   position: relative;
   clear: both;
-  width: 550px;
+  max-width: 550px;
   margin: 0 auto;
   top: 120px;
 }
@@ -470,7 +470,8 @@
     position: absolute;
     box-sizing: border-box;
     padding: 12px;
-    width: 550px;
+    max-width: 550px;
+    width: 100%;
     top: 53px;
     background: #fff;
     font-family: sans-serif;
