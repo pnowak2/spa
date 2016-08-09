@@ -61,6 +61,9 @@ input.select2-search__field {
 	margin-top: 7px;
 }
 
+.select2-selection__clear {
+	color: #888;
+}
 .select2-container--default .select2-results > .select2-results__options {
 	font-size: 12px;
 	font-family: sans-serif;

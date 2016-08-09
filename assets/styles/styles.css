@@ -255,6 +255,7 @@
   position: relative;
   clear: both;
   max-width: 550px;
+  min-width: 250px;
   margin: 0 auto;
   top: 120px;
 }
@@ -471,6 +472,7 @@
     box-sizing: border-box;
     padding: 12px;
     max-width: 550px;
+    min-width: 250px;
     width: 100%;
     top: 53px;
     background: #fff;

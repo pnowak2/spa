@@ -14,6 +14,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
+        spyOn(MultiselectComponent.prototype, 'initialize');
         this.view = new AdvancedSearchView();
       });
 
@@ -21,6 +22,33 @@ define(function(require) {
         expect(function() {
           new AdvancedSearchView;
         }).not.toThrow();
+      });
+
+      describe('Options Section', function() {
+        it('should have property defined', function() {
+          expect(this.view.options).toEqual(jasmine.any(MultiselectComponent));
+        });
+
+        it('should initialize property with correct data', function() {
+          expect(this.view.options.initialize).toHaveBeenCalledWith([{id: 1, title: 'Ongoing', selected: true}, {id: 2, title: 'Completed', selected: true}, {id: 3, title: 'Success Stories only'}, {id: 4, title: 'with Results only'}], {
+            placeholder: 'All Options',
+            multiple: true
+          });
+        });
+      });
+
+      describe('Programmes Section', function() {
+        it('should have property defined', function() {
+          expect(this.view.programmes).toEqual(jasmine.any(MultiselectComponent));
+        });
+
+        it('should initialize property with correct data', function() {
+          expect(this.view.programmes.initialize).toHaveBeenCalledWith([{id: ''}, {id: 1, title: 'Creative Europe'}, {id: 2, title: 'Culture (2007-2013)'}], {
+            placeholder: 'All Programmes',
+            multiple: false,
+            allowClear: true
+          });
+        });
       });
     });
 
@@ -50,15 +78,50 @@ define(function(require) {
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.hasSelections).toEqual(jasmine.any(Function));
         });
+
+        it('should return true if any criteria components has selection', function() {
+          var view = new AdvancedSearchView;
+
+          spyOn(view.programmes, 'hasSelection').and.returnValue(true);
+          spyOn(view.options, 'hasSelection').and.returnValue(false);
+
+          expect(view.hasSelections()).toBe(true);
+        });
+
+        it('should return false if none of criteria components has selection', function() {
+          var view = new AdvancedSearchView;
+
+          spyOn(view.programmes, 'hasSelection').and.returnValue(false);
+          spyOn(view.options, 'hasSelection').and.returnValue(false);
+
+          expect(view.hasSelections()).toBe(false);
+        });
       });
 
       describe('.didClickClearFilters()', function() {
         beforeEach(function() {
           this.view = new AdvancedSearchView;
+          spyOn(this.view.programmes, 'unselectAll');
+          spyOn(this.view.options, 'unselectAll');
+
+          this.fakeEvent = jasmine.createSpyObj('evt', ['preventDefault']);
+          this.view.didClickClearFilters(this.fakeEvent);
         });
 
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didClickClearFilters).toEqual(jasmine.any(Function));
+        });
+
+        it('should prevent default action', function() {
+          expect(this.fakeEvent.preventDefault).toHaveBeenCalled();
+        });
+
+        it('should clear programmes component', function() {
+          expect(this.view.programmes.unselectAll).toHaveBeenCalled();
+        });
+
+        it('should clear options component', function() {
+          expect(this.view.options.unselectAll).toHaveBeenCalled();
         });
       });
     });
@@ -91,6 +154,24 @@ define(function(require) {
         it('should render clear filters link', function() {
           expect(this.$el.find('.vlr-advanced-search__header')).toContainElement('a[href="#"].vlr-advanced-search__clear');
           expect(this.$el.find('.vlr-advanced-search__header > a.vlr-advanced-search__clear')).toContainText('Clear filters');
+        });
+
+        it('should render options section', function() {
+          expect(this.$el).toContainElement('.vlr-advanced-search__section-options.vlr-advanced-search__section');
+        });
+
+        it('should render options', function() {
+          var $subview = this.view.options.render().view.$el;
+          expect(this.$el.find('.vlr-advanced-search__section-options')).toContainHtml($subview);
+        });
+
+        it('should render programmes section', function() {
+          expect(this.$el).toContainElement('.vlr-advanced-search__section-programme.vlr-advanced-search__section');
+        });
+
+        it('should render programmes', function() {
+          var $subview = this.view.programmes.render().view.$el;
+          expect(this.$el.find('.vlr-advanced-search__section-programme')).toContainHtml($subview);
         });
       });
     });
