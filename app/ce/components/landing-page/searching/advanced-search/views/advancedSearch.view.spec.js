@@ -30,7 +30,7 @@ define(function(require) {
       });
 
       it('.className should be defined', function() {
-        expect(AdvancedSearchView.prototype.className).toEqual('ce-advanced-search');
+        expect(AdvancedSearchView.prototype.className).toEqual('vlr-advanced-search');
       });
     });
 
@@ -76,11 +76,21 @@ define(function(require) {
     describe('rendering', function() {
       beforeEach(function() {
         this.view = new AdvancedSearchView;
+        this.$el = this.view.render().$el;
       });
 
       describe('.render()', function() {
         it('should return view itself', function() {
           expect(this.view.render()).toBe(this.view);
+        });
+
+        it('should render header text', function() {
+          expect(this.$el.find('h1')).toContainText('Project Criteria');
+        });
+
+        it('should render clear filters link', function() {
+          expect(this.$el.find('.vlr-advanced-search__header')).toContainElement('a[href="#"].vlr-advanced-search__clear');
+          expect(this.$el.find('.vlr-advanced-search__header > a.vlr-advanced-search__clear')).toContainText('Clear filters');
         });
       });
     });

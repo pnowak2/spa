@@ -6,7 +6,7 @@ define(function(require) {
     tpl = require('text!../templates/advancedSearch.tpl.html');
 
   return Backbone.View.extend({
-    className: 'ce-advanced-search',
+    className: 'vlr-advanced-search',
 
     events: {
       'click a.vlr-advanced-search__clear': 'didClickClearFilters'
@@ -29,6 +29,10 @@ define(function(require) {
     },
 
     render: function() {
+      var html = Mustache.render(tpl);
+
+      this.$el.html(html);
+      
       return this;
     }
   });
