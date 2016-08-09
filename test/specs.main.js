@@ -176,7 +176,16 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/eplus/components/landing-page/results/map/results-map/views/resultsMap.view.spec',
     'app/eplus/components/landing-page/results/map/results-map/services/search/search.service.spec',
     'app/eplus/components/landing-page/results/map/results-map/services/search/searchInput.mapper.spec',
-    'app/eplus/components/landing-page/results/map/results-map/services/search/searchResult.mapper.spec'
+    'app/eplus/components/landing-page/results/map/results-map/services/search/searchResult.mapper.spec',
+
+    // ce landing page component
+    'app/ce/components/landing-page/layout/main.component.spec',
+    'app/ce/components/landing-page/layout/views/landingPage.view.spec',
+
+    // ce advanced search component
+    'app/ce/components/landing-page/searching/advanced-search/main.component.spec',
+    'app/ce/components/landing-page/searching/advanced-search/views/advancedSearch.view.spec',
+    'app/ce/components/landing-page/searching/advanced-search/services/advanced-search/advancedSearch.service.spec'
 
   ], function() {
     window.onload();

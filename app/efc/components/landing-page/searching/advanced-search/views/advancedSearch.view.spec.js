@@ -5,7 +5,7 @@ define(function(require) {
     advancedSearchService = require('../services/advanced-search/advancedSearch.service'),
     MultiselectComponent = require('app/shared/components/multiselect/main.component');
 
-  describe('Advanced Search View', function() {
+  describe('EfC Advanced Search View', function() {
     describe('type', function() {
       it('should be of view', function() {
         expect(AdvancedSearchView.prototype).toEqual(jasmine.any(Backbone.View));
@@ -67,7 +67,7 @@ define(function(require) {
       });
 
       it('.className should be defined', function() {
-        expect(AdvancedSearchView.prototype.className).toEqual('efc-advanced-search');
+        expect(AdvancedSearchView.prototype.className).toEqual('vlr-advanced-search');
       });
     });
 
@@ -340,7 +340,7 @@ define(function(require) {
       describe('dom', function() {
         it('should have be properly defined', function() {
           expect(AdvancedSearchView.prototype.events).toEqual({
-            'click a.efc-advanced-search__clear': 'didClickClearFilters'
+            'click a.vlr-advanced-search__clear': 'didClickClearFilters'
           });
         });
       });
@@ -375,16 +375,16 @@ define(function(require) {
         });
 
         it('should render clear filters link', function() {
-          expect(this.$el.find('.efc-advanced-search__header')).toContainElement('a[href="#"].efc-advanced-search__clear');
-          expect(this.$el.find('.efc-advanced-search__header > a.efc-advanced-search__clear')).toContainText('Clear filters');
+          expect(this.$el.find('.vlr-advanced-search__header')).toContainElement('a[href="#"].vlr-advanced-search__clear');
+          expect(this.$el.find('.vlr-advanced-search__header > a.vlr-advanced-search__clear')).toContainText('Clear filters');
         });
 
         it('should render five sections', function() {
-          expect(this.$el.find('.efc-advanced-search__section')).toHaveLength(5);
+          expect(this.$el.find('.vlr-advanced-search__section')).toHaveLength(5);
         });
 
         it('should render call years section', function() {
-          expect(this.$el).toContainElement('#efc-year.efc-advanced-search__section');
+          expect(this.$el).toContainElement('#efc-year.vlr-advanced-search__section');
           expect(this.$el.find('#efc-year > label')).toContainText('Year');
         });
 
@@ -394,7 +394,7 @@ define(function(require) {
         });
 
         it('should render country section', function() {
-          expect(this.$el).toContainElement('#efc-country.efc-advanced-search__section');
+          expect(this.$el).toContainElement('#efc-country.vlr-advanced-search__section');
           expect(this.$el.find('#efc-country > label')).toContainText('Country');
         });
 
@@ -404,7 +404,7 @@ define(function(require) {
         });
 
         it('should render activity section', function() {
-          expect(this.$el).toContainElement('#efc-activity.efc-advanced-search__section');
+          expect(this.$el).toContainElement('#efc-activity.vlr-advanced-search__section');
           expect(this.$el.find('#efc-activity > label')).toContainText('Activity');
         });
 
@@ -414,7 +414,7 @@ define(function(require) {
         });
 
         it('should render subactivity section', function() {
-          expect(this.$el).toContainElement('#efc-subactivity.efc-advanced-search__section');
+          expect(this.$el).toContainElement('#efc-subactivity.vlr-advanced-search__section');
           expect(this.$el.find('#efc-subactivity > label')).toContainText('Sub-Activity');
         });
 
@@ -424,7 +424,7 @@ define(function(require) {
         });
 
         it('should render organisation type section', function() {
-          expect(this.$el).toContainElement('#efc-organisation-type.efc-advanced-search__section');
+          expect(this.$el).toContainElement('#efc-organisation-type.vlr-advanced-search__section');
           expect(this.$el.find('#efc-organisation-type > label')).toContainText('Type of Organisation');
         });
 

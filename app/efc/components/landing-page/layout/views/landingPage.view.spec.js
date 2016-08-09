@@ -156,22 +156,22 @@ define(function(require) {
         });
 
         it('should render search component in appropriate container', function() {
-          var markup = this.view.search.render().el;
+          var markup = this.view.search.render().view.el;
           expect($('.efc-search-container')).toContainHtml(markup);
         });
 
         it('should render tab switcher component to appropriate container', function() {
-          var markup = this.view.tabSwitcher.render().el;
+          var markup = this.view.tabSwitcher.render().view.el;
           expect($('.efc-results-container')).toContainHtml(markup);
         });
 
         it('should render pageable list component to appropriate container', function() {
-          var markup = this.view.pageableResultsList.render().el;
+          var markup = this.view.pageableResultsList.render().view.el;
           expect($('.efc-results-container')).toContainHtml(markup);
         });
 
         it('should render results map component to appropriate container', function() {
-          var markup = this.view.resultsMap.render().el;
+          var markup = this.view.resultsMap.render().view.el;
           expect($('.efc-results-container')).toContainHtml(markup);
         });
       });

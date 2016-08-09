@@ -3,7 +3,7 @@ define(function(require) {
     AdvancedSearchComponent = require('./main.component'),
     AdvancedSearchView = require('./views/advancedSearch.view');
 
-  describe('EfC Advanced Search Component', function() {
+  describe('CE Advanced Search Component', function() {
     describe('type', function() {
       it('should be of component', function() {
         expect(AdvancedSearchComponent.prototype).toEqual(jasmine.any(Component));

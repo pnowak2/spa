@@ -465,7 +465,7 @@
 }
 
 /* Advanced Search*/
-.efc-advanced-search {
+.vlr-advanced-search {
     display: none;
     position: absolute;
     box-sizing: border-box;
@@ -479,7 +479,7 @@
     z-index: 1000;
 }
 
-.efc-advanced-search:after {
+.vlr-advanced-search:after {
     content: '';
     position: absolute;
     display: block;
@@ -493,13 +493,13 @@
     border-left: 10px solid transparent;
 }
 
-.efc-advanced-search__header {
+.vlr-advanced-search__header {
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
 
-.efc-advanced-search__title {
+.vlr-advanced-search__title {
     margin: 0;
     padding: 0;
     color: #888;
@@ -507,24 +507,24 @@
     font-weight: bold;
 }
 
-.efc-advanced-search__clear,
-.efc-advanced-search__clear:hover,
-.efc-advanced-search__clear:visited {
+.vlr-advanced-search__clear,
+.vlr-advanced-search__clear:hover,
+.vlr-advanced-search__clear:visited {
     float: right;
     color: #666;
     font-size: 12px;
     cursor: pointer;
 }
 
-.efc-advanced-search__section {
+.vlr-advanced-search__section {
     margin-bottom: 5px;
 }
 
-.efc-advanced-search__section:last-child {
+.vlr-advanced-search__section:last-child {
     margin-bottom: 0;
 }
 
-.efc-advanced-search__section-label {
+.vlr-advanced-search__section-label {
     display: inline-block;
     margin-bottom: 3px;
     color: #888;

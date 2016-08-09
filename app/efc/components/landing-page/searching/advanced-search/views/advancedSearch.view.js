@@ -6,10 +6,10 @@ define(function(require) {
     tpl = require('text!../templates/advancedSearch.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-advanced-search',
+    className: 'vlr-advanced-search',
 
     events: {
-      'click a.efc-advanced-search__clear': 'didClickClearFilters'
+      'click a.vlr-advanced-search__clear': 'didClickClearFilters'
     },
 
     initialize: function() {

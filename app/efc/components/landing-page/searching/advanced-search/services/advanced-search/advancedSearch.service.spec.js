@@ -6,7 +6,7 @@ define(function(require) {
     subactivitiesDataSource = require('app/efc/data/subactivities.datasource'),
     organisationTypesDataSource = require('app/efc/data/organisationTypes.datasource');
 
-  describe('api', function() {
+  describe('EfC Advanced Search Service', function() {
 
     beforeEach(function() {
       spyOn(countriesDataSource, 'getItems').and.returnValue([{
