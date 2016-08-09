@@ -3,7 +3,7 @@ define(function(require) {
   	LandingPageView = require('./views/landingPage.view'),
     LandingPageComponent = require('./main.component');
 
-  describe('Eplus/CE Landing Page Component', function() {
+  describe('Eplus Landing Page Component', function() {
     describe('type', function() {
       it('should be of component', function() {
         expect(LandingPageComponent.prototype).toEqual(jasmine.any(Component));

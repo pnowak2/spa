@@ -25,7 +25,7 @@
 
        describe('.className', function() {
          it('should be defined', function() {
-           expect(ResultsMapView.prototype.className).toEqual('eplus-ce-results-map');
+           expect(ResultsMapView.prototype.className).toEqual('eplus-results-map');
          });
        });
      });

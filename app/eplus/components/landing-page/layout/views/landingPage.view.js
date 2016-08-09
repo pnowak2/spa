@@ -20,7 +20,7 @@ define(function(require) {
         }, {
           title: 'Map',
           identifier: 'map',
-          targetSelector: '.eplus-ce-map-container',
+          targetSelector: '.map-container',
           selected: false
         }]
       });

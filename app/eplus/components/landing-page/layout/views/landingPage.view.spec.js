@@ -7,7 +7,7 @@ define(function(require) {
     searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
     router = require('app/eplus/routers/landing-page.router');
 
-  describe('Eplus/CE Landing Page View', function() {
+  describe('Eplus Landing Page View', function() {
     describe('type', function() {
       it('should be of view', function() {
         expect(LandingPageView.prototype).toEqual(jasmine.any(Backbone.View));
@@ -47,7 +47,7 @@ define(function(require) {
           }, {
             title: 'Map',
             identifier: 'map',
-            targetSelector: '.eplus-ce-map-container',
+            targetSelector: '.map-container',
             selected: false
           }]
         })

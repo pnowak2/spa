@@ -34,8 +34,8 @@ define(function(require) {
     modernizr = require('modernizr'),
     module = require('module'),
     applicationModule = require('app/shared/modules/app.module'),
-    EplusCEProjectPartnersPage = require('app/eplus/components/project-partners-page/partners-map/main.component'),
-    eplusCeProjectPartnersPage = new EplusCEProjectPartnersPage(module.config());
+    EplusProjectPartnersPage = require('app/eplus/components/project-partners-page/partners-map/main.component'),
+    eplusProjectPartnersPage = new EplusProjectPartnersPage(module.config());
 
   Backbone.history.start();
 });
