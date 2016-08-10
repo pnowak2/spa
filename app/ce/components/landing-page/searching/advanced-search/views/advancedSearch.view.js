@@ -17,11 +17,44 @@ define(function(require) {
         placeholder: 'All Options',
         multiple: true
       });
-
       this.programmes = new MultiselectComponent([{id: ''}, {id: 1, title: 'Creative Europe'}, {id: 2, title: 'Culture (2007-2013)'}], {
         placeholder: 'All Programmes',
         multiple: false,
         allowClear: true
+      });
+      this.subprogrammes = new MultiselectComponent([], {
+        placeholder: 'All Subprogrammes / All Funding Schemes',
+        multiple: false,
+        allowClear: true
+      });
+      this.actions = new MultiselectComponent([], {
+        placeholder: 'All Actions',
+        multiple: false,
+        allowClear: true
+      });
+      this.activities = new MultiselectComponent([], {
+        placeholder: 'All Activities',
+        multiple: true
+      });
+      this.activityYears = new MultiselectComponent([], {
+        placeholder: 'All Activity Years',
+        multiple: true
+      });
+      this.fundingYears = new MultiselectComponent([], {
+        placeholder: 'All Funding Years',
+        multiple: true
+      });
+      this.countries = new MultiselectComponent([], {
+        placeholder: 'All Countries',
+        multiple: true
+      });
+      this.regions = new MultiselectComponent([], {
+        placeholder: 'All Regions',
+        multiple: true
+      });
+      this.organisationTypes = new MultiselectComponent([], {
+        placeholder: 'All Organisation Types',
+        multiple: true
       });
     },
 
@@ -30,15 +63,31 @@ define(function(require) {
     },
 
     hasSelections: function() {
-      return this.programmes.hasSelection() ||
-        this.options.hasSelection();
+      return this.options.hasSelection() ||
+        this.programmes.hasSelection() ||
+        this.subprogrammes.hasSelection() ||
+        this.actions.hasSelection() ||
+        this.activities.hasSelection() ||
+        this.activityYears.hasSelection() ||
+        this.fundingYears.hasSelection() ||
+        this.countries.hasSelection() ||
+        this.regions.hasSelection() ||
+        this.organisationTypes.hasSelection();
     },
 
     didClickClearFilters: function(e) {
       e.preventDefault();
 
-      this.programmes.unselectAll();
       this.options.unselectAll();
+      this.programmes.unselectAll();
+      this.subprogrammes.unselectAll();
+      this.actions.unselectAll();
+      this.activities.unselectAll();
+      this.activityYears.unselectAll();
+      this.fundingYears.unselectAll();
+      this.countries.unselectAll();
+      this.regions.unselectAll();
+      this.organisationTypes.unselectAll();
     },
 
     render: function() {
@@ -47,7 +96,15 @@ define(function(require) {
       this.$el.html(html);
 
       this.$el.find('.vlr-advanced-search__section-options').append(this.options.render().view.el);
-      this.$el.find('.vlr-advanced-search__section-programme').append(this.programmes.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-programmes').append(this.programmes.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-subprogrammes').append(this.subprogrammes.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-actions').append(this.actions.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-activities').append(this.activities.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-activity-years').append(this.activityYears.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-funding-years').append(this.fundingYears.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-countries').append(this.countries.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-regions').append(this.regions.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-organisation-types').append(this.organisationTypes.render().view.el);
       
       return this;
     }

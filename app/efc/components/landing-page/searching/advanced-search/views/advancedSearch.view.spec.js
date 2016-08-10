@@ -375,8 +375,8 @@ define(function(require) {
         });
 
         it('should render clear filters link', function() {
-          expect(this.$el.find('.vlr-advanced-search__header')).toContainElement('a[href="#"].vlr-advanced-search__clear');
-          expect(this.$el.find('.vlr-advanced-search__header > a.vlr-advanced-search__clear')).toContainText('Clear filters');
+          expect(this.$el.find('.vlr-advanced-search__header-toolbar')).toContainElement('a[href="#"].vlr-advanced-search__clear');
+          expect(this.$el.find('.vlr-advanced-search__header-toolbar > a.vlr-advanced-search__clear')).toContainText('Clear filters');
         });
 
         it('should render five sections', function() {

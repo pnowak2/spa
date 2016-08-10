@@ -500,14 +500,30 @@
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
-.vlr-advanced-search__title {
+.vlr-advanced-search__header:first-child {
+    margin-top: 0;
+}
+
+.vlr-advanced-search__header-title {
     margin: 0;
     padding: 0;
     color: #888;
     font-size: 14px;
     font-weight: bold;
+}
+
+.vlr-advanced-search__header-toolbar {
+  display: inline-block;
+  float: right;
+  font-size: 12px;
+  color: #666;
+}
+
+.vlr-advanced-search__header-toolbar input {
+  vertical-align: middle;
 }
 
 .vlr-advanced-search__clear,
