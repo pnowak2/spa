@@ -6,6 +6,10 @@
     margin: 0;
 }
 
+.select2 *:focus {
+    outline: none;
+}
+
 .select2-dropdown {
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -76,4 +80,9 @@ input.select2-search__field {
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
 	background-color: #084886;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #aaa;
+    margin-left: -2px;
 }
