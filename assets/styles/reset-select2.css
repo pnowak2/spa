@@ -15,8 +15,8 @@
 	border-radius: 3px;
 }
 
-input.select2-search__field {
-	/*width: 50px !important;*/
+.select2-search--inline:first-child input.select2-search__field {
+	width: 150px !important;
 }
 
 .select2-container--default .select2-selection--multiple {
