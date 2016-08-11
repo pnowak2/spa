@@ -158,12 +158,12 @@ define(function(require) {
         });
       });
 
-      describe('.hasSelections()', function() {
+      describe('.isDirty()', function() {
         it('should be defined', function() {
-          expect(AdvancedSearchView.prototype.hasSelections).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchView.prototype.isDirty).toEqual(jasmine.any(Function));
         });
 
-        it('should return true if any criteria components has selection', function() {
+        it('should return true if any criteria components has changed', function() {
           var view = new AdvancedSearchView;
 
           spyOn(view.callYears, 'hasSelection').and.returnValue(true);
@@ -172,10 +172,10 @@ define(function(require) {
           spyOn(view.subactivities, 'hasSelection').and.returnValue(false);
           spyOn(view.organisationTypes, 'hasSelection').and.returnValue(false);
 
-          expect(view.hasSelections()).toBe(true);
+          expect(view.isDirty()).toBe(true);
         });
 
-        it('should return false if none of criteria components has selection', function() {
+        it('should return false if none of criteria components has changed', function() {
           var view = new AdvancedSearchView;
 
           spyOn(view.callYears, 'hasSelection').and.returnValue(false);
@@ -184,7 +184,7 @@ define(function(require) {
           spyOn(view.subactivities, 'hasSelection').and.returnValue(false);
           spyOn(view.organisationTypes, 'hasSelection').and.returnValue(false);
 
-          expect(view.hasSelections()).toBe(false);
+          expect(view.isDirty()).toBe(false);
         });
       });
 

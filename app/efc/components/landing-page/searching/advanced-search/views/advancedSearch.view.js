@@ -43,7 +43,7 @@ define(function(require) {
       }
     },
 
-    hasSelections: function() {
+    isDirty: function() {
       return this.callYears.hasSelection() ||
         this.countries.hasSelection() ||
         this.activities.hasSelection() ||

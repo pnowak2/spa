@@ -180,59 +180,59 @@ define(function(require) {
         });
       });
 
-      describe('.hasSelections()', function() {
+      describe('.isDirty()', function() {
         it('should be defined', function() {
-          expect(AdvancedSearchView.prototype.hasSelections).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchView.prototype.isDirty).toEqual(jasmine.any(Function));
         });
 
-        it('should return true if any criteria components has selection', function() {
+        it('should return true if any criteria components has changed', function() {
           var view = new AdvancedSearchView;
 
-          spyOn(view.options, 'hasSelection').and.returnValue(false);
-          spyOn(view.programmes, 'hasSelection').and.returnValue(true);
-          spyOn(view.subprogrammes, 'hasSelection').and.returnValue(false);
-          spyOn(view.actions, 'hasSelection').and.returnValue(false);
-          spyOn(view.activities, 'hasSelection').and.returnValue(false);
-          spyOn(view.activityYears, 'hasSelection').and.returnValue(false);
-          spyOn(view.fundingYears, 'hasSelection').and.returnValue(false);
-          spyOn(view.countries, 'hasSelection').and.returnValue(false);
-          spyOn(view.regions, 'hasSelection').and.returnValue(false);
-          spyOn(view.organisationTypes, 'hasSelection').and.returnValue(false);
+          spyOn(view.options, 'isDirty').and.returnValue(false);
+          spyOn(view.programmes, 'isDirty').and.returnValue(true);
+          spyOn(view.subprogrammes, 'isDirty').and.returnValue(false);
+          spyOn(view.actions, 'isDirty').and.returnValue(false);
+          spyOn(view.activities, 'isDirty').and.returnValue(false);
+          spyOn(view.activityYears, 'isDirty').and.returnValue(false);
+          spyOn(view.fundingYears, 'isDirty').and.returnValue(false);
+          spyOn(view.countries, 'isDirty').and.returnValue(false);
+          spyOn(view.regions, 'isDirty').and.returnValue(false);
+          spyOn(view.organisationTypes, 'isDirty').and.returnValue(false);
 
-          expect(view.hasSelections()).toBe(true);
+          expect(view.isDirty()).toBe(true);
         });
 
-        it('should return false if none of criteria components has selection', function() {
+        it('should return false if none of criteria components has changed', function() {
           var view = new AdvancedSearchView;
 
-          spyOn(view.options, 'hasSelection').and.returnValue(false);
-          spyOn(view.programmes, 'hasSelection').and.returnValue(false);
-          spyOn(view.subprogrammes, 'hasSelection').and.returnValue(false);
-          spyOn(view.actions, 'hasSelection').and.returnValue(false);
-          spyOn(view.activities, 'hasSelection').and.returnValue(false);
-          spyOn(view.activityYears, 'hasSelection').and.returnValue(false);
-          spyOn(view.fundingYears, 'hasSelection').and.returnValue(false);
-          spyOn(view.countries, 'hasSelection').and.returnValue(false);
-          spyOn(view.regions, 'hasSelection').and.returnValue(false);
-          spyOn(view.organisationTypes, 'hasSelection').and.returnValue(false);
+          spyOn(view.options, 'isDirty').and.returnValue(false);
+          spyOn(view.programmes, 'isDirty').and.returnValue(false);
+          spyOn(view.subprogrammes, 'isDirty').and.returnValue(false);
+          spyOn(view.actions, 'isDirty').and.returnValue(false);
+          spyOn(view.activities, 'isDirty').and.returnValue(false);
+          spyOn(view.activityYears, 'isDirty').and.returnValue(false);
+          spyOn(view.fundingYears, 'isDirty').and.returnValue(false);
+          spyOn(view.countries, 'isDirty').and.returnValue(false);
+          spyOn(view.regions, 'isDirty').and.returnValue(false);
+          spyOn(view.organisationTypes, 'isDirty').and.returnValue(false);
 
-          expect(view.hasSelections()).toBe(false);
+          expect(view.isDirty()).toBe(false);
         });
       });
 
       describe('.didClickClearFilters()', function() {
         beforeEach(function() {
           this.view = new AdvancedSearchView;
-          spyOn(this.view.options, 'unselectAll');
-          spyOn(this.view.programmes, 'unselectAll');
-          spyOn(this.view.subprogrammes, 'unselectAll');
-          spyOn(this.view.actions, 'unselectAll');
-          spyOn(this.view.activities, 'unselectAll');
-          spyOn(this.view.activityYears, 'unselectAll');
-          spyOn(this.view.fundingYears, 'unselectAll');
-          spyOn(this.view.countries, 'unselectAll');
-          spyOn(this.view.regions, 'unselectAll');
-          spyOn(this.view.organisationTypes, 'unselectAll');
+          spyOn(this.view.options, 'update');
+          spyOn(this.view.programmes, 'update');
+          spyOn(this.view.subprogrammes, 'update');
+          spyOn(this.view.actions, 'update');
+          spyOn(this.view.activities, 'update');
+          spyOn(this.view.activityYears, 'update');
+          spyOn(this.view.fundingYears, 'update');
+          spyOn(this.view.countries, 'update');
+          spyOn(this.view.regions, 'update');
+          spyOn(this.view.organisationTypes, 'update');
 
           this.fakeEvent = jasmine.createSpyObj('evt', ['preventDefault']);
           this.view.didClickClearFilters(this.fakeEvent);
@@ -247,43 +247,43 @@ define(function(require) {
         });
 
         it('should clear options component', function() {
-          expect(this.view.options.unselectAll).toHaveBeenCalled();
+          expect(this.view.options.update).toHaveBeenCalledWith(advancedSearchService.allOptions());
         });
 
         it('should clear programmes component', function() {
-          expect(this.view.programmes.unselectAll).toHaveBeenCalled();
+          expect(this.view.programmes.update).toHaveBeenCalledWith(advancedSearchService.allProgrammes());
         });
 
         it('should clear subprogrammes component', function() {
-          expect(this.view.subprogrammes.unselectAll).toHaveBeenCalled();
+          expect(this.view.subprogrammes.update).toHaveBeenCalledWith([]);
         });
 
         it('should clear actions component', function() {
-          expect(this.view.actions.unselectAll).toHaveBeenCalled();
+          expect(this.view.actions.update).toHaveBeenCalledWith([]);
         });
 
         it('should clear activities component', function() {
-          expect(this.view.activities.unselectAll).toHaveBeenCalled();
+          expect(this.view.activities.update).toHaveBeenCalledWith([]);
         });
 
         it('should clear activity years component', function() {
-          expect(this.view.activityYears.unselectAll).toHaveBeenCalled();
+          expect(this.view.activityYears.update).toHaveBeenCalledWith(advancedSearchService.allActivityYears());
         });
 
         it('should clear funding years component', function() {
-          expect(this.view.fundingYears.unselectAll).toHaveBeenCalled();
+          expect(this.view.fundingYears.update).toHaveBeenCalledWith(advancedSearchService.allFundingYears());
         });
 
         it('should clear countries component', function() {
-          expect(this.view.countries.unselectAll).toHaveBeenCalled();
+          expect(this.view.countries.update).toHaveBeenCalledWith(advancedSearchService.allCountries());
         });
 
         it('should clear regions component', function() {
-          expect(this.view.regions.unselectAll).toHaveBeenCalled();
+          expect(this.view.regions.update).toHaveBeenCalledWith([]);
         });
 
         it('should clear organisation types component', function() {
-          expect(this.view.organisationTypes.unselectAll).toHaveBeenCalled();
+          expect(this.view.organisationTypes.update).toHaveBeenCalledWith(advancedSearchService.allOrganisationTypes());
         });
       });
     });

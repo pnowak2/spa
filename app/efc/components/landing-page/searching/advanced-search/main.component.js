@@ -11,8 +11,8 @@ define(function(require) {
       return this.view.getCriteria();
     },
 
-    hasSelections: function() {
-      return this.view.hasSelections();
+    isDirty: function() {
+      return this.view.isDirty();
     }
   });
 });

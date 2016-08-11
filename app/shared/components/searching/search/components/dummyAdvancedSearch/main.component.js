@@ -5,6 +5,6 @@ define(function(require) {
   return Component.extend({
     view: new(Backbone.View.extend()),
     getCriteria: function() {},
-    hasSelections: function() {}
+    isDirty: function() {}
   });
 });

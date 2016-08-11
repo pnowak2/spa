@@ -35,7 +35,7 @@ define(function(require) {
     },
 
     didPressKeyInSearchbox: function() {
-      if (this.advancedSearch.hasSelections()) {
+      if (this.advancedSearch.isDirty()) {
         this.advancedSearch.show();
         this.searchBox.toggleMoreButtonStateToOpened();
       }

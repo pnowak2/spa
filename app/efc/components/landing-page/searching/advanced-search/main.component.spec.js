@@ -37,18 +37,18 @@ define(function(require) {
         });
       });
 
-      describe('.hasSelections()', function() {
+      describe('.isDirty()', function() {
         it('should be defined', function() {
-          expect(AdvancedSearchComponent.prototype.hasSelections).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchComponent.prototype.isDirty).toEqual(jasmine.any(Function));
         });
 
         it('should delegate to view', function() {
           var component = new AdvancedSearchComponent,
             fakeHasSelections = {};
 
-          spyOn(AdvancedSearchView.prototype, 'hasSelections').and.returnValue(fakeHasSelections);
+          spyOn(AdvancedSearchView.prototype, 'isDirty').and.returnValue(fakeHasSelections);
 
-          expect(component.hasSelections()).toBe(fakeHasSelections);
+          expect(component.isDirty()).toBe(fakeHasSelections);
         });
       });
     });

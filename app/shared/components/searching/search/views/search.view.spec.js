@@ -112,8 +112,8 @@ define(function(require) {
           expect(SearchView.prototype.didPressKeyInSearchbox).toEqual(jasmine.any(Function));
         });
 
-        it('should show advanced search and toggle more button to open if there are any selections active', function() {
-          spyOn(this.view.advancedSearch, 'hasSelections').and.returnValue(true);
+        it('should show advanced search and toggle more button to open if criteria is changed (dirty)', function() {
+          spyOn(this.view.advancedSearch, 'isDirty').and.returnValue(true);
 
           this.view.didPressKeyInSearchbox();
 
@@ -121,8 +121,8 @@ define(function(require) {
           expect(this.view.searchBox.toggleMoreButtonStateToOpened).toHaveBeenCalled();
         });
 
-        it('should not show advanced search nor toggle more button to open if there are no selections active', function() {
-          spyOn(this.view.advancedSearch, 'hasSelections').and.returnValue(false);
+        it('should not show advanced search nor toggle more button to open if criteria is changed (dirty)', function() {
+          spyOn(this.view.advancedSearch, 'isDirty').and.returnValue(false);
 
           this.view.didPressKeyInSearchbox();
 

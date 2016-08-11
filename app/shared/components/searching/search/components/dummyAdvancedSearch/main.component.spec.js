@@ -24,9 +24,9 @@ define(function(require) {
         });
       });
 
-      describe('.hasSelections()', function() {
+      describe('.isDirty()', function() {
         it('should be defined', function() {
-          expect(DummyComponent.prototype.hasSelections).toEqual(jasmine.any(Function));
+          expect(DummyComponent.prototype.isDirty).toEqual(jasmine.any(Function));
         });
       });
     });

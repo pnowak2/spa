@@ -62,32 +62,32 @@ define(function(require) {
 
     },
 
-    hasSelections: function() {
-      return this.options.hasSelection() ||
-        this.programmes.hasSelection() ||
-        this.subprogrammes.hasSelection() ||
-        this.actions.hasSelection() ||
-        this.activities.hasSelection() ||
-        this.activityYears.hasSelection() ||
-        this.fundingYears.hasSelection() ||
-        this.countries.hasSelection() ||
-        this.regions.hasSelection() ||
-        this.organisationTypes.hasSelection();
+    isDirty: function() {
+      return this.options.isDirty() ||
+        this.programmes.isDirty() ||
+        this.subprogrammes.isDirty() ||
+        this.actions.isDirty() ||
+        this.activities.isDirty() ||
+        this.activityYears.isDirty() ||
+        this.fundingYears.isDirty() ||
+        this.countries.isDirty() ||
+        this.regions.isDirty() ||
+        this.organisationTypes.isDirty();
     },
 
     didClickClearFilters: function(e) {
       e.preventDefault();
 
-      this.options.unselectAll();
-      this.programmes.unselectAll();
-      this.subprogrammes.unselectAll();
-      this.actions.unselectAll();
-      this.activities.unselectAll();
-      this.activityYears.unselectAll();
-      this.fundingYears.unselectAll();
-      this.countries.unselectAll();
-      this.regions.unselectAll();
-      this.organisationTypes.unselectAll();
+      this.options.update(advancedSearchService.allOptions());
+      this.programmes.update(advancedSearchService.allProgrammes());
+      this.subprogrammes.update([]);
+      this.actions.update([]);
+      this.activities.update([]);
+      this.activityYears.update(advancedSearchService.allActivityYears());
+      this.fundingYears.update(advancedSearchService.allFundingYears());
+      this.countries.update(advancedSearchService.allCountries());
+      this.regions.update([]);
+      this.organisationTypes.update(advancedSearchService.allOrganisationTypes());
     },
 
     render: function() {
