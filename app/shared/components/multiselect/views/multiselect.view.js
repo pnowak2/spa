@@ -71,6 +71,10 @@ define(function(require) {
       return this.collection.hasSelection();
     },
 
+    isDirty: function () {
+      return this.collection.isDirty();
+    },
+
     selectItems: function(itemIds) {
       this.collection.selectItems(itemIds);
       this.render();

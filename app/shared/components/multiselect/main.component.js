@@ -28,6 +28,10 @@ define(function(require) {
       return this.view.hasSelection();
     },
 
+    isDirty: function () {
+      return this.view.isDirty();
+    },
+
     selectItems: function(itemIds) {
       this.view.selectItems(itemIds);
     },

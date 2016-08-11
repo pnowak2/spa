@@ -6,6 +6,12 @@ define(function(require) {
   return Backbone.Collection.extend({
     model: SelectItemModel,
 
+    initialize: function(models, options) {
+      this.originalItems = new (Backbone.Collection.extend({
+        model: SelectItemModel
+      }))(models).toJSON();
+    },
+
     selectedItems: function() {
       return this.where({
         selected: true
@@ -22,6 +28,10 @@ define(function(require) {
 
     hasSelection: function() {
       return !_.isEmpty(this.selectedItems());
+    },
+
+    isDirty: function() {
+      return !_.isEqual(this.toJSON(), this.originalItems);
     },
 
     selectItems: function(itemIds) {

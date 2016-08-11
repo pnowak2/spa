@@ -94,6 +94,53 @@ define(function(require) {
         });
       });
 
+      describe('.isDirty()', function() {
+        it('should be defined', function() {
+          expect(MultiselectCollection.prototype.isDirty).toEqual(jasmine.any(Function));
+        });
+
+        it('should return false if collection was not changed after initialization', function() {
+          var collection = new MultiselectCollection([{
+            id: 'pl',
+            selected: true
+          }, {
+            id: 'de',
+            selected: false
+          }]);
+
+          expect(collection.isDirty()).toBe(false);
+        });
+
+        it('should return false if collection was changed after initialization but has the same content as at the beginning', function() {
+          var collection = new MultiselectCollection([{
+            id: 'pl',
+            selected: true
+          }, {
+            id: 'de',
+            selected: false
+          }]);
+
+          collection.selectItem('de');
+          collection.unselectItem('de');
+
+          expect(collection.isDirty()).toBe(false);
+        });
+
+        it('should return true if collection was changed after initialization and has other content than at the beginning', function() {
+          var collection = new MultiselectCollection([{
+            id: 'pl',
+            selected: true
+          }, {
+            id: 'de',
+            selected: false
+          }]);
+
+          collection.selectItem('de');
+
+          expect(collection.isDirty()).toBe(true);
+        });
+      });
+
       describe('.selectItem()', function() {
         it('should be defined', function() {
           expect(MultiselectCollection.prototype.selectItem).toEqual(jasmine.any(Function));
