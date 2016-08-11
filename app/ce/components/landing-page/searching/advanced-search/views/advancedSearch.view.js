@@ -13,11 +13,11 @@ define(function(require) {
     },
 
     initialize: function() {
-      this.options = new MultiselectComponent([{id: 1, title: 'Ongoing', selected: true}, {id: 2, title: 'Completed', selected: true}, {id: 3, title: 'Success Stories only'}, {id: 4, title: 'with Results only'}], {
+      this.options = new MultiselectComponent(advancedSearchService.allOptions(), {
         placeholder: 'All Options',
         multiple: true
       });
-      this.programmes = new MultiselectComponent([{id: ''}, {id: 1, title: 'Creative Europe'}, {id: 2, title: 'Culture (2007-2013)'}], {
+      this.programmes = new MultiselectComponent(advancedSearchService.allProgrammes(), {
         placeholder: 'All Programmes',
         multiple: false,
         allowClear: true
@@ -36,15 +36,15 @@ define(function(require) {
         placeholder: 'All Activities',
         multiple: true
       });
-      this.activityYears = new MultiselectComponent([], {
+      this.activityYears = new MultiselectComponent(advancedSearchService.allActivityYears(), {
         placeholder: 'All Activity Years',
         multiple: true
       });
-      this.fundingYears = new MultiselectComponent([], {
+      this.fundingYears = new MultiselectComponent(advancedSearchService.allFundingYears(), {
         placeholder: 'All Funding Years',
         multiple: true
       });
-      this.countries = new MultiselectComponent([], {
+      this.countries = new MultiselectComponent(advancedSearchService.allCountries(), {
         placeholder: 'All Countries',
         multiple: true
       });
@@ -52,7 +52,7 @@ define(function(require) {
         placeholder: 'All Regions',
         multiple: true
       });
-      this.organisationTypes = new MultiselectComponent([], {
+      this.organisationTypes = new MultiselectComponent(advancedSearchService.allOrganisationTypes(), {
         placeholder: 'All Organisation Types',
         multiple: true
       });

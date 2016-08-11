@@ -2,6 +2,8 @@ define(function(require) {
   return {
     getItems: function() {
       return [{
+        id: ''
+      }, {
         id: '31052583',
         title: 'Creative Europe'
       }, {

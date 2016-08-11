@@ -30,21 +30,7 @@ define(function(require) {
         });
 
         it('should initialize property with correct data', function() {
-          expect(this.view.options.initialize).toHaveBeenCalledWith([{
-            id: 1,
-            title: 'Ongoing',
-            selected: true
-          }, {
-            id: 2,
-            title: 'Completed',
-            selected: true
-          }, {
-            id: 3,
-            title: 'Success Stories only'
-          }, {
-            id: 4,
-            title: 'with Results only'
-          }], {
+          expect(this.view.options.initialize).toHaveBeenCalledWith(advancedSearchService.allOptions(), {
             placeholder: 'All Options',
             multiple: true
           });
@@ -57,15 +43,7 @@ define(function(require) {
         });
 
         it('should initialize property with correct data', function() {
-          expect(this.view.programmes.initialize).toHaveBeenCalledWith([{
-            id: ''
-          }, {
-            id: 1,
-            title: 'Creative Europe'
-          }, {
-            id: 2,
-            title: 'Culture (2007-2013)'
-          }], {
+          expect(this.view.programmes.initialize).toHaveBeenCalledWith(advancedSearchService.allProgrammes(), {
             placeholder: 'All Programmes',
             multiple: false,
             allowClear: true
@@ -120,7 +98,7 @@ define(function(require) {
         });
 
         it('should initialize property with correct data', function() {
-          expect(this.view.activityYears.initialize).toHaveBeenCalledWith([], {
+          expect(this.view.activityYears.initialize).toHaveBeenCalledWith(advancedSearchService.allActivityYears(), {
             placeholder: 'All Activity Years',
             multiple: true
           });
@@ -133,7 +111,7 @@ define(function(require) {
         });
 
         it('should initialize property with correct data', function() {
-          expect(this.view.fundingYears.initialize).toHaveBeenCalledWith([], {
+          expect(this.view.fundingYears.initialize).toHaveBeenCalledWith(advancedSearchService.allFundingYears(), {
             placeholder: 'All Funding Years',
             multiple: true
           });
@@ -146,7 +124,7 @@ define(function(require) {
         });
 
         it('should initialize property with correct data', function() {
-          expect(this.view.countries.initialize).toHaveBeenCalledWith([], {
+          expect(this.view.countries.initialize).toHaveBeenCalledWith(advancedSearchService.allCountries(), {
             placeholder: 'All Countries',
             multiple: true
           });
@@ -172,7 +150,7 @@ define(function(require) {
         });
 
         it('should initialize property with correct data', function() {
-          expect(this.view.organisationTypes.initialize).toHaveBeenCalledWith([], {
+          expect(this.view.organisationTypes.initialize).toHaveBeenCalledWith(advancedSearchService.allOrganisationTypes(), {
             placeholder: 'All Organisation Types',
             multiple: true
           });
