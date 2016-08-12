@@ -58,13 +58,15 @@ define(function(require) {
         multiple: true
       });
 
-      this.initCriteriaVisibility();
+      this.initCriteriaStatus();
+      
       this.listenTo(this.programmes, 'multiselect:change', this.didProgrammeChange);
       this.listenTo(this.subprogrammes, 'multiselect:change', this.didSubprogrammeChange);
       this.listenTo(this.countries, 'multiselect:change', this.didCountryChange);
     },
 
-    initCriteriaVisibility: function() {
+    initCriteriaStatus: function() {
+      this.clearMatchAllCountries();
       this.subprogrammes.hide();
       this.actions.hide();
       this.activities.hide();
@@ -92,7 +94,7 @@ define(function(require) {
     didClickClearFilters: function(e) {
       e.preventDefault();
 
-      this.initCriteriaVisibility();
+      this.initCriteriaStatus();
 
       this.options.update(advancedSearchService.allOptions());
       this.programmes.update(advancedSearchService.allProgrammes());
@@ -155,6 +157,14 @@ define(function(require) {
       //   this.regions.hide();
       //   this.regions.update([]);
       // }
+    },
+
+    getMatchAllCountriesElement: function() {
+      return this.$el.find('.vlr-advanced-search__match-all-countries-input');
+    },
+
+    clearMatchAllCountries: function () {
+      this.getMatchAllCountriesElement().removeAttr('checked');
     },
 
     render: function() {

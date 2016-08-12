@@ -15,7 +15,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
+        spyOn(AdvancedSearchView.prototype, 'initCriteriaStatus');
         spyOn(MultiselectComponent.prototype, 'initialize');
         this.view = new AdvancedSearchView();
       });
@@ -27,7 +27,7 @@ define(function(require) {
       });
 
       it('should init criteria visibility', function() {
-        expect(this.view.initCriteriaVisibility).toHaveBeenCalled();
+        expect(this.view.initCriteriaStatus).toHaveBeenCalled();
       });
 
       describe('Options Section', function() {
@@ -175,20 +175,25 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.initCriteriaVisibility()', function() {
+      describe('.initCriteriaStatus()', function() {
         beforeEach(function () {
           this.view = new AdvancedSearchView();
+          spyOn(AdvancedSearchView.prototype, 'clearMatchAllCountries');
           spyOn(this.view.subprogrammes, 'hide');
           spyOn(this.view.actions, 'hide');
           spyOn(this.view.activities, 'hide');
           spyOn(this.view.fundingYears, 'hide');
           spyOn(this.view.regions, 'hide');
 
-          this.view.initCriteriaVisibility();
+          this.view.initCriteriaStatus();
         });
 
         it('should be defined', function() {
-          expect(AdvancedSearchView.prototype.initCriteriaVisibility).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchView.prototype.initCriteriaStatus).toEqual(jasmine.any(Function));
+        });
+
+        it('should clear match all countries checkbox', function() {
+          expect(this.view.clearMatchAllCountries).toHaveBeenCalled();
         });
 
         it('should hide subprogrammes', function() {
@@ -265,10 +270,10 @@ define(function(require) {
 
       describe('.didClickClearFilters()', function() {
         beforeEach(function() {
-          spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
+          spyOn(AdvancedSearchView.prototype, 'initCriteriaStatus');
 
           this.view = new AdvancedSearchView;
-          this.view.initCriteriaVisibility.calls.reset();
+          this.view.initCriteriaStatus.calls.reset();
 
           spyOn(this.view.options, 'update');
           spyOn(this.view.programmes, 'update');
@@ -290,7 +295,7 @@ define(function(require) {
         });
 
         it('should init criteria visibility', function() {
-          expect(this.view.initCriteriaVisibility).toHaveBeenCalled();
+          expect(this.view.initCriteriaStatus).toHaveBeenCalled();
         });
 
         it('should prevent default action', function() {
@@ -353,6 +358,40 @@ define(function(require) {
       describe('.didCountryChange', function() {
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didCountryChange).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.getMatchAllCountriesElement()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.getMatchAllCountriesElement).toEqual(jasmine.any(Function));
+        });
+
+        it('should return match all countries element', function() {
+          var view = new AdvancedSearchView,
+            fakeMapContainer = {};
+
+          spyOn($.prototype, 'find').and.callFake(function(selector) {
+            if (selector === '.vlr-advanced-search__match-all-countries-input') {
+              return fakeMapContainer;
+            }
+          });
+
+          expect(view.getMatchAllCountriesElement()).toBe(fakeMapContainer);
+        });
+      });
+
+      describe('.clearMatchAllCountries()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.clearMatchAllCountries).toEqual(jasmine.any(Function));
+        });
+
+        it('should clear selection of checkbox', function() {
+          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue(jasmine.createSpyObj('chk', ['removeAttr']));
+          var view = new AdvancedSearchView;
+
+          view.clearMatchAllCountries();
+
+          expect(view.getMatchAllCountriesElement().removeAttr).toHaveBeenCalledWith('checked');
         });
       });
     });
