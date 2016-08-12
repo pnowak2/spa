@@ -16,6 +16,10 @@ define(function(require) {
 			return programmesDatasource.getItems();
     },
 
+    subprogrammesByProgramme = function(programmeCode) {
+      return subprogrammesDatasource.getItems()[programmeCode];
+    },
+
 		allActivityYears = function () {
 			return activityYearsDataSource.getItems();
 		},
@@ -48,6 +52,7 @@ define(function(require) {
   return {
     allOptions: allOptions,
     allProgrammes: allProgrammes,
+    subprogrammesByProgramme: subprogrammesByProgramme,
     allFundingYears: allFundingYears,
     allActivityYears: allActivityYears,
     allCountries: allCountries,

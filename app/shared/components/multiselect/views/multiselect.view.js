@@ -63,6 +63,10 @@ define(function(require) {
       });
     },
 
+    firstSelectedItem: function () {
+      return this.selectedItems()[0];
+    },
+
     hasItems: function() {
       return !this.collection.isEmpty();
     },

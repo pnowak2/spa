@@ -24,6 +24,10 @@ define(function(require) {
       return this.view.selectedItems();
     },
 
+    firstSelectedItem: function() {
+      return this.view.firstSelectedItem();
+    },
+
     hasSelection: function() {
       return this.view.hasSelection();
     },

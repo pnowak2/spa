@@ -18,6 +18,10 @@ define(function(require) {
       });
     },
 
+    firstSelectedItem: function () {
+      return this.selectedItems()[0];
+    },
+
     selectItem: function(id) {
       var model = this.get(id);
 

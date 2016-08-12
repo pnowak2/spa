@@ -255,6 +255,44 @@ define(function(require) {
         });
       });
 
+      describe('.firstSelectedItem()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.firstSelectedItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should return first selected item object from collection', function() {
+          var view = new MultiselectView([{
+            id: 'pl',
+            title: 'Poland',
+            selected: true
+          }, {
+            id: 'de',
+            title: 'Germany',
+            selected: false
+          }, {
+            id: 'be',
+            title: 'Belgium',
+            selected: true
+          }]);
+
+          expect(view.firstSelectedItem()).toEqual({
+            id: 'pl',
+            title: 'Poland',
+            selected: true
+          });
+        });
+
+        it('should return false if there are no selections', function() {
+          var view = new MultiselectView([{
+            id: 'pl',
+            title: 'Poland',
+            selected: false
+          }]);
+
+          expect(view.firstSelectedItem()).toEqual(void 0);
+        });
+      });
+
       describe('.hasSelection()', function() {
         it('should be defined', function() {
           expect(MultiselectView.prototype.hasSelection).toEqual(jasmine.any(Function));

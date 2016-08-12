@@ -286,6 +286,12 @@ define(function(require) {
           expect(this.view.organisationTypes.update).toHaveBeenCalledWith(advancedSearchService.allOrganisationTypes());
         });
       });
+
+      describe('.didProgrammeChange', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.didProgrammeChange).toEqual(jasmine.any(Function));
+        });
+      });
     });
 
     describe('events', function() {
@@ -294,6 +300,18 @@ define(function(require) {
           expect(AdvancedSearchView.prototype.events).toEqual({
             'click a.vlr-advanced-search__clear': 'didClickClearFilters'
           });
+        });
+      });
+
+      describe('custom', function() {
+        it('should listen to programme multiselect change event', function() {
+          spyOn(AdvancedSearchView.prototype, 'didProgrammeChange');
+
+          var view = new AdvancedSearchView;
+
+          view.programmes.trigger('multiselect:change');
+
+          expect(view.didProgrammeChange).toHaveBeenCalled();
         });
       });
     });

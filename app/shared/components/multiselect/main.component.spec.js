@@ -78,6 +78,21 @@ define(function(require) {
         });
       });
 
+      describe('.firstSelectedItem()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.firstSelectedItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new MultiselectComponent,
+            fakeSelectedItem = {};
+
+          spyOn(component.view, 'firstSelectedItem').and.returnValue(fakeSelectedItem);
+
+          expect(component.firstSelectedItem()).toBe(fakeSelectedItem);
+        });
+      });
+
       describe('.hasSelection()', function() {
         it('should be defined', function() {
           expect(MultiselectComponent.prototype.hasSelection).toEqual(jasmine.any(Function));

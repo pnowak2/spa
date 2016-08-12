@@ -56,6 +56,8 @@ define(function(require) {
         placeholder: 'All Organisation Types',
         multiple: true
       });
+
+      this.listenTo(this.programmes, 'multiselect:change', this.didProgrammeChange);
     },
 
     getCriteria: function() {
@@ -88,6 +90,10 @@ define(function(require) {
       this.countries.update(advancedSearchService.allCountries());
       this.regions.update([]);
       this.organisationTypes.update(advancedSearchService.allOrganisationTypes());
+    },
+
+    didProgrammeChange: function() {
+      
     },
 
     render: function() {

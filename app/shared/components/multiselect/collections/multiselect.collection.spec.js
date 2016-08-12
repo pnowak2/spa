@@ -48,6 +48,46 @@ define(function(require) {
         });
       });
 
+      describe('.firstSelectedItem()', function() {
+        it('should be defined', function() {
+          expect(MultiselectCollection.prototype.firstSelectedItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should return only first selected item', function() {
+          var country1 = new MultiselectModel({
+              id: 'pl',
+              title: 'Poland',
+              selected: true
+            }),
+            country2 = new MultiselectModel({
+              id: 'de',
+              title: 'Germany',
+              selected: false
+            }),
+            country3 = new MultiselectModel({
+              id: 'be',
+              title: 'Belgium',
+              selected: true
+            }),
+            collection = new MultiselectCollection([
+              country1, country2, country3
+            ]);
+
+          expect(collection.firstSelectedItem()).toEqual(country1);
+        });
+
+        it('should return undefined if nothing is selected', function() {
+          var country1 = new MultiselectModel({
+              id: 'pl',
+              title: 'Poland',
+              selected: false
+            })),
+            collection = new MultiselectCollection([country1]);
+
+          expect(collection.firstSelectedItem()).toEqual(void 0);
+        });
+      });
+
       describe('.hasSelection()', function() {
         it('should be defined', function() {
           expect(MultiselectCollection.prototype.hasSelection).toEqual(jasmine.any(Function));

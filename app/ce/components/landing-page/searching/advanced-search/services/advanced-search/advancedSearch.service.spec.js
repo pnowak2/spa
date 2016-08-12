@@ -54,6 +54,22 @@ define(function(require) {
       });
     });
 
+    describe('.subprogrammesByProgramme()', function() {
+      it('should be defined', function() {
+        expect(advancedSearchService.subprogrammesByProgramme).toEqual(jasmine.any(Function));
+      });
+
+      it('should retrieve subprogrammes by programme code', function() {
+        expect(advancedSearchService.subprogrammesByProgramme('CE')).toEqual([{
+          id: "1",
+          title: "Sub 1"
+        }, {
+          id: "2",
+          title: "Sub 2"
+        }]);
+      });
+    });
+
     describe('.allActivityYears()', function() {
       it('should be defined', function() {
         expect(advancedSearchService.allActivityYears).toEqual(jasmine.any(Function));
