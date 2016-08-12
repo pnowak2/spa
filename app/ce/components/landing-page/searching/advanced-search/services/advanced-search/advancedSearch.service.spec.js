@@ -153,7 +153,8 @@ define(function(require) {
 
         expect(_.first(years)).toEqual({
           id: 2014,
-          title: 2014 + ' (funding year)'
+          title: 2014,
+          hint: 'funding year'
         });
       });
 
@@ -163,7 +164,8 @@ define(function(require) {
 
         expect(_.last(years)).toEqual({
           id: currentYear,
-          title: currentYear + ' (funding year)'
+          title: currentYear,
+          hint: 'funding year'
         });
       });
     });

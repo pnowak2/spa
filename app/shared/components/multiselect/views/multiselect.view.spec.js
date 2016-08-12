@@ -123,6 +123,7 @@ define(function(require) {
           this.viewMultiple = new MultiselectView([{
             id: 'de',
             title: 'Germany',
+            hint: 'Deutschland',
             selected: false
           }], {
             multiple: true
@@ -131,6 +132,7 @@ define(function(require) {
           this.viewSingle = new MultiselectView([{
             id: 'de',
             title: 'Germany',
+            hint: 'Deutschland',
             selected: false
           }], {
             multiple: false
@@ -209,6 +211,7 @@ define(function(require) {
           expect(this.viewSingle.trigger).toHaveBeenCalledWith('multiselect:selected', {
             id: 'de',
             title: 'Germany',
+            hint: 'Deutschland',
             selected: true
           });
         });
@@ -303,14 +306,17 @@ define(function(require) {
           var view = new MultiselectView([{
             id: 'pl',
             title: 'Poland',
+            hint: 'Polska',
             selected: true
           }, {
             id: 'de',
             title: 'Germany',
+            hint: 'Deutschland',
             selected: false
           }, {
             id: 'be',
             title: 'Belgium',
+            hint: 'Belgique',
             selected: true
           }]);
 
@@ -318,10 +324,12 @@ define(function(require) {
           expect(view.selectedItems()).toEqual([{
             id: 'pl',
             title: 'Poland',
+            hint: 'Polska',
             selected: true
           }, {
             id: 'be',
             title: 'Belgium',
+            hint: 'Belgique',
             selected: true
           }]);
         });
@@ -336,20 +344,24 @@ define(function(require) {
           var view = new MultiselectView([{
             id: 'pl',
             title: 'Poland',
+            hint: 'Polska',
             selected: true
           }, {
             id: 'de',
             title: 'Germany',
+            hint: 'Deutschland',
             selected: false
           }, {
             id: 'be',
             title: 'Belgium',
+            hint: 'Belgique',
             selected: true
           }]);
 
           expect(view.firstSelectedItem()).toEqual({
             id: 'pl',
             title: 'Poland',
+            hint: 'Polska',
             selected: true
           });
         });
@@ -358,6 +370,7 @@ define(function(require) {
           var view = new MultiselectView([{
             id: 'pl',
             title: 'Poland',
+            hint: 'Polska',
             selected: false
           }]);
 

@@ -5,6 +5,7 @@ define(function(require) {
     defaults: {
       id: '',
       title: '',
+      hint: '',
       selected: false
     },
 

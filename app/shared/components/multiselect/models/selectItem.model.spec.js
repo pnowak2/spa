@@ -14,6 +14,7 @@ define(function(require) {
         expect(SelectItemModel.prototype.defaults).toEqual({
           id: '',
           title: '',
+          hint: '',
           selected: false
         })
       });
