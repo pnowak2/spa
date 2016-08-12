@@ -124,7 +124,8 @@ define(function(require) {
             id: 'de',
             title: 'Germany',
             hint: 'Deutschland',
-            selected: false
+            selected: false,
+            disabled: false
           }], {
             multiple: true
           });
@@ -133,7 +134,8 @@ define(function(require) {
             id: 'de',
             title: 'Germany',
             hint: 'Deutschland',
-            selected: false
+            selected: false,
+            disabled: false
           }], {
             multiple: false
           });
@@ -212,7 +214,8 @@ define(function(require) {
             id: 'de',
             title: 'Germany',
             hint: 'Deutschland',
-            selected: true
+            selected: true,
+            disabled: false
           });
         });
       });
@@ -307,17 +310,20 @@ define(function(require) {
             id: 'pl',
             title: 'Poland',
             hint: 'Polska',
-            selected: true
+            selected: true,
+            disabled: false
           }, {
             id: 'de',
             title: 'Germany',
             hint: 'Deutschland',
-            selected: false
+            selected: false,
+            disabled: false
           }, {
             id: 'be',
             title: 'Belgium',
             hint: 'Belgique',
-            selected: true
+            selected: true,
+            disabled: false
           }]);
 
           expect(view.selectedItems().length).toBe(2);
@@ -325,12 +331,14 @@ define(function(require) {
             id: 'pl',
             title: 'Poland',
             hint: 'Polska',
-            selected: true
+            selected: true,
+            disabled: false
           }, {
             id: 'be',
             title: 'Belgium',
             hint: 'Belgique',
-            selected: true
+            selected: true,
+            disabled: false
           }]);
         });
       });
@@ -345,24 +353,28 @@ define(function(require) {
             id: 'pl',
             title: 'Poland',
             hint: 'Polska',
-            selected: true
+            selected: true,
+            disabled: false
           }, {
             id: 'de',
             title: 'Germany',
             hint: 'Deutschland',
-            selected: false
+            selected: false,
+            disabled: false
           }, {
             id: 'be',
             title: 'Belgium',
             hint: 'Belgique',
-            selected: true
+            selected: true,
+            disabled: false
           }]);
 
           expect(view.firstSelectedItem()).toEqual({
             id: 'pl',
             title: 'Poland',
             hint: 'Polska',
-            selected: true
+            selected: true,
+            disabled: false
           });
         });
 
@@ -371,7 +383,8 @@ define(function(require) {
             id: 'pl',
             title: 'Poland',
             hint: 'Polska',
-            selected: false
+            selected: false,
+            disabled: false
           }]);
 
           expect(view.firstSelectedItem()).toEqual(void 0);
@@ -605,11 +618,13 @@ define(function(require) {
         this.view = new MultiselectView([{
           id: 'pl',
           title: 'Poland',
-          selected: true
+          selected: true,
+          hint: 'Polska'
         }, {
           id: 'de',
           title: 'Germany',
-          selected: false
+          selected: false,
+          disabled: true
         }, {
           id: 'be',
           title: 'Belgium',
@@ -652,6 +667,14 @@ define(function(require) {
             disabled: true
           }
           expect(this.view.render().$el.find('select')).toHaveAttr('disabled');
+        });
+
+        it('should render disabled select item', function() {
+          expect(this.$el.find('option').eq(1)).toHaveAttr('disabled');
+        });
+
+        it('should render select item with hint text', function() {
+          expect(this.$el.find('option').first()).toHaveAttr('title', 'Polska');
         });
 
         it('should render three option elements with proper data', function() {

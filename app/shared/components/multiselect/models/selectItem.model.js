@@ -6,7 +6,8 @@ define(function(require) {
       id: '',
       title: '',
       hint: '',
-      selected: false
+      selected: false,
+      disabled: false
     },
 
     select: function() {
