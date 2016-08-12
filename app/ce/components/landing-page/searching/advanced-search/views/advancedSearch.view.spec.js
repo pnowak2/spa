@@ -176,7 +176,7 @@ define(function(require) {
 
     describe('api', function() {
       describe('.initCriteriaStatus()', function() {
-        beforeEach(function () {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(AdvancedSearchView.prototype, 'clearMatchAllCountries');
           spyOn(this.view.subprogrammes, 'hide');
@@ -361,6 +361,12 @@ define(function(require) {
         });
       });
 
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.update).toEqual(jasmine.any(Function));
+        });
+      });
+
       describe('.getMatchAllCountriesElement()', function() {
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.getMatchAllCountriesElement).toEqual(jasmine.any(Function));
@@ -406,7 +412,7 @@ define(function(require) {
       });
 
       describe('custom', function() {
-        beforeEach(function () {
+        beforeEach(function() {
           spyOn(AdvancedSearchView.prototype, 'didProgrammeChange');
           spyOn(AdvancedSearchView.prototype, 'didSubprogrammeChange');
           spyOn(AdvancedSearchView.prototype, 'didCountryChange');

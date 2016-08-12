@@ -41,6 +41,13 @@ define(function(require) {
       }
     },
 
+    update: function(criteria) {
+      this.searchBox.update(criteria);
+      if (this.advancedSearch.update) {
+        this.advancedSearch.update(criteria);
+      }
+    },
+
     render: function() {
       this.$el.append(this.searchBox.render().view.el);
       this.$el.append(this.advancedSearch.render().view.el);

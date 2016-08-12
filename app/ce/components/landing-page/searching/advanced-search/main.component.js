@@ -13,6 +13,10 @@ define(function(require) {
 
     isDirty: function() {
       return this.view.isDirty();
+    },
+
+    update: function(criteria) {
+      this.view.update(criteria);
     }
   });
 });

@@ -59,7 +59,7 @@ define(function(require) {
       });
 
       this.initCriteriaStatus();
-      
+
       this.listenTo(this.programmes, 'multiselect:change', this.didProgrammeChange);
       this.listenTo(this.subprogrammes, 'multiselect:change', this.didSubprogrammeChange);
       this.listenTo(this.countries, 'multiselect:change', this.didCountryChange);
@@ -159,11 +159,15 @@ define(function(require) {
       // }
     },
 
+    update: function(criteria) {
+
+    },
+
     getMatchAllCountriesElement: function() {
       return this.$el.find('.vlr-advanced-search__match-all-countries-input');
     },
 
-    clearMatchAllCountries: function () {
+    clearMatchAllCountries: function() {
       this.getMatchAllCountriesElement().removeAttr('checked');
     },
 

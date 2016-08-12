@@ -271,6 +271,12 @@ define(function(require) {
           expect(view.trigger).toHaveBeenCalledWith('search-box:search', fakeModelJSON);
         });
       });
+
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(SearchBoxView.prototype.update).toEqual(jasmine.any(Function));
+        });
+      });
     });
 
     describe('events', function() {

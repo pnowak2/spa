@@ -49,6 +49,22 @@ define(function(require) {
           expect(component.view.toggleMoreButtonStateToClosed).toHaveBeenCalled();
         });
       });
+
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(SearchBoxComponent.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          spyOn(SearchBoxView.prototype, 'update');
+
+          var component = new SearchBoxComponent,
+            fakeCriteria = {};
+          component.update(fakeCriteria);
+
+          expect(component.view.update).toHaveBeenCalledWith(fakeCriteria);
+        });
+      });
     });
 
     describe('events', function() {

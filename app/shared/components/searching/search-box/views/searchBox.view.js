@@ -67,6 +67,10 @@ define(function(require) {
       this.trigger('search-box:search', this.model.toJSON())
     },
 
+    update: function(criteria) {
+
+    },
+
     render: function() {
       var html = Mustache.render(tpl, this.model.toJSON());
       this.$el.html(html);

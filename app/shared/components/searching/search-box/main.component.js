@@ -25,6 +25,10 @@ define(function(require) {
 
     toggleMoreButtonStateToClosed: function() {
       this.view.toggleMoreButtonStateToClosed();
+    },
+
+    update: function(criteria) {
+      this.view.update(criteria);
     }
   });
 });

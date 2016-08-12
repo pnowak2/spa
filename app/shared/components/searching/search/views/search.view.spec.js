@@ -130,6 +130,39 @@ define(function(require) {
           expect(this.view.searchBox.toggleMoreButtonStateToOpened).not.toHaveBeenCalled();
         });
       });
+
+      describe('.update()', function() {
+        beforeEach(function() {
+          this.view = new SearchView;
+          this.fakeCriteria = {};
+
+          spyOn(this.view.searchBox, 'update');
+          spyOn(this.view.advancedSearch, 'update');
+
+          this.view.update(this.fakeCriteria);
+        });
+
+        it('should be defined', function() {
+          expect(SearchView.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should update search box', function() {
+          expect(this.view.searchBox.update).toHaveBeenCalledWith(this.fakeCriteria);
+        });
+
+        it('should update advanced search', function() {
+          expect(this.view.advancedSearch.update).toHaveBeenCalledWith(this.fakeCriteria);
+        });
+
+        it('should not raise error if update method in advanced search is not defined', function() {
+          var view = new SearchView;
+          view.advancedSearch = {};
+
+          expect(function() {
+            view.update();
+          }).not.toThrow();
+        });
+      });
     });
 
     describe('events', function() {

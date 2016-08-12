@@ -19,10 +19,30 @@ define(function(require) {
       it('should pass options to its view', function() {
         spyOn(SearchView.prototype, 'initialize');
 
-        var fakeOptions = { foo: 'bar' },
+        var fakeOptions = {
+            foo: 'bar'
+          },
           component = new SearchComponent(fakeOptions);
 
         expect(SearchView.prototype.initialize).toHaveBeenCalledWith(fakeOptions);
+      });
+    });
+
+    describe('api', function() {
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(SearchComponent.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          spyOn(SearchView.prototype, 'update');
+
+          var component = new SearchComponent,
+            fakeCriteria = {};
+          component.update(fakeCriteria);
+
+          expect(component.view.update).toHaveBeenCalledWith(fakeCriteria);
+        });
       });
     });
 

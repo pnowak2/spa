@@ -29,6 +29,12 @@ define(function(require) {
           expect(DummyComponent.prototype.isDirty).toEqual(jasmine.any(Function));
         });
       });
+
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(DummyComponent.prototype.update).toEqual(jasmine.any(Function));
+        });
+      });
     });
   });
 });
