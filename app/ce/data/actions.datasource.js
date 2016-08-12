@@ -1,11 +1,11 @@
 define(function(require) {
-  var constants = require('app/ce/util/constants');
-
   return {
     getItems: function() {
       return {
         // Culture
         '31052584': [{
+          id: ''
+        }, {
           id: "31061531",
           title: "Cooperation projects"
         }, {
@@ -20,6 +20,8 @@ define(function(require) {
         }],
         // Media
         '31052594': [{
+          id: ''
+        }, {
           id: "31061522",
           title: "Video-Games Development Support"
         }, {

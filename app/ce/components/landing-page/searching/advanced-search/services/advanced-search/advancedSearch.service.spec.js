@@ -4,6 +4,8 @@ define(function(require) {
     optionsDatasource = require('app/ce/data/options.datasource'),
     programmesDatasource = require('app/ce/data/programmes.datasource'),
     subprogrammesDatasource = require('app/ce/data/subprogrammes.datasource'),
+    actionsDatasource = require('app/ce/data/actions.datasource'),
+    activitiesDatasource = require('app/ce/data/activities.datasource'),
     activityYearsDataSource = require('app/ce/data/activityYears.datasource'),
     countriesDataSource = require('app/ce/data/countries.datasource'),
     regionsDatasource = require('app/ce/data/regions.datasource'),
@@ -18,6 +20,26 @@ define(function(require) {
         }, {
           id: "2",
           title: "Sub 2"
+        }]
+      });
+
+      spyOn(actionsDatasource, 'getItems').and.returnValue({
+        "MEDIA": [{
+          id: "3",
+          title: "Act 3"
+        }, {
+          id: "4",
+          title: "Act 4"
+        }]
+      });
+
+      spyOn(activitiesDatasource, 'getItems').and.returnValue({
+        "CE": [{
+          id: "1",
+          title: "Act 1"
+        }, {
+          id: "2",
+          title: "Act 2"
         }]
       });
 
@@ -66,6 +88,38 @@ define(function(require) {
         }, {
           id: "2",
           title: "Sub 2"
+        }]);
+      });
+    });
+
+    describe('.actionsBySubprogramme()', function() {
+      it('should be defined', function() {
+        expect(advancedSearchService.actionsBySubprogramme).toEqual(jasmine.any(Function));
+      });
+
+      it('should retrieve actions by subprogramme code', function() {
+        expect(advancedSearchService.actionsBySubprogramme('MEDIA')).toEqual([{
+          id: "3",
+          title: "Act 3"
+        }, {
+          id: "4",
+          title: "Act 4"
+        }]);
+      });
+    });
+
+    describe('.activitiesByProgramme()', function() {
+      it('should be defined', function() {
+        expect(advancedSearchService.activitiesByProgramme).toEqual(jasmine.any(Function));
+      });
+
+      it('should retrieve activities by programme code', function() {
+        expect(advancedSearchService.activitiesByProgramme('CE')).toEqual([{
+          id: "1",
+          title: "Act 1"
+        }, {
+          id: "2",
+          title: "Act 2"
         }]);
       });
     });

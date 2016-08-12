@@ -3,6 +3,8 @@ define(function(require) {
 		optionsDatasource = require('app/ce/data/options.datasource'),
     programmesDatasource = require('app/ce/data/programmes.datasource'),
     subprogrammesDatasource = require('app/ce/data/subprogrammes.datasource'),
+    actionsDatasource = require('app/ce/data/actions.datasource'),
+    activitiesDatasource = require('app/ce/data/activities.datasource'),
     activityYearsDataSource = require('app/ce/data/activityYears.datasource'),
     countriesDatasource = require('app/ce/data/countries.datasource'),
 		regionsDatasource = require('app/ce/data/regions.datasource'),
@@ -18,6 +20,14 @@ define(function(require) {
 
     subprogrammesByProgramme = function(programmeCode) {
       return subprogrammesDatasource.getItems()[programmeCode];
+    },
+
+    actionsBySubprogramme = function(subprogrammeCode) {
+      return actionsDatasource.getItems()[subprogrammeCode];
+    },
+
+    activitiesByProgramme = function(programmeCode) {
+      return activitiesDatasource.getItems()[programmeCode];
     },
 
 		allActivityYears = function () {
@@ -53,6 +63,8 @@ define(function(require) {
     allOptions: allOptions,
     allProgrammes: allProgrammes,
     subprogrammesByProgramme: subprogrammesByProgramme,
+    actionsBySubprogramme: actionsBySubprogramme,
+    activitiesByProgramme: activitiesByProgramme,
     allFundingYears: allFundingYears,
     allActivityYears: allActivityYears,
     allCountries: allCountries,

@@ -3,7 +3,8 @@ define(function(require) {
     Backbone = require('backbone'),
     AdvancedSearchView = require('./advancedSearch.view'),
     advancedSearchService = require('../services/advanced-search/advancedSearch.service'),
-    MultiselectComponent = require('app/shared/components/multiselect/main.component');
+    MultiselectComponent = require('app/shared/components/multiselect/main.component'),
+    constants = require('app/ce/util/constants');
 
   describe('CE Advanced Search View', function() {
     describe('type', function() {
@@ -14,6 +15,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
+        spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
         spyOn(MultiselectComponent.prototype, 'initialize');
         this.view = new AdvancedSearchView();
       });
@@ -22,6 +24,10 @@ define(function(require) {
         expect(function() {
           new AdvancedSearchView;
         }).not.toThrow();
+      });
+
+      it('should init criteria visibility', function() {
+        expect(this.view.initCriteriaVisibility).toHaveBeenCalled();
       });
 
       describe('Options Section', function() {
@@ -169,6 +175,43 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.initCriteriaVisibility()', function() {
+        beforeEach(function () {
+          this.view = new AdvancedSearchView();
+          spyOn(this.view.subprogrammes, 'hide');
+          spyOn(this.view.actions, 'hide');
+          spyOn(this.view.activities, 'hide');
+          spyOn(this.view.fundingYears, 'hide');
+          spyOn(this.view.regions, 'hide');
+
+          this.view.initCriteriaVisibility();
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.initCriteriaVisibility).toEqual(jasmine.any(Function));
+        });
+
+        it('should hide subprogrammes', function() {
+          expect(this.view.subprogrammes.hide).toHaveBeenCalled();
+        });
+
+        it('should hide actions', function() {
+          expect(this.view.actions.hide).toHaveBeenCalled();
+        });
+
+        it('should hide activities', function() {
+          expect(this.view.activities.hide).toHaveBeenCalled();
+        });
+
+        it('should hide funding years', function() {
+          expect(this.view.fundingYears.hide).toHaveBeenCalled();
+        });
+
+        it('should hide funding regions', function() {
+          expect(this.view.regions.hide).toHaveBeenCalled();
+        });
+      });
+
       describe('.getCriteria()', function() {
 
         beforeEach(function() {
@@ -222,7 +265,11 @@ define(function(require) {
 
       describe('.didClickClearFilters()', function() {
         beforeEach(function() {
+          spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
+
           this.view = new AdvancedSearchView;
+          this.view.initCriteriaVisibility.calls.reset();
+
           spyOn(this.view.options, 'update');
           spyOn(this.view.programmes, 'update');
           spyOn(this.view.subprogrammes, 'update');
@@ -240,6 +287,10 @@ define(function(require) {
 
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didClickClearFilters).toEqual(jasmine.any(Function));
+        });
+
+        it('should init criteria visibility', function() {
+          expect(this.view.initCriteriaVisibility).toHaveBeenCalled();
         });
 
         it('should prevent default action', function() {
@@ -292,6 +343,18 @@ define(function(require) {
           expect(AdvancedSearchView.prototype.didProgrammeChange).toEqual(jasmine.any(Function));
         });
       });
+
+      describe('.didSubprogrammeChange', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.didSubprogrammeChange).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.didCountryChange', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.didCountryChange).toEqual(jasmine.any(Function));
+        });
+      });
     });
 
     describe('events', function() {
@@ -304,14 +367,28 @@ define(function(require) {
       });
 
       describe('custom', function() {
-        it('should listen to programme multiselect change event', function() {
+        beforeEach(function () {
           spyOn(AdvancedSearchView.prototype, 'didProgrammeChange');
+          spyOn(AdvancedSearchView.prototype, 'didSubprogrammeChange');
+          spyOn(AdvancedSearchView.prototype, 'didCountryChange');
 
-          var view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView;
 
-          view.programmes.trigger('multiselect:change');
+        });
 
-          expect(view.didProgrammeChange).toHaveBeenCalled();
+        it('should listen to programmes multiselect change event', function() {
+          this.view.programmes.trigger('multiselect:change');
+          expect(this.view.didProgrammeChange).toHaveBeenCalled();
+        });
+
+        it('should listen to subprogrammes multiselect change event', function() {
+          this.view.subprogrammes.trigger('multiselect:change');
+          expect(this.view.didSubprogrammeChange).toHaveBeenCalled();
+        });
+
+        it('should listen to countries multiselect change event', function() {
+          this.view.countries.trigger('multiselect:change');
+          expect(this.view.didCountryChange).toHaveBeenCalled();
         });
       });
     });

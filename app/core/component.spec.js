@@ -18,7 +18,7 @@ define(function(require) {
     describe('properties', function() {
       describe('.view', function() {
         it('should be defined', function() {
-          expect(Component.prototype.view).toBe(null);
+          expect(Component.prototype.view).toEqual(jasmine.any(Backbone.View));
         });
       });
     });
@@ -79,6 +79,13 @@ define(function(require) {
 
           this.testComponent.hide();
           expect(this.testComponent.view.$el.hide).toHaveBeenCalled();
+        });
+
+        it('should not throw if view is not defined', function() {
+          var component = new (Component.extend());
+          expect(function () {
+            component.hide();
+          }).not.toThrow();
         });
       });
 

@@ -1,6 +1,4 @@
 define(function(require) {
-  var constants = require('app/ce/util/constants');
-
   return {
     getItems: function() {
       return [{

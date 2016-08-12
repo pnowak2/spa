@@ -2,6 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     MultiselectComponent = require('app/shared/components/multiselect/main.component'),
     advancedSearchService = require('../services/advanced-search/advancedSearch.service'),
+    constants = require('app/ce/util/constants'),
     Mustache = require('mustache'),
     tpl = require('text!../templates/advancedSearch.tpl.html');
 
@@ -57,7 +58,18 @@ define(function(require) {
         multiple: true
       });
 
+      this.initCriteriaVisibility();
       this.listenTo(this.programmes, 'multiselect:change', this.didProgrammeChange);
+      this.listenTo(this.subprogrammes, 'multiselect:change', this.didSubprogrammeChange);
+      this.listenTo(this.countries, 'multiselect:change', this.didCountryChange);
+    },
+
+    initCriteriaVisibility: function() {
+      this.subprogrammes.hide();
+      this.actions.hide();
+      this.activities.hide();
+      this.fundingYears.hide();
+      this.regions.hide();
     },
 
     getCriteria: function() {
@@ -80,6 +92,8 @@ define(function(require) {
     didClickClearFilters: function(e) {
       e.preventDefault();
 
+      this.initCriteriaVisibility();
+
       this.options.update(advancedSearchService.allOptions());
       this.programmes.update(advancedSearchService.allProgrammes());
       this.subprogrammes.update([]);
@@ -93,7 +107,52 @@ define(function(require) {
     },
 
     didProgrammeChange: function() {
-      console.log(this.programmes.firstSelectedItem());
+      // var selectedItem = this.programmes.firstSelectedItem();
+
+      // if (this.programmes.hasSelection()) {
+      //   this.subprogrammes.update(
+      //     advancedSearchService.subprogrammesByProgramme(selectedItem.id)
+      //   );
+      //   this.activities.update(
+      //     advancedSearchService.activitiesByProgramme(selectedItem.id)
+      //   );
+      //   this.subprogrammes.show();
+      //   this.activities.show();
+      //   this.fundingYears.toggle(selectedItem.id === constants.ccm.CE);
+      // } else {
+      //   this.subprogrammes.hide();
+      //   this.subprogrammes.update([]);
+      //   this.activities.hide();
+      //   this.activities.update([]);
+      // }
+    },
+
+    didSubprogrammeChange: function() {
+      // var selectedItem = this.subprogrammes.firstSelectedItem();
+
+      // if (this.subprogrammes.hasSelection()) {
+      //   this.actions.update(
+      //     advancedSearchService.actionsBySubprogramme(selectedItem.id)
+      //   );
+      //   this.actions.show();
+      // } else {
+      //   this.actions.hide();
+      //   this.actions.update([]);
+      // }
+    },
+
+    didCountryChange: function() {
+      // var selectedItem = this.countries.firstSelectedItem();
+
+      // if (this.countries.hasSelection()) {
+      //   this.regions.update(
+      //     advancedSearchService.regionsByCountry(selectedItem.id)
+      //   );
+      //   this.regions.show();
+      // } else {
+      //   this.regions.hide();
+      //   this.regions.update([]);
+      // }
     },
 
     render: function() {
@@ -111,7 +170,7 @@ define(function(require) {
       this.$el.find('.vlr-advanced-search__section-countries').append(this.countries.render().view.el);
       this.$el.find('.vlr-advanced-search__section-regions').append(this.regions.render().view.el);
       this.$el.find('.vlr-advanced-search__section-organisation-types').append(this.organisationTypes.render().view.el);
-      
+
       return this;
     }
   });

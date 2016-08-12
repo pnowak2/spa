@@ -1,11 +1,11 @@
 define(function(require) {
-  var constants = require('app/ce/util/constants');
-
   return {
     getItems: function() {
       return {
         // Creative Europe
         '31052583': [{
+          id: ''
+        }, {
           id: '31052584',
           title: 'Culture'
         }, {
@@ -14,6 +14,8 @@ define(function(require) {
         }],
         // Culture (2007-2013)
         'eve001_cult_2007': [{
+          id: ''
+        }, {
           id: "eve001_cult_2007_000",
           title: "Cooperation measures"
         }, {
