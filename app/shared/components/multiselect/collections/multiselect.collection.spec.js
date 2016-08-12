@@ -81,7 +81,7 @@ define(function(require) {
               id: 'pl',
               title: 'Poland',
               selected: false
-            })),
+            }),
             collection = new MultiselectCollection([country1]);
 
           expect(collection.firstSelectedItem()).toEqual(void 0);

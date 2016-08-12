@@ -23,6 +23,14 @@ define(function(require) {
 
       this.collection = new MultiSelectCollection(items);
       this.listenTo(this.collection, 'reset', this.render);
+      this.startListeningCollectionChanges()
+    },
+
+    stopListeningCollectionChanges: function() {
+      this.stopListening(this.collection, 'change');
+    },
+
+    startListeningCollectionChanges: function() {
       this.listenTo(this.collection, 'change', this.didSelectionChange);
     },
 
@@ -36,7 +44,9 @@ define(function(require) {
 
       if (item) {
         if (!this.options.multiple) {
+          this.stopListeningCollectionChanges();
           this.collection.unselectAll();
+          this.startListeningCollectionChanges();
         }
 
         this.collection.selectItem(itemId);

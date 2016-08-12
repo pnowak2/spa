@@ -93,7 +93,7 @@ define(function(require) {
     },
 
     didProgrammeChange: function() {
-      
+      console.log(this.programmes.firstSelectedItem());
     },
 
     render: function() {

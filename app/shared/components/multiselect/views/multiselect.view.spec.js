@@ -68,11 +68,56 @@ define(function(require) {
 
         expect(view.options).toEqual(view.defaults);
       });
+
+      it('should start listening for collection changes', function() {
+        spyOn(MultiselectView.prototype, 'startListeningCollectionChanges');
+        var view = new MultiselectView([]);
+
+        expect(view.startListeningCollectionChanges).toHaveBeenCalled();
+      });
     });
 
     describe('api', function() {
+      describe('.stopListeningCollectionChanges()', function() {
+        beforeEach(function() {
+          spyOn(MultiselectView.prototype, 'stopListening');
+          this.view = new MultiselectView([]);
+        });
+
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.stopListeningCollectionChanges).toEqual(jasmine.any(Function));
+        });
+
+        it('should stop listening for collection changes', function() {
+          this.view.stopListening.calls.reset();
+          this.view.stopListeningCollectionChanges();
+          expect(this.view.stopListening.calls.count()).toBe(1);
+          expect(this.view.stopListening).toHaveBeenCalledWith(this.view.collection, 'change');
+        });
+      });
+
+      describe('.startListeningCollectionChanges()', function() {
+        beforeEach(function() {
+          spyOn(MultiselectView.prototype, 'listenTo');
+          this.view = new MultiselectView([]);
+        });
+
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.startListeningCollectionChanges).toEqual(jasmine.any(Function));
+        });
+
+        it('should start listening for collection changes', function() {
+          this.view.listenTo.calls.reset();
+          this.view.startListeningCollectionChanges();
+          expect(this.view.listenTo.calls.count()).toBe(1);
+          expect(this.view.listenTo).toHaveBeenCalledWith(this.view.collection, 'change', this.view.didSelectionChange);
+        });
+      });
+
       describe('.didClickSelectItem()', function() {
         beforeEach(function() {
+          spyOn(MultiselectView.prototype, 'stopListeningCollectionChanges');
+          spyOn(MultiselectView.prototype, 'startListeningCollectionChanges');
           spyOn(MultiselectCollection.prototype, 'unselectAll');
 
           this.viewMultiple = new MultiselectView([{
@@ -98,6 +143,9 @@ define(function(require) {
               }
             }
           }
+
+          this.viewSingle.stopListeningCollectionChanges.calls.reset();
+          this.viewSingle.startListeningCollectionChanges.calls.reset();
         });
 
         it('should be defined', function() {
@@ -121,6 +169,30 @@ define(function(require) {
           expect(this.viewSingle.collection.unselectAll).not.toHaveBeenCalled();
           this.viewSingle.didClickSelectItem(this.fakeEvent);
           expect(this.viewSingle.collection.unselectAll).toHaveBeenCalled();
+        });
+
+        it('should stop listening to collection changes if multiple is not active', function() {
+          expect(this.viewSingle.stopListeningCollectionChanges).not.toHaveBeenCalled();
+          this.viewSingle.didClickSelectItem(this.fakeEvent);
+          expect(this.viewSingle.stopListeningCollectionChanges).toHaveBeenCalled();
+        });
+
+        it('should start listening to collection changes if multiple is not active', function() {         
+          expect(this.viewSingle.startListeningCollectionChanges).not.toHaveBeenCalled();
+          this.viewSingle.didClickSelectItem(this.fakeEvent);
+          expect(this.viewSingle.startListeningCollectionChanges).toHaveBeenCalled();
+        });
+
+        it('should not stop listening to collection changes if multiple is not active', function() {
+          expect(this.viewMultiple.stopListeningCollectionChanges).not.toHaveBeenCalled();
+          this.viewMultiple.didClickSelectItem(this.fakeEvent);
+          expect(this.viewMultiple.stopListeningCollectionChanges).not.toHaveBeenCalled();
+        });
+
+        it('should not start listening to collection changes if multiple is not active', function() {         
+          expect(this.viewMultiple.startListeningCollectionChanges).not.toHaveBeenCalled();
+          this.viewMultiple.didClickSelectItem(this.fakeEvent);
+          expect(this.viewMultiple.startListeningCollectionChanges).not.toHaveBeenCalled();
         });
 
         it('should not deselect all if multiple is active', function() {
@@ -496,17 +568,6 @@ define(function(require) {
           view.collection.reset([]);
 
           expect(view.render).toHaveBeenCalled();
-        });
-
-        it('should call method when collection changes', function() {
-          spyOn(MultiselectView.prototype, 'didSelectionChange');
-
-          var view = new MultiselectView,
-            fakeItem = {};
-
-          view.collection.trigger('change', fakeItem);
-
-          expect(view.didSelectionChange).toHaveBeenCalledWith(fakeItem);
         });
       });
     });
