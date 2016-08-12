@@ -14,9 +14,9 @@ requirejs.config({
     leafletprunecluster: '../lib/leaflet.prunecluster/dist/PruneCluster',
     leafletfullscreen: '../lib/leaflet.fullscreen/dist/Leaflet.fullscreen',
     leafleteasybutton: '../lib/leaflet.easybutton/dist/easy-button',
-    jasmine: ['../lib/jasmine/lib/jasmine-core/jasmine'],
-    'jasmine-html': ['../lib/jasmine/lib/jasmine-core/jasmine-html'],
-    'jasmine-boot': ['../lib/jasmine/lib/jasmine-core/boot'],
+    jasmine: ['../lib/jasmine/jasmine'],
+    'jasmine-html': ['../lib/jasmine/jasmine-html'],
+    'jasmine-boot': ['../lib/jasmine/boot'],
     'jasmine-jquery': ['../lib/jasmine-jquery/lib/jasmine-jquery'],
     'jasmine-ajax': ['../lib/jasmine-ajax/lib/mock-ajax']
   },
