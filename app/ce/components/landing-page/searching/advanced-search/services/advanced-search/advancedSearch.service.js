@@ -42,7 +42,7 @@ define(function(require) {
       return _.map(yearsRange, function(year) {
         return {
           id: year,
-          title: year
+          title: year + ' (funding year)'
         }
       });
 		},

@@ -108,6 +108,21 @@ define(function(require) {
         });
       });
 
+      describe('.hasOneSelection()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.hasOneSelection).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to collection', function() {
+          var component = new MultiselectComponent,
+            fakeHasOneSelection = {};
+
+          spyOn(MultiselectView.prototype, 'hasOneSelection').and.returnValue(fakeHasOneSelection);
+
+          expect(component.hasOneSelection()).toBe(fakeHasOneSelection);
+        });
+      });
+
       describe('.isDirty()', function() {
         it('should be defined', function() {
           expect(MultiselectComponent.prototype.isDirty).toEqual(jasmine.any(Function));

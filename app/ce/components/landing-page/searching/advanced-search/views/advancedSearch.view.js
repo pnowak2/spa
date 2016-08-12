@@ -142,12 +142,14 @@ define(function(require) {
     },
 
     didCountryChange: function() {
-      // var selectedItem = this.countries.firstSelectedItem();
+      // var selectedItem = {},
+      //   regions = [];
 
-      // if (this.countries.hasSelection()) {
-      //   this.regions.update(
-      //     advancedSearchService.regionsByCountry(selectedItem.id)
-      //   );
+      // if (this.countries.hasOneSelection()) {
+      //   selectedItem = this.countries.firstSelectedItem()
+      //   regions = advancedSearchService.regionsByCountry(selectedItem.id);
+
+      //   this.regions.update(regions);
       //   this.regions.show();
       // } else {
       //   this.regions.hide();

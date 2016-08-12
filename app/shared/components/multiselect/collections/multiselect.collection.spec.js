@@ -134,6 +134,60 @@ define(function(require) {
         });
       });
 
+      describe('.hasOneSelection()', function() {
+        it('should be defined', function() {
+          expect(MultiselectCollection.prototype.hasOneSelection).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if one item is selected', function() {
+          var country1 = new MultiselectModel({
+              id: 'pl',
+              selected: true
+            }),
+            country2 = new MultiselectModel({
+              id: 'de',
+              selected: false
+            }),
+            collection = new MultiselectCollection([
+              country1, country2
+            ]);
+
+          expect(collection.hasOneSelection()).toBe(true);
+        });
+
+        it('should return false if more than one item is selected', function() {
+          var country1 = new MultiselectModel({
+              id: 'pl',
+              selected: true
+            }),
+            country2 = new MultiselectModel({
+              id: 'de',
+              selected: true
+            }),
+            collection = new MultiselectCollection([
+              country1, country2
+            ]);
+
+          expect(collection.hasOneSelection()).toBe(false);
+        });
+
+        it('should return false if nothing is selected', function() {
+          var country1 = new MultiselectModel({
+              id: 'pl',
+              selected: false
+            }),
+            country2 = new MultiselectModel({
+              id: 'de',
+              selected: false
+            }),
+            collection = new MultiselectCollection([
+              country1, country2
+            ]);
+
+          expect(collection.hasOneSelection()).toBe(false);
+        });
+      });
+
       describe('.isDirty()', function() {
         it('should be defined', function() {
           expect(MultiselectCollection.prototype.isDirty).toEqual(jasmine.any(Function));

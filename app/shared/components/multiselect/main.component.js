@@ -32,6 +32,10 @@ define(function(require) {
       return this.view.hasSelection();
     },
 
+    hasOneSelection: function() {
+      return this.view.hasOneSelection();
+    },
+
     isDirty: function () {
       return this.view.isDirty();
     },

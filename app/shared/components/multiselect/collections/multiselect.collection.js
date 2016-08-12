@@ -34,6 +34,10 @@ define(function(require) {
       return !_.isEmpty(this.selectedItems());
     },
 
+    hasOneSelection: function() {
+      return this.hasSelection() && this.selectedItems().length === 1;
+    },
+
     isDirty: function() {
       return !_.isEqual(this.toJSON(), this.originalItems);
     },
