@@ -178,11 +178,14 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/eplus/components/landing-page/results/map/results-map/services/search/searchInput.mapper.spec',
     'app/eplus/components/landing-page/results/map/results-map/services/search/searchResult.mapper.spec',
 
-    // ce landing page component
+    // ce util
+    'app/ce/util/constants.spec',
+
+    // ce landing page layout component
     'app/ce/components/landing-page/layout/main.component.spec',
     'app/ce/components/landing-page/layout/views/landingPage.view.spec',
 
-    // ce advanced search component
+    // ce landing page advanced search component
     'app/ce/components/landing-page/searching/advanced-search/main.component.spec',
     'app/ce/components/landing-page/searching/advanced-search/views/advancedSearch.view.spec',
     'app/ce/components/landing-page/searching/advanced-search/services/advanced-search/advancedSearch.service.spec'

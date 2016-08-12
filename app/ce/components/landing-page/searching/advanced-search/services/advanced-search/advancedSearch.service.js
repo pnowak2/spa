@@ -2,8 +2,10 @@ define(function(require) {
   var _ = require('underscore'),
 		optionsDatasource = require('app/ce/data/options.datasource'),
     programmesDatasource = require('app/ce/data/programmes.datasource'),
+    subprogrammesDatasource = require('app/ce/data/subprogrammes.datasource'),
     activityYearsDataSource = require('app/ce/data/activityYears.datasource'),
-		countriesDatasource = require('app/ce/data/countries.datasource'),
+    countriesDatasource = require('app/ce/data/countries.datasource'),
+		regionsDatasource = require('app/ce/data/regions.datasource'),
     orgTypesDataSource = require('app/ce/data/organisation-types.datasource'),
 
     allOptions = function () {
@@ -31,21 +33,25 @@ define(function(require) {
       });
 		},
 
-
 		allCountries = function () {
 			return countriesDatasource.getItems();
 		},
+
+    regionsByCountry = function (countryCode) {
+      return regionsDatasource.getItems()[countryCode];
+    },
 
 		allOrganisationTypes = function () {
 			return orgTypesDataSource.getItems();
 		};
   
   return {
-  	allCountries: allCountries,
-  	allOrganisationTypes: allOrganisationTypes,
-  	allOptions: allOptions,
-  	allProgrammes: allProgrammes,
-  	allFundingYears: allFundingYears,
-  	allActivityYears: allActivityYears
+    allOptions: allOptions,
+    allProgrammes: allProgrammes,
+    allFundingYears: allFundingYears,
+    allActivityYears: allActivityYears,
+    allCountries: allCountries,
+    regionsByCountry: regionsByCountry,
+    allOrganisationTypes: allOrganisationTypes
   }
 });

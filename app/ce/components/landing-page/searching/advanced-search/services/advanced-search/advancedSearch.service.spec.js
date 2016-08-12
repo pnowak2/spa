@@ -3,13 +3,33 @@ define(function(require) {
     advancedSearchService = require('./advancedSearch.service'),
     optionsDatasource = require('app/ce/data/options.datasource'),
     programmesDatasource = require('app/ce/data/programmes.datasource'),
+    subprogrammesDatasource = require('app/ce/data/subprogrammes.datasource'),
     activityYearsDataSource = require('app/ce/data/activityYears.datasource'),
     countriesDataSource = require('app/ce/data/countries.datasource'),
+    regionsDatasource = require('app/ce/data/regions.datasource'),
     orgTypesDataSource = require('app/ce/data/organisation-types.datasource');
 
   describe('CE Advanced Search Service', function() {
     beforeEach(function() {
+      spyOn(subprogrammesDatasource, 'getItems').and.returnValue({
+        "CE": [{
+          id: "1",
+          title: "Sub 1"
+        }, {
+          id: "2",
+          title: "Sub 2"
+        }]
+      });
 
+      spyOn(regionsDatasource, 'getItems').and.returnValue({
+        "PL": [{
+          id: "1",
+          title: "Region 1"
+        }, {
+          id: "2",
+          title: "Region 2"
+        }]
+      });
     });
 
     describe('.allOptions()', function() {
@@ -86,6 +106,22 @@ define(function(require) {
       it('should retrieve all items form datasource', function() {
         var items = countriesDataSource.getItems();
         expect(advancedSearchService.allCountries()).toEqual(items);
+      });
+    });
+
+    describe('.regionsByCountry()', function() {
+      it('should be defined', function() {
+        expect(advancedSearchService.regionsByCountry).toEqual(jasmine.any(Function));
+      });
+
+      it('should retrieve regions by counry code', function() {
+        expect(advancedSearchService.regionsByCountry('PL')).toEqual([{
+          id: "1",
+          title: "Region 1"
+        }, {
+          id: "2",
+          title: "Region 2"
+        }]);
       });
     });
 
