@@ -163,6 +163,13 @@ define(function(require) {
       this.options.selectItems(criteria.options);
       this.programmes.selectItem(criteria.programme);
       this.subprogrammes.selectItem(criteria.subprogramme);
+      this.actions.selectItem(criteria.action);
+      this.activities.selectItems(criteria.activities);
+      this.activityYears.selectItems(criteria.activityYears);
+      this.fundingYears.selectItems(criteria.fundingYears);
+      this.countries.selectItems(criteria.countries);
+      this.regions.selectItems(criteria.regions);
+      this.organisationTypes.selectItems(criteria.organisationTypes);
     },
 
     getMatchAllCountriesElement: function() {

@@ -404,6 +404,62 @@ define(function(require) {
 
           expect(this.view.subprogrammes.selectItem).toHaveBeenCalledWith('CULTURE');
         });
+
+        it('should update action', function() {
+          this.view.update({
+            action: 'Market Access Support'
+          });
+
+          expect(this.view.actions.selectItem).toHaveBeenCalledWith('Market Access Support');
+        });
+
+        it('should update activities', function() {
+          this.view.update({
+            activities: ['act1', 'act2']
+          });
+
+          expect(this.view.activities.selectItems).toHaveBeenCalledWith(['act1', 'act2']);
+        });
+
+        it('should update activity years', function() {
+          this.view.update({
+            activityYears: ['2012', '2022']
+          });
+
+          expect(this.view.activityYears.selectItems).toHaveBeenCalledWith(['2012', '2022']);
+        });
+
+        it('should update funding years', function() {
+          this.view.update({
+            fundingYears: ['2014', '2024']
+          });
+
+          expect(this.view.fundingYears.selectItems).toHaveBeenCalledWith(['2014', '2024']);
+        });
+
+        it('should update countries', function() {
+          this.view.update({
+            countries: ['PL', 'BE']
+          });
+
+          expect(this.view.countries.selectItems).toHaveBeenCalledWith(['PL', 'BE']);
+        });
+
+        it('should update regions', function() {
+          this.view.update({
+            regions: ['reg1', 'reg2']
+          });
+
+          expect(this.view.regions.selectItems).toHaveBeenCalledWith(['reg1', 'reg2']);
+        });
+
+        it('should update organisation types', function() {
+          this.view.update({
+            organisationTypes: ['org1', 'org2']
+          });
+
+          expect(this.view.organisationTypes.selectItems).toHaveBeenCalledWith(['org1', 'org2']);
+        });
       });
 
       describe('.getMatchAllCountriesElement()', function() {
