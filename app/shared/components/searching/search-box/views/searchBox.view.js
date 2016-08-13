@@ -68,7 +68,9 @@ define(function(require) {
     },
 
     update: function(criteria) {
-
+      if (this.keywordInput) {
+        this.keywordInput.val(criteria.keyword);
+      }
     },
 
     render: function() {

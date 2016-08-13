@@ -42,6 +42,8 @@ define(function(require) {
     },
 
     update: function(criteria) {
+      criteria = criteria || {};
+
       this.searchBox.update(criteria);
       if (this.advancedSearch.update) {
         this.advancedSearch.update(criteria);

@@ -162,6 +162,28 @@ define(function(require) {
             view.update();
           }).not.toThrow();
         });
+
+        it('should not pass falsy criteria to search box', function() {
+          var view = new SearchView,
+            fakeCriteria = void 0;
+
+          spyOn(view.searchBox, 'update');
+
+          view.update(fakeCriteria);
+
+          expect(view.searchBox.update).toHaveBeenCalledWith({});
+        });
+
+        it('should not pass falsy criteria to advanced search', function() {
+          var view = new SearchView,
+            fakeCriteria = void 0;
+
+          spyOn(view.advancedSearch, 'update');
+
+          view.update(fakeCriteria);
+
+          expect(view.advancedSearch.update).toHaveBeenCalledWith({});
+        });
       });
     });
 

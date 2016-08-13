@@ -276,6 +276,25 @@ define(function(require) {
         it('should be defined', function() {
           expect(SearchBoxView.prototype.update).toEqual(jasmine.any(Function));
         });
+
+        it('should not throw if keyword input is not defined', function() {
+          expect(function() {
+            var view = new SearchBoxView;
+            view.update({})
+          }).not.toThrow();
+        });
+
+        it('should update keyword criteria', function() {
+          var view = new SearchBoxView,
+            fakeCriteria = {
+              keyword: 'bar'
+            }
+          view.keywordInput = jasmine.createSpyObj('input', ['val']);
+
+          view.update(fakeCriteria);
+
+          expect(view.keywordInput.val).toHaveBeenCalledWith('bar');
+        });
       });
     });
 
