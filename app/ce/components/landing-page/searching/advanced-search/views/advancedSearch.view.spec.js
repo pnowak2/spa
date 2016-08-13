@@ -178,7 +178,7 @@ define(function(require) {
       describe('.initCriteriaStatus()', function() {
         beforeEach(function() {
           this.view = new AdvancedSearchView();
-          spyOn(AdvancedSearchView.prototype, 'clearMatchAllCountries');
+          spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountries');
           spyOn(this.view.subprogrammes, 'hide');
           spyOn(this.view.actions, 'hide');
           spyOn(this.view.activities, 'hide');
@@ -193,7 +193,7 @@ define(function(require) {
         });
 
         it('should clear match all countries checkbox', function() {
-          expect(this.view.clearMatchAllCountries).toHaveBeenCalled();
+          expect(this.view.toggleMatchAllCountries).toHaveBeenCalledWith(false);
         });
 
         it('should hide subprogrammes', function() {
@@ -375,6 +375,7 @@ define(function(require) {
           spyOn(this.view.countries, 'selectItems');
           spyOn(this.view.regions, 'selectItems');
           spyOn(this.view.organisationTypes, 'selectItems');
+          spyOn(this.view, 'toggleMatchAllCountries');
         });
 
         it('should be defined', function() {
@@ -437,6 +438,14 @@ define(function(require) {
           expect(this.view.fundingYears.selectItems).toHaveBeenCalledWith(['2014', '2024']);
         });
 
+        it('should update match all countries', function() {
+          this.view.update({
+            matchAllCountries: true
+          });
+
+          expect(this.view.toggleMatchAllCountries).toHaveBeenCalledWith(true);
+        });
+
         it('should update countries', function() {
           this.view.update({
             countries: ['PL', 'BE']
@@ -481,18 +490,20 @@ define(function(require) {
         });
       });
 
-      describe('.clearMatchAllCountries()', function() {
+      describe('.toggleMatchAllCountries()', function() {
         it('should be defined', function() {
-          expect(AdvancedSearchView.prototype.clearMatchAllCountries).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchView.prototype.toggleMatchAllCountries).toEqual(jasmine.any(Function));
         });
 
-        it('should clear selection of checkbox', function() {
-          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue(jasmine.createSpyObj('chk', ['removeAttr']));
+        it('should toggle selection of checkbox', function() {
+          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue(jasmine.createSpyObj('chk', ['prop']));
           var view = new AdvancedSearchView;
 
-          view.clearMatchAllCountries();
+          view.toggleMatchAllCountries(true);
+          expect(view.getMatchAllCountriesElement().prop).toHaveBeenCalledWith('checked', true);
 
-          expect(view.getMatchAllCountriesElement().removeAttr).toHaveBeenCalledWith('checked');
+          view.toggleMatchAllCountries(false);
+          expect(view.getMatchAllCountriesElement().prop).toHaveBeenCalledWith('checked', false);
         });
       });
     });

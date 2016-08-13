@@ -66,7 +66,7 @@ define(function(require) {
     },
 
     initCriteriaStatus: function() {
-      this.clearMatchAllCountries();
+      this.toggleMatchAllCountries(false);
       this.subprogrammes.hide();
       this.actions.hide();
       this.activities.hide();
@@ -170,14 +170,15 @@ define(function(require) {
       this.countries.selectItems(criteria.countries);
       this.regions.selectItems(criteria.regions);
       this.organisationTypes.selectItems(criteria.organisationTypes);
+      this.toggleMatchAllCountries(criteria.matchAllCountries);
     },
 
     getMatchAllCountriesElement: function() {
       return this.$el.find('.vlr-advanced-search__match-all-countries-input');
     },
 
-    clearMatchAllCountries: function() {
-      this.getMatchAllCountriesElement().removeAttr('checked');
+    toggleMatchAllCountries: function(isChecked) {
+      this.getMatchAllCountriesElement().prop('checked', isChecked);
     },
 
     render: function() {

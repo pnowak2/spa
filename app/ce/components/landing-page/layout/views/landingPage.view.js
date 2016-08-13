@@ -11,6 +11,21 @@ define(function(require) {
       });
 
       this.render();
+
+      // this.search.update({
+      //   keyword: 'boo',
+      //   options: ['successStoriesOnly', 'resultsOnly'],
+      //   programme: '31052583',
+      //   subprogramme: '31052594',
+      //   action: '31061522',
+      //   activities: ['31052658', '31052660'],
+      //   activityYears: ['2012', '2013'],
+      //   fundingYears: ['2014', '2015'],
+      //   matchAllCountries: true,
+      //   countries: ['PL'],
+      //   regions: ['31046918'],
+      //   organisationTypes: ['31047402', '31047384']
+      // })
     },
 
     render: function() {
