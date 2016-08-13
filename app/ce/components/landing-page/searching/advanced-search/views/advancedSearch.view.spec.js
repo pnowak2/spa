@@ -362,8 +362,47 @@ define(function(require) {
       });
 
       describe('.update()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView;
+
+          spyOn(this.view.options, 'selectItems');
+          spyOn(this.view.programmes, 'selectItem');
+          spyOn(this.view.subprogrammes, 'selectItem');
+          spyOn(this.view.actions, 'selectItem');
+          spyOn(this.view.activities, 'selectItems');
+          spyOn(this.view.activityYears, 'selectItems');
+          spyOn(this.view.fundingYears, 'selectItems');
+          spyOn(this.view.countries, 'selectItems');
+          spyOn(this.view.regions, 'selectItems');
+          spyOn(this.view.organisationTypes, 'selectItems');
+        });
+
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should update options', function() {
+          this.view.update({
+            options: ['a', 'b']
+          });
+
+          expect(this.view.options.selectItems).toHaveBeenCalledWith(['a', 'b']);
+        });
+
+        it('should update programme', function() {
+          this.view.update({
+            programme: 'CE'
+          });
+
+          expect(this.view.programmes.selectItem).toHaveBeenCalledWith('CE');
+        });
+
+        it('should update subprogramme', function() {
+          this.view.update({
+            subprogramme: 'CULTURE'
+          });
+
+          expect(this.view.subprogrammes.selectItem).toHaveBeenCalledWith('CULTURE');
         });
       });
 

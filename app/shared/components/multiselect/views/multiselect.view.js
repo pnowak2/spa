@@ -73,7 +73,7 @@ define(function(require) {
       });
     },
 
-    firstSelectedItem: function () {
+    firstSelectedItem: function() {
       return this.selectedItems()[0];
     },
 
@@ -89,12 +89,17 @@ define(function(require) {
       return this.collection.hasOneSelection();
     },
 
-    isDirty: function () {
+    isDirty: function() {
       return this.collection.isDirty();
     },
 
     selectItems: function(itemIds) {
       this.collection.selectItems(itemIds);
+      this.render();
+    },
+
+    selectItem: function(itemId) {
+      this.collection.selectItem(itemId);
       this.render();
     },
 

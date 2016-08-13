@@ -160,7 +160,9 @@ define(function(require) {
     },
 
     update: function(criteria) {
-
+      this.options.selectItems(criteria.options);
+      this.programmes.selectItem(criteria.programme);
+      this.subprogrammes.selectItem(criteria.subprogramme);
     },
 
     getMatchAllCountriesElement: function() {

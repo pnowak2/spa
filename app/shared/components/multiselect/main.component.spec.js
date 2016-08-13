@@ -155,6 +155,23 @@ define(function(require) {
         });
       });
 
+      describe('.selectItem()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.selectItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          spyOn(MultiselectView.prototype, 'selectItem');
+
+          var component = new MultiselectComponent,
+            fakeSelectItem = 'fake id';
+
+          component.selectItem(fakeSelectItem);
+
+          expect(component.view.selectItem).toHaveBeenCalledWith(fakeSelectItem);
+        });
+      });
+
       describe('.update', function() {
         it('should be defined', function() {
           expect(MultiselectComponent.prototype.update).toEqual(jasmine.any(Function));

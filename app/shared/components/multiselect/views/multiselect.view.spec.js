@@ -181,7 +181,7 @@ define(function(require) {
           expect(this.viewSingle.stopListeningCollectionChanges).toHaveBeenCalled();
         });
 
-        it('should start listening to collection changes if multiple is not active', function() {         
+        it('should start listening to collection changes if multiple is not active', function() {
           expect(this.viewSingle.startListeningCollectionChanges).not.toHaveBeenCalled();
           this.viewSingle.didClickSelectItem(this.fakeEvent);
           expect(this.viewSingle.startListeningCollectionChanges).toHaveBeenCalled();
@@ -193,7 +193,7 @@ define(function(require) {
           expect(this.viewMultiple.stopListeningCollectionChanges).not.toHaveBeenCalled();
         });
 
-        it('should not start listening to collection changes if multiple is not active', function() {         
+        it('should not start listening to collection changes if multiple is not active', function() {
           expect(this.viewMultiple.startListeningCollectionChanges).not.toHaveBeenCalled();
           this.viewMultiple.didClickSelectItem(this.fakeEvent);
           expect(this.viewMultiple.startListeningCollectionChanges).not.toHaveBeenCalled();
@@ -455,6 +455,29 @@ define(function(require) {
 
         it('should rerender', function() {
           this.view.selectItems();
+          expect(this.view.render).toHaveBeenCalled();
+        });
+      });
+
+      describe('.selectItem()', function() {
+        beforeEach(function() {
+          spyOn(MultiselectView.prototype, 'render');
+          spyOn(MultiselectCollection.prototype, 'selectItem');
+          this.view = new MultiselectView;
+        });
+
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.selectItem).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to collection', function() {
+          var fakeItemId = 'fake id';
+          this.view.selectItem(fakeItemId);
+          expect(this.view.collection.selectItem).toHaveBeenCalledWith(fakeItemId);
+        });
+
+        it('should rerender', function() {
+          this.view.selectItem();
           expect(this.view.render).toHaveBeenCalled();
         });
       });

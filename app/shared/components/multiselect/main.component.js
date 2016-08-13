@@ -36,12 +36,16 @@ define(function(require) {
       return this.view.hasOneSelection();
     },
 
-    isDirty: function () {
+    isDirty: function() {
       return this.view.isDirty();
     },
 
     selectItems: function(itemIds) {
       this.view.selectItems(itemIds);
+    },
+
+    selectItem: function(itemId) {
+      this.view.selectItem(itemId);
     },
 
     update: function(items) {
