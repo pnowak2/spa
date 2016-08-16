@@ -129,57 +129,39 @@ define(function(require) {
           advancedSearchService.activitiesByProgramme(selectedProgramme.id)
         );
 
+        if (selectedProgramme.id === constants.ccm.CE) {
+          this.fundingYears.show();         
+        } else {
+          this.actions.hide();
+          this.fundingYears.hide();
+          this.regions.hide();
+        }
+
         this.subprogrammes.show();
-        this.activities.show(); 
+        this.activities.show();
       } else {
         this.subprogrammes.hide();
         this.subprogrammes.clear();
         this.activities.hide();
         this.activities.clear();
+        this.actions.hide();
+        this.actions.clear();
+        this.fundingYears.hide();
+        this.regions.hide();
       }
-
-      // var selectedProgramme;
-
-      // if (this.programmes.hasOneSelection()) {
-      //   selectedProgramme = this.programmes.firstSelectedItem()
-
-      //   if (this.isCeProgrammeSelected()) {
-      //     this.fundingYears.show();
-      //     if (this.countries.hasOneSelection()) {
-      //       this.regions.show();
-      //     }
-      //   } else {
-      //     this.fundingYears.hide();
-      //     this.regions.hide();
-      //   }
-
-      //   this.subprogrammes.update(
-      //     advancedSearchService.subprogrammesByProgramme(selectedProgramme.id)
-      //   );
-      //   this.activities.update(
-      //     advancedSearchService.activitiesByProgramme(selectedProgramme.id)
-      //   );
-
-      //   this.subprogrammes.show();
-      //   this.activities.show();
-      // } else {
-      //   this.subprogrammes.hide();
-      //   this.subprogrammes.clear();
-      //   this.activities.hide();
-      //   this.activities.clear();
-      // }
     },
 
     didSubprogrammeChange: function() {
-      // var selectedItem;
+      // var selectedSubprogramme;
 
       // if (this.subprogrammes.hasOneSelection()) {
-      //   selectedItem = this.subprogrammes.firstSelectedItem()
-
-      //   this.actions.update(
-      //     advancedSearchService.actionsBySubprogramme(selectedItem.id)
-      //   );
-      //   this.actions.show();
+      //   if (this.isCeProgrammeSelected()) {
+      //     selectedSubprogramme = this.subprogrammes.firstSelectedItem()
+      //     this.actions.update(
+      //       advancedSearchService.actionsBySubprogramme(selectedSubprogramme.id)
+      //     );
+      //     this.actions.show();
+      //   }
       // } else {
       //   this.actions.hide();
       //   this.actions.update([]);

@@ -516,6 +516,233 @@ define(function(require) {
             });
           });
         });
+
+        describe('Handling Actions', function() {
+          beforeEach(function() {
+            spyOn(this.view.actions, 'show');
+            spyOn(this.view.actions, 'hide');
+            spyOn(this.view.actions, 'update');
+            spyOn(this.view.actions, 'clear');
+          });
+
+          describe('Programme has CREATIVE EUROPE selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: constants.ccm.CE
+              });
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should not show actions', function() {
+              expect(this.view.actions.show).not.toHaveBeenCalled();
+            });
+
+            it('should not hide actions', function() {
+              expect(this.view.actions.hide).not.toHaveBeenCalled();
+            });
+
+            it('should not clear actions', function() {
+              expect(this.view.actions.clear).not.toHaveBeenCalled();
+            });
+          });
+
+          describe('Programme has selection different than CREATIVE EUROPE', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: constants.ccm.CULTURE_2007
+              });
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should hide actions', function() {
+              expect(this.view.actions.hide).toHaveBeenCalled();
+            });
+
+            it('should not show actions', function() {
+              expect(this.view.actions.show).not.toHaveBeenCalled();
+            });
+
+            it('should not clear actions', function() {
+              expect(this.view.actions.clear).not.toHaveBeenCalled();
+            });
+          });
+
+          describe('Programme has no selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should hide actions', function() {
+              expect(this.view.actions.hide).toHaveBeenCalled();
+            });
+
+            it('should not show actions', function() {
+              expect(this.view.actions.show).not.toHaveBeenCalled();
+            });
+
+            it('should clear actions', function() {
+              expect(this.view.actions.clear).toHaveBeenCalled();
+            });
+          });
+        });
+
+        describe('Handling Funding Years', function() {
+          beforeEach(function() {
+            spyOn(this.view.fundingYears, 'show');
+            spyOn(this.view.fundingYears, 'hide');
+            spyOn(this.view.fundingYears, 'update');
+            spyOn(this.view.fundingYears, 'clear');
+          });
+
+          describe('Programme has CREATIVE EUROPE selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: constants.ccm.CE
+              });
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should show funding years', function() {
+              expect(this.view.fundingYears.show).toHaveBeenCalled();
+            });
+
+            it('should not hide funding years', function() {
+              expect(this.view.fundingYears.hide).not.toHaveBeenCalled();
+            });
+
+            it('should not clear funding years', function() {
+              expect(this.view.fundingYears.clear).not.toHaveBeenCalled();
+            });
+          });
+
+          describe('Programme has selection different than CREATIVE EUROPE', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: constants.ccm.CULTURE_2007
+              });
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should hide funding yearss', function() {
+              expect(this.view.fundingYears.hide).toHaveBeenCalled();
+            });
+
+            it('should not show funding years', function() {
+              expect(this.view.fundingYears.show).not.toHaveBeenCalled();
+            });
+
+            it('should not clear funding years', function() {
+              expect(this.view.fundingYears.clear).not.toHaveBeenCalled();
+            });
+          });
+
+          describe('Programme has no selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should hide funding years', function() {
+              expect(this.view.fundingYears.hide).toHaveBeenCalled();
+            });
+
+            it('should not show funding years', function() {
+              expect(this.view.fundingYears.show).not.toHaveBeenCalled();
+            });
+
+            it('should not clear funding years', function() {
+              expect(this.view.fundingYears.clear).not.toHaveBeenCalled();
+            });
+          });
+        });
+
+
+
+        describe('Handling Regions', function() {
+          beforeEach(function() {
+            spyOn(this.view.regions, 'show');
+            spyOn(this.view.regions, 'hide');
+            spyOn(this.view.regions, 'update');
+            spyOn(this.view.regions, 'clear');
+          });
+
+          xdescribe('Programme has CREATIVE EUROPE selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: constants.ccm.CE
+              });
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should show regions', function() {
+              expect(this.view.regions.show).toHaveBeenCalled();
+            });
+
+            it('should not hide regions', function() {
+              expect(this.view.regions.hide).not.toHaveBeenCalled();
+            });
+
+            it('should not clear regions', function() {
+              expect(this.view.regions.clear).not.toHaveBeenCalled();
+            });
+          });
+
+          describe('Programme has selection different than CREATIVE EUROPE', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: constants.ccm.CULTURE_2007
+              });
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should hide regions', function() {
+              expect(this.view.regions.hide).toHaveBeenCalled();
+            });
+
+            it('should not show regions', function() {
+              expect(this.view.regions.show).not.toHaveBeenCalled();
+            });
+
+            it('should not clear regions', function() {
+              expect(this.view.regions.clear).not.toHaveBeenCalled();
+            });
+          });
+
+          describe('Programme has no selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should hide regions', function() {
+              expect(this.view.regions.hide).toHaveBeenCalled();
+            });
+
+            it('should not show regions', function() {
+              expect(this.view.regions.show).not.toHaveBeenCalled();
+            });
+
+            it('should not clear regions', function() {
+              expect(this.view.regions.clear).not.toHaveBeenCalled();
+            });
+          });
+        });
       });
 
       describe('.didSubprogrammeChange', function() {
