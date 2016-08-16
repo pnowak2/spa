@@ -380,6 +380,71 @@ define(function(require) {
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didProgrammeChange).toEqual(jasmine.any(Function));
         });
+
+        describe('Handling Subprogrammes', function() {
+          beforeEach(function() {
+            var self = this;
+            this.fakeSubprogrammes = [{}, {}];
+            this.view = new AdvancedSearchView;
+
+            spyOn(advancedSearchService, 'subprogrammesByProgramme').and.callFake(function(programmeCode) {
+              if (programmeCode === 'CE') {
+                return self.fakeSubprogrammes;
+              }
+            });
+            spyOn(this.view.subprogrammes, 'show');
+            spyOn(this.view.subprogrammes, 'hide');
+            spyOn(this.view.subprogrammes, 'update');
+            spyOn(this.view.subprogrammes, 'clear');
+          });
+
+          describe('Programme has ONE selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: 'CE'
+              });
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should show subprogrammes', function() {
+              expect(this.view.subprogrammes.show).toHaveBeenCalled();
+            });
+
+            it('should not hide subprogrammes', function() {
+              expect(this.view.subprogrammes.hide).not.toHaveBeenCalled();
+            });
+
+            it('should call advancedSearchService to get subprogrammes according to programme selection', function() {
+              expect(advancedSearchService.subprogrammesByProgramme).toHaveBeenCalledWith('CE')
+            });
+
+            it('should update subprogrammes dropdown according to programme selection', function() {
+              expect(this.view.subprogrammes.update).toHaveBeenCalledWith(this.fakeSubprogrammes);
+            });
+          });
+
+          describe('Programme has no selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should hide subprogrammes', function() {
+              expect(this.view.subprogrammes.hide).toHaveBeenCalled();
+            });
+
+            it('should not show subprogrammes', function() {
+              expect(this.view.subprogrammes.show).not.toHaveBeenCalled();
+            });
+
+            it('should clear subprogrammes', function() {
+              expect(this.view.subprogrammes.clear).toHaveBeenCalled();
+            });
+          });
+        });
       });
 
       describe('.didSubprogrammeChange', function() {

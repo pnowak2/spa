@@ -91,8 +91,8 @@ define(function(require) {
         this.organisationTypes.isDirty();
     },
 
-    isCeProgrammeSelected: function () {
-      if(this.programmes.hasOneSelection()) {
+    isCeProgrammeSelected: function() {
+      if (this.programmes.hasOneSelection()) {
         return this.programmes.firstSelectedItem().id === constants.ccm.CE
       } else {
         return false;
@@ -117,10 +117,25 @@ define(function(require) {
     },
 
     didProgrammeChange: function() {
-      // var selectedItem;
+      var selectedProgramme;
+
+      if (this.programmes.hasOneSelection()) {
+        selectedProgramme = this.programmes.firstSelectedItem()
+
+        this.subprogrammes.update(
+          advancedSearchService.subprogrammesByProgramme(selectedProgramme.id)
+        );
+
+        this.subprogrammes.show();
+      } else {
+        this.subprogrammes.hide();
+        this.subprogrammes.clear();
+      }
+
+      // var selectedProgramme;
 
       // if (this.programmes.hasOneSelection()) {
-      //   selectedItem = this.programmes.firstSelectedItem()
+      //   selectedProgramme = this.programmes.firstSelectedItem()
 
       //   if (this.isCeProgrammeSelected()) {
       //     this.fundingYears.show();
@@ -133,10 +148,10 @@ define(function(require) {
       //   }
 
       //   this.subprogrammes.update(
-      //     advancedSearchService.subprogrammesByProgramme(selectedItem.id)
+      //     advancedSearchService.subprogrammesByProgramme(selectedProgramme.id)
       //   );
       //   this.activities.update(
-      //     advancedSearchService.activitiesByProgramme(selectedItem.id)
+      //     advancedSearchService.activitiesByProgramme(selectedProgramme.id)
       //   );
 
       //   this.subprogrammes.show();
