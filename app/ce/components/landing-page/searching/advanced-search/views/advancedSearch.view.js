@@ -130,7 +130,10 @@ define(function(require) {
         );
 
         if (selectedProgramme.id === constants.ccm.CE) {
-          this.fundingYears.show();         
+          this.fundingYears.show();   
+          // if(this.countries.hasOneSelection())  {
+          //   this.regions.show();     
+          // }
         } else {
           this.actions.hide();
           this.fundingYears.hide();
@@ -152,39 +155,39 @@ define(function(require) {
     },
 
     didSubprogrammeChange: function() {
-      // var selectedSubprogramme;
+      var selectedSubprogramme;
 
-      // if (this.subprogrammes.hasOneSelection()) {
-      //   if (this.isCeProgrammeSelected()) {
-      //     selectedSubprogramme = this.subprogrammes.firstSelectedItem()
-      //     this.actions.update(
-      //       advancedSearchService.actionsBySubprogramme(selectedSubprogramme.id)
-      //     );
-      //     this.actions.show();
-      //   }
-      // } else {
-      //   this.actions.hide();
-      //   this.actions.update([]);
-      // }
+      if (this.subprogrammes.hasOneSelection()) {
+        if (this.isCeProgrammeSelected()) {
+          selectedSubprogramme = this.subprogrammes.firstSelectedItem()
+          this.actions.update(
+            advancedSearchService.actionsBySubprogramme(selectedSubprogramme.id)
+          );
+          this.actions.show();
+        }
+      } else {
+        this.actions.hide();
+        this.actions.update([]);
+      }
     },
 
     didCountryChange: function() {
-      // var selectedItem;
+      var selectedItem;
 
-      // if (this.countries.hasOneSelection()) {
-      //   selectedItem = this.countries.firstSelectedItem();
+      if (this.countries.hasOneSelection()) {
+        selectedItem = this.countries.firstSelectedItem();
 
-      //   this.regions.update(
-      //     advancedSearchService.regionsByCountry(selectedItem.id)
-      //   );
+        this.regions.update(
+          advancedSearchService.regionsByCountry(selectedItem.id)
+        );
 
-      //   if(this.isCeProgrammeSelected()) {
-      //     this.regions.show();
-      //   }
-      // } else {
-      //   this.regions.hide();
-      //   this.regions.clear();
-      // }
+        if(this.isCeProgrammeSelected()) {
+          this.regions.show();
+        }
+      } else {
+        this.regions.hide();
+        this.regions.clear();
+      }
     },
 
     update: function(criteria) {

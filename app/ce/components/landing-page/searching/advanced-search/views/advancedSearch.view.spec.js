@@ -667,8 +667,6 @@ define(function(require) {
           });
         });
 
-
-
         describe('Handling Regions', function() {
           beforeEach(function() {
             spyOn(this.view.regions, 'show');
@@ -677,7 +675,7 @@ define(function(require) {
             spyOn(this.view.regions, 'clear');
           });
 
-          xdescribe('Programme has CREATIVE EUROPE selection', function() {
+          describe('Programme has CREATIVE EUROPE selection', function() {
             beforeEach(function() {
               spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
               spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
@@ -700,7 +698,7 @@ define(function(require) {
             });
           });
 
-          describe('Programme has selection different than CREATIVE EUROPE', function() {
+          xdescribe('Programme has selection different than CREATIVE EUROPE', function() {
             beforeEach(function() {
               spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
               spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
@@ -723,7 +721,7 @@ define(function(require) {
             });
           });
 
-          describe('Programme has no selection', function() {
+          xdescribe('Programme has no selection', function() {
             beforeEach(function() {
               spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
 
