@@ -268,6 +268,39 @@ define(function(require) {
         });
       });
 
+      describe('.isCeProgrammeSelected()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.isCeProgrammeSelected).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if CE programme is selected', function() {
+          var view = new AdvancedSearchView;
+          spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
+          spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
+            id: constants.ccm.CE
+          });
+
+          expect(view.isCeProgrammeSelected()).toBe(true);
+        });
+
+        it('should return false if CE programme is NOT selected', function() {
+          var view = new AdvancedSearchView;
+          spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
+          spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
+            id: 'OTHER'
+          });
+
+          expect(view.isCeProgrammeSelected()).toBe(false);
+        });
+
+        it('should return false if more than one selection of programmes is done', function() {
+          var view = new AdvancedSearchView;
+          spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
+
+          expect(view.isCeProgrammeSelected()).toBe(false);
+        });
+      });
+
       describe('.didClickClearFilters()', function() {
         beforeEach(function() {
           spyOn(AdvancedSearchView.prototype, 'initCriteriaStatus');

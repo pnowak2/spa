@@ -91,6 +91,14 @@ define(function(require) {
         this.organisationTypes.isDirty();
     },
 
+    isCeProgrammeSelected: function () {
+      if(this.programmes.hasOneSelection()) {
+        return this.programmes.firstSelectedItem().id === constants.ccm.CE
+      } else {
+        return false;
+      }
+    },
+
     didClickClearFilters: function(e) {
       e.preventDefault();
 
@@ -109,30 +117,44 @@ define(function(require) {
     },
 
     didProgrammeChange: function() {
-      // var selectedItem = this.programmes.firstSelectedItem();
+      // var selectedItem;
 
-      // if (this.programmes.hasSelection()) {
+      // if (this.programmes.hasOneSelection()) {
+      //   selectedItem = this.programmes.firstSelectedItem()
+
+      //   if (this.isCeProgrammeSelected()) {
+      //     this.fundingYears.show();
+      //     if (this.countries.hasOneSelection()) {
+      //       this.regions.show();
+      //     }
+      //   } else {
+      //     this.fundingYears.hide();
+      //     this.regions.hide();
+      //   }
+
       //   this.subprogrammes.update(
       //     advancedSearchService.subprogrammesByProgramme(selectedItem.id)
       //   );
       //   this.activities.update(
       //     advancedSearchService.activitiesByProgramme(selectedItem.id)
       //   );
+
       //   this.subprogrammes.show();
       //   this.activities.show();
-      //   this.fundingYears.toggle(selectedItem.id === constants.ccm.CE);
       // } else {
       //   this.subprogrammes.hide();
-      //   this.subprogrammes.update([]);
+      //   this.subprogrammes.clear();
       //   this.activities.hide();
-      //   this.activities.update([]);
+      //   this.activities.clear();
       // }
     },
 
     didSubprogrammeChange: function() {
-      // var selectedItem = this.subprogrammes.firstSelectedItem();
+      // var selectedItem;
 
-      // if (this.subprogrammes.hasSelection()) {
+      // if (this.subprogrammes.hasOneSelection()) {
+      //   selectedItem = this.subprogrammes.firstSelectedItem()
+
       //   this.actions.update(
       //     advancedSearchService.actionsBySubprogramme(selectedItem.id)
       //   );
@@ -144,18 +166,21 @@ define(function(require) {
     },
 
     didCountryChange: function() {
-      // var selectedItem = {},
-      //   regions = [];
+      // var selectedItem;
 
       // if (this.countries.hasOneSelection()) {
-      //   selectedItem = this.countries.firstSelectedItem()
-      //   regions = advancedSearchService.regionsByCountry(selectedItem.id);
+      //   selectedItem = this.countries.firstSelectedItem();
 
-      //   this.regions.update(regions);
-      //   this.regions.show();
+      //   this.regions.update(
+      //     advancedSearchService.regionsByCountry(selectedItem.id)
+      //   );
+
+      //   if(this.isCeProgrammeSelected()) {
+      //     this.regions.show();
+      //   }
       // } else {
       //   this.regions.hide();
-      //   this.regions.update([]);
+      //   this.regions.clear();
       // }
     },
 
