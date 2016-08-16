@@ -377,21 +377,36 @@ define(function(require) {
       });
 
       describe('.didProgrammeChange', function() {
+        beforeEach(function() {
+          var self = this;
+          this.fakeSubprogrammes = [{}, {}];
+          this.fakeActivities = [{}, {}];
+          this.view = new AdvancedSearchView;
+
+          spyOn(advancedSearchService, 'subprogrammesByProgramme').and.callFake(function(programmeCode) {
+            if (programmeCode === 'CE') {
+              return self.fakeSubprogrammes;
+            }
+          });
+
+          spyOn(advancedSearchService, 'activitiesByProgramme').and.callFake(function(programmeCode) {
+            if (programmeCode === 'CE') {
+              return self.fakeActivities;
+            }
+          });
+
+          // spyOn(MultiselectComponent.prototype, 'show');
+          // spyOn(MultiselectComponent.prototype, 'hide');
+          // spyOn(MultiselectComponent.prototype, 'update');
+          // spyOn(MultiselectComponent.prototype, 'clear');
+        });
+
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didProgrammeChange).toEqual(jasmine.any(Function));
         });
 
         describe('Handling Subprogrammes', function() {
           beforeEach(function() {
-            var self = this;
-            this.fakeSubprogrammes = [{}, {}];
-            this.view = new AdvancedSearchView;
-
-            spyOn(advancedSearchService, 'subprogrammesByProgramme').and.callFake(function(programmeCode) {
-              if (programmeCode === 'CE') {
-                return self.fakeSubprogrammes;
-              }
-            });
             spyOn(this.view.subprogrammes, 'show');
             spyOn(this.view.subprogrammes, 'hide');
             spyOn(this.view.subprogrammes, 'update');
@@ -400,10 +415,10 @@ define(function(require) {
 
           describe('Programme has ONE selection', function() {
             beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
               spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
                 id: 'CE'
               });
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
 
               this.view.didProgrammeChange();
             });
@@ -442,6 +457,62 @@ define(function(require) {
 
             it('should clear subprogrammes', function() {
               expect(this.view.subprogrammes.clear).toHaveBeenCalled();
+            });
+          });
+        });
+
+        describe('Handling Activities', function() {
+          beforeEach(function() {
+            spyOn(this.view.activities, 'show');
+            spyOn(this.view.activities, 'hide');
+            spyOn(this.view.activities, 'update');
+            spyOn(this.view.activities, 'clear');
+          });
+
+          describe('Programme has ONE selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: 'CE'
+              });
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should show activities', function() {
+              expect(this.view.activities.show).toHaveBeenCalled();
+            });
+
+            it('should not hide activities', function() {
+              expect(this.view.activities.hide).not.toHaveBeenCalled();
+            });
+
+            it('should call advancedSearchService to get activities according to programme selection', function() {
+              expect(advancedSearchService.activitiesByProgramme).toHaveBeenCalledWith('CE')
+            });
+
+            it('should update activities dropdown according to programme selection', function() {
+              expect(this.view.activities.update).toHaveBeenCalledWith(this.fakeActivities);
+            });
+          });
+
+          describe('Programme has no selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should hide activities', function() {
+              expect(this.view.activities.hide).toHaveBeenCalled();
+            });
+
+            it('should not show activities', function() {
+              expect(this.view.activities.show).not.toHaveBeenCalled();
+            });
+
+            it('should clear activities', function() {
+              expect(this.view.activities.clear).toHaveBeenCalled();
             });
           });
         });

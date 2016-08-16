@@ -125,11 +125,17 @@ define(function(require) {
         this.subprogrammes.update(
           advancedSearchService.subprogrammesByProgramme(selectedProgramme.id)
         );
+        this.activities.update(
+          advancedSearchService.activitiesByProgramme(selectedProgramme.id)
+        );
 
         this.subprogrammes.show();
+        this.activities.show(); 
       } else {
         this.subprogrammes.hide();
         this.subprogrammes.clear();
+        this.activities.hide();
+        this.activities.clear();
       }
 
       // var selectedProgramme;
