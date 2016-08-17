@@ -15,7 +15,6 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        spyOn(AdvancedSearchView.prototype, 'initCriteriaStatus');
         spyOn(MultiselectComponent.prototype, 'initialize');
         this.view = new AdvancedSearchView();
       });
@@ -24,10 +23,6 @@ define(function(require) {
         expect(function() {
           new AdvancedSearchView;
         }).not.toThrow();
-      });
-
-      it('should init criteria visibility', function() {
-        expect(this.view.initCriteriaStatus).toHaveBeenCalled();
       });
 
       describe('Options Section', function() {
@@ -178,7 +173,8 @@ define(function(require) {
       describe('.initCriteriaStatus()', function() {
         beforeEach(function() {
           this.view = new AdvancedSearchView();
-          spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountries');
+          spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesSelection');
+          spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesVisibility');
           spyOn(this.view.subprogrammes, 'hide');
           spyOn(this.view.actions, 'hide');
           spyOn(this.view.activities, 'hide');
@@ -193,7 +189,11 @@ define(function(require) {
         });
 
         it('should clear match all countries checkbox', function() {
-          expect(this.view.toggleMatchAllCountries).toHaveBeenCalledWith(false);
+          expect(this.view.toggleMatchAllCountriesSelection).toHaveBeenCalledWith(false);
+        });
+
+        it('should hide match all countries section', function() {
+          expect(this.view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(false);
         });
 
         it('should hide subprogrammes', function() {
@@ -791,7 +791,7 @@ define(function(require) {
           spyOn(this.view.countries, 'selectItems');
           spyOn(this.view.regions, 'selectItems');
           spyOn(this.view.organisationTypes, 'selectItems');
-          spyOn(this.view, 'toggleMatchAllCountries');
+          spyOn(this.view, 'toggleMatchAllCountriesSelection');
         });
 
         it('should be defined', function() {
@@ -859,7 +859,7 @@ define(function(require) {
             matchAllCountries: true
           });
 
-          expect(this.view.toggleMatchAllCountries).toHaveBeenCalledWith(true);
+          expect(this.view.toggleMatchAllCountriesSelection).toHaveBeenCalledWith(true);
         });
 
         it('should update countries', function() {
@@ -921,6 +921,25 @@ define(function(require) {
         });
       });
 
+      describe('.getMatchAllCountriesContainerElement()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.getMatchAllCountriesContainerElement).toEqual(jasmine.any(Function));
+        });
+
+        it('should return match all countries element', function() {
+          var view = new AdvancedSearchView,
+            fakeElement = {};
+
+          spyOn($.prototype, 'find').and.callFake(function(selector) {
+            if (selector === '.vlr-advanced-search__match-all-countries-container') {
+              return fakeElement;
+            }
+          });
+
+          expect(view.getMatchAllCountriesContainerElement()).toBe(fakeElement);
+        });
+      });
+
       describe('.getMatchAllCountriesElement()', function() {
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.getMatchAllCountriesElement).toEqual(jasmine.any(Function));
@@ -928,32 +947,49 @@ define(function(require) {
 
         it('should return match all countries element', function() {
           var view = new AdvancedSearchView,
-            fakeMapContainer = {};
+            fakeElement = {};
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
             if (selector === '.vlr-advanced-search__match-all-countries-input') {
-              return fakeMapContainer;
+              return fakeElement;
             }
           });
 
-          expect(view.getMatchAllCountriesElement()).toBe(fakeMapContainer);
+          expect(view.getMatchAllCountriesElement()).toBe(fakeElement);
         });
       });
 
-      describe('.toggleMatchAllCountries()', function() {
+      describe('.toggleMatchAllCountriesSelection()', function() {
         it('should be defined', function() {
-          expect(AdvancedSearchView.prototype.toggleMatchAllCountries).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchView.prototype.toggleMatchAllCountriesSelection).toEqual(jasmine.any(Function));
         });
 
         it('should toggle selection of checkbox', function() {
           spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue(jasmine.createSpyObj('chk', ['prop']));
           var view = new AdvancedSearchView;
 
-          view.toggleMatchAllCountries(true);
+          view.toggleMatchAllCountriesSelection(true);
           expect(view.getMatchAllCountriesElement().prop).toHaveBeenCalledWith('checked', true);
 
-          view.toggleMatchAllCountries(false);
+          view.toggleMatchAllCountriesSelection(false);
           expect(view.getMatchAllCountriesElement().prop).toHaveBeenCalledWith('checked', false);
+        });
+      });
+
+      describe('.toggleMatchAllCountriesVisibility()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.toggleMatchAllCountriesVisibility).toEqual(jasmine.any(Function));
+        });
+
+        it('should toggle selection of checkbox', function() {
+          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesContainerElement').and.returnValue(jasmine.createSpyObj('chk', ['toggle']));
+          var view = new AdvancedSearchView;
+
+          view.toggleMatchAllCountriesVisibility(true);
+          expect(view.getMatchAllCountriesContainerElement().toggle).toHaveBeenCalledWith(true);
+
+          view.toggleMatchAllCountriesVisibility(false);
+          expect(view.getMatchAllCountriesContainerElement().toggle).toHaveBeenCalledWith(false);
         });
       });
     });
@@ -996,6 +1032,8 @@ define(function(require) {
 
     describe('rendering', function() {
       beforeEach(function() {
+        spyOn(AdvancedSearchView.prototype, 'initCriteriaStatus');
+
         this.view = new AdvancedSearchView;
         this.$el = this.view.render().$el;
       });
@@ -1003,6 +1041,10 @@ define(function(require) {
       describe('.render()', function() {
         it('should return view itself', function() {
           expect(this.view.render()).toBe(this.view);
+        });
+
+        it('should init criteria visibility', function() {
+          expect(this.view.initCriteriaStatus).toHaveBeenCalled();
         });
 
         describe('Project Criterias Section', function() {

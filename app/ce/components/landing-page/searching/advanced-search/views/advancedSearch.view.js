@@ -58,15 +58,14 @@ define(function(require) {
         multiple: true
       });
 
-      this.initCriteriaStatus();
-
       this.listenTo(this.programmes, 'multiselect:change', this.didProgrammeChange);
       this.listenTo(this.subprogrammes, 'multiselect:change', this.didSubprogrammeChange);
       this.listenTo(this.countries, 'multiselect:change', this.didCountryChange);
     },
 
     initCriteriaStatus: function() {
-      this.toggleMatchAllCountries(false);
+      this.toggleMatchAllCountriesSelection(false);
+      this.toggleMatchAllCountriesVisibility(false);
       this.subprogrammes.hide();
       this.actions.hide();
       this.activities.hide();
@@ -131,9 +130,9 @@ define(function(require) {
         );
 
         if (this.isCeProgrammeSelected()) {
-          this.fundingYears.show();   
-          if(this.countries.hasOneSelection())  {
-            this.regions.show();     
+          this.fundingYears.show();
+          if (this.countries.hasOneSelection()) {
+            this.regions.show();
           }
         } else {
           this.actions.hide();
@@ -175,6 +174,12 @@ define(function(require) {
     didCountryChange: function() {
       var selectedItem;
 
+      if (this.countries.selectedItems().length > 1) {
+        this.toggleMatchAllCountriesVisibility(true);
+      } else {
+        this.toggleMatchAllCountriesVisibility(false);
+      }
+
       if (this.countries.hasOneSelection()) {
         selectedItem = this.countries.firstSelectedItem();
 
@@ -182,7 +187,7 @@ define(function(require) {
           advancedSearchService.regionsByCountry(selectedItem.id)
         );
 
-        if(this.isCeProgrammeSelected()) {
+        if (this.isCeProgrammeSelected()) {
           this.regions.show();
         }
       } else {
@@ -202,19 +207,27 @@ define(function(require) {
       this.countries.selectItems(criteria.countries);
       this.regions.selectItems(criteria.regions);
       this.organisationTypes.selectItems(criteria.organisationTypes);
-      this.toggleMatchAllCountries(criteria.matchAllCountries);
+      this.toggleMatchAllCountriesSelection(criteria.matchAllCountries);
     },
 
-    isMatchAllCountriesSelected: function () {
+    isMatchAllCountriesSelected: function() {
       return this.getMatchAllCountriesElement().is(':checked');
+    },
+
+    getMatchAllCountriesContainerElement: function() {
+      return this.$el.find('.vlr-advanced-search__match-all-countries-container');
     },
 
     getMatchAllCountriesElement: function() {
       return this.$el.find('.vlr-advanced-search__match-all-countries-input');
     },
 
-    toggleMatchAllCountries: function(isChecked) {
+    toggleMatchAllCountriesSelection: function(isChecked) {
       this.getMatchAllCountriesElement().prop('checked', isChecked);
+    },
+
+    toggleMatchAllCountriesVisibility: function(isVisible) {
+      this.getMatchAllCountriesContainerElement().toggle(isVisible);
     },
 
     render: function() {
@@ -232,6 +245,8 @@ define(function(require) {
       this.$el.find('.vlr-advanced-search__section-countries').append(this.countries.render().view.el);
       this.$el.find('.vlr-advanced-search__section-regions').append(this.regions.render().view.el);
       this.$el.find('.vlr-advanced-search__section-organisation-types').append(this.organisationTypes.render().view.el);
+
+      this.initCriteriaStatus();
 
       return this;
     }
