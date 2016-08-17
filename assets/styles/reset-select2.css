@@ -16,7 +16,7 @@
 }
 
 .select2-search--inline:first-child input.select2-search__field {
-	width: 150px !important;
+	width: 250px !important;
 }
 
 .select2-container--default .select2-selection--multiple {
