@@ -63,7 +63,7 @@ define(function(require) {
       this.listenTo(this.countries, 'multiselect:change', this.didCountryChange);
     },
 
-    initCriteriaStatus: function() {
+    initCriteriaVisibility: function() {
       this.toggleMatchAllCountriesSelection(false);
       this.toggleMatchAllCountriesVisibility(false);
       this.subprogrammes.hide();
@@ -91,18 +91,10 @@ define(function(require) {
         this.isMatchAllCountriesSelected()
     },
 
-    isCeProgrammeSelected: function() {
-      if (this.programmes.hasOneSelection()) {
-        return this.programmes.firstSelectedItem().id === constants.ccm.CE
-      } else {
-        return false;
-      }
-    },
-
     didClickClearFilters: function(e) {
       e.preventDefault();
 
-      this.initCriteriaStatus();
+      this.initCriteriaVisibility();
 
       this.options.update(advancedSearchService.allOptions());
       this.programmes.update(advancedSearchService.allProgrammes());
@@ -128,69 +120,70 @@ define(function(require) {
         this.activities.update(
           advancedSearchService.activitiesByProgramme(selectedProgramme.id)
         );
-
-        if (this.isCeProgrammeSelected()) {
-          this.fundingYears.show();
-          if (this.countries.hasOneSelection()) {
-            this.regions.show();
-          }
-        } else {
-          this.actions.hide();
-          this.fundingYears.hide();
-          this.regions.hide();
-        }
-
-        this.subprogrammes.show();
-        this.activities.show();
-      } else {
-        this.subprogrammes.hide();
-        this.subprogrammes.clear();
-        this.activities.hide();
-        this.activities.clear();
-        this.actions.hide();
-        this.actions.clear();
-        this.fundingYears.hide();
-        this.regions.hide();
       }
+
+      this.calculateCriteriaVisibility();
     },
 
     didSubprogrammeChange: function() {
       var selectedSubprogramme;
 
       if (this.subprogrammes.hasOneSelection()) {
-        if (this.isCeProgrammeSelected()) {
-          selectedSubprogramme = this.subprogrammes.firstSelectedItem()
+          selectedSubprogramme = this.subprogrammes.firstSelectedItem();
+
           this.actions.update(
             advancedSearchService.actionsBySubprogramme(selectedSubprogramme.id)
           );
-          this.actions.show();
-        }
-      } else {
-        this.actions.hide();
-        this.actions.clear();
-      }
+      } 
+
+      this.calculateCriteriaVisibility();
     },
 
     didCountryChange: function() {
-      var selectedItem,
-        isManyCountriesSelected = this.countries.selectedItems().length > 1;
-
-      this.toggleMatchAllCountriesVisibility(isManyCountriesSelected);
+      var selectedCountry;
 
       if (this.countries.hasOneSelection()) {
-        selectedItem = this.countries.firstSelectedItem();
+        selectedCountry = this.countries.firstSelectedItem();
 
         this.regions.update(
-          advancedSearchService.regionsByCountry(selectedItem.id)
+          advancedSearchService.regionsByCountry(selectedCountry.id)
         );
-
-        if (this.isCeProgrammeSelected()) {
-          this.regions.show();
-        }
-      } else {
-        this.regions.hide();
-        this.regions.clear();
       }
+
+      this.calculateCriteriaVisibility();
+    },
+
+    calculateCriteriaVisibility: function() {
+      this.subprogrammes.toggle(this.shouldDisplaySubprogrammes());
+      this.actions.toggle(this.shouldDisplayActions());
+      this.activities.toggle(this.shouldDisplayActivities());
+      this.fundingYears.toggle(this.shouldDisplayFundingYears());
+      this.regions.toggle(this.shouldDisplayRegions());
+      this.toggleMatchAllCountriesVisibility(this.shouldDisplayMatchAllCountries());
+    },
+
+    shouldDisplaySubprogrammes: function() {
+      return this.programmes.hasOneSelection();
+    },
+
+    shouldDisplayActions: function() {
+      return this.isCeProgrammeSelected() && this.subprogrammes.hasOneSelection();
+    },
+
+    shouldDisplayActivities: function() {
+      return this.programmes.hasOneSelection();
+    },
+
+    shouldDisplayFundingYears: function() {
+      return this.isCeProgrammeSelected();
+    },
+
+    shouldDisplayRegions: function() {
+      return this.isCeProgrammeSelected() && this.countries.hasOneSelection();
+    },
+
+    shouldDisplayMatchAllCountries: function() {
+      return this.countries.selectedItems().length > 1;
     },
 
     update: function(criteria) {
@@ -205,6 +198,14 @@ define(function(require) {
       this.regions.selectItems(criteria.regions);
       this.organisationTypes.selectItems(criteria.organisationTypes);
       this.toggleMatchAllCountriesSelection(criteria.matchAllCountries);
+    },
+
+    isCeProgrammeSelected: function() {
+      if (this.programmes.hasOneSelection()) {
+        return this.programmes.firstSelectedItem().id === constants.ccm.CE
+      } else {
+        return false;
+      }
     },
 
     isMatchAllCountriesSelected: function() {
@@ -243,7 +244,7 @@ define(function(require) {
       this.$el.find('.vlr-advanced-search__section-regions').append(this.regions.render().view.el);
       this.$el.find('.vlr-advanced-search__section-organisation-types').append(this.organisationTypes.render().view.el);
 
-      this.initCriteriaStatus();
+      this.initCriteriaVisibility();
 
       return this;
     }

@@ -170,7 +170,7 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.initCriteriaStatus()', function() {
+      describe('.initCriteriaVisibility()', function() {
         beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesSelection');
@@ -181,11 +181,11 @@ define(function(require) {
           spyOn(this.view.fundingYears, 'hide');
           spyOn(this.view.regions, 'hide');
 
-          this.view.initCriteriaStatus();
+          this.view.initCriteriaVisibility();
         });
 
         it('should be defined', function() {
-          expect(AdvancedSearchView.prototype.initCriteriaStatus).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchView.prototype.initCriteriaVisibility).toEqual(jasmine.any(Function));
         });
 
         it('should clear match all countries checkbox', function() {
@@ -305,10 +305,10 @@ define(function(require) {
 
       describe('.didClickClearFilters()', function() {
         beforeEach(function() {
-          spyOn(AdvancedSearchView.prototype, 'initCriteriaStatus');
+          spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
 
           this.view = new AdvancedSearchView;
-          this.view.initCriteriaStatus.calls.reset();
+          this.view.initCriteriaVisibility.calls.reset();
 
           spyOn(this.view.options, 'update');
           spyOn(this.view.programmes, 'update');
@@ -330,7 +330,7 @@ define(function(require) {
         });
 
         it('should init criteria visibility', function() {
-          expect(this.view.initCriteriaStatus).toHaveBeenCalled();
+          expect(this.view.initCriteriaVisibility).toHaveBeenCalled();
         });
 
         it('should prevent default action', function() {
@@ -378,635 +378,388 @@ define(function(require) {
         });
       });
 
-      describe('.didProgrammeChange', function() {
-        beforeEach(function() {
-          var self = this;
-          this.fakeSubprogrammes = [{}, {}];
-          this.fakeActivities = [{}, {}];
-          this.view = new AdvancedSearchView;
-
-          spyOn(advancedSearchService, 'subprogrammesByProgramme').and.callFake(function(programmeCode) {
-            if (programmeCode === 'CE') {
-              return self.fakeSubprogrammes;
-            }
-          });
-
-          spyOn(advancedSearchService, 'activitiesByProgramme').and.callFake(function(programmeCode) {
-            if (programmeCode === 'CE') {
-              return self.fakeActivities;
-            }
-          });
-        });
-
+      describe('.didProgrammeChange()', function() {
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didProgrammeChange).toEqual(jasmine.any(Function));
         });
 
+        describe('Handling Criteria Visibility', function() {
+          beforeEach(function() {
+            spyOn(AdvancedSearchView.prototype, 'calculateCriteriaVisibility');
+
+            this.view = new AdvancedSearchView;
+
+            this.view.didProgrammeChange();
+          })
+
+          it('should calculate criteria visibility', function() {
+            expect(this.view.calculateCriteriaVisibility).toHaveBeenCalled();
+          });
+        });
+
         describe('Handling Subprogrammes', function() {
           beforeEach(function() {
-            spyOn(this.view.subprogrammes, 'show');
-            spyOn(this.view.subprogrammes, 'hide');
+            var self = this;
+            this.fakeSubprogrammes = [{}, {}];
+            this.view = new AdvancedSearchView;
+
             spyOn(this.view.subprogrammes, 'update');
-            spyOn(this.view.subprogrammes, 'clear');
+            spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+            spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+              id: 'CE'
+            });
+
+            spyOn(advancedSearchService, 'subprogrammesByProgramme').and.callFake(function(programmeCode) {
+              if (programmeCode === 'CE') {
+                return self.fakeSubprogrammes;
+              }
+            });
+
+            this.view.didProgrammeChange();
           });
 
-          describe('Programme has ONE selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: 'CE'
-              });
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should show subprogrammes', function() {
-              expect(this.view.subprogrammes.show).toHaveBeenCalled();
-            });
-
-            it('should not hide subprogrammes', function() {
-              expect(this.view.subprogrammes.hide).not.toHaveBeenCalled();
-            });
-
-            it('should call advancedSearchService to get subprogrammes according to programme selection', function() {
-              expect(advancedSearchService.subprogrammesByProgramme).toHaveBeenCalledWith('CE')
-            });
-
-            it('should update subprogrammes dropdown according to programme selection', function() {
-              expect(this.view.subprogrammes.update).toHaveBeenCalledWith(this.fakeSubprogrammes);
-            });
+          it('should call advancedSearchService to get subprogrammes according to programme selection', function() {
+            expect(advancedSearchService.subprogrammesByProgramme).toHaveBeenCalledWith('CE')
           });
 
-          describe('Programme has no selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should hide subprogrammes', function() {
-              expect(this.view.subprogrammes.hide).toHaveBeenCalled();
-            });
-
-            it('should not show subprogrammes', function() {
-              expect(this.view.subprogrammes.show).not.toHaveBeenCalled();
-            });
-
-            it('should clear subprogrammes', function() {
-              expect(this.view.subprogrammes.clear).toHaveBeenCalled();
-            });
+          it('should update subprogrammes dropdown according to programme selection', function() {
+            expect(this.view.subprogrammes.update).toHaveBeenCalledWith(this.fakeSubprogrammes);
           });
         });
 
         describe('Handling Activities', function() {
           beforeEach(function() {
-            spyOn(this.view.activities, 'show');
-            spyOn(this.view.activities, 'hide');
+            var self = this;
+            this.fakeActivities = [{}, {}];
+            this.view = new AdvancedSearchView;
+
             spyOn(this.view.activities, 'update');
-            spyOn(this.view.activities, 'clear');
+            spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+            spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+              id: 'CE'
+            });
+
+            spyOn(advancedSearchService, 'activitiesByProgramme').and.callFake(function(programmeCode) {
+              if (programmeCode === 'CE') {
+                return self.fakeActivities;
+              }
+            });
+
+            this.view.didProgrammeChange();
           });
 
-          describe('Programme has ONE selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: 'CE'
-              });
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should show activities', function() {
-              expect(this.view.activities.show).toHaveBeenCalled();
-            });
-
-            it('should not hide activities', function() {
-              expect(this.view.activities.hide).not.toHaveBeenCalled();
-            });
-
-            it('should call advancedSearchService to get activities according to programme selection', function() {
-              expect(advancedSearchService.activitiesByProgramme).toHaveBeenCalledWith('CE')
-            });
-
-            it('should update activities dropdown according to programme selection', function() {
-              expect(this.view.activities.update).toHaveBeenCalledWith(this.fakeActivities);
-            });
+          it('should call advancedSearchService to get activities according to programme selection', function() {
+            expect(advancedSearchService.activitiesByProgramme).toHaveBeenCalledWith('CE')
           });
 
-          describe('Programme has no selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should hide activities', function() {
-              expect(this.view.activities.hide).toHaveBeenCalled();
-            });
-
-            it('should not show activities', function() {
-              expect(this.view.activities.show).not.toHaveBeenCalled();
-            });
-
-            it('should clear activities', function() {
-              expect(this.view.activities.clear).toHaveBeenCalled();
-            });
-          });
-        });
-
-        describe('Handling Actions', function() {
-          beforeEach(function() {
-            spyOn(this.view.actions, 'show');
-            spyOn(this.view.actions, 'hide');
-            spyOn(this.view.actions, 'update');
-            spyOn(this.view.actions, 'clear');
-          });
-
-          describe('Programme has CREATIVE EUROPE selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: constants.ccm.CE
-              });
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should not show actions', function() {
-              expect(this.view.actions.show).not.toHaveBeenCalled();
-            });
-
-            it('should not hide actions', function() {
-              expect(this.view.actions.hide).not.toHaveBeenCalled();
-            });
-
-            it('should not clear actions', function() {
-              expect(this.view.actions.clear).not.toHaveBeenCalled();
-            });
-          });
-
-          describe('Programme has selection different than CREATIVE EUROPE', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: constants.ccm.CULTURE_2007
-              });
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should hide actions', function() {
-              expect(this.view.actions.hide).toHaveBeenCalled();
-            });
-
-            it('should not show actions', function() {
-              expect(this.view.actions.show).not.toHaveBeenCalled();
-            });
-
-            it('should not clear actions', function() {
-              expect(this.view.actions.clear).not.toHaveBeenCalled();
-            });
-          });
-
-          describe('Programme has no selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should hide actions', function() {
-              expect(this.view.actions.hide).toHaveBeenCalled();
-            });
-
-            it('should not show actions', function() {
-              expect(this.view.actions.show).not.toHaveBeenCalled();
-            });
-
-            it('should clear actions', function() {
-              expect(this.view.actions.clear).toHaveBeenCalled();
-            });
-          });
-        });
-
-        describe('Handling Funding Years', function() {
-          beforeEach(function() {
-            spyOn(this.view.fundingYears, 'show');
-            spyOn(this.view.fundingYears, 'hide');
-            spyOn(this.view.fundingYears, 'update');
-            spyOn(this.view.fundingYears, 'clear');
-          });
-
-          describe('Programme has CREATIVE EUROPE selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: constants.ccm.CE
-              });
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should show funding years', function() {
-              expect(this.view.fundingYears.show).toHaveBeenCalled();
-            });
-
-            it('should not hide funding years', function() {
-              expect(this.view.fundingYears.hide).not.toHaveBeenCalled();
-            });
-
-            it('should not clear funding years', function() {
-              expect(this.view.fundingYears.clear).not.toHaveBeenCalled();
-            });
-          });
-
-          describe('Programme has selection different than CREATIVE EUROPE', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: constants.ccm.CULTURE_2007
-              });
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should hide funding yearss', function() {
-              expect(this.view.fundingYears.hide).toHaveBeenCalled();
-            });
-
-            it('should not show funding years', function() {
-              expect(this.view.fundingYears.show).not.toHaveBeenCalled();
-            });
-
-            it('should not clear funding years', function() {
-              expect(this.view.fundingYears.clear).not.toHaveBeenCalled();
-            });
-          });
-
-          describe('Programme has no selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should hide funding years', function() {
-              expect(this.view.fundingYears.hide).toHaveBeenCalled();
-            });
-
-            it('should not show funding years', function() {
-              expect(this.view.fundingYears.show).not.toHaveBeenCalled();
-            });
-
-            it('should not clear funding years', function() {
-              expect(this.view.fundingYears.clear).not.toHaveBeenCalled();
-            });
-          });
-        });
-
-        describe('Handling Regions', function() {
-          beforeEach(function() {
-            spyOn(this.view.regions, 'show');
-            spyOn(this.view.regions, 'hide');
-            spyOn(this.view.regions, 'update');
-            spyOn(this.view.regions, 'clear');
-          });
-
-          describe('Programme has CREATIVE EUROPE selection and one country selected', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: constants.ccm.CE
-              });
-              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should show regions', function() {
-              expect(this.view.regions.show).toHaveBeenCalled();
-            });
-
-            it('should not hide regions', function() {
-              expect(this.view.regions.hide).not.toHaveBeenCalled();
-            });
-
-            it('should not clear regions', function() {
-              expect(this.view.regions.clear).not.toHaveBeenCalled();
-            });
-          });
-
-          describe('Programme has CREATIVE EUROPE selection and no country selected', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: constants.ccm.CE
-              });
-              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(false);
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should not show regions', function() {
-              expect(this.view.regions.show).not.toHaveBeenCalled();
-            });
-
-            it('should not hide regions', function() {
-              expect(this.view.regions.hide).not.toHaveBeenCalled();
-            });
-
-            it('should not clear regions', function() {
-              expect(this.view.regions.clear).not.toHaveBeenCalled();
-            });
-          });
-
-          describe('Programme has selection different than CREATIVE EUROPE', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: constants.ccm.CULTURE_2007
-              });
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should hide regions', function() {
-              expect(this.view.regions.hide).toHaveBeenCalled();
-            });
-
-            it('should not show regions', function() {
-              expect(this.view.regions.show).not.toHaveBeenCalled();
-            });
-
-            it('should not clear regions', function() {
-              expect(this.view.regions.clear).not.toHaveBeenCalled();
-            });
-          });
-
-          describe('Programme has no selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
-
-              this.view.didProgrammeChange();
-            });
-
-            it('should hide regions', function() {
-              expect(this.view.regions.hide).toHaveBeenCalled();
-            });
-
-            it('should not show regions', function() {
-              expect(this.view.regions.show).not.toHaveBeenCalled();
-            });
-
-            it('should not clear regions', function() {
-              expect(this.view.regions.clear).not.toHaveBeenCalled();
-            });
+          it('should update activities dropdown according to programme selection', function() {
+            expect(this.view.activities.update).toHaveBeenCalledWith(this.fakeActivities);
           });
         });
       });
 
-      describe('.didSubprogrammeChange', function() {
-        beforeEach(function() {
-          var self = this;
-          this.fakeActions = [{}, {}];
-          this.view = new AdvancedSearchView;
-
-          spyOn(advancedSearchService, 'actionsBySubprogramme').and.callFake(function(subprogrammeCode) {
-            if (subprogrammeCode === 'MEDIA') {
-              return self.fakeActions;
-            }
-          });
-        });
-
+      describe('.didSubprogrammeChange()', function() {
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didSubprogrammeChange).toEqual(jasmine.any(Function));
         });
 
+        describe('Handling Criteria Visibility', function() {
+          beforeEach(function() {
+            spyOn(AdvancedSearchView.prototype, 'calculateCriteriaVisibility');
+
+            this.view = new AdvancedSearchView;
+
+            this.view.didSubprogrammeChange();
+          })
+
+          it('should calculate criteria visibility', function() {
+            expect(this.view.calculateCriteriaVisibility).toHaveBeenCalled();
+          });
+        });
+
         describe('Handling Actions', function() {
           beforeEach(function() {
-            spyOn(this.view.actions, 'show');
-            spyOn(this.view.actions, 'hide');
+            var self = this;
+            this.fakeActions = [{}, {}];
+            this.view = new AdvancedSearchView;
+
             spyOn(this.view.actions, 'update');
-            spyOn(this.view.actions, 'clear');
+            spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(true);
+            spyOn(this.view.subprogrammes, 'firstSelectedItem').and.returnValue({
+              id: 'MEDIA'
+            });
+
+            spyOn(advancedSearchService, 'actionsBySubprogramme').and.callFake(function(subprogrammeCode) {
+              if (subprogrammeCode === 'MEDIA') {
+                return self.fakeActions;
+              }
+            });
+
+            this.view.didSubprogrammeChange();
           });
 
-          describe('Subprogramme has one selection and Programme has selection other than CREATIVE EUROPE', function() {
-            beforeEach(function() {
-              spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: 'CULTURE_2007'
-              });
-
-              this.view.didSubprogrammeChange();
-            });
-
-            it('should not show actions', function() {
-              expect(this.view.actions.show).not.toHaveBeenCalled();
-            });
-
-            it('should not hide actions', function() {
-              expect(this.view.actions.hide).not.toHaveBeenCalled();
-            });
-
-            it('should not call advancedSearchService to get actions', function() {
-              expect(advancedSearchService.actionsBySubprogramme).not.toHaveBeenCalled();
-            });
-
-            it('should not update actions dropdown ', function() {
-              expect(this.view.actions.update).not.toHaveBeenCalled();
-            });
+          it('should call advancedSearchService to get actions by subprogramme', function() {
+            expect(advancedSearchService.actionsBySubprogramme).toHaveBeenCalledWith('MEDIA');
           });
 
-          describe('Subprogramme has one selection and Programme has CREATIVE EUROPE selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.subprogrammes, 'firstSelectedItem').and.returnValue({
-                id: 'MEDIA'
-              });
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: constants.ccm.CE
-              });
-
-              this.view.didSubprogrammeChange()
-            });
-
-            it('should show actions', function() {
-              expect(this.view.actions.show).toHaveBeenCalled();
-            });
-
-            it('should not hide actions', function() {
-              expect(this.view.actions.hide).not.toHaveBeenCalled();
-            });
-
-            it('should not clear actions', function() {
-              expect(this.view.actions.clear).not.toHaveBeenCalled();
-            });
-
-            it('should call advancedSearchService to get actions by subprogramme', function() {
-              expect(advancedSearchService.actionsBySubprogramme).toHaveBeenCalledWith('MEDIA');
-            });
-
-            it('should update actions dropdown according to subprogramme selection', function() {
-              expect(this.view.actions.update).toHaveBeenCalledWith(this.fakeActions);
-            });
-          });
-
-          describe('Subprogramme has no selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(false);
-
-              this.view.didSubprogrammeChange();
-            });
-
-            it('should hide actions', function() {
-              expect(this.view.actions.hide).toHaveBeenCalled();
-            });
-
-            it('should not show actions', function() {
-              expect(this.view.actions.show).not.toHaveBeenCalled();
-            });
-
-            it('should clear actions', function() {
-              expect(this.view.actions.clear).toHaveBeenCalled();
-            });
+          it('should update actions dropdown according to subprogramme selection', function() {
+            expect(this.view.actions.update).toHaveBeenCalledWith(this.fakeActions);
           });
         });
       });
 
-      describe('.didCountryChange', function() {
-        beforeEach(function() {
-          var self = this;
-          this.fakeRegions = [{}, {}];
-          this.view = new AdvancedSearchView;
-
-          spyOn(advancedSearchService, 'regionsByCountry').and.callFake(function(countryCode) {
-            if (countryCode === 'PL') {
-              return self.fakeRegions;
-            }
-          });
-        });
-
+      describe('.didCountryChange()', function() {
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didCountryChange).toEqual(jasmine.any(Function));
         });
 
-        describe('Handling Match All Countries Section', function() {
+        describe('Handling Criteria Visibility', function() {
           beforeEach(function() {
-            spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesVisibility');
-          });
+            spyOn(AdvancedSearchView.prototype, 'calculateCriteriaVisibility');
 
-          it('should show match all countries section if more than one country is selected', function() {
-            spyOn(this.view.countries, 'selectedItems').and.returnValue([{}, {}]);
+            this.view = new AdvancedSearchView;
 
             this.view.didCountryChange();
+          })
 
-            expect(this.view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(true);
-          });
-
-          it('should hide match all countries section if less than two countries are selected', function() {
-            spyOn(this.view.countries, 'selectedItems').and.returnValue([{}]);
-
-            this.view.didCountryChange();
-
-            expect(this.view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(false);
+          it('should calculate criteria visibility', function() {
+            expect(this.view.calculateCriteriaVisibility).toHaveBeenCalled();
           });
         });
 
         describe('Handling Regions', function() {
           beforeEach(function() {
-            spyOn(this.view.regions, 'show');
-            spyOn(this.view.regions, 'hide');
+            var self = this;
+            this.fakeRegions = [{}, {}];
+            this.view = new AdvancedSearchView;
+
             spyOn(this.view.regions, 'update');
-            spyOn(this.view.regions, 'clear');
+            spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
+            spyOn(this.view.countries, 'firstSelectedItem').and.returnValue({
+              id: 'PL'
+            });
+
+            spyOn(advancedSearchService, 'regionsByCountry').and.callFake(function(countryCode) {
+              if (countryCode === 'PL') {
+                return self.fakeRegions;
+              }
+            });
+
+            this.view.didCountryChange();
           });
 
-          describe('Countries has one selection and Programme has selection other than CREATIVE EUROPE', function() {
-            beforeEach(function() {
-              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.countries, 'firstSelectedItem').and.returnValue({
-                id: 'PL'
-              });
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: 'CULTURE_2007'
-              });
-
-              this.view.didCountryChange();
-            });
-
-            it('should not show regions', function() {
-              expect(this.view.regions.show).not.toHaveBeenCalled();
-            });
-
-            it('should not hide regions', function() {
-              expect(this.view.regions.hide).not.toHaveBeenCalled();
-            });
-
-            it('should call advancedSearchService to get regions according to country selection', function() {
-              expect(advancedSearchService.regionsByCountry).toHaveBeenCalledWith('PL')
-            });
-
-            it('should update regions dropdown according to country selection', function() {
-              expect(this.view.regions.update).toHaveBeenCalledWith(this.fakeRegions);
-            });
+          it('should call advancedSearchService to get regions according to country selection', function() {
+            expect(advancedSearchService.regionsByCountry).toHaveBeenCalledWith('PL')
           });
 
-          describe('Countries has one selection and Programme has CREATIVE EUROPE selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.countries, 'firstSelectedItem').and.returnValue({
-                id: 'PL'
-              });
-              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: constants.ccm.CE
-              });
-
-              this.view.didCountryChange()
-            });
-
-            it('should show regions', function() {
-              expect(this.view.regions.show).toHaveBeenCalled();
-            });
-
-            it('should not hide regions', function() {
-              expect(this.view.regions.hide).not.toHaveBeenCalled();
-            });
-
-            it('should not clear regions', function() {
-              expect(this.view.regions.clear).not.toHaveBeenCalled();
-            });
-
-            it('should call advancedSearchService to get regions according to country selection', function() {
-              expect(advancedSearchService.regionsByCountry).toHaveBeenCalledWith('PL')
-            });
-
-            it('should update regions dropdown according to country selection', function() {
-              expect(this.view.regions.update).toHaveBeenCalledWith(this.fakeRegions);
-            });
+          it('should update regions dropdown according to country selection', function() {
+            expect(this.view.regions.update).toHaveBeenCalledWith(this.fakeRegions);
           });
+        });
+      });
 
-          describe('Countries has no selection', function() {
-            beforeEach(function() {
-              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(false);
+      describe('.calculateCriteriaVisibility()', function() {
+        beforeEach(function() {
+          spyOn(AdvancedSearchView.prototype, 'shouldDisplaySubprogrammes').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'shouldDisplayActions').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'shouldDisplayActivities').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'shouldDisplayFundingYears').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'shouldDisplayRegions').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'shouldDisplayMatchAllCountries').and.returnValue(true);
 
-              this.view.didCountryChange();
-            });
+          this.view = new AdvancedSearchView;
+          spyOn(this.view.subprogrammes, 'toggle');
+          spyOn(this.view.actions, 'toggle');
+          spyOn(this.view.activities, 'toggle');
+          spyOn(this.view.fundingYears, 'toggle');
+          spyOn(this.view.regions, 'toggle');
+          spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesVisibility');
 
-            it('should hide regions', function() {
-              expect(this.view.regions.hide).toHaveBeenCalled();
-            });
+          this.view.calculateCriteriaVisibility();
+        });
 
-            it('should not show regions', function() {
-              expect(this.view.regions.show).not.toHaveBeenCalled();
-            });
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.calculateCriteriaVisibility).toEqual(jasmine.any(Function));
+        });
 
-            it('should clear regions', function() {
-              expect(this.view.regions.clear).toHaveBeenCalled();
-            });
-          });
+        it('should toggle subprogrammes', function() {
+          expect(this.view.subprogrammes.toggle).toHaveBeenCalledWith(true);
+        });
+
+        it('should toggle actions', function() {
+          expect(this.view.actions.toggle).toHaveBeenCalledWith(true);
+        });
+
+        it('should toggle activities', function() {
+          expect(this.view.activities.toggle).toHaveBeenCalledWith(true);
+        });
+
+        it('should toggle funding years', function() {
+          expect(this.view.fundingYears.toggle).toHaveBeenCalledWith(true);
+        });
+
+        it('should toggle regions', function() {
+          expect(this.view.regions.toggle).toHaveBeenCalledWith(true);
+        });
+
+        it('should toggle actions', function() {
+          expect(this.view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(true);
+        });
+      });
+
+      describe('.shouldDisplaySubprogrammes()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView;
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.shouldDisplaySubprogrammes).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if programme has one selection', function() {
+          spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+
+          expect(this.view.shouldDisplaySubprogrammes()).toBe(true);
+        });
+
+        it('should return false if programme has not one selection', function() {
+          spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
+
+          expect(this.view.shouldDisplaySubprogrammes()).toBe(false);
+        });
+      });
+
+      describe('.shouldDisplayActions()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView;
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.shouldDisplayActions).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if subprogramme has one selection and CE programme is selected', function() {
+          spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(true);
+
+          expect(this.view.shouldDisplayActions()).toBe(true);
+        });
+
+        it('should return false if subprogramme has not one selection and CE programme is selected', function() {
+          spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(false);
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(true);
+
+          expect(this.view.shouldDisplayActions()).toBe(false);
+        });
+
+        it('should return false if subprogramme has one selection and CE programme is not selected', function() {
+          spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(false);
+
+          expect(this.view.shouldDisplayActions()).toBe(false);
+        });
+      });
+
+      describe('.shouldDisplayActivities()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView;
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.shouldDisplayActivities).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if programme has one selection', function() {
+          spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+
+          expect(this.view.shouldDisplayActivities()).toBe(true);
+        });
+
+        it('should return false if programme has not one selection', function() {
+          spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
+
+          expect(this.view.shouldDisplayActivities()).toBe(false);
+        });
+      });
+
+      describe('.shouldDisplayFundingYears()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView;
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.shouldDisplayFundingYears).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if CE programme is selected', function() {
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(true);
+
+          expect(this.view.shouldDisplayFundingYears()).toBe(true);
+        });
+
+        it('should return false if CE programme is not selected', function() {
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(false);
+
+          expect(this.view.shouldDisplayFundingYears()).toBe(false);
+        });
+      });
+
+      describe('.shouldDisplayRegions()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView;
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.shouldDisplayRegions).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if countries has one selection and CE programme is selected', function() {
+          spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(true);
+
+          expect(this.view.shouldDisplayRegions()).toBe(true);
+        });
+
+        it('should return false if countries has not one selection and CE programme is selected', function() {
+          spyOn(this.view.countries, 'hasOneSelection').and.returnValue(false);
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(true);
+
+          expect(this.view.shouldDisplayRegions()).toBe(false);
+        });
+
+        it('should return false if countries has one selection and CE programme is not selected', function() {
+          spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(false);
+
+          expect(this.view.shouldDisplayRegions()).toBe(false);
+        });
+      });
+
+      describe('.shouldDisplayMatchAllCountries()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView;
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.shouldDisplayMatchAllCountries).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if selected countries number is bigger than one', function() {
+          spyOn(this.view.countries, 'selectedItems').and.returnValue([{
+            id: '1'
+          }, {
+            id: '2'
+          }]);
+
+          expect(this.view.shouldDisplayMatchAllCountries()).toBe(true);
+        });
+
+        it('should return false if selected countries number is less than two', function() {
+          spyOn(this.view.countries, 'selectedItems').and.returnValue([{
+            id: '1'
+          }]);
+
+          expect(this.view.shouldDisplayMatchAllCountries()).toBe(false);
         });
       });
 
@@ -1265,7 +1018,7 @@ define(function(require) {
 
     describe('rendering', function() {
       beforeEach(function() {
-        spyOn(AdvancedSearchView.prototype, 'initCriteriaStatus');
+        spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
 
         this.view = new AdvancedSearchView;
         this.$el = this.view.render().$el;
@@ -1277,7 +1030,7 @@ define(function(require) {
         });
 
         it('should init criteria visibility', function() {
-          expect(this.view.initCriteriaStatus).toHaveBeenCalled();
+          expect(this.view.initCriteriaVisibility).toHaveBeenCalled();
         });
 
         describe('Project Criterias Section', function() {
