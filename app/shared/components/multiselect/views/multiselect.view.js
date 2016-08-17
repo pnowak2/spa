@@ -132,6 +132,10 @@ define(function(require) {
       return this.getSelectElement().prop('disabled');
     },
 
+    isVisible: function () {
+      return this.$el.css('display') !== 'none';
+    },
+
     render: function() {
       var html = Mustache.render(tpl, {
         items: this.collection.toJSON(),

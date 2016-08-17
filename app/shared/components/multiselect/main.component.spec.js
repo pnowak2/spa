@@ -267,6 +267,21 @@ define(function(require) {
           expect(isEnabled).toBe(fakeEnabled);
         });
       });
+
+      describe('.isVisible()', function() {
+        it('should be defined', function() {
+          expect(MultiselectComponent.prototype.isVisible).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var fakeVisible = {},
+            component = new MultiselectComponent;
+
+          spyOn(MultiselectView.prototype, 'isVisible').and.returnValue(fakeVisible);
+
+          expect(component.isVisible()).toBe(fakeVisible);
+        });
+      });
     });
 
     describe('events', function() {

@@ -70,6 +70,10 @@ define(function(require) {
 
     isEnabled: function() {
       return this.view.isEnabled();
+    },
+
+    isVisible: function() {
+      return this.view.isVisible();
     }
   });
 });

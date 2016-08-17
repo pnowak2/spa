@@ -611,6 +611,30 @@ define(function(require) {
           expect(this.view.getSelectElement()).not.toBeDisabled();
         });
       });
+
+      describe('.isVisible()', function() {
+        beforeEach(function() {
+          this.view = new MultiselectView;
+        });
+
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.isVisible).toEqual(jasmine.any(Function));
+        });
+
+        it('should return false if is hidden', function() {
+          this.view.render();
+          this.view.$el.hide();
+
+          expect(this.view.isVisible()).toBe(false);
+        });
+
+        it('should return true if is visible', function() {
+          this.view.render();
+          this.view.$el.show();
+
+          expect(this.view.isVisible()).toBe(true);
+        });
+      });
     });
 
     describe('events', function() {

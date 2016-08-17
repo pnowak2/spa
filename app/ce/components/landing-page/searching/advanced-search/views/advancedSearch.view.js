@@ -129,11 +129,11 @@ define(function(require) {
           advancedSearchService.activitiesByProgramme(selectedProgramme.id)
         );
 
-        if (selectedProgramme.id === constants.ccm.CE) {
+        if (this.isCeProgrammeSelected()) {
           this.fundingYears.show();   
-          // if(this.countries.hasOneSelection())  {
-          //   this.regions.show();     
-          // }
+          if(this.countries.hasOneSelection())  {
+            this.regions.show();     
+          }
         } else {
           this.actions.hide();
           this.fundingYears.hide();

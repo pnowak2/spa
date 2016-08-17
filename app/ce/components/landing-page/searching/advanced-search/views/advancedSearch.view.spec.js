@@ -394,11 +394,6 @@ define(function(require) {
               return self.fakeActivities;
             }
           });
-
-          // spyOn(MultiselectComponent.prototype, 'show');
-          // spyOn(MultiselectComponent.prototype, 'hide');
-          // spyOn(MultiselectComponent.prototype, 'update');
-          // spyOn(MultiselectComponent.prototype, 'clear');
         });
 
         it('should be defined', function() {
@@ -675,12 +670,13 @@ define(function(require) {
             spyOn(this.view.regions, 'clear');
           });
 
-          describe('Programme has CREATIVE EUROPE selection', function() {
+          describe('Programme has CREATIVE EUROPE selection and one country selected', function() {
             beforeEach(function() {
               spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
               spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
                 id: constants.ccm.CE
               });
+              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
 
               this.view.didProgrammeChange();
             });
@@ -698,7 +694,31 @@ define(function(require) {
             });
           });
 
-          xdescribe('Programme has selection different than CREATIVE EUROPE', function() {
+          describe('Programme has CREATIVE EUROPE selection and no country selected', function() {
+            beforeEach(function() {
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: constants.ccm.CE
+              });
+              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(false);
+
+              this.view.didProgrammeChange();
+            });
+
+            it('should not show regions', function() {
+              expect(this.view.regions.show).not.toHaveBeenCalled();
+            });
+
+            it('should not hide regions', function() {
+              expect(this.view.regions.hide).not.toHaveBeenCalled();
+            });
+
+            it('should not clear regions', function() {
+              expect(this.view.regions.clear).not.toHaveBeenCalled();
+            });
+          });
+
+          describe('Programme has selection different than CREATIVE EUROPE', function() {
             beforeEach(function() {
               spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
               spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
@@ -721,7 +741,7 @@ define(function(require) {
             });
           });
 
-          xdescribe('Programme has no selection', function() {
+          describe('Programme has no selection', function() {
             beforeEach(function() {
               spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
 
