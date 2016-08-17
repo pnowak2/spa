@@ -19,8 +19,8 @@ define(function(require) {
       return this;
     },
 
-    toggle: function() {
-      this.view.$el.toggle();
+    toggle: function(shouldBeVisible) {
+      this.view.$el.toggle(shouldBeVisible);
       return this;
     }
   });
