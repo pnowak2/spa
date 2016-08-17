@@ -167,7 +167,7 @@ define(function(require) {
         }
       } else {
         this.actions.hide();
-        this.actions.update([]);
+        this.actions.clear();
       }
     },
 

@@ -766,8 +766,112 @@ define(function(require) {
       });
 
       describe('.didSubprogrammeChange', function() {
+        beforeEach(function() {
+          var self = this;
+          this.fakeActions = [{}, {}];
+          this.view = new AdvancedSearchView;
+
+          spyOn(advancedSearchService, 'actionsBySubprogramme').and.callFake(function(programmeCode) {
+            if (programmeCode === 'MEDIA') {
+              return self.fakeActions;
+            }
+          });
+        });
+
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didSubprogrammeChange).toEqual(jasmine.any(Function));
+        });
+
+        describe('Handling Actions', function() {
+          beforeEach(function() {
+            spyOn(this.view.actions, 'show');
+            spyOn(this.view.actions, 'hide');
+            spyOn(this.view.actions, 'update');
+            spyOn(this.view.actions, 'clear');
+          });
+
+          describe('Subprogramme has one selection and Programme has selection other than CREATIVE EUROPE', function() {
+            beforeEach(function() {
+              spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: 'CULTURE_2007'
+              });
+
+              this.view.didSubprogrammeChange();
+            });
+
+            it('should not show actions', function() {
+              expect(this.view.actions.show).not.toHaveBeenCalled();
+            });
+
+            it('should not hide actions', function() {
+              expect(this.view.actions.hide).not.toHaveBeenCalled();
+            });
+
+            it('should not call advancedSearchService to get actions', function() {
+              expect(advancedSearchService.actionsBySubprogramme).not.toHaveBeenCalled();
+            });
+
+            it('should not update actions dropdown ', function() {
+              expect(this.view.actions.update).not.toHaveBeenCalled();
+            });
+          });
+
+          describe('Subprogramme has one selection and Programme has CREATIVE EUROPE selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.subprogrammes, 'firstSelectedItem').and.returnValue({
+                id: 'MEDIA'
+              });
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: constants.ccm.CE
+              });
+
+              this.view.didSubprogrammeChange()
+            });
+
+            it('should show actions', function() {
+              expect(this.view.actions.show).toHaveBeenCalled();
+            });
+
+            it('should not hide actions', function() {
+              expect(this.view.actions.hide).not.toHaveBeenCalled();
+            });
+
+            it('should not clear actions', function() {
+              expect(this.view.actions.clear).not.toHaveBeenCalled();
+            });
+
+            it('should call advancedSearchService to get actions by subprogramme', function() {
+              expect(advancedSearchService.actionsBySubprogramme).toHaveBeenCalledWith('MEDIA');
+            });
+
+            it('should update actions dropdown according to subprogramme selection', function() {
+              expect(this.view.actions.update).toHaveBeenCalledWith(this.fakeActions);
+            });
+          });
+
+          describe('Subprogramme has no selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(false);
+
+              this.view.didSubprogrammeChange();
+            });
+
+            it('should hide actions', function() {
+              expect(this.view.actions.hide).toHaveBeenCalled();
+            });
+
+            it('should not show actions', function() {
+              expect(this.view.actions.show).not.toHaveBeenCalled();
+            });
+
+            it('should clear actions', function() {
+              expect(this.view.actions.clear).toHaveBeenCalled();
+            });
+          });
         });
       });
 
@@ -888,7 +992,7 @@ define(function(require) {
       });
 
       describe('.isMatchAllCountriesSelected()', function() {
-        beforeEach(function () {
+        beforeEach(function() {
           this.view = new AdvancedSearchView;
         });
 
@@ -898,8 +1002,8 @@ define(function(require) {
 
         it('should return true if match all countries checkbox is checked', function() {
           spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue({
-            is: jasmine.createSpy('is').and.callFake(function (selector) {
-              if(selector === ':checked') {
+            is: jasmine.createSpy('is').and.callFake(function(selector) {
+              if (selector === ':checked') {
                 return true
               }
             })
@@ -910,8 +1014,8 @@ define(function(require) {
 
         it('should return false if match all countries checkbox is not checked', function() {
           spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue({
-            is: jasmine.createSpy('is').and.callFake(function (selector) {
-              if(selector === ':checked') {
+            is: jasmine.createSpy('is').and.callFake(function(selector) {
+              if (selector === ':checked') {
                 return false
               }
             })
