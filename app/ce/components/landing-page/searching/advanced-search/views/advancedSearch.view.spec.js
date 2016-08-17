@@ -46,8 +46,8 @@ define(function(require) {
         it('should initialize property with correct data', function() {
           expect(this.view.programmes.initialize).toHaveBeenCalledWith(advancedSearchService.allProgrammes(), {
             placeholder: 'All Programmes',
-            multiple: false,
-            allowClear: true
+            multiple: true,
+            maximumSelectionLength: 1
           });
         });
       });
@@ -60,8 +60,8 @@ define(function(require) {
         it('should initialize property with correct data', function() {
           expect(this.view.subprogrammes.initialize).toHaveBeenCalledWith([], {
             placeholder: 'All Subprogrammes / All Funding Schemes',
-            multiple: false,
-            allowClear: true
+            multiple: true,
+            maximumSelectionLength: 1
           });
         });
       });
@@ -74,8 +74,8 @@ define(function(require) {
         it('should initialize property with correct data', function() {
           expect(this.view.actions.initialize).toHaveBeenCalledWith([], {
             placeholder: 'All Actions',
-            multiple: false,
-            allowClear: true
+            multiple: true,
+            maximumSelectionLength: 1
           });
         });
       });
@@ -218,13 +218,35 @@ define(function(require) {
       });
 
       describe('.getCriteria()', function() {
-
         beforeEach(function() {
           this.view = new AdvancedSearchView;
         });
 
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.getCriteria).toEqual(jasmine.any(Function));
+        });
+
+        describe('All Fields Hidden', function() {
+          it('should return criteria object when all fields are not visible', function() {
+            spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(false);
+
+            expect(this.view.getCriteria()).toEqual({
+              options: [],
+              programme: void 0,
+              subprogramme: void 0,
+              action: void 0,
+              activities: [],
+              activityYears: [],
+              fundingYears: [],
+              countries: [],
+              regions: [],
+              organisationTypes: []
+            });
+          });
+        });
+
+        describe('Options visible', function() {
+          
         });
       });
 

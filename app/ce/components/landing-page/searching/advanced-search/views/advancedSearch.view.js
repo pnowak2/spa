@@ -20,18 +20,18 @@ define(function(require) {
       });
       this.programmes = new MultiselectComponent(advancedSearchService.allProgrammes(), {
         placeholder: 'All Programmes',
-        multiple: false,
-        allowClear: true
+        multiple: true,
+        maximumSelectionLength: 1
       });
       this.subprogrammes = new MultiselectComponent([], {
         placeholder: 'All Subprogrammes / All Funding Schemes',
-        multiple: false,
-        allowClear: true
+        multiple: true,
+        maximumSelectionLength: 1
       });
       this.actions = new MultiselectComponent([], {
         placeholder: 'All Actions',
-        multiple: false,
-        allowClear: true
+        multiple: true,
+        maximumSelectionLength: 1
       });
       this.activities = new MultiselectComponent([], {
         placeholder: 'All Activities',
@@ -74,7 +74,18 @@ define(function(require) {
     },
 
     getCriteria: function() {
-
+      return {
+        options: [],
+        programme: void 0,
+        subprogramme: void 0,
+        action: void 0,
+        activities: [],
+        activityYears: [],
+        fundingYears: [],
+        countries: [],
+        regions: [],
+        organisationTypes: []
+      };
     },
 
     isDirty: function() {
@@ -129,12 +140,12 @@ define(function(require) {
       var selectedSubprogramme;
 
       if (this.subprogrammes.hasOneSelection()) {
-          selectedSubprogramme = this.subprogrammes.firstSelectedItem();
+        selectedSubprogramme = this.subprogrammes.firstSelectedItem();
 
-          this.actions.update(
-            advancedSearchService.actionsBySubprogramme(selectedSubprogramme.id)
-          );
-      } 
+        this.actions.update(
+          advancedSearchService.actionsBySubprogramme(selectedSubprogramme.id)
+        );
+      }
 
       this.calculateCriteriaVisibility();
     },
