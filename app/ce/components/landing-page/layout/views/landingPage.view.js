@@ -22,10 +22,10 @@ define(function(require) {
       //   activityYears: ['2012', '2013'],
       //   fundingYears: ['2014', '2015'],
       //   matchAllCountries: true,
-      //   countries: ['PL'],
+      //   countries: ['PL', 'BE'],
       //   regions: ['31046918'],
       //   organisationTypes: ['31047402', '31047384']
-      // })
+      // });
     },
 
     render: function() {
