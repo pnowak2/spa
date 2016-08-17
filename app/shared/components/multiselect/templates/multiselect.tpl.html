@@ -1,10 +1,5 @@
 <select {{#multiple}}multiple{{/multiple}}>
 	{{#items}}
-		<option value="{{id}}" 
-						{{#selected}}selected{{/selected}} 
-						{{#disabled}}disabled{{/disabled}} 
-						{{#hint}}title="{{hint}}"{{/hint}}>
-						{{title}}
-		</option>
+		<option value="{{id}}" {{#selected}}selected{{/selected}} {{#disabled}}disabled{{/disabled}} {{#hint}}title="{{hint}}"{{/hint}}>{{title}}</option>
 	{{/items}}
 </select>

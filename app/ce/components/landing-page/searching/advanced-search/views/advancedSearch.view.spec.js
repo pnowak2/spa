@@ -236,6 +236,7 @@ define(function(require) {
         it('should return true if any criteria components has changed', function() {
           var view = new AdvancedSearchView;
 
+          spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(true);
           spyOn(view.options, 'isDirty').and.returnValue(false);
           spyOn(view.programmes, 'isDirty').and.returnValue(true);
           spyOn(view.subprogrammes, 'isDirty').and.returnValue(false);
@@ -253,6 +254,7 @@ define(function(require) {
         it('should return false if none of criteria components has changed', function() {
           var view = new AdvancedSearchView;
 
+          spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(false);
           spyOn(view.options, 'isDirty').and.returnValue(false);
           spyOn(view.programmes, 'isDirty').and.returnValue(false);
           spyOn(view.subprogrammes, 'isDirty').and.returnValue(false);
@@ -885,6 +887,40 @@ define(function(require) {
         });
       });
 
+      describe('.isMatchAllCountriesSelected()', function() {
+        beforeEach(function () {
+          this.view = new AdvancedSearchView;
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.isMatchAllCountriesSelected).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if match all countries checkbox is checked', function() {
+          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue({
+            is: jasmine.createSpy('is').and.callFake(function (selector) {
+              if(selector === ':checked') {
+                return true
+              }
+            })
+          });
+
+          expect(this.view.isMatchAllCountriesSelected()).toBe(true);
+        });
+
+        it('should return false if match all countries checkbox is not checked', function() {
+          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue({
+            is: jasmine.createSpy('is').and.callFake(function (selector) {
+              if(selector === ':checked') {
+                return false
+              }
+            })
+          });
+
+          expect(this.view.isMatchAllCountriesSelected()).toBe(false);
+        });
+      });
+
       describe('.getMatchAllCountriesElement()', function() {
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.getMatchAllCountriesElement).toEqual(jasmine.any(Function));
@@ -1050,7 +1086,7 @@ define(function(require) {
 
           it('should render match all countries checkbox', function() {
             expect(this.$el.find('.vlr-advanced-search__header-toolbar')).toContainElement('input[type="checkbox"].vlr-advanced-search__match-all-countries-input');
-            expect(this.$el.find('.vlr-advanced-search__header-toolbar > .vlr-advanced-search__match-all-countries-label')).toContainText('Match All Countries');
+            expect(this.$el.find('.vlr-advanced-search__header-toolbar > .vlr-advanced-search__match-all-countries-label')).toContainText('Match All Selected Countries');
           });
 
           it('should render countries section', function() {

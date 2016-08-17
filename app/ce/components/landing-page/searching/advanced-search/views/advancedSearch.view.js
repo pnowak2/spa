@@ -88,7 +88,8 @@ define(function(require) {
         this.fundingYears.isDirty() ||
         this.countries.isDirty() ||
         this.regions.isDirty() ||
-        this.organisationTypes.isDirty();
+        this.organisationTypes.isDirty() ||
+        this.isMatchAllCountriesSelected()
     },
 
     isCeProgrammeSelected: function() {
@@ -202,6 +203,10 @@ define(function(require) {
       this.regions.selectItems(criteria.regions);
       this.organisationTypes.selectItems(criteria.organisationTypes);
       this.toggleMatchAllCountries(criteria.matchAllCountries);
+    },
+
+    isMatchAllCountriesSelected: function () {
+      return this.getMatchAllCountriesElement().is(':checked');
     },
 
     getMatchAllCountriesElement: function() {
