@@ -1086,7 +1086,7 @@ define(function(require) {
 
           it('should render match all countries checkbox', function() {
             expect(this.$el.find('.vlr-advanced-search__header-toolbar')).toContainElement('input[type="checkbox"].vlr-advanced-search__match-all-countries-input');
-            expect(this.$el.find('.vlr-advanced-search__header-toolbar > .vlr-advanced-search__match-all-countries-label')).toContainText('Match All Selected Countries');
+            expect(this.$el.find('.vlr-advanced-search__header-toolbar .vlr-advanced-search__match-all-countries-label')).toContainText('Match All Selected Countries');
           });
 
           it('should render countries section', function() {
