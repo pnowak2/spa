@@ -771,8 +771,8 @@ define(function(require) {
           this.fakeActions = [{}, {}];
           this.view = new AdvancedSearchView;
 
-          spyOn(advancedSearchService, 'actionsBySubprogramme').and.callFake(function(programmeCode) {
-            if (programmeCode === 'MEDIA') {
+          spyOn(advancedSearchService, 'actionsBySubprogramme').and.callFake(function(subprogrammeCode) {
+            if (subprogrammeCode === 'MEDIA') {
               return self.fakeActions;
             }
           });
@@ -876,8 +876,137 @@ define(function(require) {
       });
 
       describe('.didCountryChange', function() {
+        beforeEach(function() {
+          var self = this;
+          this.fakeRegions = [{}, {}];
+          this.view = new AdvancedSearchView;
+
+          spyOn(advancedSearchService, 'regionsByCountry').and.callFake(function(countryCode) {
+            if (countryCode === 'PL') {
+              return self.fakeRegions;
+            }
+          });
+        });
+
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didCountryChange).toEqual(jasmine.any(Function));
+        });
+
+        describe('Handling Match All Countries Section', function() {
+          beforeEach(function() {
+            spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesVisibility');
+          });
+
+          it('should show match all countries section if more than one country is selected', function() {
+            spyOn(this.view.countries, 'selectedItems').and.returnValue([{}, {}]);
+
+            this.view.didCountryChange();
+
+            expect(this.view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(true);
+          });
+
+          it('should hide match all countries section if less than two countries are selected', function() {
+            spyOn(this.view.countries, 'selectedItems').and.returnValue([{}]);
+
+            this.view.didCountryChange();
+
+            expect(this.view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(false);
+          });
+        });
+
+        describe('Handling Regions', function() {
+          beforeEach(function() {
+            spyOn(this.view.regions, 'show');
+            spyOn(this.view.regions, 'hide');
+            spyOn(this.view.regions, 'update');
+            spyOn(this.view.regions, 'clear');
+          });
+
+          describe('Countries has one selection and Programme has selection other than CREATIVE EUROPE', function() {
+            beforeEach(function() {
+              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.countries, 'firstSelectedItem').and.returnValue({
+                id: 'PL'
+              });
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: 'CULTURE_2007'
+              });
+
+              this.view.didCountryChange();
+            });
+
+            it('should not show regions', function() {
+              expect(this.view.regions.show).not.toHaveBeenCalled();
+            });
+
+            it('should not hide regions', function() {
+              expect(this.view.regions.hide).not.toHaveBeenCalled();
+            });
+
+            it('should call advancedSearchService to get regions according to country selection', function() {
+              expect(advancedSearchService.regionsByCountry).toHaveBeenCalledWith('PL')
+            });
+
+            it('should update regions dropdown according to country selection', function() {
+              expect(this.view.regions.update).toHaveBeenCalledWith(this.fakeRegions);
+            });
+          });
+
+          describe('Countries has one selection and Programme has CREATIVE EUROPE selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.countries, 'firstSelectedItem').and.returnValue({
+                id: 'PL'
+              });
+              spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
+              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
+                id: constants.ccm.CE
+              });
+
+              this.view.didCountryChange()
+            });
+
+            it('should show regions', function() {
+              expect(this.view.regions.show).toHaveBeenCalled();
+            });
+
+            it('should not hide regions', function() {
+              expect(this.view.regions.hide).not.toHaveBeenCalled();
+            });
+
+            it('should not clear regions', function() {
+              expect(this.view.regions.clear).not.toHaveBeenCalled();
+            });
+
+            it('should call advancedSearchService to get regions according to country selection', function() {
+              expect(advancedSearchService.regionsByCountry).toHaveBeenCalledWith('PL')
+            });
+
+            it('should update regions dropdown according to country selection', function() {
+              expect(this.view.regions.update).toHaveBeenCalledWith(this.fakeRegions);
+            });
+          });
+
+          describe('Countries has no selection', function() {
+            beforeEach(function() {
+              spyOn(this.view.countries, 'hasOneSelection').and.returnValue(false);
+
+              this.view.didCountryChange();
+            });
+
+            it('should hide regions', function() {
+              expect(this.view.regions.hide).toHaveBeenCalled();
+            });
+
+            it('should not show regions', function() {
+              expect(this.view.regions.show).not.toHaveBeenCalled();
+            });
+
+            it('should clear regions', function() {
+              expect(this.view.regions.clear).toHaveBeenCalled();
+            });
+          });
         });
       });
 

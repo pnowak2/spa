@@ -172,13 +172,10 @@ define(function(require) {
     },
 
     didCountryChange: function() {
-      var selectedItem;
+      var selectedItem,
+        isManyCountriesSelected = this.countries.selectedItems().length > 1;
 
-      if (this.countries.selectedItems().length > 1) {
-        this.toggleMatchAllCountriesVisibility(true);
-      } else {
-        this.toggleMatchAllCountriesVisibility(false);
-      }
+      this.toggleMatchAllCountriesVisibility(isManyCountriesSelected);
 
       if (this.countries.hasOneSelection()) {
         selectedItem = this.countries.firstSelectedItem();
