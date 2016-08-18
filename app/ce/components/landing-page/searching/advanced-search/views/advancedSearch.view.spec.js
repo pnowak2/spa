@@ -218,36 +218,94 @@ define(function(require) {
       });
 
       describe('.getCriteria()', function() {
-        beforeEach(function() {
-          this.view = new AdvancedSearchView;
-        });
-
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.getCriteria).toEqual(jasmine.any(Function));
         });
 
-        describe('All Fields Hidden', function() {
-          it('should return criteria object when all fields are not visible', function() {
+        describe('All Fields Hidden With Selected Items', function() {
+          beforeEach(function() {
+            this.view = new AdvancedSearchView;
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(false);
             spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(false);
 
-            expect(this.view.getCriteria()).toEqual({
-              options: [],
-              programme: void 0,
-              subprogramme: void 0,
-              action: void 0,
-              activities: [],
-              activityYears: [],
-              fundingYears: [],
-              countries: [],
-              regions: [],
-              organisationTypes: []
-            });
+            spyOn(this.view.options, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
+            spyOn(this.view.programmes, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
+            spyOn(this.view.subprogrammes, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
+            spyOn(this.view.actions, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);;
+            spyOn(this.view.activities, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);;
+            spyOn(this.view.activityYears, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
+            spyOn(this.view.fundingYears, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
+            spyOn(this.view.countries, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
+            spyOn(this.view.regions, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
+            spyOn(this.view.organisationTypes, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
           });
-        });
 
-        describe('Options visible', function() {
-          
-        });
+          it('should contain empty options criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              options: []
+            }));
+          });
+
+          it('should contain empty programmes criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              programmes: []
+            }));
+          });
+
+          it('should contain empty subprogrammes criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              subprogrammes: []
+            }));
+          });
+
+          it('should contain empty actions criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              actions: []
+            }));
+          });
+
+          it('should contain empty activities criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              activities: []
+            }));
+          });
+
+          it('should contain empty activityYears criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              activityYears: []
+            }));
+          });
+
+          it('should contain empty fundingYears criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              fundingYears: []
+            }));
+          });
+
+          it('should contain empty countries criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              countries: []
+            }));
+          });
+
+          it('should contain empty regions criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              regions: []
+            }));
+          });
+
+          it('should contain empty organisationTypes criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              organisationTypes: []
+            }));
+          });
+
+          it('should contain match all countries set to false', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              matchAllCountries: false
+            }));
+          });
+        })
       });
 
       describe('.isDirty()', function() {
@@ -790,9 +848,9 @@ define(function(require) {
           this.view = new AdvancedSearchView;
 
           spyOn(this.view.options, 'selectItems');
-          spyOn(this.view.programmes, 'selectItem');
-          spyOn(this.view.subprogrammes, 'selectItem');
-          spyOn(this.view.actions, 'selectItem');
+          spyOn(this.view.programmes, 'selectItems');
+          spyOn(this.view.subprogrammes, 'selectItems');
+          spyOn(this.view.actions, 'selectItems');
           spyOn(this.view.activities, 'selectItems');
           spyOn(this.view.activityYears, 'selectItems');
           spyOn(this.view.fundingYears, 'selectItems');
@@ -814,28 +872,28 @@ define(function(require) {
           expect(this.view.options.selectItems).toHaveBeenCalledWith(['a', 'b']);
         });
 
-        it('should update programme', function() {
+        it('should update programmes', function() {
           this.view.update({
-            programme: 'CE'
+            programmes: ['CE']
           });
 
-          expect(this.view.programmes.selectItem).toHaveBeenCalledWith('CE');
+          expect(this.view.programmes.selectItems).toHaveBeenCalledWith(['CE']);
         });
 
-        it('should update subprogramme', function() {
+        it('should update subprogrammes', function() {
           this.view.update({
-            subprogramme: 'CULTURE'
+            subprogrammes: ['CULTURE']
           });
 
-          expect(this.view.subprogrammes.selectItem).toHaveBeenCalledWith('CULTURE');
+          expect(this.view.subprogrammes.selectItems).toHaveBeenCalledWith(['CULTURE']);
         });
 
-        it('should update action', function() {
+        it('should update actions', function() {
           this.view.update({
-            action: 'Market Access Support'
+            actions: ['Market Access Support']
           });
 
-          expect(this.view.actions.selectItem).toHaveBeenCalledWith('Market Access Support');
+          expect(this.view.actions.selectItems).toHaveBeenCalledWith(['Market Access Support']);
         });
 
         it('should update activities', function() {

@@ -74,17 +74,30 @@ define(function(require) {
     },
 
     getCriteria: function() {
+      var options = _.pluck(this.options.selectedItems(), 'id'),
+        programmes = _.pluck(this.programmes.selectedItems(), 'id'),
+        subprogrammes = _.pluck(this.subprogrammes.selectedItems(), 'id'),
+        actions = _.pluck(this.actions.selectedItems(), 'id'),
+        activities = _.pluck(this.activities.selectedItems(), 'id'),
+        activityYears = _.pluck(this.activityYears.selectedItems(), 'id'),
+        fundingYears = _.pluck(this.fundingYears.selectedItems(), 'id'),
+        countries = _.pluck(this.countries.selectedItems(), 'id'),
+        regions = _.pluck(this.regions.selectedItems(), 'id'),
+        organisationTypes = _.pluck(this.organisationTypes.selectedItems(), 'id'),
+        matchAllCountries = this.isMatchAllCountriesSelected();
+
       return {
-        options: [],
-        programme: void 0,
-        subprogramme: void 0,
-        action: void 0,
-        activities: [],
-        activityYears: [],
-        fundingYears: [],
-        countries: [],
-        regions: [],
-        organisationTypes: []
+        options: this.options.isVisible() ? options : [],
+        programmes: this.programmes.isVisible() ? programmes : [],
+        subprogrammes: this.subprogrammes.isVisible() ? subprogrammes : [],
+        actions: this.actions.isVisible() ? actions : [],
+        activities: this.activities.isVisible() ? activities : [],
+        activityYears: this.activityYears.isVisible() ? activityYears : [],
+        fundingYears: this.fundingYears.isVisible() ? fundingYears : [],
+        countries: this.countries.isVisible() ? countries : [],
+        regions: this.regions.isVisible() ? regions : [],
+        organisationTypes: this.organisationTypes.isVisible() ? organisationTypes : [],
+        matchAllCountries: matchAllCountries
       };
     },
 
@@ -199,9 +212,9 @@ define(function(require) {
 
     update: function(criteria) {
       this.options.selectItems(criteria.options);
-      this.programmes.selectItem(criteria.programme);
-      this.subprogrammes.selectItem(criteria.subprogramme);
-      this.actions.selectItem(criteria.action);
+      this.programmes.selectItems(criteria.programmes);
+      this.subprogrammes.selectItems(criteria.subprogrammes);
+      this.actions.selectItems(criteria.actions);
       this.activities.selectItems(criteria.activities);
       this.activityYears.selectItems(criteria.activityYears);
       this.fundingYears.selectItems(criteria.fundingYears);
