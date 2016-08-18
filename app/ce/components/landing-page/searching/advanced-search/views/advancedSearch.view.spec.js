@@ -218,27 +218,20 @@ define(function(require) {
       });
 
       describe('.getCriteria()', function() {
+        beforeEach(function () {
+          this.view = new AdvancedSearchView;
+        });
+
         it('should be defined', function() {
           expect(AdvancedSearchView.prototype.getCriteria).toEqual(jasmine.any(Function));
         });
 
         describe('All Fields Hidden With Selected Items', function() {
           beforeEach(function() {
-            this.view = new AdvancedSearchView;
             spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(false);
-            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(true);
             spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(false);
-
-            spyOn(this.view.options, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
-            spyOn(this.view.programmes, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
-            spyOn(this.view.subprogrammes, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
-            spyOn(this.view.actions, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);;
-            spyOn(this.view.activities, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);;
-            spyOn(this.view.activityYears, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
-            spyOn(this.view.fundingYears, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
-            spyOn(this.view.countries, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
-            spyOn(this.view.regions, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
-            spyOn(this.view.organisationTypes, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
+            spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([{id: '1'}, {id: '2'}]);
+            
           });
 
           it('should contain empty options criteria', function() {
@@ -307,6 +300,165 @@ define(function(require) {
             }));
           });
         })
+
+        describe('All Fields Shown With All Containing Selected Items', function() {
+          beforeEach(function() {
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(true);
+            spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(true);
+
+            spyOn(this.view.options, 'selectedItems').and.returnValue([{id: 'opt1'}, {id: 'opt2'}]);
+            spyOn(this.view.programmes, 'selectedItems').and.returnValue([{id: 'prg1'}, {id: 'prg2'}]);
+            spyOn(this.view.subprogrammes, 'selectedItems').and.returnValue([{id: 'sub1'}, {id: 'sub2'}]);
+            spyOn(this.view.actions, 'selectedItems').and.returnValue([{id: 'acn1'}, {id: 'acn2'}]);;
+            spyOn(this.view.activities, 'selectedItems').and.returnValue([{id: 'act1'}, {id: 'act2'}]);;
+            spyOn(this.view.activityYears, 'selectedItems').and.returnValue([{id: 'acy1'}, {id: 'acy2'}]);
+            spyOn(this.view.fundingYears, 'selectedItems').and.returnValue([{id: 'fny1'}, {id: 'fny2'}]);
+            spyOn(this.view.countries, 'selectedItems').and.returnValue([{id: 'ctr1'}, {id: 'ctr2'}]);
+            spyOn(this.view.regions, 'selectedItems').and.returnValue([{id: 'reg1'}, {id: 'reg2'}]);
+            spyOn(this.view.organisationTypes, 'selectedItems').and.returnValue([{id: 'org1'}, {id: 'org2'}]);
+            spyOn(this.view, 'isMatchAllCountriesSelected').and.returnValue(true);
+          });
+
+          it('should contain options criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              options: ['opt1', 'opt2']
+            }));
+          });
+
+          it('should contain programmes criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              programmes: ['prg1', 'prg2']
+            }));
+          });
+
+          it('should contain subprogrammes criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              subprogrammes: ['sub1', 'sub2']
+            }));
+          });
+
+          it('should contain actions criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              actions: ['acn1', 'acn2']
+            }));
+          });
+
+          it('should contain activities criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              activities: ['act1', 'act2']
+            }));
+          });
+
+          it('should contain activityYears criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              activityYears: ['acy1', 'acy2']
+            }));
+          });
+
+          it('should contain fundingYears criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              fundingYears: ['fny1', 'fny2']
+            }));
+          });
+
+          it('should contain countries criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              countries: ['ctr1', 'ctr2']
+            }));
+          });
+
+          it('should contain regions criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              regions: ['reg1', 'reg2']
+            }));
+          });
+
+          it('should contain organisationTypes criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              organisationTypes: ['org1', 'org2']
+            }));
+          });
+
+          it('should contain match all countries set to true', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              matchAllCountries: true
+            }));
+          });
+        });
+
+        describe('All Fields Shown Without Selected Items', function() {
+          beforeEach(function() {
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(true);
+            spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(true);
+            spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([]);
+          });
+
+          it('should contain empty options criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              options: []
+            }));
+          });
+
+          it('should contain empty programmes criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              programmes: []
+            }));
+          });
+
+          it('should contain empty subprogrammes criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              subprogrammes: []
+            }));
+          });
+
+          it('should contain empty actions criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              actions: []
+            }));
+          });
+
+          it('should contain empty activities criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              activities: []
+            }));
+          });
+
+          it('should contain empty activityYears criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              activityYears: []
+            }));
+          });
+
+          it('should contain empty fundingYears criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              fundingYears: []
+            }));
+          });
+
+          it('should contain empty countries criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              countries: []
+            }));
+          });
+
+          it('should contain empty regions criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              regions: []
+            }));
+          });
+
+          it('should contain empty organisationTypes criteria', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              organisationTypes: []
+            }));
+          });
+
+          it('should contain match all countries set to false', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              matchAllCountries: false
+            }));
+          });
+        });
       });
 
       describe('.isDirty()', function() {
