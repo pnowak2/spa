@@ -225,7 +225,8 @@ define(function(require) {
         describe('All Fields Hidden With Selected Items', function() {
           beforeEach(function() {
             this.view = new AdvancedSearchView;
-            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(false);
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(false);
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(true);
             spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(false);
 
             spyOn(this.view.options, 'selectedItems').and.returnValue([{id: 1}, {id: 2}]);
@@ -950,6 +951,30 @@ define(function(require) {
           });
 
           expect(this.view.organisationTypes.selectItems).toHaveBeenCalledWith(['org1', 'org2']);
+        });
+      });
+
+      describe('.isMatchAllCountriesVisible()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView;
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.isMatchAllCountriesVisible).toEqual(jasmine.any(Function));
+        });
+
+        it('should return false if is hidden', function() {
+          this.view.render();
+          this.view.getMatchAllCountriesContainerElement().hide();
+
+          expect(this.view.isMatchAllCountriesVisible()).toBe(false);
+        });
+
+        it('should return true if is visible', function() {
+          this.view.render();
+          this.view.getMatchAllCountriesContainerElement().show();
+
+          expect(this.view.isMatchAllCountriesVisible()).toBe(true);
         });
       });
 

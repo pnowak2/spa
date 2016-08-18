@@ -97,7 +97,7 @@ define(function(require) {
         countries: this.countries.isVisible() ? countries : [],
         regions: this.regions.isVisible() ? regions : [],
         organisationTypes: this.organisationTypes.isVisible() ? organisationTypes : [],
-        matchAllCountries: matchAllCountries
+        matchAllCountries: this.isMatchAllCountriesVisible() ? matchAllCountries : false
       };
     },
 
@@ -230,6 +230,10 @@ define(function(require) {
       } else {
         return false;
       }
+    },
+
+    isMatchAllCountriesVisible: function () {
+      return this.getMatchAllCountriesContainerElement().css('display') !== 'none';
     },
 
     isMatchAllCountriesSelected: function() {
