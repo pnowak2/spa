@@ -35,12 +35,12 @@ define('jquery', [], function() {
   return jQuery;
 });
 
-define(function(require) {
-  var Backbone = require('backbone'),
-    modernizr = require('modernizr'),
-    applicationModule = require('app/shared/modules/app.module'),
-    LandingPage = require('app/ce/components/landing-page/layout/main.component'),
+requirejs([
+  'backbone', 
+  'modernizr', 
+  'app/shared/modules/app.module', 
+  'app/ce/components/landing-page/layout/main.component'
+  ], function (Backbone, modernizr, applicationModule, LandingPage) {
     landingPage = new LandingPage;
-
   Backbone.history.start();
 });

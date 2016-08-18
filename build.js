@@ -1,5 +1,5 @@
 ({
-  baseUrl: ".",
+  baseUrl: '.',
   paths: {
     app: './app',
     jquery: 'lib/jquery/jquery.min',
