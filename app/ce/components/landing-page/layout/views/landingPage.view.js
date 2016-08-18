@@ -9,7 +9,6 @@ define(function(require) {
       this.search = new SearchComponent({
         advancedSearchComponent: new AdvancedSearchComponent
       });
-
       this.render();
 
       // this.search.update({

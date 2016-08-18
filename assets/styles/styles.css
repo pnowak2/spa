@@ -250,14 +250,22 @@
 }
 
 /* Search Container */
-.efc-search-container,
-.ce-search-container {
+.efc-search-container {
   position: relative;
   clear: both;
   max-width: 550px;
   min-width: 250px;
   margin: 0 auto;
   top: 120px;
+}
+
+/* Search */
+.vlr-search {
+  position: relative;
+  clear: both;
+  max-width: 550px;
+  min-width: 250px;
+  margin: 0 auto;
 }
 
 /* Search Box */
