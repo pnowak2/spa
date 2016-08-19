@@ -30,6 +30,8 @@
       deps: ['leaflet']
     }
   },
+  generateSourceMaps: true,
+  preserveLicenseComments: false,
   include: "requireLib",
   name: "ce.landing-page.main",
   out: "dist/vlr-app.js"
