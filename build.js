@@ -14,7 +14,9 @@
     leaflet: 'lib/leaflet/leaflet',
     leafletprunecluster: 'lib/leaflet.prunecluster/dist/PruneCluster',
     leafletfullscreen: 'lib/leaflet.fullscreen/dist/Leaflet.fullscreen',
-    leafleteasybutton: 'lib/leaflet.easybutton/dist/easy-button'
+    leafleteasybutton: 'lib/leaflet.easybutton/dist/easy-button',
+    
+    requireLib: 'lib/requirejs/require.min'
   },
   shim: {
     modernizr: {},
@@ -29,5 +31,6 @@
     }
   },
   name: "ce.landing-page.main",
-  out: "dist/app.js"
+  out: "dist/vlr-app.js",
+  include: "requireLib"
 })
