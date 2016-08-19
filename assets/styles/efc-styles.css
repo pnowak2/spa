@@ -1,0 +1,123 @@
+/* Banner */
+.efc-banner {
+  width: 984px;
+  height: 280px;
+  margin: 0 -6px 0 -15px;
+  background: url(../images/efc_slidea.jpg);
+}
+
+/* Results Container */
+.efc-results-container, .efc-legal-note {
+  margin: 0 -9px 0 -15px;
+}
+
+/* Search Container */
+.efc-search-container {
+  position: relative;
+  clear: both;
+  max-width: 550px;
+  min-width: 250px;
+  margin: 0 auto;
+  top: 120px;
+}
+
+/* Results list */
+.efc-results-table__no-data {
+  text-align: center;
+  padding: 10px;
+}
+
+.efc-results-table__title {
+  width: 340px;
+}
+
+.efc-results-table__year {
+  width: 70px;
+  text-align: center;
+}
+
+.efc-results-table__countries {
+  width: 100px;
+}
+
+/* EfC Results List */
+.efc-pageable-results-list {
+  padding: 0;
+  display: none;
+}
+
+.efc-pageable-results-list .vlr-pager {
+  padding: 10px;
+}
+
+/* Results Table */
+.efc-results-table {
+  font-family: sans-serif;
+  color:#666;
+  font-size:12px;
+  background:#eaebec;
+  margin:0;
+  border:0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.efc-results-table th {
+  padding:20px 10px;
+  border-bottom:1px solid #e0e0e0;
+  border-top:1px solid #e0e0e0;
+  background: #fff;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.efc-results-table th:first-child{
+  text-align: left;
+  padding-left:20px;
+}
+
+.efc-results-table tr td:first-child{
+  text-align: left;
+  padding-left:20px;
+  border-left: 0;
+}
+
+.efc-results-table tr td {
+  padding:15px;
+  border-top: 1px solid #ffffff;
+  border-bottom:1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
+  background: #fafafa;
+}
+
+.efc-results-table tr:nth-child(even) td{
+  background: #f1f1f1;
+
+}
+
+.efc-results-table a:link {
+  color: #666;
+  font-weight: bold;
+  text-decoration:none;
+}
+
+.efc-results-table a:visited {
+  color: #666;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.efc-results-table a:active,
+.efc-results-table a:hover {
+  color: #666;
+  text-decoration:underline;
+}
+
+/* EfC Results Map Search Explanation */
+.efc-results-map__map-country-search-explanation {
+  padding: 10px;
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+  background-color: #131C2A;
+}
