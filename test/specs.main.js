@@ -60,6 +60,12 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // util
     'app/shared/util/constants.spec',
 
+    // pageable list component
+    'app/shared/components/lists/pageable-list/main.component.spec',
+    'app/shared/components/lists/pageable-list/components/baseListComponent/main.component.spec',
+    'app/shared/components/lists/pageable-list/services/dummySearch.service.spec',
+    'app/shared/components/lists/pageable-list/views/pageableList.view.spec',
+
     // pager component
     'app/shared/components/paging/pager/main.component.spec',
     'app/shared/components/paging/pager/models/pager.model.spec',
