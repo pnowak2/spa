@@ -1,5 +1,6 @@
 define(function(require) {
-  var dummySearchService = require('./dummySearch.service');
+  var dummySearchService = require('./dummySearch.service'),
+    RSVP = require('rsvp');
 
   describe('Dummy Search Service', function() {
     describe('type', function() {
@@ -14,12 +15,19 @@ define(function(require) {
           expect(dummySearchService.search).toEqual(jasmine.any(Function));
         });
 
-        it('should return object with then() method', function() {
-          expect(dummySearchService.search().then).toEqual(jasmine.any(Function));
+        it('should return promise', function() {
+          expect(dummySearchService.search()).toEqual(jasmine.any(RSVP.Promise));
         });
 
-        it('should return object with catch() method', function() {
-          expect(dummySearchService.search().catch).toEqual(jasmine.any(Function));
+        it('should resolve successful response', function(done) {
+          var testRequest = function() {
+            expect(true).toBe(true);
+          };
+
+          dummySearchService.search()
+            .then(testRequest)
+            .catch(fail)
+            .finally(done);
         });
       });
     });

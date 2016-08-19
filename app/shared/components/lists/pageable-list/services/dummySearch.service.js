@@ -1,10 +1,13 @@
 define(function(require) {
+  var RSVP = require('rsvp');
+
   return {
     search: function() {
-    	return {
-    		then: function () {},
-    		catch: function () {}
-    	}
+      return (
+        new RSVP.Promise(function(resolve, reject) {
+          resolve();
+        })
+      )
     }
   }
 });
