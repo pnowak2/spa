@@ -18,6 +18,10 @@ define(function(require) {
       this.listComponent = options.listComponent || new BaseListComponent;
       this.searchService = options.searchService || dummySearchService;
 
+      if (!(this.listComponent instanceof BaseListComponent)) {
+        throw 'list component should be type of BaseListComponent';
+      }
+
       this.pageStatsComponent = new PageStatsComponent;
       this.pagerComponent = new PagerComponent;
 

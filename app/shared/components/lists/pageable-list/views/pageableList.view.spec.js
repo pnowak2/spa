@@ -17,33 +17,53 @@ define(function(require) {
     });
 
     describe('creation', function() {
-      beforeEach(function() {
-        spyOn(_, 'bindAll').and.callThrough();
-        this.view = new PageableListView;
+      describe('Default', function() {
+        beforeEach(function() {
+          spyOn(_, 'bindAll').and.callThrough();
+          this.view = new PageableListView;
+        });
+
+        it('should have default list component defined', function() {
+          expect(this.view.listComponent).toEqual(jasmine.any(BaseListComponent));
+        });
+
+        it('should have default search service defined', function() {
+          expect(this.view.searchService).toEqual(dummySearchService);
+        });
+
+        it('should have pager component defined', function() {
+          expect(this.view.pagerComponent).toEqual(jasmine.any(PagerComponent));
+        });
+
+        it('should have page stats component defined', function() {
+          expect(this.view.pageStatsComponent).toEqual(jasmine.any(PageStatsComponent));
+        });
+
+        it('should bind callback methods with view object', function() {
+          expect(_.bindAll).toHaveBeenCalledWith(this.view, 'didSearchSucceed', 'didSearchFail');
+        });
+
+        it('should have empty cached criteria defined', function() {
+          expect(this.view.cachedCriteria).toEqual({});
+        });
       });
 
-      it('should have default list component defined', function() {
-        expect(this.view.listComponent).toEqual(jasmine.any(BaseListComponent));
-      });
+      describe('With custom options', function() {
+        it('should throw error if list component has wrong type', function() {
+          expect(function() {
+            new PageableListView({
+              listComponent: 'test'
+            });
+          }).toThrow('list component should be type of BaseListComponent')
+        });
 
-      it('should have default search service defined', function() {
-        expect(this.view.searchService).toEqual(dummySearchService);
-      });
-
-      it('should have pager component defined', function() {
-        expect(this.view.pagerComponent).toEqual(jasmine.any(PagerComponent));
-      });
-
-      it('should have page stats component defined', function() {
-        expect(this.view.pageStatsComponent).toEqual(jasmine.any(PageStatsComponent));
-      });
-
-      it('should bind callback methods with view object', function() {
-        expect(_.bindAll).toHaveBeenCalledWith(this.view, 'didSearchSucceed', 'didSearchFail');
-      });
-
-      it('should have empty cached criteria defined', function() {
-        expect(this.view.cachedCriteria).toEqual({});
+        it('should should not throw error if list component is of correct type', function() {
+          expect(function() {
+            new PageableListView({
+              listComponent: new BaseListComponent
+            });
+          }).not.toThrow()
+        });
       });
     });
 
