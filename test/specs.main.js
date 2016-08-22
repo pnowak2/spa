@@ -194,7 +194,17 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // ce landing page advanced search component
     'app/ce/components/landing-page/searching/advanced-search/main.component.spec',
     'app/ce/components/landing-page/searching/advanced-search/views/advancedSearch.view.spec',
-    'app/ce/components/landing-page/searching/advanced-search/services/advanced-search/advancedSearch.service.spec'
+    'app/ce/components/landing-page/searching/advanced-search/services/advanced-search/advancedSearch.service.spec',
+
+    // ce results list component
+    'app/ce/components/landing-page/results/list/results-list/main.component.spec',
+
+    // ce pageable results list component
+    'app/ce/components/landing-page/results/list/pageable-results-list/main.component.spec',
+    'app/ce/components/landing-page/results/list/pageable-results-list/views/pageableResultsList.view.spec',
+    'app/ce/components/landing-page/results/list/pageable-results-list/services/search/searchInput.mapper.spec',
+    'app/ce/components/landing-page/results/list/pageable-results-list/services/search/searchResult.mapper.spec',
+    'app/ce/components/landing-page/results/list/pageable-results-list/services/search/search.service.spec'
 
   ], function() {
     window.onload();

@@ -6,7 +6,7 @@ define(function(require) {
     ResultsCollection = require('../collections/results.collection'),
     ResultModel = require('../models/result.model');
 
-  describe('Results List View', function() {
+  describe('EfC Results List View', function() {
     describe('type', function() {
       it('should be of view', function() {
         expect(ResultsListView.prototype).toEqual(jasmine.any(Backbone.View));

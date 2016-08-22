@@ -3,7 +3,7 @@ define(function(require) {
     PageableResultsListComponent = require('./main.component'),
     PageableResultsListView = require('./views/pageableResultsList.view');
 
-  describe('EfC Pageable Results List Component', function() {
+  describe('CE Pageable Results List Component', function() {
     describe('type', function() {
       it('should be of component', function() {
         expect(PageableResultsListComponent.prototype).toEqual(jasmine.any(Component));

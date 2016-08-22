@@ -3,10 +3,10 @@ define(function(require) {
     app = require('app/shared/modules/app.module'),
     PageableResultsListView = require('./pageableResultsList.view'),
     PageableListComponent = require('app/shared/components/lists/pageable-list/main.component'),
-    ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),
+    ResultsListComponent = require('app/ce/components/landing-page/results/list/results-list/main.component'),
     searchService = require('../services/search/search.service');
 
-  describe('EfC Pageable Results List View', function() {
+  describe('CE Pageable Results List View', function() {
     describe('type', function() {
       it('should be of view', function() {
         expect(PageableResultsListView.prototype).toEqual(jasmine.any(Backbone.View));
@@ -46,7 +46,7 @@ define(function(require) {
 
       describe('.className', function() {
         it('should be defined', function() {
-          expect(PageableResultsListView.prototype.className).toEqual('efc-pageable-results-list');
+          expect(PageableResultsListView.prototype.className).toEqual('ce-pageable-results-list');
         });
       });
     });

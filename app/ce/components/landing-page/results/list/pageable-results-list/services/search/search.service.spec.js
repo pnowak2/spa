@@ -2,7 +2,7 @@ define(function(require) {
   var searchService = require('./search.service'),
     searchInputMapper = require('./searchInput.mapper'),
     searchResultMapper = require('./searchResult.mapper'),
-    constants = require('app/efc/util/constants'),
+    constants = require('app/ce/util/constants'),
     RSVP = require('rsvp'),
     $ = require('jquery'),
 
@@ -11,7 +11,12 @@ define(function(require) {
         success: {
           status: 200,
           dataType: 'json',
-          responseText: '{}'
+          responseText: JSON.stringify({
+            iTotalRecords: 1,
+            aaData: [
+              ['17', 'Project title', 'Project description', null, '2015', 'PL|DE']
+            ]
+          })
         },
         error: {
           status: 500
@@ -19,7 +24,7 @@ define(function(require) {
       }
     };
 
-  describe('EfC Search Service', function() {
+  describe('CE Search Service', function() {
     beforeEach(function() {
       jasmine.Ajax.install();
     });
@@ -61,7 +66,7 @@ define(function(require) {
           it('should use proper REST url and method', function(done) {
             var testRequest = function() {
               request = jasmine.Ajax.requests.mostRecent();
-              expect(request.url).toContain(constants.urls.SEARCH_MAP);
+              expect(request.url).toContain(constants.urls.SEARCH_LIST);
               expect(request.method).toBe('GET');
             };
 

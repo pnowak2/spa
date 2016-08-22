@@ -3,7 +3,7 @@ define(function(require) {
     RSVP = require('rsvp'),
     searchInputMapper = require('./searchInput.mapper'),
     searchResultMapper = require('./searchResult.mapper'),
-    constants = require('app/efc/util/constants');
+    constants = require('app/ce/util/constants');
 
   return {
     search: function(criteria) {

@@ -97,7 +97,7 @@ define(function(require) {
       }
     };
 
-  describe('Search Result Mapper', function() {
+  describe('EfC Search Result Mapper', function() {
     describe('creation', function() {
       it('should be defined', function() {
         expect(searchResultMapper).toEqual(jasmine.any(Object));

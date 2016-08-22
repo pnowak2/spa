@@ -4,7 +4,7 @@ define(function(require) {
     ResultModel = require('../models/result.model'),
     FlagsComponent = require('app/shared/components/flags/main.component');
 
-  describe('Result List Item View', function() {
+  describe('EfC Result List Item View', function() {
     describe('type', function() {
       it('should be of view', function() {
         expect(ResultItemView.prototype).toEqual(jasmine.any(Backbone.View));

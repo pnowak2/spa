@@ -2,8 +2,9 @@ define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
     LandingPageView = require('./landingPage.view'),
+    SearchComponent = require('app/shared/components/searching/search/main.component'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
-    SearchComponent = require('app/shared/components/searching/search/main.component');
+    PageableResultsListComponent = require('app/ce/components/landing-page/results/list/pageable-results-list/main.component');
 
   describe('CE Landing Page View', function() {
     describe('type', function() {
@@ -29,6 +30,10 @@ define(function(require) {
         expect(passedOptions.advancedSearchComponent).toEqual(jasmine.any(AdvancedSearchComponent));
       });
 
+      it('should have pageable results list component defined ', function() {
+        expect(this.view.pageableResultsList).toEqual(jasmine.any(PageableResultsListComponent));
+      });
+
       it('should render the component', function() {
         expect(this.view.render).toHaveBeenCalled();
       });
@@ -51,6 +56,11 @@ define(function(require) {
         it('should render search component in appropriate container', function() {
           var markup = this.view.search.render().view.el;
           expect($('.ce-search-container')).toContainHtml(markup);
+        });
+
+        it('should render pageable results list component in appropriate container', function() {
+          var markup = this.view.pageableResultsList.render().view.el;
+          expect($('.ce-results-container')).toContainHtml(markup);
         });
       });
     });

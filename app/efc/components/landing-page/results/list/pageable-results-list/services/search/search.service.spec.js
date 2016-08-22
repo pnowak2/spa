@@ -24,7 +24,7 @@ define(function(require) {
       }
     };
 
-  describe('Search Service', function() {
+  describe('EfC Search Service', function() {
     beforeEach(function() {
       jasmine.Ajax.install();
     });

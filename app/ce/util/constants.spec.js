@@ -8,6 +8,12 @@ define(function(require) {
       });
     });
 
+    describe('urls', function() {
+      it('.SEARCH_LIST should be defined', function() {
+        expect(constants.urls.SEARCH_LIST).toEqual('/programmes');
+      });
+    });
+
     describe('ccm', function() {
       it('.CE should be defined', function() {
         expect(constants.ccm.CE).toBeDefined();

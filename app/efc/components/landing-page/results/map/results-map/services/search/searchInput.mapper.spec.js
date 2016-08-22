@@ -4,7 +4,7 @@ define(function(require) {
     listInputMapper = require('app/efc/components/landing-page/results/list/pageable-results-list/services/search/searchInput.mapper');
 
 
-  describe('Search Input Mapper', function() {
+  describe('EfC Search Input Mapper', function() {
     describe('creation', function() {
       it('should be defined', function() {
         expect(mapInputMapper).toEqual(jasmine.any(Object));

@@ -3,7 +3,7 @@ define(function(require) {
     ResultsCollection = require('./results.collection'),
     ResultModel = require('../models/result.model');
 
-  describe('Results List Collection', function() {
+  describe('EfC Results List Collection', function() {
     describe('type', function() {
       it('should be of colleciton', function() {
         expect(ResultsCollection.prototype).toEqual(jasmine.any(Backbone.Collection));

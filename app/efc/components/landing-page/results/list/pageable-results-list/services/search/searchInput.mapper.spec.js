@@ -2,7 +2,7 @@ define(function(require) {
   var _ = require('underscore'),
     searchInputMapper = require('./searchInput.mapper');
 
-  describe('Search Input Mapper', function() {
+  describe('EfC Search Input Mapper', function() {
     describe('creation', function() {
       it('should be defined', function() {
         expect(searchInputMapper).toEqual(jasmine.any(Object));

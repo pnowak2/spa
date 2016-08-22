@@ -1,7 +1,7 @@
 define(function(require) {
   var ResultModel = require('./result.model');
 
-  describe('Result List Model', function() {
+  describe('EfC Result List Model', function() {
     describe('type', function() {
       it('should be of model', function() {
         expect(ResultModel.prototype).toEqual(jasmine.any(Backbone.Model));
