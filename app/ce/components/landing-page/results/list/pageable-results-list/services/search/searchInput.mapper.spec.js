@@ -1,6 +1,7 @@
 define(function(require) {
   var _ = require('underscore'),
-    searchInputMapper = require('./searchInput.mapper');
+    searchInputMapper = require('./searchInput.mapper'),
+    constants = require('app/ce/util/constants');
 
   describe('CE Search Input Mapper', function() {
     describe('creation', function() {
@@ -43,22 +44,41 @@ define(function(require) {
 
         describe('Mapping Search Criteria Properties', function() {
           describe('Keyword', function() {
-            it('should map default keyword if not provided', function() {
-              var input = {
-              };
+            it('should map to default property if not provided', function() {
+              var input = {};
 
               expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
                 KEYWORD: ''
               }));
             });
 
-            it('should map keyword if provided', function() {
+            it('should map to property if provided', function() {
               var input = {
                 keyword: 'foo'
               };
 
               expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
                 KEYWORD: 'foo'
+              }));
+            });
+          });
+
+          describe('Success Story ', function() {
+            it('should map to default property if not provided', function() {
+              var input = {};
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                SUCCESS_STORY: false
+              }));
+            });
+
+            it('should map to property if provided', function() {
+              var input = {
+                options: ['successStoriesOnly']
+              };
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                SUCCESS_STORY: true
               }));
             });
           });

@@ -14,6 +14,24 @@ define(function(require) {
       });
     });
 
+    describe('options', function() {
+      it('.ONGOING should be defined', function() {
+        expect(constants.options.ONGOING).toEqual('ongoing');
+      });
+
+      it('.COMPLETED should be defined', function() {
+        expect(constants.options.COMPLETED).toEqual('completed');
+      });
+
+      it('.SUCCESS_STORIES should be defined', function() {
+        expect(constants.options.SUCCESS_STORIES).toEqual('successStoriesOnly');
+      });
+
+      it('.RESULTS should be defined', function() {
+        expect(constants.options.RESULTS).toEqual('resultsOnly');
+      });
+    });
+
     describe('ccm', function() {
       it('.CE should be defined', function() {
         expect(constants.ccm.CE).toBeDefined();
