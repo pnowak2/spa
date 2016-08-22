@@ -63,23 +63,59 @@ define(function(require) {
             });
           });
 
-          describe('Success Story ', function() {
-            it('should map to default property if not provided', function() {
-              var input = {};
+          describe('Options', function() {
+            describe('Success Story', function() {
+              it('should map to default property if not provided', function() {
+                var input = {};
 
-              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-                SUCCESS_STORY: false
-              }));
+                expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                  SUCCESS_STORY: false
+                }));
+              });
+
+              it('should map to property if provided', function() {
+                var input = {
+                  options: ['successStoriesOnly']
+                };
+
+                expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                  SUCCESS_STORY: true
+                }));
+              });
             });
 
-            it('should map to property if provided', function() {
-              var input = {
-                options: ['successStoriesOnly']
-              };
+            describe('Ongoing', function() {
+              it('should not map property if not provided', function() {
+                var input = {};
+                expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-PROJECT_STATUS');
+              });
 
-              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-                SUCCESS_STORY: true
-              }));
+              it('should map to property if provided', function() {
+                var input = {
+                  options: ['ongoing']
+                };
+
+                expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                  'FILTER-PROJECT_STATUS': 'ongoing'
+                }));
+              });
+            });
+
+            describe('Completed', function() {
+              it('should not map property if not provided', function() {
+                var input = {};
+                expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-PROJECT_STATUS');
+              });
+
+              it('should map to property if provided', function() {
+                var input = {
+                  options: ['completed']
+                };
+
+                expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                  'FILTER-PROJECT_STATUS': 'completed'
+                }));
+              });
             });
           });
         });

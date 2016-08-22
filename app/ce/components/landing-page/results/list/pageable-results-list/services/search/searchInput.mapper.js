@@ -6,6 +6,14 @@ define(function(require) {
       return _.contains(input.options, constants.options.SUCCESS_STORIES);
     },
 
+    hasOngoing = function(input) {
+      return _.contains(input.options, constants.options.ONGOING);
+    },
+
+    hasCompleted = function(input) {
+      return _.contains(input.options, constants.options.COMPLETED);
+    },
+
     map = function(input) {
       input = input || {};
 
@@ -22,6 +30,18 @@ define(function(require) {
       mapped = _.extend(mapped, {
         'SUCCESS_STORY': hasSuccessStory(input) || false
       });
+
+      if (hasOngoing(input)) {
+        mapped = _.extend(mapped, {
+          'FILTER-PROJECT_STATUS': constants.options.ONGOING
+        });
+      }
+
+      if (hasCompleted(input)) {
+        mapped = _.extend(mapped, {
+          'FILTER-PROJECT_STATUS': constants.options.COMPLETED
+        });
+      }
 
       return mapped;
     };
