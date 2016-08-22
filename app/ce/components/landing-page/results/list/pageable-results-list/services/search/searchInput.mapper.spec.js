@@ -85,9 +85,11 @@ define(function(require) {
             });
 
             describe('Ongoing', function() {
-              it('should not map property if not provided', function() {
+              it('should map to default property if not provided', function() {
                 var input = {};
-                expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-PROJECT_STATUS');
+                expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                  'FILTER-PROJECT_STATUS': ''
+                }));
               });
 
               it('should map to property if provided', function() {
@@ -102,9 +104,11 @@ define(function(require) {
             });
 
             describe('Completed', function() {
-              it('should not map property if not provided', function() {
+              it('should map to default property if not provided', function() {
                 var input = {};
-                expect(_.keys(searchInputMapper.map(input))).not.toContain('FILTER-PROJECT_STATUS');
+                expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                  'FILTER-PROJECT_STATUS': ''
+                }));
               });
 
               it('should map to property if provided', function() {
@@ -114,6 +118,38 @@ define(function(require) {
 
                 expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
                   'FILTER-PROJECT_STATUS': 'completed'
+                }));
+              });
+            });
+
+            describe('Ongoing & Completed', function() {
+              it('should map to empty property if provided', function() {
+                var input = {
+                  options: ['ongoing', 'completed']
+                };
+
+                expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                  'FILTER-PROJECT_STATUS': ''
+                }));
+              });
+            });
+
+            describe('With Results', function() {
+              it('should map to default property if not provided', function() {
+                var input = {};
+
+                expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                  'FILTER-WITH_RESULTS_ONLY': false
+                }));
+              });
+
+              it('should map to property if provided', function() {
+                var input = {
+                  options: ['resultsOnly']
+                };
+
+                expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                  'FILTER-WITH_RESULTS_ONLY': true
                 }));
               });
             });

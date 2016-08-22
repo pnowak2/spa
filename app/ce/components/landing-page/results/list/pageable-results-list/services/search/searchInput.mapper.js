@@ -14,6 +14,10 @@ define(function(require) {
       return _.contains(input.options, constants.options.COMPLETED);
     },
 
+    hasResultsOnly = function(input) {
+      return _.contains(input.options, constants.options.RESULTS);
+    },
+
     map = function(input) {
       input = input || {};
 
@@ -31,17 +35,27 @@ define(function(require) {
         'SUCCESS_STORY': hasSuccessStory(input) || false
       });
 
-      if (hasOngoing(input)) {
+      if(hasOngoing(input) && hasCompleted(input)) {
+        mapped = _.extend(mapped, {
+          'FILTER-PROJECT_STATUS': ''
+        });
+      } else if (hasOngoing(input)) {
         mapped = _.extend(mapped, {
           'FILTER-PROJECT_STATUS': constants.options.ONGOING
         });
-      }
-
-      if (hasCompleted(input)) {
+      } else if (hasCompleted(input)) {
         mapped = _.extend(mapped, {
           'FILTER-PROJECT_STATUS': constants.options.COMPLETED
         });
+      } else {
+        mapped = _.extend(mapped, {
+          'FILTER-PROJECT_STATUS': ''
+        });
       }
+
+      mapped = _.extend(mapped, {
+        'FILTER-WITH_RESULTS_ONLY': hasResultsOnly(input) || false
+      });
 
       return mapped;
     };
