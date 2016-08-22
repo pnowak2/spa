@@ -13,6 +13,8 @@ define(function(require) {
       this.pageableResultsList = new PageableResultsListComponent;
       this.render();
 
+      this.listenTo(this.search, 'search:search', this.onSearchRequest);
+
       // this.search.update({
       //   keyword: 'boo',
       //   options: ['successStoriesOnly', 'resultsOnly'],
@@ -27,6 +29,10 @@ define(function(require) {
       //   organisationTypes: ['31047402', '31047384'],
       //   matchAllCountries: true
       // });
+    },
+
+    onSearchRequest: function(criteria) {
+      this.pageableResultsList.onSearchRequest(criteria);
     },
 
     render: function() {

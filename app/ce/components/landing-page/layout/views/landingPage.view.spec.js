@@ -39,6 +39,43 @@ define(function(require) {
       });
     });
 
+    describe('api', function() {
+      describe('.onSearchRequest()', function() {
+        beforeEach(function() {
+          spyOn(PageableResultsListComponent.prototype, 'onSearchRequest');
+
+          this.view = new LandingPageView;
+        });
+
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to pageable list component', function() {
+          var fakeSearchCriteria = {};
+
+          this.view.onSearchRequest(fakeSearchCriteria);
+
+          expect(this.view.pageableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+        });
+      });
+    });
+
+    describe('events', function() {
+      describe('custom', function() {
+        it('should listen to search component "search" event', function() {
+          spyOn(LandingPageView.prototype, 'onSearchRequest');
+
+          var view = new LandingPageView,
+            fakeSearchCriteria = {};
+
+          view.search.trigger('search:search', fakeSearchCriteria);
+
+          expect(view.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+        });
+      });
+    });
+
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
