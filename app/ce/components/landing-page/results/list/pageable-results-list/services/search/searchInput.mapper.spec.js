@@ -154,6 +154,382 @@ define(function(require) {
               });
             });
           });
+
+          describe('Programme', function() {
+            describe('No Programme Selected', function() {
+              beforeEach(function() {
+                this.input = {};
+              });
+
+              it('should map LEVEL1 to empty value if not provided', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-LEVEL1': ''
+                }));
+              });
+
+              it('should map LEVEL2 to empty value if not provided', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-LEVEL2': ''
+                }));
+              });
+
+              it('should map LEVEL3 to empty value if not provided', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-LEVEL3': ''
+                }));
+              });
+
+              it('should map CATEGORY to empty value if not provided', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-CATEGORY': ''
+                }));
+              });
+            });
+
+            describe('Creative Europe Programme Selected', function() {
+              beforeEach(function() {
+                this.input = {
+                  programmes: [constants.ccm.CE]
+                };
+              });
+
+              it('should map LEVEL1 to CE value', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-LEVEL1': constants.ccm.CE
+                }));
+              });
+
+              it('should map LEVEL2 to empty value', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-LEVEL2': ''
+                }));
+              });
+
+              it('should map LEVEL3 to empty value', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-LEVEL3': ''
+                }));
+              });
+
+              it('should map CATEGORY to empty value', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-CATEGORY': ''
+                }));
+              });
+            });
+
+            describe('Culture Programme Selected', function() {
+              beforeEach(function() {
+                this.input = {
+                  programmes: [constants.ccm.CULTURE_2007]
+                };
+              });
+
+              it('should map LEVEL1 to empty value', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-LEVEL1': ''
+                }));
+              });
+
+              it('should map LEVEL2 to empty value', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-LEVEL2': ''
+                }));
+              });
+
+              it('should map LEVEL3 to empty value', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-LEVEL3': ''
+                }));
+              });
+
+              it('should map CATEGORY to CULTURE value', function() {
+                expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                  'FILTER-CATEGORY': constants.ccm.CULTURE_2007
+                }));
+              });
+            });
+          });
+
+          describe('Subprogramme', function() {
+            describe('Creative Europe Programme Selected', function() {
+              describe('No Subprogramme Selected', function() {
+                beforeEach(function() {
+                  this.input = {
+                    programmes: [constants.ccm.CE],
+                    subprogrammes: []
+                  };
+                });
+
+                it('should map LEVEL1 to CE value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL1': constants.ccm.CE
+                  }));
+                });
+
+                it('should map LEVEL2 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL2': ''
+                  }));
+                });
+
+                it('should map LEVEL3 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL3': ''
+                  }));
+                });
+
+                it('should map CATEGORY to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-CATEGORY': ''
+                  }));
+                });
+              });
+
+              describe('Subprogramme Selected', function() {
+                beforeEach(function() {
+                  this.input = {
+                    programmes: [constants.ccm.CE],
+                    subprogrammes: ['sub1']
+                  };
+                });
+
+                it('should map LEVEL1 to CE value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL1': constants.ccm.CE
+                  }));
+                });
+
+                it('should map LEVEL2 to selected value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL2': 'sub1'
+                  }));
+                });
+
+                it('should map LEVEL3 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL3': ''
+                  }));
+                });
+
+                it('should map CATEGORY to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-CATEGORY': ''
+                  }));
+                });
+              });
+            });
+
+            describe('Culture Programme Selected', function() {
+              describe('No Subprogramme Selected', function() {
+                beforeEach(function() {
+                  this.input = {
+                    programmes: [constants.ccm.CULTURE_2007],
+                    subprogrammes: []
+                  };
+                });
+
+                it('should map LEVEL1 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL1': ''
+                  }));
+                });
+
+                it('should map LEVEL2 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL2': ''
+                  }));
+                });
+
+                it('should map LEVEL3 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL3': ''
+                  }));
+                });
+
+                it('should map CATEGORY to programme value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-CATEGORY': constants.ccm.CULTURE_2007
+                  }));
+                });
+              });
+
+              describe('Subprogramme Selected', function() {
+                beforeEach(function() {
+                  this.input = {
+                    programmes: [constants.ccm.CULTURE_2007],
+                    subprogrammes: ['sub1']
+                  };
+                });
+
+                it('should map LEVEL1 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL1': ''
+                  }));
+                });
+
+                it('should map LEVEL2 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL2': ''
+                  }));
+                });
+
+                it('should map LEVEL3 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL3': ''
+                  }));
+                });
+
+                it('should map CATEGORY to subprogramme value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-CATEGORY': 'sub1'
+                  }));
+                });
+              });
+            });
+          });
+
+          describe('Action', function() {
+            describe('Creative Europe Programme Selected', function() {
+              describe('No Action Selected', function() {
+                beforeEach(function() {
+                  this.input = {
+                    programmes: [constants.ccm.CE],
+                    subprogrammes: ['sub2'],
+                    actions: []
+                  };
+                });
+
+                it('should map LEVEL1 to CE value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL1': constants.ccm.CE
+                  }));
+                });
+
+                it('should map LEVEL2 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL2': 'sub2'
+                  }));
+                });
+
+                it('should map LEVEL3 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL3': ''
+                  }));
+                });
+
+                it('should map CATEGORY to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-CATEGORY': ''
+                  }));
+                });
+              });
+
+              describe('Action Selected', function() {
+                beforeEach(function() {
+                  this.input = {
+                    programmes: [constants.ccm.CE],
+                    subprogrammes: ['sub1'],
+                    actions: ['act1']
+                  };
+                });
+
+                it('should map LEVEL1 to CE value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL1': constants.ccm.CE
+                  }));
+                });
+
+                it('should map LEVEL2 to selected value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL2': 'sub1'
+                  }));
+                });
+
+                it('should map LEVEL3 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL3': 'act1'
+                  }));
+                });
+
+                it('should map CATEGORY to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-CATEGORY': ''
+                  }));
+                });
+              });
+            });
+
+            describe('Culture Programme Selected (Not applicable for Culture but just to be sure..)', function() {
+              describe('No Action Selected', function() {
+                beforeEach(function() {
+                  this.input = {
+                    programmes: [constants.ccm.CULTURE_2007],
+                    subprogrammes: ['sub1'],
+                    actions: []
+                  };
+                });
+
+                it('should map LEVEL1 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL1': ''
+                  }));
+                });
+
+                it('should map LEVEL2 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL2': ''
+                  }));
+                });
+
+                it('should map LEVEL3 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL3': ''
+                  }));
+                });
+
+                it('should map CATEGORY to subprogramme value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-CATEGORY': 'sub1'
+                  }));
+                });
+              });
+
+              describe('Action Selected', function() {
+                beforeEach(function() {
+                  this.input = {
+                    programmes: [constants.ccm.CULTURE_2007],
+                    subprogrammes: ['sub1'],
+                    actions: ['act1']
+                  };
+                });
+
+                it('should map LEVEL1 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL1': ''
+                  }));
+                });
+
+                it('should map LEVEL2 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL2': ''
+                  }));
+                });
+
+                it('should map LEVEL3 to empty value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-LEVEL3': ''
+                  }));
+                });
+
+                it('should map CATEGORY to subprogramme value', function() {
+                  expect(searchInputMapper.map(this.input)).toEqual(jasmine.objectContaining({
+                    'FILTER-CATEGORY': 'sub1'
+                  }));
+                });
+              });
+            });
+          });
         });
 
         describe('Mapping Paging Properties', function() {
