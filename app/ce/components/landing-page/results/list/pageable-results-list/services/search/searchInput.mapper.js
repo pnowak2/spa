@@ -28,6 +28,17 @@ define(function(require) {
 
     map = function(input) {
       input = input || {};
+      input.options = input.options || [];
+      input.programmes = input.programmes || [];
+      input.subprogrammes = input.subprogrammes || [];
+      input.actions = input.actions || [];
+      input.activities = input.activities || [];
+      input.activityYears = input.activityYears || [];
+      input.fundingYears = input.fundingYears || [];
+      input.countries = input.countries || [];
+      input.regions = input.regions || [];
+      input.organisationTypes = input.organisationTypes || [];
+      input.matchAllCountries = input.matchAllCountries || false;
 
       var mapped = _.extend({}, {
         'iDisplayStart': input.startFromItem || 0,
@@ -87,6 +98,34 @@ define(function(require) {
           'FILTER-CATEGORY': ''
         });
       }
+
+      mapped = _.extend(mapped, {
+        'FILTER-TAGS': input.activities.join(';')
+      });
+
+      mapped = _.extend(mapped, {
+        'FILTER-CALL_YEAR': input.fundingYears.join(';')
+      });
+
+      mapped = _.extend(mapped, {
+        'FILTER-START_DATE': input.activityYears.join(';')
+      });
+
+      mapped = _.extend(mapped, {
+        'FILTER-COVERAGE': input.countries.join(';')
+      });
+
+      mapped = _.extend(mapped, {
+        'FILTER-MATCH_ALL_COUNTRIES': input.matchAllCountries || false
+      });
+
+      mapped = _.extend(mapped, {
+        'FILTER-REGION': input.regions.join(';')
+      });
+
+      mapped = _.extend(mapped, {
+        'FILTER-TYPE': input.organisationTypes.join(';')
+      });
 
       return mapped;
     };

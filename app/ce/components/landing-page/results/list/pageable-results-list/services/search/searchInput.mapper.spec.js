@@ -44,7 +44,7 @@ define(function(require) {
 
         describe('Mapping Search Criteria Properties', function() {
           describe('Keyword', function() {
-            it('should map to default property if not provided', function() {
+            it('should map to empty value if not provided', function() {
               var input = {};
 
               expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
@@ -65,7 +65,7 @@ define(function(require) {
 
           describe('Options', function() {
             describe('Success Story', function() {
-              it('should map to default property if not provided', function() {
+              it('should map to false if not provided', function() {
                 var input = {};
 
                 expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
@@ -85,7 +85,7 @@ define(function(require) {
             });
 
             describe('Ongoing', function() {
-              it('should map to default property if not provided', function() {
+              it('should map to empty value if not provided', function() {
                 var input = {};
                 expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
                   'FILTER-PROJECT_STATUS': ''
@@ -104,7 +104,7 @@ define(function(require) {
             });
 
             describe('Completed', function() {
-              it('should map to default property if not provided', function() {
+              it('should map to empty value if not provided', function() {
                 var input = {};
                 expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
                   'FILTER-PROJECT_STATUS': ''
@@ -135,7 +135,7 @@ define(function(require) {
             });
 
             describe('With Results', function() {
-              it('should map to default property if not provided', function() {
+              it('should map to false if not provided', function() {
                 var input = {};
 
                 expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
@@ -528,6 +528,146 @@ define(function(require) {
                   }));
                 });
               });
+            });
+          });
+
+          describe('Activities', function() {
+            it('should map to empty value if not provided', function() {
+              var input = {};
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-TAGS': ''
+              }));
+            });
+
+            it('should map to properties if provided', function() {
+              var input = {
+                activities: ['avt1', 'avt2']
+              };
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-TAGS': 'avt1;avt2'
+              }));
+            });
+          });
+
+          describe('Funding Years', function() {
+            it('should map to empty value if not provided', function() {
+              var input = {};
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-CALL_YEAR': ''
+              }));
+            });
+
+            it('should map to properties if provided', function() {
+              var input = {
+                fundingYears: ['2014', '2016']
+              };
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-CALL_YEAR': '2014;2016'
+              }));
+            });
+          });
+
+          describe('Activity Years', function() {
+            it('should map to empty value if not provided', function() {
+              var input = {};
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-START_DATE': ''
+              }));
+            });
+
+            it('should map to properties if provided', function() {
+              var input = {
+                activityYears: ['2017', '2018']
+              };
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-START_DATE': '2017;2018'
+              }));
+            });
+          });
+
+          describe('Countries', function() {
+            it('should map to empty value if not provided', function() {
+              var input = {};
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-COVERAGE': ''
+              }));
+            });
+
+            it('should map to properties if provided', function() {
+              var input = {
+                countries: ['PL', 'BE']
+              };
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-COVERAGE': 'PL;BE'
+              }));
+            });
+          });
+
+          describe('Match All Countries', function() {
+            it('should map to false if not provided', function() {
+              var input = {};
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-MATCH_ALL_COUNTRIES': false
+              }));
+            });
+
+            it('should map to properties if provided', function() {
+              var input = {
+                matchAllCountries: true
+              };
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-MATCH_ALL_COUNTRIES': true
+              }));
+            });
+          });
+
+          describe('Regions', function() {
+            it('should map to empty value if not provided', function() {
+              var input = {};
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-REGION': ''
+              }));
+            });
+
+            it('should map to properties if provided', function() {
+              var input = {
+                regions: ['reg1', 'reg2']
+              };
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-REGION': 'reg1;reg2'
+              }));
+            });
+          });
+
+          describe('Organisation Types', function() {
+            it('should map to empty value if not provided', function() {
+              var input = {};
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-TYPE': ''
+              }));
+            });
+
+            it('should map to properties if provided', function() {
+              var input = {
+                organisationTypes: ['org1', 'org2']
+              };
+
+              expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
+                'FILTER-TYPE': 'org1;org2'
+              }));
             });
           });
         });
