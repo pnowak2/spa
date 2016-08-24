@@ -234,6 +234,8 @@
   text-align: center;
   font-size: 11px;
   color: #727272;
+  margin: 0;
+  padding: 5px 0;
 }
 
 /* Search */
