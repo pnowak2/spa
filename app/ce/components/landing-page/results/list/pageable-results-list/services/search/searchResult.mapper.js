@@ -27,7 +27,7 @@ define(function(require) {
             }
           })
           .value(),
-          successStory = !!responseItem[5];
+          successStory = responseItem[5] === 'true';
 
         return {
           id: id,

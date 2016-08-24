@@ -6,8 +6,8 @@ define(function(require) {
         iTotalRecords: '0',
         aaData: []
       },
-      allDataOneRow: {
-        iTotalRecords: '1',
+      allTwoRows: {
+        iTotalRecords: '2',
         aaData: [
           [
             'workspace://123',
@@ -16,10 +16,18 @@ define(function(require) {
             '2015',
             'PL|BE',
             'true'
+          ],
+          [
+            'workspace://223',
+            'Project title 2',
+            'Project description 2',
+            '2016',
+            'ES|RO',
+            'false'
           ]
         ]
       },
-      allDataOneRowWithWrongCountry: {
+      allTwoRowsWithWrongCountry: {
         iTotalRecords: '1',
         aaData: [
           [
@@ -55,6 +63,12 @@ define(function(require) {
       }, {
         id: "BE",
         title: "Belgium"
+      }, {
+        id: "ES",
+        title: "Spain"
+      }, {
+        id: "RO",
+        title: "Romania"
       }]);
     });
 
@@ -90,54 +104,89 @@ define(function(require) {
           });
         });
 
-        describe('Mapping Response With One Row', function() {
+        describe('Mapping Response With Two Rows', function() {
           beforeEach(function() {
-            this.mapped = searchResultMapper.map(testResponses.allDataOneRow);
+            this.mapped = searchResultMapper.map(testResponses.allTwoRows);
           });
 
           it('should map total property', function() {
-            expect(this.mapped.total).toEqual(1);
+            expect(this.mapped.total).toEqual(2);
           });
 
           it('should map items property', function() {
             expect(this.mapped.items).toEqual(jasmine.any(Array));
-            expect(this.mapped.items.length).toEqual(1);
+            expect(this.mapped.items.length).toEqual(2);
           });
 
-          it('should map item id property', function() {
-            expect(this.mapped.items[0].id).toEqual('workspace://123');
+          describe('First Row', function() {
+            it('should map item id property', function() {
+              expect(this.mapped.items[0].id).toEqual('workspace://123');
+            });
+
+            it('should map item title property', function() {
+              expect(this.mapped.items[0].title).toEqual('Project title');
+            });
+
+            it('should map item description property', function() {
+              expect(this.mapped.items[0].description).toEqual('Project description');
+            });
+
+            it('should map item start year property', function() {
+              expect(this.mapped.items[0].startYear).toEqual('2015');
+            });
+
+            it('should map item countries property', function() {
+              expect(this.mapped.items[0].countries).toEqual([{
+                code: 'PL',
+                fullName: 'Poland'
+              }, {
+                code: 'BE',
+                fullName: 'Belgium'
+              }]);
+            });
+
+            it('should map item success story property', function() {
+              expect(this.mapped.items[0].successStory).toEqual(true);
+            });
           });
 
-          it('should map item title property', function() {
-            expect(this.mapped.items[0].title).toEqual('Project title');
+          describe('Second Row', function() {
+            it('should map item id property', function() {
+              expect(this.mapped.items[1].id).toEqual('workspace://223');
+            });
+
+            it('should map item title property', function() {
+              expect(this.mapped.items[1].title).toEqual('Project title 2');
+            });
+
+            it('should map item description property', function() {
+              expect(this.mapped.items[1].description).toEqual('Project description 2');
+            });
+
+            it('should map item start year property', function() {
+              expect(this.mapped.items[1].startYear).toEqual('2016');
+            });
+
+            it('should map item countries property', function() {
+              expect(this.mapped.items[1].countries).toEqual([{
+                code: 'ES',
+                fullName: 'Spain'
+              }, {
+                code: 'RO',
+                fullName: 'Romania'
+              }]);
+            });
+
+            it('should map item success story property', function() {
+              expect(this.mapped.items[1].successStory).toEqual(false);
+            });
           });
 
-          it('should map item description property', function() {
-            expect(this.mapped.items[0].description).toEqual('Project description');
-          });
-
-          it('should map item start year property', function() {
-            expect(this.mapped.items[0].startYear).toEqual('2015');
-          });
-
-          it('should map item countries property', function() {
-            expect(this.mapped.items[0].countries).toEqual([{
-              code: 'PL',
-              fullName: 'Poland'
-            }, {
-              code: 'BE',
-              fullName: 'Belgium'
-            }]);
-          });
-
-          it('should map item success story property', function() {
-            expect(this.mapped.items[0].successStory).toEqual(true);
-          });
         });
 
         describe('Mapping Response With One Row With Wrong Country', function() {
           it('should use empty full name for missing countries', function() {
-            var mapped = searchResultMapper.map(testResponses.allDataOneRowWithWrongCountry);
+            var mapped = searchResultMapper.map(testResponses.allTwoRowsWithWrongCountry);
 
             expect(mapped.items[0].countries).toEqual([{
               code: 'PL',
