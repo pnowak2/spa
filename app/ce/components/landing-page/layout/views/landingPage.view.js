@@ -15,9 +15,9 @@ define(function(require) {
       this.projectItem = new ProjectItemComponent({
         data: {
           id: 'id-1',
-          title: 'Project Title',
-          description: 'Project Description',
-          startYear: '2012',
+          title: 'European Decade - Ten Years in the Europe for people and other ideas',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum facere adipisci, sunt quae, dolorem a deserunt. Fugit suscipit obcaecati excepturi non vitae tenetur accusantium similique, nulla dignissimos illo incidunt at.',
+          year: '2012',
           countries: ['PL', 'BE'],
           goodPractice: true,
           successStory: true

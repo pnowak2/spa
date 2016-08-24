@@ -1,11 +1,15 @@
-<div class="vlr-project-item__section">
-	<a href="" class="vlr-project-item__title-link">{{title}}</a>
-</div>
+{{#title}}
+	<div class="vlr-project-item__section">
+		<a href="" class="vlr-project-item__title-link">{{title}}</a>
+	</div>
+{{/title}}
 
-<div class="vlr-project-item__section">
-	<span class="vlr-project-item__badge vlr-project-item__badge--start-year">
-		<span>{{startYear}}</span>
-	</span>
+<div class="vlr-project-item__section vlr-project-item__section--badges">
+	{{#year}}
+		<span class="vlr-project-item__badge vlr-project-item__badge--year">
+			<span>{{year}}</span>
+		</span>
+	{{/year}}
 
 	{{#successStory}}
 		<span class="vlr-project-item__badge vlr-project-item__badge--success-story">
@@ -18,8 +22,12 @@
 			Good practice
 		</span>
 	{{/goodPractice}}
+
+	<span class="vlr-project-item__countries-container"></span>
 </div>
 
-<div class="vlr-project-item__section">
-	<span class="vlr-project-item__description">{{description}}</span>
-</div>
+{{#description}}
+	<div class="vlr-project-item__section">
+		<span class="vlr-project-item__description">{{description}}</span>
+	</div>
+{{/description}}
