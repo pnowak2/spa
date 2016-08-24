@@ -3,7 +3,8 @@ define(function(require) {
     Backbone = require('backbone'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
-    PageableResultsListComponent = require('app/ce/components/landing-page/results/list/pageable-results-list/main.component');
+    PageableResultsListComponent = require('app/ce/components/landing-page/results/list/pageable-results-list/main.component'),
+    ProjectItemComponent = require('app/shared/components/project-item/main.component');
 
   return Backbone.View.extend({
     initialize: function() {
@@ -11,6 +12,17 @@ define(function(require) {
         advancedSearchComponent: new AdvancedSearchComponent
       });
       this.pageableResultsList = new PageableResultsListComponent;
+      this.projectItem = new ProjectItemComponent({
+        data: {
+          id: 'id-1',
+          title: 'Project Title',
+          description: 'Project Description',
+          startYear: '2012',
+          countries: ['PL', 'BE'],
+          goodPractice: true,
+          successStory: true
+        }
+      });
       this.render();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
@@ -38,6 +50,7 @@ define(function(require) {
     render: function() {
       $('.ce-search-container').append(this.search.render().view.el);
       $('.ce-results-container').append(this.pageableResultsList.render().view.el);
+      $('.ce-results-container').append(this.projectItem.render().view.el);
 
       return this;
     }

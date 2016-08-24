@@ -124,6 +124,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/searching/search/views/search.view.spec',
     'app/shared/components/searching/search/components/dummyAdvancedSearch/main.component.spec',
 
+    //project item component
+    'app/shared/components/project-item/main.component.spec',
+    'app/shared/components/project-item/views/projectItem.view.spec',
+
     // efc util
     'app/efc/util/constants.spec',
 
