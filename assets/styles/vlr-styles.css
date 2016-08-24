@@ -546,7 +546,7 @@
 /* Project Item */
 .vlr-project-item {
   background-color: #fff;
-  padding: 5px;
+  padding: 10px;
 }
 
 .vlr-project-item__title-link,
@@ -564,6 +564,10 @@
 
 .vlr-project-item__section--badges {
   margin-bottom: 3px;
+}
+
+.vlr-project-item__section--description {
+  line-height: 1.2;
 }
 
 .vlr-project-item__section:last-child {
