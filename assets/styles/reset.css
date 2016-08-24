@@ -1,5 +1,6 @@
 body {
   background: #1a2638;
+  font-family: Verdana
 }
 
 input[type=text]::-ms-clear { 
