@@ -15,6 +15,7 @@
     leafletprunecluster: 'lib/leaflet.prunecluster/dist/PruneCluster',
     leafletfullscreen: 'lib/leaflet.fullscreen/dist/Leaflet.fullscreen',
     leafleteasybutton: 'lib/leaflet.easybutton/dist/easy-button',
+    chance: 'lib/chance/chance.min',
 
     requireLib: 'lib/requirejs/require.min'
   },

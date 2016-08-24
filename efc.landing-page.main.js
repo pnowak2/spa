@@ -14,7 +14,8 @@ requirejs.config({
     leaflet: 'lib/leaflet/leaflet',
     leafletprunecluster: 'lib/leaflet.prunecluster/dist/PruneCluster',
     leafletfullscreen: 'lib/leaflet.fullscreen/dist/Leaflet.fullscreen',
-    leafleteasybutton: 'lib/leaflet.easybutton/dist/easy-button'
+    leafleteasybutton: 'lib/leaflet.easybutton/dist/easy-button',
+    chance: 'lib/chance/chance.min'
   },
   shim: {
     modernizr: {},
