@@ -100,6 +100,12 @@ define(function(require) {
               expect(this.$el.find('.vlr-project-item__badge--good-practice')).toContainText('Good practice');
             });
           });
+
+          describe('Countries', function() {
+            it('should contain countries container element', function() {
+              expect(this.$el).toContainElement('.vlr-project-item__countries-container')
+            });
+          });
         });
       });
     });
