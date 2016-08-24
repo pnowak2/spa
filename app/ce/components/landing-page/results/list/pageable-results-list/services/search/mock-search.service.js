@@ -16,14 +16,16 @@ define(function(require) {
           min: 2002,
           max: 2016
         }) + '',
-        chance.country(),
+        _.times(7, function() {
+          return chance.country()
+        }).join('|'),
         chance.bool() + ''
       ];
     }
 
   return {
     search: function(criteria) {
-      randomRows = _.times(10, function () {
+      randomRows = _.times(10, function() {
         return makeRandomDataRow()
       });
 

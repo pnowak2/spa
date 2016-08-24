@@ -139,19 +139,19 @@ define(function(require) {
           });
 
           it('should have first country with proper css class and country title', function() {
-            var firstImg = this.$el.find('img').first();
+            var firstImg = this.$el.find('.flag').first();
             expect(firstImg).toHaveClass('pl');
             expect(firstImg.attr('title')).toEqual('Poland');
           });
 
           it('should have second country with proper css class and country title', function() {
-            var firstImg = this.$el.find('img').eq(1);
+            var firstImg = this.$el.find('.flag').eq(1);
             expect(firstImg).toHaveClass('de');
             expect(firstImg.attr('title')).toEqual('Germany');
           });
 
           it('should have third country with proper css class and country title', function() {
-            var firstImg = this.$el.find('img').eq(2);
+            var firstImg = this.$el.find('.flag').eq(2);
             expect(firstImg).toHaveClass('be');
             expect(firstImg.attr('title')).toEqual('Belgium');
           });
@@ -164,15 +164,15 @@ define(function(require) {
           });
 
           it('should render 3 images', function() {
-            expect(this.$el.find('img').length).toBe(3);
+            expect(this.$el.find('.flag').length).toBe(3);
           });
 
           it('should have initial items in separate section', function() {
-            expect(this.$el.find('.vlr-flags__initial img').length).toBe(3);
+            expect(this.$el.find('.vlr-flags__initial .flag').length).toBe(3);
           });
 
           it('should have rest section empty', function() {
-            expect(this.$el.find('.vlr-flags__rest img').length).toBe(0);
+            expect(this.$el.find('.vlr-flags__rest .flag').length).toBe(0);
           });
 
           it('should add short class', function() {
@@ -187,15 +187,15 @@ define(function(require) {
           });
 
           it('should render 8 images', function() {
-            expect(this.$el.find('img').length).toBe(8);
+            expect(this.$el.find('.flag').length).toBe(8);
           });
 
           it('should have initial items in separate section', function() {
-            expect(this.$el.find('.vlr-flags__initial img').length).toBe(6);
+            expect(this.$el.find('.vlr-flags__initial .flag').length).toBe(6);
           });
 
           it('should have rest items in separate section', function() {
-            expect(this.$el.find('.vlr-flags__rest img').length).toBe(2);
+            expect(this.$el.find('.vlr-flags__rest .flag').length).toBe(2);
           });
 
           it('should not add short class', function() {

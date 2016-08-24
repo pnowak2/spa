@@ -93,6 +93,12 @@
 }
 
 /* Flags */
+.vlr-flags__images-container:after {
+  content:"";
+  display:table;
+  clear:both;
+}
+
 .vlr-flags__toggle-container {
   text-align: center;
 }

@@ -1,13 +1,15 @@
-<div class="vlr-flags__initial">
-    {{#initialItems}}
-        <img src="/programmes/valor/images/blank.png" class="flag {{code}}" title="{{fullName}}"/>
-    {{/initialItems}}
-</div>
+<div class="vlr-flags__images-container">
+    <div class="vlr-flags__initial">
+        {{#initialItems}}
+            <div class="flag {{code}}" title="{{fullName}}"></div>
+        {{/initialItems}}
+    </div>
 
-<div class="vlr-flags__rest">
-    {{#restItems}}
-        <img src="/programmes/valor/images/blank.png" class="flag {{code}}" title="{{fullName}}"/>
-    {{/restItems}}
+    <div class="vlr-flags__rest">
+        {{#restItems}}
+            <div class="flag {{code}}" title="{{fullName}}"></div>
+        {{/restItems}}
+    </div>    
 </div>
 
 <div class="vlr-flags__toggle-container">
