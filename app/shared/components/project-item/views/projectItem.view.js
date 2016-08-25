@@ -1,7 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
     Mustache = require('mustache'),
-    FlagsComponent = require('app/shared/components/flags/main.component'),
     tpl = require('text!../templates/projectItem.tpl.html');
 
   return Backbone.View.extend({
@@ -14,18 +13,9 @@ define(function(require) {
     },
 
     render: function() {
-      var html = Mustache.render(tpl, this.options.data),
-        flagsComponent = new FlagsComponent([{
-          code: 'pl',
-          fullName: 'Poland'
-        }, {
-          code: 'de',
-          fullName: 'Germany'
-        }]);
+      var html = Mustache.render(tpl, this.options.data);
 
       this.$el.html(html);
-
-      this.$el.find('.vlr-project-item__countries-container').html(flagsComponent.render().view.el);
 
       return this;
     }

@@ -12,35 +12,9 @@ define(function(require) {
         advancedSearchComponent: new AdvancedSearchComponent
       });
       this.pageableResultsList = new PageableResultsListComponent;
-      this.projectItem = new ProjectItemComponent({
-        data: {
-          id: 'id-1',
-          title: 'European Decade - Ten Years in the Europe for people and other ideas',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum facere adipisci, sunt quae, dolorem a deserunt. Fugit suscipit obcaecati excepturi non vitae tenetur accusantium similique, nulla dignissimos illo incidunt at.',
-          year: '2012',
-          countries: ['PL', 'BE'],
-          goodPractice: true,
-          successStory: true
-        }
-      });
       this.render();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
-
-      // this.search.update({
-      //   keyword: 'boo',
-      //   options: ['successStoriesOnly', 'resultsOnly'],
-      //   programmes: ['31052583'],
-      //   subprogrammes: ['31052594'],
-      //   actions: ['31061522'],
-      //   activities: ['31052658', '31052660'],
-      //   activityYears: ['2012', '2013'],
-      //   fundingYears: ['2014', '2015'],
-      //   countries: ['PL', 'BE'],
-      //   regions: ['31046918'],
-      //   organisationTypes: ['31047402', '31047384'],
-      //   matchAllCountries: true
-      // });
     },
 
     onSearchRequest: function(criteria) {
@@ -50,7 +24,6 @@ define(function(require) {
     render: function() {
       $('.ce-search-container').append(this.search.render().view.el);
       $('.ce-results-container').append(this.pageableResultsList.render().view.el);
-      $('.ce-results-container').append(this.projectItem.render().view.el);
 
       return this;
     }
