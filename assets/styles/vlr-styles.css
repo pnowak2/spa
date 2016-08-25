@@ -562,22 +562,22 @@
   margin-bottom: 7px;
 }
 
-.vlr-project-item__section--badges {
-  margin-bottom: 3px;
-}
-
-.vlr-project-item__section--description {
-  line-height: 1.2;
+.vlr-project-item__section:after {
+  content:"";
+  display:table;
+  clear:both;
 }
 
 .vlr-project-item__section:last-child {
   margin-bottom: 0;
 }
 
-.vlr-project-item__section:after {
-  content:"";
-  display:table;
-  clear:both;
+.vlr-project-item__section--badges {
+  margin-bottom: 3px;
+}
+
+.vlr-project-item__section--description {
+  line-height: 1.2;
 }
 
 .vlr-project-item__badge {
