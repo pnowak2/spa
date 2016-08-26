@@ -366,6 +366,12 @@ define(function(require) {
           this.view.didSearchSucceed(this.fakeData);
           expect(this.view.pageStatsComponent.update).toHaveBeenCalledWith(fakePagerState);
         });
+
+        it('should trigger search completed event', function() {
+          spyOn(PageableListView.prototype, 'trigger');
+          this.view.didSearchSucceed(this.fakeData);
+          expect(this.view.trigger).toHaveBeenCalledWith('search:completed', this.fakeData);
+        });
       });
 
       describe('.didSearchFail()', function() {

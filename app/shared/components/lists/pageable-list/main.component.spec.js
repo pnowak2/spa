@@ -47,5 +47,19 @@ define(function(require) {
         });
       });
     });
+
+    describe('events', function() {
+      it('should trigger event on search completed', function(done) {
+        var component = new PageableListComponent,
+          fakeData = {}
+
+        component.on('search:completed', function(data) {
+          expect(data).toBe(fakeData);
+          done();
+        });
+
+        component.view.trigger('search:completed', fakeData);
+      });
+    });
   });
 });

@@ -82,6 +82,8 @@ define(function(require) {
         totalItems: data.total
       });
       this.pageStatsComponent.update(this.pagerComponent.getState());
+
+      this.trigger('search:completed', data);
     },
 
     didSearchFail: function(error) {
