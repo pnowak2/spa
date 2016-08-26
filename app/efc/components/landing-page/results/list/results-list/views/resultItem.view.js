@@ -3,7 +3,7 @@ define(function(require) {
     Mustache = require('mustache'),
     Backbone = require('backbone'),
     ResultModel = require('../models/result.model'),
-    FlagsComponent = require('app/shared/components/flags/main.component'),
+    FlagsComponent = require('app/shared/components/other/flags/main.component'),
     tpl = require('text!../templates/result-item.tpl.html');
 
   return Backbone.View.extend({

@@ -6,7 +6,7 @@ define(function(require) {
     AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component'),
     SearchableResultsListComponent = require('app/efc/components/landing-page/results/list/searchable-results-list/main.component'),
     ResultsMapComponent = require('app/efc/components/landing-page/results/map/results-map/main.component'),
-    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
+    TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component');
 
   describe('EFC Landing Page View', function() {
     describe('type', function() {

@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    MultiselectComponent = require('app/shared/components/multiselect/main.component'),
+    MultiselectComponent = require('app/shared/components/other/multiselect/main.component'),
     advancedSearchService = require('../services/advanced-search/advancedSearch.service'),
     constants = require('app/ce/util/constants'),
     Mustache = require('mustache'),

@@ -3,7 +3,7 @@ define(function(require) {
     Backbone = require('backbone'),
     AdvancedSearchView = require('./advancedSearch.view'),
     advancedSearchService = require('../services/advanced-search/advancedSearch.service'),
-    MultiselectComponent = require('app/shared/components/multiselect/main.component');
+    MultiselectComponent = require('app/shared/components/other/multiselect/main.component');
 
   describe('EfC Advanced Search View', function() {
     describe('type', function() {

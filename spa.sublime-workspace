@@ -520,39 +520,36 @@
 	"buffers":
 	[
 		{
-			"contents": "Searching 922 files for \"pageable\"\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\ce\\components\\landing-page\\layout\\views\\landingPage.view.js:\n    4      AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),\n    5      SearchComponent = require('app/shared/components/searching/search/main.component'),\n    6:     PageableResultsListComponent = require('app/ce/components/landing-page/results/list/pageable-results-list/main.component'),\n    7      ProjectItemComponent = require('app/shared/components/project-item/main.component');\n    8  \n    .\n   12          advancedSearchComponent: new AdvancedSearchComponent\n   13        });\n   14:       this.pageableResultsList = new PageableResultsListComponent;\n   15        this.render();\n   16  \n   ..\n   19  \n   20      onSearchRequest: function(criteria) {\n   21:       this.pageableResultsList.onSearchRequest(criteria);\n   22      },\n   23  \n   24      render: function() {\n   25        $('.ce-search-container').append(this.search.render().view.el);\n   26:       $('.ce-results-container').append(this.pageableResultsList.render().view.el);\n   27  \n   28        return this;\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\ce\\components\\landing-page\\layout\\views\\landingPage.view.spec.js:\n    5      SearchComponent = require('app/shared/components/searching/search/main.component'),\n    6      AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),\n    7:     PageableResultsListComponent = require('app/ce/components/landing-page/results/list/pageable-results-list/main.component');\n    8  \n    9    describe('CE Landing Page View', function() {\n   ..\n   31        });\n   32  \n   33:       it('should have pageable results list component defined ', function() {\n   34:         expect(this.view.pageableResultsList).toEqual(jasmine.any(PageableResultsListComponent));\n   35        });\n   36  \n   ..\n   43        describe('.onSearchRequest()', function() {\n   44          beforeEach(function() {\n   45:           spyOn(PageableResultsListComponent.prototype, 'onSearchRequest');\n   46  \n   47            this.view = new LandingPageView;\n   ..\n   52          });\n   53  \n   54:         it('should delegate to pageable list component', function() {\n   55            var fakeSearchCriteria = {};\n   56  \n   57            this.view.onSearchRequest(fakeSearchCriteria);\n   58  \n   59:           expect(this.view.pageableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);\n   60          });\n   61        });\n   ..\n   96          });\n   97  \n   98:         it('should render pageable results list component in appropriate container', function() {\n   99:           var markup = this.view.pageableResultsList.render().view.el;\n  100            expect($('.ce-results-container')).toContainHtml(markup);\n  101          });\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\ce\\components\\landing-page\\results\\list\\pageable-results-list\\main.component.js:\n    1  define(function(require) {\n    2    var Component = require('app/core/component'),\n    3:     PageableResultsListView = require('./views/pageableResultsList.view');\n    4  \n    5    return Component.extend({\n    6      initialize: function(attrs) {\n    7:       this.view = new PageableResultsListView;\n    8      },\n    9  \n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\ce\\components\\landing-page\\results\\list\\pageable-results-list\\main.component.spec.js:\n    1  define(function(require) {\n    2    var Component = require('app/core/component'),\n    3:     PageableResultsListComponent = require('./main.component'),\n    4:     PageableResultsListView = require('./views/pageableResultsList.view');\n    5  \n    6:   describe('CE Pageable Results List Component', function() {\n    7      describe('type', function() {\n    8        it('should be of component', function() {\n    9:         expect(PageableResultsListComponent.prototype).toEqual(jasmine.any(Component));\n   10        });\n   11      });\n   ..\n   13      describe('creation', function() {\n   14        it('should have proper view defined', function() {\n   15:         var component = new PageableResultsListComponent;\n   16:         expect(component.view).toEqual(jasmine.any(PageableResultsListView));\n   17        });\n   18      });\n   ..\n   21        describe('.onSearchRequest()', function() {\n   22          it('should be defined', function() {\n   23:           expect(PageableResultsListComponent.prototype.onSearchRequest).toEqual(jasmine.any(Function));\n   24          });\n   25  \n   26          it('should delegate do view', function() {\n   27:           spyOn(PageableResultsListView.prototype, 'onSearchRequest');\n   28  \n   29:           var component = new PageableResultsListComponent,\n   30              fakeSearchCriteria = {};\n   31  \n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\ce\\components\\landing-page\\results\\list\\pageable-results-list\\views\\pageableResultsList.view.js:\n    1  define(function(require) {\n    2    var Backbone = require('backbone'),\n    3:     PageableListComponent = require('app/shared/components/lists/pageable-list/main.component'),\n    4      ResultsListComponent = require('app/ce/components/landing-page/results/list/results-list/main.component'),\n    5      searchService = require('../services/search/search.service');\n    6  \n    7    return Backbone.View.extend({\n    8:     className: 'ce-pageable-results-list',\n    9  \n   10      initialize: function() {\n   11:       this.pageableListComponent = new PageableListComponent({\n   12          listComponent: new ResultsListComponent,\n   13          searchService: searchService\n   ..\n   16  \n   17      onSearchRequest: function(criteria) {\n   18:       this.pageableListComponent.onSearchRequest(criteria);\n   19      },\n   20  \n   21      render: function() {\n   22        this.$el.html(\n   23:         this.pageableListComponent.render().view.el\n   24        );\n   25  \n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\ce\\components\\landing-page\\results\\list\\pageable-results-list\\views\\pageableResultsList.view.spec.js:\n    2    var Backbone = require('backbone'),\n    3      app = require('app/shared/modules/app.module'),\n    4:     PageableResultsListView = require('./pageableResultsList.view'),\n    5:     PageableListComponent = require('app/shared/components/lists/pageable-list/main.component'),\n    6      ResultsListComponent = require('app/ce/components/landing-page/results/list/results-list/main.component'),\n    7      searchService = require('../services/search/search.service');\n    8  \n    9:   describe('CE Pageable Results List View', function() {\n   10      describe('type', function() {\n   11        it('should be of view', function() {\n   12:         expect(PageableResultsListView.prototype).toEqual(jasmine.any(Backbone.View));\n   13        });\n   14      });\n   ..\n   16      describe('creation', function() {\n   17        beforeEach(function() {\n   18:         spyOn(PageableListComponent.prototype, 'initialize');\n   19:         this.view = new PageableResultsListView;\n   20        });\n   21  \n   22:       it('should create pageable list component', function() {\n   23:         expect(this.view.pageableListComponent).toEqual(jasmine.any(PageableListComponent));\n   24        });\n   25  \n   26:       it('should initialize pageable list component with results list component', function() {\n   27:         expect(PageableListComponent.prototype.initialize).toHaveBeenCalledWith(jasmine.objectContaining({\n   28            listComponent: jasmine.any(ResultsListComponent)\n   29          }));\n   30        });\n   31  \n   32:       it('should initialize pageable list component with search service', function() {\n   33:         expect(PageableListComponent.prototype.initialize).toHaveBeenCalledWith(jasmine.objectContaining({\n   34            searchService: searchService\n   35          }));\n   ..\n   41        describe('.tagName', function() {\n   42          it('should be div', function() {\n   43:           expect(PageableResultsListView.prototype.tagName).toEqual('div');\n   44          });\n   45        });\n   ..\n   47        describe('.className', function() {\n   48          it('should be defined', function() {\n   49:           expect(PageableResultsListView.prototype.className).toEqual('ce-pageable-results-list');\n   50          });\n   51        });\n   ..\n   55        describe('.onSearchRequest()', function() {\n   56          beforeEach(function() {\n   57:           spyOn(PageableListComponent.prototype, 'onSearchRequest');\n   58:           this.view = new PageableResultsListView;\n   59          });\n   60  \n   61          it('should be defined', function() {\n   62:           expect(PageableResultsListView.prototype.onSearchRequest).toEqual(jasmine.any(Function));\n   63          });\n   64  \n   65:         it('should delegate to pageable list component', function() {\n   66            var fakeCriteria = {};\n   67  \n   68            this.view.onSearchRequest(fakeCriteria)\n   69  \n   70:           expect(this.view.pageableListComponent.onSearchRequest).toHaveBeenCalledWith(fakeCriteria);\n   71          });\n   72        });\n   ..\n   76        describe('.render()', function() {\n   77          beforeEach(function() {\n   78:           this.view = new PageableResultsListView;\n   79          });\n   80  \n   ..\n   83          });\n   84  \n   85:         it('should render pageable list component', function() {\n   86            expect(this.view.render().$el).toContainHtml(\n   87:             this.view.pageableListComponent.render().view.el\n   88            );\n   89          });\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\efc\\components\\landing-page\\layout\\views\\landingPage.view.js:\n    4      SearchComponent = require('app/shared/components/searching/search/main.component'),\n    5      AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component'),\n    6:     PageableResultsListComponent = require('app/efc/components/landing-page/results/list/pageable-results-list/main.component'),\n    7      ResultsMapComponent = require('app/efc/components/landing-page/results/map/results-map/main.component'),\n    8      TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');\n    .\n   13          advancedSearchComponent: new AdvancedSearchComponent\n   14        });\n   15:       this.pageableResultsList = new PageableResultsListComponent;\n   16        this.resultsMap = new ResultsMapComponent;\n   17        this.tabSwitcher = new TabSwitcherComponent({\n   ..\n   24            title: 'List',\n   25            identifier: 'list',\n   26:           targetSelector: '.' + this.pageableResultsList.view.className,\n   27            selected: false\n   28          }]\n   ..\n   41  \n   42      onSearchRequest: function(searchCriteria) {\n   43:       this.pageableResultsList.onSearchRequest(searchCriteria);\n   44        this.resultsMap.onSearchRequest(searchCriteria);\n   45      },\n   ..\n   48        $('.efc-search-container').append(this.search.render().view.el);\n   49        $('.efc-results-container').append(this.tabSwitcher.render().view.el);\n   50:       $('.efc-results-container').append(this.pageableResultsList.render().view.el);\n   51        $('.efc-results-container').append(this.resultsMap.render().view.el);\n   52  \n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\efc\\components\\landing-page\\layout\\views\\landingPage.view.spec.js:\n    5      SearchComponent = require('app/shared/components/searching/search/main.component'),\n    6      AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component'),\n    7:     PageableResultsListComponent = require('app/efc/components/landing-page/results/list/pageable-results-list/main.component'),\n    8      ResultsMapComponent = require('app/efc/components/landing-page/results/map/results-map/main.component'),\n    9      TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');\n   ..\n   36        });\n   37  \n   38:       it('should have pageable list component defined', function() {\n   39:         expect(this.view.pageableResultsList).toEqual(jasmine.any(PageableResultsListComponent));\n   40        });\n   41  \n   ..\n   58              title: 'List',\n   59              identifier: 'list',\n   60:             targetSelector: '.' + this.view.pageableResultsList.view.className,\n   61              selected: false\n   62            }]\n   ..\n   98        describe('.onSearchRequest()', function() {\n   99          beforeEach(function() {\n  100:           spyOn(PageableResultsListComponent.prototype, 'onSearchRequest');\n  101            spyOn(ResultsMapComponent.prototype, 'onSearchRequest');\n  102  \n  ...\n  108          });\n  109  \n  110:         it('should delegate to pageable list component', function() {\n  111            var fakeSearchCriteria = {};\n  112  \n  113            this.view.onSearchRequest(fakeSearchCriteria);\n  114  \n  115:           expect(this.view.pageableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);\n  116          });\n  117  \n  ...\n  166          });\n  167  \n  168:         it('should render pageable list component to appropriate container', function() {\n  169:           var markup = this.view.pageableResultsList.render().view.el;\n  170            expect($('.efc-results-container')).toContainHtml(markup);\n  171          });\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\efc\\components\\landing-page\\results\\list\\pageable-results-list\\main.component.js:\n    1  define(function(require) {\n    2    var Component = require('app/core/component'),\n    3:     PageableResultsListView = require('./views/pageableResultsList.view');\n    4  \n    5    return Component.extend({\n    6      initialize: function(attrs) {\n    7:       this.view = new PageableResultsListView;\n    8      },\n    9  \n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\efc\\components\\landing-page\\results\\list\\pageable-results-list\\main.component.spec.js:\n    1  define(function(require) {\n    2    var Component = require('app/core/component'),\n    3:     PageableResultsListComponent = require('./main.component'),\n    4:     PageableResultsListView = require('./views/pageableResultsList.view');\n    5  \n    6:   describe('EfC Pageable Results List Component', function() {\n    7      describe('type', function() {\n    8        it('should be of component', function() {\n    9:         expect(PageableResultsListComponent.prototype).toEqual(jasmine.any(Component));\n   10        });\n   11      });\n   ..\n   13      describe('creation', function() {\n   14        it('should have proper view defined', function() {\n   15:         var component = new PageableResultsListComponent;\n   16:         expect(component.view).toEqual(jasmine.any(PageableResultsListView));\n   17        });\n   18      });\n   ..\n   21        describe('.onSearchRequest()', function() {\n   22          it('should be defined', function() {\n   23:           expect(PageableResultsListComponent.prototype.onSearchRequest).toEqual(jasmine.any(Function));\n   24          });\n   25  \n   26          it('should delegate do view', function() {\n   27:           spyOn(PageableResultsListView.prototype, 'onSearchRequest');\n   28  \n   29:           var component = new PageableResultsListComponent,\n   30              fakeSearchCriteria = {};\n   31  \n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\efc\\components\\landing-page\\results\\list\\pageable-results-list\\views\\pageableResultsList.view.js:\n    1  define(function(require) {\n    2    var Backbone = require('backbone'),\n    3:     PageableListComponent = require('app/shared/components/lists/pageable-list/main.component'),\n    4      ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),\n    5      searchService = require('../services/search/search.service');\n    6  \n    7    return Backbone.View.extend({\n    8:     className: 'efc-pageable-results-list',\n    9  \n   10      initialize: function() {\n   11:       this.pageableListComponent = new PageableListComponent({\n   12          listComponent: new ResultsListComponent,\n   13          searchService: searchService\n   ..\n   16  \n   17      onSearchRequest: function(criteria) {\n   18:       this.pageableListComponent.onSearchRequest(criteria);\n   19      },\n   20  \n   21      render: function() {\n   22        this.$el.html(\n   23:         this.pageableListComponent.render().view.el\n   24        );\n   25  \n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\efc\\components\\landing-page\\results\\list\\pageable-results-list\\views\\pageableResultsList.view.spec.js:\n    2    var Backbone = require('backbone'),\n    3      app = require('app/shared/modules/app.module'),\n    4:     PageableResultsListView = require('./pageableResultsList.view'),\n    5:     PageableListComponent = require('app/shared/components/lists/pageable-list/main.component'),\n    6      ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),\n    7      searchService = require('../services/search/search.service');\n    8  \n    9:   describe('EfC Pageable Results List View', function() {\n   10      describe('type', function() {\n   11        it('should be of view', function() {\n   12:         expect(PageableResultsListView.prototype).toEqual(jasmine.any(Backbone.View));\n   13        });\n   14      });\n   ..\n   16      describe('creation', function() {\n   17        beforeEach(function() {\n   18:         spyOn(PageableListComponent.prototype, 'initialize');\n   19:         this.view = new PageableResultsListView;\n   20        });\n   21  \n   22:       it('should create pageable list component', function() {\n   23:         expect(this.view.pageableListComponent).toEqual(jasmine.any(PageableListComponent));\n   24        });\n   25  \n   26:       it('should initialize pageable list component with results list component', function() {\n   27:         expect(PageableListComponent.prototype.initialize).toHaveBeenCalledWith(jasmine.objectContaining({\n   28            listComponent: jasmine.any(ResultsListComponent)\n   29          }));\n   30        });\n   31  \n   32:       it('should initialize pageable list component with search service', function() {\n   33:         expect(PageableListComponent.prototype.initialize).toHaveBeenCalledWith(jasmine.objectContaining({\n   34            searchService: searchService\n   35          }));\n   ..\n   41        describe('.tagName', function() {\n   42          it('should be div', function() {\n   43:           expect(PageableResultsListView.prototype.tagName).toEqual('div');\n   44          });\n   45        });\n   ..\n   47        describe('.className', function() {\n   48          it('should be defined', function() {\n   49:           expect(PageableResultsListView.prototype.className).toEqual('efc-pageable-results-list');\n   50          });\n   51        });\n   ..\n   55        describe('.onSearchRequest()', function() {\n   56          beforeEach(function() {\n   57:           spyOn(PageableListComponent.prototype, 'onSearchRequest');\n   58:           this.view = new PageableResultsListView;\n   59          });\n   60  \n   61          it('should be defined', function() {\n   62:           expect(PageableResultsListView.prototype.onSearchRequest).toEqual(jasmine.any(Function));\n   63          });\n   64  \n   65:         it('should delegate to pageable list component', function() {\n   66            var fakeCriteria = {};\n   67  \n   68            this.view.onSearchRequest(fakeCriteria)\n   69  \n   70:           expect(this.view.pageableListComponent.onSearchRequest).toHaveBeenCalledWith(fakeCriteria);\n   71          });\n   72        });\n   ..\n   76        describe('.render()', function() {\n   77          beforeEach(function() {\n   78:           this.view = new PageableResultsListView;\n   79          });\n   80  \n   ..\n   83          });\n   84  \n   85:         it('should render pageable list component', function() {\n   86            expect(this.view.render().$el).toContainHtml(\n   87:             this.view.pageableListComponent.render().view.el\n   88            );\n   89          });\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\efc\\components\\landing-page\\results\\map\\results-map\\services\\search\\searchInput.mapper.js:\n    1  define(function(require) {\n    2:   var inputMapper = require('app/efc/components/landing-page/results/list/pageable-results-list/services/search/searchInput.mapper');\n    3  \n    4    return inputMapper;\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\efc\\components\\landing-page\\results\\map\\results-map\\services\\search\\searchInput.mapper.spec.js:\n    2    var _ = require('underscore'),\n    3      mapInputMapper = require('./searchInput.mapper'),\n    4:     listInputMapper = require('app/efc/components/landing-page/results/list/pageable-results-list/services/search/searchInput.mapper');\n    5  \n    6  \n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\dist\\shared\\components\\lists\\searchable-list\\main.component.spec.js:\n    2    var Component = require('app/core/component'),\n    3      SearchableListComponent = require('./main.component'),\n    4:     SearchableListView = require('./views/pageableList.view');\n    5  \n    6:   describe('Pageable List Component', function() {\n    7      describe('type', function() {\n    8        it('should be of component', function() {\n\n130 matches across 15 files\n",
+			"file": "test/specs.main.js",
 			"settings":
 			{
-				"buffer_size": 21400,
+				"buffer_size": 10278,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 694 files for \"paging\"\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\app\\ce\\components\\landing-page\\results\\list\\searchable-results-list\\services\\search\\searchInput.mapper.spec.js:\n  673          });\n  674  \n  675:         describe('Mapping Paging Properties', function() {\n  676            it('should map start from page', function() {\n  677              var input = {\n  ...\n  696            });\n  697  \n  698:           it('should map all paging properties', function() {\n  699              var input = {\n  700                startFromItem: 11,\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\app\\efc\\components\\landing-page\\results\\list\\searchable-results-list\\services\\search\\searchInput.mapper.spec.js:\n   64          });\n   65  \n   66:         it('should map all paging properties', function() {\n   67            var input = {\n   68              startFromItem: 11,\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\app\\shared\\components\\lists\\pager\\models\\pager.model.spec.js:\n  510          });\n  511  \n  512:         it('should return starting position item number for paging', function() {\n  513            var model1 = new PagerModel({\n  514                totalItems: 100,\n  ...\n 1025  \n 1026          describe('odd page window size', function() {\n 1027:           it('should return array of pages at the beginning of paging - first page selected', function() {\n 1028              var model = new PagerModel({\n 1029                totalItems: 100,\n ....\n 1036            });\n 1037  \n 1038:           it('should return array of pages close to middle of paging - first page still visible in page window but not selected', function() {\n 1039              var model = new PagerModel({\n 1040                totalItems: 100,\n ....\n 1047            });\n 1048  \n 1049:           it('should return array of pages in the middle of paging - first page not visible in page window', function() {\n 1050              var model = new PagerModel({\n 1051                totalItems: 100,\n ....\n 1058            });\n 1059  \n 1060:           it('should return array of pages close to end of paging - last page visible in window but not selected yet', function() {\n 1061              var model = new PagerModel({\n 1062                totalItems: 100,\n ....\n 1069            });\n 1070  \n 1071:           it('should return array of pages at the end of paging - last page selected', function() {\n 1072              var model = new PagerModel({\n 1073                totalItems: 100,\n ....\n 1082  \n 1083          describe('even page window size', function() {\n 1084:           it('should return array of pages at the beginning of paging - first page selected', function() {\n 1085              var model = new PagerModel({\n 1086                totalItems: 100,\n ....\n 1093            });\n 1094  \n 1095:           it('should return array of pages close to middle of paging - first page still visible in page window but not selected', function() {\n 1096              var model = new PagerModel({\n 1097                totalItems: 100,\n ....\n 1104            });\n 1105  \n 1106:           it('should return array of pages in the middle of paging - first page not visible in page window', function() {\n 1107              var model = new PagerModel({\n 1108                totalItems: 100,\n ....\n 1115            });\n 1116  \n 1117:           it('should return array of pages close to end of paging - last page visible in window but not selected yet', function() {\n 1118              var model = new PagerModel({\n 1119                totalItems: 100,\n ....\n 1126            });\n 1127  \n 1128:           it('should return array of pages at the end of paging - last page selected', function() {\n 1129              var model = new PagerModel({\n 1130                totalItems: 100,\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\app\\shared\\components\\lists\\searchable-list\\views\\searchableList.view.js:\n    3      app = require('app/shared/modules/app.module'),\n    4      Backbone = require('backbone'),\n    5:     PagerComponent = require('app/shared/components/paging/pager/main.component'),\n    6:     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),\n    7      BaseListComponent = require('../components/baseListComponent/main.component'),\n    8      dummySearchService = require('../services/dummySearch.service');\n\nC:\\PGM\\EVE\\trunk\\Valor\\web\\valor\\js\\spa\\app\\shared\\components\\lists\\searchable-list\\views\\searchableList.view.spec.js:\n    3      app = require('app/shared/modules/app.module'),\n    4      SearchableListView = require('./searchableList.view'),\n    5:     PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),\n    6:     PagerComponent = require('app/shared/components/paging/pager/main.component'),\n    7      BaseListComponent = require('../components/baseListComponent/main.component'),\n    8      dummySearchService = require('../services/dummySearch.service'),\n\n18 matches across 5 files\n",
+			"settings":
+			{
+				"buffer_size": 4941,
 				"line_ending": "Windows",
 				"name": "Find Results",
 				"scratch": true
 			}
 		},
 		{
-			"file": "dist/ce/components/landing-page/layout/views/landingPage.view.js",
+			"file": "app/shared/components/lists/searchable-list/views/searchableList.view.spec.js",
 			"settings":
 			{
-				"buffer_size": 1192,
+				"buffer_size": 15163,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "define(function(require) {\n  var $ = require('jquery'),\n    Backbone = require('backbone'),\n    LandingPageView = require('./landingPage.view'),\n    SearchComponent = require('app/shared/components/searching/search/main.component'),\n    AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),\n    SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component');\n\n  describe('CE Landing Page View', function() {\n    describe('type', function() {\n      it('should be of view', function() {\n        expect(LandingPageView.prototype).toEqual(jasmine.any(Backbone.View));\n      });\n    });\n\n    describe('creation', function() {\n      beforeEach(function() {\n        spyOn(LandingPageView.prototype, 'render');\n        spyOn(SearchComponent.prototype, 'initialize');\n\n        this.view = new LandingPageView;\n      });\n\n      it('should have search component defined ', function() {\n        expect(this.view.search).toEqual(jasmine.any(SearchComponent));\n      });\n\n      it('should initialize search component with correct advanced search component in options', function() {\n        var passedOptions = SearchComponent.prototype.initialize.calls.mostRecent().args[0];\n        expect(passedOptions.advancedSearchComponent).toEqual(jasmine.any(AdvancedSearchComponent));\n      });\n\n      it('should have searchable results list component defined ', function() {\n        expect(this.view.searchableResultsList).toEqual(jasmine.any(SearchableResultsListComponent));\n      });\n\n      it('should render the component', function() {\n        expect(this.view.render).toHaveBeenCalled();\n      });\n    });\n\n    describe('api', function() {\n      describe('.onSearchRequest()', function() {\n        beforeEach(function() {\n          spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');\n\n          this.view = new LandingPageView;\n        });\n\n        it('should be defined', function() {\n          expect(LandingPageView.prototype.onSearchRequest).toEqual(jasmine.any(Function));\n        });\n\n        it('should delegate to searchable list component', function() {\n          var fakeSearchCriteria = {};\n\n          this.view.onSearchRequest(fakeSearchCriteria);\n\n          expect(this.view.searchableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);\n        });\n      });\n    });\n\n    describe('events', function() {\n      describe('custom', function() {\n        it('should listen to search component \"search\" event', function() {\n          spyOn(LandingPageView.prototype, 'onSearchRequest');\n\n          var view = new LandingPageView,\n            fakeSearchCriteria = {};\n\n          view.search.trigger('search:search', fakeSearchCriteria);\n\n          expect(view.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);\n        });\n      });\n    });\n\n    describe('rendering', function() {\n      describe('.render()', function() {\n        beforeEach(function() {\n          jasmine.getFixtures().fixturesPath = 'fixtures';\n          loadFixtures('ce.landing-page.fixture.html');\n\n          this.view = new LandingPageView;\n          this.view.render();\n        });\n\n        it('should return view itself', function() {\n          expect(this.view.render()).toBe(this.view);\n        });\n\n        it('should render search component in appropriate container', function() {\n          var markup = this.view.search.render().view.el;\n          expect($('.ce-search-container')).toContainHtml(markup);\n        });\n\n        it('should render searchable results list component in appropriate container', function() {\n          var markup = this.view.searchableResultsList.render().view.el;\n          expect($('.ce-results-container')).toContainHtml(markup);\n        });\n      });\n    });\n  });\n});",
-			"file": "dist/ce/components/landing-page/layout/views/landingPage.view.spec.js",
-			"file_size": 3932,
-			"file_write_time": 131166965160619114,
+			"file": "app/shared/components/lists/searchable-list/views/searchableList.view.js",
 			"settings":
 			{
-				"buffer_size": 3830,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "dist/shared/components/lists/searchable-list/components/baseListComponent/main.component.spec.js",
-			"settings":
-			{
-				"buffer_size": 870,
+				"buffer_size": 2800,
 				"line_ending": "Windows"
 			}
 		}
@@ -640,57 +637,25 @@
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/layout/views",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/results",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/results/list",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/results/list/searchable-results-list",
+		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/results/list/results-list",
+		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/results/list/results-list/templates",
+		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/results/list/results-list/views",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/results/list/searchable-results-list/views",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/searching",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/searching/advanced-search",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components/landing-page",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components/landing-page/layout",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components/landing-page/layout/views",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components/landing-page/results",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components/landing-page/results/list",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components/landing-page/results/list/searchable-results-list/views",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components/landing-page/results/map/results-map",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components/landing-page/results/map/results-map/services",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/efc/components/landing-page/results/map/results-map/services/search",
+		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared/components",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared/components/lists",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared/components/lists/searchable-list",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared/components/lists/searchable-list/components",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared/components/lists/searchable-list/components/baseListComponent",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared/components/lists/searchable-list/services",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared/components/lists/searchable-list/views",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/assets",
+		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared/components/tab-switcher/collections",
+		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/shared/components/tab-switcher/views",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/assets/styles",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/ce/components",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/ce/components/landing-page",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/ce/components/landing-page/layout",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/ce/components/landing-page/layout/views",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/shared",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/shared/components",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/shared/components/lists",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/shared/components/lists/searchable-list",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/shared/components/lists/searchable-list/components",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/shared/components/lists/searchable-list/components/baseListComponent",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/shared/components/lists/searchable-list/services",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/shared/components/lists/searchable-list/views",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/test",
-		"/C/PGM/EVE/branches/valor-branch/Valor",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web/valor",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web/valor/js",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web/valor/js/spa",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web/valor/js/spa/app",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web/valor/js/spa/app/efc",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web/valor/js/spa/app/efc/data",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web/WEB-INF/webscripts",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web/WEB-INF/webscripts/project",
-		"/C/PGM/EVE/branches/valor-branch/Valor/web/WEB-INF/webscripts/project/common"
+		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/test"
 	],
 	"file_history":
 	[
+		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/ce/components/landing-page/layout/views/landingPage.view.spec.js",
+		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/ce/components/landing-page/layout/views/landingPage.view.js",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/layout/views/landingPage.view.spec.js",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/dist/shared/components/lists/searchable-list/main.component.spec.js",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/ce/components/landing-page/layout/views/landingPage.view.js",
@@ -816,9 +781,7 @@
 		"/C/PGM/EVE/branches/valor-branch/AMP EVE Project Card3/share/config/alfresco/web-extension/site-webscripts/eu/europa/components/form/valor/controls/project-logo.ftl",
 		"/C/PGM/EVE/branches/valor-branch/Valor/web/WEB-INF/webscripts/search/eplus/lov/projectTopicList.ftl",
 		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/app/core/component.spec.js",
-		"/C/Users/nowapio/Desktop/component.spec.coffee",
-		"/C/PGM/Executables/Sublime3/Data/Packages/User/JavascriptBeautify.sublime-settings",
-		"/C/PGM/EVE/trunk/Valor/web/valor/js/spa/assets/styles/eplus-styles.css"
+		"/C/Users/nowapio/Desktop/component.spec.coffee"
 	],
 	"find":
 	{
@@ -841,6 +804,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"paging",
+			"pageable",
+			"searchable",
+			"pageable",
+			"page",
 			"pageable",
 			"pageableResultsList",
 			"PageableResultsListComponent",
@@ -963,12 +931,7 @@
 			"constants.general",
 			"isdirty",
 			"hasSelections",
-			"hasselection",
-			"isdi",
-			"hasSelections",
-			"_reset",
-			"<option id=\"([^\"]*)\" value=\"([^\"]*)\">([^<]*)<\\/option>",
-			"<option value=\"([^\"]*)\">([^<]*)<\\/option>"
+			"hasselection"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1049,15 +1012,45 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "test/specs.main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21400,
+						"buffer_size": 10278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2655,
+								2655
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1116.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4941,
 						"regions":
 						{
 							"match":
@@ -1066,524 +1059,76 @@
 								"regions":
 								[
 									[
-										369,
-										377
+										246,
+										252
 									],
 									[
-										453,
-										461
+										446,
+										452
 									],
 									[
-										706,
-										714
+										767,
+										773
 									],
 									[
-										732,
-										740
+										1066,
+										1072
 									],
 									[
-										879,
-										887
+										1318,
+										1324
 									],
 									[
-										1109,
-										1117
+										1552,
+										1558
 									],
 									[
-										1521,
-										1529
+										1821,
+										1827
 									],
 									[
-										1605,
-										1613
+										2070,
+										2076
 									],
 									[
-										1768,
-										1776
+										2328,
+										2334
 									],
 									[
-										1856,
-										1864
+										2603,
+										2609
 									],
 									[
-										1897,
-										1905
+										2837,
+										2843
 									],
 									[
-										2079,
-										2087
+										3106,
+										3112
 									],
 									[
-										2268,
-										2276
+										3355,
+										3361
 									],
 									[
-										2467,
-										2475
+										3613,
+										3619
 									],
 									[
-										2648,
-										2656
+										4018,
+										4024
 									],
 									[
-										2760,
-										2768
+										4112,
+										4118
 									],
 									[
-										3120,
-										3128
+										4622,
+										4628
 									],
 									[
-										3163,
-										3171
-									],
-									[
-										3304,
-										3312
-									],
-									[
-										3584,
-										3592
-									],
-									[
-										3655,
-										3663
-									],
-									[
-										3698,
-										3706
-									],
-									[
-										3756,
-										3764
-									],
-									[
-										3921,
-										3929
-									],
-									[
-										4176,
-										4184
-									],
-									[
-										4264,
-										4272
-									],
-									[
-										4462,
-										4470
-									],
-									[
-										4658,
-										4666
-									],
-									[
-										4758,
-										4766
-									],
-									[
-										5073,
-										5081
-									],
-									[
-										5134,
-										5142
-									],
-									[
-										5430,
-										5438
-									],
-									[
-										5516,
-										5524
-									],
-									[
-										5544,
-										5552
-									],
-									[
-										5749,
-										5757
-									],
-									[
-										5900,
-										5908
-									],
-									[
-										6226,
-										6234
-									],
-									[
-										6263,
-										6271
-									],
-									[
-										6302,
-										6310
-									],
-									[
-										6363,
-										6371
-									],
-									[
-										6616,
-										6624
-									],
-									[
-										6771,
-										6779
-									],
-									[
-										6984,
-										6992
-									],
-									[
-										7063,
-										7071
-									],
-									[
-										7144,
-										7152
-									],
-									[
-										7215,
-										7223
-									],
-									[
-										7258,
-										7266
-									],
-									[
-										7343,
-										7351
-									],
-									[
-										7432,
-										7440
-									],
-									[
-										7670,
-										7678
-									],
-									[
-										7751,
-										7759
-									],
-									[
-										8034,
-										8042
-									],
-									[
-										8260,
-										8268
-									],
-									[
-										8317,
-										8325
-									],
-									[
-										8503,
-										8511
-									],
-									[
-										8589,
-										8597
-									],
-									[
-										8717,
-										8725
-									],
-									[
-										8865,
-										8873
-									],
-									[
-										9051,
-										9059
-									],
-									[
-										9288,
-										9296
-									],
-									[
-										9406,
-										9414
-									],
-									[
-										9537,
-										9545
-									],
-									[
-										9951,
-										9959
-									],
-									[
-										10036,
-										10044
-									],
-									[
-										10397,
-										10405
-									],
-									[
-										10423,
-										10431
-									],
-									[
-										10687,
-										10695
-									],
-									[
-										10861,
-										10869
-									],
-									[
-										11211,
-										11219
-									],
-									[
-										11682,
-										11690
-									],
-									[
-										11767,
-										11775
-									],
-									[
-										12079,
-										12087
-									],
-									[
-										12158,
-										12166
-									],
-									[
-										12199,
-										12207
-									],
-									[
-										12386,
-										12394
-									],
-									[
-										12602,
-										12610
-									],
-									[
-										12815,
-										12823
-									],
-									[
-										13014,
-										13022
-									],
-									[
-										13186,
-										13194
-									],
-									[
-										13290,
-										13298
-									],
-									[
-										13652,
-										13660
-									],
-									[
-										13695,
-										13703
-									],
-									[
-										13836,
-										13844
-									],
-									[
-										14117,
-										14125
-									],
-									[
-										14188,
-										14196
-									],
-									[
-										14231,
-										14239
-									],
-									[
-										14290,
-										14298
-									],
-									[
-										14455,
-										14463
-									],
-									[
-										14710,
-										14718
-									],
-									[
-										14798,
-										14806
-									],
-									[
-										14996,
-										15004
-									],
-									[
-										15192,
-										15200
-									],
-									[
-										15292,
-										15300
-									],
-									[
-										15608,
-										15616
-									],
-									[
-										15669,
-										15677
-									],
-									[
-										15967,
-										15975
-									],
-									[
-										16053,
-										16061
-									],
-									[
-										16081,
-										16089
-									],
-									[
-										16286,
-										16294
-									],
-									[
-										16437,
-										16445
-									],
-									[
-										16764,
-										16772
-									],
-									[
-										16801,
-										16809
-									],
-									[
-										16840,
-										16848
-									],
-									[
-										16901,
-										16909
-									],
-									[
-										17156,
-										17164
-									],
-									[
-										17311,
-										17319
-									],
-									[
-										17524,
-										17532
-									],
-									[
-										17603,
-										17611
-									],
-									[
-										17684,
-										17692
-									],
-									[
-										17755,
-										17763
-									],
-									[
-										17798,
-										17806
-									],
-									[
-										17883,
-										17891
-									],
-									[
-										17972,
-										17980
-									],
-									[
-										18210,
-										18218
-									],
-									[
-										18291,
-										18299
-									],
-									[
-										18574,
-										18582
-									],
-									[
-										18800,
-										18808
-									],
-									[
-										18858,
-										18866
-									],
-									[
-										19044,
-										19052
-									],
-									[
-										19130,
-										19138
-									],
-									[
-										19258,
-										19266
-									],
-									[
-										19406,
-										19414
-									],
-									[
-										19592,
-										19600
-									],
-									[
-										19829,
-										19837
-									],
-									[
-										19947,
-										19955
-									],
-									[
-										20078,
-										20086
-									],
-									[
-										20408,
-										20416
-									],
-									[
-										20831,
-										20839
-									],
-									[
-										21188,
-										21196
-									],
-									[
-										21236,
-										21244
+										4717,
+										4723
 									]
 								],
 								"scope": ""
@@ -1592,8 +1137,8 @@
 						"selection":
 						[
 							[
-								388,
-								388
+								4626,
+								4626
 							]
 						],
 						"settings":
@@ -1608,87 +1153,27 @@
 							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "dist/ce/components/landing-page/layout/views/landingPage.view.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1192,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								705,
-								724
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "dist/ce/components/landing-page/layout/views/landingPage.view.spec.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3830,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								683,
-								683
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Jasmine JS/syntax/Jasmine.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
+						"translation.y": 1725.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "dist/shared/components/lists/searchable-list/components/baseListComponent/main.component.spec.js",
-					"semi_transient": true,
+					"buffer": 2,
+					"file": "app/shared/components/lists/searchable-list/views/searchableList.view.spec.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 870,
+						"buffer_size": 15163,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								608,
+								608
 							]
 						],
 						"settings":
@@ -1702,6 +1187,36 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/shared/components/lists/searchable-list/views/searchableList.view.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2800,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								291,
+								291
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]

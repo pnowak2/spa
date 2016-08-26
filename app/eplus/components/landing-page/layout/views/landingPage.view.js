@@ -2,7 +2,7 @@ define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
     ResultsMapComponent = require('app/eplus/components/landing-page/results/map/results-map/main.component'),
-    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
+    TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
     searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
     router = require('app/eplus/routers/landing-page.router');
 

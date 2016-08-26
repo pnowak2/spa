@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     ResultItemView = require('./resultItem.view'),
     ResultModel = require('../models/result.model'),
-    FlagsComponent = require('app/shared/components/flags/main.component');
+    FlagsComponent = require('app/shared/components/other/flags/main.component');
 
   describe('EfC Result List Item View', function() {
     describe('type', function() {

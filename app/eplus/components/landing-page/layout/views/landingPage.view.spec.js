@@ -2,7 +2,7 @@ define(function(require) {
   var $ = require('jquery'),
     Backbone = require('backbone'),
     LandingPageView = require('./landingPage.view'),
-    TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component'),
+    TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
     ResultsMapComponent = require('app/eplus/components/landing-page/results/map/results-map/main.component'),
     searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
     router = require('app/eplus/routers/landing-page.router');

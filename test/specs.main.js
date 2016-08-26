@@ -68,30 +68,30 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/lists/searchable-list/views/searchableList.view.spec',
 
     // pager component
-    'app/shared/components/paging/pager/main.component.spec',
-    'app/shared/components/paging/pager/models/pager.model.spec',
-    'app/shared/components/paging/pager/models/page.model.spec',
-    'app/shared/components/paging/pager/collections/page.collection.spec',
-    'app/shared/components/paging/pager/views/pager.view.spec',
-    'app/shared/components/paging/pager/views/page.view.spec',
+    'app/shared/components/lists/pager/main.component.spec',
+    'app/shared/components/lists/pager/models/pager.model.spec',
+    'app/shared/components/lists/pager/models/page.model.spec',
+    'app/shared/components/lists/pager/collections/page.collection.spec',
+    'app/shared/components/lists/pager/views/pager.view.spec',
+    'app/shared/components/lists/pager/views/page.view.spec',
 
     // page stats component
-    'app/shared/components/paging/page-stats/main.component.spec',
-    'app/shared/components/paging/page-stats/models/pageStats.model.spec',
-    'app/shared/components/paging/page-stats/views/pageStats.view.spec',
+    'app/shared/components/lists/page-stats/main.component.spec',
+    'app/shared/components/lists/page-stats/models/pageStats.model.spec',
+    'app/shared/components/lists/page-stats/views/pageStats.view.spec',
 
     // tab switcher component
-    'app/shared/components/tab-switcher/main.component.spec',
-    'app/shared/components/tab-switcher/models/tab.model.spec',
-    'app/shared/components/tab-switcher/collections/tabs.collection.spec',
-    'app/shared/components/tab-switcher/views/tabSwitcher.view.spec',
-    'app/shared/components/tab-switcher/views/tab.view.spec',
+    'app/shared/components/other/tab-switcher/main.component.spec',
+    'app/shared/components/other/tab-switcher/models/tab.model.spec',
+    'app/shared/components/other/tab-switcher/collections/tabs.collection.spec',
+    'app/shared/components/other/tab-switcher/views/tabSwitcher.view.spec',
+    'app/shared/components/other/tab-switcher/views/tab.view.spec',
 
     // multiselect component
-    'app/shared/components/multiselect/main.component.spec',
-    'app/shared/components/multiselect/views/multiselect.view.spec',
-    'app/shared/components/multiselect/models/selectItem.model.spec',
-    'app/shared/components/multiselect/collections/multiselect.collection.spec',
+    'app/shared/components/other/multiselect/main.component.spec',
+    'app/shared/components/other/multiselect/views/multiselect.view.spec',
+    'app/shared/components/other/multiselect/models/selectItem.model.spec',
+    'app/shared/components/other/multiselect/collections/multiselect.collection.spec',
 
     // simple map component
     'app/shared/components/mapping/map/simple/main.component.spec',
@@ -110,9 +110,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/mapping/popup/views/popup.view.spec',
 
     // flags component
-    'app/shared/components/flags/main.component.spec',
-    'app/shared/components/flags/collections/flags.collection.spec',
-    'app/shared/components/flags/views/flags.view.spec',
+    'app/shared/components/other/flags/main.component.spec',
+    'app/shared/components/other/flags/collections/flags.collection.spec',
+    'app/shared/components/other/flags/views/flags.view.spec',
 
     // search box component
     'app/shared/components/searching/search-box/main.component.spec',
@@ -125,8 +125,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/searching/search/components/dummyAdvancedSearch/main.component.spec',
 
     //project item component
-    'app/shared/components/project-item/main.component.spec',
-    'app/shared/components/project-item/views/projectItem.view.spec',
+    'app/shared/components/other/project-item/main.component.spec',
+    'app/shared/components/other/project-item/views/projectItem.view.spec',
 
     // efc util
     'app/efc/util/constants.spec',

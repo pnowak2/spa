@@ -2,8 +2,8 @@ define(function(require) {
   var _ = require('underscore'),
     app = require('app/shared/modules/app.module'),
     Backbone = require('backbone'),
-    PagerComponent = require('app/shared/components/paging/pager/main.component'),
-    PageStatsComponent = require('app/shared/components/paging/page-stats/main.component'),
+    PagerComponent = require('app/shared/components/lists/pager/main.component'),
+    PageStatsComponent = require('app/shared/components/lists/page-stats/main.component'),
     BaseListComponent = require('../components/baseListComponent/main.component'),
     dummySearchService = require('../services/dummySearch.service');
 
