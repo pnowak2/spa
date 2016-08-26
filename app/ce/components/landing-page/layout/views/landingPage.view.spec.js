@@ -4,7 +4,7 @@ define(function(require) {
     LandingPageView = require('./landingPage.view'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
-    PageableResultsListComponent = require('app/ce/components/landing-page/results/list/pageable-results-list/main.component');
+    PageableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component');
 
   describe('CE Landing Page View', function() {
     describe('type', function() {

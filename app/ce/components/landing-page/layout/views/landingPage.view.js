@@ -3,7 +3,7 @@ define(function(require) {
     Backbone = require('backbone'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
-    PageableResultsListComponent = require('app/ce/components/landing-page/results/list/pageable-results-list/main.component'),
+    PageableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component'),
     ProjectItemComponent = require('app/shared/components/project-item/main.component');
 
   return Backbone.View.extend({

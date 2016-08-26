@@ -61,11 +61,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // util
     'app/shared/util/constants.spec',
 
-    // pageable list component
-    'app/shared/components/lists/pageable-list/main.component.spec',
-    'app/shared/components/lists/pageable-list/components/baseListComponent/main.component.spec',
-    'app/shared/components/lists/pageable-list/services/dummySearch.service.spec',
-    'app/shared/components/lists/pageable-list/views/pageableList.view.spec',
+    // searchable list component
+    'app/shared/components/lists/searchable-list/main.component.spec',
+    'app/shared/components/lists/searchable-list/components/baseListComponent/main.component.spec',
+    'app/shared/components/lists/searchable-list/services/dummySearch.service.spec',
+    'app/shared/components/lists/searchable-list/views/pageableList.view.spec',
 
     // pager component
     'app/shared/components/paging/pager/main.component.spec',
@@ -147,12 +147,12 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/efc/components/landing-page/results/list/results-list/views/resultsList.view.spec',
     'app/efc/components/landing-page/results/list/results-list/views/resultItem.view.spec',
 
-    // efc pageable results list component
-    'app/efc/components/landing-page/results/list/pageable-results-list/main.component.spec',
-    'app/efc/components/landing-page/results/list/pageable-results-list/views/pageableResultsList.view.spec',
-    'app/efc/components/landing-page/results/list/pageable-results-list/services/search/searchInput.mapper.spec',
-    'app/efc/components/landing-page/results/list/pageable-results-list/services/search/searchResult.mapper.spec',
-    'app/efc/components/landing-page/results/list/pageable-results-list/services/search/search.service.spec',
+    // efc searchable results list component
+    'app/efc/components/landing-page/results/list/searchable-results-list/main.component.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/views/pageableResultsList.view.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec',
 
     // efc results map component
     'app/efc/components/landing-page/results/map/results-map/main.component.spec',
@@ -206,11 +206,11 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/ce/components/landing-page/results/list/results-list/views/resultsList.view.spec',
 
     // ce pageable results list component
-    'app/ce/components/landing-page/results/list/pageable-results-list/main.component.spec',
-    'app/ce/components/landing-page/results/list/pageable-results-list/views/pageableResultsList.view.spec',
-    'app/ce/components/landing-page/results/list/pageable-results-list/services/search/searchInput.mapper.spec',
-    'app/ce/components/landing-page/results/list/pageable-results-list/services/search/searchResult.mapper.spec',
-    'app/ce/components/landing-page/results/list/pageable-results-list/services/search/search.service.spec'
+    'app/ce/components/landing-page/results/list/searchable-results-list/main.component.spec',
+    'app/ce/components/landing-page/results/list/searchable-results-list/views/pageableResultsList.view.spec',
+    'app/ce/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
+    'app/ce/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
+    'app/ce/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec'
 
   ], function() {
     window.onload();

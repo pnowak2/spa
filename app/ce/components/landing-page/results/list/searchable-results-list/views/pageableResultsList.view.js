@@ -1,26 +1,26 @@
 define(function(require) {
   var Backbone = require('backbone'),
-    PageableListComponent = require('app/shared/components/lists/pageable-list/main.component'),
+    SearchableListComponent = require('app/shared/components/lists/searchable-list/main.component'),
     ResultsListComponent = require('app/ce/components/landing-page/results/list/results-list/main.component'),
     searchService = require('../services/search/search.service');
 
   return Backbone.View.extend({
-    className: 'ce-pageable-results-list',
+    className: 'ce-searchable-results-list',
 
     initialize: function() {
-      this.pageableListComponent = new PageableListComponent({
+      this.searchableListComponent = new SearchableListComponent({
         listComponent: new ResultsListComponent,
         searchService: searchService
       });
     },
 
     onSearchRequest: function(criteria) {
-      this.pageableListComponent.onSearchRequest(criteria);
+      this.searchableListComponent.onSearchRequest(criteria);
     },
 
     render: function() {
       this.$el.html(
-        this.pageableListComponent.render().view.el
+        this.searchableListComponent.render().view.el
       );
 
       return this;

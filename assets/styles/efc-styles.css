@@ -41,12 +41,12 @@
 }
 
 /* EfC Results List */
-.efc-pageable-results-list {
+.efc-searchable-results-list {
   padding: 0;
   display: none;
 }
 
-.efc-pageable-results-list .vlr-pager {
+.efc-searchable-results-list .vlr-pager {
   padding: 10px;
 }
 
