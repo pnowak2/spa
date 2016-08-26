@@ -203,6 +203,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // ce results list component
     'app/ce/components/landing-page/results/list/results-list/main.component.spec',
+    'app/ce/components/landing-page/results/list/results-list/views/resultsList.view.spec',
 
     // ce pageable results list component
     'app/ce/components/landing-page/results/list/pageable-results-list/main.component.spec',
