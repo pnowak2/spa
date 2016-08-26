@@ -4,7 +4,7 @@ define(function(require) {
     LandingPageView = require('./landingPage.view'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
     AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component'),
-    PageableResultsListComponent = require('app/efc/components/landing-page/results/list/searchable-results-list/main.component'),
+    SearchableResultsListComponent = require('app/efc/components/landing-page/results/list/searchable-results-list/main.component'),
     ResultsMapComponent = require('app/efc/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
 
@@ -35,8 +35,8 @@ define(function(require) {
         expect(passedOptions.advancedSearchComponent).toEqual(jasmine.any(AdvancedSearchComponent));
       });
 
-      it('should have pageable list component defined', function() {
-        expect(this.view.pageableResultsList).toEqual(jasmine.any(PageableResultsListComponent));
+      it('should have searchable list component defined', function() {
+        expect(this.view.searchableResultsList).toEqual(jasmine.any(SearchableResultsListComponent));
       });
 
       it('should have map component defined', function() {
@@ -57,7 +57,7 @@ define(function(require) {
           }, {
             title: 'List',
             identifier: 'list',
-            targetSelector: '.' + this.view.pageableResultsList.view.className,
+            targetSelector: '.' + this.view.searchableResultsList.view.className,
             selected: false
           }]
         })
@@ -97,7 +97,7 @@ define(function(require) {
 
       describe('.onSearchRequest()', function() {
         beforeEach(function() {
-          spyOn(PageableResultsListComponent.prototype, 'onSearchRequest');
+          spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
           spyOn(ResultsMapComponent.prototype, 'onSearchRequest');
 
           this.view = new LandingPageView;
@@ -107,12 +107,12 @@ define(function(require) {
           expect(LandingPageView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
         });
 
-        it('should delegate to pageable list component', function() {
+        it('should delegate to searchable list component', function() {
           var fakeSearchCriteria = {};
 
           this.view.onSearchRequest(fakeSearchCriteria);
 
-          expect(this.view.pageableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+          expect(this.view.searchableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
         });
 
         it('should delegate to results map component', function() {
@@ -165,8 +165,8 @@ define(function(require) {
           expect($('.efc-results-container')).toContainHtml(markup);
         });
 
-        it('should render pageable list component to appropriate container', function() {
-          var markup = this.view.pageableResultsList.render().view.el;
+        it('should render searchable list component to appropriate container', function() {
+          var markup = this.view.searchableResultsList.render().view.el;
           expect($('.efc-results-container')).toContainHtml(markup);
         });
 

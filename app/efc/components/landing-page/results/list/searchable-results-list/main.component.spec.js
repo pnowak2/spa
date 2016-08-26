@@ -1,32 +1,32 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    PageableResultsListComponent = require('./main.component'),
-    PageableResultsListView = require('./views/pageableResultsList.view');
+    SearchableResultsListComponent = require('./main.component'),
+    SearchableResultsListView = require('./views/searchableResultsList.view');
 
-  describe('EfC Pageable Results List Component', function() {
+  describe('EfC Searchable Results List Component', function() {
     describe('type', function() {
       it('should be of component', function() {
-        expect(PageableResultsListComponent.prototype).toEqual(jasmine.any(Component));
+        expect(SearchableResultsListComponent.prototype).toEqual(jasmine.any(Component));
       });
     });
 
     describe('creation', function() {
       it('should have proper view defined', function() {
-        var component = new PageableResultsListComponent;
-        expect(component.view).toEqual(jasmine.any(PageableResultsListView));
+        var component = new SearchableResultsListComponent;
+        expect(component.view).toEqual(jasmine.any(SearchableResultsListView));
       });
     });
 
     describe('api', function() {
       describe('.onSearchRequest()', function() {
         it('should be defined', function() {
-          expect(PageableResultsListComponent.prototype.onSearchRequest).toEqual(jasmine.any(Function));
+          expect(SearchableResultsListComponent.prototype.onSearchRequest).toEqual(jasmine.any(Function));
         });
 
         it('should delegate do view', function() {
-          spyOn(PageableResultsListView.prototype, 'onSearchRequest');
+          spyOn(SearchableResultsListView.prototype, 'onSearchRequest');
 
-          var component = new PageableResultsListComponent,
+          var component = new SearchableResultsListComponent,
             fakeSearchCriteria = {};
 
           component.onSearchRequest(fakeSearchCriteria);

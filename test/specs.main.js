@@ -149,7 +149,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // efc searchable results list component
     'app/efc/components/landing-page/results/list/searchable-results-list/main.component.spec',
-    'app/efc/components/landing-page/results/list/searchable-results-list/views/pageableResultsList.view.spec',
+    'app/efc/components/landing-page/results/list/searchable-results-list/views/searchableResultsList.view.spec',
     'app/efc/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
     'app/efc/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
     'app/efc/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec',

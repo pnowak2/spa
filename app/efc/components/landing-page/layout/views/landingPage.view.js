@@ -3,7 +3,7 @@ define(function(require) {
     Backbone = require('backbone'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
     AdvancedSearchComponent = require('app/efc/components/landing-page/searching/advanced-search/main.component'),
-    PageableResultsListComponent = require('app/efc/components/landing-page/results/list/searchable-results-list/main.component'),
+    SearchableResultsListComponent = require('app/efc/components/landing-page/results/list/searchable-results-list/main.component'),
     ResultsMapComponent = require('app/efc/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/tab-switcher/main.component');
 
@@ -12,7 +12,7 @@ define(function(require) {
       this.search = new SearchComponent({
         advancedSearchComponent: new AdvancedSearchComponent
       });
-      this.pageableResultsList = new PageableResultsListComponent;
+      this.searchableResultsList = new SearchableResultsListComponent;
       this.resultsMap = new ResultsMapComponent;
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
@@ -23,7 +23,7 @@ define(function(require) {
         }, {
           title: 'List',
           identifier: 'list',
-          targetSelector: '.' + this.pageableResultsList.view.className,
+          targetSelector: '.' + this.searchableResultsList.view.className,
           selected: false
         }]
       });
@@ -40,14 +40,14 @@ define(function(require) {
     },
 
     onSearchRequest: function(searchCriteria) {
-      this.pageableResultsList.onSearchRequest(searchCriteria);
+      this.searchableResultsList.onSearchRequest(searchCriteria);
       this.resultsMap.onSearchRequest(searchCriteria);
     },
 
     render: function() {
       $('.efc-search-container').append(this.search.render().view.el);
       $('.efc-results-container').append(this.tabSwitcher.render().view.el);
-      $('.efc-results-container').append(this.pageableResultsList.render().view.el);
+      $('.efc-results-container').append(this.searchableResultsList.render().view.el);
       $('.efc-results-container').append(this.resultsMap.render().view.el);
 
       return this;
