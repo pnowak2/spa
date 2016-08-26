@@ -4,7 +4,7 @@ define(function(require) {
     LandingPageView = require('./landingPage.view'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
-    PageableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component');
+    SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component');
 
   describe('CE Landing Page View', function() {
     describe('type', function() {
@@ -30,8 +30,8 @@ define(function(require) {
         expect(passedOptions.advancedSearchComponent).toEqual(jasmine.any(AdvancedSearchComponent));
       });
 
-      it('should have pageable results list component defined ', function() {
-        expect(this.view.pageableResultsList).toEqual(jasmine.any(PageableResultsListComponent));
+      it('should have searchable results list component defined ', function() {
+        expect(this.view.searchableResultsList).toEqual(jasmine.any(SearchableResultsListComponent));
       });
 
       it('should render the component', function() {
@@ -42,7 +42,7 @@ define(function(require) {
     describe('api', function() {
       describe('.onSearchRequest()', function() {
         beforeEach(function() {
-          spyOn(PageableResultsListComponent.prototype, 'onSearchRequest');
+          spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
 
           this.view = new LandingPageView;
         });
@@ -51,12 +51,12 @@ define(function(require) {
           expect(LandingPageView.prototype.onSearchRequest).toEqual(jasmine.any(Function));
         });
 
-        it('should delegate to pageable list component', function() {
+        it('should delegate to searchable list component', function() {
           var fakeSearchCriteria = {};
 
           this.view.onSearchRequest(fakeSearchCriteria);
 
-          expect(this.view.pageableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+          expect(this.view.searchableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
         });
       });
     });
@@ -95,8 +95,8 @@ define(function(require) {
           expect($('.ce-search-container')).toContainHtml(markup);
         });
 
-        it('should render pageable results list component in appropriate container', function() {
-          var markup = this.view.pageableResultsList.render().view.el;
+        it('should render searchable results list component in appropriate container', function() {
+          var markup = this.view.searchableResultsList.render().view.el;
           expect($('.ce-results-container')).toContainHtml(markup);
         });
       });

@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     SearchableListComponent = require('app/shared/components/lists/searchable-list/main.component'),
     ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),
-    searchService = require('../services/search/mock-search.service');
+    searchService = require('../services/search/search.service');
 
   return Backbone.View.extend({
     className: 'efc-searchable-results-list',

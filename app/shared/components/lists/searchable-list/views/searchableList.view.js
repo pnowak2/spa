@@ -8,7 +8,7 @@ define(function(require) {
     dummySearchService = require('../services/dummySearch.service');
 
   return Backbone.View.extend({
-    className: 'vlr-pageable-list',
+    className: 'vlr-searchable-list',
 
     initialize: function(options) {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');

@@ -65,7 +65,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/lists/searchable-list/main.component.spec',
     'app/shared/components/lists/searchable-list/components/baseListComponent/main.component.spec',
     'app/shared/components/lists/searchable-list/services/dummySearch.service.spec',
-    'app/shared/components/lists/searchable-list/views/pageableList.view.spec',
+    'app/shared/components/lists/searchable-list/views/searchableList.view.spec',
 
     // pager component
     'app/shared/components/paging/pager/main.component.spec',
@@ -205,9 +205,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/ce/components/landing-page/results/list/results-list/main.component.spec',
     'app/ce/components/landing-page/results/list/results-list/views/resultsList.view.spec',
 
-    // ce pageable results list component
+    // ce searchable results list component
     'app/ce/components/landing-page/results/list/searchable-results-list/main.component.spec',
-    'app/ce/components/landing-page/results/list/searchable-results-list/views/pageableResultsList.view.spec',
+    'app/ce/components/landing-page/results/list/searchable-results-list/views/searchableResultsList.view.spec',
     'app/ce/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
     'app/ce/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
     'app/ce/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec'

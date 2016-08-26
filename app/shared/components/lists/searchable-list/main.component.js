@@ -1,10 +1,10 @@
 define(function(require) {
   var Component = require('app/core/component'),
-    PageableListView = require('./views/pageableList.view');
+    SearchableListView = require('./views/searchableList.view');
 
   return Component.extend({
     initialize: function(options) {
-      this.view = new PageableListView(options);
+      this.view = new SearchableListView(options);
       this.listenTo(this.view, 'search:completed', function(data) {
         this.trigger('search:completed', data);
       });
