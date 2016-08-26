@@ -44,6 +44,17 @@ define(function(require) {
         it('should return view object', function() {
           expect(this.view.render()).toBe(this.view);
         });
+
+        describe('without data', function() {
+          beforeEach(function() {
+            this.view = new ResultsListView
+            this.$el = this.view.render().$el;
+          });
+
+          it('should render no data placeholder', function() {
+            expect(this.$el.find('.ce-results-list__no-data')).toContainText('No results');
+          });
+        });
       });
     });
   });
