@@ -35,5 +35,5 @@
   preserveLicenseComments: false,
   include: "requireLib",
   name: "ce.landing-page.main",
-  out: "dist/vlr-app.js"
+  out: "dist/vlr-app.min.js"
 })
