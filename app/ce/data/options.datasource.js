@@ -17,5 +17,5 @@ define(function(require) {
         title: 'with Results only'
       }];
     }
-  }
+  };
 });

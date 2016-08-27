@@ -15,5 +15,5 @@ define(function(require) {
       CULTURE: '31052584',
       MEDIA: '31052594'
     }
-  }
+  };
 });

@@ -71,5 +71,5 @@ define(function(require) {
     allCountries: allCountries,
     regionsByCountry: regionsByCountry,
     allOrganisationTypes: allOrganisationTypes
-  }
+  };
 });

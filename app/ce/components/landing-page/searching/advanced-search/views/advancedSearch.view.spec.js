@@ -797,7 +797,7 @@ define(function(require) {
             this.view = new AdvancedSearchView();
 
             this.view.didCountryChange();
-          })
+          });
 
           it('should calculate criteria visibility', function() {
             expect(this.view.calculateCriteriaVisibility).toHaveBeenCalled();

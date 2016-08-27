@@ -59,5 +59,5 @@ define(function(require) {
         hint: 'activity year'
       }];
     }
-  }
+  };
 });

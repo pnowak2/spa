@@ -2503,5 +2503,5 @@ define(function(require) {
         }]
       };
     }
-  }
+  };
 });

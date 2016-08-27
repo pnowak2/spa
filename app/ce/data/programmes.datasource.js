@@ -11,5 +11,5 @@ define(function(require) {
         title: 'Culture (2007-2013)'
       }];
     }
-  }
+  };
 });

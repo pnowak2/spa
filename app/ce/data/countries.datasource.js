@@ -747,5 +747,5 @@ define(function(require) {
         title: "Zimbabwe"
       }];
     }
-  }
+  };
 });
