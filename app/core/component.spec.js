@@ -1,5 +1,4 @@
 define(function(require) {
-
   var Component = require('./component'),
     Module = require('./module'),
     Backbone = require('backbone');

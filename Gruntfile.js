@@ -1,6 +1,12 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    jshint: {
+      all: ['./*.js', 'app/**/*.js', 'test/**/*.js'],
+      options: {
+        jshintrc: '.jshintrc'
+      }
+    },
     requirejs: {
       compile: {
         options: {
@@ -46,7 +52,9 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('default', ['requirejs']);
+  grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('release', ['jshint', 'requirejs']);
 };
