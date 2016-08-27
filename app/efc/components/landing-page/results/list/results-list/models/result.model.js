@@ -9,7 +9,7 @@ define(function(require) {
         description: '',
         callYear: '',
         countries: []
-      }
+      };
     }
   });
 });

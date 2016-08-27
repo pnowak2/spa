@@ -19,12 +19,12 @@ define(function(require) {
             var code = country.toLowerCase(),
               fullName = (_.findWhere(allCountries, {
                 id: country
-              }) || {}).title || ''
+              }) || {}).title || '';
 
             return {
               code: code,
               fullName: fullName
-            }
+            };
           })
           .value();
 
@@ -34,13 +34,13 @@ define(function(require) {
           description: description,
           callYear: callYear,
           countries: countries
-        }
+        };
       });
 
       return {
         total: total,
         items: items
-      }
+      };
     };
 
   return {

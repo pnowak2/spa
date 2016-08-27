@@ -9,7 +9,7 @@ define(function(require) {
 
     initialize: function() {
       this.searchableListComponent = new SearchableListComponent({
-        listComponent: new ResultsListComponent,
+        listComponent: new ResultsListComponent(),
         searchService: searchService
       });
     },
@@ -25,5 +25,5 @@ define(function(require) {
 
       return this;
     }
-  })
+  });
 });

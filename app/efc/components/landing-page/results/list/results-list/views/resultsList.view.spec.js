@@ -29,7 +29,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have default collection defined', function() {
-        var view = new ResultsListView;
+        var view = new ResultsListView();
         expect(view.collection).toEqual(jasmine.any(Backbone.Collection));
       });
     });
@@ -41,7 +41,7 @@ define(function(require) {
         });
 
         it('should reset collection with passed data', function() {
-          var view = new ResultsListView,
+          var view = new ResultsListView(),
             fakeData = {};
 
           spyOn(view.collection, 'reset');
@@ -58,7 +58,7 @@ define(function(require) {
         });
 
         it('should return array of views initialized with colletion models', function() {
-          var resultsListView = new ResultsListView,
+          var resultsListView = new ResultsListView(),
             fakeModel = new ResultModel(),
             fakeCollection = new ResultsCollection([fakeModel]),
             resultItemViews;
@@ -78,7 +78,7 @@ define(function(require) {
         });
 
         it('should get table body element', function() {
-          var view = new ResultsListView,
+          var view = new ResultsListView(),
             fakeContainer = {},
             foundContainer;
 
@@ -101,7 +101,7 @@ define(function(require) {
         it('should render on collection reset', function() {
           spyOn(ResultsListView.prototype, 'render');
 
-          var view = new ResultsListView
+          var view = new ResultsListView()
 
           view.collection.trigger('reset');
 
@@ -114,7 +114,7 @@ define(function(require) {
       describe('.render()', function() {
         describe('without data', function() {
           beforeEach(function() {
-            this.view = new ResultsListView
+            this.view = new ResultsListView();
             this.$el = this.view.render().$el;
           });
 
@@ -125,7 +125,7 @@ define(function(require) {
 
         describe('with data', function() {
           beforeEach(function() {
-            this.view = new ResultsListView;
+            this.view = new ResultsListView();
             this.view.update([{
               title: 'foo'
             }]);

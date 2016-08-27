@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have proper view defined', function() {
-        var component = new LandingPageComponent;
+        var component = new LandingPageComponent();
         expect(component.view).toEqual(jasmine.any(LandingPageView));
       });
     });

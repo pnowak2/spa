@@ -17,16 +17,16 @@ define(function(require) {
           max: 2016
         }) + '',
         _.times(7, function() {
-          return chance.country()
+          return chance.country();
         }).join('|'),
         'Organisation'
       ];
-    }
+    };
 
   return {
     search: function(criteria) {
       randomRows = _.times(10, function() {
-        return makeRandomDataRow()
+        return makeRandomDataRow();
       });
 
       return new RSVP.Promise(function(resolve, reject) {
@@ -36,5 +36,5 @@ define(function(require) {
         }));
       });
     }
-  }
+  };
 });

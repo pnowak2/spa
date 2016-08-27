@@ -124,7 +124,7 @@ define(function(require) {
         it('should map activities', function() {
           var input = {
             activities: ['ac1', 'ac2']
-          }
+          };
 
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
             'FILTER-LEVEL2': 'ac1;ac2'
@@ -142,7 +142,7 @@ define(function(require) {
         it('should map subactivities', function() {
           var input = {
             subactivities: ['sub1', 'sub2']
-          }
+          };
 
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
             'FILTER-LEVEL3': 'sub1;sub2'
@@ -160,7 +160,7 @@ define(function(require) {
         it('should map type of organisation', function() {
           var input = {
             organisationTypes: ['org1', 'org2']
-          }
+          };
 
           expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
             'FILTER-COORD_ORG_TYPE': 'org1;org2'

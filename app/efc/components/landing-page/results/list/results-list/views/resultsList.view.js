@@ -10,7 +10,7 @@ define(function(require) {
     className: 'efc-results-list',
 
     initialize: function() {
-      this.collection = new ResultsCollection;
+      this.collection = new ResultsCollection();
       this.listenTo(this.collection, 'reset', this.render);
     },
 

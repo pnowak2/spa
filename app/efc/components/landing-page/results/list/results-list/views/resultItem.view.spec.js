@@ -14,7 +14,7 @@ define(function(require) {
     describe('creation', function() {
       it('should throw if created without model', function() {
         expect(function() {
-          new ResultItemView;
+          new ResultItemView();
         }).toThrowError('model is not of correct type')
       });
     });
@@ -31,7 +31,7 @@ define(function(require) {
       describe('.createFlagsComponent()', function() {
         beforeEach(function() {
           this.view = new ResultItemView({
-            model: new ResultModel
+            model: new ResultModel()
           });
 
           spyOn(FlagsComponent.prototype, 'initialize').and.callThrough();
@@ -77,7 +77,7 @@ define(function(require) {
 
       describe('.render()', function() {
         it('should return view itself', function() {
-          expect(this.view.render()).toBe(this.view)
+          expect(this.view.render()).toBe(this.view);
         });
 
         it('should render 4 table columns', function() {

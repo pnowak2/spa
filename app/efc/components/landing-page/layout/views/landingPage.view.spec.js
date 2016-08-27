@@ -23,7 +23,7 @@ define(function(require) {
         spyOn(TabSwitcherComponent.prototype, 'initialize');
         spyOn(SearchComponent.prototype, 'initialize');
 
-        this.view = new LandingPageView;
+        this.view = new LandingPageView();
       });
 
       it('should have search component defined ', function() {
@@ -60,7 +60,7 @@ define(function(require) {
             targetSelector: '.' + this.view.searchableResultsList.view.className,
             selected: false
           }]
-        })
+        });
       });
 
       it('should render the component', function() {
@@ -81,7 +81,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(LandingPageView.prototype, 'onSearchRequest');
 
-          this.view = new LandingPageView;
+          this.view = new LandingPageView();
         });
 
         it('should be defined', function() {
@@ -100,7 +100,7 @@ define(function(require) {
           spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
           spyOn(ResultsMapComponent.prototype, 'onSearchRequest');
 
-          this.view = new LandingPageView;
+          this.view = new LandingPageView();
         });
 
         it('should be defined', function() {
@@ -131,7 +131,7 @@ define(function(require) {
           spyOn(LandingPageView.prototype, 'requestInitialSearch');
           spyOn(LandingPageView.prototype, 'onSearchRequest');
 
-          var view = new LandingPageView,
+          var view = new LandingPageView(),
             fakeSearchCriteria = {};
 
           view.search.trigger('search:search', fakeSearchCriteria);
@@ -147,7 +147,7 @@ define(function(require) {
           jasmine.getFixtures().fixturesPath = 'fixtures';
           loadFixtures('efc.landing-page.fixture.html');
 
-          this.view = new LandingPageView;
+          this.view = new LandingPageView();
           this.view.render();
         });
 

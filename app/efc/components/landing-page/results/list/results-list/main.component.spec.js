@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should be initialized with proper view', function() {
-        var component = new ResultsListComponent;
+        var component = new ResultsListComponent();
         expect(component.view).toEqual(jasmine.any(ResultsListView));
       });
     });
@@ -24,7 +24,7 @@ define(function(require) {
         });
 
         it('should update view with passed data', function() {
-          var component = new ResultsListComponent,
+          var component = new ResultsListComponent(),
             fakeData = {};
           spyOn(component.view, 'update');
 

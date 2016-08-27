@@ -114,7 +114,7 @@ define(function(require) {
                 fullName: 'Belgium'
               }]
             }]
-          })
+          });
         });
 
         it('should map response with two rows to object', function() {
@@ -144,7 +144,7 @@ define(function(require) {
                 fullName: 'France'
               }]
             }]
-          })
+          });
         });
 
         it('should map response with wrong country to object', function() {
@@ -165,7 +165,7 @@ define(function(require) {
                 fullName: ''
               }]
             }]
-          })
+          });
         });
 
         it('should map response without countries to object', function() {
@@ -180,7 +180,7 @@ define(function(require) {
               callYear: '2015',
               countries: []
             }]
-          })
+          });
         });
       });
     });

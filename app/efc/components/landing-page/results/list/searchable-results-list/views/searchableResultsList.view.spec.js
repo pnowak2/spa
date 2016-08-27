@@ -16,7 +16,7 @@ define(function(require) {
     describe('creation', function() {
       beforeEach(function() {
         spyOn(SearchableListComponent.prototype, 'initialize');
-        this.view = new SearchableResultsListView;
+        this.view = new SearchableResultsListView();
       });
 
       it('should create searchable list component', function() {
@@ -55,7 +55,7 @@ define(function(require) {
       describe('.onSearchRequest()', function() {
         beforeEach(function() {
           spyOn(SearchableListComponent.prototype, 'onSearchRequest');
-          this.view = new SearchableResultsListView;
+          this.view = new SearchableResultsListView();
         });
 
         it('should be defined', function() {
@@ -75,7 +75,7 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
-          this.view = new SearchableResultsListView;
+          this.view = new SearchableResultsListView();
         });
 
         it('should return view object', function() {

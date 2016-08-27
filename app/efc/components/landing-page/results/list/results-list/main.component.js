@@ -4,7 +4,7 @@ define(function(require) {
 
   return Component.extend({
     initialize: function() {
-      this.view = new ResultsListView;
+      this.view = new ResultsListView();
     },
 
     update: function(data) {

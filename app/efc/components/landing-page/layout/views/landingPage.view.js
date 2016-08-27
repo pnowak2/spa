@@ -10,10 +10,10 @@ define(function(require) {
   return Backbone.View.extend({
     initialize: function() {
       this.search = new SearchComponent({
-        advancedSearchComponent: new AdvancedSearchComponent
+        advancedSearchComponent: new AdvancedSearchComponent()
       });
-      this.searchableResultsList = new SearchableResultsListComponent;
-      this.resultsMap = new ResultsMapComponent;
+      this.searchableResultsList = new SearchableResultsListComponent();
+      this.resultsMap = new ResultsMapComponent();
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'Map',
