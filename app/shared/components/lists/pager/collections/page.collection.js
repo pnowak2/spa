@@ -15,7 +15,7 @@ define(function(require) {
         return {
           page: page,
           selected: (selectedPage === page)
-        }
+        };
       }, this);
 
       return new this(pageObjects);

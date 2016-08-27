@@ -14,8 +14,8 @@ define(function(require) {
         expect(function() {
           new PageView({
             model: {}
-          })
-        }).toThrowError('model is not of correct type')
+          });
+        }).toThrowError('model is not of correct type');
       });
     });
 
@@ -77,7 +77,7 @@ define(function(require) {
       describe('.render()', function() {
         it('should return view object', function() {
           var view = new PageView({
-            model: new PageModel
+            model: new PageModel()
           });
 
           expect(view.render()).toBe(view);

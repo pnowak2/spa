@@ -53,7 +53,7 @@ define(function(require) {
               displayEndItem: 20,
               totalItems: 2000
             },
-            model = new PageStatsModel;
+            model = new PageStatsModel();
 
           expect(model.toJSON()).toEqual(model.defaults);
 

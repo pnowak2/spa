@@ -13,7 +13,7 @@ define(function(require) {
 
     initialize: function(options) {
       if (!_.has(options, ['model'])) {
-        this.model = new PagerModel;
+        this.model = new PagerModel();
       }
 
       if (!(this.model instanceof PagerModel)) {
@@ -78,7 +78,7 @@ define(function(require) {
       return this.createPageCollection().map(function(pageModel) {
         return new PageView({
           model: pageModel
-        })
+        });
       });
     },
 

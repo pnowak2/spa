@@ -21,7 +21,7 @@ define(function(require) {
     describe('api', function() {
       describe('.select()', function() {
         beforeEach(function() {
-          this.model = new PageModel
+          this.model = new PageModel();
         });
 
         it('should be defined', function() {
@@ -40,7 +40,7 @@ define(function(require) {
 
       describe('.deselect()', function() {
         beforeEach(function() {
-          this.model = new PageModel
+          this.model = new PageModel();
         });
 
         it('should be defined', function() {

@@ -32,11 +32,11 @@ requirejs.config({
 });
 
 requirejs([
-  'backbone', 
-  'modernizr', 
-  'app/shared/modules/app.module', 
+  'backbone',
+  'modernizr',
+  'app/shared/modules/app.module',
   'app/ce/components/landing-page/layout/main.component'
-  ], function (Backbone, modernizr, applicationModule, LandingPage) {
-    landingPage = new LandingPage;
+], function(Backbone, modernizr, applicationModule, LandingPage) {
+  landingPage = new LandingPage();
   Backbone.history.start();
 });

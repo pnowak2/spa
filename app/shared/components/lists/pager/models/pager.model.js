@@ -67,8 +67,8 @@ define(function(require) {
       var pagesCount, upperTrunc, truncated;
 
       if (!_.isNumber(page)) {
-        page = 1
-      };
+        page = 1;
+      }
 
       pagesCount = this.getPagesCount();
       upperTrunc = _.min([page, pagesCount]);
@@ -102,7 +102,7 @@ define(function(require) {
       if (truncatedPageWindowSize % 2 === 0) {
         // nonsymetrical pager (...*....)
         leftPageWindowSize = (truncatedPageWindowSize / 2) - 1;
-        rightPageWindowSize = leftPageWindowSize + 1
+        rightPageWindowSize = leftPageWindowSize + 1;
       } else {
         // symmetrical pager (...*...)
         leftPageWindowSize = rightPageWindowSize = Math.floor(pageWindowSize / 2);
@@ -179,9 +179,9 @@ define(function(require) {
 
     getDisplayStartItem: function() {
       if (!this.hasItems()) {
-        return 0
+        return 0;
       } else {
-        return this.getStartFromItem() + 1
+        return this.getStartFromItem() + 1;
       }
     },
 
@@ -195,7 +195,7 @@ define(function(require) {
         return 0;
       }
 
-      pageEnd = _.min([displayStartItem + pageSize - 1, totalItems])
+      pageEnd = _.min([displayStartItem + pageSize - 1, totalItems]);
 
       return pageEnd;
     },

@@ -41,7 +41,7 @@ define(function(require) {
     modernizr = require('modernizr'),
     applicationModule = require('app/shared/modules/app.module'),
     LandingPage = require('app/eplus/components/landing-page/layout/main.component'),
-    landingPage = new LandingPage;
+    landingPage = new LandingPage();
 
   Backbone.history.start();
 });

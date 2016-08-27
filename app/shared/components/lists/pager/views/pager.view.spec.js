@@ -15,7 +15,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have default model', function() {
-        var view = new PagerView;
+        var view = new PagerView();
         expect(view.model).toEqual(jasmine.any(PagerModel));
       });
 
@@ -30,7 +30,7 @@ define(function(require) {
 
       it('should not throw if created without model', function() {
         expect(function() {
-          new PagerView
+          new PagerView();
         }).not.toThrow();
       });
 
@@ -83,7 +83,7 @@ define(function(require) {
 
         it('should delegate to model', function() {
           var view = new PagerView({
-              model: new PagerModel
+              model: new PagerModel()
             }),
             fakeData = {};
 
@@ -146,7 +146,7 @@ define(function(require) {
       describe('page control buttons - first, previous, next, last', function() {
         beforeEach(function() {
           this.evt = jasmine.createSpyObj('e', ['preventDefault']);
-          this.view = new PagerView;
+          this.view = new PagerView();
         });
 
         describe('.didClickFirstPageButton()', function() {
@@ -225,7 +225,7 @@ define(function(require) {
 
         it('should return page collection delegating to page collection class', function() {
           var fakeCollection = {},
-            view = new PagerView;
+            view = new PagerView();
 
           spyOn(PageCollection, 'create').and.returnValue(fakeCollection);
           expect(view.createPageCollection()).toBe(fakeCollection);
@@ -261,7 +261,7 @@ define(function(require) {
         });
 
         it('should get dom container for pages', function() {
-          var view = new PagerView,
+          var view = new PagerView(),
             fakeContainer = {};
 
           spyOn(view.$el, 'find').and.returnValue(fakeContainer);
@@ -279,7 +279,7 @@ define(function(require) {
         it('should call render on model change', function() {
           spyOn(PagerView.prototype, 'render');
 
-          var view = new PagerView;
+          var view = new PagerView();
 
           expect(view.render).not.toHaveBeenCalled();
 
@@ -292,7 +292,7 @@ define(function(require) {
         it('should call view method on model change of current page', function() {
           spyOn(PagerView.prototype, 'didChangeCurrentPage');
 
-          var view = new PagerView
+          var view = new PagerView();
 
           expect(view.didChangeCurrentPage).not.toHaveBeenCalled();
 
@@ -327,7 +327,7 @@ define(function(require) {
             spyOn(PagerView.prototype, 'didClickNextPageButton');
             spyOn(PagerView.prototype, 'didClickLastPageButton');
 
-            this.view = new PagerView;
+            this.view = new PagerView();
           });
 
           it('should define click event on go to first page button', function() {
@@ -356,7 +356,7 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         it('should return view object', function() {
-          var view = new PagerView;
+          var view = new PagerView();
 
           expect(view.render()).toBe(view);
         });
@@ -466,9 +466,9 @@ define(function(require) {
           view2.render();
           view3.render();
 
-          expect(view1.$el.css('display')).toEqual('none')
-          expect(view2.$el.css('display')).toEqual('none')
-          expect(view3.$el.css('display')).toEqual('block')
+          expect(view1.$el.css('display')).toEqual('none');
+          expect(view2.$el.css('display')).toEqual('none');
+          expect(view3.$el.css('display')).toEqual('block');
         });
 
         it('should not be hidden if has items', function() {
@@ -480,14 +480,14 @@ define(function(require) {
 
           view.render();
 
-          expect(view.$el.css('display')).toEqual('block')
+          expect(view.$el.css('display')).toEqual('block');
         });
 
         it('should render pages elements', function() {
-          var pagerView = new PagerView,
+          var pagerView = new PagerView(),
             fakePagesContainer = jasmine.createSpyObj('container', ['append']),
             fakePageView = new PageView({
-              model: new PageModel
+              model: new PageModel()
             });
 
           spyOn(fakePageView, 'render').and.callThrough();

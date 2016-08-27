@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have proper model defined', function() {
-        var collection = new PageCollection;
+        var collection = new PageCollection();
         expect(collection.model).toEqual(PageModel);
       });
     });
@@ -26,7 +26,7 @@ define(function(require) {
         it('should throw if pages argument not provided', function() {
           expect(function() {
             PageCollection.create();
-          }).toThrowError('pages is not an array')
+          }).toThrowError('pages is not an array');
         });
 
         it('should return collection', function() {

@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        this.component = new PageStatsComponent;
+        this.component = new PageStatsComponent();
       });
 
       it('should be initialized with proper view', function() {
@@ -38,7 +38,7 @@ define(function(require) {
         it('should delegate to view', function() {
           spyOn(PageStatsView.prototype, 'update');
 
-          var component = new PageStatsComponent,
+          var component = new PageStatsComponent(),
             fakeOptions = {};
 
           component.update(fakeOptions);

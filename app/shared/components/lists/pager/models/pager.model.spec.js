@@ -46,7 +46,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should be possible to create without arguments', function() {
-        var model = new PagerModel;
+        var model = new PagerModel();
 
         expect(model.getCurrentPage()).toEqual(PagerModel.prototype.defaults.currentPage);
         expect(model.getPageSize()).toEqual(PagerModel.prototype.defaults.pageSize);
@@ -239,7 +239,7 @@ define(function(require) {
         });
 
         it('should fully update defaults', function() {
-          var model = new PagerModel;
+          var model = new PagerModel();
 
           model.update({
             totalItems: 250,
@@ -255,7 +255,7 @@ define(function(require) {
         });
 
         it('should not touch defaults when empty options', function() {
-          var model = new PagerModel;
+          var model = new PagerModel();
 
           model.update();
 
@@ -266,7 +266,7 @@ define(function(require) {
         });
 
         it('should update just totalItems and take rest from defaults', function() {
-          var model = new PagerModel;
+          var model = new PagerModel();
 
           model.update({
             totalItems: 3000
@@ -485,7 +485,7 @@ define(function(require) {
             totalItems: 100,
             pageSize: 10,
             currentPage: 1
-          })
+          });
 
           expect(model.getCurrentPage()).toEqual(1);
           model.setCurrentPage(-10);

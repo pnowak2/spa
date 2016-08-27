@@ -15,7 +15,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        this.pagerComponent = new PagerComponent;
+        this.pagerComponent = new PagerComponent();
       });
 
       it('should be initialized with proper view', function() {
@@ -41,7 +41,7 @@ define(function(require) {
         });
 
         it('should delegate the state to pager model', function() {
-          var pagerComponent = new PagerComponent,
+          var pagerComponent = new PagerComponent(),
             fakePagerState = {};
 
           spyOn(pagerComponent.view.model, 'toJSON').and.returnValue(fakePagerState);
@@ -55,7 +55,7 @@ define(function(require) {
         });
 
         it('should delegate to pager view', function() {
-          var pagerComponent = new PagerComponent,
+          var pagerComponent = new PagerComponent(),
             fakeState = {};
 
           spyOn(pagerComponent.view, 'update');
@@ -69,8 +69,8 @@ define(function(require) {
 
     describe('events', function() {
       it('should trigger event on page selection', function(done) {
-        var pagerComponent = new PagerComponent,
-          fakePagerDetails = {}
+        var pagerComponent = new PagerComponent(),
+          fakePagerDetails = {};
 
         pagerComponent.on('pager:page:selected', function(pagerDetails) {
           expect(pagerDetails).toBe(fakePagerDetails);

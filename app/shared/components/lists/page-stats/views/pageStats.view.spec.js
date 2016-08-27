@@ -18,7 +18,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have default model', function() {
-        var view = new PageStatsView;
+        var view = new PageStatsView();
         expect(view.model).toEqual(jasmine.any(PageStatsModel));
       });
 
@@ -42,7 +42,7 @@ define(function(require) {
           spyOn(PageStatsModel.prototype, 'update');
 
           var fakeOptions = {},
-            view = new PageStatsView;
+            view = new PageStatsView();
 
           view.update(fakeOptions);
 
@@ -59,7 +59,7 @@ define(function(require) {
           done();
         });
 
-        var view = new PageStatsView;
+        var view = new PageStatsView();
         view.model.trigger('change');
       });
     });
@@ -113,9 +113,9 @@ define(function(require) {
           view2.render();
           view3.render();
 
-          expect(view1.$el.css('display')).toEqual('none')
-          expect(view2.$el.css('display')).toEqual('none')
-          expect(view3.$el.css('display')).toEqual('block')
+          expect(view1.$el.css('display')).toEqual('none');
+          expect(view2.$el.css('display')).toEqual('none');
+          expect(view3.$el.css('display')).toEqual('block');
         });
       });
     });
