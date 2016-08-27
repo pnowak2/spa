@@ -20,16 +20,16 @@ define(function(require) {
     };
 
     Surrogate.prototype = parent.prototype;
-    child.prototype = new Surrogate;
+    child.prototype = new Surrogate();
 
     if (protoProps) _.extend(child.prototype, protoProps);
 
     child.__super__ = parent.prototype;
 
     return child;
-  }
+  };
 
   return {
     extend: extend
-  }
+  };
 });

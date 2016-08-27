@@ -1,5 +1,4 @@
 define(function(require) {
-
   var Module = require('./module'),
     Event = require('./event'),
     utils = require('./utils'),

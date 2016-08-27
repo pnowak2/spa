@@ -11,7 +11,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should be possible to create with new', function() {
-        var vent = new Event;
+        var vent = new Event();
 
         expect(vent).toEqual(jasmine.any(Event));
       });

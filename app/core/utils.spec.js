@@ -45,7 +45,7 @@ define(function(require) {
             Extended = Extensible.extend({}, {
               staticProperty: 'argument static property'
             });
-          })
+          });
 
           it('should get static property from parent function', function() {
             expect(Extended.fnProperty).toEqual('function static property');
@@ -66,7 +66,7 @@ define(function(require) {
               protoProp: 'prototype property',
               protoMethod: function() {}
             });
-          })
+          });
 
           it('should get proto properties from arguments', function() {
             expect(Extended.prototype.protoProp).toEqual('prototype property');

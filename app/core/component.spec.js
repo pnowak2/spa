@@ -26,7 +26,7 @@ define(function(require) {
     describe('creation', function() {
       it('should be possible with new', function() {
         var TestComponent = Component.extend(),
-          testComponent = new TestComponent;
+          testComponent = new TestComponent();
 
         expect(testComponent).toEqual(jasmine.any(TestComponent));
       });
@@ -40,7 +40,7 @@ define(function(require) {
               view: fakeView
             });
 
-          this.testComponent = new TestComponent;
+          this.testComponent = new TestComponent();
         });
 
         it('should be defined', function() {
@@ -61,9 +61,9 @@ define(function(require) {
       describe('.hide()', function() {
         beforeEach(function() {
           var TestComponent = Component.extend({
-            view: new Backbone.View
+            view: new Backbone.View()
           });
-          this.testComponent = new TestComponent;
+          this.testComponent = new TestComponent();
         });
 
         it('should be defined', function() {
@@ -82,8 +82,8 @@ define(function(require) {
         });
 
         it('should not throw if view is not defined', function() {
-          var component = new (Component.extend());
-          expect(function () {
+          var component = new(Component.extend())();
+          expect(function() {
             component.hide();
           }).not.toThrow();
         });
@@ -92,9 +92,9 @@ define(function(require) {
       describe('.show()', function() {
         beforeEach(function() {
           var TestComponent = Component.extend({
-            view: new Backbone.View
+            view: new Backbone.View()
           });
-          this.testComponent = new TestComponent;
+          this.testComponent = new TestComponent();
         });
 
         it('should be defined', function() {
@@ -116,9 +116,9 @@ define(function(require) {
       describe('.toggle()', function() {
         beforeEach(function() {
           var TestComponent = Component.extend({
-            view: new Backbone.View
+            view: new Backbone.View()
           });
-          this.testComponent = new TestComponent;
+          this.testComponent = new TestComponent();
         });
 
         it('should be defined', function() {
@@ -137,7 +137,7 @@ define(function(require) {
         });
 
         it('should pass boolean param to view element', function() {
-           spyOn(this.testComponent.view.$el, 'toggle');
+          spyOn(this.testComponent.view.$el, 'toggle');
           this.testComponent.toggle(true);
 
           expect(this.testComponent.view.$el.toggle).toHaveBeenCalledWith(true);

@@ -2,7 +2,7 @@ define(function(require) {
   var Module = require('./module');
 
   return Module.extend({
-    view: new (Backbone.View.extend()),
+    view: new(Backbone.View.extend())(),
 
     render: function() {
       this.view.render();
