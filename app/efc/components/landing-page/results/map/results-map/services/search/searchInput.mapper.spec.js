@@ -11,7 +11,7 @@ define(function(require) {
       });
 
       it('should be the list search input mapper', function() {
-        expect(mapInputMapper).toBe(listInputMapper)
+        expect(mapInputMapper).toBe(listInputMapper);
       });
     });
   });

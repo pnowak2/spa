@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have proper view defined', function() {
-        var component = new PartnersMapComponent;
+        var component = new PartnersMapComponent();
         expect(component.view).toEqual(jasmine.any(PartnersMapView));
       });
 

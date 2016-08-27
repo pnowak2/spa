@@ -10,7 +10,7 @@ define(function(require) {
     initialize: function() {
       _.bindAll(this, 'didClickSearchButton');
 
-      this.resultsMap = new ResultsMapComponent;
+      this.resultsMap = new ResultsMapComponent();
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'List',

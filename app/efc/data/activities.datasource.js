@@ -9,5 +9,5 @@ define(function(require) {
         title: 'Strand2: Democratic engagement and civic participation'
       }];
     }
-  }
+  };
 });

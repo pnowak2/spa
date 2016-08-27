@@ -20,7 +20,7 @@ define(function(require) {
 
       it('should not throw if created without arguments', function() {
         expect(function() {
-          new AdvancedSearchView;
+          new AdvancedSearchView();
         }).not.toThrow();
       });
 
@@ -130,7 +130,7 @@ define(function(require) {
             selected: false
           }]);
 
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -164,7 +164,7 @@ define(function(require) {
         });
 
         it('should return true if any criteria components has changed', function() {
-          var view = new AdvancedSearchView;
+          var view = new AdvancedSearchView();
 
           spyOn(view.callYears, 'hasSelection').and.returnValue(true);
           spyOn(view.countries, 'hasSelection').and.returnValue(false);
@@ -176,7 +176,7 @@ define(function(require) {
         });
 
         it('should return false if none of criteria components has changed', function() {
-          var view = new AdvancedSearchView;
+          var view = new AdvancedSearchView();
 
           spyOn(view.callYears, 'hasSelection').and.returnValue(false);
           spyOn(view.countries, 'hasSelection').and.returnValue(false);
@@ -190,7 +190,7 @@ define(function(require) {
 
       describe('.didClickClearFilters()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
           spyOn(this.view.callYears, 'unselectAll');
           spyOn(this.view.countries, 'unselectAll');
           spyOn(this.view.activities, 'unselectAll');
@@ -245,7 +245,7 @@ define(function(require) {
 
       describe('no activity selected', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
           spyOn(this.view.activities, 'selectedItems').and.returnValue([]);
 
           this.view.render();
@@ -263,7 +263,7 @@ define(function(require) {
 
       describe('more than one activity selected', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
           spyOn(this.view.activities, 'selectedItems').and.returnValue([{
             id: '1',
             title: 'one'
@@ -288,7 +288,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(advancedSearchService, 'subactivitiesByActivityId').and.returnValue([]);
 
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
           spyOn(this.view.activities, 'selectedItems').and.returnValue([{
             id: '1',
             title: 'one'
@@ -314,7 +314,7 @@ define(function(require) {
             title: 'two'
           }]);
 
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
           spyOn(this.view.activities, 'selectedItems').and.returnValue([{
             id: '1',
             title: 'one'

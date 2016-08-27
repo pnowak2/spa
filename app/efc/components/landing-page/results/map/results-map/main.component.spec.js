@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have proper view defined', function() {
-        var component = new ResultsMapComponent;
+        var component = new ResultsMapComponent();
         expect(component.view).toEqual(jasmine.any(ResultsMapView));
       });
     });
@@ -24,7 +24,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new ResultsMapComponent;
+          var component = new ResultsMapComponent();
           spyOn(component.view, 'initMap');
 
           component.initMap();
@@ -41,7 +41,7 @@ define(function(require) {
         it('should delegate do view', function() {
           spyOn(ResultsMapView.prototype, 'onSearchRequest');
 
-          var component = new ResultsMapComponent,
+          var component = new ResultsMapComponent(),
             fakeSearchCriteria = {};
 
           component.onSearchRequest(fakeSearchCriteria);

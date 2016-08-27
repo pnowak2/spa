@@ -33,7 +33,7 @@
      describe('creation', function() {
        beforeEach(function() {
          spyOn(_, 'bindAll').and.callThrough();
-         this.view = new ResultsMapView;
+         this.view = new ResultsMapView();
        });
 
        it('should have results map component defined', function() {
@@ -52,7 +52,7 @@
          });
 
          it('should delegate to map component', function() {
-           var view = new ResultsMapView;
+           var view = new ResultsMapView();
            spyOn(view.mapComponent, 'initMap');
 
            view.initMap();
@@ -66,7 +66,7 @@
            spyOn(ResultsMapView.prototype, 'didSearchSucceed');
            spyOn(ResultsMapView.prototype, 'didSearchFail');
 
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -98,7 +98,7 @@
            this.view.didSearchSucceed = function(data) {
              expect(data).toEqual('success');
              done();
-           }
+           };
 
            this.view.onSearchRequest({});
          });
@@ -109,7 +109,7 @@
            this.view.didSearchFail = function(error) {
              expect(error).toEqual('error');
              done();
-           }
+           };
 
            this.view.onSearchRequest({});
          });
@@ -124,10 +124,10 @@
 
        describe('.didSearchSucceed()', function() {
          beforeEach(function() {
-           this.fakePreparedMarkersData = {},
-           this.view = new ResultsMapView;
+           this.fakePreparedMarkersData = {};
+           this.view = new ResultsMapView();
 
-           spyOn(ResultsMapView.prototype, 'prepareMarkersData').and.returnValue(this.fakePreparedMarkersData)
+           spyOn(ResultsMapView.prototype, 'prepareMarkersData').and.returnValue(this.fakePreparedMarkersData);
            spyOn(this.view.mapComponent, 'showMarkers');
          });
 
@@ -159,7 +159,7 @@
          it('should show error message', function() {
            spyOn(app, 'showError');
 
-           var view = new ResultsMapView,
+           var view = new ResultsMapView(),
              fakeError = {};
 
            view.didSearchFail(fakeError);
@@ -176,8 +176,8 @@
                [{ /* country data */ }],
                [{ /* country data */ }]
              ]
-           }
-           this.view = new ResultsMapView;
+           };
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -217,7 +217,7 @@
 
        describe('.prepareMarkersByCountryData()', function() {
          beforeEach(function() {
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -277,7 +277,7 @@
 
        describe('.toggleCountryExplanation()', function() {
          beforeEach(function() {
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
            this.view.render();
 
            spyOn($.prototype, 'toggle');
@@ -313,11 +313,11 @@
          it('should retrieve correct element', function() {
            spyOn($.prototype, 'find').and.callFake(function(selector) {
              if (selector === '.efc-results-map__map-container') {
-               return 'fakeMapContainer'
+               return 'fakeMapContainer';
              }
            });
 
-           var view = new ResultsMapView;
+           var view = new ResultsMapView();
            expect(view.getMapContainer()).toBe('fakeMapContainer');
          });
        });
@@ -330,11 +330,11 @@
          it('should retrieve correct element', function() {
            spyOn($.prototype, 'find').and.callFake(function(selector) {
              if (selector === '.efc-results-map__map-country-search-explanation') {
-               return 'fakeCountryExplanationContainer'
+               return 'fakeCountryExplanationContainer';
              }
            });
 
-           var view = new ResultsMapView;
+           var view = new ResultsMapView();
            expect(view.getCountryExplanationContainer()).toBe('fakeCountryExplanationContainer');
          });
        });
@@ -343,7 +343,7 @@
      describe('rendering', function() {
        describe('.render()', function() {
          beforeEach(function() {
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should return view object', function() {

@@ -21,7 +21,7 @@ define(function(require) {
               isMaxZoom: false,
               currentZoom: 2,
               minZoom: 2
-            }
+            };
 
             expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
               clustering: 'country'
@@ -33,8 +33,8 @@ define(function(require) {
               isMaxZoom: false,
               currentZoom: 4,
               minZoom: 2
-            }
-            
+            };
+
             expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
               clustering: 'country'
             }));
@@ -45,7 +45,7 @@ define(function(require) {
               isMaxZoom: false,
               currentZoom: 5,
               minZoom: 2
-            }
+            };
 
             expect(searchInputMapper.map(input)).not.toEqual(jasmine.objectContaining({
               clustering: 'country'
@@ -57,7 +57,7 @@ define(function(require) {
               isMaxZoom: true,
               currentZoom: 3,
               minZoom: 2
-            }
+            };
 
             expect(searchInputMapper.map(input)).not.toEqual(jasmine.objectContaining({
               clustering: 'country'
@@ -68,10 +68,10 @@ define(function(require) {
         describe('No Clustering', function() {
           it('should contain none cluster property if zoom level is maximum', function() {
             var input = {
-                isMaxZoom: true,
-                currentZoom: 3,
-                minZoom: 2
-              };
+              isMaxZoom: true,
+              currentZoom: 3,
+              minZoom: 2
+            };
 
             expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
               clustering: 'none'
@@ -80,10 +80,10 @@ define(function(require) {
 
           it('should not contain none cluster property if zoom level is not maximum', function() {
             var input = {
-                isMaxZoom: false,
-                currentZoom: 6,
-                minZoom: 2
-              };
+              isMaxZoom: false,
+              currentZoom: 6,
+              minZoom: 2
+            };
 
             expect(searchInputMapper.map(input)).not.toEqual(jasmine.objectContaining({
               clustering: 'none'
@@ -94,10 +94,10 @@ define(function(require) {
         describe('Clustering by boundary', function() {
           it('should contain boundary cluster property when zoom level is not max nor minimum + 1', function() {
             var input = {
-                currentZoom: 6,
-                minZoom: 2,
-                isMaxZoom: false
-            }
+              currentZoom: 6,
+              minZoom: 2,
+              isMaxZoom: false
+            };
 
             expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
               clustering: 'boundary'
@@ -106,10 +106,10 @@ define(function(require) {
 
           it('should not contain boundary cluster property when zoom level is max', function() {
             var input = {
-                currentZoom: 6,
-                minZoom: 2,
-                isMaxZoom: true
-            }
+              currentZoom: 6,
+              minZoom: 2,
+              isMaxZoom: true
+            };
 
             expect(searchInputMapper.map(input)).not.toEqual(jasmine.objectContaining({
               clustering: 'boundary'
@@ -118,10 +118,10 @@ define(function(require) {
 
           it('should not contain boundary cluster property when zoom level is minimum + 1', function() {
             var input = {
-                currentZoom: 3,
-                minZoom: 2,
-                isMaxZoom: false
-            }
+              currentZoom: 3,
+              minZoom: 2,
+              isMaxZoom: false
+            };
 
             expect(searchInputMapper.map(input)).not.toEqual(jasmine.objectContaining({
               clustering: 'boundary'
@@ -143,7 +143,7 @@ define(function(require) {
           it('should contain minimum zoom level', function() {
             var input = {
               minZoom: 2
-            }
+            };
 
             expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
               minZoom: 2
@@ -153,7 +153,7 @@ define(function(require) {
           it('should contain maximum zoom level', function() {
             var input = {
               maxZoom: 7
-            }
+            };
 
             expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
               maxZoom: 7
@@ -163,7 +163,7 @@ define(function(require) {
           it('should contain current zoom level', function() {
             var input = {
               currentZoom: 7
-            }
+            };
 
             expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
               currentZoom: 7
@@ -178,7 +178,7 @@ define(function(require) {
                   lng: 53
                 }
               }
-            }
+            };
 
             expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
               topLeftLat: 52,
@@ -194,7 +194,7 @@ define(function(require) {
                   lng: 55
                 }
               }
-            }
+            };
 
             expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
               bottomRightLat: 54,

@@ -65,7 +65,7 @@ define(function(require) {
         it('should delegate to searchable list component', function() {
           var fakeCriteria = {};
 
-          this.view.onSearchRequest(fakeCriteria)
+          this.view.onSearchRequest(fakeCriteria);
 
           expect(this.view.searchableListComponent.onSearchRequest).toHaveBeenCalledWith(fakeCriteria);
         });

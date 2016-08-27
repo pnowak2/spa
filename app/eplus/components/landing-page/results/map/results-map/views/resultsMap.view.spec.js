@@ -33,7 +33,7 @@
      describe('creation', function() {
        beforeEach(function() {
          spyOn(_, 'bindAll').and.callThrough();
-         this.view = new ResultsMapView;
+         this.view = new ResultsMapView();
        });
 
        it('should have results map component defined', function() {
@@ -56,7 +56,7 @@
          });
 
          it('should delegate to map component', function() {
-           var view = new ResultsMapView;
+           var view = new ResultsMapView();
            spyOn(view.mapComponent, 'initMap');
 
            view.initMap();
@@ -77,7 +77,7 @@
              fakeMapState = {
                currentZoom: 5
              },
-             view = new ResultsMapView;
+             view = new ResultsMapView();
 
 
            var preparedCriteria = view.prepareSearchCriteria(fakeCriteria, fakeMapState);
@@ -101,7 +101,7 @@
 
            spyOn(MapComponent.prototype, 'getState').and.returnValue(this.fakeMapState);
 
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -157,7 +157,7 @@
        describe('.onMapBoundsChanged()', function() {
          beforeEach(function() {
            spyOn(ResultsMapView.prototype, 'performSearch');
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -195,7 +195,7 @@
 
        describe('.performSearch()', function() {
          beforeEach(function() {
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -220,7 +220,7 @@
            this.view.didSearchSucceed = function(data) {
              expect(data).toEqual('success');
              done();
-           }
+           };
 
            this.view.performSearch({});
          });
@@ -231,7 +231,7 @@
            this.view.didSearchFail = function(error) {
              expect(error).toEqual('error');
              done();
-           }
+           };
 
            this.view.performSearch({});
          });
@@ -239,11 +239,11 @@
 
        describe('.didSearchSucceed()', function() {
          beforeEach(function() {
-           this.fakePreparedMarkersData = {}
-           spyOn(ResultsMapView.prototype, 'prepareMarkersData').and.returnValue(this.fakePreparedMarkersData)
+           this.fakePreparedMarkersData = {};
+           spyOn(ResultsMapView.prototype, 'prepareMarkersData').and.returnValue(this.fakePreparedMarkersData);
            spyOn(MapComponent.prototype, 'showMarkers');
 
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -278,7 +278,7 @@
          it('should show error message', function() {
            spyOn(app, 'showError');
 
-           var view = new ResultsMapView,
+           var view = new ResultsMapView(),
              fakeError = {};
 
            view.didSearchFail(fakeError);
@@ -297,7 +297,7 @@
 
            spyOn(ResultsMapView.prototype, 'prepareItems').and.returnValue(this.fakePreparedItems);
 
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -337,7 +337,7 @@
            spyOn(ResultsMapView.prototype, 'prepareClusterItem').and.returnValue(this.fakePreparedClusterItem);
            spyOn(ResultsMapView.prototype, 'prepareMarkerItem').and.returnValue(this.fakePreparedMarkerItem);
 
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -368,7 +368,7 @@
              lng: 22,
              itemsCount: 6
            };
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -383,7 +383,7 @@
              lat: 52,
              lng: 22,
              itemsCount: 6
-           })
+           });
          });
        });
 
@@ -397,7 +397,7 @@
              view: {
                el: 'fake rendered popup'
              }
-           })
+           });
 
            this.item = {
              type: 'marker',
@@ -413,7 +413,7 @@
              coordinator: 'Project Coordinator',
              countries: ['pl', 'de', 'be']
            };
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -462,7 +462,7 @@
 
        describe('.prepareMarkerBadges()', function() {
          beforeEach(function() {
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -506,7 +506,7 @@
 
        describe('.prepareMarkerCountries()', function() {
          beforeEach(function() {
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should be defined', function() {
@@ -543,7 +543,7 @@
        it('should listen to map boundary change events', function() {
          spyOn(ResultsMapView.prototype, 'onMapBoundsChanged');
 
-         var view = new ResultsMapView,
+         var view = new ResultsMapView(),
            fakeBoundsChangedEvent = {};
 
          view.mapComponent.trigger('map:bounds-changed', fakeBoundsChangedEvent);
@@ -555,7 +555,7 @@
      describe('rendering', function() {
        describe('.render()', function() {
          beforeEach(function() {
-           this.view = new ResultsMapView;
+           this.view = new ResultsMapView();
          });
 
          it('should return view object', function() {

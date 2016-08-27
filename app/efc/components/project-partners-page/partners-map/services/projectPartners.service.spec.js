@@ -48,7 +48,7 @@ define(function(require) {
 
             this.fakeCriteria = {
               projectId: '6'
-            }
+            };
           });
 
           it('should resolve successful response', function(done) {
@@ -82,7 +82,7 @@ define(function(require) {
               testRequest = function() {
                 expect($.ajax).toHaveBeenCalledWith(jasmine.objectContaining({
                   data: fakeMappedData
-                }))
+                }));
               };
 
             spyOn(projectPartnersInputMapper, 'map').and.returnValue(fakeMappedData);
@@ -99,7 +99,7 @@ define(function(require) {
               testRequest = function(data) {
                 expect(projectPartnersResultMapper.map).toHaveBeenCalled();
                 expect(data).toBe(fakeMappedData);
-              }
+              };
 
             spyOn(projectPartnersResultMapper, 'map').and.returnValue(fakeMappedData);
 
@@ -118,7 +118,7 @@ define(function(require) {
 
             this.fakeCriteria = {
               projectId: '6'
-            }
+            };
           });
 
           it('should reject error response', function(done) {

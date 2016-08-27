@@ -1,4 +1,6 @@
 define(function(require) {
+  'use strict';
+
   var Module = require('./module');
 
   return Module.extend({

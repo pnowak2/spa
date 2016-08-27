@@ -14,7 +14,7 @@ define(function(require) {
         return {
           id: year,
           title: year
-        }
+        };
       });
     },
 
@@ -33,7 +33,7 @@ define(function(require) {
     },
 
     allOrganisationTypes = function() {
-      return organisationTypesDataSource.getItems()
+      return organisationTypesDataSource.getItems();
     };
 
   return {
@@ -42,5 +42,5 @@ define(function(require) {
     allActivities: allActivities,
     subactivitiesByActivityId: subactivitiesByActivityId,
     allOrganisationTypes: allOrganisationTypes
-  }
+  };
 });

@@ -3,5 +3,5 @@ define(function(require) {
     urls: {
       SEARCH_MAP: '/programmes/service/es/search/clustermap'
     }
-  }
+  };
 });

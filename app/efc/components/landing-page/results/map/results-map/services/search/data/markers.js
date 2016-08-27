@@ -22,15 +22,15 @@ define(function(require) {
         }
 
         generated.push(countryMarkers);
-      };
+      }
 
       return {
         iTotalRecords: 100,
         aaData: generated
-      }
+      };
     };
 
   return {
     generate: generate
-  }
+  };
 });

@@ -4,7 +4,7 @@ define(function(require) {
 
   return Component.extend({
     initialize: function(attrs) {
-      this.view = new ResultsMapView;
+      this.view = new ResultsMapView();
     },
 
     initMap: function() {

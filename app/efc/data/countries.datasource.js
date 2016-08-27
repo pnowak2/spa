@@ -100,7 +100,7 @@ define(function(require) {
       }, {
         id: 'UK',
         title: 'United Kingdom'
-      }]
+      }];
     }
-  }
+  };
 });

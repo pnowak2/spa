@@ -173,7 +173,7 @@ define(function(require) {
                 coordinator: 'Project coordinator (be-2)'
               }]
             ]
-          })
+          });
         });
 
         it('should map response to object omitting those without coordinates', function() {
@@ -192,7 +192,7 @@ define(function(require) {
                 coordinator: 'Project coordinator (pl-1)'
               }]
             ]
-          })
+          });
         });
       });
     });

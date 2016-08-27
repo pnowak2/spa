@@ -90,7 +90,7 @@ define(function(require) {
               lat: '4',
               lng: '6'
             }]
-          })
+          });
         });
       });
     });

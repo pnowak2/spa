@@ -19,8 +19,8 @@ define(function(require) {
     },
 
     getQueryParametersAsObject = function(str) {
-      if(!str.match(/(=)/g)) {
-        return {}
+      if (!str.match(/(=)/g)) {
+        return {};
       }
 
       var queryStringWithoutUrl = str.replace(/.*\?/, ''),
@@ -44,5 +44,5 @@ define(function(require) {
   return {
     getCriteria: getCriteria,
     getQueryParametersAsObject: getQueryParametersAsObject
-  }
+  };
 });

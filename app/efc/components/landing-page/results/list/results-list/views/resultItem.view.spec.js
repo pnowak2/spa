@@ -15,7 +15,7 @@ define(function(require) {
       it('should throw if created without model', function() {
         expect(function() {
           new ResultItemView();
-        }).toThrowError('model is not of correct type')
+        }).toThrowError('model is not of correct type');
       });
     });
 

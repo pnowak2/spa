@@ -18,9 +18,9 @@ define(function(require) {
           reject(textStatus);
         });
       });
-    }
+    };
 
   return {
     find: find
-  }
+  };
 });

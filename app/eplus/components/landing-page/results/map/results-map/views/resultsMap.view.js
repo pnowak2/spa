@@ -11,7 +11,7 @@ define(function(require) {
 
     initialize: function() {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
-      this.mapComponent = new MapComponent;
+      this.mapComponent = new MapComponent();
       this.listenTo(this.mapComponent, 'map:bounds-changed', this.onMapBoundsChanged);
 
       this.cachedCriteria = {};
@@ -69,7 +69,7 @@ define(function(require) {
       return {
         total: total,
         items: items
-      }
+      };
     },
 
     prepareItems: function(items) {
@@ -77,10 +77,8 @@ define(function(require) {
         switch (item.type) {
           case 'cluster':
             return this.prepareClusterItem(item);
-            break;
           case 'marker':
             return this.prepareMarkerItem(item);
-            break;
         }
       }, this);
     },
@@ -91,7 +89,7 @@ define(function(require) {
         itemsCount: item.itemsCount,
         lat: item.lat,
         lng: item.lng
-      }
+      };
     },
 
     prepareMarkerItem: function(item) {
@@ -116,7 +114,7 @@ define(function(require) {
         lat: item.lat,
         lng: item.lng,
         popupContent: popupContent
-      }
+      };
     },
 
     prepareMarkerBadges: function(item) {
@@ -127,7 +125,7 @@ define(function(require) {
       } else if (item.successStory) {
         return 'Success Story';
       } else {
-        return ''
+        return '';
       }
     },
 

@@ -28,20 +28,20 @@ define(function(require) {
               description: description,
               activity: activity,
               coordinator: coordinator
-            }
+            };
           })
           .reject(function(countryItem) {
-            return countryItem.lat == '' || countryItem.lng == '';
+            return countryItem.lat === '' || countryItem.lng === '';
           })
           .value();
 
-        itemsByCountry.push(oneCountryItems)
+        itemsByCountry.push(oneCountryItems);
       }, this);
 
       return {
         total: total,
         markers: itemsByCountry
-      }
+      };
     },
 
     findActivityDescription = function(activityCode) {
@@ -49,8 +49,8 @@ define(function(require) {
         id: activityCode
       });
 
-      return (foundItem || {}).title
-    }
+      return (foundItem || {}).title;
+    };
 
   return {
     map: map

@@ -12,17 +12,17 @@ define(function(require) {
     initialize: function(criteria) {
       _.bindAll(this, 'didFindSucceed', 'didFindFail');
 
-      this.partnersMapComponent = new PartnersMapComponent;
+      this.partnersMapComponent = new PartnersMapComponent();
       this.render();
 
       this.partnersMapComponent.initMap();
       this.requestInitialSearch(criteria);
     },
 
-    requestInitialSearch: function (criteria) {
+    requestInitialSearch: function(criteria) {
       projectPartnersService.find(criteria)
         .then(this.didFindSucceed)
-        .catch(this.didFindFail)
+        .catch(this.didFindFail);
     },
 
     didFindSucceed: function(data) {

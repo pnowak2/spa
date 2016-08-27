@@ -8,10 +8,10 @@ define(function(require) {
 
     return {
       projectId: criteria.projectId
-    }
-  }
+    };
+  };
 
   return {
     map: map
-  }
+  };
 });

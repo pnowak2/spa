@@ -13,7 +13,7 @@ define(function(require) {
 
     initialize: function() {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
-      this.mapComponent = new MapComponent;
+      this.mapComponent = new MapComponent();
     },
 
     initMap: function() {
@@ -48,7 +48,7 @@ define(function(require) {
       return {
         total: total,
         markers: markers
-      }
+      };
     },
 
     prepareMarkersByCountryData: function(countryItems) {
@@ -72,7 +72,7 @@ define(function(require) {
           lat: countryItem.lat,
           lng: countryItem.lng,
           popupContent: popupContent
-        }
+        };
       });
     },
 

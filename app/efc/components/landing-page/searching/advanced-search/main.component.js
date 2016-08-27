@@ -4,7 +4,7 @@ define(function(require) {
 
   return Component.extend({
     initialize: function() {
-      this.view = new AdvancedSearchView;
+      this.view = new AdvancedSearchView();
     },
 
     getCriteria: function() {

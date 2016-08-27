@@ -13,7 +13,7 @@ define(function(require) {
       }, {
         id: '31060135',
         title: 'Twinning committee'
-      }]
+      }];
     }
-  }
+  };
 });

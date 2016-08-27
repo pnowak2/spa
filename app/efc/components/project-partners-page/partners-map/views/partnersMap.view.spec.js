@@ -71,7 +71,7 @@ define(function(require) {
     describe('api', function() {
       describe('.requestInitialSearch()', function() {
         beforeEach(function() {
-          this.view = new PartnersMapView;
+          this.view = new PartnersMapView();
         });
 
         it('should be defined', function() {
@@ -103,7 +103,7 @@ define(function(require) {
           this.view.didFindSucceed = function(data) {
             expect(data).toEqual('success');
             done();
-          }
+          };
 
           this.view.requestInitialSearch({});
         });
@@ -114,7 +114,7 @@ define(function(require) {
           this.view.didFindFail = function(error) {
             expect(error).toEqual('error');
             done();
-          }
+          };
 
           this.view.requestInitialSearch({});
         });
@@ -122,7 +122,7 @@ define(function(require) {
 
       describe('.didFindSucceed()', function() {
         beforeEach(function() {
-          this.view = new PartnersMapView;
+          this.view = new PartnersMapView();
         });
 
         it('should be defined', function() {
@@ -147,7 +147,7 @@ define(function(require) {
         it('should show error message', function() {
           spyOn(app, 'showError');
 
-          var view = new PartnersMapView,
+          var view = new PartnersMapView(),
             fakeError = {};
 
           view.didFindFail(fakeError);
@@ -163,7 +163,7 @@ define(function(require) {
           jasmine.getFixtures().fixturesPath = 'fixtures';
           loadFixtures('efc.project-partners-page.fixture.html');
 
-          this.view = new PartnersMapView;
+          this.view = new PartnersMapView();
           this.view.render();
         });
 

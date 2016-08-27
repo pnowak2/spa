@@ -10,5 +10,5 @@ define(function(require) {
       }
     });
 
-  return new Router;
+  return new Router();
 });

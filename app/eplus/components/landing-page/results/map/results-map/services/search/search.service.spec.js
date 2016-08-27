@@ -78,7 +78,7 @@ define(function(require) {
               testRequest = function() {
                 expect($.ajax).toHaveBeenCalledWith(jasmine.objectContaining({
                   data: fakeMappedData
-                }))
+                }));
               };
 
             spyOn(searchInputMapper, 'map').and.returnValue(fakeMappedData);
@@ -91,11 +91,13 @@ define(function(require) {
           });
 
           it('should map response to object', function(done) {
-            var fakeMappedData = {foo: 'bar'},
+            var fakeMappedData = {
+                foo: 'bar'
+              },
               testRequest = function(data) {
                 expect(searchResultMapper.map).toHaveBeenCalled();
                 expect(data).toBe(fakeMappedData);
-              }
+              };
 
             spyOn(searchResultMapper, 'map').and.returnValue(fakeMappedData);
 

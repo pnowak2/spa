@@ -5,19 +5,18 @@ define(function(require) {
       partners = [];
 
     response = response || {};
-
-    total = response.total || 0,
-    coordinator = response.coordinator || {},
+    total = response.total || 0;
+    coordinator = response.coordinator || {};
     partners = response.partners || [];
 
     return {
       total: total,
       coordinator: coordinator,
       partners: partners
-    }
-  }
+    };
+  };
 
   return {
     map: map
-  }
+  };
 });

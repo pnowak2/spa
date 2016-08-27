@@ -13,7 +13,7 @@ define(function(require) {
         id: '31052688',
         activityId: '31052685',
         title: '2.3: Civil Society Projects'
-      }]
+      }];
     }
-  }
+  };
 });

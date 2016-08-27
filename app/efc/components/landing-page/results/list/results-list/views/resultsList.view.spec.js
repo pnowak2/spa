@@ -101,7 +101,7 @@ define(function(require) {
         it('should render on collection reset', function() {
           spyOn(ResultsListView.prototype, 'render');
 
-          var view = new ResultsListView()
+          var view = new ResultsListView();
 
           view.collection.trigger('reset');
 

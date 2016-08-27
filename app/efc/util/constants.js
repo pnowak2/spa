@@ -5,5 +5,5 @@ define(function(require) {
       SEARCH_MAP: '/programmes/service/es/search/map?index=efc&indexTypeSearch=projectPublicSearch',
       PROJECT_PARTNERS: '/programmes/service/es/project/partners'
     }
-  }
+  };
 });

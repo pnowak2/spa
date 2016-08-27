@@ -22,7 +22,7 @@ define(function(require) {
         spyOn(LandingPageView.prototype, 'setupDomEvents');
         spyOn(ResultsMapComponent.prototype, 'initMap');
 
-        this.view = new LandingPageView;
+        this.view = new LandingPageView();
       });
 
       it('should bind callback methods with view object', function() {
@@ -50,7 +50,7 @@ define(function(require) {
             targetSelector: '.map-container',
             selected: false
           }]
-        })
+        });
       });
 
       it('should render the component', function() {
@@ -72,7 +72,7 @@ define(function(require) {
           jasmine.getFixtures().fixturesPath = 'fixtures';
           loadFixtures('eplus.landing-page.fixture.html');
 
-          this.view = new LandingPageView;
+          this.view = new LandingPageView();
         });
 
         it('should be defined', function() {
@@ -90,12 +90,12 @@ define(function(require) {
             KEYWORD: 'bar'
           };
 
-          this.view = new LandingPageView;
+          this.view = new LandingPageView();
 
           spyOn(router, 'navigate');
           spyOn(ResultsMapComponent.prototype, 'onSearchRequest');
           spyOn(searchCriteriaBuilder, 'getCriteria').and.returnValue(this.fakeCriteria);
-        })
+        });
 
         it('should be defined', function() {
           expect(LandingPageView.prototype.didClickSearchButton).toEqual(jasmine.any(Function));
@@ -120,11 +120,11 @@ define(function(require) {
       describe('.didRouteSearchByKeyword', function() {
         beforeEach(function() {
           setFixtures('<input id="filterSimpleSearch"><input id="btnSearch" type="button">');
-          spyOnEvent('#btnSearch', 'click')
+          spyOnEvent('#btnSearch', 'click');
 
           spyOn(window, 'decodeURIComponent').and.returnValue('uri decoded keyword');
 
-          this.view = new LandingPageView;
+          this.view = new LandingPageView();
           this.view.didRouteSearchByKeyword('my keyword');
         });
 
@@ -137,18 +137,18 @@ define(function(require) {
         });
 
         it('should place decoded keyword to input box of search', function() {
-          expect('#filterSimpleSearch').toHaveValue('uri decoded keyword')
+          expect('#filterSimpleSearch').toHaveValue('uri decoded keyword');
         });
 
         it('should force button search click event', function() {
-          expect('click').toHaveBeenTriggeredOn('#btnSearch')
+          expect('click').toHaveBeenTriggeredOn('#btnSearch');
         });
       });
 
       describe('.didSelectTab()', function() {
         beforeEach(function() {
-          this.view = new LandingPageView;
-        })
+          this.view = new LandingPageView();
+        });
 
         it('should be defined', function() {
           expect(LandingPageView.prototype.didSelectTab).toEqual(jasmine.any(Function));
@@ -169,7 +169,7 @@ define(function(require) {
       it('should listen to tab switcher tab selection events', function() {
         spyOn(LandingPageView.prototype, 'didSelectTab');
 
-        var view = new LandingPageView;
+        var view = new LandingPageView();
 
         view.tabSwitcher.trigger('tab-switcher:tab:selected');
 
@@ -179,7 +179,7 @@ define(function(require) {
       it('should listen to router search by keyword event', function() {
         spyOn(LandingPageView.prototype, 'didRouteSearchByKeyword');
 
-        var view = new LandingPageView;
+        var view = new LandingPageView();
 
         router.trigger('route:search:keyword');
 
@@ -193,7 +193,7 @@ define(function(require) {
           jasmine.getFixtures().fixturesPath = 'fixtures';
           loadFixtures('eplus.landing-page.fixture.html');
 
-          this.view = new LandingPageView;
+          this.view = new LandingPageView();
           this.view.render();
         });
 

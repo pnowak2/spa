@@ -40,7 +40,7 @@ define(function(require) {
         activities: _.pluck(this.activities.selectedItems(), 'id'),
         subactivities: _.pluck(this.subactivities.selectedItems(), 'id'),
         organisationTypes: _.pluck(this.organisationTypes.selectedItems(), 'id')
-      }
+      };
     },
 
     isDirty: function() {
