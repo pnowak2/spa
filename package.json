@@ -11,8 +11,9 @@
     "r.js": "^1.0.3"
   },
   "devDependencies": {
-    "jshint": "^2.9.3",
-    "rjs": "^4.0.2"
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "jshint": "^2.9.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

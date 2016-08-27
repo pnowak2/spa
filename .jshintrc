@@ -4,6 +4,9 @@
   "undef": true,
   "strict": false,
 	 "predef": [
+	 	/* JS Module */
+	 	"module",
+	 	
 	 	/* RequireJS */
 	 	"define",
 	 	"require",
