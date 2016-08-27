@@ -3,8 +3,9 @@ define(function(require) {
     countriesDatasource = require('app/efc/data/countries.datasource'),
 
     map = function(response) {
-      var response = response || {},
-        total = parseInt(response['iTotalRecords'], 10) || 0,
+      response = response || {};
+
+      var total = parseInt(response['iTotalRecords'], 10) || 0,
         allCountries = countriesDatasource.getItems(),
         items;
 

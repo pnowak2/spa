@@ -13,7 +13,7 @@ define(function(require) {
     describe('creation', function() {
 
       it('should be initialized with proper view', function() {
-        var component = new FlagsComponent;
+        var component = new FlagsComponent();
         expect(component.view).toEqual(jasmine.any(FlagsView));
       });
 

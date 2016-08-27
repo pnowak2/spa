@@ -4,7 +4,7 @@ define(function(require) {
 
   return Component.extend({
     initialize: function() {
-      this.view = new SearchBoxView;
+      this.view = new SearchBoxView();
 
       this.listenTo(this.view, 'search-box:search', function(searchCriteria) {
         this.trigger('search-box:search', searchCriteria);

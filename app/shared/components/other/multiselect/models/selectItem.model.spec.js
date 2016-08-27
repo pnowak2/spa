@@ -17,7 +17,7 @@ define(function(require) {
           hint: '',
           selected: false,
           disabled: false
-        })
+        });
       });
     });
 

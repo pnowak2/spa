@@ -11,8 +11,8 @@ define(function(require) {
     initialize: function(options) {
       options = options || {};
 
-      this.searchBox = new SearchBoxComponent;
-      this.advancedSearch = options.advancedSearchComponent || new DummyAdvancedSearchComponent;
+      this.searchBox = new SearchBoxComponent();
+      this.advancedSearch = options.advancedSearchComponent || new DummyAdvancedSearchComponent();
 
       this.listenTo(this.searchBox, 'search-box:search', this.didRequestSearch);
       this.listenTo(this.searchBox, 'search-box:more', this.didRequestMore);

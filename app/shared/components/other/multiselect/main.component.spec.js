@@ -12,13 +12,13 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have view defined', function() {
-        var component = new MultiselectComponent;
+        var component = new MultiselectComponent();
         expect(component.view).toEqual(jasmine.any(MultiselectView));
       });
 
       it('should not throw if no arguments provided', function() {
         expect(function() {
-          new MultiselectComponent;
+          new MultiselectComponent();
         }).not.toThrow();
       });
 
@@ -49,7 +49,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             fakeHasItems = [];
 
           spyOn(component.view, 'hasItems').and.returnValue(fakeHasItems);
@@ -66,7 +66,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             fakeSelectedItems = [];
 
           spyOn(component.view, 'selectedItems').and.returnValue(fakeSelectedItems);
@@ -84,7 +84,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             fakeSelectedItem = {};
 
           spyOn(component.view, 'firstSelectedItem').and.returnValue(fakeSelectedItem);
@@ -99,7 +99,7 @@ define(function(require) {
         });
 
         it('should delegate to collection', function() {
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             fakeHasSelection = {};
 
           spyOn(MultiselectView.prototype, 'hasSelection').and.returnValue(fakeHasSelection);
@@ -114,7 +114,7 @@ define(function(require) {
         });
 
         it('should delegate to collection', function() {
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             fakeHasOneSelection = {};
 
           spyOn(MultiselectView.prototype, 'hasOneSelection').and.returnValue(fakeHasOneSelection);
@@ -129,7 +129,7 @@ define(function(require) {
         });
 
         it('should delegate to collection', function() {
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             fakeIsDirty = {};
 
           spyOn(MultiselectView.prototype, 'isDirty').and.returnValue(fakeIsDirty);
@@ -146,7 +146,7 @@ define(function(require) {
         it('should delegate to view', function() {
           spyOn(MultiselectView.prototype, 'selectItems');
 
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             fakeSelectItems = {};
 
           component.selectItems(fakeSelectItems);
@@ -163,7 +163,7 @@ define(function(require) {
         it('should delegate to view', function() {
           spyOn(MultiselectView.prototype, 'selectItem');
 
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             fakeSelectItem = 'fake id';
 
           component.selectItem(fakeSelectItem);
@@ -178,7 +178,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             fakeItems = [];
 
           spyOn(component.view, 'update');
@@ -195,7 +195,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MultiselectComponent;
+          var component = new MultiselectComponent();
 
           spyOn(component.view, 'clear');
 
@@ -211,7 +211,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MultiselectComponent;
+          var component = new MultiselectComponent();
 
           spyOn(component.view, 'unselectAll');
 
@@ -228,7 +228,7 @@ define(function(require) {
 
         it('should delegate to view', function() {
           spyOn(MultiselectView.prototype, 'disable');
-          var component = new MultiselectComponent;
+          var component = new MultiselectComponent();
 
           component.disable();
 
@@ -243,7 +243,7 @@ define(function(require) {
 
         it('should delegate to view', function() {
           spyOn(MultiselectView.prototype, 'enable');
-          var component = new MultiselectComponent;
+          var component = new MultiselectComponent();
 
           component.enable();
 
@@ -261,7 +261,7 @@ define(function(require) {
 
           spyOn(MultiselectView.prototype, 'isEnabled').and.returnValue(fakeEnabled);
 
-          var component = new MultiselectComponent,
+          var component = new MultiselectComponent(),
             isEnabled = component.isEnabled();
 
           expect(isEnabled).toBe(fakeEnabled);
@@ -275,7 +275,7 @@ define(function(require) {
 
         it('should delegate to view', function() {
           var fakeVisible = {},
-            component = new MultiselectComponent;
+            component = new MultiselectComponent();
 
           spyOn(MultiselectView.prototype, 'isVisible').and.returnValue(fakeVisible);
 
@@ -286,7 +286,7 @@ define(function(require) {
 
     describe('events', function() {
       it('should trigger event for item selected', function(done) {
-        var component = new MultiselectComponent,
+        var component = new MultiselectComponent(),
           fakeData = {};
 
         component.on('multiselect:selected', function(data) {
@@ -298,7 +298,7 @@ define(function(require) {
       });
 
       it('should trigger event for selection changed', function(done) {
-        var component = new MultiselectComponent,
+        var component = new MultiselectComponent(),
           fakeItem = {};
 
         component.on('multiselect:change', function(item) {

@@ -7,14 +7,14 @@ define(function(require) {
   AppModule = Module.extend({
     initialize: function() {
       this.initializeAjaxEvents();
-      this.delayedBlockUI = function () {};
+      this.delayedBlockUI = function() {};
     },
 
     initializeAjaxEvents: function() {
       var self = this;
       $(document)
         .ajaxStart(function() {
-          self.delayedBlockUI = window.setTimeout(self.blockUI, 800)
+          self.delayedBlockUI = window.setTimeout(self.blockUI, 800);
         })
         .ajaxStop(function() {
           window.clearTimeout(self.delayedBlockUI);
@@ -41,5 +41,5 @@ define(function(require) {
     }
   });
 
-  return new AppModule;
+  return new AppModule();
 });

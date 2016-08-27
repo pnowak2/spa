@@ -23,7 +23,7 @@ define(function(require) {
 
       this.collection = new MultiSelectCollection(items);
       this.listenTo(this.collection, 'reset', this.render);
-      this.startListeningCollectionChanges()
+      this.startListeningCollectionChanges();
     },
 
     stopListeningCollectionChanges: function() {
@@ -132,7 +132,7 @@ define(function(require) {
       return this.getSelectElement().prop('disabled');
     },
 
-    isVisible: function () {
+    isVisible: function() {
       return this.$el.css('display') !== 'none';
     },
 

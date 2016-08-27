@@ -3,11 +3,10 @@ define(function(require) {
     activitiesDataSource = require('app/efc/data/activities.datasource'),
 
     map = function(response) {
-      var total,
-        itemsByCountry = [],
-        response = response || {};
+      response = response || {};
 
-      total = parseInt(response['iTotalRecords'], 10) || 0;
+      var total = parseInt(response['iTotalRecords'], 10) || 0,
+        itemsByCountry = [];
 
       _.each(response['aaData'], function(oneCountryResponseItems) {
         var oneCountryItems = _.chain(oneCountryResponseItems)

@@ -15,7 +15,7 @@ define(function(require) {
     },
 
     initialize: function() {
-      this.model = new SearchBoxModel;
+      this.model = new SearchBoxModel();
       this.listenTo(this.model, 'change', this.didModelChange);
     },
 
@@ -58,13 +58,13 @@ define(function(require) {
     getFormData: function() {
       return {
         keyword: this.keywordInput.val()
-      }
+      };
     },
 
     requestSearch: function() {
       this.model.set(this.getFormData());
       this.toggleMoreButtonStateToClosed();
-      this.trigger('search-box:search', this.model.toJSON())
+      this.trigger('search-box:search', this.model.toJSON());
     },
 
     update: function(criteria) {

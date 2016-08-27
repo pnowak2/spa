@@ -13,7 +13,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        this.view = new SearchView;
+        this.view = new SearchView();
       });
 
       it('should have search box component defined', function() {
@@ -47,7 +47,7 @@ define(function(require) {
     describe('api', function() {
       describe('.didRequestSearch()', function() {
         beforeEach(function() {
-          this.view = new SearchView;
+          this.view = new SearchView();
         });
 
         it('should be defined', function() {
@@ -90,7 +90,7 @@ define(function(require) {
         });
 
         it('should toggle the advanced search component', function() {
-          var view = new SearchView;
+          var view = new SearchView();
 
           spyOn(view.advancedSearch, 'toggle');
 
@@ -102,7 +102,7 @@ define(function(require) {
 
       describe('.didPressKeyInSearchbox()', function() {
         beforeEach(function() {
-          this.view = new SearchView;
+          this.view = new SearchView();
 
           spyOn(this.view.advancedSearch, 'show');
           spyOn(this.view.searchBox, 'toggleMoreButtonStateToOpened');
@@ -133,7 +133,7 @@ define(function(require) {
 
       describe('.update()', function() {
         beforeEach(function() {
-          this.view = new SearchView;
+          this.view = new SearchView();
           this.fakeCriteria = {};
 
           spyOn(this.view.searchBox, 'update');
@@ -155,7 +155,7 @@ define(function(require) {
         });
 
         it('should not raise error if update method in advanced search is not defined', function() {
-          var view = new SearchView;
+          var view = new SearchView();
           view.advancedSearch = {};
 
           expect(function() {
@@ -164,7 +164,7 @@ define(function(require) {
         });
 
         it('should not pass falsy criteria to search box', function() {
-          var view = new SearchView,
+          var view = new SearchView(),
             fakeCriteria = void 0;
 
           spyOn(view.searchBox, 'update');
@@ -175,7 +175,7 @@ define(function(require) {
         });
 
         it('should not pass falsy criteria to advanced search', function() {
-          var view = new SearchView,
+          var view = new SearchView(),
             fakeCriteria = void 0;
 
           spyOn(view.advancedSearch, 'update');
@@ -193,30 +193,30 @@ define(function(require) {
         spyOn(SearchView.prototype, 'didRequestMore');
         spyOn(SearchView.prototype, 'didPressKeyInSearchbox');
 
-        this.view = new SearchView;
+        this.view = new SearchView();
       });
 
       it('should call method on search box search event', function() {
         var fakeCriteria = {};
-        this.view.searchBox.trigger('search-box:search', fakeCriteria)
+        this.view.searchBox.trigger('search-box:search', fakeCriteria);
 
         expect(this.view.didRequestSearch).toHaveBeenCalledWith(fakeCriteria);
       });
 
       it('should call method on search box more event', function() {
-        this.view.searchBox.trigger('search-box:more')
+        this.view.searchBox.trigger('search-box:more');
         expect(this.view.didRequestMore).toHaveBeenCalled();
       });
 
       it('should call method on search key down event', function() {
-        this.view.searchBox.trigger('search-box:key-down')
+        this.view.searchBox.trigger('search-box:key-down');
         expect(this.view.didPressKeyInSearchbox).toHaveBeenCalled();
       });
     });
 
     describe('rendering', function() {
       beforeEach(function() {
-        this.view = new SearchView;
+        this.view = new SearchView();
         this.$el = this.view.render().$el;
       });
 

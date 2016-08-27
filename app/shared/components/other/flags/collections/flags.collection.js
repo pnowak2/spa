@@ -29,7 +29,7 @@ define(function(require) {
         allItems: this.allItems(),
         initialItems: this.initialItems(),
         restItems: this.restItems()
-      }
+      };
     }
   });
 });

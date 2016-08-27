@@ -37,7 +37,7 @@ define(function(require) {
             preventDefault: jasmine.createSpy(),
             which: 35
           };
-          this.view = new SearchBoxView;
+          this.view = new SearchBoxView();
         });
 
         it('should be defined', function() {
@@ -63,7 +63,7 @@ define(function(require) {
             preventDefault: jasmine.createSpy(),
             which: 35
           };
-          this.view = new SearchBoxView;
+          this.view = new SearchBoxView();
         });
 
         it('should be defined', function() {
@@ -83,7 +83,7 @@ define(function(require) {
         it('should trigger view event', function() {
           spyOn(SearchBoxView.prototype, 'trigger');
 
-          this.view.didClickMoreButton(this.fakeEvent);;
+          this.view.didClickMoreButton(this.fakeEvent);
 
           expect(this.view.trigger).toHaveBeenCalledWith('search-box:more');
         });
@@ -98,7 +98,7 @@ define(function(require) {
           spyOn($.prototype, 'removeClass');
           spyOn(SearchBoxView.prototype, 'getMoreButton').and.returnValue($.prototype);
 
-          var view = new SearchBoxView;
+          var view = new SearchBoxView();
 
           view.toggleMoreButtonStateToClosed();
 
@@ -115,7 +115,7 @@ define(function(require) {
           spyOn($.prototype, 'addClass');
           spyOn(SearchBoxView.prototype, 'getMoreButton').and.returnValue($.prototype);
 
-          var view = new SearchBoxView;
+          var view = new SearchBoxView();
 
           view.toggleMoreButtonStateToOpened();
 
@@ -132,7 +132,7 @@ define(function(require) {
           spyOn($.prototype, 'toggleClass');
           spyOn(SearchBoxView.prototype, 'getMoreButton').and.returnValue($.prototype);
 
-          var view = new SearchBoxView;
+          var view = new SearchBoxView();
 
           view.toggleMoreButtonState();
 
@@ -146,7 +146,7 @@ define(function(require) {
         });
 
         it('should get more button from dom', function() {
-          var view = new SearchBoxView,
+          var view = new SearchBoxView(),
             fakeEl = {};
 
           spyOn(view.$el, 'find').and.returnValue(fakeEl);
@@ -215,7 +215,7 @@ define(function(require) {
         });
 
         it('should get data from dom and return as object', function() {
-          var view = new SearchBoxView;
+          var view = new SearchBoxView();
 
           view.keywordInput = {
             val: function() {
@@ -235,7 +235,7 @@ define(function(require) {
         });
 
         it('should set proper keyword on model', function() {
-          var view = new SearchBoxView,
+          var view = new SearchBoxView(),
             fakeFormData = {};
 
           spyOn(view.model, 'set');
@@ -251,7 +251,7 @@ define(function(require) {
         it('should toggle button more state to closed', function() {
           spyOn(SearchBoxView.prototype, 'toggleMoreButtonStateToClosed');
           spyOn(SearchBoxView.prototype, 'getFormData');
-          var view = new SearchBoxView;
+          var view = new SearchBoxView();
 
           view.requestSearch();
 
@@ -259,7 +259,7 @@ define(function(require) {
         });
 
         it('should trigger view event', function() {
-          var view = new SearchBoxView,
+          var view = new SearchBoxView(),
             fakeModelJSON = {};
 
           spyOn(view, 'trigger');
@@ -279,16 +279,16 @@ define(function(require) {
 
         it('should not throw if keyword input is not defined', function() {
           expect(function() {
-            var view = new SearchBoxView;
-            view.update({})
+            var view = new SearchBoxView();
+            view.update({});
           }).not.toThrow();
         });
 
         it('should update keyword criteria', function() {
-          var view = new SearchBoxView,
+          var view = new SearchBoxView(),
             fakeCriteria = {
               keyword: 'bar'
-            }
+            };
           view.keywordInput = jasmine.createSpyObj('input', ['val']);
 
           view.update(fakeCriteria);
@@ -313,12 +313,12 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         it('should return view object', function() {
-          var view = new SearchBoxView;
+          var view = new SearchBoxView();
           expect(view.render()).toBe(view);
         });
 
         it('should set dom keyword input property', function() {
-          var view = new SearchBoxView,
+          var view = new SearchBoxView(),
             fakeKeywordInput = {};
 
           spyOn(view.$el, 'find').and.callFake(function(selector) {
@@ -335,7 +335,7 @@ define(function(require) {
         });
 
         it('should render proper markup', function() {
-          var view = new SearchBoxView;
+          var view = new SearchBoxView();
           view.model.set('keyword', 'test search');
 
           view.render();

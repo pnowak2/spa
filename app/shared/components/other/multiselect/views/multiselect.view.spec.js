@@ -32,12 +32,12 @@ define(function(require) {
     describe('creation', function() {
       it('should not throw if no arguments provided', function() {
         expect(function() {
-          new MultiselectView;
+          new MultiselectView();
         }).not.toThrow();
       });
 
       it('should have collection defined', function() {
-        var view = new MultiselectView;
+        var view = new MultiselectView();
 
         expect(view.collection).toEqual(jasmine.any(MultiselectCollection));
       });
@@ -146,7 +146,7 @@ define(function(require) {
                 id: 'de'
               }
             }
-          }
+          };
 
           this.viewSingle.stopListeningCollectionChanges.calls.reset();
           this.viewSingle.startListeningCollectionChanges.calls.reset();
@@ -265,7 +265,7 @@ define(function(require) {
         it('should trigger view event', function() {
           spyOn(MultiselectView.prototype, 'trigger');
 
-          var view = new MultiselectView,
+          var view = new MultiselectView(),
             fakeModel = {
               toJSON: function() {}
             },
@@ -295,7 +295,7 @@ define(function(require) {
         });
 
         it('should return false if collection is empty', function() {
-          var view = new MultiselectView;
+          var view = new MultiselectView();
           expect(view.hasItems()).toBe(false);
         });
       });
@@ -397,7 +397,7 @@ define(function(require) {
         });
 
         it('should delegate to collection', function() {
-          var view = new MultiselectView,
+          var view = new MultiselectView(),
             fakeHasSelection = {};
 
           spyOn(MultiselectCollection.prototype, 'hasSelection').and.returnValue(fakeHasSelection);
@@ -412,7 +412,7 @@ define(function(require) {
         });
 
         it('should delegate to collection', function() {
-          var view = new MultiselectView,
+          var view = new MultiselectView(),
             fakeHasOneSelection = {};
 
           spyOn(MultiselectCollection.prototype, 'hasOneSelection').and.returnValue(fakeHasOneSelection);
@@ -427,7 +427,7 @@ define(function(require) {
         });
 
         it('should delegate to collection', function() {
-          var view = new MultiselectView,
+          var view = new MultiselectView(),
             fakeIsDirty = true;
 
           spyOn(MultiselectCollection.prototype, 'isDirty').and.returnValue(fakeIsDirty);
@@ -440,7 +440,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(MultiselectView.prototype, 'render');
           spyOn(MultiselectCollection.prototype, 'selectItems');
-          this.view = new MultiselectView;
+          this.view = new MultiselectView();
         });
 
         it('should be defined', function() {
@@ -463,7 +463,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(MultiselectView.prototype, 'render');
           spyOn(MultiselectCollection.prototype, 'selectItem');
-          this.view = new MultiselectView;
+          this.view = new MultiselectView();
         });
 
         it('should be defined', function() {
@@ -491,7 +491,7 @@ define(function(require) {
           spyOn(MultiselectCollection.prototype, 'reset');
 
           var fakeItems = {},
-            view = new MultiselectView;
+            view = new MultiselectView();
 
           view.update(fakeItems);
 
@@ -507,7 +507,7 @@ define(function(require) {
         it('should remove all items by updating collection with empty array', function() {
           spyOn(MultiselectView.prototype, 'update');
 
-          var view = new MultiselectView;
+          var view = new MultiselectView();
 
           view.clear();
 
@@ -524,7 +524,7 @@ define(function(require) {
           spyOn(MultiselectCollection.prototype, 'unselectAll');
           spyOn(MultiselectView.prototype, 'render');
 
-          var view = new MultiselectView;
+          var view = new MultiselectView();
 
           view.unselectAll();
 
@@ -539,7 +539,7 @@ define(function(require) {
         });
 
         it('should get table body element', function() {
-          var view = new MultiselectView,
+          var view = new MultiselectView(),
             fakeSelectElement = {},
             foundSelectElement;
 
@@ -562,7 +562,7 @@ define(function(require) {
         });
 
         it('should disable select element', function() {
-          var view = new MultiselectView;
+          var view = new MultiselectView();
 
           view.render();
 
@@ -578,7 +578,7 @@ define(function(require) {
         });
 
         it('should enable select element', function() {
-          var view = new MultiselectView;
+          var view = new MultiselectView();
 
           view.render().disable();
 
@@ -590,7 +590,7 @@ define(function(require) {
 
       describe('.isEnabled()', function() {
         beforeEach(function() {
-          this.view = new MultiselectView;
+          this.view = new MultiselectView();
         });
 
         it('should be defined', function() {
@@ -614,7 +614,7 @@ define(function(require) {
 
       describe('.isVisible()', function() {
         beforeEach(function() {
-          this.view = new MultiselectView;
+          this.view = new MultiselectView();
         });
 
         it('should be defined', function() {
@@ -651,7 +651,7 @@ define(function(require) {
         it('should rerender when collection resets', function() {
           spyOn(MultiselectView.prototype, 'render');
 
-          var view = new MultiselectView;
+          var view = new MultiselectView();
 
           view.collection.reset([]);
 
@@ -678,7 +678,7 @@ define(function(require) {
           selected: true
         }], {
           multiple: true
-        })
+        });
 
         this.$el = this.view.render().$el;
       });
@@ -705,14 +705,14 @@ define(function(require) {
         it('should render single option select', function() {
           this.view.options = {
             multiple: false
-          }
+          };
           expect(this.view.render().$el.find('select')).not.toHaveAttr('multiple');
         });
 
         it('should render disabled select', function() {
           this.view.options = {
             disabled: true
-          }
+          };
           expect(this.view.render().$el.find('select')).toHaveAttr('disabled');
         });
 

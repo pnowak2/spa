@@ -21,7 +21,7 @@ define(function(require) {
           data: {
             foo: 'bar'
           }
-        }
+        };
         var view = new ProjectItemView(fakeOptions);
 
         expect(view.options).toEqual(fakeOptions);
@@ -53,7 +53,7 @@ define(function(require) {
 
           describe('Project Title Link', function() {
             it('should contain anchor with proper class name', function() {
-              expect(this.$el).toContainElement('a.vlr-project-item__title-link')
+              expect(this.$el).toContainElement('a.vlr-project-item__title-link');
             });
 
             it('should contain proper text', function() {
@@ -73,7 +73,7 @@ define(function(require) {
 
           describe('Project Year', function() {
             it('should contain badge element', function() {
-              expect(this.$el).toContainElement('.vlr-project-item__badge.vlr-project-item__badge--year')
+              expect(this.$el).toContainElement('.vlr-project-item__badge.vlr-project-item__badge--year');
             });
 
             it('should contain proper text', function() {
@@ -83,7 +83,7 @@ define(function(require) {
 
           describe('Success Story', function() {
             it('should contain badge element', function() {
-              expect(this.$el).toContainElement('.vlr-project-item__badge.vlr-project-item__badge--success-story')
+              expect(this.$el).toContainElement('.vlr-project-item__badge.vlr-project-item__badge--success-story');
             });
 
             it('should contain proper text', function() {
@@ -93,7 +93,7 @@ define(function(require) {
 
           describe('Good Practice', function() {
             it('should contain badge element', function() {
-              expect(this.$el).toContainElement('.vlr-project-item__badge.vlr-project-item__badge--good-practice')
+              expect(this.$el).toContainElement('.vlr-project-item__badge.vlr-project-item__badge--good-practice');
             });
 
             it('should contain proper text', function() {

@@ -35,7 +35,7 @@ define(function(require) {
       return this.collection.map(function(tabModel) {
         return new TabView({
           model: tabModel
-        })
+        });
       });
     },
 

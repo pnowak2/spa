@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have model defined', function() {
-        expect(MultiselectCollection.prototype.model).toEqual(MultiselectModel)
+        expect(MultiselectCollection.prototype.model).toEqual(MultiselectModel);
       });
     });
 
@@ -44,7 +44,7 @@ define(function(require) {
 
           expect(collection.selectedItems()).toEqual([
             country1, country3
-          ])
+          ]);
         });
       });
 
@@ -241,7 +241,7 @@ define(function(require) {
         });
 
         it('should not throw if id is not defined', function() {
-          var collection = new MultiselectCollection;
+          var collection = new MultiselectCollection();
           expect(function() {
             collection.selectItem();
           }).not.toThrow();
@@ -271,7 +271,7 @@ define(function(require) {
         });
 
         it('should not throw if invoked without ids', function() {
-          collection = new MultiselectCollection;
+          collection = new MultiselectCollection();
 
           expect(function() {
             collection.selectItems();
@@ -279,7 +279,7 @@ define(function(require) {
         });
 
         it('should not throw if invoked with bad ids', function() {
-          collection = new MultiselectCollection;
+          collection = new MultiselectCollection();
 
           expect(function() {
             collection.selectItems('garbage', 'data');
@@ -289,7 +289,7 @@ define(function(require) {
         it('should deselect all items first', function() {
           spyOn(MultiselectCollection.prototype, 'unselectAll');
 
-          var collection = new MultiselectCollection;
+          var collection = new MultiselectCollection();
 
           collection.selectItems();
 
@@ -315,7 +315,7 @@ define(function(require) {
 
           collection.selectItems(['be', 'de']);
 
-          expect(_.pluck(collection.selectedItems(), 'id')).toEqual(['be', 'de'])
+          expect(_.pluck(collection.selectedItems(), 'id')).toEqual(['be', 'de']);
         });
       });
 
@@ -325,7 +325,7 @@ define(function(require) {
         });
 
         it('should not throw if id is not defined', function() {
-          var collection = new MultiselectCollection;
+          var collection = new MultiselectCollection();
           expect(function() {
             collection.unselectItem();
           }).not.toThrow();

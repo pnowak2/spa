@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should be initialized with proper view', function() {
-        var component = new SearchBoxComponent;
+        var component = new SearchBoxComponent();
         expect(component.view).toEqual(jasmine.any(SearchBoxView));
       });
     });
@@ -24,7 +24,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new SearchBoxComponent;
+          var component = new SearchBoxComponent();
 
           spyOn(component.view, 'toggleMoreButtonStateToOpened');
 
@@ -40,7 +40,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new SearchBoxComponent;
+          var component = new SearchBoxComponent();
 
           spyOn(component.view, 'toggleMoreButtonStateToClosed');
 
@@ -58,7 +58,7 @@ define(function(require) {
         it('should delegate to view', function() {
           spyOn(SearchBoxView.prototype, 'update');
 
-          var component = new SearchBoxComponent,
+          var component = new SearchBoxComponent(),
             fakeCriteria = {};
           component.update(fakeCriteria);
 
@@ -69,7 +69,7 @@ define(function(require) {
 
     describe('events', function() {
       it('should trigger event on search action', function(done) {
-        var component = new SearchBoxComponent,
+        var component = new SearchBoxComponent(),
           fakeSearchCriteria = {};
 
         component.on('search-box:search', function(searchCriteria) {
@@ -81,7 +81,7 @@ define(function(require) {
       });
 
       it('should trigger event on more action', function(done) {
-        var component = new SearchBoxComponent;
+        var component = new SearchBoxComponent();
 
         component.on('search-box:more', function() {
           expect(true).toBe(true);
@@ -92,7 +92,7 @@ define(function(require) {
       });
 
       it('should trigger event on key down', function(done) {
-        var component = new SearchBoxComponent;
+        var component = new SearchBoxComponent();
 
         component.on('search-box:key-down', function(keyCode) {
           expect(keyCode).toEqual('a');

@@ -13,12 +13,12 @@ define(function(require) {
     describe('creation', function() {
       it('should be initialized without options', function() {
         expect(function() {
-          new TabSwitcherComponent;
+          new TabSwitcherComponent();
         }).not.toThrow();
       });
 
       it('should have view defined', function() {
-        var component = new TabSwitcherComponent;
+        var component = new TabSwitcherComponent();
         expect(component.view).toEqual(jasmine.any(TabSwitcherView));
       });
 
@@ -43,7 +43,7 @@ define(function(require) {
 
         it('should delegate to view', function() {
           spyOn(TabSwitcherView.prototype, 'update');
-          var component = new TabSwitcherComponent,
+          var component = new TabSwitcherComponent(),
             fakeData = {};
 
           component.update(fakeData);
@@ -55,7 +55,7 @@ define(function(require) {
 
     describe('events', function() {
       it('should trigger event on tab selection', function(done) {
-        var component = new TabSwitcherComponent,
+        var component = new TabSwitcherComponent(),
           fakeTabIdentifier = 'fake-tab-id';
 
         component.on('tab-switcher:tab:selected', function(identifier) {

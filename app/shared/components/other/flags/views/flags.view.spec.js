@@ -55,12 +55,12 @@ define(function(require) {
     describe('creation', function() {
       it('should not throw if created without arguments', function() {
         expect(function() {
-          new FlagsView;
+          new FlagsView();
         }).not.toThrow();
       });
 
       it('should have collection defined', function() {
-        var view = new FlagsView;
+        var view = new FlagsView();
         expect(view.collection).toEqual(jasmine.any(FlagsCollection));
       });
 
@@ -81,7 +81,7 @@ define(function(require) {
         });
 
         it('should prevent default action', function() {
-          var view = new FlagsView,
+          var view = new FlagsView(),
             fakeEvent = jasmine.createSpyObj('evt', ['preventDefault']);
 
           view.didClickToggle(fakeEvent);
@@ -90,7 +90,7 @@ define(function(require) {
         });
 
         it('should toggle collapsed class on root element', function() {
-          var view = new FlagsView,
+          var view = new FlagsView(),
             fakeEvent = jasmine.createSpyObj('evt', ['preventDefault']);
 
           view.render();
@@ -99,7 +99,7 @@ define(function(require) {
 
           view.didClickToggle(fakeEvent);
 
-          expect(view.$el.toggleClass).toHaveBeenCalledWith('vlr-flags--collapsed')
+          expect(view.$el.toggleClass).toHaveBeenCalledWith('vlr-flags--collapsed');
         });
       });
     });

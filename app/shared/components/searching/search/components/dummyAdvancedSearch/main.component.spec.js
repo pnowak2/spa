@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should be initialized with proper view', function() {
-        var component = new DummyComponent;
+        var component = new DummyComponent();
         expect(component.view).toEqual(jasmine.any(Backbone.View));
       });
     });

@@ -1,3 +1,4 @@
+/* jshint -W030 */
 ({
   baseUrl: '.',
   paths: {
@@ -36,4 +37,4 @@
   include: "requireLib",
   name: "ce.landing-page.main",
   out: "dist/vlr-app.min.js"
-})
+});

@@ -48,7 +48,7 @@ define(function(require) {
         });
 
         it('should return array of items', function() {
-          var collection = new FlagsCollection;
+          var collection = new FlagsCollection();
           expect(collection.allItems()).toEqual(jasmine.any(Array));
           expect(collection.allItems().length).toBe(0);
         });
@@ -82,7 +82,7 @@ define(function(require) {
         });
 
         it('should return array of items', function() {
-          var collection = new FlagsCollection;
+          var collection = new FlagsCollection();
           expect(collection.initialItems()).toEqual(jasmine.any(Array));
           expect(collection.initialItems().length).toBe(0);
         });
@@ -126,7 +126,7 @@ define(function(require) {
         });
 
         it('should return array of items', function() {
-          var collection = new FlagsCollection;
+          var collection = new FlagsCollection();
           expect(collection.restItems()).toEqual(jasmine.any(Array));
           expect(collection.restItems().length).toBe(0);
         });

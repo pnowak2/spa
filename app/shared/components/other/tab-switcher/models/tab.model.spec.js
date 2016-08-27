@@ -16,7 +16,7 @@ define(function(require) {
           identifier: null,
           selected: false,
           targetSelector: null
-        })
+        });
       });
     });
 

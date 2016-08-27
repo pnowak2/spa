@@ -15,20 +15,20 @@ define(function(require) {
 
     describe('creation', function() {
       it('should be possible to create without array of tab descriptors', function() {
-        var view = new TabSwitcherView;
+        var view = new TabSwitcherView();
         expect(view).toEqual(jasmine.any(TabSwitcherView));
       });
 
       it('should have collection defined', function() {
-        var view = new TabSwitcherView;
-        expect(view.collection).toEqual(jasmine.any(TabsCollection))
+        var view = new TabSwitcherView();
+        expect(view.collection).toEqual(jasmine.any(TabsCollection));
       });
 
       it('should initialize collection with passed array of tab descriptors', function() {
         spyOn(TabsCollection.prototype, 'initialize');
         var fakeOptions = {};
 
-        new TabSwitcherView(fakeOptions)
+        new TabSwitcherView(fakeOptions);
 
         expect(TabsCollection.prototype.initialize).toHaveBeenCalledWith(fakeOptions);
       });
@@ -51,7 +51,7 @@ define(function(require) {
         });
 
         it('should reset collection with tab descriptors', function() {
-          var view = new TabSwitcherView,
+          var view = new TabSwitcherView(),
             fakeData = {};
           spyOn(view.collection, 'reset');
 
@@ -69,7 +69,7 @@ define(function(require) {
         it('should select tab on collection', function() {
           spyOn(TabsCollection.prototype, 'selectTab');
 
-          var view = new TabSwitcherView;
+          var view = new TabSwitcherView();
           view.didClickTab('tab-id');
 
           expect(view.collection.selectTab).toHaveBeenCalledWith('tab-id');
@@ -78,7 +78,7 @@ define(function(require) {
         it('should trigger view event with tab details', function() {
           spyOn(TabSwitcherView.prototype, 'trigger');
 
-          var view = new TabSwitcherView;
+          var view = new TabSwitcherView();
 
           view.didClickTab('tab-id');
 
@@ -137,7 +137,7 @@ define(function(require) {
             identifier: 'tabdi',
             selected: false,
             targetSelector: '.selector'
-          }))
+          }));
         });
       });
 
@@ -162,7 +162,7 @@ define(function(require) {
         spyOn(TabSwitcherView.prototype, 'didClickTab');
         spyOn(TabSwitcherView.prototype, 'render');
 
-        this.tabSwitcherView = new TabSwitcherView;
+        this.tabSwitcherView = new TabSwitcherView();
       });
 
       describe('on tab selection change', function() {
@@ -197,12 +197,12 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         it('should return view object', function() {
-          var view = new TabSwitcherView;
+          var view = new TabSwitcherView();
           expect(view.render()).toBe(view);
         });
 
         it('should empty markup before render', function() {
-          tabSwitcherView = new TabSwitcherView;
+          tabSwitcherView = new TabSwitcherView();
           spyOn(tabSwitcherView.$el, 'empty');
 
           tabSwitcherView.render();
@@ -212,9 +212,9 @@ define(function(require) {
 
         it('should render tab views', function() {
           var tabView = new TabView({
-              model: new TabModel
+              model: new TabModel()
             }),
-            tabSwitcherView = new TabSwitcherView;
+            tabSwitcherView = new TabSwitcherView();
 
           spyOn(tabSwitcherView.$el, 'append');
           spyOn(TabSwitcherView.prototype, 'createTabViews').and.returnValue([tabView]);

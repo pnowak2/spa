@@ -20,7 +20,7 @@ define(function(require) {
       });
 
       if (selectedModels.length > 1) {
-        throw new Error('More than one model is selected')
+        throw new Error('More than one model is selected');
       }
     },
 

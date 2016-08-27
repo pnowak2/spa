@@ -3,7 +3,7 @@ define(function(require) {
     Component = require('app/core/component');
 
   return Component.extend({
-    view: new(Backbone.View.extend()),
+    view: new(Backbone.View.extend())(),
     getCriteria: function() {},
     isDirty: function() {},
     update: function() {}

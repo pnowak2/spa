@@ -122,7 +122,7 @@ define(function(require) {
         it('should unblock UI when ajax call failed', function() {
           $.event.trigger('ajaxError');
           expect(app.unblockUI).toHaveBeenCalled();
-});
+        });
       });
     });
   });

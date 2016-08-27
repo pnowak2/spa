@@ -57,7 +57,7 @@ define(function(require) {
         it('should validate tab descriptors', function() {
           spyOn(TabsCollection.prototype, 'validateTabDescriptors');
 
-          var collection = new TabsCollection,
+          var collection = new TabsCollection(),
             fakeDescriptors = {};
 
           collection.reset(fakeDescriptors);
@@ -82,7 +82,7 @@ define(function(require) {
             }, {
               identifier: 'third',
               selected: true
-            }])
+            }]);
           }).toThrowError('More than one model is selected');
         });
       });

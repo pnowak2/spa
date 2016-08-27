@@ -6,5 +6,5 @@ define(function(require) {
     urls: {
       MAP_TILEURL: 'http://europa.eu/webtools/maps/tiles/osm-ec/{z}/{x}/{y}.png'
     }
-  }
+  };
 });

@@ -12,16 +12,16 @@ define(function(require) {
     describe('creation', function() {
       it('should throw if created without model', function() {
         expect(function() {
-          new TabView
-        }).toThrowError('model is not of correct type')
+          new TabView();
+        }).toThrowError('model is not of correct type');
       });
 
       it('should throw if model type is incorrect', function() {
         expect(function() {
           new TabView({
             model: {}
-          })
-        }).toThrowError('model is not of correct type')
+          });
+        }).toThrowError('model is not of correct type');
       });
     });
 
@@ -73,7 +73,7 @@ define(function(require) {
       describe('.render()', function() {
         it('should return view object', function() {
           var view = new TabView({
-            model: new TabModel
+            model: new TabModel()
           });
 
           expect(view.render()).toBe(view);
