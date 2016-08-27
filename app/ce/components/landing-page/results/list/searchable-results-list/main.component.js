@@ -4,7 +4,7 @@ define(function(require) {
 
   return Component.extend({
     initialize: function(attrs) {
-      this.view = new SearchableResultsListView;
+      this.view = new SearchableResultsListView();
     },
 
     onSearchRequest: function(searchCriteria) {

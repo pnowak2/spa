@@ -19,12 +19,12 @@ define(function(require) {
           .map(function(countryCode) {
             var fullName = (_.findWhere(allCountries, {
               id: countryCode
-            }) || {}).title || ''
+            }) || {}).title || '';
 
             return {
               code: countryCode,
               fullName: fullName
-            }
+            };
           })
           .value(),
           successStory = responseItem[5] === 'true';
@@ -36,13 +36,13 @@ define(function(require) {
           startYear: startYear,
           countries: countries,
           successStory: successStory
-        }
+        };
       });
 
       return {
         total: total,
         items: items
-      }
+      };
     };
 
   return {

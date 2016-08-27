@@ -18,7 +18,7 @@ define(function(require) {
         spyOn(LandingPageView.prototype, 'render');
         spyOn(SearchComponent.prototype, 'initialize');
 
-        this.view = new LandingPageView;
+        this.view = new LandingPageView();
       });
 
       it('should have search component defined ', function() {
@@ -44,7 +44,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
 
-          this.view = new LandingPageView;
+          this.view = new LandingPageView();
         });
 
         it('should be defined', function() {
@@ -66,7 +66,7 @@ define(function(require) {
         it('should listen to search component "search" event', function() {
           spyOn(LandingPageView.prototype, 'onSearchRequest');
 
-          var view = new LandingPageView,
+          var view = new LandingPageView(),
             fakeSearchCriteria = {};
 
           view.search.trigger('search:search', fakeSearchCriteria);
@@ -82,7 +82,7 @@ define(function(require) {
           jasmine.getFixtures().fixturesPath = 'fixtures';
           loadFixtures('ce.landing-page.fixture.html');
 
-          this.view = new LandingPageView;
+          this.view = new LandingPageView();
           this.view.render();
         });
 

@@ -10,8 +10,8 @@ define(function(require) {
 
     },
 
-    update: function (data) {
-      
+    update: function(data) {
+
     },
 
     render: function() {
@@ -21,5 +21,5 @@ define(function(require) {
 
       return this;
     }
-  })
+  });
 });

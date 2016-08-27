@@ -9,9 +9,9 @@ define(function(require) {
   return Backbone.View.extend({
     initialize: function() {
       this.search = new SearchComponent({
-        advancedSearchComponent: new AdvancedSearchComponent
+        advancedSearchComponent: new AdvancedSearchComponent()
       });
-      this.searchableResultsList = new SearchableResultsListComponent;
+      this.searchableResultsList = new SearchableResultsListComponent();
       this.render();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);

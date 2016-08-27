@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        this.advancedSearchComponent = new AdvancedSearchComponent;
+        this.advancedSearchComponent = new AdvancedSearchComponent();
       });
 
       it('should be initialized with proper view', function() {
@@ -32,7 +32,7 @@ define(function(require) {
 
           spyOn(AdvancedSearchView.prototype, 'getCriteria').and.returnValue(fakeViewCriteria);
 
-          component = new AdvancedSearchComponent;
+          component = new AdvancedSearchComponent();
           expect(component.getCriteria()).toBe(fakeViewCriteria);
         });
       });
@@ -43,7 +43,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new AdvancedSearchComponent,
+          var component = new AdvancedSearchComponent(),
             fakeHasSelections = {};
 
           spyOn(AdvancedSearchView.prototype, 'isDirty').and.returnValue(fakeHasSelections);
@@ -60,7 +60,7 @@ define(function(require) {
         it('should delegate to view', function() {
           spyOn(AdvancedSearchView.prototype, 'update');
 
-          var component = new AdvancedSearchComponent,
+          var component = new AdvancedSearchComponent(),
             fakeCriteria = {};
           component.update(fakeCriteria);
 

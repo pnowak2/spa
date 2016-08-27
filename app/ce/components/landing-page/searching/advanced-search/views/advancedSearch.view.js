@@ -112,7 +112,7 @@ define(function(require) {
         this.countries.isDirty() ||
         this.regions.isDirty() ||
         this.organisationTypes.isDirty() ||
-        this.isMatchAllCountriesSelected()
+        this.isMatchAllCountriesSelected();
     },
 
     didClickClearFilters: function(e) {
@@ -136,7 +136,7 @@ define(function(require) {
       var selectedProgramme;
 
       if (this.programmes.hasOneSelection()) {
-        selectedProgramme = this.programmes.firstSelectedItem()
+        selectedProgramme = this.programmes.firstSelectedItem();
 
         this.subprogrammes.update(
           advancedSearchService.subprogrammesByProgramme(selectedProgramme.id)
@@ -226,13 +226,13 @@ define(function(require) {
 
     isCeProgrammeSelected: function() {
       if (this.programmes.hasOneSelection()) {
-        return this.programmes.firstSelectedItem().id === constants.ccm.CE
+        return this.programmes.firstSelectedItem().id === constants.ccm.CE;
       } else {
         return false;
       }
     },
 
-    isMatchAllCountriesVisible: function () {
+    isMatchAllCountriesVisible: function() {
       return this.getMatchAllCountriesContainerElement().css('display') !== 'none';
     },
 

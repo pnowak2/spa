@@ -28,17 +28,17 @@ define(function(require) {
     });
 
     describe('api', function() {
-    	describe('.update()', function() {
-    		it('should be defined', function() {
-    			expect(ResultsListView.prototype.update).toEqual(jasmine.any(Function));
-    		});
-    	});
+      describe('.update()', function() {
+        it('should be defined', function() {
+          expect(ResultsListView.prototype.update).toEqual(jasmine.any(Function));
+        });
+      });
     });
 
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
-          this.view = new ResultsListView;
+          this.view = new ResultsListView();
         });
 
         it('should return view object', function() {
@@ -47,7 +47,7 @@ define(function(require) {
 
         describe('without data', function() {
           beforeEach(function() {
-            this.view = new ResultsListView
+            this.view = new ResultsListView();
             this.$el = this.view.render().$el;
           });
 

@@ -21,7 +21,7 @@ define(function(require) {
 
       it('should not throw if created without arguments', function() {
         expect(function() {
-          new AdvancedSearchView;
+          new AdvancedSearchView();
         }).not.toThrow();
       });
 
@@ -218,8 +218,8 @@ define(function(require) {
       });
 
       describe('.getCriteria()', function() {
-        beforeEach(function () {
-          this.view = new AdvancedSearchView;
+        beforeEach(function() {
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -230,8 +230,12 @@ define(function(require) {
           beforeEach(function() {
             spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(false);
             spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(false);
-            spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([{id: '1'}, {id: '2'}]);
-            
+            spyOn(MultiselectComponent.prototype, 'selectedItems').and.returnValue([{
+              id: '1'
+            }, {
+              id: '2'
+            }]);
+
           });
 
           it('should contain empty options criteria', function() {
@@ -299,23 +303,63 @@ define(function(require) {
               matchAllCountries: false
             }));
           });
-        })
+        });
 
         describe('All Fields Shown With All Containing Selected Items', function() {
           beforeEach(function() {
             spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(true);
             spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(true);
 
-            spyOn(this.view.options, 'selectedItems').and.returnValue([{id: 'opt1'}, {id: 'opt2'}]);
-            spyOn(this.view.programmes, 'selectedItems').and.returnValue([{id: 'prg1'}, {id: 'prg2'}]);
-            spyOn(this.view.subprogrammes, 'selectedItems').and.returnValue([{id: 'sub1'}, {id: 'sub2'}]);
-            spyOn(this.view.actions, 'selectedItems').and.returnValue([{id: 'acn1'}, {id: 'acn2'}]);;
-            spyOn(this.view.activities, 'selectedItems').and.returnValue([{id: 'act1'}, {id: 'act2'}]);;
-            spyOn(this.view.activityYears, 'selectedItems').and.returnValue([{id: 'acy1'}, {id: 'acy2'}]);
-            spyOn(this.view.fundingYears, 'selectedItems').and.returnValue([{id: 'fny1'}, {id: 'fny2'}]);
-            spyOn(this.view.countries, 'selectedItems').and.returnValue([{id: 'ctr1'}, {id: 'ctr2'}]);
-            spyOn(this.view.regions, 'selectedItems').and.returnValue([{id: 'reg1'}, {id: 'reg2'}]);
-            spyOn(this.view.organisationTypes, 'selectedItems').and.returnValue([{id: 'org1'}, {id: 'org2'}]);
+            spyOn(this.view.options, 'selectedItems').and.returnValue([{
+              id: 'opt1'
+            }, {
+              id: 'opt2'
+            }]);
+            spyOn(this.view.programmes, 'selectedItems').and.returnValue([{
+              id: 'prg1'
+            }, {
+              id: 'prg2'
+            }]);
+            spyOn(this.view.subprogrammes, 'selectedItems').and.returnValue([{
+              id: 'sub1'
+            }, {
+              id: 'sub2'
+            }]);
+            spyOn(this.view.actions, 'selectedItems').and.returnValue([{
+              id: 'acn1'
+            }, {
+              id: 'acn2'
+            }]);
+            spyOn(this.view.activities, 'selectedItems').and.returnValue([{
+              id: 'act1'
+            }, {
+              id: 'act2'
+            }]);
+            spyOn(this.view.activityYears, 'selectedItems').and.returnValue([{
+              id: 'acy1'
+            }, {
+              id: 'acy2'
+            }]);
+            spyOn(this.view.fundingYears, 'selectedItems').and.returnValue([{
+              id: 'fny1'
+            }, {
+              id: 'fny2'
+            }]);
+            spyOn(this.view.countries, 'selectedItems').and.returnValue([{
+              id: 'ctr1'
+            }, {
+              id: 'ctr2'
+            }]);
+            spyOn(this.view.regions, 'selectedItems').and.returnValue([{
+              id: 'reg1'
+            }, {
+              id: 'reg2'
+            }]);
+            spyOn(this.view.organisationTypes, 'selectedItems').and.returnValue([{
+              id: 'org1'
+            }, {
+              id: 'org2'
+            }]);
             spyOn(this.view, 'isMatchAllCountriesSelected').and.returnValue(true);
           });
 
@@ -467,7 +511,7 @@ define(function(require) {
         });
 
         it('should return true if any criteria components has changed', function() {
-          var view = new AdvancedSearchView;
+          var view = new AdvancedSearchView();
 
           spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(true);
           spyOn(view.options, 'isDirty').and.returnValue(false);
@@ -485,7 +529,7 @@ define(function(require) {
         });
 
         it('should return false if none of criteria components has changed', function() {
-          var view = new AdvancedSearchView;
+          var view = new AdvancedSearchView();
 
           spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(false);
           spyOn(view.options, 'isDirty').and.returnValue(false);
@@ -509,7 +553,7 @@ define(function(require) {
         });
 
         it('should return true if CE programme is selected', function() {
-          var view = new AdvancedSearchView;
+          var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
           spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
             id: constants.ccm.CE
@@ -519,7 +563,7 @@ define(function(require) {
         });
 
         it('should return false if CE programme is NOT selected', function() {
-          var view = new AdvancedSearchView;
+          var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
           spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
             id: 'OTHER'
@@ -529,7 +573,7 @@ define(function(require) {
         });
 
         it('should return false if more than one selection of programmes is done', function() {
-          var view = new AdvancedSearchView;
+          var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
 
           expect(view.isCeProgrammeSelected()).toBe(false);
@@ -540,7 +584,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
 
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
           this.view.initCriteriaVisibility.calls.reset();
 
           spyOn(this.view.options, 'update');
@@ -620,10 +664,10 @@ define(function(require) {
           beforeEach(function() {
             spyOn(AdvancedSearchView.prototype, 'calculateCriteriaVisibility');
 
-            this.view = new AdvancedSearchView;
+            this.view = new AdvancedSearchView();
 
             this.view.didProgrammeChange();
-          })
+          });
 
           it('should calculate criteria visibility', function() {
             expect(this.view.calculateCriteriaVisibility).toHaveBeenCalled();
@@ -634,7 +678,7 @@ define(function(require) {
           beforeEach(function() {
             var self = this;
             this.fakeSubprogrammes = [{}, {}];
-            this.view = new AdvancedSearchView;
+            this.view = new AdvancedSearchView();
 
             spyOn(this.view.subprogrammes, 'update');
             spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
@@ -652,7 +696,7 @@ define(function(require) {
           });
 
           it('should call advancedSearchService to get subprogrammes according to programme selection', function() {
-            expect(advancedSearchService.subprogrammesByProgramme).toHaveBeenCalledWith('CE')
+            expect(advancedSearchService.subprogrammesByProgramme).toHaveBeenCalledWith('CE');
           });
 
           it('should update subprogrammes dropdown according to programme selection', function() {
@@ -664,7 +708,7 @@ define(function(require) {
           beforeEach(function() {
             var self = this;
             this.fakeActivities = [{}, {}];
-            this.view = new AdvancedSearchView;
+            this.view = new AdvancedSearchView();
 
             spyOn(this.view.activities, 'update');
             spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
@@ -682,7 +726,7 @@ define(function(require) {
           });
 
           it('should call advancedSearchService to get activities according to programme selection', function() {
-            expect(advancedSearchService.activitiesByProgramme).toHaveBeenCalledWith('CE')
+            expect(advancedSearchService.activitiesByProgramme).toHaveBeenCalledWith('CE');
           });
 
           it('should update activities dropdown according to programme selection', function() {
@@ -700,10 +744,10 @@ define(function(require) {
           beforeEach(function() {
             spyOn(AdvancedSearchView.prototype, 'calculateCriteriaVisibility');
 
-            this.view = new AdvancedSearchView;
+            this.view = new AdvancedSearchView();
 
             this.view.didSubprogrammeChange();
-          })
+          });
 
           it('should calculate criteria visibility', function() {
             expect(this.view.calculateCriteriaVisibility).toHaveBeenCalled();
@@ -714,7 +758,7 @@ define(function(require) {
           beforeEach(function() {
             var self = this;
             this.fakeActions = [{}, {}];
-            this.view = new AdvancedSearchView;
+            this.view = new AdvancedSearchView();
 
             spyOn(this.view.actions, 'update');
             spyOn(this.view.subprogrammes, 'hasOneSelection').and.returnValue(true);
@@ -750,7 +794,7 @@ define(function(require) {
           beforeEach(function() {
             spyOn(AdvancedSearchView.prototype, 'calculateCriteriaVisibility');
 
-            this.view = new AdvancedSearchView;
+            this.view = new AdvancedSearchView();
 
             this.view.didCountryChange();
           })
@@ -764,7 +808,7 @@ define(function(require) {
           beforeEach(function() {
             var self = this;
             this.fakeRegions = [{}, {}];
-            this.view = new AdvancedSearchView;
+            this.view = new AdvancedSearchView();
 
             spyOn(this.view.regions, 'update');
             spyOn(this.view.countries, 'hasOneSelection').and.returnValue(true);
@@ -782,7 +826,7 @@ define(function(require) {
           });
 
           it('should call advancedSearchService to get regions according to country selection', function() {
-            expect(advancedSearchService.regionsByCountry).toHaveBeenCalledWith('PL')
+            expect(advancedSearchService.regionsByCountry).toHaveBeenCalledWith('PL');
           });
 
           it('should update regions dropdown according to country selection', function() {
@@ -800,7 +844,7 @@ define(function(require) {
           spyOn(AdvancedSearchView.prototype, 'shouldDisplayRegions').and.returnValue(true);
           spyOn(AdvancedSearchView.prototype, 'shouldDisplayMatchAllCountries').and.returnValue(true);
 
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
           spyOn(this.view.subprogrammes, 'toggle');
           spyOn(this.view.actions, 'toggle');
           spyOn(this.view.activities, 'toggle');
@@ -842,7 +886,7 @@ define(function(require) {
 
       describe('.shouldDisplaySubprogrammes()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -864,7 +908,7 @@ define(function(require) {
 
       describe('.shouldDisplayActions()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -895,7 +939,7 @@ define(function(require) {
 
       describe('.shouldDisplayActivities()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -917,7 +961,7 @@ define(function(require) {
 
       describe('.shouldDisplayFundingYears()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -939,7 +983,7 @@ define(function(require) {
 
       describe('.shouldDisplayRegions()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -970,7 +1014,7 @@ define(function(require) {
 
       describe('.shouldDisplayMatchAllCountries()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -998,7 +1042,7 @@ define(function(require) {
 
       describe('.update()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
 
           spyOn(this.view.options, 'selectItems');
           spyOn(this.view.programmes, 'selectItems');
@@ -1108,7 +1152,7 @@ define(function(require) {
 
       describe('.isMatchAllCountriesVisible()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -1132,7 +1176,7 @@ define(function(require) {
 
       describe('.isMatchAllCountriesSelected()', function() {
         beforeEach(function() {
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
         });
 
         it('should be defined', function() {
@@ -1143,7 +1187,7 @@ define(function(require) {
           spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue({
             is: jasmine.createSpy('is').and.callFake(function(selector) {
               if (selector === ':checked') {
-                return true
+                return true;
               }
             })
           });
@@ -1155,7 +1199,7 @@ define(function(require) {
           spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue({
             is: jasmine.createSpy('is').and.callFake(function(selector) {
               if (selector === ':checked') {
-                return false
+                return false;
               }
             })
           });
@@ -1170,7 +1214,7 @@ define(function(require) {
         });
 
         it('should return match all countries element', function() {
-          var view = new AdvancedSearchView,
+          var view = new AdvancedSearchView(),
             fakeElement = {};
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
@@ -1189,7 +1233,7 @@ define(function(require) {
         });
 
         it('should return match all countries element', function() {
-          var view = new AdvancedSearchView,
+          var view = new AdvancedSearchView(),
             fakeElement = {};
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
@@ -1209,7 +1253,7 @@ define(function(require) {
 
         it('should toggle selection of checkbox', function() {
           spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue(jasmine.createSpyObj('chk', ['prop']));
-          var view = new AdvancedSearchView;
+          var view = new AdvancedSearchView();
 
           view.toggleMatchAllCountriesSelection(true);
           expect(view.getMatchAllCountriesElement().prop).toHaveBeenCalledWith('checked', true);
@@ -1226,7 +1270,7 @@ define(function(require) {
 
         it('should toggle selection of checkbox', function() {
           spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesContainerElement').and.returnValue(jasmine.createSpyObj('chk', ['toggle']));
-          var view = new AdvancedSearchView;
+          var view = new AdvancedSearchView();
 
           view.toggleMatchAllCountriesVisibility(true);
           expect(view.getMatchAllCountriesContainerElement().toggle).toHaveBeenCalledWith(true);
@@ -1252,7 +1296,7 @@ define(function(require) {
           spyOn(AdvancedSearchView.prototype, 'didSubprogrammeChange');
           spyOn(AdvancedSearchView.prototype, 'didCountryChange');
 
-          this.view = new AdvancedSearchView;
+          this.view = new AdvancedSearchView();
 
         });
 
@@ -1277,7 +1321,7 @@ define(function(require) {
       beforeEach(function() {
         spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
 
-        this.view = new AdvancedSearchView;
+        this.view = new AdvancedSearchView();
         this.$el = this.view.render().$el;
       });
 

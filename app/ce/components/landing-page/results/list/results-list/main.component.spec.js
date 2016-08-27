@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have proper view defined', function() {
-        var component = new ResultsListComponent;
+        var component = new ResultsListComponent();
         expect(component.view).toEqual(jasmine.any(ResultsListView));
       });
     });
@@ -26,9 +26,9 @@ define(function(require) {
         it('should delegate to view', function() {
           spyOn(ResultsListView.prototype, 'update');
 
-          var component = new ResultsListComponent,
+          var component = new ResultsListComponent(),
             fakeData = [];
-            
+
           component.update(fakeData);
 
           expect(component.view.update).toHaveBeenCalledWith(fakeData);
