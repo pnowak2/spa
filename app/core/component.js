@@ -1,7 +1,6 @@
 define(function(require) {
-  'use strict';
-
-  var Module = require('./module');
+  var Backbone = require('backbone'),
+    Module = require('./module');
 
   return Module.extend({
     view: new(Backbone.View.extend())(),

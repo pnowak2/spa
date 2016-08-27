@@ -1,5 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
+    $ = require('jquery'),
     Backbone = require('backbone'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),

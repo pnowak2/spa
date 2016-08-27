@@ -25,7 +25,7 @@ define(function(require) {
 
   return {
     search: function(criteria) {
-      randomRows = _.times(10, function() {
+      var randomRows = _.times(10, function() {
         return makeRandomDataRow();
       });
 

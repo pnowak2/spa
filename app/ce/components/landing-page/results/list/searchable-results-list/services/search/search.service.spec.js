@@ -65,7 +65,7 @@ define(function(require) {
 
           it('should use proper REST url and method', function(done) {
             var testRequest = function() {
-              request = jasmine.Ajax.requests.mostRecent();
+              var request = jasmine.Ajax.requests.mostRecent();
               expect(request.url).toContain(constants.urls.SEARCH_LIST);
               expect(request.method).toBe('GET');
             };

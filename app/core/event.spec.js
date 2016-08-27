@@ -1,5 +1,6 @@
 define(function(require) {
-  var Backbone = require('backbone'),
+  var _ = require('underscore'),
+    Backbone = require('backbone'),
     Event = require('./event');
 
   describe('Event - PubSub object', function() {

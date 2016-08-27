@@ -1,5 +1,6 @@
 define(function(require) {
-  var PageView = require('./page.view'),
+  var Backbone = require('backbone'),
+    PageView = require('./page.view'),
     PageModel = require('../models/page.model');
 
   describe('Page View', function() {

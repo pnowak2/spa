@@ -1,5 +1,6 @@
 define(function(require) {
-  var ResultModel = require('./result.model');
+  var Backbone = require('backbone'),
+    ResultModel = require('./result.model');
 
   describe('EfC Result List Model', function() {
     describe('type', function() {

@@ -1,5 +1,6 @@
 define(function(require) {
-  var Backbone = require('backbone'),
+  var _ = require('underscore'),
+    Backbone = require('backbone'),
     MultiselectComponent = require('app/shared/components/other/multiselect/main.component'),
     advancedSearchService = require('../services/advanced-search/advancedSearch.service'),
     constants = require('app/ce/util/constants'),

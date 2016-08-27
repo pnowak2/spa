@@ -1,8 +1,13 @@
 {
   "indent": 2,
   "sub": true,
+  "undef": true,
   "strict": false,
 	 "predef": [
+	 	"define",
+	 	"requirejs",
+	 	"document",
+	 	"window",
 	    "jasmine",
 	    "describe",
 	    "xdescribe",
@@ -12,9 +17,12 @@
 	    "afterEach",
 	    "it",
 	    "xit",
-	    "it",
+	    "fail",
 	    "inject",
 	    "expect",
-	    "spyOn"
+	    "spyOn",
+	    "loadFixtures",
+	    "setFixtures",
+	    "spyOnEvent"
 		]
 }

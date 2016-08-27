@@ -205,7 +205,8 @@
 
          it('should convert array of markers with factory method', function() {
            var fakePreparedMarkerData = {},
-             markers;
+             markers,
+             markersData;
 
            spyOn(ResultsMapView.prototype, 'prepareMarkersByCountryData').and.returnValue(fakePreparedMarkerData);
 

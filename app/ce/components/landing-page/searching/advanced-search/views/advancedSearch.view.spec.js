@@ -1,5 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
+    $ = require('jquery'),
     Backbone = require('backbone'),
     AdvancedSearchView = require('./advancedSearch.view'),
     advancedSearchService = require('../services/advanced-search/advancedSearch.service'),

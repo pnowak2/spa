@@ -1,5 +1,6 @@
 define(function(require) {
   var $ = require('jquery'),
+    _ = require('underscore'),
     Backbone = require('backbone'),
     PartnersMapView = require('./partnersMap.view'),
     PartnersMapComponent = require('app/shared/components/mapping/partners-map/main.component'),
