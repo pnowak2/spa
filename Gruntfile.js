@@ -59,7 +59,7 @@ module.exports = function(grunt) {
           generateSourceMaps: true,
           preserveLicenseComments: false,
           include: "requireLib",
-          name: "ce.landing-page.main",
+          name: "main/ce.landing-page.main",
           out: "dist/vlr-app.min.js"
         }
       }
