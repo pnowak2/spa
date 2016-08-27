@@ -71,6 +71,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   grunt.registerTask('default', ['jshint']);
-  grunt.registerTask('lint', ['jshint', 'csslint:lax']);
-  grunt.registerTask('release', ['jshint', 'requirejs']);
+  grunt.registerTask('lintjs', ['jshint']);
+  grunt.registerTask('lintcss', ['csslint']);
+
+  grunt.registerTask('lint', ['jshint', 'csslint']);
+  grunt.registerTask('release', ['lint', 'requirejs']);
 };
