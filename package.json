@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "grunt": "^1.0.1",
+    "grunt-contrib-csslint": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-requirejs": "^1.0.0",
     "jshint": "^2.9.3"

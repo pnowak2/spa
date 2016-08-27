@@ -7,6 +7,20 @@ module.exports = function(grunt) {
         jshintrc: '.jshintrc'
       }
     },
+    csslint: {
+      strict: {
+        options: {
+          import: 2
+        },
+        src: ['assets/styles/**/*.css']
+      },
+      lax: {
+        options: {
+          import: false
+        },
+        src: ['assets/styles/**/*.css']
+      }
+    },
     requirejs: {
       compile: {
         options: {
@@ -53,8 +67,10 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('lint', ['jshint', 'csslint:lax']);
   grunt.registerTask('release', ['jshint', 'requirejs']);
 };
