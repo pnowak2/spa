@@ -172,8 +172,6 @@ define(function(require) {
         default:
           return new Leaflet.Icon.Default();
       }
-
-      return defaultIcon;
     },
 
     calculateClusterSize: function() {

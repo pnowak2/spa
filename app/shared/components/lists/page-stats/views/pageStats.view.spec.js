@@ -1,5 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
+    Backbone = require('backbone'),
     PageStatsView = require('./pageStats.view'),
     PageStatsModel = require('../models/pageStats.model');
 

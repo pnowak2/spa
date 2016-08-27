@@ -1,5 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
+    Backbone = require('backbone'),
     ProjectItemView = require('./projectItem.view');
 
   describe('Project Item View', function() {

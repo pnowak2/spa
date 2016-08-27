@@ -202,7 +202,7 @@ define(function(require) {
         });
 
         it('should empty markup before render', function() {
-          tabSwitcherView = new TabSwitcherView();
+          var tabSwitcherView = new TabSwitcherView();
           spyOn(tabSwitcherView.$el, 'empty');
 
           tabSwitcherView.render();

@@ -1,0 +1,30 @@
+{
+  "name": "valor-components",
+  "version": "0.0.1",
+  "description": "Valor Components Library",
+  "main": "app.build.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "requirejs": "^2.2.0",
+    "r.js": "^1.0.3"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.3",
+    "rjs": "^4.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pnowak2/spa.git"
+  },
+  "author": "Piotr Nowak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pnowak2/spa/issues"
+  },
+  "homepage": "https://github.com/pnowak2/spa#readme"
+}

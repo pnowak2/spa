@@ -37,6 +37,6 @@ requirejs([
   'app/shared/modules/app.module',
   'app/ce/components/landing-page/layout/main.component'
 ], function(Backbone, modernizr, applicationModule, LandingPage) {
-  landingPage = new LandingPage();
+  var landingPage = new LandingPage();
   Backbone.history.start();
 });

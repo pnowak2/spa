@@ -4,10 +4,16 @@
   "undef": true,
   "strict": false,
 	 "predef": [
+	 	/* RequireJS */
 	 	"define",
+	 	"require",
 	 	"requirejs",
+
+	 	/* Browser globals */
 	 	"document",
 	 	"window",
+
+	 	/* Jasmine */
 	    "jasmine",
 	    "describe",
 	    "xdescribe",
@@ -23,6 +29,10 @@
 	    "spyOn",
 	    "loadFixtures",
 	    "setFixtures",
-	    "spyOnEvent"
+	    "spyOnEvent",
+
+	    /* PruneCluster Leaflet Plugin */
+	    "PruneCluster",
+	    "PruneClusterForLeaflet"
 		]
 }

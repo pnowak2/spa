@@ -1,5 +1,6 @@
 define(function(require) {
   var _ = require('underscore'),
+    $ = require('jquery'),
 
     getCriteria = function() {
       var searchTypeValue = $('input[name=searchType]').filter(':checked').val(),

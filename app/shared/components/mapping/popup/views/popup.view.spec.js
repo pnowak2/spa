@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    $ = require('jquery'),
     PopupView = require('./popup.view');
 
   describe('Popup View', function() {

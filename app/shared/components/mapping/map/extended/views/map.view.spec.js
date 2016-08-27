@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    $ = require('jquery'),
     _ = require('underscore'),
     Leaflet = require('leaflet'),
     LeafletPruneCluster = require('leafletprunecluster'),
@@ -67,7 +68,7 @@ define(function(require) {
       });
 
       it('should create options prefilled with defaults', function() {
-        view = new MapView();
+        var view = new MapView();
         expect(view.options).toEqual(MapView.prototype.defaults);
       });
 
@@ -227,7 +228,6 @@ define(function(require) {
           expect(tileLayers[0]._url).toEqual(this.view.options.tileUrls[0]);
           expect(tileLayers[0].options.minZoom).toEqual(this.view.options.minZoom);
           expect(tileLayers[0].options.maxZoom).toEqual(this.view.options.maxZoom);
-
         });
       });
 
@@ -258,8 +258,9 @@ define(function(require) {
         });
 
         it('should work without arguments', function() {
+          var self = this;
           expect(function() {
-            this.view.showMarkers((void 0));
+            self.view.showMarkers(void 0);
           }).not.toThrow();
         });
 
@@ -399,7 +400,7 @@ define(function(require) {
           spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(this.fakeIcon);
 
           this.view = new MapView();
-          this.leafletMarkers = view.toLeafletMarkers(items);
+          this.leafletMarkers = this.view.toLeafletMarkers(items);
         });
 
         it('should be defined', function() {
@@ -558,7 +559,7 @@ define(function(require) {
           spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(this.fakeIcon);
 
           this.view = new MapView();
-          this.clusterMarkers = view.toClusterMarkers(this.items);
+          this.clusterMarkers = this.view.toClusterMarkers(this.items);
         });
 
         it('should be defined', function() {

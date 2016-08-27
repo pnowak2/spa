@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    _ = require('underscore'),
     MultiselectCollection = require('./multiselect.collection'),
     MultiselectModel = require('../models/selectItem.model');
 
@@ -271,7 +272,7 @@ define(function(require) {
         });
 
         it('should not throw if invoked without ids', function() {
-          collection = new MultiselectCollection();
+          var collection = new MultiselectCollection();
 
           expect(function() {
             collection.selectItems();
@@ -279,7 +280,7 @@ define(function(require) {
         });
 
         it('should not throw if invoked with bad ids', function() {
-          collection = new MultiselectCollection();
+          var collection = new MultiselectCollection();
 
           expect(function() {
             collection.selectItems('garbage', 'data');

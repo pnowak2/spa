@@ -1,3 +1,4 @@
+/* globals jQuery: true */
 requirejs.config({
   waitSeconds: 10,
   paths: {

@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    _ = require('underscore'),
     TabModel = require('../models/tab.model');
 
   return Backbone.Collection.extend({

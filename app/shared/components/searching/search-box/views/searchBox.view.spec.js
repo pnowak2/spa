@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    $ = require('jquery'),
     constants = require('app/shared/util/constants'),
     SearchBoxView = require('./searchBox.view'),
     SearchBoxModel = require('../models/searchBox.model');

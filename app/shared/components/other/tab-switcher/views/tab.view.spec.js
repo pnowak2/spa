@@ -1,5 +1,6 @@
 define(function(require) {
-  var TabView = require('./tab.view'),
+  var Backbone = require('backbone'),
+    TabView = require('./tab.view'),
     TabModel = require('../models/tab.model');
 
   describe('Tab Switcher Tab View', function() {

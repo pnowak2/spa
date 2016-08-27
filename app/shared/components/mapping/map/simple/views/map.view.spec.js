@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone'),
+    $ = require('jquery'),
     _ = require('underscore'),
     Leaflet = require('leaflet'),
     LeafletPruneCluster = require('leafletprunecluster'),
@@ -72,7 +73,7 @@ define(function(require) {
       });
 
       it('should create options prefilled with defaults', function() {
-        view = new MapView();
+        var view = new MapView();
         expect(view.options).toEqual(MapView.prototype.defaults);
       });
 
@@ -484,7 +485,7 @@ define(function(require) {
           this.fakeIcon = {};
           spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(this.fakeIcon);
           this.view = new MapView();
-          this.markers = view.toLeafletMarkers(markersData);
+          this.markers = this.view.toLeafletMarkers(markersData);
         });
 
         it('should be defined', function() {

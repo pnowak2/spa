@@ -1,5 +1,6 @@
 define(function(require) {
   var $ = require('jquery'),
+    _ = require('underscore'),
     Backbone = require('backbone'),
     LandingPageView = require('./landingPage.view'),
     TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),

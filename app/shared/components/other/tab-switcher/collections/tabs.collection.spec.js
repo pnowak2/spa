@@ -1,7 +1,7 @@
 define(function(require) {
   var TabsCollection = require('./tabs.collection'),
-    TabModel = require('../models/tab.model');
-  Backbone = require('backbone');
+    TabModel = require('../models/tab.model'),
+    Backbone = require('backbone');
 
   describe('Tab Switcher Tabs Collection', function() {
     describe('type', function() {
