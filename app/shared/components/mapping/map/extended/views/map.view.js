@@ -19,7 +19,7 @@ define(function(require) {
       minZoom: 3,
       maxZoom: 14,
       clusterSizeOnMaxZoomLevel: 120,
-      boundaryFactor: .33
+      boundaryFactor: 0.33
     },
 
     initialize: function(options) {
@@ -51,7 +51,7 @@ define(function(require) {
       });
 
       map.setView(
-        this.options.initialPosition,      
+        this.options.initialPosition,
         this.options.initialZoom
       );
 
@@ -88,7 +88,7 @@ define(function(require) {
     registerPointMarkers: function(groupedMarkers) {
       _.each(groupedMarkers, function(markers) {
         var layer = this.createClusterGroupLayer();
-        
+
         layer.RegisterMarkers(markers);
         layer.addTo(this.markersLayerGroup);
       }, this);
@@ -124,9 +124,9 @@ define(function(require) {
                 }
               }
             );
-          }, this)
+          }, this);
         }, this)
-        .value()
+        .value();
     },
 
     toClusterMarkers: function(items) {
@@ -163,16 +163,14 @@ define(function(require) {
             popupAnchor: [1, -34],
             shadowSize: [41, 41]
           });
-          break;
         case 'cluster':
           return new Leaflet.DivIcon({
             html: '<div><span>' + data.population + '</span></div>',
             className: 'prunecluster prunecluster-medium',
             iconSize: Leaflet.point(40, 40)
           });
-          break;
         default:
-          return new Leaflet.Icon.Default()
+          return new Leaflet.Icon.Default();
       }
 
       return defaultIcon;
@@ -231,7 +229,7 @@ define(function(require) {
             lng: bounds.southWest.lng
           }
         }
-      }
+      };
     },
 
     calculateBounds: function() {
@@ -262,7 +260,7 @@ define(function(require) {
           lat: Leaflet.Util.formatNum(parseFloat(bounds.southWest.lat) - this.options.boundaryFactor * boundsHeight, 14),
           lng: Leaflet.Util.formatNum(parseFloat(bounds.southWest.lng) - this.options.boundaryFactor * boundsWith, 14)
         }
-      }
+      };
     },
 
     updateItemsCount: function(total) {

@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        this.mapComponent = new MapComponent;
+        this.mapComponent = new MapComponent();
       });
 
       it('should be initialized with proper view', function() {
@@ -35,7 +35,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MapComponent;
+          var component = new MapComponent();
           spyOn(component.view, 'initMap');
 
           component.initMap();
@@ -50,7 +50,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MapComponent,
+          var component = new MapComponent(),
             fakeMarkersData = [];
 
           spyOn(component.view, 'showMarkers');

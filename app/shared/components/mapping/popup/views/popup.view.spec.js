@@ -18,7 +18,7 @@ define(function(require) {
     describe('creation', function() {
       it('should throw an exception if the type is not defined', function() {
         expect(function() {
-          new PopupView;
+          new PopupView();
         }).toThrowError('Invalid popup type');
       });
 

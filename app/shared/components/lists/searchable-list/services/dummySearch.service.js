@@ -7,7 +7,7 @@ define(function(require) {
         new RSVP.Promise(function(resolve, reject) {
           resolve();
         })
-      )
+      );
     }
-  }
+  };
 });

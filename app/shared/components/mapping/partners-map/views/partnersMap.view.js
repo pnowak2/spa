@@ -45,7 +45,7 @@ define(function(require) {
       return {
         total: total,
         markers: markers
-      }
+      };
     },
 
     toMapMarker: function(markerData, markerName) {
@@ -62,11 +62,11 @@ define(function(require) {
         lng: markerData.lng,
         markerName: markerName,
         popupContent: popupContent
-      }
+      };
     },
 
     render: function() {
-      this.$el.html(this.mapComponent.render().view.el)
+      this.$el.html(this.mapComponent.render().view.el);
       return this;
     }
   });

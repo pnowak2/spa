@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        this.mapComponent = new MapComponent;
+        this.mapComponent = new MapComponent();
       });
 
       it('should be initialized with proper view', function() {
@@ -35,7 +35,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MapComponent;
+          var component = new MapComponent();
           spyOn(component.view, 'initMap');
 
           component.initMap();
@@ -53,7 +53,7 @@ define(function(require) {
           var fakeState = {};
           spyOn(MapView.prototype, 'getState').and.returnValue(fakeState);
 
-          var component = new MapComponent;
+          var component = new MapComponent();
 
           expect(component.getState()).toBe(fakeState);
 
@@ -66,7 +66,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new MapComponent,
+          var component = new MapComponent(),
             fakeMarkersData = [];
 
           spyOn(component.view, 'showMarkers');
@@ -80,7 +80,7 @@ define(function(require) {
 
     describe('events', function() {
       it('should trigger event on map bounds change', function(done) {
-        var component = new MapComponent,
+        var component = new MapComponent(),
           fakeEventDetails = {};
 
         component.on('map:bounds-changed', function(mapState) {

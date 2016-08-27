@@ -15,11 +15,11 @@ define(function(require) {
 
       options = options || {};
 
-      this.listComponent = options.listComponent || new BaseListComponent;
+      this.listComponent = options.listComponent || new BaseListComponent();
       this.searchService = options.searchService || dummySearchService;
 
-      this.pageStatsComponent = new PageStatsComponent;
-      this.pagerComponent = new PagerComponent;
+      this.pageStatsComponent = new PageStatsComponent();
+      this.pagerComponent = new PagerComponent();
 
       this.cachedCriteria = {};
 
@@ -43,7 +43,7 @@ define(function(require) {
     },
 
     prepareSearchCriteria: function(criteria, pagerState) {
-      return _.extend({}, criteria, pagerState)
+      return _.extend({}, criteria, pagerState);
     },
 
     onSearchRequest: function(searchCriteria) {
@@ -97,5 +97,5 @@ define(function(require) {
 
       return this;
     }
-  })
+  });
 });

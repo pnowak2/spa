@@ -19,7 +19,7 @@ define(function(require) {
     describe('creation', function() {
       beforeEach(function() {
         spyOn(_, 'bindAll').and.callThrough();
-        this.view = new SearchableListView;
+        this.view = new SearchableListView();
       });
 
       it('should have default list component defined', function() {
@@ -65,7 +65,7 @@ define(function(require) {
       describe('.startListeningPager()', function() {
         beforeEach(function() {
           spyOn(SearchableListView.prototype, 'listenTo');
-          this.view = new SearchableListView;
+          this.view = new SearchableListView();
         });
 
         it('should be defined', function() {
@@ -83,7 +83,7 @@ define(function(require) {
       describe('.stopListeningPager()', function() {
         beforeEach(function() {
           spyOn(SearchableListView.prototype, 'stopListening');
-          this.view = new SearchableListView;
+          this.view = new SearchableListView();
         });
 
         it('should be defined', function() {
@@ -101,7 +101,7 @@ define(function(require) {
       describe('.resetPager()', function() {
         beforeEach(function() {
           spyOn(SearchableListView.prototype, 'onPageRequest');
-          this.view = new SearchableListView;
+          this.view = new SearchableListView();
         });
 
         it('should be defined', function() {
@@ -150,7 +150,7 @@ define(function(require) {
 
       describe('.prepareSearchCriteria()', function() {
         beforeEach(function() {
-          this.view = new SearchableListView;
+          this.view = new SearchableListView();
         });
 
         it('should be defined', function() {
@@ -183,7 +183,7 @@ define(function(require) {
           spyOn(SearchableListView.prototype, 'didSearchFail');
           spyOn(SearchableListView.prototype, 'resetPager');
 
-          this.view = new SearchableListView;
+          this.view = new SearchableListView();
         });
 
         it('should be defined', function() {
@@ -243,7 +243,7 @@ define(function(require) {
       describe('.onPageRequest()', function() {
         beforeEach(function() {
           spyOn(SearchableListView.prototype, 'performSearch');
-          this.view = new SearchableListView;
+          this.view = new SearchableListView();
         });
 
         it('it should be defined', function() {
@@ -281,7 +281,7 @@ define(function(require) {
 
       describe('.performSearch()', function() {
         beforeEach(function() {
-          this.view = new SearchableListView;
+          this.view = new SearchableListView();
         });
 
         it('should be defined', function() {
@@ -306,7 +306,7 @@ define(function(require) {
           this.view.didSearchSucceed = function(data) {
             expect(data).toEqual('success');
             done();
-          }
+          };
 
           this.view.performSearch({});
         });
@@ -317,7 +317,7 @@ define(function(require) {
           this.view.didSearchFail = function(error) {
             expect(error).toEqual('error');
             done();
-          }
+          };
 
           this.view.performSearch({});
         });
@@ -329,7 +329,7 @@ define(function(require) {
           spyOn(PagerComponent.prototype, 'update');
           spyOn(PageStatsComponent.prototype, 'update');
 
-          this.view = new SearchableListView;
+          this.view = new SearchableListView();
           this.fakeData = {
             total: 1000,
             items: []
@@ -382,7 +382,7 @@ define(function(require) {
         it('should show error message', function() {
           spyOn(app, 'showError');
 
-          var view = new SearchableListView,
+          var view = new SearchableListView(),
             fakeError = {};
 
           view.didSearchFail(fakeError);
@@ -396,7 +396,7 @@ define(function(require) {
       describe('custom', function() {
         it('should listen to pager changes after view creation', function() {
           spyOn(SearchableListView.prototype, 'onPageRequest');
-          var view = new SearchableListView;
+          var view = new SearchableListView();
           view.pagerComponent.trigger('pager:page:selected');
 
           expect(view.onPageRequest).toHaveBeenCalled();
@@ -407,7 +407,7 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
-          this.view = new SearchableListView;
+          this.view = new SearchableListView();
         });
 
         it('should return view object', function() {

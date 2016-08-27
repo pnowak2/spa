@@ -13,8 +13,8 @@ define(function(require) {
     describe('creation', function() {
       it('should have proper view defined', function() {
         spyOn(PartnersMapView.prototype, 'initialize');
-        
-        var component = new PartnersMapComponent;
+
+        var component = new PartnersMapComponent();
         expect(component.view).toEqual(jasmine.any(PartnersMapView));
       });
 
@@ -35,7 +35,7 @@ define(function(require) {
         });
 
         it('should delegate to view', function() {
-          var component = new PartnersMapComponent;
+          var component = new PartnersMapComponent();
           spyOn(component.view, 'initMap');
 
           component.initMap();
@@ -43,10 +43,10 @@ define(function(require) {
           expect(component.view.initMap).toHaveBeenCalled();
         });
       });
-      
+
       describe('.showMarkers()', function() {
         beforeEach(function() {
-          this.component = new PartnersMapComponent;
+          this.component = new PartnersMapComponent();
         });
 
         it('should be defined', function() {

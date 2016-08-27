@@ -5,7 +5,7 @@ define(function(require) {
   return Component.extend({
     initialize: function(options) {
       options = options || {};
-      
+
       this.view = new PopupView(options);
     }
   });

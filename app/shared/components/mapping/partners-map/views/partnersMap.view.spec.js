@@ -36,11 +36,11 @@ define(function(require) {
         spyOn(MapComponent.prototype, 'initialize');
 
         this.fakeOptions = {
-        	data: {
-        		total: 1,
-        		coordinator: {},
-        		partners: []
-        	}
+          data: {
+            total: 1,
+            coordinator: {},
+            partners: []
+          }
         };
         this.view = new PartnersMapView(this.fakeOptions);
       });
@@ -58,24 +58,24 @@ define(function(require) {
     });
 
     describe('api', function() {
-       describe('.initMap()', function() {
-         it('should be defined', function() {
-           expect(PartnersMapView.prototype.initMap).toEqual(jasmine.any(Function));
-         });
+      describe('.initMap()', function() {
+        it('should be defined', function() {
+          expect(PartnersMapView.prototype.initMap).toEqual(jasmine.any(Function));
+        });
 
-         it('should delegate to map component', function() {
-           var view = new PartnersMapView;
-           spyOn(view.mapComponent, 'initMap');
+        it('should delegate to map component', function() {
+          var view = new PartnersMapView();
+          spyOn(view.mapComponent, 'initMap');
 
-           view.initMap();
+          view.initMap();
 
-           expect(view.mapComponent.initMap).toHaveBeenCalled();
-         });
-       });
+          expect(view.mapComponent.initMap).toHaveBeenCalled();
+        });
+      });
 
       describe('.showMarkers()', function() {
         beforeEach(function() {
-          this.view = new PartnersMapView;
+          this.view = new PartnersMapView();
         });
 
         it('should be defined', function() {
@@ -83,23 +83,23 @@ define(function(require) {
         });
 
         it('should prepare markers from raw data', function() {
-        	spyOn(PartnersMapView.prototype, 'prepareMarkersData');
+          spyOn(PartnersMapView.prototype, 'prepareMarkersData');
 
-        	var fakeData = {};
-        	this.view.showMarkers(fakeData);
+          var fakeData = {};
+          this.view.showMarkers(fakeData);
 
-        	expect(this.view.prepareMarkersData).toHaveBeenCalledWith(fakeData);
+          expect(this.view.prepareMarkersData).toHaveBeenCalledWith(fakeData);
         });
 
         it('should show prepared markers on map component', function() {
-        	var fakeMarkers = [];
+          var fakeMarkers = [];
 
-        	spyOn(MapComponent.prototype, 'showMarkers');
-        	spyOn(PartnersMapView.prototype, 'prepareMarkersData').and.returnValue(fakeMarkers);
-        	
-        	this.view.showMarkers();
+          spyOn(MapComponent.prototype, 'showMarkers');
+          spyOn(PartnersMapView.prototype, 'prepareMarkersData').and.returnValue(fakeMarkers);
 
-        	expect(this.view.mapComponent.showMarkers).toHaveBeenCalledWith(fakeMarkers);
+          this.view.showMarkers();
+
+          expect(this.view.mapComponent.showMarkers).toHaveBeenCalledWith(fakeMarkers);
         });
       });
 
@@ -112,8 +112,8 @@ define(function(require) {
               [{ /* Partner data */ }],
               [{ /* Partner data */ }]
             ]
-          }
-          this.view = new PartnersMapView;
+          };
+          this.view = new PartnersMapView();
         });
 
         it('should be defined', function() {
@@ -138,7 +138,7 @@ define(function(require) {
 
           spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, markerName) {
             if (markerData === coordinator && markerName === 'blue-medium') {
-              return fakeCoordinatorMapMarker
+              return fakeCoordinatorMapMarker;
             }
           });
 
@@ -146,7 +146,7 @@ define(function(require) {
             coordinator: coordinator
           });
 
-          expect(markersData.markers[0][0]).toBe(fakeCoordinatorMapMarker)
+          expect(markersData.markers[0][0]).toBe(fakeCoordinatorMapMarker);
         });
 
         it('should have partners as second cluster group with default icons', function() {
@@ -155,7 +155,7 @@ define(function(require) {
 
           spyOn(PartnersMapView.prototype, 'toMapMarker').and.callFake(function(markerData, markerName) {
             if (markerData === partner && markerName === undefined) {
-              return fakePartnerMapMarker
+              return fakePartnerMapMarker;
             }
           });
 
@@ -163,13 +163,13 @@ define(function(require) {
             partners: [partner]
           });
 
-          expect(markersData.markers[1][0]).toBe(fakePartnerMapMarker)
+          expect(markersData.markers[1][0]).toBe(fakePartnerMapMarker);
         });
       });
 
       describe('.toMapMarker()', function() {
         beforeEach(function() {
-          this.view = new PartnersMapView;
+          this.view = new PartnersMapView();
         });
 
         it('should be defined', function() {
@@ -205,7 +205,7 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
-          this.view = new PartnersMapView;
+          this.view = new PartnersMapView();
           this.view.render();
         });
 

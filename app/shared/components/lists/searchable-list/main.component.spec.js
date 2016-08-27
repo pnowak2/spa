@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       it('should have proper view defined', function() {
-        var component = new SearchableListComponent;
+        var component = new SearchableListComponent();
         expect(component.view).toEqual(jasmine.any(SearchableListView));
       });
 
@@ -37,7 +37,7 @@ define(function(require) {
         it('should delegate do view', function() {
           spyOn(SearchableListView.prototype, 'onSearchRequest');
 
-          var component = new SearchableListComponent,
+          var component = new SearchableListComponent(),
             fakeSearchCriteria = {};
 
           component.onSearchRequest(fakeSearchCriteria);
@@ -50,8 +50,8 @@ define(function(require) {
 
     describe('events', function() {
       it('should trigger event on search completed', function(done) {
-        var component = new SearchableListComponent,
-          fakeData = {}
+        var component = new SearchableListComponent(),
+          fakeData = {};
 
         component.on('search:completed', function(data) {
           expect(data).toBe(fakeData);

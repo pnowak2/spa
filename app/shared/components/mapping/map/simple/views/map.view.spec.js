@@ -60,19 +60,19 @@ define(function(require) {
       it('should bind callback methods', function() {
         spyOn(_, 'bindAll');
 
-        var view = new MapView;
+        var view = new MapView();
 
         expect(_.bindAll).toHaveBeenCalledWith(view, 'didClickHomeButton', 'didClickFullscreenButton', 'didClickPrintButton', 'didZoomMap');
       });
 
       it('should create default cluster layers array', function() {
-        var view = new MapView;
+        var view = new MapView();
 
         expect(view.clusterLayers).toEqual([]);
       });
 
       it('should create options prefilled with defaults', function() {
-        view = new MapView;
+        view = new MapView();
         expect(view.options).toEqual(MapView.prototype.defaults);
       });
 
@@ -102,7 +102,7 @@ define(function(require) {
           spyOn(MapView.prototype, 'createTileLayer').and.returnValue(this.fakeTileLayer);
           spyOn(MapView.prototype, 'createClusterGroupLayer').and.returnValue(this.fakeClusterGroupLayer);
 
-          this.view = new MapView;
+          this.view = new MapView();
           this.view.initMap();
         });
 
@@ -137,7 +137,7 @@ define(function(require) {
           spyOn(Leaflet, 'map').and.returnValue(this.fakeMap);
           spyOn(Leaflet.Map.prototype, 'setView');
 
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -186,7 +186,7 @@ define(function(require) {
           spyOn(MapView.prototype, 'createFullscreenButton').and.returnValue(this.fakeFullscreenButton);
           spyOn(MapView.prototype, 'createPrintButton').and.returnValue(this.fakePrintButton);
 
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -215,7 +215,7 @@ define(function(require) {
           this.fakeButton = {};
           spyOn(Leaflet, 'easyButton').and.returnValue(this.fakeButton);
 
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -235,7 +235,7 @@ define(function(require) {
           this.fakeButton = {};
           spyOn(Leaflet, 'easyButton').and.returnValue(this.fakeButton);
 
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -255,7 +255,7 @@ define(function(require) {
           this.fakeButton = {};
           spyOn(Leaflet, 'easyButton').and.returnValue(this.fakeButton);
 
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -272,7 +272,7 @@ define(function(require) {
 
       describe('.didClickHomeButton()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -291,7 +291,7 @@ define(function(require) {
 
       describe('.didClickFullscreenButton()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -310,7 +310,7 @@ define(function(require) {
 
       describe('.didClickPrintButton()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -328,7 +328,7 @@ define(function(require) {
 
       describe('.didZoomMap()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView();
           this.view.render();
           this.view.initMap();
 
@@ -354,7 +354,7 @@ define(function(require) {
 
       describe('.calculateClusterSize()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -376,7 +376,7 @@ define(function(require) {
 
           spyOn(Leaflet, 'tileLayer').and.callThrough();
 
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -400,12 +400,12 @@ define(function(require) {
 
       describe('.showMarkers()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView();
           this.fakeLeafletMarkers = [];
           this.fakeData = {
             total: 2,
             markers: []
-          }
+          };
 
           spyOn(this.view, 'clearClusterLayers');
           spyOn(this.view, 'createClusterLayersWithMarkers');
@@ -445,7 +445,7 @@ define(function(require) {
           spyOn(MapView.prototype, 'getItemsCountElement').and.returnValue(this.fakeItemsCountHtmlEl);
           spyOn(MapView.prototype, 'getItemsCountContainer').and.returnValue(jasmine.createSpyObj('ctr', ['show']));
 
-          this.view = new MapView;
+          this.view = new MapView();
           this.view.render();
         });
 
@@ -483,7 +483,7 @@ define(function(require) {
 
           this.fakeIcon = {};
           spyOn(MapView.prototype, 'createMarkerIcon').and.returnValue(this.fakeIcon);
-          this.view = new MapView,
+          this.view = new MapView();
           this.markers = view.toLeafletMarkers(markersData);
         });
 
@@ -534,10 +534,10 @@ define(function(require) {
 
       describe('.clearClusterLayers()', function() {
         beforeEach(function() {
-          this.fakeLayer1 = {},
+          this.fakeLayer1 = {};
           this.fakeLayer2 = {};
 
-          this.view = new MapView;
+          this.view = new MapView();
           this.view.render();
           this.view.initMap();
 
@@ -567,7 +567,7 @@ define(function(require) {
 
       describe('.createClusterLayersWithMarkers()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView();
           this.view.render();
           this.view.initMap();
 
@@ -611,7 +611,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(PruneClusterForLeaflet.prototype, 'initialize').and.callThrough();
 
-          this.view = new MapView;
+          this.view = new MapView();
           this.view.render();
           this.view.initMap();
         });
@@ -633,7 +633,7 @@ define(function(require) {
 
       describe('.createMarkerIcon()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should be defined', function() {
@@ -678,7 +678,7 @@ define(function(require) {
         });
 
         it('should return map container element', function() {
-          var view = new MapView,
+          var view = new MapView(),
             fakeMapContainer = {};
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
@@ -686,7 +686,7 @@ define(function(require) {
               return {
                 get: function(index) {
                   if (index === 0) {
-                    return fakeMapContainer
+                    return fakeMapContainer;
                   }
                 }
               };
@@ -703,7 +703,7 @@ define(function(require) {
         });
 
         it('should return items count element', function() {
-          var view = new MapView,
+          var view = new MapView(),
             fakeItemsCountElement = {};
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
@@ -722,7 +722,7 @@ define(function(require) {
         });
 
         it('should return items count container element', function() {
-          var view = new MapView,
+          var view = new MapView(),
             fakeItemsCountContainer = {};
 
           spyOn($.prototype, 'find').and.callFake(function(selector) {
@@ -739,7 +739,7 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
-          this.view = new MapView;
+          this.view = new MapView();
         });
 
         it('should return view object', function() {
