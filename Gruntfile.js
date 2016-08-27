@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jshint: {
-      all: ['./*.js', 'app/**/*.js', 'test/**/*.js'],
+      all: ['./*.js', 'app/**/*.js', 'main/**/*.js', 'test/**/*.js'],
       options: {
         jshintrc: '.jshintrc'
       }
