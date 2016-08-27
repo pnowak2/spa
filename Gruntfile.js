@@ -22,7 +22,7 @@ module.exports = function(grunt) {
       }
     },
     requirejs: {
-      compile: {
+      'ce.landing-page': {
         options: {
           baseUrl: '.',
           paths: {
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
           preserveLicenseComments: false,
           include: "requireLib",
           name: "main/ce.landing-page.main",
-          out: "dist/vlr-app.min.js"
+          out: "dist/vlr.ce-landing-page.min.js"
         }
       }
     }
