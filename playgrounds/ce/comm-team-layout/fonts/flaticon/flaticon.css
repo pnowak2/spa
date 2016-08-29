@@ -1,0 +1,35 @@
+	/*
+  	projectcard icon font: projectcard
+  	Creation date: 19/08/2016 16:51
+  	*/
+
+@font-face {
+  font-family: "projectcard";
+  src: url("url("../fonts/flaticon/projectcard.eot");
+  src: url("url("../fonts/flaticon/projectcard.eot?#iefix") format("embedded-opentype"),
+       url("url("../fonts/flaticon//projectcard.woff") format("woff"),
+       url("url("../fonts/flaticon//projectcard.ttf") format("truetype"),
+       url("url("../fonts/flaticon/projectcard.svg#projectcard") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "projectcard";
+    src: url("./projectcard.svg#projectcard") format("svg");
+  }
+}
+
+[class^="projectcard-"]:before, [class*=" projectcard-"]:before,
+[class^="projectcard-"]:after, [class*=" projectcard-"]:after {   
+  font-family: projectcard;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}
+
+.projectcard-add-button-inside-black-circle:before { content: "\f100"; }
+.projectcard-domain:before { content: "\f101"; }
+.projectcard-flag:before { content: "\f102"; }
+.projectcard-minus-symbol-inside-a-circle:before { content: "\f103"; }
