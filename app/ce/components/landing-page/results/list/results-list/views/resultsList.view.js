@@ -10,7 +10,7 @@ define(function(require) {
 
     },
 
-    update: function(data) {
+    update: function(items) {
 
     },
 

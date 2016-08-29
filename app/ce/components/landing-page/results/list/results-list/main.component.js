@@ -7,8 +7,8 @@ define(function(require) {
       this.view = new ResultsListView();
     },
 
-    update: function(data) {
-      this.view.update(data);
+    update: function(items) {
+      this.view.update(items);
     }
   });
 });
