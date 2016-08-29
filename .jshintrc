@@ -4,24 +4,21 @@
   "undef": true,
   "strict": false,
   "jasmine": true,
-	 "predef": [
-  	 	/* JS Module */
-  	 	"module",
-  	 	
-  	 	/* RequireJS */
-  	 	"define",
-  	 	"require",
-  	 	"requirejs",
+  "browser": true,
+	"predef": [
+   	/* JS Module */
+   	"module",
+   	
+   	/* RequireJS */
+   	"define",
+   	"require",
+   	"requirejs",
 
-  	 	/* Browser globals */
-  	 	"document",
-  	 	"window",
+   	/* Jasmine */
+    "spyOnEvent",
 
-  	 	/* Jasmine */
-  	  "spyOnEvent",
-
-  	  /* PruneCluster Leaflet Plugin */
-  	  "PruneCluster",
-  	  "PruneClusterForLeaflet"
-		]
+    /* PruneCluster Leaflet Plugin */
+    "PruneCluster",
+    "PruneClusterForLeaflet"
+  ]
 }
