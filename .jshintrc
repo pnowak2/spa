@@ -3,39 +3,25 @@
   "sub": true,
   "undef": true,
   "strict": false,
+  "jasmine": true,
 	 "predef": [
-	 	/* JS Module */
-	 	"module",
-	 	
-	 	/* RequireJS */
-	 	"define",
-	 	"require",
-	 	"requirejs",
+  	 	/* JS Module */
+  	 	"module",
+  	 	
+  	 	/* RequireJS */
+  	 	"define",
+  	 	"require",
+  	 	"requirejs",
 
-	 	/* Browser globals */
-	 	"document",
-	 	"window",
+  	 	/* Browser globals */
+  	 	"document",
+  	 	"window",
 
-	 	/* Jasmine */
-	    "jasmine",
-	    "describe",
-	    "xdescribe",
-	    "before",
-	    "beforeEach",
-	    "after",
-	    "afterEach",
-	    "it",
-	    "xit",
-	    "fail",
-	    "inject",
-	    "expect",
-	    "spyOn",
-	    "loadFixtures",
-	    "setFixtures",
-	    "spyOnEvent",
+  	 	/* Jasmine */
+  	  "spyOnEvent",
 
-	    /* PruneCluster Leaflet Plugin */
-	    "PruneCluster",
-	    "PruneClusterForLeaflet"
+  	  /* PruneCluster Leaflet Plugin */
+  	  "PruneCluster",
+  	  "PruneClusterForLeaflet"
 		]
 }
