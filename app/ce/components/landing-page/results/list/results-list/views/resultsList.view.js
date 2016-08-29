@@ -1,6 +1,5 @@
 define(function(require) {
-  var _ = require('underscore'),
-    Backbone = require('backbone'),
+  var Backbone = require('backbone'),
     Mustache = require('mustache'),
     tpl = require('text!../templates/results-list.tpl.html');
 
@@ -12,7 +11,7 @@ define(function(require) {
     },
 
     update: function(items) {
-
+      
     },
 
     render: function() {

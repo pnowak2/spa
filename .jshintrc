@@ -5,6 +5,7 @@
   "strict": false,
   "jasmine": true,
   "browser": true,
+  "devel": true,
 	"predef": [
    	/* JS Module */
    	"module",
