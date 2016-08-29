@@ -18,8 +18,8 @@ define(function(require) {
       this.listComponent = options.listComponent || new BaseListComponent();
       this.searchService = options.searchService || dummySearchService;
 
-      this.pageStatsComponent = new PageStatsComponent();
-      this.pagerComponent = new PagerComponent();
+      this.pageStatsComponent = new PageStatsComponent(options.pageStatsConfig);
+      this.pagerComponent = new PagerComponent(options.pagerConfig);
 
       this.cachedCriteria = {};
 

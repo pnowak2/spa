@@ -19,7 +19,19 @@ define(function(require) {
     describe('creation', function() {
       beforeEach(function() {
         spyOn(_, 'bindAll').and.callThrough();
-        this.view = new SearchableListView();
+        spyOn(PagerComponent.prototype, 'initialize');
+        spyOn(PageStatsComponent.prototype, 'initialize');
+
+        this.fakePagerConfig = {
+          pageWindowSize: 3
+        };
+        this.fakePageStatsConfig = {
+          foo: 'bar'
+        };
+        this.view = new SearchableListView({
+          pagerConfig: this.fakePagerConfig,
+          pageStatsConfig: this.fakePageStatsConfig
+        });
       });
 
       it('should have default list component defined', function() {
@@ -34,8 +46,16 @@ define(function(require) {
         expect(this.view.pagerComponent).toEqual(jasmine.any(PagerComponent));
       });
 
+      it('should initiate pager component with pager config', function() {
+        expect(this.view.pagerComponent.initialize).toHaveBeenCalledWith(this.fakePagerConfig);
+      });
+
       it('should have page stats component defined', function() {
         expect(this.view.pageStatsComponent).toEqual(jasmine.any(PageStatsComponent));
+      });
+
+      it('should initiate page stats component with page stats config', function() {
+        expect(this.view.pageStatsComponent.initialize).toHaveBeenCalledWith(this.fakePageStatsConfig);
       });
 
       it('should bind callback methods with view object', function() {
