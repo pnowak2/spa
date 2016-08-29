@@ -10,7 +10,10 @@ define(function(require) {
     initialize: function() {
       this.searchableListComponent = new SearchableListComponent({
         listComponent: new ResultsListComponent(),
-        searchService: searchService
+        searchService: searchService,
+        pagerConfig: {
+          pageWindowSize: 3
+        }
       });
     },
 

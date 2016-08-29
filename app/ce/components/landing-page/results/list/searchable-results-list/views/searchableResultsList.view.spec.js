@@ -35,6 +35,13 @@ define(function(require) {
         }));
       });
 
+      it('should initialize searchable list component with pager config', function() {
+        expect(SearchableListComponent.prototype.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+          pagerConfig: {
+            pageWindowSize: 3
+          }
+        }));
+      });
     });
 
     describe('properties', function() {
