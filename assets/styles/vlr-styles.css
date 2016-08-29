@@ -180,7 +180,22 @@
 }
 
 /* Pager */
+.vlr-pager {
+  font-size: 0;
+  text-align: center;
+}
+
 .vlr-pager:after {
+  content:"";
+  display:table;
+  clear:both;
+}
+
+.vlr-pager__pages-container {
+  display: inline-block;
+}
+
+.vlr-pager__pages-container:after {
   content:"";
   display:table;
   clear:both;
