@@ -140,20 +140,6 @@ define(function(require) {
           }));
         });
       });
-
-      describe('.calculateTabWidth', function() {
-        it('should be defined', function() {
-          expect(TabSwitcherView.prototype.calculateTabWidth).toEqual(jasmine.any(Function));
-        });
-
-        it('should calculate tab width based on tabs count', function() {
-          expect(TabSwitcherView.prototype.calculateTabWidth(4)).toEqual('25%');
-        });
-
-        it('should set correct width if tab count is zero', function() {
-          expect(TabSwitcherView.prototype.calculateTabWidth(0)).toEqual('0');
-        });
-      });
     });
 
     describe('events', function() {
@@ -225,28 +211,6 @@ define(function(require) {
           expect(tabView.render.calls.count()).toBe(1);
           expect(tabSwitcherView.$el.append.calls.count()).toBe(1);
           expect(tabSwitcherView.$el.append).toHaveBeenCalledWith(tabView.el);
-        });
-
-        it('should have tab views width related to tabs count', function() {
-          var tabSwitcherView = new TabSwitcherView([{
-            identifier: 'one'
-          }, {
-            identifier: 'two'
-          }, {
-            identifier: 'three'
-          }, {
-            identifier: 'four'
-          }]);
-
-          tabSwitcherView.render();
-
-          expect(tabSwitcherView.$el.find('li')).toHaveLength(4);
-
-          tabSwitcherView.$el.find('li').each(function() {
-            expect(this).toHaveCss({
-              width: '25%'
-            });
-          });
         });
       });
     });

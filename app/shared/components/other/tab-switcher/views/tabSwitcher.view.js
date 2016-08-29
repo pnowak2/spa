@@ -39,23 +39,13 @@ define(function(require) {
       });
     },
 
-    calculateTabWidth: function(tabsCount) {
-      if (tabsCount === 0) {
-        return '0';
-      } else {
-        return (100 / tabsCount) + '%';
-      }
-    },
-
     render: function() {
       var container = this.$el,
-        tabViews = this.createTabViews(),
-        tabWidth = this.calculateTabWidth(tabViews.length);
+        tabViews = this.createTabViews();
 
       container.empty();
 
       _.each(tabViews, function(tabView) {
-        tabView.$el.css('width', tabWidth);
         container.append(tabView.render().el);
       });
 

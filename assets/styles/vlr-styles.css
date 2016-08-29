@@ -144,16 +144,14 @@
     border-left: 0;
     border-right: 0;
     font-size: 0;
+    text-align: center;
 }
 
 .vlr-tabs__tab {
-    width: 50%;
     border: 0;
     margin: 0;
     display: inline-block;
     box-sizing: border-box;
-    padding-top: 10px;
-    padding-bottom: 10px;
     text-align: center;
     cursor: pointer;
     color: #fff;
@@ -161,10 +159,13 @@
     text-decoration: none;
     font-family: sans-serif;
     font-size: 16px;
+    padding: 10px 20px;
 }
 
 .vlr-tabs__tab--selected {
     background-color: #3D6D9D;
+    border-left: 1px solid #5680AB;
+    border-right: 1px solid #5680AB;
 }
 
 .vlr-tabs__tab:hover {
@@ -173,10 +174,6 @@
 
 .vlr-tabs__tab--selected:hover {
     background-color: #4275A8;
-}
-
-.vlr-tabs__tab:last-child {
-    border-left: 1px solid #5680AB;
 }
 
 /* Pager */
