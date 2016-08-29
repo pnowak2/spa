@@ -11,13 +11,13 @@ define(function(require) {
         chance.sentence({
           words: 15
         }),
-        chance.paragraph(),
+        chance.paragraph({sentences: 2}),
         chance.natural({
           min: 2002,
           max: 2016
         }) + '',
-        _.times(7, function() {
-          return chance.country();
+        _.times(_.random(1,10), function() {
+          return chance.country().toLowerCase();
         }).join('|'),
         chance.bool() + ''
       ];
@@ -25,7 +25,7 @@ define(function(require) {
 
   return {
     search: function(criteria) {
-      var randomRows = _.times(10, function() {
+      var randomRows = _.times(7, function() {
         return makeRandomDataRow();
       });
 

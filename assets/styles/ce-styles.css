@@ -1,0 +1,48 @@
+.ce-results-container {
+  margin: 15px auto;
+	max-width: 900px;
+	min-width: 250px;
+}
+
+.ce-results-container .vlr-page-stats {
+	background-color: #333;
+}
+
+.ce-results-container .vlr-page-stats__details {
+	color: #d2d2d2;
+}
+
+.ce-results-container .vlr-pager {
+	text-align: center;
+	background-color: #333;
+	padding-top: 4px;
+}
+
+.ce-results-container .vlr-pager__pages-container {
+	display: inline-block;
+}
+
+.ce-results-container .vlr-project-item__badge {
+	margin-top: 5px;
+	background-color: #7872b8;
+}
+
+.ce-results-list__title {
+	font-weight: bold;
+	text-decoration: underline;
+	color: #474747;
+}
+
+.efc-results-table__countries {
+	width: 110px;
+}
+
+.efc-results-table__year {
+	width: 100px;
+	text-align: center;
+}
+
+.efc-results-table th {
+	color: #6b56b3;
+	font-size: 16px;
+}

@@ -1,3 +1,39 @@
-<div class="ce-results-list__no-data">
-	No results
-</div>
+{{#isEmpty}}
+	<div class="efc-results-table__no-data">
+		No results
+	</div>
+{{/isEmpty}}
+
+{{^isEmpty}}
+	<table class="efc-results-table">
+		<tr>
+        <th class="efc-results-table__title">Title</th>
+        <th class="efc-results-table__description">Description</th>
+        <th class="efc-results-table__year">Start Year</th>
+        <th class="efc-results-table__countries">Countries</th>
+		</tr>
+		{{#items}}
+		<tr>
+			<td>
+				<span class="ce-results-list__title">{{title}}</span>
+					<div>
+					{{#successStory}}
+						<div class="vlr-project-item__badge">
+							Success stories
+						</div>
+					{{/successStory}}
+					</div>
+			</td>
+			<td><span>{{description}}</span></td>
+			<td class="efc-results-table__year"><span>{{startYear}}</span></td>
+			<td class="efc-results-table__countries">
+				<span>
+					{{#countries}}
+						<div class="flag {{code}}"></div>			
+					{{/countries}}
+				</span>
+			</td>
+		</tr>
+		{{/items}}
+	</table>
+{{/isEmpty}}
