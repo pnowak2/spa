@@ -4,8 +4,7 @@ define(function(require) {
     Backbone = require('backbone'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
-    SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component'),
-    ProjectItemComponent = require('app/shared/components/other/project-item/main.component');
+    SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component');
 
   return Backbone.View.extend({
     initialize: function() {
