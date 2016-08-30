@@ -4,7 +4,8 @@ define(function(require) {
     LandingPageView = require('./landingPage.view'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
-    SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component');
+    SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component'),
+    TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component');
 
   describe('CE Landing Page View', function() {
     describe('type', function() {
@@ -17,6 +18,7 @@ define(function(require) {
       beforeEach(function() {
         spyOn(LandingPageView.prototype, 'render');
         spyOn(SearchComponent.prototype, 'initialize');
+        spyOn(TabSwitcherComponent.prototype, 'initialize');
 
         this.view = new LandingPageView();
       });
@@ -32,6 +34,26 @@ define(function(require) {
 
       it('should have searchable results list component defined ', function() {
         expect(this.view.searchableResultsList).toEqual(jasmine.any(SearchableResultsListComponent));
+      });
+
+      it('should have tab switcher component defined', function() {
+        expect(this.view.tabSwitcher).toEqual(jasmine.any(TabSwitcherComponent));
+      });
+
+      it('should initialize tab switcher with proper data', function() {
+        expect(this.view.tabSwitcher.initialize).toHaveBeenCalledWith({
+          tabDescriptors: [{
+            title: 'List view',
+            identifier: 'list',
+            targetSelector: '.' + this.view.searchableResultsList.view.className,
+            selected: true
+          }, {
+            title: 'Map',
+            identifier: 'map',
+            targetSelector: '<todo>',
+            selected: false
+          }]
+        });
       });
 
       it('should render the component', function() {
@@ -93,6 +115,11 @@ define(function(require) {
         it('should render search component in appropriate container', function() {
           var markup = this.view.search.render().view.el;
           expect($('.ce-search-container')).toContainHtml(markup);
+        });
+
+        it('should render tab switcher component to appropriate container', function() {
+          var markup = this.view.tabSwitcher.render().view.el;
+          expect($('.ce-tabs-container')).toContainHtml(markup);
         });
 
         it('should render searchable results list component in appropriate container', function() {
