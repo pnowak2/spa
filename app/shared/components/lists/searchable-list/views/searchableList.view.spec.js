@@ -348,6 +348,7 @@ define(function(require) {
           spyOn(BaseListComponent.prototype, 'update');
           spyOn(PagerComponent.prototype, 'update');
           spyOn(PageStatsComponent.prototype, 'update');
+          spyOn(SearchableListView.prototype, 'trigger');
 
           this.view = new SearchableListView();
           this.fakeData = {
@@ -387,10 +388,35 @@ define(function(require) {
           expect(this.view.pageStatsComponent.update).toHaveBeenCalledWith(fakePagerState);
         });
 
-        it('should trigger search completed event', function() {
-          spyOn(SearchableListView.prototype, 'trigger');
+        it('should trigger search completed event with data sent', function() {
           this.view.didSearchSucceed(this.fakeData);
-          expect(this.view.trigger).toHaveBeenCalledWith('search:completed', this.fakeData);
+          expect(this.view.trigger).toHaveBeenCalledWith('search:completed', jasmine.objectContaining({
+            data: this.fakeData
+          }));
+        });
+
+        it('should trigger search completed event with pager state', function() {
+          var fakePagerState = {
+            currentPage: 12
+          };
+          spyOn(this.view.pagerComponent, 'getState').and.returnValue(fakePagerState);
+
+          this.view.didSearchSucceed(this.fakeData);
+          expect(this.view.trigger).toHaveBeenCalledWith('search:completed', jasmine.objectContaining({
+            pagerState: fakePagerState
+          }));
+        });
+
+        it('should trigger search completed event with cashed search criteria', function() {
+          var fakeCachedCriteria = {
+            keyword: 'bar'
+          };
+          this.view.cachedCriteria = fakeCachedCriteria;
+
+          this.view.didSearchSucceed(this.fakeData);
+          expect(this.view.trigger).toHaveBeenCalledWith('search:completed', jasmine.objectContaining({
+            searchCriteria: fakeCachedCriteria
+          }));
         });
       });
 

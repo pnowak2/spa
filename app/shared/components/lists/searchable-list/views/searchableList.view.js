@@ -83,7 +83,11 @@ define(function(require) {
       });
       this.pageStatsComponent.update(this.pagerComponent.getState());
 
-      this.trigger('search:completed', data);
+      this.trigger('search:completed', {
+        data: data,
+        pagerState: this.pagerComponent.getState(),
+        searchCriteria: this.cachedCriteria
+      });
     },
 
     didSearchFail: function(error) {
