@@ -22,6 +22,17 @@ define(function(require) {
         it('should be defined', function() {
           expect(ResultStatsComponent.prototype.update).toEqual(jasmine.any(Function));
         });
+
+        it('should delegate to view', function() {
+          spyOn(ResultStatsView.prototype, 'update');
+
+          var component = new ResultStatsComponent(),
+            fakeData = {};
+
+          component.update(fakeData);
+
+          expect(component.view.update).toHaveBeenCalledWith(fakeData);
+        });
       });
     });
   });

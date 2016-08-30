@@ -8,7 +8,7 @@ define(function(require) {
     },
 
     update: function(data) {
-      
+      this.view.update(data);
     }
   });
 });

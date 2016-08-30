@@ -7,6 +7,10 @@ define(function(require) {
   return Backbone.View.extend({
     className: 'ce-result-stats',
 
+    initialize: function () {
+      this.data = {};
+    },
+
     update: function(data) {
       this.data = data || {};
       this.render();

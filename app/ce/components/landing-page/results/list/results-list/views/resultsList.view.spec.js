@@ -23,6 +23,13 @@ define(function(require) {
       });
     });
 
+    describe('creation', function() {
+      it('should have empty data object', function() {
+        var view = new ResultsListView();
+        expect(view.data).toEqual({});
+      });
+    });
+
     describe('api', function() {
       describe('.update()', function() {
         beforeEach(function() {

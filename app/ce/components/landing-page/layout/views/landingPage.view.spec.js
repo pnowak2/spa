@@ -4,6 +4,7 @@ define(function(require) {
     LandingPageView = require('./landingPage.view'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
+    ResultStatsComponent = require('app/ce/components/landing-page/results/result-stats/main.component'),
     SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component'),
     TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component');
 
@@ -30,6 +31,10 @@ define(function(require) {
       it('should initialize search component with correct advanced search component in options', function() {
         var passedOptions = SearchComponent.prototype.initialize.calls.mostRecent().args[0];
         expect(passedOptions.advancedSearchComponent).toEqual(jasmine.any(AdvancedSearchComponent));
+      });
+
+      it('should have result stats component defined', function() {
+        expect(this.view.resultStats).toEqual(jasmine.any(ResultStatsComponent));
       });
 
       it('should have searchable results list component defined ', function() {
@@ -115,6 +120,11 @@ define(function(require) {
         it('should render search component in appropriate container', function() {
           var markup = this.view.search.render().view.el;
           expect($('.ce-search-container')).toContainHtml(markup);
+        });
+
+        it('should render result stats component to appropriate container', function() {
+          var markup = this.view.resultStats.render().view.el;
+          expect($('.ce-result-stats-container')).toContainHtml(markup);
         });
 
         it('should render tab switcher component to appropriate container', function() {

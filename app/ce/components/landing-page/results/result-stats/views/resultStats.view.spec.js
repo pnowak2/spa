@@ -23,6 +23,13 @@ define(function(require) {
       });
     });
 
+    describe('creation', function() {
+      it('should have empty data object', function() {
+        var view = new ResultStatsView();
+        expect(view.data).toEqual({});
+      });
+    });
+
     describe('api', function() {
       describe('.update()', function() {
         beforeEach(function() {
@@ -77,7 +84,6 @@ define(function(require) {
           beforeEach(function() {
             this.view = new ResultStatsView();
             this.view.render();
-
             this.view.update();
           });
         });

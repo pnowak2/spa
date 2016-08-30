@@ -7,6 +7,10 @@ define(function(require) {
   return Backbone.View.extend({
     className: 'ce-results-list',
 
+    initialize: function () {
+      this.data = {};
+    },
+
     update: function(items) {
       this.items = items || [];
       this.render();
