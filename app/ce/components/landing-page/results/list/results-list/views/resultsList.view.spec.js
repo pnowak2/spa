@@ -9,10 +9,6 @@ define(function(require) {
       });
     });
 
-    describe('creation', function() {
-
-    });
-
     describe('properties', function() {
       describe('.tagName', function() {
         it('should be div', function() {

@@ -205,6 +205,10 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/ce/components/landing-page/results/list/results-list/main.component.spec',
     'app/ce/components/landing-page/results/list/results-list/views/resultsList.view.spec',
 
+    // ce result stats component
+    'app/ce/components/landing-page/results/result-stats/main.component.spec',
+    'app/ce/components/landing-page/results/result-stats/views/resultStats.view.spec',
+
     // ce searchable results list component
     'app/ce/components/landing-page/results/list/searchable-results-list/main.component.spec',
     'app/ce/components/landing-page/results/list/searchable-results-list/views/searchableResultsList.view.spec',

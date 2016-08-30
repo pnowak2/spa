@@ -2,21 +2,18 @@ define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
     Mustache = require('mustache'),
-    tpl = require('text!../templates/results-list.tpl.html');
+    tpl = require('text!../templates/result-stats.tpl.html');
 
   return Backbone.View.extend({
-    className: 'ce-results-list',
+    className: 'ce-result-stats',
 
-    update: function(items) {
-      this.items = items || [];
+    update: function(data) {
+      this.data = data || {};
       this.render();
     },
 
     render: function() {
-      var html = Mustache.render(tpl, {
-        hasItems: !_.isEmpty(this.items),
-        items: this.items
-      });
+      var html = Mustache.render(tpl, {});
 
       this.$el.html(html);
 
