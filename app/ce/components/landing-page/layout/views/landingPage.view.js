@@ -40,8 +40,16 @@ define(function(require) {
       this.searchableResultsList.onSearchRequest(criteria);
     },
 
-    didSearchSucceed: function(data) {
+    didSearchSucceed: function(dto) {
+      dto = dto || {};
+      dto.data = dto.data || {};
+      dto.searchCriteria = dto.searchCriteria || {};
 
+      this.resultStats.update({
+        itemsCount: dto.data.total,
+        keyword: dto.searchCriteria.keyword,
+        isAdvancedSearchDirty: dto.searchCriteria.isAdvancedSearchDirty
+      });
     },
 
     onExportXls: function () {

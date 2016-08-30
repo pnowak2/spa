@@ -26,7 +26,7 @@ define(function(require) {
     },
 
     render: function() {
-      var html = Mustache.render(tpl, {});
+      var html = Mustache.render(tpl, this.data);
 
       this.$el.html(html);
 

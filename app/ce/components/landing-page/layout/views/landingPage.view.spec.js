@@ -88,8 +88,55 @@ define(function(require) {
       });
 
       describe('.didSearchSucceed()', function() {
+        beforeEach(function() {
+          spyOn(ResultStatsComponent.prototype, 'update');
+
+          this.fakeDto = {
+            data: {
+              total: 1242,
+            },
+            searchCriteria: {
+              keyword: 'FooBar',
+              isAdvancedSearchDirty: true
+            }
+          };
+
+          this.view = new LandingPageView();
+        });
+
         it('should be defined', function() {
           expect(LandingPageView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
+        });
+
+        it('should not throw if called without data', function() {
+          var self = this;
+          expect(function() {
+            self.view.didSearchSucceed();
+          }).not.toThrow();
+        });
+
+        it('should update result stats component with items count', function() {
+          this.view.didSearchSucceed(this.fakeDto);
+
+          expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
+            itemsCount: 1242
+          }));
+        });
+
+        it('should update result stats component with keyword', function() {
+          this.view.didSearchSucceed(this.fakeDto);
+
+          expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
+            keyword: 'FooBar'
+          }));
+        });
+
+        it('should update result stats component with isAdvancedSearchDirty flag', function() {
+          this.view.didSearchSucceed(this.fakeDto);
+
+          expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
+            isAdvancedSearchDirty: true
+          }));
         });
       });
 
