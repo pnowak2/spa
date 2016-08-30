@@ -110,15 +110,28 @@ define(function(require) {
         describe('without data', function() {
           beforeEach(function() {
             this.view = new ResultStatsView();
+            this.view.data = {};
+
             this.$el = this.view.render().$el;
+          });
+
+          it('should be hidden if items count is not greater than zero', function() {
+            expect(this.$el.css('display')).toEqual('none');
           });
         });
 
         describe('with data', function() {
           beforeEach(function() {
             this.view = new ResultStatsView();
-            this.view.render();
-            this.view.update();
+            this.view.data = {
+              itemsCount: 124
+            };
+
+            this.$el = this.view.render().$el;
+          });
+
+          it('should be visible if items count is greater than zero', function() {
+            expect(this.$el.css('display')).toEqual('block');
           });
         });
       });

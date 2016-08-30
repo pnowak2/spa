@@ -28,6 +28,8 @@ define(function(require) {
     render: function() {
       var html = Mustache.render(tpl, this.data);
 
+      this.$el.toggle(this.data.itemsCount > 0);
+
       this.$el.html(html);
 
       return this;
