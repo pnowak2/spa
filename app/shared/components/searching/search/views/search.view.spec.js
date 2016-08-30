@@ -48,6 +48,18 @@ define(function(require) {
       describe('.didRequestSearch()', function() {
         beforeEach(function() {
           this.view = new SearchView();
+
+          this.fakeSearchBoxCriteria = {
+            keyword: 'foo'
+          };
+          this.fakeAdvancedSearchState = {
+            countries: ['pl', 'lu'],
+            activities: ['act1', 'act2']
+          };
+
+          spyOn(SearchView.prototype, 'trigger');
+          spyOn(DummyAdvancedSearchComponent.prototype, 'getCriteria').and.returnValue(this.fakeAdvancedSearchState);
+          spyOn(DummyAdvancedSearchComponent.prototype, 'isDirty').and.returnValue(true);
         });
 
         it('should be defined', function() {
@@ -55,24 +67,26 @@ define(function(require) {
         });
 
         it('should trigger view event with merged search box and advanced search criteria', function() {
-          var fakeSearchBoxCriteria = {
-              keyword: 'foo'
-            },
-            fakeAdvancedSearchState = {
-              countries: ['pl', 'lu'],
-              activities: ['act1', 'act2']
-            };
-
-          spyOn(SearchView.prototype, 'trigger');
-          spyOn(DummyAdvancedSearchComponent.prototype, 'getCriteria').and.returnValue(fakeAdvancedSearchState);
-
-          this.view.didRequestSearch(fakeSearchBoxCriteria);
+          this.view.didRequestSearch(this.fakeSearchBoxCriteria);
 
           expect(this.view.trigger).toHaveBeenCalledWith('search:search', {
             keyword: 'foo',
             countries: ['pl', 'lu'],
-            activities: ['act1', 'act2']
+            activities: ['act1', 'act2'],
+            isAdvancedSearchDirty: true
           });
+        });
+
+        it('should trigger view event with isAdvancedSearchDirty set to false when this method is not implemented', function() {
+          this.view.advancedSearch = {
+            getCriteria: jasmine.createSpy(),
+            hide: jasmine.createSpy()
+          };
+          this.view.didRequestSearch(this.fakeSearchBoxCriteria);
+
+          expect(this.view.trigger).toHaveBeenCalledWith('search:search', jasmine.objectContaining({
+            isAdvancedSearchDirty: false
+          }));
         });
 
         it('should hide advanced search', function() {

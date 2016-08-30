@@ -22,7 +22,9 @@ define(function(require) {
     didRequestSearch: function(searchBoxCriteria) {
       var criteria = _.extend({},
         searchBoxCriteria,
-        this.advancedSearch.getCriteria()
+        this.advancedSearch.getCriteria(), {
+          isAdvancedSearchDirty: (this.advancedSearch.isDirty ? this.advancedSearch.isDirty() : false)
+        }
       );
 
       this.advancedSearch.hide();
