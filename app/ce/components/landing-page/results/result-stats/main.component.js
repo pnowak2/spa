@@ -5,6 +5,9 @@ define(function(require) {
   return Component.extend({
     initialize: function() {
       this.view = new ResultStatsView();
+      this.listenTo(this.view, 'export:xls', function () {
+        this.trigger('export:xls');
+      });
     },
 
     update: function(data) {

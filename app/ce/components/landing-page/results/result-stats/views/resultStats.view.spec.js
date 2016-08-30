@@ -76,6 +76,16 @@ define(function(require) {
           this.view.didClickExportXls(this.evt);
           expect(this.evt.preventDefault).toHaveBeenCalled();
         });
+
+        it('should trigger export xls event', function() {
+          spyOn(ResultStatsView.prototype, 'trigger');
+
+          var view = new ResultStatsView();
+
+          view.didClickExportXls(this.evt);
+
+          expect(view.trigger).toHaveBeenCalledWith('export:xls');
+        });
       });
     });
 

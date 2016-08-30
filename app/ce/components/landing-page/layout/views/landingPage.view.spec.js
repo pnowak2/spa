@@ -92,6 +92,12 @@ define(function(require) {
           expect(LandingPageView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
         });
       });
+
+      describe('.onExportXls()', function() {
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.onExportXls).toEqual(jasmine.any(Function));
+        });
+      });
     });
 
     describe('events', function() {
@@ -116,6 +122,16 @@ define(function(require) {
           view.searchableResultsList.trigger('search:completed', fakeData);
 
           expect(view.didSearchSucceed).toHaveBeenCalledWith(fakeData);
+        });
+
+        it('should listen to result stats component "export xls" event', function() {
+          spyOn(LandingPageView.prototype, 'onExportXls');
+
+          var view = new LandingPageView();
+
+          view.resultStats.trigger('export:xls');
+
+          expect(view.onExportXls).toHaveBeenCalled();
         });
       });
     });

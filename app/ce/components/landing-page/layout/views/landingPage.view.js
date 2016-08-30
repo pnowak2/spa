@@ -33,6 +33,7 @@ define(function(require) {
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
       this.listenTo(this.searchableResultsList, 'search:completed', this.didSearchSucceed);
+      this.listenTo(this.resultStats, 'export:xls', this.onExportXls);
     },
 
     onSearchRequest: function(criteria) {
@@ -40,6 +41,10 @@ define(function(require) {
     },
 
     didSearchSucceed: function(data) {
+
+    },
+
+    onExportXls: function () {
       
     },
 

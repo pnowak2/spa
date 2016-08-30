@@ -17,6 +17,7 @@ define(function(require) {
 
     didClickExportXls: function (evt) {
       evt.preventDefault();
+      this.trigger('export:xls');
     },
 
     update: function(data) {

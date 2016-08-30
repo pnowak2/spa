@@ -17,6 +17,19 @@ define(function(require) {
       });
     });
 
+    describe('events', function() {
+      it('should trigger event on export xls', function(done) {
+        var component = new ResultStatsComponent();
+
+        component.on('export:xls', function() {
+          expect(true).toBe(true);
+          done();
+        });
+
+        component.view.trigger('export:xls');
+      });
+    });
+
     describe('api', function() {
       describe('.update()', function() {
         it('should be defined', function() {
