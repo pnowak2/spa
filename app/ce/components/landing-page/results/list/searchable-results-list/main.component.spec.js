@@ -36,5 +36,18 @@ define(function(require) {
         });
       });
     });
+
+    describe('events', function() {
+      it('should listen to view search completed event', function() {
+        spyOn(SearchableResultsListComponent.prototype, 'trigger');
+
+        var component = new SearchableResultsListComponent(),
+          fakeData = {};
+
+        component.view.trigger('search:completed', fakeData);
+
+        expect(component.trigger).toHaveBeenCalledWith('search:completed', fakeData);
+      });
+    });
   });
 });

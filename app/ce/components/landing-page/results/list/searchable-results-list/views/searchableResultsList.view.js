@@ -18,6 +18,10 @@ define(function(require) {
           visible: false
         }
       });
+
+      this.listenTo(this.searchableListComponent, 'search:completed', function(data) {
+        this.trigger('search:completed', data);
+      });
     },
 
     onSearchRequest: function(criteria) {

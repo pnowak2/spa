@@ -32,10 +32,15 @@ define(function(require) {
       this.render();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
+      this.listenTo(this.searchableResultsList, 'search:completed', this.didSearchSucceed);
     },
 
     onSearchRequest: function(criteria) {
       this.searchableResultsList.onSearchRequest(criteria);
+    },
+
+    didSearchSucceed: function(data) {
+
     },
 
     render: function() {

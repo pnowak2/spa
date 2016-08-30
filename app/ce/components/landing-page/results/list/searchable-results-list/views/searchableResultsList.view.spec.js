@@ -87,6 +87,19 @@ define(function(require) {
       });
     });
 
+    describe('events', function() {
+      it('should listen to searchable list component search completed event', function() {
+        spyOn(SearchableResultsListView.prototype, 'trigger');
+
+        var view = new SearchableResultsListView(),
+          fakeData = {};
+
+        view.searchableListComponent.trigger('search:completed', fakeData);
+
+        expect(view.trigger).toHaveBeenCalledWith('search:completed', fakeData);
+      });
+    });
+
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {

@@ -86,6 +86,12 @@ define(function(require) {
           expect(this.view.searchableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
         });
       });
+
+      describe('.didSearchSucceed()', function() {
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
+        });
+      });
     });
 
     describe('events', function() {
@@ -99,6 +105,17 @@ define(function(require) {
           view.search.trigger('search:search', fakeSearchCriteria);
 
           expect(view.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+        });
+
+        it('should listen to searchable results list component "search completed" event', function() {
+          spyOn(LandingPageView.prototype, 'didSearchSucceed');
+
+          var view = new LandingPageView(),
+            fakeData = {};
+
+          view.searchableResultsList.trigger('search:completed', fakeData);
+
+          expect(view.didSearchSucceed).toHaveBeenCalledWith(fakeData);
         });
       });
     });
