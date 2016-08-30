@@ -40,7 +40,7 @@ define(function(require) {
     },
 
     didSearchSucceed: function(data) {
-
+      
     },
 
     render: function() {

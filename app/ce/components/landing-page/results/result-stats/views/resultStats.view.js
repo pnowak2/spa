@@ -11,6 +11,14 @@ define(function(require) {
       this.data = {};
     },
 
+    events: {
+      'click .ce-result-stats__export-xls': 'didClickExportXls'
+    },
+
+    didClickExportXls: function (evt) {
+      evt.preventDefault();
+    },
+
     update: function(data) {
       this.data = data || {};
       this.render();

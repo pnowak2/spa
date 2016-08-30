@@ -61,6 +61,30 @@ define(function(require) {
           expect(this.view.render).toHaveBeenCalled();
         });
       });
+
+      describe('.didClickExportXls()', function() {
+        beforeEach(function() {
+          this.evt = jasmine.createSpyObj('e', ['preventDefault']);
+          this.view = new ResultStatsView();
+        });
+
+        it('should be defined', function() {
+          expect(ResultStatsView.prototype.didClickExportXls).toEqual(jasmine.any(Function));
+        });
+
+        it('should prevent default', function() {
+          this.view.didClickExportXls(this.evt);
+          expect(this.evt.preventDefault).toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('dom', function() {
+      it('should be properly defined', function() {
+        expect(ResultStatsView.prototype.events).toEqual({
+          'click .ce-result-stats__export-xls': 'didClickExportXls'
+        });
+      });
     });
 
     describe('rendering', function() {
