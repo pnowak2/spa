@@ -1,3 +1,43 @@
-<div class="ce-results-list__no-data">
-	No results
-</div>
+{{#isEmpty}}
+No results
+{{/isEmpty}}
+
+{{^isEmpty}}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="resultsTitle" style="width:20%">Project Title</th>
+        <th class="resultsTitle" style="width:40%">Description</th>
+        <th class="resultsTitle" style="width:10%; text-align:center;">Start Year</th>
+        <th class="resultsTitle" style="width:10%; text-align:center;">Countries</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#items}}
+        <tr>
+          <th>
+            <strong>{{title}}</strong>
+            <br><br>
+            {{#successStory}}
+              <button type="button" class="btn btn-primary btn-success-story">
+              <i class="flaticon-award52" title="Success Story"></i>
+              Success Story
+              </button>
+            {{/successStory}}
+          </th>
+          <td>
+            {{description}}<br><br>
+          </td>
+          <td style="text-align:center;">{{startYear}}</td>
+          <td style="text-align:center;">
+            {{#countries}}
+              <a href="#">
+                <img class="flag space10px {{code}}" title="{{fullName}}">
+              </a>
+            {{/countries}}
+          </td>
+        </tr>
+      {{/items}}
+    </tbody>
+  </table>
+{{/isEmpty}}
