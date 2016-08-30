@@ -89,6 +89,7 @@ define(function(require) {
             this.view.update([{
               id: 'id-1',
               title: 'Sample Title 1',
+              successStory: true,
               description: 'Sample Description 1',
               startYear: 'Sample Start Year 1',
               countries: [{
@@ -158,6 +159,10 @@ define(function(require) {
 
                 it('should contain link to result card with proper url', function() {
                   expect(this.$th.find('a')).toHaveAttr('href', '/programmes/creative-europe-new/projects/ce-project-details-page-new/?nodeRef=id-1');
+                });
+
+                it('should contain success story badge', function() {
+                  expect(this.$th).toContainText('Success Story');
                 });
               });
 
