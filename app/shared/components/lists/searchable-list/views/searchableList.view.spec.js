@@ -250,13 +250,13 @@ define(function(require) {
         });
 
         it('should update cached criteria for later use', function() {
-          var fakePreparedCriteria = {};
-
-          spyOn(SearchableListView.prototype, 'prepareSearchCriteria').and.returnValue(fakePreparedCriteria);
+          var fakeCriteria = {
+            keyword: 'test'
+          };
 
           expect(this.view.cachedCriteria).toEqual({});
-          this.view.onSearchRequest({});
-          expect(this.view.cachedCriteria).toBe(fakePreparedCriteria);
+          this.view.onSearchRequest(fakeCriteria);
+          expect(this.view.cachedCriteria).toBe(fakeCriteria);
         });
       });
 

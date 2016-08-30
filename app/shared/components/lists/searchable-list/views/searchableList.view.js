@@ -49,23 +49,23 @@ define(function(require) {
     onSearchRequest: function(searchCriteria) {
       this.resetPager();
 
-      var criteria = this.prepareSearchCriteria(
+      var criteriaWithPagerState = this.prepareSearchCriteria(
         searchCriteria,
         this.pagerComponent.getState()
       );
 
-      this.performSearch(criteria);
+      this.performSearch(criteriaWithPagerState);
 
-      this.cachedCriteria = criteria;
+      this.cachedCriteria = searchCriteria;
     },
 
     onPageRequest: function(pagerState) {
-      var criteria = this.prepareSearchCriteria(
+      var criteriaWithPagerState = this.prepareSearchCriteria(
         this.cachedCriteria,
         pagerState
       );
 
-      this.performSearch(criteria);
+      this.performSearch(criteriaWithPagerState);
     },
 
     performSearch: function(criteria) {
