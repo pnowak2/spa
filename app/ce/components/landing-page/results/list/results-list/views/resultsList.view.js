@@ -1,5 +1,6 @@
 define(function(require) {
-  var Backbone = require('backbone'),
+  var _ = require('underscore'),
+    Backbone = require('backbone'),
     Mustache = require('mustache'),
     tpl = require('text!../templates/results-list.tpl.html');
 
@@ -11,11 +12,15 @@ define(function(require) {
     },
 
     update: function(items) {
-      
+      this.items = items || [];
+      this.render();
     },
 
     render: function() {
-      var html = Mustache.render(tpl);
+      var html = Mustache.render(tpl, {
+        hasItems: !_.isEmpty(this.items),
+        items: this.items
+      });
 
       this.$el.html(html);
 

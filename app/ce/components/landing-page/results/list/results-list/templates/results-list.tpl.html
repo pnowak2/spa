@@ -1,8 +1,8 @@
-{{#isEmpty}}
-No results
-{{/isEmpty}}
-
-{{^isEmpty}}
+<!-- 
+Layout Author: Christophe Maertens, christophe.maertens@ext.ec.europa.eu
+Accountable: Nina Ahonen, Nina.ahonen@ec.europa.eu 
+-->
+{{#hasItems}}
   <table class="table table-striped">
     <thead>
       <tr>
@@ -16,7 +16,7 @@ No results
       {{#items}}
         <tr>
           <th>
-            <strong>{{title}}</strong>
+            <strong><a href="/programmes/creative-europe-new/projects/ce-project-details-page-new/?nodeRef={{id}}">{{title}}</a></strong>
             <br><br>
             {{#successStory}}
               <button type="button" class="btn btn-primary btn-success-story">
@@ -40,4 +40,8 @@ No results
       {{/items}}
     </tbody>
   </table>
-{{/isEmpty}}
+{{/hasItems}}
+
+{{^hasItems}}
+  <div class="ce-results-list__no-data">No results</div>
+{{/hasItems}}

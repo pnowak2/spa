@@ -22,7 +22,7 @@ define(function(require) {
             }) || {}).title || '';
 
             return {
-              code: countryCode,
+              code: countryCode.toLowerCase(),
               fullName: fullName
             };
           })

@@ -137,10 +137,10 @@ define(function(require) {
 
             it('should map item countries property', function() {
               expect(this.mapped.items[0].countries).toEqual([{
-                code: 'PL',
+                code: 'pl',
                 fullName: 'Poland'
               }, {
-                code: 'BE',
+                code: 'be',
                 fullName: 'Belgium'
               }]);
             });
@@ -169,10 +169,10 @@ define(function(require) {
 
             it('should map item countries property', function() {
               expect(this.mapped.items[1].countries).toEqual([{
-                code: 'ES',
+                code: 'es',
                 fullName: 'Spain'
               }, {
-                code: 'RO',
+                code: 'ro',
                 fullName: 'Romania'
               }]);
             });
@@ -189,10 +189,10 @@ define(function(require) {
             var mapped = searchResultMapper.map(testResponses.allTwoRowsWithWrongCountry);
 
             expect(mapped.items[0].countries).toEqual([{
-              code: 'PL',
+              code: 'pl',
               fullName: 'Poland'
             }, {
-              code: 'XY',
+              code: 'xy',
               fullName: ''
             }]);
           });
