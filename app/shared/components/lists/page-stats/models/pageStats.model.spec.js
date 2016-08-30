@@ -14,12 +14,35 @@ define(function(require) {
         expect(PageStatsModel.prototype.defaults).toEqual({
           displayStartItem: 0,
           displayEndItem: 0,
-          totalItems: 0
+          totalItems: 0,
+          visible: true
         });
       });
     });
 
     describe('api', function() {
+      describe('.isVisible()', function() {
+        it('should be defined', function() {
+          expect(PageStatsModel.prototype.isVisible).toEqual(jasmine.any(Function));
+        });
+
+        it('should return false if is visible property is falsy', function() {
+          var model = new PageStatsModel({
+            visible: false
+          });
+
+          expect(model.isVisible()).toBe(false);
+        });
+
+        it('should return true if is visible property is truthy', function() {
+          var model = new PageStatsModel({
+            visible: true
+          });
+
+          expect(model.isVisible()).toBe(true);
+        });
+      });
+
       describe('.hasItems()', function() {
         it('should be defined', function() {
           expect(PageStatsModel.prototype.hasItems).toEqual(jasmine.any(Function));
@@ -51,7 +74,8 @@ define(function(require) {
           var options = {
               displayStartItem: 11,
               displayEndItem: 20,
-              totalItems: 2000
+              totalItems: 2000,
+              visible: false
             },
             model = new PageStatsModel();
 
@@ -62,7 +86,8 @@ define(function(require) {
           expect(model.toJSON()).toEqual({
             displayStartItem: 11,
             displayEndItem: 20,
-            totalItems: 2000
+            totalItems: 2000,
+            visible: false
           });
         });
       });

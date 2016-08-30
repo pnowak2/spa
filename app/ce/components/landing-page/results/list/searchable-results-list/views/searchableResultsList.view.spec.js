@@ -42,6 +42,14 @@ define(function(require) {
           }
         }));
       });
+
+      it('should initialize page stats component with stats config', function() {
+        expect(SearchableListComponent.prototype.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+          pageStatsConfig: {
+            visible: false
+          }
+        }));
+      });
     });
 
     describe('properties', function() {

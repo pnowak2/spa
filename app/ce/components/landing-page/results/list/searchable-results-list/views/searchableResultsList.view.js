@@ -13,6 +13,9 @@ define(function(require) {
         searchService: searchService,
         pagerConfig: {
           pageWindowSize: 3
+        },
+        pageStatsConfig: {
+          visible: false
         }
       });
     },

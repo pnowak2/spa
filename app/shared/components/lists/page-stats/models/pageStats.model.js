@@ -5,7 +5,12 @@ define(function(require) {
     defaults: {
       displayStartItem: 0,
       displayEndItem: 0,
-      totalItems: 0
+      totalItems: 0,
+      visible: true
+    },
+
+    isVisible: function() {
+      return this.get('visible');
     },
 
     hasItems: function() {

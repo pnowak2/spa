@@ -22,7 +22,7 @@ define(function(require) {
 
       this.$el.html(html);
 
-      this.$el.toggle(this.model.hasItems());
+      this.$el.toggle(this.model.hasItems() && this.model.isVisible());
 
       return this;
     }

@@ -118,6 +118,38 @@ define(function(require) {
           expect(view2.$el.css('display')).toEqual('none');
           expect(view3.$el.css('display')).toEqual('block');
         });
+
+        it('should be visible by default if total items is greater than zero', function() {
+          var view = new PageStatsView({
+            totalItems: 2
+          });
+
+          view.render();
+
+          expect(view.$el.css('display')).toEqual('block');
+        });
+
+        it('should be hidden if visible set to false and total items is greater than zero', function() {
+          var view = new PageStatsView({
+            totalItems: 2,
+            visible: false
+          });
+
+          view.render();
+
+          expect(view.$el.css('display')).toEqual('none');
+        });
+
+        it('should be hidden if visible set to true and total items is zero', function() {
+          var view = new PageStatsView({
+            totalItems: 0,
+            visible: true
+          });
+
+          view.render();
+
+          expect(view.$el.css('display')).toEqual('none');
+        });
       });
     });
   });
