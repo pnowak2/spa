@@ -17,6 +17,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
+        spyOn(LandingPageView.prototype, 'hideResults');
         spyOn(LandingPageView.prototype, 'render');
         spyOn(SearchComponent.prototype, 'initialize');
         spyOn(TabSwitcherComponent.prototype, 'initialize');
@@ -64,6 +65,10 @@ define(function(require) {
       it('should render the component', function() {
         expect(this.view.render).toHaveBeenCalled();
       });
+
+      it('should hide results', function() {
+        expect(this.view.hideResults).toHaveBeenCalled();
+      });
     });
 
     describe('api', function() {
@@ -89,6 +94,7 @@ define(function(require) {
 
       describe('.didListSearchSucceed()', function() {
         beforeEach(function() {
+          spyOn(LandingPageView.prototype, 'showResults');
           spyOn(ResultStatsComponent.prototype, 'update');
 
           this.fakeDto = {
@@ -123,7 +129,7 @@ define(function(require) {
           }));
         });
 
-        it('should update result stats component with search criteria', function() {
+        it('should update result stats component with keyword', function() {
           this.view.didListSearchSucceed(this.fakeDto);
           expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
             keyword: 'FooBar'
@@ -136,11 +142,73 @@ define(function(require) {
             isAdvancedSearchDirty: true
           }));
         });
+
+        it('should show results', function() {
+          this.view.didListSearchSucceed(this.fakeDto);
+          
+          expect(this.view.showResults).toHaveBeenCalled();
+        });
       });
 
       describe('.onExportXls()', function() {
         it('should be defined', function() {
           expect(LandingPageView.prototype.onExportXls).toEqual(jasmine.any(Function));
+        });
+      });
+
+      describe('.showResults()', function() {
+        beforeEach(function () {
+          this.view = new LandingPageView();
+
+          spyOn(this.view.resultStats, 'show');
+          spyOn(this.view.tabSwitcher, 'show');
+          spyOn(this.view.searchableResultsList, 'show');
+
+          this.view.showResults();
+        });
+
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.showResults).toEqual(jasmine.any(Function));
+        });
+
+        it('should show result stats', function() {
+          expect(this.view.resultStats.show).toHaveBeenCalled();
+        });
+
+        it('should show tab switcher', function() {
+          expect(this.view.tabSwitcher.show).toHaveBeenCalled();
+        });
+
+        it('should show searchable results list', function() {
+          expect(this.view.searchableResultsList.show).toHaveBeenCalled();
+        });
+      });
+
+      describe('.hideResults()', function() {
+        beforeEach(function () {
+          this.view = new LandingPageView();
+
+          spyOn(this.view.resultStats, 'hide');
+          spyOn(this.view.tabSwitcher, 'hide');
+          spyOn(this.view.searchableResultsList, 'hide');
+
+          this.view.hideResults();
+        });
+
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.hideResults).toEqual(jasmine.any(Function));
+        });
+
+        it('should hide result stats', function() {
+          expect(this.view.resultStats.hide).toHaveBeenCalled();
+        });
+
+        it('should hide tab switcher', function() {
+          expect(this.view.tabSwitcher.hide).toHaveBeenCalled();
+        });
+
+        it('should hide searchable results list', function() {
+          expect(this.view.searchableResultsList.hide).toHaveBeenCalled();
         });
       });
     });

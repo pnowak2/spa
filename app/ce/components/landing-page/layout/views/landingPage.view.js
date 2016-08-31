@@ -28,6 +28,7 @@ define(function(require) {
         }]
       });
 
+      this.hideResults();
       this.render();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
@@ -49,10 +50,24 @@ define(function(require) {
         keyword: response.searchCriteria.keyword,
         isAdvancedSearchDirty: response.searchCriteria.isAdvancedSearchDirty
       });
+
+      this.showResults();
     },
 
     onExportXls: function () {
       
+    },
+
+    showResults: function () {
+      this.resultStats.show();
+      this.tabSwitcher.show();
+      this.searchableResultsList.show();
+    },
+
+    hideResults: function () {
+      this.resultStats.hide();
+      this.tabSwitcher.hide();
+      this.searchableResultsList.hide();
     },
 
     render: function() {
