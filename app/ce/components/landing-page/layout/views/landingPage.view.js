@@ -47,8 +47,7 @@ define(function(require) {
 
       this.resultStats.update({
         itemsCount: dto.data.total,
-        keyword: dto.searchCriteria.keyword,
-        isAdvancedSearchDirty: dto.searchCriteria.isAdvancedSearchDirty
+        searchCriteria: dto.searchCriteria
       });
     },
 
