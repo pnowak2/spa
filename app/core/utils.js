@@ -22,7 +22,9 @@ define(function(require) {
     Surrogate.prototype = parent.prototype;
     child.prototype = new Surrogate();
 
-    if (protoProps) _.extend(child.prototype, protoProps);
+    if (protoProps) {
+      _.extend(child.prototype, protoProps);
+    }
 
     child.__super__ = parent.prototype;
 

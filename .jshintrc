@@ -1,7 +1,12 @@
 {
+  "esversion": 5,
   "indent": 2,
   "sub": true,
   "undef": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "latedef": true,
   "strict": false,
   "jasmine": true,
   "browser": true,

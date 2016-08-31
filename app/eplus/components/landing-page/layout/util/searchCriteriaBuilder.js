@@ -2,23 +2,6 @@ define(function(require) {
   var _ = require('underscore'),
     $ = require('jquery'),
 
-    getCriteria = function() {
-      var searchTypeValue = $('input[name=searchType]').filter(':checked').val(),
-        domain = $('#domain').val(),
-        query = '';
-
-      switch (domain) {
-        case 'eplus':
-          query = window.buildEducationSearchParams(searchTypeValue);
-          break;
-        case 'ce':
-          query = window.buildCultureSearchParams(searchTypeValue);
-          break;
-      }
-
-      return getQueryParametersAsObject(query);
-    },
-
     getQueryParametersAsObject = function(str) {
       if (!str.match(/(=)/g)) {
         return {};
@@ -40,6 +23,23 @@ define(function(require) {
           return _.extend(criteriaObject, param);
         }, {})
         .value();
+    },
+
+    getCriteria = function() {
+      var searchTypeValue = $('input[name=searchType]').filter(':checked').val(),
+        domain = $('#domain').val(),
+        query = '';
+
+      switch (domain) {
+        case 'eplus':
+          query = window.buildEducationSearchParams(searchTypeValue);
+          break;
+        case 'ce':
+          query = window.buildCultureSearchParams(searchTypeValue);
+          break;
+      }
+
+      return getQueryParametersAsObject(query);
     };
 
   return {
