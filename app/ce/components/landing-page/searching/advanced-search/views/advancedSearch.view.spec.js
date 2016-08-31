@@ -511,40 +511,136 @@ define(function(require) {
           expect(AdvancedSearchView.prototype.isDirty).toEqual(jasmine.any(Function));
         });
 
-        it('should return true if any criteria components has changed', function() {
-          var view = new AdvancedSearchView();
+        describe('Criteria Visible', function() {
+          beforeEach(function() {
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(true);
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(false);
+            spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(true);
+            spyOn(MultiselectComponent.prototype, 'isDirty').and.returnValue(false);
 
-          spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(true);
-          spyOn(view.options, 'isDirty').and.returnValue(false);
-          spyOn(view.programmes, 'isDirty').and.returnValue(true);
-          spyOn(view.subprogrammes, 'isDirty').and.returnValue(false);
-          spyOn(view.actions, 'isDirty').and.returnValue(false);
-          spyOn(view.activities, 'isDirty').and.returnValue(false);
-          spyOn(view.activityYears, 'isDirty').and.returnValue(false);
-          spyOn(view.fundingYears, 'isDirty').and.returnValue(false);
-          spyOn(view.countries, 'isDirty').and.returnValue(false);
-          spyOn(view.regions, 'isDirty').and.returnValue(false);
-          spyOn(view.organisationTypes, 'isDirty').and.returnValue(false);
+            this.view = new AdvancedSearchView();
+          });
 
-          expect(view.isDirty()).toBe(true);
+          it('should return true if options is dirty', function() {
+            this.view.options.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if programmes is dirty', function() {
+            this.view.programmes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if subprogrammes is dirty', function() {
+            this.view.subprogrammes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if actions is dirty', function() {
+            this.view.actions.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if activities is dirty', function() {
+            this.view.activities.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if activity years is dirty', function() {
+            this.view.activityYears.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if funding years is dirty', function() {
+            this.view.fundingYears.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if countries is dirty', function() {
+            this.view.countries.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if regions is dirty', function() {
+            this.view.regions.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if organisation types is dirty', function() {
+            this.view.organisationTypes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if match all countries is visible', function() {
+            this.view.isMatchAllCountriesSelected = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
         });
 
-        it('should return false if none of criteria components has changed', function() {
-          var view = new AdvancedSearchView();
+        describe('Criteria Invisible', function() {
+          beforeEach(function() {
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(false);
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(false);
+            spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(false);
+            spyOn(MultiselectComponent.prototype, 'isDirty').and.returnValue(false);
 
-          spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(false);
-          spyOn(view.options, 'isDirty').and.returnValue(false);
-          spyOn(view.programmes, 'isDirty').and.returnValue(false);
-          spyOn(view.subprogrammes, 'isDirty').and.returnValue(false);
-          spyOn(view.actions, 'isDirty').and.returnValue(false);
-          spyOn(view.activities, 'isDirty').and.returnValue(false);
-          spyOn(view.activityYears, 'isDirty').and.returnValue(false);
-          spyOn(view.fundingYears, 'isDirty').and.returnValue(false);
-          spyOn(view.countries, 'isDirty').and.returnValue(false);
-          spyOn(view.regions, 'isDirty').and.returnValue(false);
-          spyOn(view.organisationTypes, 'isDirty').and.returnValue(false);
+            this.view = new AdvancedSearchView();
+          });
 
-          expect(view.isDirty()).toBe(false);
+          it('should return false if options is dirty', function() {
+            this.view.options.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if programmes is dirty', function() {
+            this.view.programmes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if subprogrammes is dirty', function() {
+            this.view.subprogrammes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if actions is dirty', function() {
+            this.view.actions.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if activities is dirty', function() {
+            this.view.activities.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if activity years is dirty', function() {
+            this.view.activityYears.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if funding years is dirty', function() {
+            this.view.fundingYears.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if countries is dirty', function() {
+            this.view.countries.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if regions is dirty', function() {
+            this.view.regions.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if organisation types is dirty', function() {
+            this.view.organisationTypes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if match all countries is invisible', function() {
+            this.view.isMatchAllCountriesSelected = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
         });
       });
 

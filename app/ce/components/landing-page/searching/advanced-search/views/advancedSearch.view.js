@@ -103,17 +103,17 @@ define(function(require) {
     },
 
     isDirty: function() {
-      return this.options.isDirty() ||
-        this.programmes.isDirty() ||
-        this.subprogrammes.isDirty() ||
-        this.actions.isDirty() ||
-        this.activities.isDirty() ||
-        this.activityYears.isDirty() ||
-        this.fundingYears.isDirty() ||
-        this.countries.isDirty() ||
-        this.regions.isDirty() ||
-        this.organisationTypes.isDirty() ||
-        this.isMatchAllCountriesSelected();
+      return this.options.isVisible() && this.options.isDirty() ||
+        this.programmes.isVisible() && this.programmes.isDirty() ||
+        this.subprogrammes.isVisible() && this.subprogrammes.isDirty() ||
+        this.actions.isVisible() && this.actions.isDirty() ||
+        this.activities.isVisible() && this.activities.isDirty() ||
+        this.activityYears.isVisible() && this.activityYears.isDirty() ||
+        this.fundingYears.isVisible() && this.fundingYears.isDirty() ||
+        this.countries.isVisible() && this.countries.isDirty() ||
+        this.regions.isVisible() && this.regions.isDirty() ||
+        this.organisationTypes.isVisible() && this.organisationTypes.isDirty() ||
+        this.isMatchAllCountriesVisible() && this.isMatchAllCountriesSelected();
     },
 
     didClickClearFilters: function(e) {
