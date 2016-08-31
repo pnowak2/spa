@@ -87,7 +87,7 @@ define(function(require) {
         });
       });
 
-      describe('.didSearchSucceed()', function() {
+      describe('.didListSearchSucceed()', function() {
         beforeEach(function() {
           spyOn(ResultStatsComponent.prototype, 'update');
 
@@ -105,18 +105,18 @@ define(function(require) {
         });
 
         it('should be defined', function() {
-          expect(LandingPageView.prototype.didSearchSucceed).toEqual(jasmine.any(Function));
+          expect(LandingPageView.prototype.didListSearchSucceed).toEqual(jasmine.any(Function));
         });
 
         it('should not throw if called without data', function() {
           var self = this;
           expect(function() {
-            self.view.didSearchSucceed();
+            self.view.didListSearchSucceed();
           }).not.toThrow();
         });
 
         it('should update result stats component with items count', function() {
-          this.view.didSearchSucceed(this.fakeDto);
+          this.view.didListSearchSucceed(this.fakeDto);
 
           expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
             itemsCount: 1242
@@ -124,7 +124,7 @@ define(function(require) {
         });
 
         it('should update result stats component with keyword', function() {
-          this.view.didSearchSucceed(this.fakeDto);
+          this.view.didListSearchSucceed(this.fakeDto);
 
           expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
             keyword: 'FooBar'
@@ -132,7 +132,7 @@ define(function(require) {
         });
 
         it('should update result stats component with isAdvancedSearchDirty flag', function() {
-          this.view.didSearchSucceed(this.fakeDto);
+          this.view.didListSearchSucceed(this.fakeDto);
 
           expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
             isAdvancedSearchDirty: true
@@ -161,14 +161,14 @@ define(function(require) {
         });
 
         it('should listen to searchable results list component "search completed" event', function() {
-          spyOn(LandingPageView.prototype, 'didSearchSucceed');
+          spyOn(LandingPageView.prototype, 'didListSearchSucceed');
 
           var view = new LandingPageView(),
             fakeData = {};
 
           view.searchableResultsList.trigger('search:completed', fakeData);
 
-          expect(view.didSearchSucceed).toHaveBeenCalledWith(fakeData);
+          expect(view.didListSearchSucceed).toHaveBeenCalledWith(fakeData);
         });
 
         it('should listen to result stats component "export xls" event', function() {

@@ -32,7 +32,7 @@ define(function(require) {
       this.render();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
-      this.listenTo(this.searchableResultsList, 'search:completed', this.didSearchSucceed);
+      this.listenTo(this.searchableResultsList, 'search:completed', this.didListSearchSucceed);
       this.listenTo(this.resultStats, 'export:xls', this.onExportXls);
     },
 
@@ -40,7 +40,7 @@ define(function(require) {
       this.searchableResultsList.onSearchRequest(criteria);
     },
 
-    didSearchSucceed: function(dto) {
+    didListSearchSucceed: function(dto) {
       dto = dto || {};
       dto.data = dto.data || {};
       dto.searchCriteria = dto.searchCriteria || {};
