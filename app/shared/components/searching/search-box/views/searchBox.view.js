@@ -16,7 +16,6 @@ define(function(require) {
 
     initialize: function() {
       this.model = new SearchBoxModel();
-      this.listenTo(this.model, 'change', this.didModelChange);
     },
 
     didClickSearchButton: function(e) {

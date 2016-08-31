@@ -237,7 +237,9 @@ define(function(require) {
 
         it('should set proper keyword on model', function() {
           var view = new SearchBoxView(),
-            fakeFormData = {};
+            fakeFormData = {
+              keyword: 'bar'
+            };
 
           spyOn(view.model, 'set');
           spyOn(view, 'getFormData').and.returnValue(fakeFormData);
@@ -261,7 +263,9 @@ define(function(require) {
 
         it('should trigger view event', function() {
           var view = new SearchBoxView(),
-            fakeModelJSON = {};
+            fakeModelJSON = {
+              keyword: 'bar'
+            };
 
           spyOn(view, 'trigger');
           spyOn(view, 'getFormData');
