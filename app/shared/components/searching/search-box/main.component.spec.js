@@ -18,20 +18,6 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.isDirty()', function() {
-        it('should be defined', function() {
-          expect(SearchBoxComponent.prototype.isDirty).toEqual(jasmine.any(Function));
-        });
-
-        it('should delegate to view', function() {
-          var component = new SearchBoxComponent();
-
-          spyOn(SearchBoxView.prototype, 'isDirty').and.returnValue(true);
-
-          expect(component.isDirty()).toBe(true);
-        });
-      });
-
       describe('.toggleMoreButtonStateToOpened()', function() {
         it('should be defined', function() {
           expect(SearchBoxComponent.prototype.toggleMoreButtonStateToOpened).toEqual(jasmine.any(Function));

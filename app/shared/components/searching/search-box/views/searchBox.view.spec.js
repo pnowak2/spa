@@ -29,26 +29,6 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.isDirty()', function() {
-        beforeEach(function () {
-          this.view = new SearchBoxView();
-        });
-
-        it('should be defined', function() {
-          expect(SearchBoxView.prototype.isDirty).toEqual(jasmine.any(Function));
-        });
-
-        it('should return true if model says true', function() {
-          spyOn(SearchBoxModel.prototype, 'isDirty').and.returnValue(true);
-          expect(this.view.isDirty()).toBe(true);
-        });
-
-        it('should return true if model says false', function() {
-          spyOn(SearchBoxModel.prototype, 'isDirty').and.returnValue(false);
-          expect(this.view.isDirty()).toBe(false);
-        });
-      });
-
       describe('.didClickSearchButton()', function() {
         beforeEach(function() {
           spyOn(SearchBoxView.prototype, 'requestSearch');
