@@ -26,7 +26,7 @@ define(function(require) {
     },
 
     shouldShowKeyword: function (data) {
-      return data.keyword !== '' && !data.isAdvancedSearchDirty;
+      return !_.isEmpty(data.keyword) && !data.isAdvancedSearchDirty;
     },
 
     render: function() {

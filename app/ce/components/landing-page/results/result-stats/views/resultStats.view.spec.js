@@ -177,7 +177,7 @@ define(function(require) {
 
           describe('Result Stats', function() {
             it('should contain proper results info', function() {
-              expect(this.$el).toContainText('Results for');
+              expect(this.$el).toContainText('Results');
             });
           });
         });
