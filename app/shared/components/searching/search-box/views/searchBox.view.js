@@ -18,6 +18,10 @@ define(function(require) {
       this.model = new SearchBoxModel();
     },
 
+    isDirty: function () {
+      return this.model.isDirty();
+    },
+
     didClickSearchButton: function(e) {
       e.preventDefault();
       this.requestSearch();

@@ -19,6 +19,10 @@ define(function(require) {
       });
     },
 
+    isDirty: function () {
+      return this.view.isDirty();
+    },
+
     toggleMoreButtonStateToOpened: function() {
       this.view.toggleMoreButtonStateToOpened();
     },
