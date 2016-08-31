@@ -106,9 +106,34 @@
 	background-color: #6b56b3;
 }
 
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: #6b56b3;
+}
+
 .ce-results-list__no-data {
 	font-family: ec_square_sans_cond_promedium ,Verdana,Arial,Helvetica,"DejaVu Sans",sans-serif;
 	font-size: 24px;
 	text-align: center;
 	color: #433580;
+}
+
+.jumbotron .vlr-search h1, .jumbotron .vlr-search h1 {
+	font-size: inherit;
+	color: inherit;
+}
+
+.jumbotron .vlr-search .vlr-advanced-search__header-title {
+	color: #888;
+}
+
+.vlr-searchbox__tooltip, 
+.jumbotron .select2,
+.select2-results__option, .select2-results__option--highlighted,
+.vlr-advanced-search__header {
+	line-height: 1.2;
+}
+
+input[type="checkbox"].vlr-advanced-search__match-all-countries-input {
+	margin: 0;
+	margin-left: 3px;
 }
