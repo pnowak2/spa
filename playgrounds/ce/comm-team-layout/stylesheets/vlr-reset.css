@@ -105,3 +105,10 @@
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
 	background-color: #6b56b3;
 }
+
+.ce-results-list__no-data {
+	font-family: ec_square_sans_cond_promedium ,Verdana,Arial,Helvetica,"DejaVu Sans",sans-serif;
+	font-size: 24px;
+	text-align: center;
+	color: #433580;
+}
