@@ -40,15 +40,15 @@ define(function(require) {
       this.searchableResultsList.onSearchRequest(criteria);
     },
 
-    didListSearchSucceed: function(dto) {
-      dto = dto || {};
-      dto.data = dto.data || {};
-      dto.searchCriteria = dto.searchCriteria || {};
+    didListSearchSucceed: function(response) {
+      response = response || {};
+      response.data = response.data || {};
+      response.searchCriteria = response.searchCriteria || {};
 
       this.resultStats.update({
-        itemsCount: dto.data.total,
-        keyword: dto.searchCriteria.keyword,
-        isAdvancedSearchDirty: dto.searchCriteria.isAdvancedSearchDirty
+        itemsCount: response.data.total,
+        keyword: response.searchCriteria.keyword,
+        isAdvancedSearchDirty: response.searchCriteria.isAdvancedSearchDirty
       });
     },
 
