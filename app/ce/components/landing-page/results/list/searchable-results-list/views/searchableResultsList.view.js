@@ -5,6 +5,8 @@ define(function(require) {
     searchService = require('../services/search/search.service');
 
   return Backbone.View.extend({
+    id: 'ce-searchable-results-list',
+
     className: 'ce-searchable-results-list',
 
     initialize: function() {

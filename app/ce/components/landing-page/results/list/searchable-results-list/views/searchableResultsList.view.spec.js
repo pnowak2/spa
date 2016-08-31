@@ -59,6 +59,12 @@ define(function(require) {
         });
       });
 
+      describe('.id', function() {
+        it('should be defined', function() {
+          expect(SearchableResultsListView.prototype.id).toEqual('ce-searchable-results-list');
+        });
+      });
+
       describe('.className', function() {
         it('should be defined', function() {
           expect(SearchableResultsListView.prototype.className).toEqual('ce-searchable-results-list');
