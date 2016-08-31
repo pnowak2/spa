@@ -72,21 +72,8 @@ define(function(require) {
           expect(this.view.trigger).toHaveBeenCalledWith('search:search', {
             keyword: 'foo',
             countries: ['pl', 'lu'],
-            activities: ['act1', 'act2'],
-            isAdvancedSearchDirty: true
+            activities: ['act1', 'act2']
           });
-        });
-
-        it('should trigger view event with isAdvancedSearchDirty set to false when this method is not implemented', function() {
-          this.view.advancedSearch = {
-            getCriteria: jasmine.createSpy(),
-            hide: jasmine.createSpy()
-          };
-          this.view.didRequestSearch(this.fakeSearchBoxCriteria);
-
-          expect(this.view.trigger).toHaveBeenCalledWith('search:search', jasmine.objectContaining({
-            isAdvancedSearchDirty: false
-          }));
         });
 
         it('should hide advanced search', function() {
