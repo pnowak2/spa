@@ -59,13 +59,11 @@ define(function(require) {
     },
 
     showResults: function () {
-      this.resultStats.show();
       this.tabSwitcher.show();
       this.searchableResultsList.show();
     },
 
     hideResults: function () {
-      this.resultStats.hide();
       this.tabSwitcher.hide();
       this.searchableResultsList.hide();
     },

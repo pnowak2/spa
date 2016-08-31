@@ -145,7 +145,7 @@ define(function(require) {
 
         it('should show results', function() {
           this.view.didListSearchSucceed(this.fakeDto);
-          
+
           expect(this.view.showResults).toHaveBeenCalled();
         });
       });
@@ -171,10 +171,6 @@ define(function(require) {
           expect(LandingPageView.prototype.showResults).toEqual(jasmine.any(Function));
         });
 
-        it('should show result stats', function() {
-          expect(this.view.resultStats.show).toHaveBeenCalled();
-        });
-
         it('should show tab switcher', function() {
           expect(this.view.tabSwitcher.show).toHaveBeenCalled();
         });
@@ -197,10 +193,6 @@ define(function(require) {
 
         it('should be defined', function() {
           expect(LandingPageView.prototype.hideResults).toEqual(jasmine.any(Function));
-        });
-
-        it('should hide result stats', function() {
-          expect(this.view.resultStats.hide).toHaveBeenCalled();
         });
 
         it('should hide tab switcher', function() {
