@@ -87,6 +87,52 @@ define(function(require) {
           expect(view.trigger).toHaveBeenCalledWith('export:xls');
         });
       });
+
+      describe('.shouldShowKeyword()', function() {
+        beforeEach(function() {
+          this.view = new ResultStatsView();
+        });
+
+        it('should be defined', function() {
+          expect(ResultStatsView.prototype.shouldShowKeyword).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if advanced search is not dirty and keyword is not empty', function() {
+          var fakeData = {
+            keyword: 'bar',
+            isAdvancedSearchDirty: false
+          };
+
+          expect(this.view.shouldShowKeyword(fakeData)).toBe(true);
+        });
+
+        it('should return false if advanced search is not dirty and keyword is empty', function() {
+          var fakeData = {
+            keyword: '',
+            isAdvancedSearchDirty: false
+          };
+
+          expect(this.view.shouldShowKeyword(fakeData)).toBe(false);
+        });
+
+        it('should return false if advanced search is dirty and keyword is not empty', function() {
+          var fakeData = {
+            keyword: 'the',
+            isAdvancedSearchDirty: true
+          };
+
+          expect(this.view.shouldShowKeyword(fakeData)).toBe(false);
+        });
+
+        it('should return false if advanced search is dirty and keyword is empty', function() {
+          var fakeData = {
+            keyword: '',
+            isAdvancedSearchDirty: true
+          };
+
+          expect(this.view.shouldShowKeyword(fakeData)).toBe(false);
+        });
+      });
     });
 
     describe('dom', function() {
@@ -118,13 +164,31 @@ define(function(require) {
           it('should be hidden if items count is not greater than zero', function() {
             expect(this.$el.css('display')).toEqual('none');
           });
+
+          describe('XLS Export', function() {
+            it('should contain link to xls export', function() {
+              expect(this.$el.find('a.ce-result-stats__export-xls')).toHaveText('XLS');
+            });
+
+            it('should contain link to xls export with href pointing to #', function() {
+              expect(this.$el.find('a.ce-result-stats__export-xls')).toHaveAttr('href', '#');
+            });
+          });
+
+          describe('Result Stats', function() {
+            it('should contain proper results info', function() {
+              expect(this.$el).toContainText('Results for');
+            });
+          });
         });
 
-        describe('with data', function() {
+        describe('with data showing keyword', function() {
           beforeEach(function() {
             this.view = new ResultStatsView();
             this.view.data = {
-              itemsCount: 124
+              itemsCount: 124,
+              keyword: 'bar',
+              isAdvancedSearchDirty: false
             };
 
             this.$el = this.view.render().$el;
@@ -132,6 +196,35 @@ define(function(require) {
 
           it('should be visible if items count is greater than zero', function() {
             expect(this.$el.css('display')).toEqual('block');
+          });
+
+          describe('Result Stats', function() {
+            it('should contain proper results info', function() {
+              expect(this.$el).toContainText('124 Results for bar');
+            });
+          });
+        });
+
+        describe('with data without keyword', function() {
+          beforeEach(function() {
+            this.view = new ResultStatsView();
+            this.view.data = {
+              itemsCount: 124,
+              keyword: 'bar',
+              isAdvancedSearchDirty: true
+            };
+
+            this.$el = this.view.render().$el;
+          });
+
+          it('should be visible if items count is greater than zero', function() {
+            expect(this.$el.css('display')).toEqual('block');
+          });
+
+          describe('Result Stats', function() {
+            it('should contain proper results info', function() {
+              expect(this.$el).toContainText('124 Results');
+            });
           });
         });
       });

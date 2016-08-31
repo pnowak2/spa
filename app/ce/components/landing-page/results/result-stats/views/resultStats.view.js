@@ -25,8 +25,14 @@ define(function(require) {
       this.render();
     },
 
+    shouldShowKeyword: function (data) {
+      return data.keyword !== '' && !data.isAdvancedSearchDirty;
+    },
+
     render: function() {
-      var html = Mustache.render(tpl, this.data);
+      var html = Mustache.render(tpl, _.extend(this.data, {
+        showKeyword: this.shouldShowKeyword(this.data)
+      }));
 
       this.$el.toggle(this.data.itemsCount > 0);
 

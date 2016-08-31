@@ -4,8 +4,7 @@ Accountable: Nina Ahonen, Nina.ahonen@ec.europa.eu
 -->
 <div class="container">
 	<h2 class="srtitle">
-		{{itemsCount}} Result(s) 
-		{{^searchCriteria.isAdvancedSearchDirty}}for {{searchCriteria.keyword}} {{/searchCriteria.isAdvancedSearchDirty}}
+		{{itemsCount}} Results {{#showKeyword}}for {{keyword}} {{/showKeyword}}
 	</h2>
 	<div class="col-md-12 layout-body-margin1" style="font-size:0.8em;" align="center">
 		<strong>Export results in <a class="ce-result-stats__export-xls" href="#">XLS</a></strong><br>

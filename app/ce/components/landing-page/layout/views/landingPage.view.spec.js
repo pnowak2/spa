@@ -126,7 +126,14 @@ define(function(require) {
         it('should update result stats component with search criteria', function() {
           this.view.didListSearchSucceed(this.fakeDto);
           expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
-            searchCriteria: this.fakeDto.searchCriteria
+            keyword: 'FooBar'
+          }));
+        });
+
+        it('should update result stats component with advanced search dirty flag', function() {
+          this.view.didListSearchSucceed(this.fakeDto);
+          expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
+            isAdvancedSearchDirty: true
           }));
         });
       });
