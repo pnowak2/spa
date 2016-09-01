@@ -2,7 +2,8 @@ define(function(require) {
   var Backbone = require('backbone'),
     SearchableListComponent = require('app/shared/components/lists/searchable-list/main.component'),
     ResultsListComponent = require('app/ce/components/landing-page/results/list/results-list/main.component'),
-    searchService = require('../services/search/search.service');
+    searchService = require('../services/search/search.service'),
+    exportService = require('../services/export/export.service');
 
   return Backbone.View.extend({
     id: 'ce-searchable-results-list',
@@ -21,17 +22,20 @@ define(function(require) {
         }
       });
 
+      this.cachedCriteria = {};
+
       this.listenTo(this.searchableListComponent, 'search:completed', function(data) {
         this.trigger('search:completed', data);
       });
     },
 
     onSearchRequest: function(criteria) {
+      this.cachedCriteria = criteria;
       this.searchableListComponent.onSearchRequest(criteria);
     },
 
-    onExportToXlsRequest: function(criteria) {
-
+    onExportToXlsRequest: function() {
+      exportService.exportXls(this.cachedCriteria);
     },
 
     render: function() {

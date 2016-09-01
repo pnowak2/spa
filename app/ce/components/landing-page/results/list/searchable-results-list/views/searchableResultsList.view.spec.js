@@ -4,7 +4,8 @@ define(function(require) {
     SearchableResultsListView = require('./searchableResultsList.view'),
     SearchableListComponent = require('app/shared/components/lists/searchable-list/main.component'),
     ResultsListComponent = require('app/ce/components/landing-page/results/list/results-list/main.component'),
-    searchService = require('../services/search/search.service');
+    searchService = require('../services/search/search.service'),
+    exportService = require('../services/export/export.service');
 
   describe('CE Searchable Results List View', function() {
     describe('type', function() {
@@ -50,6 +51,10 @@ define(function(require) {
           }
         }));
       });
+
+      it('should have empty cached criteria defined', function() {
+        expect(this.view.cachedCriteria).toEqual({});
+      });
     });
 
     describe('properties', function() {
@@ -90,15 +95,36 @@ define(function(require) {
 
           expect(this.view.searchableListComponent.onSearchRequest).toHaveBeenCalledWith(fakeCriteria);
         });
+
+        it('should update cached criteria for later use', function() {
+          var fakeCriteria = {};
+
+          expect(this.view.cachedCriteria).toEqual({});
+          this.view.onSearchRequest(fakeCriteria);
+          expect(this.view.cachedCriteria).toBe(fakeCriteria);
+        });
       });
 
       describe('.onExportToXlsRequest()', function() {
         beforeEach(function() {
+          spyOn(exportService, 'exportXls');
+
           this.view = new SearchableResultsListView();
+          this.view.cachedCriteria = {
+            foo: 'bar'
+          };
+
+          this.view.onExportToXlsRequest();
         });
 
         it('should be defined', function() {
           expect(SearchableResultsListView.prototype.onExportToXlsRequest).toEqual(jasmine.any(Function));
+        });
+
+        it('should call export service with cached criteria', function() {
+          expect(exportService.exportXls).toHaveBeenCalledWith({
+            foo: 'bar'
+          });
         });
       });
     });

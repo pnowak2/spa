@@ -44,13 +44,10 @@ define(function(require) {
         it('should delegate do view', function() {
           spyOn(SearchableResultsListView.prototype, 'onExportToXlsRequest');
 
-          var component = new SearchableResultsListComponent(),
-            fakeSearchCriteria = {};
-
-          component.onExportToXlsRequest(fakeSearchCriteria);
+          var component = new SearchableResultsListComponent();
+          component.onExportToXlsRequest();
 
           expect(component.view.onExportToXlsRequest).toHaveBeenCalled();
-          expect(component.view.onExportToXlsRequest.calls.mostRecent().args[0]).toBe(fakeSearchCriteria);
         });
       });
     });
