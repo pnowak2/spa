@@ -35,6 +35,24 @@ define(function(require) {
           expect(component.view.onSearchRequest.calls.mostRecent().args[0]).toBe(fakeSearchCriteria);
         });
       });
+
+      describe('.onExportToXlsRequest()', function() {
+        it('should be defined', function() {
+          expect(SearchableResultsListComponent.prototype.onExportToXlsRequest).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate do view', function() {
+          spyOn(SearchableResultsListView.prototype, 'onExportToXlsRequest');
+
+          var component = new SearchableResultsListComponent(),
+            fakeSearchCriteria = {};
+
+          component.onExportToXlsRequest(fakeSearchCriteria);
+
+          expect(component.view.onExportToXlsRequest).toHaveBeenCalled();
+          expect(component.view.onExportToXlsRequest.calls.mostRecent().args[0]).toBe(fakeSearchCriteria);
+        });
+      });
     });
 
     describe('events', function() {

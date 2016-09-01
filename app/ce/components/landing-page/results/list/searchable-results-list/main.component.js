@@ -13,6 +13,10 @@ define(function(require) {
 
     onSearchRequest: function(searchCriteria) {
       this.view.onSearchRequest(searchCriteria);
+    },
+
+    onExportToXlsRequest: function(searchCriteria) {
+      this.view.onExportToXlsRequest(searchCriteria);
     }
   });
 });

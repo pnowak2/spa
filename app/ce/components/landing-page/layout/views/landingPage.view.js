@@ -33,11 +33,15 @@ define(function(require) {
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
       this.listenTo(this.searchableResultsList, 'search:completed', this.didListSearchSucceed);
-      this.listenTo(this.resultStats, 'export:xls', this.onExportXls);
+      this.listenTo(this.resultStats, 'export:xls', this.onExportToXlsRequest);
     },
 
     onSearchRequest: function(criteria) {
       this.searchableResultsList.onSearchRequest(criteria);
+    },
+
+    onExportToXlsRequest: function () {
+      this.searchableResultsList.onExportToXlsRequest();
     },
 
     didListSearchSucceed: function(response) {
@@ -52,10 +56,6 @@ define(function(require) {
       });
 
       this.showResults();
-    },
-
-    onExportXls: function () {
-      
     },
 
     showResults: function () {

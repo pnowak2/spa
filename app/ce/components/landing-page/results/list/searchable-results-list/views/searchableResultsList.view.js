@@ -30,6 +30,10 @@ define(function(require) {
       this.searchableListComponent.onSearchRequest(criteria);
     },
 
+    onExportToXlsRequest: function(criteria) {
+
+    },
+
     render: function() {
       this.$el.html(
         this.searchableListComponent.render().view.el

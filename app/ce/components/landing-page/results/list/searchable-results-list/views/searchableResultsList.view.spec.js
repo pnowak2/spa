@@ -91,6 +91,16 @@ define(function(require) {
           expect(this.view.searchableListComponent.onSearchRequest).toHaveBeenCalledWith(fakeCriteria);
         });
       });
+
+      describe('.onExportToXlsRequest()', function() {
+        beforeEach(function() {
+          this.view = new SearchableResultsListView();
+        });
+
+        it('should be defined', function() {
+          expect(SearchableResultsListView.prototype.onExportToXlsRequest).toEqual(jasmine.any(Function));
+        });
+      });
     });
 
     describe('events', function() {

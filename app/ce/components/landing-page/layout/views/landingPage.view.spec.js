@@ -150,9 +150,21 @@ define(function(require) {
         });
       });
 
-      describe('.onExportXls()', function() {
+      describe('.onExportToXlsRequest()', function() {
+        beforeEach(function() {
+          spyOn(SearchableResultsListComponent.prototype, 'onExportToXlsRequest');
+
+          this.view = new LandingPageView();
+        });
+
         it('should be defined', function() {
-          expect(LandingPageView.prototype.onExportXls).toEqual(jasmine.any(Function));
+          expect(LandingPageView.prototype.onExportToXlsRequest).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to searchable list component', function() {
+          this.view.onExportToXlsRequest();
+
+          expect(this.view.searchableResultsList.onExportToXlsRequest).toHaveBeenCalled();
         });
       });
 
@@ -230,13 +242,13 @@ define(function(require) {
         });
 
         it('should listen to result stats component "export xls" event', function() {
-          spyOn(LandingPageView.prototype, 'onExportXls');
+          spyOn(LandingPageView.prototype, 'onExportToXlsRequest');
 
           var view = new LandingPageView();
 
           view.resultStats.trigger('export:xls');
 
-          expect(view.onExportXls).toHaveBeenCalled();
+          expect(view.onExportToXlsRequest).toHaveBeenCalled();
         });
       });
     });
