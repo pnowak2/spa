@@ -192,6 +192,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // ce util
     'app/ce/util/constants.spec',
 
+    // ce router
+    'app/ce/routers/landing-page.router.spec',
+
     // ce landing page layout component
     'app/ce/components/landing-page/layout/main.component.spec',
     'app/ce/components/landing-page/layout/views/landingPage.view.spec',

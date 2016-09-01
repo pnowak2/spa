@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     efcRouter = require('./landing-page.router');
 
-  describe('Eplus Landing Page Router', function() {
+  describe('CE Landing Page Router', function() {
     beforeEach(function() {
       spyOn(efcRouter, 'trigger');
 
@@ -25,7 +25,7 @@ define(function(require) {
 
     describe('routes', function() {
       it('searching by keyword should trigger router event', function() {
-        efcRouter.navigate('keyword/bar', {
+        efcRouter.navigate('ce/keyword/bar', {
           trigger: true
         });
 
