@@ -1,3 +1,7 @@
+#about {
+  margin-top: 0; 
+}
+
 .ce-search-container {
 	position: absolute;
 	top: 100%;
@@ -15,11 +19,11 @@
 	margin: 0 auto;
 }
 
-.ce-result-stats-container {
+.ce-result-stats {
 	margin-top: 30px;
 }
 
-.ce-tabs-container {
+.vlr-tabs {
 	margin-bottom: 30px;
 }
 
