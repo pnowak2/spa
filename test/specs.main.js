@@ -217,7 +217,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/ce/components/landing-page/results/list/searchable-results-list/views/searchableResultsList.view.spec',
     'app/ce/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
     'app/ce/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
-    'app/ce/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec'
+    'app/ce/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec',
+    'app/ce/components/landing-page/results/list/searchable-results-list/services/export/export.service.spec'
 
   ], function() {
     window.onload();
