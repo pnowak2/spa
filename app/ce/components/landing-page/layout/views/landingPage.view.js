@@ -65,8 +65,9 @@ define(function(require) {
     },
 
     handleUpdatedResultsDisplay: function(total) {
+      this.resultStats.show();
+      
       if(total > 0) {
-        this.resultStats.show();
         this.tabSwitcher.show();
         this.searchableResultsList.show();
       } else {

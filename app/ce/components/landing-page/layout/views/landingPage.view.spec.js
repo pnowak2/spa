@@ -61,7 +61,7 @@ define(function(require) {
           }]
         });
       });
-      
+
       it('should handle initial results', function() {
         expect(this.view.handleInitialResultsDisplay).toHaveBeenCalled();
       });
@@ -224,8 +224,8 @@ define(function(require) {
             this.view.handleUpdatedResultsDisplay(0);
           });
 
-          it('should not show result stats', function() {
-            expect(this.view.resultStats.show).not.toHaveBeenCalled();
+          it('should show result stats', function() {
+            expect(this.view.resultStats.show).toHaveBeenCalled();
           });
 
           it('should not hide result stats', function() {
