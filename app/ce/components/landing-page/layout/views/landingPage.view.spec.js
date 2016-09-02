@@ -17,7 +17,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        spyOn(LandingPageView.prototype, 'hideResults');
+        spyOn(LandingPageView.prototype, 'handleInitialResultsDisplay');
         spyOn(LandingPageView.prototype, 'render');
         spyOn(SearchComponent.prototype, 'initialize');
         spyOn(TabSwitcherComponent.prototype, 'initialize');
@@ -61,13 +61,13 @@ define(function(require) {
           }]
         });
       });
+      
+      it('should handle initial results', function() {
+        expect(this.view.handleInitialResultsDisplay).toHaveBeenCalled();
+      });
 
       it('should render the component', function() {
         expect(this.view.render).toHaveBeenCalled();
-      });
-
-      it('should hide results', function() {
-        expect(this.view.hideResults).toHaveBeenCalled();
       });
     });
 
@@ -94,7 +94,7 @@ define(function(require) {
 
       describe('.didListSearchSucceed()', function() {
         beforeEach(function() {
-          spyOn(LandingPageView.prototype, 'showResults');
+          spyOn(LandingPageView.prototype, 'handleUpdatedResultsDisplay');
           spyOn(ResultStatsComponent.prototype, 'update');
 
           this.fakeDto = {
@@ -143,10 +143,10 @@ define(function(require) {
           }));
         });
 
-        it('should show results', function() {
+        it('should handle updated results', function() {
           this.view.didListSearchSucceed(this.fakeDto);
 
-          expect(this.view.showResults).toHaveBeenCalled();
+          expect(this.view.handleUpdatedResultsDisplay).toHaveBeenCalled();
         });
       });
 
@@ -168,31 +168,89 @@ define(function(require) {
         });
       });
 
-      describe('.showResults()', function() {
-        beforeEach(function () {
-          this.view = new LandingPageView();
-
-          spyOn(this.view.resultStats, 'show');
-          spyOn(this.view.tabSwitcher, 'show');
-          spyOn(this.view.searchableResultsList, 'show');
-
-          this.view.showResults();
-        });
-
+      describe('.handleUpdatedResultsDisplay()', function() {
         it('should be defined', function() {
-          expect(LandingPageView.prototype.showResults).toEqual(jasmine.any(Function));
+          expect(LandingPageView.prototype.handleUpdatedResultsDisplay).toEqual(jasmine.any(Function));
         });
 
-        it('should show tab switcher', function() {
-          expect(this.view.tabSwitcher.show).toHaveBeenCalled();
+        describe('total count greater than zero', function() {
+          beforeEach(function () {
+            this.view = new LandingPageView();
+            spyOn(this.view.resultStats, 'show');
+            spyOn(this.view.resultStats, 'hide');
+            spyOn(this.view.tabSwitcher, 'show');
+            spyOn(this.view.tabSwitcher, 'hide');
+            spyOn(this.view.searchableResultsList, 'show');
+            spyOn(this.view.searchableResultsList, 'hide');
+            
+            this.view.handleUpdatedResultsDisplay(2);
+          });
+
+          it('should show result stats', function() {
+            expect(this.view.resultStats.show).toHaveBeenCalled();
+          });
+
+          it('should not hide result stats', function() {
+            expect(this.view.resultStats.hide).not.toHaveBeenCalled();
+          });
+
+          it('should show tab switcher', function() {
+            expect(this.view.tabSwitcher.show).toHaveBeenCalled();
+          });
+
+          it('should not hide tab switcher', function() {
+            expect(this.view.tabSwitcher.hide).not.toHaveBeenCalled();
+          });
+
+          it('should show searchable results list', function() {
+            expect(this.view.searchableResultsList.show).toHaveBeenCalled();
+          });
+
+          it('should not hide searchable results list', function() {
+            expect(this.view.searchableResultsList.hide).not.toHaveBeenCalled();
+          });
         });
 
-        it('should show searchable results list', function() {
-          expect(this.view.searchableResultsList.show).toHaveBeenCalled();
+        describe('total count zero or less than zero', function() {
+          beforeEach(function () {
+            this.view = new LandingPageView();
+            spyOn(this.view.resultStats, 'show');
+            spyOn(this.view.resultStats, 'hide');
+            spyOn(this.view.tabSwitcher, 'show');
+            spyOn(this.view.tabSwitcher, 'hide');
+            spyOn(this.view.searchableResultsList, 'show');
+            spyOn(this.view.searchableResultsList, 'hide');
+
+            this.view.handleUpdatedResultsDisplay(0);
+          });
+
+          it('should not show result stats', function() {
+            expect(this.view.resultStats.show).not.toHaveBeenCalled();
+          });
+
+          it('should not hide result stats', function() {
+            expect(this.view.resultStats.hide).not.toHaveBeenCalled();
+          });
+
+          it('should hide tab switcher', function() {
+            expect(this.view.tabSwitcher.hide).toHaveBeenCalled();
+          });
+
+          it('should not show tab switcher', function() {
+            expect(this.view.tabSwitcher.show).not.toHaveBeenCalled();
+          });
+
+          it('should hide searchable results list', function() {
+            expect(this.view.searchableResultsList.hide).toHaveBeenCalled();
+          });
+
+          it('should not show searchable results list', function() {
+            expect(this.view.searchableResultsList.show).not.toHaveBeenCalled();
+          });
         });
       });
 
-      describe('.hideResults()', function() {
+      describe('.handleInitialResultsDisplay()', function() {
         beforeEach(function () {
           this.view = new LandingPageView();
 
@@ -200,11 +258,15 @@ define(function(require) {
           spyOn(this.view.tabSwitcher, 'hide');
           spyOn(this.view.searchableResultsList, 'hide');
 
-          this.view.hideResults();
+          this.view.handleInitialResultsDisplay();
         });
 
         it('should be defined', function() {
-          expect(LandingPageView.prototype.hideResults).toEqual(jasmine.any(Function));
+          expect(LandingPageView.prototype.handleInitialResultsDisplay).toEqual(jasmine.any(Function));
+        });
+
+        it('should hide result stats', function() {
+          expect(this.view.resultStats.hide).toHaveBeenCalled();
         });
 
         it('should hide tab switcher', function() {

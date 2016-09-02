@@ -28,7 +28,7 @@ define(function(require) {
         }]
       });
 
-      this.hideResults();
+      this.handleInitialResultsDisplay();
       this.render();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
@@ -55,17 +55,24 @@ define(function(require) {
         isAdvancedSearchDirty: response.searchCriteria.isAdvancedSearchDirty
       });
 
-      this.showResults();
+      this.handleUpdatedResultsDisplay(response.data.total);
     },
 
-    showResults: function () {
-      this.tabSwitcher.show();
-      this.searchableResultsList.show();
-    },
-
-    hideResults: function () {
+    handleInitialResultsDisplay: function () {
+      this.resultStats.hide();
       this.tabSwitcher.hide();
       this.searchableResultsList.hide();
+    },
+
+    handleUpdatedResultsDisplay: function(total) {
+      if(total > 0) {
+        this.resultStats.show();
+        this.tabSwitcher.show();
+        this.searchableResultsList.show();
+      } else {
+        this.tabSwitcher.hide();
+        this.searchableResultsList.hide();
+      }
     },
 
     render: function() {
