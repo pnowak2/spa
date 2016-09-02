@@ -133,6 +133,56 @@ define(function(require) {
           expect(this.view.shouldShowKeyword(fakeData)).toBe(false);
         });
       });
+
+      describe('.hasItems()', function() {
+        beforeEach(function() {
+          this.view = new ResultStatsView();
+        });
+
+        it('should be defined', function() {
+          expect(ResultStatsView.prototype.hasItems).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if items count is greater than zero', function() {
+          var fakeData = {
+            itemsCount: 2
+          };
+
+          expect(this.view.hasItems(fakeData)).toBe(true);
+        });
+
+        it('should return false if items count is equal to zero', function() {
+          var fakeData = {
+            itemsCount: 0
+          };
+
+          expect(this.view.hasItems(fakeData)).toBe(false);
+        });
+
+        it('should return false if items count is less than zero', function() {
+          var fakeData = {
+            itemsCount: -4
+          };
+
+          expect(this.view.hasItems(fakeData)).toBe(false);
+        });
+
+        it('should return false if items count is zero string', function() {
+          var fakeData = {
+            itemsCount: '0'
+          };
+
+          expect(this.view.hasItems(fakeData)).toBe(false);
+        });
+
+        it('should return true if items count is positive string', function() {
+          var fakeData = {
+            itemsCount: '4'
+          };
+
+          expect(this.view.hasItems(fakeData)).toBe(true);
+        });
+      });
     });
 
     describe('dom', function() {
@@ -161,23 +211,15 @@ define(function(require) {
             this.$el = this.view.render().$el;
           });
 
-          it('should be hidden if items count is not greater than zero', function() {
-            expect(this.$el.css('display')).toEqual('none');
+          describe('Result Stats', function() {
+            it('should contain proper results info', function() {
+              expect(this.$el).toContainText('No results found');
+            });
           });
 
           describe('XLS Export', function() {
-            it('should contain link to xls export', function() {
-              expect(this.$el.find('a.ce-result-stats__export-xls')).toHaveText('XLS');
-            });
-
-            it('should contain link to xls export with href pointing to #', function() {
-              expect(this.$el.find('a.ce-result-stats__export-xls')).toHaveAttr('href', '#');
-            });
-          });
-
-          describe('Result Stats', function() {
-            it('should contain proper results info', function() {
-              expect(this.$el).toContainText('Results');
+            it('should not contain link to xls export', function() {
+              expect(this.$el).not.toContainElement('.ce-result-stats__export-link');
             });
           });
         });
@@ -194,13 +236,19 @@ define(function(require) {
             this.$el = this.view.render().$el;
           });
 
-          it('should be visible if items count is greater than zero', function() {
-            expect(this.$el.css('display')).toEqual('block');
-          });
-
           describe('Result Stats', function() {
             it('should contain proper results info', function() {
               expect(this.$el).toContainText('124 Results for bar');
+            });
+          });
+
+          describe('XLS Export', function() {
+            it('should not contain link to xls export', function() {
+              expect(this.$el).toContainElement('.ce-result-stats__export-link');
+            });
+
+            it('should contain link to xls export with href pointing to #', function() {
+              expect(this.$el.find('a.ce-result-stats__export-xls')).toHaveAttr('href', '#');
             });
           });
         });
@@ -217,13 +265,19 @@ define(function(require) {
             this.$el = this.view.render().$el;
           });
 
-          it('should be visible if items count is greater than zero', function() {
-            expect(this.$el.css('display')).toEqual('block');
-          });
-
           describe('Result Stats', function() {
             it('should contain proper results info', function() {
               expect(this.$el).toContainText('124 Results');
+            });
+          });
+
+          describe('XLS Export', function() {
+            it('should not contain link to xls export', function() {
+              expect(this.$el).toContainElement('.ce-result-stats__export-link');
+            });
+
+            it('should contain link to xls export with href pointing to #', function() {
+              expect(this.$el.find('a.ce-result-stats__export-xls')).toHaveAttr('href', '#');
             });
           });
         });

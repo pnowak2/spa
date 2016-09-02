@@ -29,12 +29,15 @@ define(function(require) {
       return !_.isEmpty(data.keyword) && !data.isAdvancedSearchDirty;
     },
 
+    hasItems: function (data) {
+      return data.itemsCount > 0;
+    },
+
     render: function() {
       var html = Mustache.render(tpl, _.extend(this.data, {
+        hasItems: this.hasItems(this.data),
         showKeyword: this.shouldShowKeyword(this.data)
       }));
-
-      this.$el.toggle(this.data.itemsCount > 0);
 
       this.$el.html(html);
 
