@@ -76,8 +76,12 @@ define(function(require) {
       }
     },
 
+    getSearchContainer: function() {
+      return Backbone.$('.ce-search-container');
+    },
+
     render: function() {
-      $('.ce-search-container').append(this.search.render().view.el);
+      this.getSearchContainer().append(this.search.render().view.el);
       $('.ce-result-stats-container').append(this.resultStats.render().view.el);
       $('.ce-tabs-container').append(this.tabSwitcher.render().view.el);
       $('.ce-results-container').append(this.searchableResultsList.render().view.el);

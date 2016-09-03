@@ -174,7 +174,7 @@ define(function(require) {
         });
 
         describe('total count greater than zero', function() {
-          beforeEach(function () {
+          beforeEach(function() {
             this.view = new LandingPageView();
             spyOn(this.view.resultStats, 'show');
             spyOn(this.view.resultStats, 'hide');
@@ -182,7 +182,7 @@ define(function(require) {
             spyOn(this.view.tabSwitcher, 'hide');
             spyOn(this.view.searchableResultsList, 'show');
             spyOn(this.view.searchableResultsList, 'hide');
-            
+
             this.view.handleUpdatedResultsDisplay(2);
           });
 
@@ -212,7 +212,7 @@ define(function(require) {
         });
 
         describe('total count zero or less than zero', function() {
-          beforeEach(function () {
+          beforeEach(function() {
             this.view = new LandingPageView();
             spyOn(this.view.resultStats, 'show');
             spyOn(this.view.resultStats, 'hide');
@@ -251,7 +251,7 @@ define(function(require) {
       });
 
       describe('.handleInitialResultsDisplay()', function() {
-        beforeEach(function () {
+        beforeEach(function() {
           this.view = new LandingPageView();
 
           spyOn(this.view.resultStats, 'hide');
@@ -275,6 +275,24 @@ define(function(require) {
 
         it('should hide searchable results list', function() {
           expect(this.view.searchableResultsList.hide).toHaveBeenCalled();
+        });
+      });
+
+      describe('.getSearchContainer()', function() {
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.getSearchContainer).toEqual(jasmine.any(Function));
+        });
+
+        it('should select correct element', function() {
+          var fakeContainer = {},
+            view = new LandingPageView();
+
+          spyOn(Backbone, '$').and.callFake(function(id) {
+            if (id === '.ce-search-container') {
+              return fakeContainer;
+            }
+          });
+          expect(view.getSearchContainer()).toBe(fakeContainer);
         });
       });
     });
