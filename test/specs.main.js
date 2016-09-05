@@ -14,6 +14,7 @@ requirejs.config({
     leafletprunecluster: '../lib/leaflet.prunecluster/dist/PruneCluster',
     leafletfullscreen: '../lib/leaflet.fullscreen/dist/Leaflet.fullscreen',
     leafleteasybutton: '../lib/leaflet.easybutton/dist/easy-button',
+    qs: '../lib/qs/qs',
     chance: '../lib/chance/chance.min',
     jasmine: ['../lib/jasmine/jasmine'],
     'jasmine-html': ['../lib/jasmine/jasmine-html'],
@@ -60,6 +61,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // util
     'app/shared/util/constants.spec',
+
+    // search router
+    'app/shared/routers/search.router.spec',
 
     // searchable list component
     'app/shared/components/lists/searchable-list/main.component.spec',
@@ -191,9 +195,6 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
 
     // ce util
     'app/ce/util/constants.spec',
-
-    // ce router
-    'app/ce/routers/landing-page.router.spec',
 
     // ce landing page layout component
     'app/ce/components/landing-page/layout/main.component.spec',

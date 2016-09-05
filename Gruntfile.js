@@ -40,6 +40,7 @@ module.exports = function(grunt) {
             leafletprunecluster: 'lib/leaflet.prunecluster/dist/PruneCluster',
             leafletfullscreen: 'lib/leaflet.fullscreen/dist/Leaflet.fullscreen',
             leafleteasybutton: 'lib/leaflet.easybutton/dist/easy-button',
+            qs: '../lib/qs/qs',
             chance: 'lib/chance/chance.min',
 
             requireLib: 'lib/requirejs/require.min'
