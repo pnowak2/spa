@@ -80,11 +80,19 @@ define(function(require) {
       return Backbone.$('.ce-search-container');
     },
 
+    getResultStatsContainer: function() {
+      return Backbone.$('.ce-result-stats-container');
+    },
+
+    getTabbedResultsContainer: function() {
+      return Backbone.$('.ce-tabbed-results-container');
+    },
+
     render: function() {
       this.getSearchContainer().append(this.search.render().view.el);
-      $('.ce-result-stats-container').append(this.resultStats.render().view.el);
-      $('.ce-tabs-container').append(this.tabSwitcher.render().view.el);
-      $('.ce-results-container').append(this.searchableResultsList.render().view.el);
+      this.getResultStatsContainer().append(this.resultStats.render().view.el);
+      this.getTabbedResultsContainer().append(this.tabSwitcher.render().view.el);
+      this.getTabbedResultsContainer().append(this.searchableResultsList.render().view.el);
 
       return this;
     }

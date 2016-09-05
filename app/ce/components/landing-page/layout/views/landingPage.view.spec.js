@@ -295,6 +295,42 @@ define(function(require) {
           expect(view.getSearchContainer()).toBe(fakeContainer);
         });
       });
+
+      describe('.getResultStatsContainer()', function() {
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.getResultStatsContainer).toEqual(jasmine.any(Function));
+        });
+
+        it('should select correct element', function() {
+          var fakeContainer = {},
+            view = new LandingPageView();
+
+          spyOn(Backbone, '$').and.callFake(function(id) {
+            if (id === '.ce-result-stats-container') {
+              return fakeContainer;
+            }
+          });
+          expect(view.getResultStatsContainer()).toBe(fakeContainer);
+        });
+      });
+
+      describe('.getTabbedResultsContainer()', function() {
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.getResultStatsContainer).toEqual(jasmine.any(Function));
+        });
+
+        it('should select correct element', function() {
+          var fakeContainer = {},
+            view = new LandingPageView();
+
+          spyOn(Backbone, '$').and.callFake(function(id) {
+            if (id === '.ce-tabbed-results-container') {
+              return fakeContainer;
+            }
+          });
+          expect(view.getTabbedResultsContainer()).toBe(fakeContainer);
+        });
+      });
     });
 
     describe('events', function() {
@@ -359,12 +395,12 @@ define(function(require) {
 
         it('should render tab switcher component to appropriate container', function() {
           var markup = this.view.tabSwitcher.render().view.el;
-          expect($('.ce-tabs-container')).toContainHtml(markup);
+          expect($('.ce-tabbed-results-container')).toContainHtml(markup);
         });
 
         it('should render searchable results list component in appropriate container', function() {
           var markup = this.view.searchableResultsList.render().view.el;
-          expect($('.ce-results-container')).toContainHtml(markup);
+          expect($('.ce-tabbed-results-container')).toContainHtml(markup);
         });
       });
     });
