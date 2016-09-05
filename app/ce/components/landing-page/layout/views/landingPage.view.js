@@ -59,21 +59,13 @@ define(function(require) {
     },
 
     handleInitialResultsDisplay: function () {
-      this.resultStats.hide();
-      this.tabSwitcher.hide();
-      this.searchableResultsList.hide();
+      this.getResultStatsContainer().hide();
+      this.getTabbedResultsContainer().hide();
     },
 
     handleUpdatedResultsDisplay: function(total) {
-      this.resultStats.show();
-      
-      if(total > 0) {
-        this.tabSwitcher.show();
-        this.searchableResultsList.show();
-      } else {
-        this.tabSwitcher.hide();
-        this.searchableResultsList.hide();
-      }
+      this.getResultStatsContainer().show();
+      this.getTabbedResultsContainer().toggle(total > 0);
     },
 
     getSearchContainer: function() {
