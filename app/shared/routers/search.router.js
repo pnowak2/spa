@@ -13,7 +13,7 @@ define(function(require) {
 
       update: function(criteria) {
         var queryString = qs.stringify(criteria, { arrayFormat: 'repeat' });
-        this.navigate(queryString);
+        this.navigate('search/' + queryString);
       }
     });
 

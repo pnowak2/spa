@@ -50,7 +50,7 @@ define(function(require) {
 
           router.update(criteria);
 
-          expect(router.navigate).toHaveBeenCalledWith('keyword=foo&options=a&options=b');
+          expect(router.navigate).toHaveBeenCalledWith('search/keyword=foo&options=a&options=b');
         });
       });
     });
