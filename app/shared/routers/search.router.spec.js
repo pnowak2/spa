@@ -37,9 +37,9 @@ define(function(require) {
     });
 
     describe('api', function() {
-      describe('.navigate()', function() {
+      describe('.updateUrl()', function() {
         it('should be defined', function() {
-          expect(router.update).toEqual(jasmine.any(Function));
+          expect(router.updateUrl).toEqual(jasmine.any(Function));
         });
 
         it('should convert criteria object to proper query string', function() {
@@ -48,7 +48,7 @@ define(function(require) {
             options: ['a', 'b']
           };
 
-          router.update(criteria);
+          router.updateUrl(criteria);
 
           expect(router.navigate).toHaveBeenCalledWith('search/keyword=foo&options=a&options=b');
         });

@@ -40,7 +40,7 @@ define(function(require) {
 
     onSearchRequest: function(criteria) {
       this.searchableResultsList.onSearchRequest(criteria);
-      router.update(criteria);
+      router.updateUrl(criteria);
     },
 
     onExportToXlsRequest: function () {

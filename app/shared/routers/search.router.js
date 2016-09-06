@@ -11,7 +11,7 @@ define(function(require) {
         this.trigger('router:search', criteria);
       },
 
-      update: function(criteria) {
+      updateUrl: function(criteria) {
         var queryString = qs.stringify(criteria, { arrayFormat: 'repeat' });
         this.navigate('search/' + queryString);
       }

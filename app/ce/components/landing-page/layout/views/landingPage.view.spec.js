@@ -76,7 +76,7 @@ define(function(require) {
       describe('.onSearchRequest()', function() {
         beforeEach(function() {
           spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
-          spyOn(router, 'update');
+          spyOn(router, 'updateUrl');
 
           this.view = new LandingPageView();
         });
@@ -98,7 +98,7 @@ define(function(require) {
 
           this.view.onSearchRequest(fakeSearchCriteria);
 
-          expect(router.update).toHaveBeenCalledWith(fakeSearchCriteria);
+          expect(router.updateUrl).toHaveBeenCalledWith(fakeSearchCriteria);
         });
       });
 
