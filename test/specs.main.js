@@ -205,6 +205,9 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/ce/components/landing-page/searching/advanced-search/views/advancedSearch.view.spec',
     'app/ce/components/landing-page/searching/advanced-search/services/advanced-search/advancedSearch.service.spec',
 
+    // ce project partners page component
+    'app/ce/components/project-partners-page/partners-map/main.component.spec',
+
     // ce results list component
     'app/ce/components/landing-page/results/list/results-list/main.component.spec',
     'app/ce/components/landing-page/results/list/results-list/views/resultsList.view.spec',
