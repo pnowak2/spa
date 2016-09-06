@@ -134,7 +134,7 @@ define(function(require) {
               });
             });
 
-            describe('With Results', function() {
+            xdescribe('With Results', function() {
               it('should map to false if not provided', function() {
                 var input = {};
 
@@ -611,7 +611,7 @@ define(function(require) {
             });
           });
 
-          describe('Match All Countries', function() {
+          xdescribe('Match All Countries', function() {
             it('should map to false if not provided', function() {
               var input = {};
 

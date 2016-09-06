@@ -72,9 +72,9 @@ define(function(require) {
         });
       }
 
-      mapped = _.extend(mapped, {
-        'FILTER-WITH_RESULTS_ONLY': hasResultsOnly(input) || false
-      });
+      // mapped = _.extend(mapped, {
+      //   'FILTER-WITH_RESULTS_ONLY': hasResultsOnly(input) || false
+      // });
 
       if (isCEProgrammeSelected(input)) {
         mapped = _.extend(mapped, {
@@ -115,9 +115,9 @@ define(function(require) {
         'FILTER-COVERAGE': input.countries.join(';')
       });
 
-      mapped = _.extend(mapped, {
-        'FILTER-MATCH_ALL_COUNTRIES': input.matchAllCountries || false
-      });
+      // mapped = _.extend(mapped, {
+      //   'FILTER-MATCH_ALL_COUNTRIES': input.matchAllCountries || false
+      // });
 
       mapped = _.extend(mapped, {
         'FILTER-REGION': input.regions.join(';')

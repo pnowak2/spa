@@ -3,19 +3,18 @@ define(function(require) {
     getItems: function() {
       return [{
         id: 'ongoing',
-        title: 'Ongoing',
-        selected: true
+        title: 'Ongoing'
       }, {
         id: 'completed',
-        title: 'Completed',
-        selected: true
+        title: 'Completed'
       }, {
         id: 'successStoriesOnly',
         title: 'Success Stories only'
-      }, {
+      }/*, {
         id: 'resultsOnly',
-        title: 'with Results only'
-      }];
+        title: 'with Results only',
+        disabled: true
+      }*/];
     }
   };
 });
