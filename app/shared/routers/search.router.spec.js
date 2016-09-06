@@ -26,7 +26,7 @@ define(function(require) {
 
     describe('routes', function() {
       it('searching should trigger router event', function() {
-        router.navigate('search/keyword=test', {
+        router.navigate('search/keyword=test&options=ongoing', {
           trigger: true
         });
 
@@ -45,12 +45,12 @@ define(function(require) {
         it('should convert criteria object to proper query string', function() {
           var criteria = {
             keyword: 'foo',
-            options: ['a', 'b']
+            options: ['ongoing', 'completed']
           };
 
           router.updateUrl(criteria);
 
-          expect(router.navigate).toHaveBeenCalledWith('search/keyword=foo&options=a&options=b');
+          expect(router.navigate).toHaveBeenCalledWith('search/keyword=foo');
         });
       });
     });
