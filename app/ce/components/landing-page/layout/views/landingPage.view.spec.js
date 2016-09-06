@@ -6,7 +6,8 @@ define(function(require) {
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
     ResultStatsComponent = require('app/ce/components/landing-page/results/result-stats/main.component'),
     SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component'),
-    TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component');
+    TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
+    router = require('app/shared/routers/search.router');
 
   describe('CE Landing Page View', function() {
     describe('type', function() {
@@ -75,6 +76,7 @@ define(function(require) {
       describe('.onSearchRequest()', function() {
         beforeEach(function() {
           spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
+          spyOn(router, 'update');
 
           this.view = new LandingPageView();
         });
@@ -89,6 +91,14 @@ define(function(require) {
           this.view.onSearchRequest(fakeSearchCriteria);
 
           expect(this.view.searchableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+        });
+
+        it('should update router', function() {
+          var fakeSearchCriteria = { foo: 'bar' };
+
+          this.view.onSearchRequest(fakeSearchCriteria);
+
+          expect(router.update).toHaveBeenCalledWith(fakeSearchCriteria);
         });
       });
 
@@ -147,6 +157,24 @@ define(function(require) {
           this.view.didListSearchSucceed(this.fakeDto);
 
           expect(this.view.handleUpdatedResultsDisplay).toHaveBeenCalled();
+        });
+      });
+
+      describe('.didRoute()', function() {
+        beforeEach(function () {
+          spyOn(SearchComponent.prototype, 'update');
+          this.view = new LandingPageView();
+        });
+
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.didRoute).toEqual(jasmine.any(Function));
+        });
+
+        it('should update search component', function() {
+          var fakeCriteria = {foo: 'bar'};
+          this.view.didRoute(fakeCriteria);
+
+          expect(this.view.search.update).toHaveBeenCalledWith(fakeCriteria);
         });
       });
 
@@ -332,6 +360,18 @@ define(function(require) {
           view.resultStats.trigger('export:xls');
 
           expect(view.onExportToXlsRequest).toHaveBeenCalled();
+        });
+
+        it('should listen to router route event', function() {
+          spyOn(LandingPageView.prototype, 'didRoute');
+          spyOn(SearchComponent.prototype, 'update');
+
+          var view = new LandingPageView(),
+            fakeCriteria = { foo: 'bar' };
+
+          router.trigger('router:search', fakeCriteria);
+
+          expect(view.didRoute).toHaveBeenCalledWith(fakeCriteria);
         });
       });
     });

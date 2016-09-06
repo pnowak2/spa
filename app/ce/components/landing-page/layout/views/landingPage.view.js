@@ -5,7 +5,8 @@ define(function(require) {
     SearchComponent = require('app/shared/components/searching/search/main.component'),
     ResultStatsComponent = require('app/ce/components/landing-page/results/result-stats/main.component'),
     SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component'),
-    TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component');
+    TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
+    router = require('app/shared/routers/search.router');
 
   return Backbone.View.extend({
     initialize: function() {
@@ -34,10 +35,12 @@ define(function(require) {
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
       this.listenTo(this.searchableResultsList, 'search:completed', this.didListSearchSucceed);
       this.listenTo(this.resultStats, 'export:xls', this.onExportToXlsRequest);
+      this.listenTo(router, 'router:search', this.didRoute);
     },
 
     onSearchRequest: function(criteria) {
       this.searchableResultsList.onSearchRequest(criteria);
+      router.update(criteria);
     },
 
     onExportToXlsRequest: function () {
@@ -56,6 +59,10 @@ define(function(require) {
       });
 
       this.handleUpdatedResultsDisplay(response.data.total);
+    },
+
+    didRoute: function(criteria) {
+      this.search.update(criteria);
     },
 
     handleInitialResultsDisplay: function () {
