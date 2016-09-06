@@ -13,6 +13,10 @@ define(function(require) {
       });
     },
 
+    requestSearch: function() {
+      this.view.requestSearch();
+    },
+
     update: function(criteria) {
       this.view.update(criteria);
     }

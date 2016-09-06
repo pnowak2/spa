@@ -19,6 +19,10 @@ define(function(require) {
       });
     },
 
+    requestSearch: function() {
+      this.view.requestSearch();
+    },
+
     toggleMoreButtonStateToOpened: function() {
       this.view.toggleMoreButtonStateToOpened();
     },

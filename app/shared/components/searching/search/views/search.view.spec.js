@@ -101,6 +101,21 @@ define(function(require) {
         });
       });
 
+      describe('.requestSearch()', function() {
+        it('should be defined', function() {
+          expect(SearchView.prototype.requestSearch).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to search box', function() {
+          spyOn(SearchBoxComponent.prototype, 'requestSearch');
+
+          var view = new SearchView();
+          view.requestSearch();
+
+          expect(view.searchBox.requestSearch).toHaveBeenCalled();
+        });
+      });
+
       describe('.didPressKeyInSearchbox()', function() {
         beforeEach(function() {
           this.view = new SearchView();

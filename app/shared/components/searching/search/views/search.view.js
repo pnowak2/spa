@@ -34,6 +34,10 @@ define(function(require) {
       this.advancedSearch.toggle();
     },
 
+    requestSearch: function() {
+      this.searchBox.requestSearch();
+    },
+
     didPressKeyInSearchbox: function() {
       if (this.advancedSearch.isDirty()) {
         this.advancedSearch.show();
