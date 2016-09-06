@@ -93,7 +93,7 @@ define(function(require) {
           expect(this.view.searchableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
         });
 
-        it('should update router', function() {
+        it('should update url with router', function() {
           var fakeSearchCriteria = { foo: 'bar' };
 
           this.view.onSearchRequest(fakeSearchCriteria);
@@ -163,7 +163,11 @@ define(function(require) {
       describe('.didRoute()', function() {
         beforeEach(function () {
           spyOn(SearchComponent.prototype, 'update');
+          spyOn(SearchComponent.prototype, 'requestSearch');
+
+          this.fakeCriteria = {foo: 'bar'};
           this.view = new LandingPageView();
+          this.view.didRoute(this.fakeCriteria);
         });
 
         it('should be defined', function() {
@@ -171,10 +175,11 @@ define(function(require) {
         });
 
         it('should update search component', function() {
-          var fakeCriteria = {foo: 'bar'};
-          this.view.didRoute(fakeCriteria);
+          expect(this.view.search.update).toHaveBeenCalledWith(this.fakeCriteria);
+        });
 
-          expect(this.view.search.update).toHaveBeenCalledWith(fakeCriteria);
+        it('should request new search', function() {
+          expect(this.view.search.requestSearch).toHaveBeenCalled();
         });
       });
 
@@ -365,6 +370,7 @@ define(function(require) {
         it('should listen to router route event', function() {
           spyOn(LandingPageView.prototype, 'didRoute');
           spyOn(SearchComponent.prototype, 'update');
+          spyOn(SearchComponent.prototype, 'requestSearch');
 
           var view = new LandingPageView(),
             fakeCriteria = { foo: 'bar' };

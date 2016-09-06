@@ -39,8 +39,8 @@ define(function(require) {
     },
 
     onSearchRequest: function(criteria) {
-      this.searchableResultsList.onSearchRequest(criteria);
       router.updateUrl(criteria);
+      this.searchableResultsList.onSearchRequest(criteria);
     },
 
     onExportToXlsRequest: function () {
@@ -63,6 +63,7 @@ define(function(require) {
 
     didRoute: function(criteria) {
       this.search.update(criteria);
+      this.search.requestSearch();
     },
 
     handleInitialResultsDisplay: function () {
