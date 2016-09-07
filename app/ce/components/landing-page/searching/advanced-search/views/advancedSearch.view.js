@@ -85,7 +85,7 @@ define(function(require) {
         countries = _.pluck(this.countries.selectedItems(), 'id'),
         regions = _.pluck(this.regions.selectedItems(), 'id'),
         organisationTypes = _.pluck(this.organisationTypes.selectedItems(), 'id'),
-        matchAllCountries = this.isMatchAllCountriesSelected()
+        matchAllCountries = this.isMatchAllCountriesSelected();
 
       return {
         options: this.options.isVisible() ? options : [],
