@@ -6,7 +6,7 @@ define(function(require) {
     },
     options: {
       ONGOING: 'ongoing',
-      COMPLETED: 'completed',
+      COMPLETED: 'finalized',
       SUCCESS_STORIES: 'successStoriesOnly',
       RESULTS: 'resultsOnly'
     },

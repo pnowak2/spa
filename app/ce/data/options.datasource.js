@@ -5,7 +5,7 @@ define(function(require) {
         id: 'ongoing',
         title: 'Ongoing'
       }, {
-        id: 'completed',
+        id: 'finalized',
         title: 'Completed'
       }, {
         id: 'successStoriesOnly',

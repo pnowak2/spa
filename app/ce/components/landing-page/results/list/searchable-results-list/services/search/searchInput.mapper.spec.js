@@ -94,11 +94,11 @@ define(function(require) {
 
               it('should map to property if provided', function() {
                 var input = {
-                  options: ['ongoing']
+                  options: [constants.options.ONGOING]
                 };
 
                 expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-                  'FILTER-PROJECT_STATUS': 'ongoing'
+                  'FILTER-PROJECT_STATUS': constants.options.ONGOING
                 }));
               });
             });
@@ -113,11 +113,11 @@ define(function(require) {
 
               it('should map to property if provided', function() {
                 var input = {
-                  options: ['completed']
+                  options: [constants.options.COMPLETED]
                 };
 
                 expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({
-                  'FILTER-PROJECT_STATUS': 'completed'
+                  'FILTER-PROJECT_STATUS': constants.options.COMPLETED
                 }));
               });
             });
@@ -125,7 +125,7 @@ define(function(require) {
             describe('Ongoing & Completed', function() {
               it('should map to empty property if provided', function() {
                 var input = {
-                  options: ['ongoing', 'completed']
+                  options: [constants.options.ONGOING, constants.options.COMPLETED]
                 };
 
                 expect(searchInputMapper.map(input)).toEqual(jasmine.objectContaining({

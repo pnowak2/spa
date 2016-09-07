@@ -24,7 +24,7 @@ define(function(require) {
       });
 
       it('.COMPLETED should be defined', function() {
-        expect(constants.options.COMPLETED).toEqual('completed');
+        expect(constants.options.COMPLETED).toEqual('finalized');
       });
 
       it('.SUCCESS_STORIES should be defined', function() {
