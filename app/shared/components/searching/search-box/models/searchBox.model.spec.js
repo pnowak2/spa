@@ -23,32 +23,6 @@ define(function(require) {
           expect(model.isDirty()).toBe(true);
         });
       });
-
-      describe('.toJSON()', function() {
-        beforeEach(function () {
-          this.model = new SearchBoxModel({});
-        });
-
-        it('should be defined', function() {
-          expect(SearchBoxModel.prototype.toJSON).toEqual(jasmine.any(Function));
-        });
-
-        it('should return attributes of model with dirty flag set to true', function() {
-          spyOn(SearchBoxModel.prototype, 'isDirty').and.returnValue(true);
-
-          expect(this.model.toJSON()).toEqual(jasmine.objectContaining({
-            isSearchBoxDirty: true
-          }));
-        });
-
-        it('should return attributes of model with dirty flag set to false', function() {
-          spyOn(SearchBoxModel.prototype, 'isDirty').and.returnValue(false);
-
-          expect(this.model.toJSON()).toEqual(jasmine.objectContaining({
-            isSearchBoxDirty: false
-          }));
-        });
-      });
     });
 
     describe('defaults', function() {

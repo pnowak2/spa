@@ -112,8 +112,7 @@ define(function(require) {
               total: 1242,
             },
             searchCriteria: {
-              keyword: 'FooBar',
-              isAdvancedSearchDirty: true
+              keyword: 'FooBar'
             }
           };
 
@@ -139,17 +138,10 @@ define(function(require) {
           }));
         });
 
-        it('should update result stats component with keyword', function() {
+        it('should update result stats component with search criteria', function() {
           this.view.didListSearchSucceed(this.fakeDto);
           expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
-            keyword: 'FooBar'
-          }));
-        });
-
-        it('should update result stats component with advanced search dirty flag', function() {
-          this.view.didListSearchSucceed(this.fakeDto);
-          expect(this.view.resultStats.update).toHaveBeenCalledWith(jasmine.objectContaining({
-            isAdvancedSearchDirty: true
+            criteria: this.fakeDto.searchCriteria
           }));
         });
 

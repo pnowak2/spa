@@ -54,8 +54,7 @@ define(function(require) {
 
       this.resultStats.update({
         itemsCount: response.data.total,
-        keyword: response.searchCriteria.keyword,
-        isAdvancedSearchDirty: response.searchCriteria.isAdvancedSearchDirty
+        criteria: response.searchCriteria
       });
 
       this.handleUpdatedResultsDisplay(response.data.total);

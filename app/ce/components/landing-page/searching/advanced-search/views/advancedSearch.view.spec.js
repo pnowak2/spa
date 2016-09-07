@@ -227,14 +227,6 @@ define(function(require) {
           expect(AdvancedSearchView.prototype.getCriteria).toEqual(jasmine.any(Function));
         });
 
-        it('should contain advanced search dirty flag', function() {
-            spyOn(AdvancedSearchView.prototype, 'isDirty').and.returnValue(true);
-
-            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
-              isAdvancedSearchDirty: true
-            }));
-        });
-
         describe('All Fields Hidden With Selected Items', function() {
           beforeEach(function() {
             spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(false);

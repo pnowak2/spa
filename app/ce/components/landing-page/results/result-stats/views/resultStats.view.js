@@ -7,7 +7,7 @@ define(function(require) {
   return Backbone.View.extend({
     className: 'ce-result-stats',
 
-    initialize: function () {
+    initialize: function() {
       this.data = {};
     },
 
@@ -15,7 +15,7 @@ define(function(require) {
       'click .ce-result-stats__export-xls': 'didClickExportXls'
     },
 
-    didClickExportXls: function (evt) {
+    didClickExportXls: function(evt) {
       evt.preventDefault();
       this.trigger('export:xls');
     },
@@ -25,11 +25,21 @@ define(function(require) {
       this.render();
     },
 
-    shouldShowKeyword: function (data) {
-      return !_.isEmpty(data.keyword) && !data.isAdvancedSearchDirty;
+    shouldShowKeyword: function(data) {
+      data.criteria = data.criteria || {};
+
+      var isAdvancedSearchEmpty = _.chain(data.criteria)
+        .omit('keyword')
+        .values()
+        .every(function(criteriaValue) {
+          return _.isEmpty(criteriaValue);
+        })
+        .value();
+
+      return !_.isEmpty(data.criteria.keyword) && isAdvancedSearchEmpty;
     },
 
-    hasItems: function (data) {
+    hasItems: function(data) {
       return data.itemsCount > 0;
     },
 

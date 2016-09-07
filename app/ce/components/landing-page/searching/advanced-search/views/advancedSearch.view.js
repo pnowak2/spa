@@ -85,8 +85,7 @@ define(function(require) {
         countries = _.pluck(this.countries.selectedItems(), 'id'),
         regions = _.pluck(this.regions.selectedItems(), 'id'),
         organisationTypes = _.pluck(this.organisationTypes.selectedItems(), 'id'),
-        matchAllCountries = this.isMatchAllCountriesSelected(),
-        isAdvancedSearchDirty = this.isDirty();
+        matchAllCountries = this.isMatchAllCountriesSelected()
 
       return {
         options: this.options.isVisible() ? options : [],
@@ -99,8 +98,7 @@ define(function(require) {
         countries: this.countries.isVisible() ? countries : [],
         regions: this.regions.isVisible() ? regions : [],
         organisationTypes: this.organisationTypes.isVisible() ? organisationTypes : [],
-        matchAllCountries: this.isMatchAllCountriesVisible() ? matchAllCountries : false,
-        isAdvancedSearchDirty: isAdvancedSearchDirty
+        matchAllCountries: this.isMatchAllCountriesVisible() ? matchAllCountries : false
       };
     },
 

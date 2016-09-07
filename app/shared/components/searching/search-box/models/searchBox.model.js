@@ -9,15 +9,6 @@ define(function(require) {
 
     isDirty: function() {
       return !_.isEmpty(this.get('keyword'));
-    },
-
-    toJSON: function() {
-      var attrs = this.constructor.__super__.toJSON.call(this),
-        serialized = _.assign(attrs, {
-        	isSearchBoxDirty: this.isDirty()
-        });
-
-      return serialized;
     }
   });
 });

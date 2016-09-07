@@ -99,8 +99,10 @@ define(function(require) {
 
         it('should return true if advanced search is not dirty and keyword is not empty', function() {
           var fakeData = {
-            keyword: 'bar',
-            isAdvancedSearchDirty: false
+            criteria: {
+              keyword: 'bar',
+              options: []
+            }
           };
 
           expect(this.view.shouldShowKeyword(fakeData)).toBe(true);
@@ -108,8 +110,10 @@ define(function(require) {
 
         it('should return false if advanced search is not dirty and keyword is empty', function() {
           var fakeData = {
-            keyword: '',
-            isAdvancedSearchDirty: false
+            criteria: {
+              keyword: '',
+              options: []
+            }
           };
 
           expect(this.view.shouldShowKeyword(fakeData)).toBe(false);
@@ -117,8 +121,10 @@ define(function(require) {
 
         it('should return false if advanced search is dirty and keyword is not empty', function() {
           var fakeData = {
-            keyword: 'the',
-            isAdvancedSearchDirty: true
+            criteria: {
+              keyword: 'the',
+              options: ['a', 'b']
+            }
           };
 
           expect(this.view.shouldShowKeyword(fakeData)).toBe(false);
@@ -126,8 +132,10 @@ define(function(require) {
 
         it('should return false if advanced search is dirty and keyword is empty', function() {
           var fakeData = {
-            keyword: '',
-            isAdvancedSearchDirty: true
+            criteria: {
+              keyword: '',
+              options: ['a', 'b']
+            }
           };
 
           expect(this.view.shouldShowKeyword(fakeData)).toBe(false);
@@ -229,8 +237,9 @@ define(function(require) {
             this.view = new ResultStatsView();
             this.view.data = {
               itemsCount: 124,
-              keyword: 'bar',
-              isAdvancedSearchDirty: false
+              criteria: {
+                keyword: 'bar'
+              }
             };
 
             this.$el = this.view.render().$el;
@@ -258,8 +267,9 @@ define(function(require) {
             this.view = new ResultStatsView();
             this.view.data = {
               itemsCount: 124,
-              keyword: 'bar',
-              isAdvancedSearchDirty: true
+              criteria: {
+                keyword: 'bar'
+              }
             };
 
             this.$el = this.view.render().$el;
