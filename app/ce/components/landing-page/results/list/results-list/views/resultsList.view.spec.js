@@ -161,7 +161,7 @@ define(function(require) {
                 });
 
                 it('should contain link to result card with proper url', function() {
-                  expect(this.$th.find('a')).toHaveAttr('href', '/programmes/creative-europe-new/projects/ce-project-details-page-new/?nodeRef=id-1');
+                  expect(this.$th.find('a')).toHaveAttr('href', '/programmes/creative-europe/projects/ce-project-details-page/?nodeRef=id-1');
                 });
 
                 it('should contain success story badge', function() {
