@@ -25,7 +25,7 @@
 
        describe('.className', function() {
          it('should be defined', function() {
-           expect(ResultsMapView.prototype.className).toEqual('efc-results-map');
+           expect(ResultsMapView.prototype.className).toEqual('ce-results-map');
          });
        });
      });
@@ -239,7 +239,7 @@
                lng: 4,
                title: 'Project title 1',
                description: 'Project description 1',
-               activity: 'Project activity 1',
+               action: 'Project action 1',
                coordinator: 'Project coordinator 1'
              },
              countryItem2 = {
@@ -248,17 +248,17 @@
                lng: 5,
                title: 'Project title 2',
                description: 'Project description 2',
-               activity: 'Project activity 2',
+               action: 'Project action 2',
                coordinator: 'Project coordinator 2'
              },
              countryItems = [countryItem1, countryItem2],
              markersByCountry = this.view.prepareMarkersByCountryData(countryItems),
              popupContent1 = new PopupComponent({
-               type: 'efc-project',
+               type: 'ce-project',
                data: countryItem1
              }).render().view.el,
              popupContent2 = new PopupComponent({
-               type: 'efc-project',
+               type: 'ce-project',
                data: countryItem2
              }).render().view.el;
 

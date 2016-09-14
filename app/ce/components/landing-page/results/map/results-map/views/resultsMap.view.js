@@ -9,7 +9,7 @@ define(function(require) {
     tpl = require('text!../templates/results-map.tpl.html');
 
   return Backbone.View.extend({
-    className: 'efc-results-map',
+    className: 'ce-results-map',
 
     initialize: function() {
       _.bindAll(this, 'didSearchSucceed', 'didSearchFail');
@@ -56,12 +56,12 @@ define(function(require) {
         countryItem = countryItem || {};
 
         var popupComponent = new PopupComponent({
-            type: 'efc-project',
+            type: 'ce-project',
             data: {
               id: countryItem.id,
               title: countryItem.title,
               description: countryItem.description,
-              activity: countryItem.activity,
+              action: countryItem.action,
               coordinator: countryItem.coordinator
             }
           }),
