@@ -186,6 +186,79 @@ define(function(require) {
           });
         });
 
+        describe('CE Project', function() {
+          describe('All data present', function() {
+            beforeEach(function() {
+              this.view = new PopupView({
+                type: 'ce-project',
+                data: {
+                  id: '52',
+                  badges: 'Success Story',
+                  programme: 'Creative Europe',
+                  title: 'Project Title',
+                  coordinator: 'Project Coordinator'
+                }
+              });
+
+              this.view.render();
+            });
+
+            it('should render bubble programme', function() {
+              expect(this.view.$el).toContainHtml('Creative Europe');
+            });
+
+            it('should render bubble title', function() {
+              expect(this.view.$el).toContainHtml('Project Title');
+            });
+
+            it('should render good practice and success story', function() {
+              expect(this.view.$el).toContainHtml('Success Story');
+            });
+
+            it('should render bubble coordinator', function() {
+              expect(this.view.$el).toContainHtml('Project Coordinator');
+            });
+
+            it('should render link to project details', function() {
+              var link = this.view.$el.find('.vlr-map-popup__more-link');
+              expect(link).toHaveAttr('href', '/programmes/creative-europe/projects/ce-project-details-page/?nodeRef=52');
+              expect(link).toHaveAttr('target', '_blank');
+              expect(link).toContainText('Show project card');
+            });
+          });
+
+          describe('Missing sections', function() {
+            beforeEach(function() {
+              this.view = new PopupView({
+                type: 'ce-project',
+                data: {}
+              });
+
+              this.view.render();
+            });
+
+            it('should not render title section', function() {
+              expect(this.view.$el).not.toContainElement('.vlr-map-popup__title');
+            });
+
+            it('should not render badges section', function() {
+              expect(this.view.$el).not.toContainElement('.vlr-map-popup__badges');
+            });
+
+            it('should not render programme section', function() {
+              expect(this.view.$el).not.toContainHtml('Programme:');
+            });
+
+            it('should not render coordinator section', function() {
+              expect(this.view.$el).not.toContainHtml('Coordinator:');
+            });
+
+            it('should not render link section', function() {
+              expect(this.view.$el).not.toContainElement('.vlr-map-popup__link');
+            });
+          });
+        });
+
         describe('EfC Project', function() {
           describe('All data present', function() {
             beforeEach(function() {

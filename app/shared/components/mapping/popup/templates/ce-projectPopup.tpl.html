@@ -1,0 +1,34 @@
+{{#title}}
+	<div class="vlr-map-popup__field">
+		<div class="vlr-map-popup__title">{{title}}</div>
+		{{#badges}}
+			<div class="vlr-map-popup__badges">
+				{{badges}}
+			</div>
+		{{/badges}}
+	</div>
+{{/title}}
+
+{{#programme}}
+	<div class="vlr-map-popup__field">
+		<label class="vlr-map-popup__label">
+			Programme:
+		</label>
+		<span class="vlr-map-popup__value">{{programme}}</span>
+	</div>
+{{/programme}}
+
+{{#coordinator}}
+	<div class="vlr-map-popup__field">
+		<label class="vlr-map-popup__label">
+			Coordinator:
+		</label>
+		<span class="vlr-map-popup__value">{{coordinator}}</span>
+	</div>
+{{/coordinator}}
+
+{{#id}}
+	<div class="vlr-map-popup__link">
+		<a href="/programmes/creative-europe/projects/ce-project-details-page/?nodeRef={{id}}" class="vlr-map-popup__more-link" href="#" target="_blank">Show project card</a>
+	</div>
+{{/id}}
