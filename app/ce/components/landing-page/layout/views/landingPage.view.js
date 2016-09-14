@@ -21,12 +21,12 @@ define(function(require) {
           identifier: 'list',
           targetSelector: '.' + this.searchableResultsList.view.className,
           selected: true
-        }, {
+        }/*, {
           title: 'Map',
           identifier: 'map',
           targetSelector: '<todo>',
           selected: false
-        }]
+        }*/]
       });
 
       this.handleInitialResultsDisplay();

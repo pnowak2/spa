@@ -13,10 +13,6 @@ define(function(require) {
         expect(constants.urls.SEARCH_LIST).toEqual('/programmes/service/es/search?index=ce&indexTypeShow=projectPublicSearch&searchType=advanced&indexTypeSearch=projectPublicSearch&sort=MODIFIED_DATE-DESC&sEcho=1&iColumns=5&sColumns=nodeRef%2Ctitle%2Cdescription%2CstartDate%2Ccountries&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4');
       });
 
-      it('.SEARCH_MAP should be defined', function() {
-        expect(constants.urls.SEARCH_MAP).toEqual('/programmes/service/es/search/map?index=ce&indexTypeSearch=projectPublicSearch');
-      });
-
       it('.EXPORT_LIST should be defined', function() {
         expect(constants.urls.EXPORT_LIST).toEqual('/programmes/service/es/exportexcel?index=ce&indexTypeShow=projectPublicSearch&searchType=advanced&indexTypeSearch=projectPublicSearch&sort=MODIFIED_DATE-DESC&sEcho=1&iColumns=5&sColumns=nodeRef%2Ctitle%2Cdescription%2CstartDate%2Ccountries&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2&mDataProp_3=3&mDataProp_4=4');
       });

@@ -54,12 +54,12 @@ define(function(require) {
             identifier: 'list',
             targetSelector: '.' + this.view.searchableResultsList.view.className,
             selected: true
-          }, {
+          }/*, {
             title: 'Map',
             identifier: 'map',
             targetSelector: '<todo>',
             selected: false
-          }]
+          }*/]
         });
       });
 
