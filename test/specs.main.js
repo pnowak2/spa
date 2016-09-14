@@ -222,7 +222,14 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/ce/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
     'app/ce/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
     'app/ce/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec',
-    'app/ce/components/landing-page/results/list/searchable-results-list/services/export/export.service.spec'
+    'app/ce/components/landing-page/results/list/searchable-results-list/services/export/export.service.spec',
+
+    // ce results map component
+    'app/ce/components/landing-page/results/map/results-map/main.component.spec',
+    'app/ce/components/landing-page/results/map/results-map/views/resultsMap.view.spec',
+    'app/ce/components/landing-page/results/map/results-map/services/search/searchInput.mapper.spec',
+    'app/ce/components/landing-page/results/map/results-map/services/search/searchResult.mapper.spec',
+    'app/ce/components/landing-page/results/map/results-map/services/search/search.service.spec'
 
   ], function() {
     window.onload();
