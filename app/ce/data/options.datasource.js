@@ -10,11 +10,10 @@ define(function(require) {
       }, {
         id: 'successStoriesOnly',
         title: 'Success Stories only'
-      }/*, {
+      }, {
         id: 'resultsOnly',
-        title: 'with Results only',
-        disabled: true
-      }*/];
+        title: 'with Results only'
+      }];
     }
   };
 });

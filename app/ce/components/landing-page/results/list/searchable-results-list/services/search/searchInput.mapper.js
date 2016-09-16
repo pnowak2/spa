@@ -115,9 +115,9 @@ define(function(require) {
         'FILTER-COVERAGE': input.countries.join(';')
       });
 
-      mapped = _.extend(mapped, {
-        'FILTER-MATCH_ALL_COUNTRIES': input.matchAllCountries || false
-      });
+  	  mapped = _.extend(mapped, {
+  		'FILTER-MATCH_ALL_COUNTRIES': input.matchAllCountries || false
+  	  });
 
       mapped = _.extend(mapped, {
         'FILTER-REGION': input.regions.join(';')
