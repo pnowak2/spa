@@ -1,11 +1,24 @@
 define(function(require) {
   var _ = require('underscore'),
-    activitiesDataSource = require('app/efc/data/activities.datasource'),
+    programmesDataSource = require('app/ce/data/programmes.datasource'),
+    actionsDataSource = require('app/ce/data/actions.datasource'),
 
-    findActivityDescription = function(activityCode) {
-      var foundItem = _.findWhere(activitiesDataSource.getItems(), {
-        id: activityCode
+    findProgrammeDescriptionById = function(id) {
+      var foundItem = _.findWhere(programmesDataSource.getItems(), {
+        id: id
       });
+
+      return (foundItem || {}).title;
+    },
+
+    findActionDescriptionById = function(id) {
+      var foundItem = _.chain(actionsDataSource.getItems())
+        .values()
+        .flatten()
+        .findWhere({
+          id: id
+        })
+        .value();
 
       return (foundItem || {}).title;
     },
@@ -23,18 +36,24 @@ define(function(require) {
               lat = countryResponseItem[1],
               lng = countryResponseItem[2],
               title = countryResponseItem[3],
-              description = countryResponseItem[4],
-              activity = findActivityDescription(countryResponseItem[5]),
-              coordinator = countryResponseItem[6];
+              coordinator = countryResponseItem[6],
+              programme = findProgrammeDescriptionById(countryResponseItem[7]),
+              action = findActionDescriptionById(countryResponseItem[8]),
+              startDate = countryResponseItem[9],
+              endDate = countryResponseItem[10],
+              successStory = _.isBoolean(countryResponseItem[11]) ? countryResponseItem[11] : (countryResponseItem[11] === 'true');
 
             return {
               id: id,
               lat: lat,
               lng: lng,
               title: title,
-              description: description,
-              activity: activity,
-              coordinator: coordinator
+              coordinator: coordinator,
+              programme: programme,
+              action: action,
+              startDate: startDate,
+              endDate: endDate,
+              successStory: successStory
             };
           })
           .reject(function(countryItem) {
