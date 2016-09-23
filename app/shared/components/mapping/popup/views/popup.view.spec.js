@@ -193,30 +193,45 @@ define(function(require) {
                 type: 'ce-project',
                 data: {
                   id: '52',
+                  title: 'Project Title',
                   badges: 'Success Story',
                   programme: 'Creative Europe',
-                  title: 'Project Title',
-                  coordinator: 'Project Coordinator'
+                  action: 'Media Video',
+                  coordinator: 'Project Coordinator',
+                  startDate: '2012',
+                  endDate: '2016'
                 }
               });
 
               this.view.render();
             });
 
-            it('should render bubble programme', function() {
-              expect(this.view.$el).toContainHtml('Creative Europe');
-            });
-
             it('should render bubble title', function() {
               expect(this.view.$el).toContainHtml('Project Title');
             });
 
-            it('should render good practice and success story', function() {
+            it('should render badges', function() {
               expect(this.view.$el).toContainHtml('Success Story');
+            });
+
+            it('should render bubble programme', function() {
+              expect(this.view.$el).toContainHtml('Creative Europe');
+            });
+
+            it('should render bubble action', function() {
+              expect(this.view.$el).toContainHtml('Media Video');
             });
 
             it('should render bubble coordinator', function() {
               expect(this.view.$el).toContainHtml('Project Coordinator');
+            });
+
+            it('should render bubble start date', function() {
+              expect(this.view.$el).toContainHtml('2012');
+            });
+
+            it('should render bubble end date', function() {
+              expect(this.view.$el).toContainHtml('2016');
             });
 
             it('should render link to project details', function() {
