@@ -313,7 +313,7 @@
 
          it('should retrieve correct element', function() {
            spyOn($.prototype, 'find').and.callFake(function(selector) {
-             if (selector === '.efc-results-map__map-container') {
+             if (selector === '.ce-results-map__map-container') {
                return 'fakeMapContainer';
              }
            });
@@ -330,7 +330,7 @@
 
          it('should retrieve correct element', function() {
            spyOn($.prototype, 'find').and.callFake(function(selector) {
-             if (selector === '.efc-results-map__map-country-search-explanation') {
+             if (selector === '.ce-results-map__map-country-search-explanation') {
                return 'fakeCountryExplanationContainer';
              }
            });
@@ -353,17 +353,17 @@
 
          it('should render country search explanation', function() {
            this.view.render();
-           expect(this.view.$el).toContainElement('.efc-results-map__map-country-search-explanation');
+           expect(this.view.$el).toContainElement('.ce-results-map__map-country-search-explanation');
          });
 
          it('should render map container', function() {
            this.view.render();
-           expect(this.view.$el).toContainElement('.efc-results-map__map-container');
+           expect(this.view.$el).toContainElement('.ce-results-map__map-container');
          });
 
          it('should render results map component', function() {
            this.view.render();
-           expect(this.view.$el.find('.efc-results-map__map-container')).toContainHtml(this.view.mapComponent.render().view.$el.html());
+           expect(this.view.$el.find('.ce-results-map__map-container')).toContainHtml(this.view.mapComponent.render().view.$el.html());
          });
        });
      });

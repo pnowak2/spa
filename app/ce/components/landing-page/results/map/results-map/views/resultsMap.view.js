@@ -84,11 +84,11 @@ define(function(require) {
     },
 
     getMapContainer: function() {
-      return this.$el.find('.efc-results-map__map-container');
+      return this.$el.find('.ce-results-map__map-container');
     },
 
     getCountryExplanationContainer: function() {
-      return this.$el.find('.efc-results-map__map-country-search-explanation');
+      return this.$el.find('.ce-results-map__map-country-search-explanation');
     },
 
     render: function() {
