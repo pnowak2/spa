@@ -5,6 +5,7 @@ define(function(require) {
     SearchComponent = require('app/shared/components/searching/search/main.component'),
     ResultStatsComponent = require('app/ce/components/landing-page/results/result-stats/main.component'),
     SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component'),
+    ResultsMapComponent = require('app/ce/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
     router = require('app/shared/routers/search.router');
 
@@ -15,6 +16,7 @@ define(function(require) {
       });
       this.resultStats = new ResultStatsComponent();
       this.searchableResultsList = new SearchableResultsListComponent();
+      this.resultsMap = new ResultsMapComponent();
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'List view',
@@ -24,13 +26,14 @@ define(function(require) {
         }, {
           title: 'Map',
           identifier: 'map',
-          targetSelector: '<todo>',
+          targetSelector: '.' + this.resultsMap.view.className,
           selected: false
         }]
       });
 
       this.handleInitialResultsDisplay();
       this.render();
+      this.resultsMap.initMap();
 
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
       this.listenTo(this.searchableResultsList, 'search:completed', this.didListSearchSucceed);
@@ -41,6 +44,7 @@ define(function(require) {
     onSearchRequest: function(criteria) {
       router.updateUrl(criteria);
       this.searchableResultsList.onSearchRequest(criteria);
+      this.resultsMap.onSearchRequest(criteria);
     },
 
     onExportToXlsRequest: function () {
@@ -92,6 +96,7 @@ define(function(require) {
       this.getResultStatsContainer().append(this.resultStats.render().view.el);
       this.getTabbedResultsContainer().append(this.tabSwitcher.render().view.el);
       this.getTabbedResultsContainer().append(this.searchableResultsList.render().view.el);
+      this.getTabbedResultsContainer().append(this.resultsMap.render().view.el);
 
       return this;
     }

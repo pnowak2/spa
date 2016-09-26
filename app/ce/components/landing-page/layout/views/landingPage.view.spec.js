@@ -6,6 +6,7 @@ define(function(require) {
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
     ResultStatsComponent = require('app/ce/components/landing-page/results/result-stats/main.component'),
     SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component'),
+    ResultsMapComponent = require('app/ce/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
     router = require('app/shared/routers/search.router');
 
@@ -21,6 +22,7 @@ define(function(require) {
         spyOn(LandingPageView.prototype, 'handleInitialResultsDisplay');
         spyOn(LandingPageView.prototype, 'render');
         spyOn(SearchComponent.prototype, 'initialize');
+        spyOn(ResultsMapComponent.prototype, 'initMap');
         spyOn(TabSwitcherComponent.prototype, 'initialize');
 
         this.view = new LandingPageView();
@@ -43,6 +45,10 @@ define(function(require) {
         expect(this.view.searchableResultsList).toEqual(jasmine.any(SearchableResultsListComponent));
       });
 
+      it('should have map component defined', function() {
+        expect(this.view.resultsMap).toEqual(jasmine.any(ResultsMapComponent));
+      });
+
       it('should have tab switcher component defined', function() {
         expect(this.view.tabSwitcher).toEqual(jasmine.any(TabSwitcherComponent));
       });
@@ -57,7 +63,7 @@ define(function(require) {
           }, {
             title: 'Map',
             identifier: 'map',
-            targetSelector: '<todo>',
+            targetSelector: '.' + this.view.resultsMap.view.className,
             selected: false
           }]
         });
@@ -70,12 +76,17 @@ define(function(require) {
       it('should render the component', function() {
         expect(this.view.render).toHaveBeenCalled();
       });
+
+      it('should init the results map', function() {
+        expect(this.view.resultsMap.initMap).toHaveBeenCalled();
+      });
     });
 
     describe('api', function() {
       describe('.onSearchRequest()', function() {
         beforeEach(function() {
           spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
+          spyOn(ResultsMapComponent.prototype, 'onSearchRequest');
           spyOn(router, 'updateUrl');
 
           this.view = new LandingPageView();
@@ -91,6 +102,14 @@ define(function(require) {
           this.view.onSearchRequest(fakeSearchCriteria);
 
           expect(this.view.searchableResultsList.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
+        });
+
+        it('should delegate to results map component', function() {
+          var fakeSearchCriteria = {};
+
+          this.view.onSearchRequest(fakeSearchCriteria);
+
+          expect(this.view.resultsMap.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
         });
 
         it('should update url with router', function() {
@@ -405,6 +424,11 @@ define(function(require) {
 
         it('should render searchable results list component in appropriate container', function() {
           var markup = this.view.searchableResultsList.render().view.el;
+          expect($('.ce-tabbed-results-container')).toContainHtml(markup);
+        });
+
+        it('should render results map component to appropriate container', function() {
+          var markup = this.view.resultsMap.render().view.el;
           expect($('.ce-tabbed-results-container')).toContainHtml(markup);
         });
       });
