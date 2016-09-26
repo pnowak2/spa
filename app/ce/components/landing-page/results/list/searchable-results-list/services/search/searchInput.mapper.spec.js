@@ -37,7 +37,7 @@ define(function(require) {
 
           it('should map default searchType', function() {
             expect(searchInputMapper.map()).toEqual(jasmine.objectContaining({
-              searchType: 'simple'
+              searchType: 'advanced'
             }));
           });
         });

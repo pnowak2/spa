@@ -43,7 +43,7 @@ define(function(require) {
       var mapped = _.extend({}, {
         'iDisplayStart': input.startFromItem || 0,
         'iDisplayLength': input.pageSize || 10,
-        'searchType': 'simple'
+        'searchType': 'advanced'
       });
 
       mapped = _.extend(mapped, {
