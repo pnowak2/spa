@@ -22,6 +22,16 @@ define(function(require) {
 
       return (foundItem || {}).title;
     },
+
+    createBadges = function(successStory) {
+      var isSuccessStory = _.isBoolean(successStory) ? successStory : (successStory === 'true');
+
+      if(isSuccessStory) {
+        return "Success Story";
+      } else {
+        return "";
+      }
+    },
     
     map = function(response) {
       response = response || {};
@@ -41,19 +51,19 @@ define(function(require) {
               action = findActionDescriptionById(countryResponseItem[8]),
               startDate = countryResponseItem[9],
               endDate = countryResponseItem[10],
-              successStory = _.isBoolean(countryResponseItem[11]) ? countryResponseItem[11] : (countryResponseItem[11] === 'true');
+              badges = createBadges(countryResponseItem[11]);
 
             return {
               id: id,
               lat: lat,
               lng: lng,
               title: title,
-              coordinator: coordinator,
+              badges: badges,
               programme: programme,
               action: action,
+              coordinator: coordinator,
               startDate: startDate,
-              endDate: endDate,
-              successStory: successStory
+              endDate: endDate
             };
           })
           .reject(function(countryItem) {

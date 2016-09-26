@@ -1,13 +1,13 @@
  define(function(require) {
    var Backbone = require('backbone'),
-     $ = require('jquery'),
-     ResultsMapView = require('./resultsMap.view'),
-     PopupComponent = require('app/shared/components/mapping/popup/main.component'),
-     MapComponent = require('app/shared/components/mapping/map/simple/main.component'),
-     searchService = require('../services/search/search.service'),
-     RSVP = require('rsvp'),
-     app = require('app/shared/modules/app.module'),
-     _ = require('underscore');
+   $ = require('jquery'),
+   ResultsMapView = require('./resultsMap.view'),
+   PopupComponent = require('app/shared/components/mapping/popup/main.component'),
+   MapComponent = require('app/shared/components/mapping/map/simple/main.component'),
+   searchService = require('../services/search/search.service'),
+   RSVP = require('rsvp'),
+   app = require('app/shared/modules/app.module'),
+   _ = require('underscore');
 
    describe('CE Results Map View', function() {
      describe('type', function() {
@@ -160,7 +160,7 @@
            spyOn(app, 'showError');
 
            var view = new ResultsMapView(),
-             fakeError = {};
+           fakeError = {};
 
            view.didSearchFail(fakeError);
 
@@ -173,12 +173,12 @@
            this.data = {
              total: 2,
              markers: [
-               [{ /* country data */ }],
-               [{ /* country data */ }]
-             ]
-           };
-           this.view = new ResultsMapView();
-         });
+           [{ /* country data */ }],
+         [{ /* country data */ }]
+         ]
+       };
+       this.view = new ResultsMapView();
+     });
 
          it('should be defined', function() {
            expect(ResultsMapView.prototype.prepareMarkersData).toEqual(jasmine.any(Function));
@@ -205,8 +205,8 @@
 
          it('should convert array of markers with factory method', function() {
            var fakePreparedMarkerData = {},
-             markers,
-             markersData;
+           markers,
+           markersData;
 
            spyOn(ResultsMapView.prototype, 'prepareMarkersByCountryData').and.returnValue(fakePreparedMarkerData);
 
@@ -218,8 +218,32 @@
 
        describe('.prepareMarkersByCountryData()', function() {
          beforeEach(function() {
-           this.view = new ResultsMapView();
-         });
+          var fakePopupComponent = new PopupComponent({
+            type: 'ce-project'
+          });
+
+          this.fakePopupComponentEl = {};
+          spyOn(fakePopupComponent, 'render').and.returnValue({
+            view: {
+              el: this.fakePopupComponentEl
+            }
+          });
+
+          spyOn(ResultsMapView.prototype, 'createPopupComponent').and.returnValue(fakePopupComponent);
+
+          this.countryItem1 = {
+           id: '123',
+           lat: 2,
+           lng: 4,
+           title: 'Project title 1',
+           description: 'Project description 1',
+           action: 'Project action 1',
+           coordinator: 'Project coordinator 1'
+         };
+
+         this.view = new ResultsMapView();
+         this.markersByCountry = this.view.prepareMarkersByCountryData([this.countryItem1]);
+       });
 
          it('should be defined', function() {
            expect(ResultsMapView.prototype.prepareMarkersByCountryData).toEqual(jasmine.any(Function));
@@ -232,47 +256,124 @@
            }).not.toThrow();
          });
 
-         it('should convert country items to marker data items', function() {
-           var countryItem1 = {
-               id: '123',
-               lat: 2,
-               lng: 4,
-               title: 'Project title 1',
-               description: 'Project description 1',
-               action: 'Project action 1',
-               coordinator: 'Project coordinator 1'
-             },
-             countryItem2 = {
-               id: '456',
-               lat: 3,
-               lng: 5,
-               title: 'Project title 2',
-               description: 'Project description 2',
-               action: 'Project action 2',
-               coordinator: 'Project coordinator 2'
-             },
-             countryItems = [countryItem1, countryItem2],
-             markersByCountry = this.view.prepareMarkersByCountryData(countryItems),
-             popupContent1 = new PopupComponent({
-               type: 'ce-project',
-               data: countryItem1
-             }).render().view.el,
-             popupContent2 = new PopupComponent({
-               type: 'ce-project',
-               data: countryItem2
-             }).render().view.el;
+         it('should map array of markers by country', function() {
+           expect(this.markersByCountry.length).toBe(1);
+         });
 
-           expect(markersByCountry.length).toBe(2);
+         it('should map country item id', function() {
+           expect(this.markersByCountry[0].id).toEqual('123');
+         });
 
-           expect(markersByCountry[0].id).toEqual('123');
-           expect(markersByCountry[0].lat).toEqual(2);
-           expect(markersByCountry[0].lng).toEqual(4);
-           expect(markersByCountry[0].popupContent.outerHTML).toEqual(popupContent1.outerHTML);
+         it('should map country item lat', function() {
+           expect(this.markersByCountry[0].lat).toEqual(2);
+         });
 
-           expect(markersByCountry[1].id).toEqual('456');
-           expect(markersByCountry[1].lat).toEqual(3);
-           expect(markersByCountry[1].lng).toEqual(5);
-           expect(markersByCountry[1].popupContent.outerHTML).toEqual(popupContent2.outerHTML);
+         it('should map country item lng', function() {
+           expect(this.markersByCountry[0].lng).toEqual(4);
+         });
+
+         it('should map country item popup content', function() {
+           expect(this.markersByCountry[0].popupContent).toEqual(this.fakePopupComponentEl);
+         });
+
+         it('should create popup content component passing country item', function() {
+           expect(this.view.createPopupComponent).toHaveBeenCalledWith(this.countryItem1);
+         });
+       });
+
+       describe('.createPopupComponent()', function() {
+        beforeEach(function() {
+          spyOn(PopupComponent.prototype, 'initialize');
+
+          this.view = new ResultsMapView();
+          this.popupComponent = this.view.createPopupComponent({
+            id: 124,
+            title: 'Popup Title',
+            badges: 'Success Story',
+            programme: 'Creative Europe',
+            action: 'Programme Action',
+            coordinator: 'Programme Coordinator',
+            startDate: '2012',
+            endDate: '2016'
+          });
+        });
+
+         it('should be defined', function() {
+           expect(ResultsMapView.prototype.createPopupComponent).toEqual(jasmine.any(Function));
+         });
+
+         it('should return popup component', function() {
+           expect(this.popupComponent).toEqual(jasmine.any(PopupComponent));
+         });
+
+         it('should initialize popup component with proper type', function() {
+           expect(this.popupComponent.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+            type: 'ce-project'
+           }));
+         });
+
+         it('should initialize popup component with data id', function() {
+           expect(this.popupComponent.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+            data: jasmine.objectContaining({
+              id: 124
+            })
+           }));
+         });
+
+         it('should initialize popup component with data title', function() {
+           expect(this.popupComponent.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+            data: jasmine.objectContaining({
+              title: 'Popup Title'
+            })
+           }));
+         });
+
+         it('should initialize popup component with data badges', function() {
+           expect(this.popupComponent.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+            data: jasmine.objectContaining({
+              badges: 'Success Story'
+            })
+           }));
+         });
+
+         it('should initialize popup component with data programme', function() {
+           expect(this.popupComponent.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+            data: jasmine.objectContaining({
+              programme: 'Creative Europe'
+            })
+           }));
+         });
+
+         it('should initialize popup component with data action', function() {
+           expect(this.popupComponent.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+            data: jasmine.objectContaining({
+              action: 'Programme Action'
+            })
+           }));
+         });
+
+         it('should initialize popup component with data coordinator', function() {
+           expect(this.popupComponent.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+            data: jasmine.objectContaining({
+              coordinator: 'Programme Coordinator'
+            })
+           }));
+         });
+
+         it('should initialize popup component with data start date', function() {
+           expect(this.popupComponent.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+            data: jasmine.objectContaining({
+              startDate: '2012'
+            })
+           }));
+         });
+
+         it('should initialize popup component with data end date', function() {
+           expect(this.popupComponent.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+            data: jasmine.objectContaining({
+              endDate: '2016'
+            })
+           }));
          });
        });
 
@@ -341,31 +442,31 @@
        });
      });
 
-     describe('rendering', function() {
-       describe('.render()', function() {
-         beforeEach(function() {
-           this.view = new ResultsMapView();
-         });
+ describe('rendering', function() {
+   describe('.render()', function() {
+     beforeEach(function() {
+       this.view = new ResultsMapView();
+     });
 
-         it('should return view object', function() {
-           expect(this.view.render()).toBe(this.view);
-         });
+     it('should return view object', function() {
+       expect(this.view.render()).toBe(this.view);
+     });
 
-         it('should render country search explanation', function() {
-           this.view.render();
-           expect(this.view.$el).toContainElement('.ce-results-map__map-country-search-explanation');
-         });
+     it('should render country search explanation', function() {
+       this.view.render();
+       expect(this.view.$el).toContainElement('.ce-results-map__map-country-search-explanation');
+     });
 
-         it('should render map container', function() {
-           this.view.render();
-           expect(this.view.$el).toContainElement('.ce-results-map__map-container');
-         });
+     it('should render map container', function() {
+       this.view.render();
+       expect(this.view.$el).toContainElement('.ce-results-map__map-container');
+     });
 
-         it('should render results map component', function() {
-           this.view.render();
-           expect(this.view.$el.find('.ce-results-map__map-container')).toContainHtml(this.view.mapComponent.render().view.$el.html());
-         });
-       });
+     it('should render results map component', function() {
+       this.view.render();
+       expect(this.view.$el.find('.ce-results-map__map-container')).toContainHtml(this.view.mapComponent.render().view.$el.html());
      });
    });
  });
+});
+});

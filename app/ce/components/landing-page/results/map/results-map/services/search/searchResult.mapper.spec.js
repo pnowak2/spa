@@ -233,9 +233,9 @@ define(function(require) {
               }));
             });
 
-            it('should map item success story', function() {
+            it('should map item badges', function() {
               expect(this.mapped.markers[0][0]).toEqual(jasmine.objectContaining({
-                successStory: true
+                badges: 'Success Story'
               }));
             });
           });
@@ -295,9 +295,9 @@ define(function(require) {
               }));
             });
 
-            it('should map item success story', function() {
+            it('should map item badges', function() {
               expect(this.mapped.markers[1][0]).toEqual(jasmine.objectContaining({
-                successStory: false
+                badges: ''
               }));
             });
           });

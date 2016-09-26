@@ -43,7 +43,7 @@ define(function(require) {
       data = data || {};
 
       var total = data.total,
-        markers = _.map(data.markers, this.prepareMarkersByCountryData);
+        markers = _.map(data.markers, this.prepareMarkersByCountryData, this);
 
       return {
         total: total,
@@ -55,16 +55,7 @@ define(function(require) {
       return _.map(countryItems, function(countryItem) {
         countryItem = countryItem || {};
 
-        var popupComponent = new PopupComponent({
-            type: 'ce-project',
-            data: {
-              id: countryItem.id,
-              title: countryItem.title,
-              description: countryItem.description,
-              action: countryItem.action,
-              coordinator: countryItem.coordinator
-            }
-          }),
+        var popupComponent = this.createPopupComponent(countryItem),
           popupContent = popupComponent.render().view.el;
 
         return {
@@ -73,6 +64,22 @@ define(function(require) {
           lng: countryItem.lng,
           popupContent: popupContent
         };
+      }, this);
+    },
+
+    createPopupComponent: function(countryItem) {
+      return new PopupComponent({
+        type: 'ce-project',
+        data: {
+          id: countryItem.id,
+          title: countryItem.title,
+          badges: countryItem.badges,
+          programme: countryItem.programme,
+          action: countryItem.action,
+          coordinator: countryItem.coordinator,
+          startDate: countryItem.startDate,
+          endDate: countryItem.endDate
+        }
       });
     },
 
