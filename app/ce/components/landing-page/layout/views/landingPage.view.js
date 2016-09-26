@@ -96,7 +96,7 @@ define(function(require) {
       this.getResultStatsContainer().append(this.resultStats.render().view.el);
       this.getTabbedResultsContainer().append(this.tabSwitcher.render().view.el);
       this.getTabbedResultsContainer().append(this.searchableResultsList.render().view.el);
-      this.getTabbedResultsContainer().append(this.resultsMap.render().view.el);
+      this.getTabbedResultsContainer().append(this.resultsMap.render().hide().view.el);
 
       return this;
     }

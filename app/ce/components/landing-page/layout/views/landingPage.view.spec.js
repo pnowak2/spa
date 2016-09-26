@@ -431,6 +431,10 @@ define(function(require) {
           var markup = this.view.resultsMap.render().view.el;
           expect($('.ce-tabbed-results-container')).toContainHtml(markup);
         });
+
+        it('should render results map component initially hidden', function() {
+          expect(this.view.resultsMap.render().view.$el.css('display')).toEqual('none');
+        });
       });
     });
   });
