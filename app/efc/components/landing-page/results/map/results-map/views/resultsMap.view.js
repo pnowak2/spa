@@ -88,7 +88,7 @@ define(function(require) {
     },
 
     getCountryExplanationContainer: function() {
-      return this.$el.find('.efc-results-map__map-country-search-explanation');
+      return this.$el.find('.vlr-map__country-search-explanation');
     },
 
     render: function() {

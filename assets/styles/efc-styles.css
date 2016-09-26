@@ -112,12 +112,3 @@
   color: #666;
   text-decoration:underline;
 }
-
-/* EfC Results Map Search Explanation */
-.efc-results-map__map-country-search-explanation {
-  padding: 10px;
-  color: #fff;
-  font-size: 11px;
-  text-align: center;
-  background-color: #131C2A;
-}

@@ -431,7 +431,7 @@
 
          it('should retrieve correct element', function() {
            spyOn($.prototype, 'find').and.callFake(function(selector) {
-             if (selector === '.ce-results-map__map-country-search-explanation') {
+             if (selector === '.vlr-map__country-search-explanation') {
                return 'fakeCountryExplanationContainer';
              }
            });
@@ -454,7 +454,7 @@
 
      it('should render country search explanation', function() {
        this.view.render();
-       expect(this.view.$el).toContainElement('.ce-results-map__map-country-search-explanation');
+       expect(this.view.$el).toContainElement('.vlr-map__country-search-explanation');
      });
 
      it('should render map container', function() {
