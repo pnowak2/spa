@@ -14,7 +14,7 @@ define(function(require) {
       });
 
       it('.SEARCH_MAP should be defined', function() {
-        expect(constants.urls.SEARCH_MAP).toEqual('/programmes/service/es/search/map?index=ce&indexTypeSearch=projectPublicSearch');
+        expect(constants.urls.SEARCH_MAP).toEqual('/programmes/service/es/search/mapCE');
       });
 
       it('.EXPORT_LIST should be defined', function() {

@@ -46,12 +46,12 @@ define(function(require) {
               lat = countryResponseItem[1],
               lng = countryResponseItem[2],
               title = countryResponseItem[3],
-              coordinator = countryResponseItem[6],
-              programme = findProgrammeDescriptionById(countryResponseItem[7]),
-              action = findActionDescriptionById(countryResponseItem[8]),
-              startDate = countryResponseItem[9],
-              endDate = countryResponseItem[10],
-              badges = createBadges(countryResponseItem[11]);
+              coordinator = countryResponseItem[4],
+              programme = findProgrammeDescriptionById(countryResponseItem[5]),
+              action = findActionDescriptionById(countryResponseItem[6]),
+              startDate = countryResponseItem[7],
+              endDate = countryResponseItem[8],
+              badges = createBadges(countryResponseItem[9]);
 
             return {
               id: id,
