@@ -735,6 +735,25 @@ define(function(require) {
           expect(view.getItemsCountContainer()).toBe(fakeItemsCountContainer);
         });
       });
+
+      describe('.invalidateSize()', function() {
+        beforeEach(function() {
+          spyOn(Leaflet.Map.prototype, 'invalidateSize');
+
+          this.view = new MapView();
+          this.view.render();
+          this.view.initMap();
+        });
+
+        it('should be defined', function() {
+          expect(MapView.prototype.invalidateSize).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to leaflet map', function() {
+          this.view.invalidateSize();
+          expect(Leaflet.Map.prototype.invalidateSize).toHaveBeenCalled();
+        });
+      });
     });
 
     describe('rendering', function() {

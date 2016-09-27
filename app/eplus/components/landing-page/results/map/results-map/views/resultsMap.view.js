@@ -21,6 +21,10 @@ define(function(require) {
       this.mapComponent.initMap();
     },
 
+    invalidateSize: function () {
+      this.mapComponent.invalidateSize();
+    },
+
     prepareSearchCriteria: function(criteria, mapState) {
       return _.extend({}, criteria, mapState);
     },

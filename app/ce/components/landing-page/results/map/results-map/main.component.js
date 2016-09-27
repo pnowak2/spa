@@ -11,6 +11,10 @@ define(function(require) {
       this.view.initMap();
     },
 
+    invalidateSize: function() {
+      this.view.invalidateSize();
+    },
+
     onSearchRequest: function(searchCriteria) {
       this.view.onSearchRequest(searchCriteria);
     }

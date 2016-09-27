@@ -33,6 +33,22 @@ define(function(require) {
         });
       });
 
+      describe('.invalidateSize()', function() {
+        it('should be defined', function() {
+          expect(ResultsMapComponent.prototype.invalidateSize).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new ResultsMapComponent();
+
+          spyOn(component.view, 'invalidateSize');
+
+          component.invalidateSize();
+
+          expect(component.view.invalidateSize).toHaveBeenCalledWith();
+        });
+      });
+
       describe('.onSearchRequest()', function() {
         it('should be defined', function() {
           expect(ResultsMapComponent.prototype.onSearchRequest).toEqual(jasmine.any(Function));

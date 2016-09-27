@@ -20,6 +20,10 @@ define(function(require) {
       this.mapComponent.initMap();
     },
 
+    invalidateSize: function () {
+      this.mapComponent.invalidateSize();
+    },
+
     onSearchRequest: function(searchCriteria) {
       searchService.search(searchCriteria)
         .then(this.didSearchSucceed)

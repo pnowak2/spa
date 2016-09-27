@@ -44,6 +44,22 @@ define(function(require) {
         });
       });
 
+      describe('.invalidateSize()', function() {
+        it('should be defined', function() {
+          expect(MapComponent.prototype.invalidateSize).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          var component = new MapComponent();
+
+          spyOn(component.view, 'invalidateSize');
+
+          component.invalidateSize();
+
+          expect(component.view.invalidateSize).toHaveBeenCalledWith();
+        });
+      });
+
       describe('.showMarkers()', function() {
         it('should be defined', function() {
           expect(MapComponent.prototype.showMarkers).toEqual(jasmine.any(Function));

@@ -50,15 +50,7 @@ define(function(require) {
 
     // Hack to force map to redraw
     didSelectTab: function(identifier) {
-      if (document.createEvent) {
-        // W3C
-        var ev = document.createEvent('Event');
-        ev.initEvent('resize', true, true);
-        window.dispatchEvent(ev);
-      } else {
-        // IE
-        document.fireEvent('onresize');
-      }
+      this.resultsMap.invalidateSize();
     },
 
     render: function() {

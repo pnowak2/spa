@@ -440,6 +440,23 @@
            expect(view.getCountryExplanationContainer()).toBe('fakeCountryExplanationContainer');
          });
        });
+
+      describe('.invalidateSize()', function() {
+        beforeEach(function() {
+          spyOn(MapComponent.prototype, 'invalidateSize');
+
+          this.view = new ResultsMapView();
+        });
+
+        it('should be defined', function() {
+          expect(ResultsMapView.prototype.invalidateSize).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to map component', function() {
+          this.view.invalidateSize();
+          expect(this.view.mapComponent.invalidateSize).toHaveBeenCalled();
+        });
+      });
      });
 
  describe('rendering', function() {

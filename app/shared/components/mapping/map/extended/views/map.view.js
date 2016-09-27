@@ -329,6 +329,10 @@ define(function(require) {
       return this.$el.find('.vlr-map__items-count');
     },
 
+    invalidateSize: function () {
+      this.map.invalidateSize();
+    },
+
     render: function() {
       var html = Mustache.render(tpl);
       this.$el.append(html);

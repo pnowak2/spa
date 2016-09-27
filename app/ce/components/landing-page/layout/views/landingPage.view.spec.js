@@ -83,6 +83,25 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.didSelectTab()', function() {
+        beforeEach(function() {
+          this.view = new LandingPageView();
+        });
+
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.didSelectTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should invalidate map size', function() {
+          var view = new LandingPageView();
+          spyOn(ResultsMapComponent.prototype, 'invalidateSize');
+
+          view.didSelectTab();
+
+          expect(view.resultsMap.invalidateSize).toHaveBeenCalled();
+        });
+      });
+
       describe('.onSearchRequest()', function() {
         beforeEach(function() {
           spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
@@ -390,6 +409,16 @@ define(function(require) {
 
           expect(view.didRoute).toHaveBeenCalledWith(fakeCriteria);
         });
+
+      it('should listen to tab switcher tab selection events', function() {
+        spyOn(LandingPageView.prototype, 'didSelectTab');
+
+        var view = new LandingPageView();
+
+        view.tabSwitcher.trigger('tab-switcher:tab:selected');
+
+        expect(view.didSelectTab).toHaveBeenCalled();
+      });
       });
     });
 

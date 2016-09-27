@@ -14,6 +14,10 @@ define(function(require) {
       this.view.initMap();
     },
 
+    invalidateSize: function() {
+      this.view.invalidateSize();
+    },
+    
     getState: function () {
       return this.view.getState();
     },

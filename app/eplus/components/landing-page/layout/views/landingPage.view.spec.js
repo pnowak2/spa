@@ -155,13 +155,13 @@ define(function(require) {
           expect(LandingPageView.prototype.didSelectTab).toEqual(jasmine.any(Function));
         });
 
-        it('should trigger resize event', function(done) {
-          $(window).resize(function() {
-            expect(true).toBe(true);
-            done();
-          });
+        it('should invalidate map size', function() {
+          var view = new LandingPageView();
+          spyOn(ResultsMapComponent.prototype, 'invalidateSize');
 
-          this.view.didSelectTab();
+          view.didSelectTab();
+
+          expect(view.resultsMap.invalidateSize).toHaveBeenCalled();
         });
       });
     });

@@ -38,7 +38,13 @@ define(function(require) {
       this.listenTo(this.search, 'search:search', this.onSearchRequest);
       this.listenTo(this.searchableResultsList, 'search:completed', this.didListSearchSucceed);
       this.listenTo(this.resultStats, 'export:xls', this.onExportToXlsRequest);
+      this.listenTo(this.tabSwitcher, 'tab-switcher:tab:selected', this.didSelectTab);
       this.listenTo(router, 'router:search', this.didRoute);
+    },
+
+    // Hack to force map to redraw
+    didSelectTab: function(identifier) {
+      this.resultsMap.invalidateSize();
     },
 
     onSearchRequest: function(criteria) {

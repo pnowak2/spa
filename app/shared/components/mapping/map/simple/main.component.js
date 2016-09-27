@@ -11,6 +11,10 @@ define(function(require) {
       this.view.initMap();
     },
 
+    invalidateSize: function() {
+      this.view.invalidateSize();
+    },
+
     showMarkers: function(markersData) {
       this.view.showMarkers(markersData);
     }
