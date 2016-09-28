@@ -1,5 +1,6 @@
 define(function(require) {
-  var ActionsToolbar = require('./actionsToolbar.view');
+  var Backbone = require('backbone'),
+    ActionsToolbar = require('./actionsToolbar.view');
 
   describe('Actions Toolbar View', function() {
     describe('type', function() {
@@ -11,7 +12,7 @@ define(function(require) {
     describe('creation', function() {
       it('should not throw if created without params', function() {
         expect(function() {
-          new ActionsToolbar;
+          new ActionsToolbar();
         }).not.toThrow();
       });
     });
@@ -27,7 +28,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(ActionsToolbar.prototype, 'trigger');
           this.fakeEvent = jasmine.createSpyObj('fake event', ['preventDefault']);
-          this.view = new ActionsToolbar;
+          this.view = new ActionsToolbar();
         });
 
         it('should be defined', function() {
@@ -60,12 +61,12 @@ define(function(require) {
     describe('rendering', function() {
       describe('.render()', function() {
         beforeEach(function() {
-          this.view = new ActionsToolbar;
+          this.view = new ActionsToolbar();
           this.$el = this.view.render().$el;
         });
 
         it('should return view object', function() {
-          var view = new ActionsToolbar;
+          var view = new ActionsToolbar();
 
           expect(view.render()).toBe(view);
         });

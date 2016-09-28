@@ -16,5 +16,5 @@ define(function(require) {
     getWindow: function () {
       return window;
     }
-  }
+  };
 });

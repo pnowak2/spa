@@ -4,7 +4,7 @@ define(function(require) {
     constants = require('app/efc/util/constants'),
     $ = require('jquery');
 
-  describe('Search Service', function() {
+  describe('EfC Export Service', function() {
     describe('api', function() {
       describe('.export()', function() {
         beforeEach(function() {
@@ -12,7 +12,7 @@ define(function(require) {
             location: ''
           });
 
-          constants.urls.EXPORT_LIST = '/context?existing-params'
+          constants.urls.EXPORT_LIST = '/context?existing-params';
         });
 
         it('should be defined', function() {
@@ -21,12 +21,12 @@ define(function(require) {
 
         it('should not throw if called without params', function() {
           expect(function() {
-            exportService.export()
+            exportService.export();
           }).not.toThrow();
         });
 
         it('should handle lack of input criteria', function() {
-          spyOn(searchInputMapper, 'map').and.returnValue({})
+          spyOn(searchInputMapper, 'map').and.returnValue({});
 
           exportService.export({});
 
@@ -43,7 +43,7 @@ define(function(require) {
               COUNTRIES: 'mappedCountries'
             };
 
-          spyOn(searchInputMapper, 'map').and.returnValue(fakeMappedCriteria)
+          spyOn(searchInputMapper, 'map').and.returnValue(fakeMappedCriteria);
 
           exportService.export(fakeInput);
 

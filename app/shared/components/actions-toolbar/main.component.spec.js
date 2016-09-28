@@ -12,7 +12,7 @@ define(function(require) {
 
     describe('creation', function() {
       beforeEach(function() {
-        this.exportLinkComponent = new ActionsToolbarComponent;
+        this.exportLinkComponent = new ActionsToolbarComponent();
       });
 
       it('should be initialized with proper view', function() {
@@ -22,7 +22,7 @@ define(function(require) {
 
     describe('events', function() {
       it('should trigger event on export link click', function(done) {
-        var component = new ActionsToolbarComponent
+        var component = new ActionsToolbarComponent();
 
         component.on('actionsToolbar:export:click', function() {
           expect(true).toBe(true);

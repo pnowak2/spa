@@ -631,3 +631,21 @@
   font-size: 12px;
   font-family: sans-serif;
 }
+
+/* Actions Toolbar */
+.vlr-actions-toolbar {
+  font-size: 11px;
+  padding: 10px 0px;
+  text-align: center;
+  background-color: #131C2A;
+}
+
+a.vlr-actions-toolbar__export,
+a.vlr-actions-toolbar__export:hover,
+a.vlr-actions-toolbar__export:visited {
+  color: #fff;
+  background-image: url(../images/excel-icon.png);
+  background-repeat: no-repeat;
+  padding-left: 22px;
+  background-position: left center;
+}

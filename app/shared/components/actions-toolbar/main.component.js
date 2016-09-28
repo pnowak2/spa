@@ -4,7 +4,7 @@ define(function(require) {
 
   return Component.extend({
     initialize: function() {
-      this.view = new ExportLinkView;
+      this.view = new ExportLinkView();
       this.listenTo(this.view, 'actionsToolbar:export:click', function () {
       	this.trigger('actionsToolbar:export:click');
       });

@@ -10,7 +10,7 @@ define(function(require) {
                 itemsCount: item.itemsCount,
                 lat: item.lat,
                 lng: item.lon
-              }
+              };
             case 'marker':
               return {
                 type: item.type,
@@ -28,7 +28,7 @@ define(function(require) {
                 countries: _.chain((item.countries || '').split('|'))
                   .compact()
                   .value()
-              }
+              };
           }
       });
     },
