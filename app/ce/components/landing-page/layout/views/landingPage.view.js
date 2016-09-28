@@ -13,7 +13,7 @@ define(function(require) {
     initialize: function() {
       this.search = new SearchComponent({
         advancedSearchComponent: new AdvancedSearchComponent()
-      }); 
+      });
       this.resultStats = new ResultStatsComponent();
       this.searchableResultsList = new SearchableResultsListComponent();
       this.resultsMap = new ResultsMapComponent();

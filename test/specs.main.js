@@ -195,6 +195,7 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/eplus/components/landing-page/results/map/results-map/views/resultsMap.view.spec',
     'app/eplus/components/landing-page/results/map/results-map/services/search/search.service.spec',
     'app/eplus/components/landing-page/results/map/results-map/services/search/searchInput.mapper.spec',
+    'app/eplus/components/landing-page/results/map/results-map/services/search/searchInputHardcoded.mapper.spec',
     'app/eplus/components/landing-page/results/map/results-map/services/search/searchResult.mapper.spec',
 
     // ce util
