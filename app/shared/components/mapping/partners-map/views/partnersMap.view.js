@@ -14,6 +14,8 @@ define(function(require) {
       this.options = options || {};
 
       this.mapComponent = new MapComponent({
+        minZoom: 3,
+        maxZoom: 14,
         countryClusterSize: 15,
         localClusterSize: 15
       });

@@ -51,6 +51,8 @@ define(function(require) {
 
       it('should initialize map component with proper options', function() {
         expect(this.view.mapComponent.initialize).toHaveBeenCalledWith({
+          minZoom: 3,
+          maxZoom: 14,
           countryClusterSize: 15,
           localClusterSize: 15
         });
