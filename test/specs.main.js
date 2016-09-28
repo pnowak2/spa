@@ -85,8 +85,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/shared/components/lists/page-stats/views/pageStats.view.spec',
 
     // actions toolbar component
-    'app/shared/components/actions-toolbar/main.component.spec',
-    'app/shared/components/actions-toolbar/views/actionsToolbar.view.spec',
+    'app/shared/components/other/actions-toolbar/main.component.spec',
+    'app/shared/components/other/actions-toolbar/views/actionsToolbar.view.spec',
 
     // tab switcher component
     'app/shared/components/other/tab-switcher/main.component.spec',

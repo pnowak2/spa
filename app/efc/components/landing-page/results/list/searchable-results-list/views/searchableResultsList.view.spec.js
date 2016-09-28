@@ -1,6 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone'),
     app = require('app/shared/modules/app.module'),
+    ActionsToolbarComponent = require('app/shared/components/other/actions-toolbar/main.component'),
     SearchableResultsListView = require('./searchableResultsList.view'),
     SearchableListComponent = require('app/shared/components/lists/searchable-list/main.component'),
     ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),

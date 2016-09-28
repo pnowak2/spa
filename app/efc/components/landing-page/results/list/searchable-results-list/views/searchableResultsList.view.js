@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     SearchableListComponent = require('app/shared/components/lists/searchable-list/main.component'),
     ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component'),
-    ActionsToolbarComponent = require('app/shared/components/actions-toolbar/main.component'),
+    ActionsToolbarComponent = require('app/shared/components/other/actions-toolbar/main.component'),
     searchService = require('../services/search/search.service'),
     exportService = require('../services/export/export.service');
 
