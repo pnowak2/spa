@@ -41,6 +41,8 @@ define(function(require) {
 
       this.resultsMap.onSearchRequest(criteria);
       router.navigate('keyword/' + criteria.KEYWORD);
+
+      this.tabSwitcher.show();
     },
 
     didRouteSearchByKeyword: function(keyword) {
@@ -55,7 +57,7 @@ define(function(require) {
 
     render: function() {
       Backbone.$('.tab-switcher-container')
-        .append(this.tabSwitcher.render().view.el);
+        .append(this.tabSwitcher.render().hide().view.el);
       Backbone.$('.map-container')
         .append(this.resultsMap.render().view.el);
 

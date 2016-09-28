@@ -96,6 +96,7 @@ define(function(require) {
           spyOn(router, 'navigate');
           spyOn(ResultsMapComponent.prototype, 'onSearchRequest');
           spyOn(searchCriteriaBuilder, 'getCriteria').and.returnValue(this.fakeCriteria);
+          spyOn(TabSwitcherComponent.prototype, 'show').and.callThrough();
         });
 
         it('should be defined', function() {
@@ -115,6 +116,12 @@ define(function(require) {
         it('should include keyword in URL', function() {
           this.view.didClickSearchButton();
           expect(router.navigate).toHaveBeenCalledWith('keyword/bar');
+        });
+
+        it('should show tabs', function() {
+          this.view.didClickSearchButton();
+
+          expect(this.view.tabSwitcher.show).toHaveBeenCalled();
         });
       });
 
@@ -193,6 +200,7 @@ define(function(require) {
         beforeEach(function() {
           jasmine.getFixtures().fixturesPath = 'fixtures';
           loadFixtures('eplus.landing-page.fixture.html');
+          spyOn(TabSwitcherComponent.prototype, 'hide').and.callThrough();
 
           this.view = new LandingPageView();
           this.view.render();
@@ -206,6 +214,10 @@ define(function(require) {
           var markup = this.view.tabSwitcher.render().el;
           expect($('.tab-switcher-container')).not.toBeEmpty();
           expect($('.tab-switcher-container')).toContainHtml(markup);
+        });
+
+        it('should hide tabs on initial render', function() {
+          expect(this.view.tabSwitcher.hide).toHaveBeenCalled();
         });
 
         it('should render results map component to appropriate container', function() {

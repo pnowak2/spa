@@ -86,6 +86,21 @@ define(function(require) {
         });
       });
 
+      describe('.selectTab()', function() {
+        it('should be defined', function() {
+          expect(TabSwitcherView.prototype.selectTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should select given tab', function() {
+          spyOn(TabsCollection.prototype, 'selectTab');
+
+          var view = new TabSwitcherView();
+          view.selectTab('tab-id');
+
+          expect(view.collection.selectTab).toHaveBeenCalledWith('tab-id');
+        });
+      });
+
       describe('.didModelSelectionChange', function() {
         it('should be defined', function() {
           expect(TabSwitcherView.prototype.didModelSelectionChange).toEqual(jasmine.any(Function));

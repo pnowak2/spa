@@ -14,6 +14,10 @@ define(function(require) {
       });
     },
 
+    selectTab: function(identifier) {
+      this.view.selectTab(identifier);
+    },
+
     update: function(data) {
       this.view.update(data);
     }

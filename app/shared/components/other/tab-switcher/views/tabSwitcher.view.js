@@ -25,6 +25,10 @@ define(function(require) {
       this.trigger('tab-switcher:tab:selected', identifier);
     },
 
+    selectTab: function(identifier) {
+      this.collection.selectTab(identifier);
+    },
+
     didModelSelectionChange: function(tabModel) {
       Backbone
         .$(tabModel.getTargetSelector())

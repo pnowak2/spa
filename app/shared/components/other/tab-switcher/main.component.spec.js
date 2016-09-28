@@ -36,6 +36,21 @@ define(function(require) {
     });
 
     describe('api', function() {
+      describe('.selectTab()', function() {
+        it('should be defined', function() {
+          expect(TabSwitcherComponent.prototype.selectTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should select given tab', function() {
+          spyOn(TabSwitcherView.prototype, 'selectTab');
+
+          var component = new TabSwitcherComponent();
+          component.selectTab('tab-id');
+
+          expect(component.view.selectTab).toHaveBeenCalledWith('tab-id');
+        });
+      });
+
       describe('.update()', function() {
         it('should be defined', function() {
           expect(TabSwitcherComponent.prototype.update).toEqual(jasmine.any(Function));
