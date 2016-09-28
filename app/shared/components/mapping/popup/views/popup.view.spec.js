@@ -107,7 +107,8 @@ define(function(require) {
                   title: 'Project Title',
                   actionType: 'Project Action Type',
                   coordinator: 'Project Coordinator',
-                  countries: 'PL, DE, BE'
+                  countries: 'PL, DE, BE',
+                  notAccurate: false
                 }
               });
 
@@ -143,6 +144,27 @@ define(function(require) {
               expect(link).toHaveAttr('href', '/programmes/erasmus-plus/projects/eplus-project-details-page/?nodeRef=52');
               expect(link).toHaveAttr('target', '_blank');
               expect(link).toContainText('Show project card');
+            });
+
+            it('should render address not accurate disclaimer', function() {
+              var view = new PopupView({
+                type: 'eplus-project',
+                data: {
+                  id: '52',
+                  badges: 'Good Practice & Success Story',
+                  programme: 'Erasmus+',
+                  title: 'Project Title',
+                  actionType: 'Project Action Type',
+                  coordinator: 'Project Coordinator',
+                  countries: 'PL, DE, BE',
+                  notAccurate: true
+                }
+              });
+
+              view.render();
+
+              expect(view.$el).toContainElement('.vlr-map-popup__address-not-accurate');
+              expect(view.$el.find('.vlr-map-popup__address-not-accurate')).toContainText('The location of this place is not accurate');
             });
           });
 
@@ -183,6 +205,10 @@ define(function(require) {
             it('should not render link section', function() {
               expect(this.view.$el).not.toContainElement('.vlr-map-popup__link');
             });
+
+            it('should not render address not accurate disclaimer', function() {
+              expect(this.view.$el).not.toContainElement('.vlr-map-popup__address-not-accurate');
+            });
           });
         });
 
@@ -199,7 +225,8 @@ define(function(require) {
                   action: 'Media Video',
                   coordinator: 'Project Coordinator',
                   startDate: '2012',
-                  endDate: '2016'
+                  endDate: '2016',
+                  notAccurate: false
                 }
               });
 
@@ -240,6 +267,28 @@ define(function(require) {
               expect(link).toHaveAttr('target', '_blank');
               expect(link).toContainText('Show project card');
             });
+
+            it('should render address not accurate disclaimer', function() {
+              var view = new PopupView({
+                type: 'ce-project',
+                data: {
+                  id: '52',
+                  title: 'Project Title',
+                  badges: 'Success Story',
+                  programme: 'Creative Europe',
+                  action: 'Media Video',
+                  coordinator: 'Project Coordinator',
+                  startDate: '2012',
+                  endDate: '2016',
+                  notAccurate: true
+                }
+              });
+
+              view.render();
+
+              expect(view.$el).toContainElement('.vlr-map-popup__address-not-accurate');
+              expect(view.$el.find('.vlr-map-popup__address-not-accurate')).toContainText('The location of this place is not accurate');
+            });
           });
 
           describe('Missing sections', function() {
@@ -270,6 +319,10 @@ define(function(require) {
 
             it('should not render link section', function() {
               expect(this.view.$el).not.toContainElement('.vlr-map-popup__link');
+            });
+
+            it('should not render address not accurate disclaimer', function() {
+              expect(this.view.$el).not.toContainElement('.vlr-map-popup__address-not-accurate');
             });
           });
         });
@@ -313,6 +366,25 @@ define(function(require) {
               expect(link).toHaveAttr('target', '_blank');
               expect(link).toContainText('Show project card');
             });
+
+            it('should render address not accurate disclaimer', function() {
+              var view = new PopupView({
+                type: 'efc-project',
+                data: {
+                  id: '52',
+                  title: 'Project Title',
+                  description: 'Project Description',
+                  activity: 'Project Activity',
+                  coordinator: 'Project Coordinator',
+                  notAccurate: true
+                }
+              });
+
+              view.render();
+
+              expect(view.$el).toContainElement('.vlr-map-popup__address-not-accurate');
+              expect(view.$el.find('.vlr-map-popup__address-not-accurate')).toContainText('The location of this place is not accurate');
+            });
           });
 
           describe('Missing sections', function() {
@@ -344,6 +416,10 @@ define(function(require) {
             it('should not render link section', function() {
               expect(this.view.$el).not.toContainElement('.vlr-map-popup__link');
             });
+
+            it('should not render address not accurate disclaimer', function() {
+              expect(this.view.$el).not.toContainElement('.vlr-map-popup__address-not-accurate');
+            });
           });
         });
 
@@ -357,7 +433,8 @@ define(function(require) {
                 type: 'type',
                 role: 'role',
                 address: 'address',
-                website: 'website'
+                website: 'website',
+                notAccurate: false
               }
             });
 
@@ -411,6 +488,28 @@ define(function(require) {
 
             expect(view.$el).not.toContainElement('.vlr-map-popup__website-link');
             expect(view.$el).toContainText('(Website not provided)');
+          });
+
+          it('should not render address not accurate disclaimer', function() {
+            expect(this.view.$el).not.toContainElement('.vlr-map-popup__address-not-accurate');
+          });
+
+          it('should render address not accurate disclaimer', function() {
+            var view = new PopupView({
+              type: 'efc-organisation',
+              data: {
+                name: 'name',
+                type: 'type',
+                role: 'role',
+                address: 'address',
+                notAccurate: true
+              }
+            });
+
+            view.render();
+
+            expect(view.$el).toContainElement('.vlr-map-popup__address-not-accurate');
+            expect(view.$el.find('.vlr-map-popup__address-not-accurate')).toContainText('The location of this place is not accurate');
           });
         });
       });
