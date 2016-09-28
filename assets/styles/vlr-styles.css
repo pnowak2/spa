@@ -178,6 +178,10 @@
     font-weight: bold;
 }
 
+.vlr-tabs__tab--hidden {
+  display: none;
+}
+
 .vlr-tabs__tab:hover {
     background-color: #2D5792;
 }

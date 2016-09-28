@@ -29,6 +29,18 @@ define(function(require) {
       this.collection.selectTab(identifier);
     },
 
+    selectedTab: function(identifier) {
+      return this.collection.selectedTab();
+    },
+
+    showTab: function(identifier) {
+      this.collection.showTab(identifier);
+    },
+
+    hideTab: function(identifier) {
+      this.collection.hideTab(identifier);
+    },
+
     didModelSelectionChange: function(tabModel) {
       Backbone
         .$(tabModel.getTargetSelector())

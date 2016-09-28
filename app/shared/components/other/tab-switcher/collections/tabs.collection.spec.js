@@ -131,6 +131,32 @@ define(function(require) {
         });
       });
 
+      describe('.selectedTab()', function() {
+        it('should be defined', function() {
+          expect(TabsCollection.prototype.selectedTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should return only first selected item from selected tabs', function() {
+          var collection = new TabsCollection([{
+            identifier: 'first',
+            selected: false,
+          }, {
+            identifier: 'second',
+            selected: true,
+          }, {
+            identifier: 'third',
+            selected: false,
+          }]);
+
+          var selected = collection.selectedTab();
+
+          expect(selected).toEqual(jasmine.objectContaining({
+            identifier: 'second',
+            selected: true
+          }));
+        });
+      });
+
       describe('.findTab()', function() {
         beforeEach(function() {
           this.collection = new TabsCollection([{
@@ -196,6 +222,60 @@ define(function(require) {
           this.collection.selectTab('nonexisting');
 
           expect(this.collection.selectedTabs()[0].get('identifier')).toEqual('second');
+        });
+      });
+
+      describe('.showTab()', function() {
+        beforeEach(function() {
+          this.collection = new TabsCollection([{
+            identifier: 'first',
+            visible: false,
+          }, {
+            identifier: 'second',
+            visible: false,
+          }, {
+            identifier: 'third',
+            visible: false,
+          }]);
+        });
+
+        it('should be defined', function() {
+          expect(TabsCollection.prototype.showTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should call show on model', function() {
+          spyOn(TabModel.prototype, 'show');
+
+          this.collection.showTab('third');
+
+          expect(this.collection.at(2).show).toHaveBeenCalled();
+        });
+      });
+
+      describe('.hideTab()', function() {
+        beforeEach(function() {
+          this.collection = new TabsCollection([{
+            identifier: 'first',
+            visible: false,
+          }, {
+            identifier: 'second',
+            visible: true,
+          }, {
+            identifier: 'third',
+            visible: false,
+          }]);
+        });
+
+        it('should be defined', function() {
+          expect(TabsCollection.prototype.hideTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should call hide on model', function() {
+          spyOn(TabModel.prototype, 'hide');
+
+          this.collection.hideTab('third');
+
+          expect(this.collection.at(2).hide).toHaveBeenCalled();
         });
       });
     });

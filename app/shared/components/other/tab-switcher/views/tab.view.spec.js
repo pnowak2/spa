@@ -106,6 +106,32 @@ define(function(require) {
           expect(view.render().$el).toBeMatchedBy('li.vlr-tabs__tab--selected');
           expect(view.render().$el).toContainText('My Tab');
         });
+
+        it('should render visible tab', function() {
+          var view = new TabView({
+            model: new TabModel({
+              title: 'My Tab',
+              identifier: 'mytab',
+              selected: true,
+              visible: true
+            })
+          });
+
+          expect(view.render().$el).not.toBeMatchedBy('li.vlr-tabs__tab--hidden');
+        });
+
+        it('should render hidden tab', function() {
+          var view = new TabView({
+            model: new TabModel({
+              title: 'My Tab',
+              identifier: 'mytab',
+              selected: true,
+              visible: false
+            })
+          });
+
+          expect(view.render().$el).toBeMatchedBy('li.vlr-tabs__tab--hidden');
+        });
       });
     });
   });

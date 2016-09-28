@@ -42,7 +42,20 @@ define(function(require) {
       this.resultsMap.onSearchRequest(criteria);
       router.navigate('keyword/' + criteria.KEYWORD);
 
+      this.handleTabsVisibility(criteria);
+    },
+
+    handleTabsVisibility: function(criteria) {
+      criteria = criteria || {};
+      
       this.tabSwitcher.show();
+
+      if(criteria.indexTypeShow === 'resultPublicSearch') {
+        this.tabSwitcher.selectTab('list');
+        this.tabSwitcher.hideTab('map');
+      } else {
+        this.tabSwitcher.showTab('map');
+      }
     },
 
     didRouteSearchByKeyword: function(keyword) {

@@ -51,6 +51,49 @@ define(function(require) {
         });
       });
 
+      describe('.selectedTab()', function() {
+        it('should be defined', function() {
+          expect(TabSwitcherComponent.prototype.selectedTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should select given tab', function() {
+          spyOn(TabSwitcherView.prototype, 'selectedTab').and.returnValue('tab-id');
+
+          var component = new TabSwitcherComponent();
+          expect(component.selectedTab()).toEqual('tab-id');
+        });
+      });
+
+      describe('.showTab()', function() {
+        it('should be defined', function() {
+          expect(TabSwitcherComponent.prototype.showTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          spyOn(TabSwitcherView.prototype, 'showTab');
+
+          var component = new TabSwitcherComponent();
+          component.showTab('tab-id');
+
+          expect(component.view.showTab).toHaveBeenCalledWith('tab-id');
+        });
+      });
+
+      describe('.hideTab()', function() {
+        it('should be defined', function() {
+          expect(TabSwitcherComponent.prototype.hideTab).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to view', function() {
+          spyOn(TabSwitcherView.prototype, 'hideTab');
+
+          var component = new TabSwitcherComponent();
+          component.hideTab('tab-id');
+
+          expect(component.view.hideTab).toHaveBeenCalledWith('tab-id');
+        });
+      });
+
       describe('.update()', function() {
         it('should be defined', function() {
           expect(TabSwitcherComponent.prototype.update).toEqual(jasmine.any(Function));

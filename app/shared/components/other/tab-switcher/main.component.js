@@ -18,6 +18,18 @@ define(function(require) {
       this.view.selectTab(identifier);
     },
 
+    selectedTab: function() {
+      return this.view.selectedTab();
+    },
+
+    showTab: function(identifier) {
+      this.view.showTab(identifier);
+    },
+
+    hideTab: function(identifier) {
+      this.view.hideTab(identifier);
+    },
+
     update: function(data) {
       this.view.update(data);
     }

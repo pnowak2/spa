@@ -27,6 +27,7 @@ define(function(require) {
     render: function() {
       this.$el.html(Mustache.render('{{ title }}', this.model.toJSON()));
       this.$el.toggleClass('vlr-tabs__tab--selected', this.model.isSelected());
+      this.$el.toggleClass('vlr-tabs__tab--hidden', !this.model.isVisible());
 
       return this;
     }

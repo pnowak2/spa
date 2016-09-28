@@ -31,6 +31,14 @@ define(function(require) {
       });
     },
 
+    selectedTab: function() {
+      var selectedTabs = this.selectedTabs();
+
+      if(selectedTabs) {
+        return _.first(this.selectedTabs()).toJSON();
+      }
+    },
+
     findTab: function(identifier) {
       return this.findWhere({
         identifier: identifier
@@ -45,6 +53,22 @@ define(function(require) {
           .invoke('deselect');
 
         foundTab.select();
+      }
+    },
+
+    showTab: function(identifier) {
+      var foundTab = this.findTab(identifier);
+
+      if (foundTab) {
+        foundTab.show();
+      }
+    },
+
+    hideTab: function(identifier) {
+      var foundTab = this.findTab(identifier);
+
+      if (foundTab) {
+        foundTab.hide();
       }
     }
   });

@@ -15,6 +15,7 @@ define(function(require) {
           title: '',
           identifier: null,
           selected: false,
+          visible: true,
           targetSelector: null
         });
       });
@@ -36,6 +37,24 @@ define(function(require) {
           model.set('selected', false);
 
           expect(model.isSelected()).toBe(false);
+        });
+      });
+
+      describe('.isVisible()', function() {
+        it('should be defined', function() {
+          expect(TabModel.prototype.isVisible).toEqual(jasmine.any(Function));
+        });
+
+        it('should return visible property of model', function() {
+          var model = new TabModel({
+            visible: true
+          });
+
+          expect(model.isVisible()).toBe(true);
+
+          model.set('visible', false);
+
+          expect(model.isVisible()).toBe(false);
         });
       });
 
@@ -71,6 +90,38 @@ define(function(require) {
         });
       });
 
+      describe('.show()', function() {
+        it('should be defined', function() {
+          expect(TabModel.prototype.show).toEqual(jasmine.any(Function));
+        });
+
+        it('should set visible to true in model', function() {
+          var model = new TabModel({
+            visible: false
+          });
+
+          model.show();
+
+          expect(model.isVisible()).toBe(true);
+        });
+      });
+
+      describe('.hide()', function() {
+        it('should be defined', function() {
+          expect(TabModel.prototype.hide).toEqual(jasmine.any(Function));
+        });
+
+        it('should set visible to false in model', function() {
+          var model = new TabModel({
+            visible: true
+          });
+
+          model.hide();
+
+          expect(model.isVisible()).toBe(false);
+        });
+      });
+
       describe('.getTargetSelector()', function() {
         it('should be defined', function() {
           expect(TabModel.prototype.getTargetSelector).toEqual(jasmine.any(Function));
@@ -82,6 +133,20 @@ define(function(require) {
           });
 
           expect(model.getTargetSelector()).toEqual('.myElementClass');
+        });
+      });
+
+      describe('.getIdentifier()', function() {
+        it('should be defined', function() {
+          expect(TabModel.prototype.getIdentifier).toEqual(jasmine.any(Function));
+        });
+
+        it('should return identifier for tab', function() {
+          var model = new TabModel({
+            identifier: 'my-id'
+          });
+
+          expect(model.getIdentifier()).toEqual('my-id');
         });
       });
     });

@@ -96,7 +96,7 @@ define(function(require) {
           spyOn(router, 'navigate');
           spyOn(ResultsMapComponent.prototype, 'onSearchRequest');
           spyOn(searchCriteriaBuilder, 'getCriteria').and.returnValue(this.fakeCriteria);
-          spyOn(TabSwitcherComponent.prototype, 'show').and.callThrough();
+          spyOn(LandingPageView.prototype, 'handleTabsVisibility');
         });
 
         it('should be defined', function() {
@@ -118,10 +118,67 @@ define(function(require) {
           expect(router.navigate).toHaveBeenCalledWith('keyword/bar');
         });
 
-        it('should show tabs', function() {
+        it('should handle tabs visibility', function() {
           this.view.didClickSearchButton();
 
+          expect(this.view.handleTabsVisibility).toHaveBeenCalledWith(this.fakeCriteria);
+        });
+      });
+
+      describe('.handleTabsVisibility()', function() {
+        beforeEach(function() {
+          spyOn(TabSwitcherComponent.prototype, 'selectTab');
+          spyOn(TabSwitcherComponent.prototype, 'hideTab');
+          spyOn(TabSwitcherComponent.prototype, 'showTab');
+          spyOn(TabSwitcherComponent.prototype, 'show');
+
+          this.view = new LandingPageView();
+        });
+
+        it('should be defined', function() {
+          expect(LandingPageView.prototype.handleTabsVisibility).toEqual(jasmine.any(Function));
+        });
+
+        it('should show tab switcher', function() {
+          this.view.handleTabsVisibility({});
+
           expect(this.view.tabSwitcher.show).toHaveBeenCalled();
+        });
+
+        describe('Search By Results', function() {
+          beforeEach(function() {
+            this.view.handleTabsVisibility({
+              indexTypeShow: 'resultPublicSearch'
+            });
+          });
+
+          it('should hide map', function() {
+            expect(this.view.tabSwitcher.hideTab).toHaveBeenCalledWith('map');
+          });
+
+          it('should select list tab', function() {
+            expect(this.view.tabSwitcher.selectTab).toHaveBeenCalledWith('list');
+          });
+        });
+
+        describe('Search NOT By Results', function() {
+          beforeEach(function() {
+            this.view.handleTabsVisibility({
+              indexTypeShow: 'any-other-search'
+            });
+          });
+
+          it('should show map', function() {
+            expect(this.view.tabSwitcher.showTab).toHaveBeenCalledWith('map');
+          });
+
+          it('should not hide map', function() {
+            expect(this.view.tabSwitcher.hideTab).not.toHaveBeenCalled();
+          });
+
+          it('should not select list tab', function() {
+            expect(this.view.tabSwitcher.selectTab).not.toHaveBeenCalled();
+          });
         });
       });
 
