@@ -1,6 +1,6 @@
 define(function(require) {
   var searchService = require('./search.service'),
-    searchInputMapper = require('./searchInput.mapper'),
+    searchInputMapper = require('./searchInputHardcoded.mapper'),
     searchResultMapper = require('./searchResult.mapper'),
     constants = require('app/eplus/util/constants'),
     RSVP = require('rsvp'),

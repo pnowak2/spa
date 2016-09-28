@@ -18,6 +18,7 @@ define(function(require) {
           group: 'pl',
           lat: 55,
           lon: 28,
+          notAccurate: true,
           id: '1',
           goodPractice: false,
           successStory: false,
@@ -30,6 +31,7 @@ define(function(require) {
           type: 'marker',
           lat: 56,
           lon: 29,
+          notAccurate: false,
           id: '2',
           goodPractice: false,
           successStory: false,
@@ -140,6 +142,12 @@ define(function(require) {
             it('item should have longitude property', function() {
               expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
                 lng: 28
+              }));
+            });
+
+            it('item should have not accurate property', function() {
+              expect(this.mapped.items[1]).toEqual(jasmine.objectContaining({
+                notAccurate: true
               }));
             });
 

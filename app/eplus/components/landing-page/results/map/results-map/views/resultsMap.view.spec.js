@@ -404,6 +404,7 @@
              group: 'pl',
              lat: 54,
              lng: 24,
+             notAccurate: true,
              id: 6,
              title: 'Project Title',
              goodPractice: true,
@@ -441,7 +442,8 @@
                countries: 'fake countries',
                programme: 'Project Programme',
                actionType: 'Project Action Type',
-               coordinator: 'Project Coordinator'
+               coordinator: 'Project Coordinator',
+               notAccurate: true
              }
            });
          });

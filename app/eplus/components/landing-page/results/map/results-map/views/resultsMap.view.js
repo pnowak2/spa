@@ -106,7 +106,8 @@ define(function(require) {
             countries: this.prepareMarkerCountries(item),
             programme: item.programme,
             actionType: item.actionType,
-            coordinator: item.coordinator
+            coordinator: item.coordinator,
+            notAccurate: item.notAccurate
           }
         }),
         popupContent = popupComponent.render().view.el;
