@@ -42,6 +42,13 @@
   background-color: #131C2A;
 }
 
+.vlr-map-popup__address-not-accurate {
+  font-size: 11px;
+  text-align: center;
+  margin-top: 10px;
+  color: rgb(189, 67, 67);
+}
+
 .vlr-map__items-count {
   font-weight: bold;
 }
