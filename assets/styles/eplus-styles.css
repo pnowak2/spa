@@ -1,3 +1,16 @@
 .eplus-results-map .vlr-map__items-count-container {
 	display: none !important;
 }
+
+.eplus-results-map .vlr-map__country-search-explanation,
+.eplus-results-map .eplus-results-map__current-programme-only-disclaimer {
+  padding: 10px;
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+  background-color: #0077C8;
+}
+
+.eplus-results-map .vlr-map__country-search-explanation {
+	padding-bottom: 0;
+}

@@ -4,7 +4,9 @@ define(function(require) {
     app = require('app/shared/modules/app.module'),
     searchService = require('../services/search/search.service'),
     MapComponent = require('app/shared/components/mapping/map/extended/main.component'),
-    PopupComponent = require('app/shared/components/mapping/popup/main.component');
+    PopupComponent = require('app/shared/components/mapping/popup/main.component'),
+    Mustache = require('mustache'),
+    tpl = require('text!../templates/results-map.tpl.html');
 
   return Backbone.View.extend({
     className: 'eplus-results-map',
@@ -36,6 +38,7 @@ define(function(require) {
       );
 
       this.performSearch(criteria);
+      this.toggleCountryExplanation(searchCriteria);
 
       this.cachedCriteria = criteria;
     },
@@ -146,8 +149,25 @@ define(function(require) {
       return result;
     },
 
+    toggleCountryExplanation: function(searchCriteria) {
+      searchCriteria = searchCriteria || {};
+      var hasCountryCriteria = !_.isEmpty(searchCriteria['FILTER-COVERAGE']);
+
+      this.getCountryExplanationContainer().toggle(hasCountryCriteria);
+    },
+
+    getMapContainer: function() {
+      return this.$el.find('.eplus-results-map__map-container');
+    },
+
+    getCountryExplanationContainer: function() {
+      return this.$el.find('.vlr-map__country-search-explanation');
+    },
+
     render: function() {
-      this.$el.append(this.mapComponent.render().view.el);
+      var html = Mustache.render(tpl);
+      this.$el.append(html);
+      this.getMapContainer().append(this.mapComponent.render().view.el);
 
       return this;
     }
