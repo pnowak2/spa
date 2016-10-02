@@ -9,7 +9,6 @@
   "latedef": true,
   "nocomma": true,
   "notypeof": true,
-  "undef": true,
   "strict": "implied",
   "jasmine": true,
   "browser": true,
