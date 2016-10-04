@@ -85,6 +85,14 @@ define(function(require) {
         });
       });
 
+      it('should extract params from query with decoded multi items value', function() {
+        var queryObj = searchCriteriaBuilder.getQueryParametersAsObject('a=b%3Bc');
+
+        expect(queryObj).toEqual({
+          a: 'b;c'
+        });
+      });
+
       it('should extract params from query with url', function() {
         var queryObj = searchCriteriaBuilder.getQueryParametersAsObject('/server?a=b&c=d');
 

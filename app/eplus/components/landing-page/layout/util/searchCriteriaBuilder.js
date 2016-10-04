@@ -16,7 +16,7 @@ define(function(require) {
           var data = {},
             splitted = param.split("=");
 
-          data[splitted[0]] = splitted[1];
+          data[splitted[0]] = window.decodeURIComponent(splitted[1]);
           return data;
         })
         .reduce(function(criteriaObject, param) {
