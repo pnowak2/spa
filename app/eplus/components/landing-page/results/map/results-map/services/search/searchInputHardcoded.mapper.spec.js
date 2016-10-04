@@ -26,7 +26,7 @@ define(function(require) {
           }));
         });
 
-        it('should override search type', function() {
+        it('should always override search type to advanced', function() {
           spyOn(searchInputMapper, 'map').and.returnValue({
             'searchType': 'bar'
           });
@@ -36,7 +36,7 @@ define(function(require) {
           }));
         });
 
-        it('should hardcode level 1 if level1 is empty', function() {
+        it('should hardcode level1 to eplus if it is empty', function() {
           spyOn(searchInputMapper, 'map').and.returnValue({
             'FILTER-LEVEL1': ''
           });
@@ -46,7 +46,7 @@ define(function(require) {
           }));
         });
 
-        it('should hardcode level 1 if level1 is set to eplus programme', function() {
+        it('should hardcode level1 to eplus, if it is set to eplus programme + other programmes', function() {
           spyOn(searchInputMapper, 'map').and.returnValue({
             'FILTER-LEVEL1': '31046216;12345678'
           });
@@ -56,7 +56,7 @@ define(function(require) {
           }));
         });
 
-        it('should not hardcode level 1 if level1 is does not contain eplus programme', function() {
+        it('should not hardcode level1 to eplus, if it does not contain eplus programme', function() {
           spyOn(searchInputMapper, 'map').and.returnValue({
             'FILTER-LEVEL1': '12345678'
           });
