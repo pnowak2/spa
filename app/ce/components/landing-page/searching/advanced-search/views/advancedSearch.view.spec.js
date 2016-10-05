@@ -181,6 +181,7 @@ define(function(require) {
           spyOn(this.view.activities, 'hide');
           spyOn(this.view.fundingYears, 'hide');
           spyOn(this.view.regions, 'hide');
+          spyOn(this.view.organisationTypes, 'hide');
 
           this.view.initCriteriaVisibility();
         });
@@ -216,6 +217,11 @@ define(function(require) {
         it('should hide funding regions', function() {
           expect(this.view.regions.hide).toHaveBeenCalled();
         });
+        
+        it('should hide organisation type', function() {
+          expect(this.view.organisationTypes.hide).toHaveBeenCalled();
+        });
+        
       });
 
       describe('.getCriteria()', function() {
@@ -939,6 +945,7 @@ define(function(require) {
           spyOn(AdvancedSearchView.prototype, 'shouldDisplayActivities').and.returnValue(true);
           spyOn(AdvancedSearchView.prototype, 'shouldDisplayFundingYears').and.returnValue(true);
           spyOn(AdvancedSearchView.prototype, 'shouldDisplayRegions').and.returnValue(true);
+          spyOn(AdvancedSearchView.prototype, 'shouldDisplayOrganisationTypes').and.returnValue(true);
           spyOn(AdvancedSearchView.prototype, 'shouldDisplayMatchAllCountries').and.returnValue(true);
 
           this.view = new AdvancedSearchView();
@@ -947,6 +954,7 @@ define(function(require) {
           spyOn(this.view.activities, 'toggle');
           spyOn(this.view.fundingYears, 'toggle');
           spyOn(this.view.regions, 'toggle');
+		  spyOn(this.view.organisationTypes, 'toggle');
           spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesVisibility');
 
           this.view.calculateCriteriaVisibility();
@@ -979,6 +987,11 @@ define(function(require) {
         it('should toggle actions', function() {
           expect(this.view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(true);
         });
+
+        it('should toggle organisationTypes', function() {
+       		expect(this.view.organisationTypes.toggle).toHaveBeenCalledWith(true);
+        });
+        
       });
 
       describe('.shouldDisplaySubprogrammes()', function() {
@@ -1000,6 +1013,29 @@ define(function(require) {
           spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
 
           expect(this.view.shouldDisplaySubprogrammes()).toBe(false);
+        });
+      });
+
+      describe('.shouldDisplayOrganisationTypes() ', function(){
+
+		beforeEach(function() {
+          this.view = new AdvancedSearchView();
+        });
+
+      	it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.shouldDisplayOrganisationTypes).toEqual(jasmine.any(Function));
+        });
+
+      	it('should return true if CE programme is selected', function() {
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(true);
+
+          expect(this.view.shouldDisplayOrganisationTypes()).toBe(true);
+        });
+
+        it('should return false if CE programme is not selected', function() {
+          spyOn(AdvancedSearchView.prototype, 'isCeProgrammeSelected').and.returnValue(false);
+
+          expect(this.view.shouldDisplayOrganisationTypes()).toBe(false);
         });
       });
 

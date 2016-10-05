@@ -72,6 +72,7 @@ define(function(require) {
       this.activities.hide();
       this.fundingYears.hide();
       this.regions.hide();
+      this.organisationTypes.hide();
     },
 
     getCriteria: function() {
@@ -184,11 +185,16 @@ define(function(require) {
       this.activities.toggle(this.shouldDisplayActivities());
       this.fundingYears.toggle(this.shouldDisplayFundingYears());
       this.regions.toggle(this.shouldDisplayRegions());
+      this.organisationTypes.toggle(this.shouldDisplayOrganisationTypes());
       this.toggleMatchAllCountriesVisibility(this.shouldDisplayMatchAllCountries());
     },
 
     shouldDisplaySubprogrammes: function() {
       return this.programmes.hasOneSelection();
+    },
+
+    shouldDisplayOrganisationTypes: function(){
+      return this.isCeProgrammeSelected();
     },
 
     shouldDisplayActions: function() {
