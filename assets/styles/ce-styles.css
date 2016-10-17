@@ -1,0 +1,12 @@
+.ce-results-map .vlr-map__country-search-explanation,
+.ce-results-map .ce-results-map__current-programme-only-disclaimer {
+  padding: 10px;
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+  background-color: #0077C8;
+}
+
+.ce-results-map .vlr-map__country-search-explanation {
+	padding-bottom: 0;
+}
