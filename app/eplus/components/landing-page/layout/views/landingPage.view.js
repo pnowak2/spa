@@ -1,16 +1,23 @@
-define(function(require) {
+define(function (require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
+    SearchComponent = require('app/shared/components/searching/search/main.component'),
+    AdvancedSearchComponent = require('app/eplus/components/landing-page/searching/advanced-search/main.component'),
     ResultsMapComponent = require('app/eplus/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
     searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
     router = require('app/eplus/routers/landing-page.router');
 
   return Backbone.View.extend({
-    initialize: function() {
+    initialize: function () {
       _.bindAll(this, 'didClickSearchButton');
 
+      this.search = new SearchComponent({
+        advancedSearchComponent: new AdvancedSearchComponent()
+      });
+
       this.resultsMap = new ResultsMapComponent();
+
       this.tabSwitcher = new TabSwitcherComponent({
         tabDescriptors: [{
           title: 'List',
@@ -29,14 +36,15 @@ define(function(require) {
       this.resultsMap.initMap();
       this.listenTo(this.tabSwitcher, 'tab-switcher:tab:selected', this.didSelectTab);
       this.listenTo(router, 'route:search:keyword', this.didRouteSearchByKeyword);
+
       this.setupDomEvents();
     },
 
-    setupDomEvents: function() {
+    setupDomEvents: function () {
       Backbone.$('#btnSearch').click(this.didClickSearchButton);
     },
 
-    didClickSearchButton: function() {
+    didClickSearchButton: function () {
       var criteria = searchCriteriaBuilder.getCriteria();
 
       this.resultsMap.onSearchRequest(criteria);
@@ -45,12 +53,12 @@ define(function(require) {
       this.handleTabsVisibility(criteria);
     },
 
-    handleTabsVisibility: function(criteria) {
+    handleTabsVisibility: function (criteria) {
       criteria = criteria || {};
-      
+
       this.tabSwitcher.show();
 
-      if(criteria.indexTypeShow === 'resultPublicSearch') {
+      if (criteria.indexTypeShow === 'resultPublicSearch') {
         this.tabSwitcher.selectTab('list');
         this.tabSwitcher.hideTab('map');
       } else {
@@ -58,17 +66,19 @@ define(function(require) {
       }
     },
 
-    didRouteSearchByKeyword: function(keyword) {
+    didRouteSearchByKeyword: function (keyword) {
       Backbone.$('#filterSimpleSearch').val(decodeURIComponent(keyword));
       Backbone.$('#btnSearch').click();
     },
 
     // Hack to force map to redraw
-    didSelectTab: function(identifier) {
+    didSelectTab: function (identifier) {
       this.resultsMap.invalidateSize();
     },
 
-    render: function() {
+    render: function () {
+      Backbone.$('.eplus-search-container')
+        .append(this.search.render().view.el);
       Backbone.$('.tab-switcher-container')
         .append(this.tabSwitcher.render().hide().view.el);
       Backbone.$('.map-container')

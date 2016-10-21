@@ -186,7 +186,7 @@ define(function(require) {
         expect(advancedSearchService.regionsByCountry).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve regions by counry code', function() {
+      it('should retrieve regions by country code', function() {
         expect(advancedSearchService.regionsByCountry('PL')).toEqual([{
           id: "1",
           title: "Region 1"

@@ -89,6 +89,10 @@ define(function(require) {
       return this.collection.hasOneSelection();
     },
 
+    hasMultipleSelections: function() {
+      return this.collection.hasMultipleSelections();
+    },
+
     isDirty: function() {
       return this.collection.isDirty();
     },

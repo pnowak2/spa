@@ -421,6 +421,21 @@ define(function(require) {
         });
       });
 
+      describe('.hasMultipleSelections()', function() {
+        it('should be defined', function() {
+          expect(MultiselectView.prototype.hasMultipleSelections).toEqual(jasmine.any(Function));
+        });
+
+        it('should delegate to collection', function() {
+          var view = new MultiselectView(),
+            fakeHasMultipleSelection = {};
+
+          spyOn(MultiselectCollection.prototype, 'hasMultipleSelections').and.returnValue(fakeHasMultipleSelection);
+
+          expect(view.hasMultipleSelections()).toBe(fakeHasMultipleSelection);
+        });
+      });
+
       describe('.isDirty()', function() {
         it('should be defined', function() {
           expect(MultiselectView.prototype.isDirty).toEqual(jasmine.any(Function));

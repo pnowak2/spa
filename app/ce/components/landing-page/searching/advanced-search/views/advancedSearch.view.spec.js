@@ -954,7 +954,7 @@ define(function(require) {
           spyOn(this.view.activities, 'toggle');
           spyOn(this.view.fundingYears, 'toggle');
           spyOn(this.view.regions, 'toggle');
-		  spyOn(this.view.organisationTypes, 'toggle');
+		      spyOn(this.view.organisationTypes, 'toggle');
           spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesVisibility');
 
           this.view.calculateCriteriaVisibility();
@@ -1018,7 +1018,7 @@ define(function(require) {
 
       describe('.shouldDisplayOrganisationTypes() ', function(){
 
-		beforeEach(function() {
+		    beforeEach(function() {
           this.view = new AdvancedSearchView();
         });
 

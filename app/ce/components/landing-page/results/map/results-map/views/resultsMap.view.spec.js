@@ -474,11 +474,6 @@
        expect(this.view.$el).toContainElement('.vlr-map__country-search-explanation');
      });
 
-     it('should render current programme only disclaimer', function () {
-       this.view.render();
-       expect(this.view.$el).toContainElement('.ce-results-map__current-programme-only-disclaimer');
-     });
-
      it('should render map container', function() {
        this.view.render();
        expect(this.view.$el).toContainElement('.ce-results-map__map-container');

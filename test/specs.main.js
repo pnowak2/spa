@@ -191,6 +191,16 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/eplus/components/landing-page/layout/views/landingPage.view.spec',
     'app/eplus/components/landing-page/layout/util/searchCriteriaBuilder.spec',
 
+    //eplus advancedSearch component
+    'app/eplus/components/landing-page/searching/advanced-search/main.component.spec',
+    'app/eplus/components/landing-page/searching/advanced-search/views/advancedSearch.view.spec',
+    'app/eplus/components/landing-page/searching/advanced-search/services/advancedSearch.service.spec',
+    'app/eplus/data/programmes.datasource.spec',
+
+    // eplus results list component
+    'app/eplus/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
+    'app/eplus/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
+
     // eplus results map component
     'app/eplus/components/landing-page/results/map/results-map/main.component.spec',
     'app/eplus/components/landing-page/results/map/results-map/views/resultsMap.view.spec',

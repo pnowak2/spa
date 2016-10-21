@@ -36,6 +36,10 @@ define(function(require) {
       return this.view.hasOneSelection();
     },
 
+    hasMultipleSelections: function() {
+      return this.view.hasMultipleSelections();
+    },
+
     isDirty: function() {
       return this.view.isDirty();
     },

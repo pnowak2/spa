@@ -9,7 +9,7 @@ define(function(require) {
     TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
     router = require('app/shared/routers/search.router');
 
-  return Backbone.View.extend({
+  return Backbone.View.extend({   
     initialize: function() {
       this.search = new SearchComponent({
         advancedSearchComponent: new AdvancedSearchComponent()
