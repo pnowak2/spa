@@ -1,0 +1,13 @@
+# Modular User Interface
+
+Library with set of good practices and dependencies gathered together to write highly modular, scalable and testable user interfaces for web using javascript and related technologies.
+The main goal is to build a set of reusable UI components which are highly configurable, well tested and easy to use.
+This library was written using TDD methodology and has test coverage close to 100%.
+Please always write tests for each feature you develop or change (see testing section of this manual).
+
+## Documentation
+
+Documentation can be found at
+https://webgate.ec.europa.eu/CITnet/confluence/pages/viewpage.action?pageId=526388713
+
+

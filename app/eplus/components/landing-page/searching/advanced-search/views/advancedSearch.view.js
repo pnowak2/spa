@@ -41,7 +41,8 @@ define(function (require) {
         countries = _.pluck(this.countries.selectedItems(), 'id'),
         regions = _.pluck(this.regions.selectedItems(), 'id'),
         organisationTypes = _.pluck(this.organisationTypes.selectedItems(), 'id'),
-        organisationRoles = _.pluck(this.organisationRoles.selectedItems(), 'id');
+        organisationRoles = _.pluck(this.organisationRoles.selectedItems(), 'id'),
+        matchAllCountries = this.isMatchAllCountriesSelected();
 
       return {
         options: this.options.isVisible() ? options : [],
@@ -53,7 +54,8 @@ define(function (require) {
         countries: this.countries.isVisible() ? countries : [],
         regions: this.regions.isVisible() ? regions : [],
         organisationTypes: this.organisationTypes.isVisible() ? organisationTypes : [],
-        organisationRoles: this.organisationRoles.isVisible() ? organisationRoles : []
+        organisationRoles: this.organisationRoles.isVisible() ? organisationRoles : [],
+        matchAllCountries: this.isMatchAllCountriesVisible() ? matchAllCountries : false
       };
     },
 
@@ -195,8 +197,20 @@ define(function (require) {
       this.getMatchAllCountriesContainerElement().hide();
     },
 
+    isMatchAllCountriesVisible: function() {
+      return this.getMatchAllCountriesContainerElement().css('display') !== 'none';
+    },
+
+    isMatchAllCountriesSelected: function() {
+      return this.getMatchAllCountriesElement().is(':checked');
+    },
+
     getMatchAllCountriesContainerElement: function () {
       return this.$el.find('.vlr-advanced-search__match-all-countries-container');
+    },
+
+    getMatchAllCountriesElement: function () {
+      return this.$el.find('.vlr-advanced-search__match-all-countries-input');
     },
 
     isErasmusPlusProgrammeSelected: function () {

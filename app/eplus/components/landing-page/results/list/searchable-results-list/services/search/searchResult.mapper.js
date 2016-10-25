@@ -27,7 +27,7 @@ define(function(require) {
             return {
               code: countryCode.toLowerCase(),
               fullName: countryName
-            }
+            };
           }).value();
 
         return {
@@ -38,7 +38,7 @@ define(function(require) {
           countries: countries,
           goodPractice: goodPractice,
           successStory: successStory
-        }
+        };
 
       });
 

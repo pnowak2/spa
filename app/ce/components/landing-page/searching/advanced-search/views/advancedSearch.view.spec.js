@@ -1346,7 +1346,7 @@ define(function(require) {
           expect(AdvancedSearchView.prototype.getMatchAllCountriesContainerElement).toEqual(jasmine.any(Function));
         });
 
-        it('should return match all countries element', function() {
+        it('should return match all countries container element', function() {
           var view = new AdvancedSearchView(),
             fakeElement = {};
 

@@ -207,9 +207,11 @@ define(function (require) {
           expect(view.getCriteria).toEqual(jasmine.any(Function));
         });
 
-        describe('should return values if the multiselect is visible', function () {
+        describe('should return values if the multiselect is visible and values are set', function () {
           beforeEach(function () {
             spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(true);
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(true);
+
             this.view = new AdvancedSearchView();
 
             spyOn(this.view.options, 'selectedItems').and.returnValue([{
@@ -253,6 +255,8 @@ define(function (require) {
             }, {
               id: 'country2'
             }]);
+
+            spyOn(this.view, 'isMatchAllCountriesSelected').and.returnValue(true);
 
             spyOn(this.view.regions, 'selectedItems').and.returnValue([{
               id: 'region1'
@@ -315,6 +319,12 @@ define(function (require) {
             }));
           });
 
+          it('should contain match all countries set to true', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              matchAllCountries: true
+            }));
+          });
+
           it('should return regions', function () {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               regions: ['region1', 'region2']
@@ -337,7 +347,10 @@ define(function (require) {
         describe('should return empty values if the multiselect is not visible', function () {
           beforeEach(function () {
             spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(false);
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(false);
             this.view = new AdvancedSearchView();
+
+            spyOn(this.view, 'isMatchAllCountriesSelected').and.returnValue(true);
           });
 
           it('should return empty options', function () {
@@ -379,6 +392,12 @@ define(function (require) {
           it('should return empty countries', function () {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               countries: []
+            }));
+          });
+
+          it('should contain match all countries set to false', function() {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              matchAllCountries: false
             }));
           });
 
@@ -1012,12 +1031,70 @@ define(function (require) {
         });
       });
 
+      describe('.isMatchAllCountriesVisible()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView();
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.isMatchAllCountriesVisible).toEqual(jasmine.any(Function));
+        });
+
+        it('should return false if is hidden', function() {
+          this.view.render();
+          this.view.getMatchAllCountriesContainerElement().hide();
+
+          expect(this.view.isMatchAllCountriesVisible()).toBe(false);
+        });
+
+        it('should return true if is visible', function() {
+          this.view.render();
+          this.view.getMatchAllCountriesContainerElement().show();
+
+          expect(this.view.isMatchAllCountriesVisible()).toBe(true);
+        });
+      });
+
+      describe('.isMatchAllCountriesSelected()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView();
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.isMatchAllCountriesSelected).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if match all countries checkbox is checked', function() {
+          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue({
+            is: jasmine.createSpy('is').and.callFake(function(selector) {
+              if (selector === ':checked') {
+                return true;
+              }
+            })
+          });
+
+          expect(this.view.isMatchAllCountriesSelected()).toBe(true);
+        });
+
+        it('should return false if match all countries checkbox is not checked', function() {
+          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue({
+            is: jasmine.createSpy('is').and.callFake(function(selector) {
+              if (selector === ':checked') {
+                return false;
+              }
+            })
+          });
+
+          expect(this.view.isMatchAllCountriesSelected()).toBe(false);
+        });
+      });
+
       describe('.getMatchAllCountriesContainerElement', function () {
         it('should be defined', function () {
           expect(AdvancedSearchView.prototype.getMatchAllCountriesContainerElement).toEqual(jasmine.any(Function));
         });
 
-        it('should return match all countries element', function () {
+        it('should return match all countries container element', function () {
           var view = new AdvancedSearchView(),
             fakeElement = {};
 
@@ -1028,6 +1105,25 @@ define(function (require) {
           });
 
           expect(view.getMatchAllCountriesContainerElement()).toBe(fakeElement);
+        });
+      });
+
+      describe('.getMatchAllCountriesElement', function () {
+        it('should be defined', function () {
+          expect(AdvancedSearchView.prototype.getMatchAllCountriesElement).toEqual(jasmine.any(Function));
+        });
+
+        it('should return match all countries element', function () {
+          var view = new AdvancedSearchView(),
+            fakeElement = {};
+
+          spyOn($.prototype, 'find').and.callFake(function (selector) {
+            if (selector === '.vlr-advanced-search__match-all-countries-input') {
+              return fakeElement;
+            }
+          });
+
+          expect(view.getMatchAllCountriesElement()).toBe(fakeElement);
         });
       });
 
