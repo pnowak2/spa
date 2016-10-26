@@ -61,6 +61,21 @@ requirejs([
   './efc/results-map/resultsMap.demo',
   './efc/partners-map/partnersMap.demo',
   './efc/landing-page-layout/landingPageLayout.demo',
+
+  // CE Components
+  './ce/advanced-search/advancedSearch.demo',
+  './ce/results-list/resultsList.demo', 
+  './ce/result-stats/resultStats.demo', 
+  './ce/searchable-results-list/searchableResultsList.demo',
+  './ce/results-map/resultsMap.demo',
+  './ce/landing-page-layout/landingPageLayout.demo',  
+
+  // Eplus Components
+  './eplus/advanced-search/advancedSearch.demo',
+  // './eplus/results-list/resultsList.demo', 
+  // './eplus/searchable-results-list/searchableResultsList.demo',
+  './eplus/results-map/resultsMap.demo',
+  './eplus/landing-page-layout/landingPageLayout.demo', 
 ], function(Backbone, modernizr, applicationModule) {
   Backbone.history.start();
 });

@@ -242,7 +242,7 @@
 		<p class="demo__location">spa\playgrounds\components\efc\landing-page-layout\landingPageLayout.demo.js</p>		
 		<p class="demo__description">Depends on many other components</p>
 		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
-		<p class="demo__description">Provides EfC full EfC Landing Page Experience</p>
+		<p class="demo__description">Provides full EfC Landing Page Experience</p>
 
 		<div class="app">
 	    	<div class="efc-search-container"></div>
@@ -254,9 +254,154 @@
 		<h1 class="demo-header__title">Creative Europe Components</h1>
 	</header>
 
+	<!-- CE Advanced Search -->
+
+	<div class="demo">
+		<p class="demo__label">CE Advanced SEarch</p>
+		<p class="demo__location">spa\playgrounds\components\ce\advanced-search\advancedSearch.demo.js</p>		
+		<p class="demo__description">Provides advanced search capabilities for Creative Europe</p>
+		<div class="demo__ce-advanced-search"></div>
+	</div>
+
+	<!-- CE Results List -->
+
+	<div class="demo">
+		<p class="demo__label">CE Results List</p>
+		<p class="demo__location">spa\playgrounds\components\ce\results-list\resultsList.demo.js</p>		
+		<p class="demo__description">Provides list with columns needed to display projects found on landing page. Does not query server, this component only draws rows according to data passed to its update method</p>
+		<div class="demo__ce-results-list"></div>
+	</div>
+
+	<!-- CE Result Stats -->
+
+	<div class="demo">
+		<p class="demo__label">CE Result Stats</p>
+		<p class="demo__location">spa\playgrounds\components\ce\result-stats\resultStats.demo.js</p>		
+		<p class="demo__description">Provides information about how many results were hit, the keyword for found results and export to xls link button</p>
+		<div class="demo__ce-result-stats"></div>
+	</div>
+
+	<!-- CE Searchable Results List -->
+
+	<div class="demo">
+		<p class="demo__label">CE Searchable Results List</p>
+		<p class="demo__location">spa\playgrounds\components\ce\searchable-results-list\searchableResultsList.demo.js</p>		
+		<p class="demo__description">Depends on CE Results List, SearchableListComponent</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides CE Results List filled with data coming from server paged with Pager Component (has to be more than 10 results) and with Result Stats Component</p>
+		<div class="demo__ce-searchable-results-list"></div>
+	</div>
+
+	<!-- CE Results Map -->
+
+	<div class="demo">
+		<p class="demo__label">CE Results Map</p>
+		<p class="demo__location">spa\playgrounds\components\ce\results-map\resultsMap.demo.js</p>		
+				<p class="demo__description">Depends on Simple Map</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides CE Results Map filled with data coming from server after search was made</p>
+		<div class="demo__ce-results-map"></div>
+	</div>
+
+	<!-- CE Landing Page Layout -->
+
+	<style>
+		.app {
+			margin-top: 90px;
+		}
+
+		/* Search Container */
+		.ce-search-container {
+			margin-bottom: 30px;
+			top: 0;
+		}
+	</style>
+
+	<div class="demo">
+		<p class="demo__label">CE Landing Page Layout</p>
+		<p class="demo__location">spa\playgrounds\components\ce\landing-page-layout\landingPageLayout.demo.js</p>		
+		<p class="demo__description">Depends on many other components</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides full CE Landing Page Experience</p>
+
+		<div class="app">
+	    <div class="ce-search-container"></div>
+	    <div class="ce-result-stats-container"></div>
+	    <div class="ce-tabbed-results-container"></div>
+		</div>
+	</div>
+
 	<header class="demo-header">
 		<h1 class="demo-header__title">Erasmus Plus Components</h1>
 	</header>
+
+	<!-- Eplus Advanced Search -->
+
+	<div class="demo">
+		<p class="demo__label">Eplus Advanced SEarch</p>
+		<p class="demo__location">spa\playgrounds\components\eplus\advanced-search\advancedSearch.demo.js</p>		
+		<p class="demo__description">Provides advanced search capabilities for Erasmus Plus</p>
+		<div class="demo__eplus-advanced-search"></div>
+	</div>
+
+	<!-- Eplus Results List -->
+
+	<div class="demo">
+		<p class="demo__label">Eplus Results List</p>
+		<p class="demo__location">spa\playgrounds\components\eplus\results-list\resultsList.demo.js</p>		
+		<p class="demo__description">Provides list with columns needed to display projects found on landing page. Does not query server, this component only draws rows according to data passed to its update method</p>
+		<div class="demo__eplus-results-list"></div>
+	</div>
+
+	<!-- Eplus Searchable Results List -->
+
+	<div class="demo">
+		<p class="demo__label">Eplus Searchable Results List</p>
+		<p class="demo__location">spa\playgrounds\components\eplus\searchable-results-list\searchableResultsList.demo.js</p>		
+		<p class="demo__description">Depends on Eplus Results List, SearchableListComponent</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides Eplus Results List filled with data coming from server paged with Pager Component (has to be more than 10 results) and with Result Stats Component</p>
+		<div class="demo__eplus-searchable-results-list"></div>
+	</div>
+
+	<!-- Eplus Results Map -->
+
+	<div class="demo">
+		<p class="demo__label">Eplus Results Map</p>
+		<p class="demo__location">spa\playgrounds\components\eplus\results-map\resultsMap.demo.js</p>		
+				<p class="demo__description">Depends on Simple Map</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides Eplus Results Map filled with data coming from server after search was made</p>
+		<div class="demo__eplus-results-map"></div>
+	</div>
+
+	<!-- Eplus Landing Page Layout -->
+
+	<style>
+		.app {
+			margin-top: 90px;
+		}
+
+		/* Search Container */
+		.eplus-search-container {
+			margin-bottom: 30px;
+			top: 0;
+		}
+	</style>
+
+	<div class="demo">
+		<p class="demo__label">Eplus Landing Page Layout</p>
+		<p class="demo__location">spa\playgrounds\components\eplus\landing-page-layout\landingPageLayout.demo.js</p>		
+		<p class="demo__description">Depends on many other components</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides full Eplus Landing Page Experience</p>
+
+		<div class="app">
+			<div class="eplus-search-container"></div>
+			<div class="tab-switcher-container"></div>
+			<div class="map-container"></div>
+		</div>
+	</div>
 
 	<script data-main="./components.main" src="../../lib/requirejs/require.min.js"></script>
 </body>
