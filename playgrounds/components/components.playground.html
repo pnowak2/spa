@@ -12,7 +12,7 @@
 
 <body>
 	<header class="demo-header">
-		<h1 class="demo-header__title">MUI Components playground</h1>
+		<h1 class="demo-header__title">Shared Components</h1>
 	</header>
 
 	<!-- Components -->
@@ -167,6 +167,96 @@
 		<p class="demo__description">Provides UI for displaying marker popup for project, organization for different programmes</p>
 		<div class="demo__marker-popup"></div>
 	</div>
+
+	<header class="demo-header">
+		<h1 class="demo-header__title">Europe for Citizens Components</h1>
+	</header>
+
+	<!-- EfC Advanced Search -->
+
+	<div class="demo">
+		<p class="demo__label">EfC Advanced SEarch</p>
+		<p class="demo__location">spa\playgrounds\components\efc\advanced-search\advancedSearch.demo.js</p>		
+		<p class="demo__description">Provides advanced search capabilities for Europe for Citizens</p>
+		<div class="demo__efc-advanced-search"></div>
+	</div>
+
+	<!-- EfC Results List -->
+
+	<div class="demo">
+		<p class="demo__label">EfC Results List</p>
+		<p class="demo__location">spa\playgrounds\components\efc\results-list\resultsList.demo.js</p>		
+		<p class="demo__description">Provides list with columns needed to display projects found on landing page. Does not query server, this component only draws rows according to data passed to its update method</p>
+		<div class="demo__efc-results-list"></div>
+	</div>
+
+	<!-- EfC Searchable Results List -->
+
+	<div class="demo">
+		<p class="demo__label">EfC Searchable Results List</p>
+		<p class="demo__location">spa\playgrounds\components\efc\searchable-results-list\searchableResultsList.demo.js</p>		
+		<p class="demo__description">Depends on EfC Results List, SearchableListComponent</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides EfC Results List filled with data coming from server paged with Pager Component (has to be more than 10 results) and with Result Stats Component</p>
+		<div class="demo__efc-searchable-results-list"></div>
+	</div>
+
+	<!-- EfC Results Map -->
+
+	<div class="demo">
+		<p class="demo__label">EfC Results Map</p>
+		<p class="demo__location">spa\playgrounds\components\efc\results-map\resultsMap.demo.js</p>		
+				<p class="demo__description">Depends on Simple Map</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides EfC Results Map filled with data coming from server after search was made</p>
+		<div class="demo__efc-results-map"></div>
+	</div>
+
+	<!-- EfC Partners Map -->
+
+	<div class="demo">
+		<p class="demo__label">EfC Partners Map</p>
+		<p class="demo__location">spa\playgrounds\components\efc\partners-map\partnersMap.demo.js</p>		
+		<p class="demo__description">Depends on Simple Map</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides EfC Partners Map filled with data coming from server after search was made</p>
+		<div class="efc-project-partners-container"></div>
+	</div>
+
+	<!-- EfC Landing Page Layout -->
+
+	<style>
+		.app {
+			margin-top: 90px;
+		}
+
+		/* Search Container */
+		.efc-search-container {
+			margin-bottom: 30px;
+			top: 0;
+		}
+	</style>
+
+	<div class="demo">
+		<p class="demo__label">EfC Landing Page Layout</p>
+		<p class="demo__location">spa\playgrounds\components\efc\landing-page-layout\landingPageLayout.demo.js</p>		
+		<p class="demo__description">Depends on many other components</p>
+		<p class="demo__description"><strong>Does real query to server with some criteria set, run this example with Valor running</strong></p>
+		<p class="demo__description">Provides EfC full EfC Landing Page Experience</p>
+
+		<div class="app">
+	    	<div class="efc-search-container"></div>
+			<div class="efc-results-container"></div>
+		</div>
+	</div>
+	
+	<header class="demo-header">
+		<h1 class="demo-header__title">Creative Europe Components</h1>
+	</header>
+
+	<header class="demo-header">
+		<h1 class="demo-header__title">Erasmus Plus Components</h1>
+	</header>
 
 	<script data-main="./components.main" src="../../lib/requirejs/require.min.js"></script>
 </body>

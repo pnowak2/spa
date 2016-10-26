@@ -36,6 +36,7 @@ requirejs([
   'backbone',
   'modernizr',
   'app/shared/modules/app.module',
+  // Shared Components
   './shared/multiselect/multiselect-multi.demo',
   './shared/multiselect/multiselect-multi-max-selection-length.demo',
   './shared/multiselect/multiselect-single.demo',
@@ -52,6 +53,14 @@ requirejs([
   './shared/extended-map/extendedMap.demo',
   './shared/partners-map/partnersMap.demo',
   './shared/marker-popup/markerPopup.demo',
+
+  // EfC Components
+  './efc/advanced-search/advancedSearch.demo',
+  './efc/results-list/resultsList.demo',
+  './efc/searchable-results-list/searchableResultsList.demo',
+  './efc/results-map/resultsMap.demo',
+  './efc/partners-map/partnersMap.demo',
+  './efc/landing-page-layout/landingPageLayout.demo',
 ], function(Backbone, modernizr, applicationModule) {
   Backbone.history.start();
 });

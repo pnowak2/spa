@@ -1,6 +1,6 @@
 define(function (require) {
   var $ = require('jquery');
-  var ResultsListComponent = require('app/ce/components/landing-page/results/list/results-list/main.component');
+  var ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component');
   var SearchableListComponent = require('app/shared/components/lists/searchable-list/main.component');
   var searchService = require('./mock-search.service');
 
