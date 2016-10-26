@@ -9,7 +9,7 @@ define(function (require) {
     component.initMap();
 
     component.showMarkers({
-        total: 2,
+        total: 3,
         markers: [
             // Fist cluster
             [{

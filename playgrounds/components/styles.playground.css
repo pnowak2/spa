@@ -36,6 +36,17 @@
 			color: #666;
 		}
 
+		.demo__location {
+			color: rgb(185, 53, 53);
+			margin: 5px 0px;
+			font-size: 12px;
+			font-style: italic;
+		}
+
+		.demo__location::before {
+			content: '{context}\\'
+		}
+
 		.demo__description {
 			color: #888;
 			margin-top: 0;
