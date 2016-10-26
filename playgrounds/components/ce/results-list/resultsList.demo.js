@@ -1,6 +1,6 @@
 define(function (require) {
     var $ = require('jquery');
-    var ResultsListComponent = require('app/efc/components/landing-page/results/list/results-list/main.component');
+    var ResultsListComponent = require('app/ce/components/landing-page/results/list/results-list/main.component');
 
     var component = new ResultsListComponent();
 
