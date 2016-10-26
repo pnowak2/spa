@@ -2,7 +2,14 @@ define(function (require) {
     var $ = require('jquery');
     var MapComponent = require('app/shared/components/mapping/map/simple/main.component');
 
-    var component = new MapComponent();
+    var component = new MapComponent({
+        initialZoom: 2,
+        initialPosition: [53, 17],
+        minZoom: 1,
+        maxZoom: 14,
+        clusterSizeOnMaxZoomLevel: 120,
+        boundaryFactor: 0.33
+    });
 
     $('.demo__simple-map').append(component.render().view.el);
 
@@ -23,7 +30,7 @@ define(function (require) {
                 lat: 52,
                 lng: 28,
                 popupContent: 'Im a marker 2!'
-            }], 
+            }],
             // Second cluster
             [{
                 id: 3,

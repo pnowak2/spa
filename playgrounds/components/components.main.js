@@ -49,6 +49,9 @@ requirejs([
   './shared/page-stats/pageStats.demo',
   './shared/searchable-list/searchableList.demo',
   './shared/simple-map/simpleMap.demo',
+  './shared/extended-map/extendedMap.demo',
+  './shared/partners-map/partnersMap.demo',
+  './shared/marker-popup/markerPopup.demo',
 ], function(Backbone, modernizr, applicationModule) {
   Backbone.history.start();
 });
