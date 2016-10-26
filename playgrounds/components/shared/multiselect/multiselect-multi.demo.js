@@ -17,7 +17,7 @@ define(function (require) {
     multiple: true
   };
 
-  var programmesMultiselect = new MultiselectComponent(data, options);
+  var component = new MultiselectComponent(data, options);
 
-  $('.demo__multiselect--multi').append(programmesMultiselect.render().view.el);
+  $('.demo__multiselect--multi').append(component.render().view.el);
 });

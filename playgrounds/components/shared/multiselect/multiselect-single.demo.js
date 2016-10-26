@@ -16,7 +16,7 @@ define(function (require) {
     multiple: false
   };
 
-  var multiselect = new MultiselectComponent(data, options);
+  var component = new MultiselectComponent(data, options);
 
-  $('.demo__multiselect--single').append(multiselect.render().view.el);
+  $('.demo__multiselect--single').append(component.render().view.el);
 });

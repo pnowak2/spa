@@ -9,6 +9,7 @@ define(function(require) {
 
     initialize: function(options) {
       options = options || {};
+      options.data = options.data || {};
 
       this.options = _.extend({}, options);
     },

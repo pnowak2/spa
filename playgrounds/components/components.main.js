@@ -38,7 +38,17 @@ requirejs([
   'app/shared/modules/app.module',
   './shared/multiselect/multiselect-multi.demo',
   './shared/multiselect/multiselect-multi-max-selection-length.demo',
-  './shared/multiselect/multiselect-single.demo'
+  './shared/multiselect/multiselect-single.demo',
+  './shared/project-item/projectItem.demo',
+  './shared/tab-switcher/tabSwitcher.demo',
+  './shared/actions-toolbar/actionsToolbar.demo',
+  './shared/flags/flags.demo',
+  './shared/search-box/searchBox.demo',
+  './shared/search/search.demo',
+  './shared/pager/pager.demo',
+  './shared/page-stats/pageStats.demo',
+  './shared/searchable-list/searchableList.demo',
+  './shared/simple-map/simpleMap.demo',
 ], function(Backbone, modernizr, applicationModule) {
   Backbone.history.start();
 });

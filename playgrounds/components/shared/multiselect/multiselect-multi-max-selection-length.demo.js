@@ -17,7 +17,7 @@ define(function (require) {
     maximumSelectionLength: 1
   };
 
-  var programmesMultiselect = new MultiselectComponent(data, options);
+  var component = new MultiselectComponent(data, options);
 
-  $('.demo__multiselect--multi-max-selection-length').append(programmesMultiselect.render().view.el);
+  $('.demo__multiselect--multi-max-selection-length').append(component.render().view.el);
 });
