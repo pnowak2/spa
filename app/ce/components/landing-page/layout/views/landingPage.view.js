@@ -3,7 +3,7 @@ define(function(require) {
     Backbone = require('backbone'),
     AdvancedSearchComponent = require('app/ce/components/landing-page/searching/advanced-search/main.component'),
     SearchComponent = require('app/shared/components/searching/search/main.component'),
-    ResultStatsComponent = require('app/ce/components/landing-page/results/result-stats/main.component'),
+    ResultStatsComponent = require('app/ce/components/landing-page/results/results-stats/main.component'),
     SearchableResultsListComponent = require('app/ce/components/landing-page/results/list/searchable-results-list/main.component'),
     ResultsMapComponent = require('app/ce/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),

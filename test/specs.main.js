@@ -197,9 +197,19 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/eplus/components/landing-page/searching/advanced-search/services/advancedSearch.service.spec',
     'app/eplus/data/programmes.datasource.spec',
 
-    // eplus results list component
+    // eplus searchable results list component
+    'app/eplus/components/landing-page/results/list/searchable-results-list/services/search/search.service.spec',
     'app/eplus/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper.spec',
     'app/eplus/components/landing-page/results/list/searchable-results-list/services/search/searchResult.mapper.spec',
+    'app/eplus/components/landing-page/results/list/searchable-results-list/views/searchableResultsList.view.spec',
+    'app/eplus/components/landing-page/results/list/searchable-results-list/main.component.spec',
+
+     // eplus results stats component
+    'app/eplus/components/landing-page/results/results-stats/main.component.spec',
+
+    // eplus searchable results list component
+    'app/eplus/components/landing-page/results/list/results-list/main.component.spec',
+    'app/eplus/components/landing-page/results/list/results-list/views/resultsList.view.spec',
 
     // eplus results map component
     'app/eplus/components/landing-page/results/map/results-map/main.component.spec',
@@ -229,8 +239,8 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     'app/ce/components/landing-page/results/list/results-list/views/resultsList.view.spec',
 
     // ce result stats component
-    'app/ce/components/landing-page/results/result-stats/main.component.spec',
-    'app/ce/components/landing-page/results/result-stats/views/resultStats.view.spec',
+    'app/ce/components/landing-page/results/results-stats/main.component.spec',
+    'app/ce/components/landing-page/results/results-stats/views/resultStats.view.spec',
 
     // ce searchable results list component
     'app/ce/components/landing-page/results/list/searchable-results-list/main.component.spec',

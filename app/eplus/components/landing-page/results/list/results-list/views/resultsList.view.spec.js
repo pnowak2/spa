@@ -2,7 +2,7 @@ define(function(require) {
   var Backbone = require('backbone'),
     ResultsListView = require('./resultsList.view');
 
-  describe('CE Results List View', function() {
+  describe('EPLUS Results List View', function() {
     describe('type', function() {
       it('should be of view', function() {
         expect(ResultsListView.prototype).toEqual(jasmine.any(Backbone.View));
@@ -18,7 +18,7 @@ define(function(require) {
 
       describe('.className', function() {
         it('should be defined', function() {
-          expect(ResultsListView.prototype.className).toEqual('ce-results-list');
+          expect(ResultsListView.prototype.className).toEqual('eplus-results-list');
         });
       });
     });
@@ -73,7 +73,7 @@ define(function(require) {
           });
 
           it('should render no data placeholder', function() {
-            expect(this.$el.find('.ce-results-list__no-data')).toContainText('No results');
+            expect(this.$el.find('.eplus-results-list__no-data')).toContainText('No results');
           });
         });
 
@@ -86,6 +86,7 @@ define(function(require) {
               id: 'id-1',
               title: 'Sample Title 1',
               successStory: true,
+              goodPractice: false,
               description: 'Sample Description 1',
               startYear: 'Sample Start Year 1',
               countries: [{
@@ -102,7 +103,7 @@ define(function(require) {
 
           describe('Table layout', function() {
             it('should not render no data placeholder', function() {
-              expect(this.view.$el).not.toContainElement('.ce-results-list__no-data');
+              expect(this.view.$el).not.toContainElement('.eplus-results-list__no-data');
             });
 
             it('should render table', function() {
@@ -154,11 +155,15 @@ define(function(require) {
                 });
 
                 it('should contain link to result card with proper url', function() {
-                  expect(this.$th.find('a')).toHaveAttr('href', '/programmes/creative-europe/projects/ce-project-details-page/?nodeRef=id-1');
+                  expect(this.$th.find('a')).toHaveAttr('href', '/programmes/erasmus-plus/projects/eplus-project-details-page/?nodeRef=id-1');
                 });
 
                 it('should contain success story badge', function() {
                   expect(this.$th).toContainText('Success Story');
+                });
+
+                it('should not contain good practice badge', function() {
+                  expect(this.$th).not.toContainText('Good Practice');
                 });
               });
 

@@ -303,6 +303,26 @@ define(function (require) {
             });
           });
 
+          describe('Match All Countries', function () {
+            it('should map to false if not selected', function () {
+              var criteria = {};
+
+              expect(searchInputMapper.map(criteria)).toEqual(jasmine.objectContaining({
+                'FILTER-MATCH_ALL_COUNTRIES': false
+              }));
+            });
+
+            it('should map to true if selected', function () {
+              var criteria = {
+                matchAllCountries: true
+              };
+
+              expect(searchInputMapper.map(criteria)).toEqual(jasmine.objectContaining({
+                'FILTER-MATCH_ALL_COUNTRIES': true
+              }));
+            });
+          });
+
           describe('Regions', function () {
             it('should map to empty value if not provided', function () {
               var criteria = {};

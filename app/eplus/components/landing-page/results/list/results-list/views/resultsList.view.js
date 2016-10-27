@@ -5,7 +5,7 @@ define(function(require) {
     tpl = require('text!../templates/results-list.tpl.html');
 
   return Backbone.View.extend({
-    className: 'ce-results-list',
+    className: 'eplus-results-list',
 
     update: function(items) {
       this.items = items || [];
@@ -22,5 +22,7 @@ define(function(require) {
 
       return this;
     }
+
   });
+
 });

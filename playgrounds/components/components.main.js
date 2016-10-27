@@ -72,8 +72,8 @@ requirejs([
 
   // Eplus Components
   './eplus/advanced-search/advancedSearch.demo',
-  // './eplus/results-list/resultsList.demo', 
-  // './eplus/searchable-results-list/searchableResultsList.demo',
+  './eplus/results-list/resultsList.demo', 
+  './eplus/searchable-results-list/searchableResultsList.demo',
   './eplus/results-map/resultsMap.demo',
   './eplus/landing-page-layout/landingPageLayout.demo', 
 ], function(Backbone, modernizr, applicationModule) {

@@ -91,6 +91,10 @@ define(function (require) {
       });
 
       mapped = _.extend(mapped, {
+        'FILTER-MATCH_ALL_COUNTRIES': criteria.matchAllCountries || false
+      });
+
+      mapped = _.extend(mapped, {
         'FILTER-REGIONS': (criteria.regions || []).join(';')
       });
 

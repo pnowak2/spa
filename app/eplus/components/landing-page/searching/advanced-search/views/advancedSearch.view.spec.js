@@ -176,7 +176,19 @@ define(function (require) {
           expect(view.countries).toBe(fakeCountry);
         });
 
-        it('should create country', function () {
+        it('should clear match all countries checkbox', function() {
+          spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesSelection');
+          var view = new AdvancedSearchView();
+          expect(view.toggleMatchAllCountriesSelection).toHaveBeenCalledWith(false);
+        });
+
+        it('should hide match all countries section', function() {
+          spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesVisibility');
+          var view = new AdvancedSearchView();
+          expect(view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(false);
+        });
+
+        it('should create regions', function () {
           var fakeRegions = {};
           spyOn(AdvancedSearchView.prototype, 'createRegionsMultiselect').and.returnValue(fakeRegions);
 
@@ -933,6 +945,8 @@ define(function (require) {
           spyOn(this.view.regions, 'update');
           spyOn(this.view.organisationTypes, 'update');
           spyOn(this.view.organisationRoles, 'update');
+          spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesSelection');
+          spyOn(AdvancedSearchView.prototype, 'toggleMatchAllCountriesVisibility');
 
           this.fakeEvent = jasmine.createSpyObj('evt', ['preventDefault']);
           this.view.didClickClearFilters(this.fakeEvent);
@@ -976,6 +990,14 @@ define(function (require) {
 
         it('should clear countries component', function () {
           expect(this.view.countries.update).toHaveBeenCalledWith(advancedSearchService.allCountries());
+        });
+
+        it('should clear matchAllCountries checkbox', function() {
+          expect(this.view.toggleMatchAllCountriesSelection).toHaveBeenCalledWith(false);
+        });
+
+        it('should hide matchAllCountries section', function() {
+          expect(this.view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(false);
         });
 
         it('should clear regions component', function () {
@@ -1026,7 +1048,7 @@ define(function (require) {
           expect(this.view.regions.hide).toHaveBeenCalled();
         });
 
-        it('should hide regions', function () {
+        it('should hide matchAllCountries', function () {
           expect(this.view.getMatchAllCountriesContainerElement().hide).toHaveBeenCalled();
         });
       });
@@ -1124,6 +1146,40 @@ define(function (require) {
           });
 
           expect(view.getMatchAllCountriesElement()).toBe(fakeElement);
+        });
+      });
+
+      describe('.toggleMatchAllCountriesSelection()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.toggleMatchAllCountriesSelection).toEqual(jasmine.any(Function));
+        });
+
+        it('should toggle selection of checkbox', function() {
+          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesElement').and.returnValue(jasmine.createSpyObj('chk', ['prop']));
+          var view = new AdvancedSearchView();
+
+          view.toggleMatchAllCountriesSelection(true);
+          expect(view.getMatchAllCountriesElement().prop).toHaveBeenCalledWith('checked', true);
+
+          view.toggleMatchAllCountriesSelection(false);
+          expect(view.getMatchAllCountriesElement().prop).toHaveBeenCalledWith('checked', false);
+        });
+      });
+
+      describe('.toggleMatchAllCountriesVisibility()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.toggleMatchAllCountriesVisibility).toEqual(jasmine.any(Function));
+        });
+
+        it('should toggle selection of checkbox', function() {
+          spyOn(AdvancedSearchView.prototype, 'getMatchAllCountriesContainerElement').and.returnValue(jasmine.createSpyObj('chk', ['toggle']));
+          var view = new AdvancedSearchView();
+
+          view.toggleMatchAllCountriesVisibility(true);
+          expect(view.getMatchAllCountriesContainerElement().toggle).toHaveBeenCalledWith(true);
+
+          view.toggleMatchAllCountriesVisibility(false);
+          expect(view.getMatchAllCountriesContainerElement().toggle).toHaveBeenCalledWith(false);
         });
       });
 

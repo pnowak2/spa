@@ -163,7 +163,6 @@ define(function(require) {
             var response = searchResultMapper.map(testResponse.fakeRealResponseWithoutCountry);
             expect(response.items[0].countries).toEqual([]);
           });
-
         });
 
       });

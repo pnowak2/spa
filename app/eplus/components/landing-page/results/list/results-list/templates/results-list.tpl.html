@@ -1,0 +1,48 @@
+{{#hasItems}}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="resultsTitle" style="width:20%">Project Title</th>
+        <th class="resultsTitle" style="width:40%">Description</th>
+        <th class="resultsTitle" style="width:10%; text-align:center;">Start Year</th>
+        <th class="resultsTitle" style="width:10%; text-align:center;">Countries</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#items}}
+        <tr>
+          <th>
+            <strong><a href="/programmes/erasmus-plus/projects/eplus-project-details-page/?nodeRef={{id}}">{{title}}</a></strong>
+            <br><br>
+            {{#successStory}}
+              <button type="button" class="btn btn-primary btn-success-story">
+              <i class="flaticon-award52" title="Success Story"></i>
+              Success Story
+              </button>
+            {{/successStory}}
+            {{#goodPractice}}
+              <button type="button" class="btn btn-primary btn-good-practice">
+              <i class="flaticon-award52" title="Good Practice"></i>
+              Good Practice
+              </button>
+            {{/goodPractice}}
+
+          </th>
+          <td>
+            {{description}}<br><br>
+          </td>
+          <td style="text-align:center;">{{startYear}}</td>
+          <td style="text-align:center;">
+            {{#countries}}
+              <div class="flag space10px {{code}}" title="{{fullName}}"></div>
+            {{/countries}}
+          </td>
+        </tr>
+      {{/items}}
+    </tbody>
+  </table>
+{{/hasItems}}
+
+{{^hasItems}}
+  <div class="eplus-results-list__no-data">No results</div>
+{{/hasItems}}

@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
   var _ = require('underscore'),
     Backbone = require('backbone'),
     tpl = require('text!../templates/advancedSearch.tpl.html'),
@@ -14,7 +14,7 @@ define(function (require) {
       'click a.vlr-advanced-search__clear': 'didClickClearFilters'
     },
 
-    initialize: function () {
+    initialize: function() {
       this.options = this.createOptionMultiselect();
       this.programmes = this.createProgrammesMultiselect();
       this.actions = this.createActionsMultiselect();
@@ -25,13 +25,17 @@ define(function (require) {
       this.regions = this.createRegionsMultiselect();
       this.organisationTypes = this.createOrganisationTypesMultiselect();
       this.organisationRoles = this.createOrganisationRolesMultiselect();
+      this.toggleMatchAllCountriesSelection(false);
+      this.toggleMatchAllCountriesVisibility(false);
 
       this.listenTo(this.countries, 'multiselect:change', this.didCountriesChange);
       this.listenTo(this.programmes, 'multiselect:change', this.didProgrammesChange);
       this.listenTo(this.actions, 'multiselect:change', this.didActionsChange);
     },
 
-    getCriteria: function () {
+
+
+    getCriteria: function() {
       var options = _.pluck(this.options.selectedItems(), 'id'),
         programmes = _.pluck(this.programmes.selectedItems(), 'id'),
         actions = _.pluck(this.actions.selectedItems(), 'id'),
@@ -59,21 +63,21 @@ define(function (require) {
       };
     },
 
-    createOptionMultiselect: function () {
+    createOptionMultiselect: function() {
       return new MultiselectComponent(advancedSearchService.allOptions(), {
         placeholder: 'All Options',
         multiple: true
       });
     },
 
-    createProgrammesMultiselect: function () {
+    createProgrammesMultiselect: function() {
       return new MultiselectComponent(advancedSearchService.allProgrammes(), {
         placeholder: 'All Programmes',
         multiple: true
       });
     },
 
-    createActionsMultiselect: function () {
+    createActionsMultiselect: function() {
       return new MultiselectComponent([], {
         placeholder: 'All Actions',
         multiple: true,
@@ -81,7 +85,7 @@ define(function (require) {
       });
     },
 
-    createActionsTypesMultiselect: function () {
+    createActionsTypesMultiselect: function() {
       return new MultiselectComponent([], {
         placeholder: 'All Actions Types',
         multiple: true,
@@ -89,49 +93,49 @@ define(function (require) {
       });
     },
 
-    createActivityYearsMultiselect: function () {
+    createActivityYearsMultiselect: function() {
       return new MultiselectComponent(advancedSearchService.allActivityYears(), {
         placeholder: 'All Activity Years',
         multiple: true
       });
     },
 
-    createFundingYearsMultiselect: function () {
+    createFundingYearsMultiselect: function() {
       return new MultiselectComponent(advancedSearchService.allFundingYears(), {
         placeholder: 'All Funding Years',
         multiple: true
       });
     },
 
-    createCountryMultiselect: function () {
+    createCountryMultiselect: function() {
       return new MultiselectComponent(advancedSearchService.allCountries(), {
         placeholder: 'All Countries',
         multiple: true
       });
     },
 
-    createRegionsMultiselect: function () {
+    createRegionsMultiselect: function() {
       return new MultiselectComponent([], {
         placeholder: 'All Regions',
         multiple: true
       });
     },
 
-    createOrganisationTypesMultiselect: function () {
+    createOrganisationTypesMultiselect: function() {
       return new MultiselectComponent(advancedSearchService.allOrganisationTypes(), {
         placeholder: 'All Organisation Types',
         multiple: true
       });
     },
 
-    createOrganisationRolesMultiselect: function () {
+    createOrganisationRolesMultiselect: function() {
       return new MultiselectComponent(advancedSearchService.allOrganisationRoles(), {
         placeholder: 'All Organisation Roles',
         multiple: true
       });
     },
 
-    didClickClearFilters: function (e) {
+    didClickClearFilters: function(e) {
       e.preventDefault();
 
       this.initCriteriaVisibility();
@@ -144,11 +148,13 @@ define(function (require) {
       this.fundingYears.update(advancedSearchService.allFundingYears());
       this.countries.update(advancedSearchService.allCountries());
       this.regions.update([]);
+      this.toggleMatchAllCountriesSelection(false);
+      this.toggleMatchAllCountriesVisibility(false);
       this.organisationTypes.update(advancedSearchService.allOrganisationTypes());
       this.organisationRoles.update(advancedSearchService.allOrganisationRoles());
     },
 
-    didCountriesChange: function () {
+    didCountriesChange: function() {
       var selectedCountry;
 
       if (this.countries.hasOneSelection()) {
@@ -162,7 +168,7 @@ define(function (require) {
       this.calculateCriteriaVisibility();
     },
 
-    didProgrammesChange: function () {
+    didProgrammesChange: function() {
       var selectedProgrammes;
       if (this.programmes.hasOneSelection()) {
         selectedProgrammes = this.programmes.firstSelectedItem();
@@ -176,7 +182,7 @@ define(function (require) {
       this.calculateCriteriaVisibility();
     },
 
-    didActionsChange: function () {
+    didActionsChange: function() {
       var selectedAction;
       if (this.actions.hasOneSelection()) {
         selectedAction = this.actions.firstSelectedItem();
@@ -189,7 +195,7 @@ define(function (require) {
       this.calculateCriteriaVisibility();
     },
 
-    initCriteriaVisibility: function () {
+    initCriteriaVisibility: function() {
       this.actions.hide();
       this.actionsTypes.hide();
       this.organisationTypes.hide();
@@ -213,6 +219,14 @@ define(function (require) {
       return this.$el.find('.vlr-advanced-search__match-all-countries-input');
     },
 
+    toggleMatchAllCountriesSelection: function(isChecked) {
+      this.getMatchAllCountriesElement().prop('checked', isChecked);
+    },
+
+    toggleMatchAllCountriesVisibility: function(isVisible) {
+      this.getMatchAllCountriesContainerElement().toggle(isVisible);
+    },
+
     isErasmusPlusProgrammeSelected: function () {
       if (this.programmes.hasOneSelection()) {
         return this.programmes.firstSelectedItem().id === constants.ccm.ERASMUS_PLUS;
@@ -221,7 +235,7 @@ define(function (require) {
       }
     },
 
-    calculateCriteriaVisibility: function () {
+    calculateCriteriaVisibility: function() {
       this.actions.toggle(this.isErasmusPlusProgrammeSelected());
       this.actionsTypes.toggle(this.actions.hasOneSelection());
       this.organisationTypes.toggle(this.isErasmusPlusProgrammeSelected());
@@ -230,7 +244,7 @@ define(function (require) {
       this.getMatchAllCountriesContainerElement().toggle(this.countries.hasMultipleSelections());
     },
 
-    render: function () {
+    render: function() {
       var html = Mustache.render(tpl);
       this.$el.append(html);
 
