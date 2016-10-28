@@ -8,7 +8,7 @@ define(function (require) {
         id: '1',
         title: 'Sample title 1',
         description: 'Sample description 1',
-        startYear: 2014,
+        callYear: 2014,
         countries: [{
             code: 'pl',
             fullName: 'Poland'
@@ -20,7 +20,7 @@ define(function (require) {
         id: '2',
         title: 'Sample title 2',
         description: 'Sample description 2',
-        startYear: 2016,
+        callYear: 2016,
         countries: [{
             code: 'ro',
             fullName: 'Romania'
@@ -33,7 +33,7 @@ define(function (require) {
         id: '..',
         title: 'Etc..',
         description: 'Etc..',
-        startYear: 2016,
+        callYear: 2016,
         countries: [{
             code: 'uk',
             fullName: 'United Kingdom'

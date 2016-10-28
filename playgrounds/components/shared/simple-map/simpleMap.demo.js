@@ -7,8 +7,9 @@ define(function (require) {
         initialPosition: [53, 17],
         minZoom: 1,
         maxZoom: 14,
-        clusterSizeOnMaxZoomLevel: 120,
-        boundaryFactor: 0.33
+        zoomClusterSizeTrigger: 5,
+        countryClusterSize: 900,
+        localClusterSize: 120
     });
 
     $('.demo__simple-map').append(component.render().view.el);

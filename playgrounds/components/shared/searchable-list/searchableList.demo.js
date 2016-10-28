@@ -5,14 +5,14 @@ define(function (require) {
   var searchService = require('./mock-search.service');
 
   var component = new SearchableListComponent({
-        listComponent: new ResultsListComponent(),
-        searchService: searchService,
-        pagerConfig: {
-          pageWindowSize: 3
-        },
-        pageStatsConfig: {
-          visible: true
-        }
+    listComponent: new ResultsListComponent(),
+    searchService: searchService,
+    pagerConfig: {
+      pageWindowSize: 3
+    },
+    pageStatsConfig: {
+      visible: true
+    }
   });
 
   component.onSearchRequest({});

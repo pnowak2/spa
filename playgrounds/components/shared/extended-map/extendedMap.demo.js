@@ -19,25 +19,25 @@ define(function (require) {
         total: 12,
         items: [{
             type: 'cluster',
-            itemsCount: 10,
             lat: 54,
-            lng: 19
+            lng: 19,
+            itemsCount: 10
         }, {
             type: 'marker',
-            group: 'pl',
             lat: 54,
             lng: 17,
-            notAccurate: true,
             id: '1',
-            popupContent: 'Content 1'
+            group: 'pl',
+            popupContent: 'Content 1',
+            notAccurate: true
         }, {
             type: 'marker',
-            group: 'pl',
             lat: 54,
             lng: 16,
-            notAccurate: false,
             id: '2',
-            popupContent: 'Content 2'
+            group: 'pl',
+            popupContent: 'Content 2',
+            notAccurate: false
         }]
     });
 });

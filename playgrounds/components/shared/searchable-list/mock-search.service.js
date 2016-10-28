@@ -1,6 +1,8 @@
 define(function (require) {
   var _ = require('underscore'),
-    RSVP = require('rsvp');
+    RSVP = require('rsvp'),
+    Chance = require('chance'),
+    chance = new Chance();
 
   return {
     search: function (criteria) {
@@ -9,9 +11,9 @@ define(function (require) {
           total: 100,
           items: [{
             id: '1',
-            title: 'Sample title 1',
+            title: chance.sentence(),
             description: 'Sample description 1',
-            startYear: 2014,
+            callYear: chance.year(),
             countries: [{
               code: 'pl',
               fullName: 'Poland'
@@ -21,9 +23,9 @@ define(function (require) {
             }]
           }, {
             id: '2',
-            title: 'Sample title 2',
+            title: chance.sentence(),
             description: 'Sample description 2',
-            startYear: 2016,
+            callYear: chance.year(),
             countries: [{
               code: 'ro',
               fullName: 'Romania'
@@ -34,9 +36,9 @@ define(function (require) {
           },
           {
             id: '..',
-            title: 'Etc..',
+            title: chance.sentence(),
             description: 'Etc..',
-            startYear: 2016,
+            callYear: chance.year(),
             countries: [{
               code: 'uk',
               fullName: 'United Kingdom'
