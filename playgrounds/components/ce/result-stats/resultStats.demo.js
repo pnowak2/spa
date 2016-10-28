@@ -1,6 +1,6 @@
 define(function (require) {
     var $ = require('jquery');
-    var ResultStatsComponent = require('app/ce/components/landing-page/results/result-stats/main.component');
+    var ResultStatsComponent = require('app/ce/components/landing-page/results/results-stats/main.component');
 
     var component = new ResultStatsComponent();
 
