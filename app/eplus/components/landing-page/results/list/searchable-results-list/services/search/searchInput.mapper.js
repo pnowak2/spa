@@ -79,6 +79,10 @@ define(function (require) {
       });
 
       mapped = _.extend(mapped, {
+        'FILTER-TAGS': (criteria.topics || []).join(';')
+      });
+
+      mapped = _.extend(mapped, {
         'FILTER-START_DATE': (criteria.activityYears || []).join(';')
       });
 

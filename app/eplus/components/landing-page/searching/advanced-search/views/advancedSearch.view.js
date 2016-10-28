@@ -19,6 +19,7 @@ define(function(require) {
       this.programmes = this.createProgrammesMultiselect();
       this.actions = this.createActionsMultiselect();
       this.actionsTypes = this.createActionsTypesMultiselect();
+      this.topics = this.createTopicsMultiselect();
       this.activityYears = this.createActivityYearsMultiselect();
       this.fundingYears = this.createFundingYearsMultiselect();
       this.countries = this.createCountryMultiselect();
@@ -40,6 +41,7 @@ define(function(require) {
         programmes = _.pluck(this.programmes.selectedItems(), 'id'),
         actions = _.pluck(this.actions.selectedItems(), 'id'),
         actionsTypes = _.pluck(this.actionsTypes.selectedItems(), 'id'),
+        topics = _.pluck(this.topics.selectedItems(), 'id'),
         activityYears = _.pluck(this.activityYears.selectedItems(), 'id'),
         fundingYears = _.pluck(this.fundingYears.selectedItems(), 'id'),
         countries = _.pluck(this.countries.selectedItems(), 'id'),
@@ -53,6 +55,7 @@ define(function(require) {
         programmes: this.programmes.isVisible() ? programmes : [],
         actions: this.actions.isVisible() ? actions : [],
         actionsTypes: this.actionsTypes.isVisible() ? actionsTypes : [],
+        topics: this.topics.isVisible() ? topics : [],
         activityYears: this.activityYears.isVisible() ? activityYears : [],
         fundingYears: this.fundingYears.isVisible() ? fundingYears : [],
         countries: this.countries.isVisible() ? countries : [],
@@ -90,6 +93,13 @@ define(function(require) {
         placeholder: 'All Actions Types',
         multiple: true,
         maximumSelectionLength: 1
+      });
+    },
+
+    createTopicsMultiselect: function() {
+      return new MultiselectComponent([], {
+        placeholder: 'All Topics',
+        multiple: true
       });
     },
 
@@ -144,6 +154,7 @@ define(function(require) {
       this.programmes.update(advancedSearchService.allProgrammes());
       this.actions.update([]);
       this.actionsTypes.update([]);
+      this.topics.update(advancedSearchService.getTopicsForFormerProgrammes());
       this.activityYears.update(advancedSearchService.allActivityYears());
       this.fundingYears.update(advancedSearchService.allFundingYears());
       this.countries.update(advancedSearchService.allCountries());
@@ -172,8 +183,8 @@ define(function(require) {
       var selectedProgrammes;
       if (this.programmes.hasOneSelection()) {
         selectedProgrammes = this.programmes.firstSelectedItem();
-
         this.actions.update(advancedSearchService.getActionsByProgramme(selectedProgrammes.id));
+
       } else {
         this.actions.clear();
         this.actionsTypes.clear();
@@ -198,6 +209,7 @@ define(function(require) {
     initCriteriaVisibility: function() {
       this.actions.hide();
       this.actionsTypes.hide();
+      this.topics.hide();
       this.organisationTypes.hide();
       this.regions.hide();
       this.getMatchAllCountriesContainerElement().hide();
@@ -227,7 +239,7 @@ define(function(require) {
       this.getMatchAllCountriesContainerElement().toggle(isVisible);
     },
 
-    isErasmusPlusProgrammeSelected: function () {
+    isOnlyErasmusPlusProgrammeSelected: function () {
       if (this.programmes.hasOneSelection()) {
         return this.programmes.firstSelectedItem().id === constants.ccm.ERASMUS_PLUS;
       } else {
@@ -235,10 +247,20 @@ define(function(require) {
       }
     },
 
+    isErasmusPlusProgrammeSelected: function () {
+      return _.some(this.programmes.selectedItems(), function(item) { return item.id === constants.ccm.ERASMUS_PLUS});
+    },
+
     calculateCriteriaVisibility: function() {
-      this.actions.toggle(this.isErasmusPlusProgrammeSelected());
+      // There is only one selection, and that is Erasmus+
+      var isOnlyErasmusPlusProgrammeSelected = this.isOnlyErasmusPlusProgrammeSelected();
+      // There are one or more selections, and none of them is Erasmus+
+      var isNotErasmusPlusProgrammeSelected = !(this.isErasmusPlusProgrammeSelected());
+
+      this.actions.toggle(isOnlyErasmusPlusProgrammeSelected);
       this.actionsTypes.toggle(this.actions.hasOneSelection());
-      this.organisationTypes.toggle(this.isErasmusPlusProgrammeSelected());
+      this.topics.toggle(isNotErasmusPlusProgrammeSelected);
+      this.organisationTypes.toggle(isOnlyErasmusPlusProgrammeSelected);
       this.regions.toggle(this.countries.hasOneSelection());
 
       this.getMatchAllCountriesContainerElement().toggle(this.countries.hasMultipleSelections());
@@ -252,6 +274,7 @@ define(function(require) {
       this.$el.find('.vlr-advanced-search__section-programmes').append(this.programmes.render().view.el);
       this.$el.find('.vlr-advanced-search__section-actions').append(this.actions.render().view.el);
       this.$el.find('.vlr-advanced-search__section-actions-types').append(this.actionsTypes.render().view.el);
+      this.$el.find('.vlr-advanced-search__section-topics').append(this.topics.render().view.el);
       this.$el.find('.vlr-advanced-search__section-activity-years').append(this.activityYears.render().view.el);
       this.$el.find('.vlr-advanced-search__section-funding-years').append(this.fundingYears.render().view.el);
       this.$el.find('.vlr-advanced-search__section-countries').append(this.countries.render().view.el);

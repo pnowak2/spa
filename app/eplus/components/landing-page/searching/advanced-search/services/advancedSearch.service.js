@@ -10,6 +10,7 @@ define(function (require) {
     regionsDatasource = require('app/eplus/data/regions.datasource'),
     actionsDatasource = require('app/eplus/data/actions.datasource'),
     actionsTypeDatasource = require('app/eplus/data/actionsType.datasource'),
+    topicsDatasource = require('app/eplus/data/topics.datasource'),
 
     allOptions = function () {
       return optionsDatasource.getItems();
@@ -49,6 +50,10 @@ define(function (require) {
 
     getActionsTypeByAction = function (actionCode) {
       return actionsTypeDatasource.getItems()[actionCode];
+    },
+
+    getTopicsForFormerProgrammes = function () {
+      return topicsDatasource.getItems();
     };
 
   return {
@@ -61,6 +66,7 @@ define(function (require) {
     allOrganisationRoles: allOrganisationRoles,
     getRegionsByCountry: getRegionsByCountry,
     getActionsByProgramme: getActionsByProgramme,
-    getActionsTypeByAction: getActionsTypeByAction
+    getActionsTypeByAction: getActionsTypeByAction,
+    getTopicsForFormerProgrammes: getTopicsForFormerProgrammes
   };
 });

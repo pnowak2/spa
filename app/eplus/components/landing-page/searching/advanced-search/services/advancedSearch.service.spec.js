@@ -9,7 +9,8 @@ define(function (require) {
     organisationRolesDatasource = require('app/eplus/data/organisation-roles.datasource'),
     regionsDatasource = require('app/eplus/data/regions.datasource'),
     actionsByProgrammeDatasource = require('app/eplus/data/actions.datasource'),
-    actionsTypeByActionDatasource = require('app/eplus/data/actionsType.datasource');
+    actionsTypeByActionDatasource = require('app/eplus/data/actionsType.datasource'),
+    topicsDatasource = require('app/eplus/data/topics.datasource');
 
   describe('EPLUS advancedSearch Service', function () {
     beforeEach(function () {
@@ -41,9 +42,18 @@ define(function (require) {
         }]
       };
 
+      var fakeTopics = [{
+        id: "1",
+        title: "topic 1"
+      }, {
+        id: "2",
+        title: "topic 2"
+      }];
+
       spyOn(regionsDatasource, 'getItems').and.returnValue(fakeDependentCountryRegionData);
       spyOn(actionsByProgrammeDatasource, 'getItems').and.returnValue(fakeDependentActionData);
       spyOn(actionsTypeByActionDatasource, 'getItems').and.returnValue(fakeDependentActionData);
+      spyOn(topicsDatasource, 'getItems').and.returnValue(fakeTopics);
     });
 
     describe('.allOptions()', function () {
@@ -175,6 +185,22 @@ define(function (require) {
         }, {
           id: "2",
           title: "act 2"
+        }]);
+      });
+    });
+
+    describe('.getTopicsForFormerProgrammes()', function () {
+      it('should be defined', function () {
+        expect(advancedSearchService.getTopicsForFormerProgrammes).toEqual(jasmine.any(Function));
+      });
+
+      it('should retrieve all the topics for the former programmes', function () {
+        expect(advancedSearchService.getTopicsForFormerProgrammes()).toEqual([{
+          id: "1",
+          title: "topic 1"
+        }, {
+          id: "2",
+          title: "topic 2"
         }]);
       });
     });

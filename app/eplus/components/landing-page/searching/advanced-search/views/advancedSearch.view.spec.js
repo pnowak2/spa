@@ -84,6 +84,10 @@ define(function (require) {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-actions-types');
         });
 
+        it('should render Topics section', function () {
+          expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-topics');
+        });
+
         it('should render ActivityYears section', function () {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-activity-years');
         });
@@ -150,6 +154,14 @@ define(function (require) {
 
           var view = new AdvancedSearchView();
           expect(view.actionsTypes).toBe(fakeActionsTypes);
+        });
+
+        it('should create topics', function () {
+          var fakeTopics = {};
+          spyOn(AdvancedSearchView.prototype, 'createTopicsMultiselect').and.returnValue(fakeTopics);
+
+          var view = new AdvancedSearchView();
+          expect(view.topics).toBe(fakeTopics);
         });
 
         it('should create activityYears', function () {
@@ -250,6 +262,12 @@ define(function (require) {
               id: 'actType2'
             }]);
 
+            spyOn(this.view.topics, 'selectedItems').and.returnValue([{
+              id: 'topic1'
+            }, {
+              id: 'topic2'
+            }]);
+
             spyOn(this.view.activityYears, 'selectedItems').and.returnValue([{
               id: 'actYear1'
             }, {
@@ -310,6 +328,12 @@ define(function (require) {
           it('should return actionsTypes', function () {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               actionsTypes: ['actType1', 'actType2']
+            }));
+          });
+
+          it('should return topics', function () {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              topics: ['topic1', 'topic2']
             }));
           });
 
@@ -386,6 +410,12 @@ define(function (require) {
           it('should return empty actionsTypes', function () {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               actionsTypes: []
+            }));
+          });
+
+          it('should return empty topics', function () {
+            expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
+              topics: []
             }));
           });
 
@@ -575,6 +605,39 @@ define(function (require) {
         it('should initialize multiple select with correct maximumSelectionLength property', function () {
           expect(this.actionsTypes.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             maximumSelectionLength: 1
+          }));
+        });
+      });
+
+      describe('.createTopicsMultiselect()', function () {
+        beforeEach(function () {
+          this.view = new AdvancedSearchView();
+          spyOn(MultiselectComponent.prototype, 'initialize');
+
+          this.topics = this.view.createTopicsMultiselect();
+        });
+
+        it('should been defined', function () {
+          expect(this.view.createTopicsMultiselect).toEqual(jasmine.any(Function));
+        });
+
+        it('should return a MultiselectComponent', function () {
+          expect(this.view.createTopicsMultiselect()).toEqual(jasmine.any(MultiselectComponent));
+        });
+
+        it('should initialize multiple select with empty array', function () {
+          expect(this.topics.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.any(Object));
+        });
+
+        it('should initialize multiple select with correct placeholder', function () {
+          expect(this.topics.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
+            placeholder: 'All Topics'
+          }));
+        });
+
+        it('should initialize multiple select with correct multiple property', function () {
+          expect(this.topics.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
+            multiple: true
           }));
         });
       });
@@ -784,19 +847,19 @@ define(function (require) {
           expect(AdvancedSearchView.prototype.calculateCriteriaVisibility).toEqual(jasmine.any(Function));
         });
 
-        it('should show actions when programme ERASMUS_PLUS is selected', function () {
+        it('should show actions when only programme ERASMUS_PLUS is selected', function () {
 
           var view = new AdvancedSearchView();
-          spyOn(view, 'isErasmusPlusProgrammeSelected').and.returnValue(true);
+          spyOn(view, 'isOnlyErasmusPlusProgrammeSelected').and.returnValue(true);
           spyOn(view.actions, 'toggle');
           view.calculateCriteriaVisibility();
 
           expect(view.actions.toggle).toHaveBeenCalledWith(true);
         });
 
-        it('should hide actions when programme ERASMUS_PLUS is not selected', function () {
+        it('should hide actions when programme ERASMUS_PLUS is not selected, or is selected together with other programmes', function () {
           var view = new AdvancedSearchView();
-          spyOn(view, 'isErasmusPlusProgrammeSelected').and.returnValue(false);
+          spyOn(view, 'isOnlyErasmusPlusProgrammeSelected').and.returnValue(false);
           spyOn(view.actions, 'toggle');
           view.calculateCriteriaVisibility();
 
@@ -821,18 +884,37 @@ define(function (require) {
           expect(view.actionsTypes.toggle).toHaveBeenCalledWith(false);
         });
 
-        it('should show organisationTypes when programme ERASMUS_PLUS is selected', function () {
+        it('should show topics when programme ERASMUS_PLUS is not selected', function () {
+
+          var view = new AdvancedSearchView();
+          spyOn(view, 'isErasmusPlusProgrammeSelected').and.returnValue(false);
+          spyOn(view.topics, 'toggle');
+          view.calculateCriteriaVisibility();
+
+          expect(view.topics.toggle).toHaveBeenCalledWith(true);
+        });
+
+        it('should hide topics when programme ERASMUS_PLUS is selected (either alone, or together with other programmes)', function () {
           var view = new AdvancedSearchView();
           spyOn(view, 'isErasmusPlusProgrammeSelected').and.returnValue(true);
+          spyOn(view.topics, 'toggle');
+          view.calculateCriteriaVisibility();
+
+          expect(view.topics.toggle).toHaveBeenCalledWith(false);
+        });
+
+        it('should show organisationTypes when only programme ERASMUS_PLUS is selected', function () {
+          var view = new AdvancedSearchView();
+          spyOn(view, 'isOnlyErasmusPlusProgrammeSelected').and.returnValue(true);
           spyOn(view.organisationTypes, 'toggle');
           view.calculateCriteriaVisibility();
 
           expect(view.organisationTypes.toggle).toHaveBeenCalledWith(true);
         });
 
-        it('should hide organisationTypes when programme ERASMUS_PLUS is not selected', function () {
+        it('should hide organisationTypes when programme ERASMUS_PLUS is not selected, or is selected together with other programmes', function () {
           var view = new AdvancedSearchView();
-          spyOn(view, 'isErasmusPlusProgrammeSelected').and.returnValue(false);
+          spyOn(view, 'isOnlyErasmusPlusProgrammeSelected').and.returnValue(false);
           spyOn(view.organisationTypes, 'toggle');
           view.calculateCriteriaVisibility();
 
@@ -895,9 +977,9 @@ define(function (require) {
         });
       });
 
-      describe('.isErasmusPlusProgrammeSelected()', function () {
+      describe('.isOnlyErasmusPlusProgrammeSelected()', function () {
         it('should be defined', function () {
-          expect(AdvancedSearchView.prototype.isErasmusPlusProgrammeSelected).toEqual(jasmine.any(Function));
+          expect(AdvancedSearchView.prototype.isOnlyErasmusPlusProgrammeSelected).toEqual(jasmine.any(Function));
         });
 
         it('should return true if ERASMUS_PLUS programme is selected', function () {
@@ -906,6 +988,42 @@ define(function (require) {
           spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
             id: constants.ccm.ERASMUS_PLUS
           });
+
+          expect(view.isOnlyErasmusPlusProgrammeSelected()).toBe(true);
+        });
+
+        it('should return false if ERASMUS_PLUS programme is NOT selected', function () {
+          var view = new AdvancedSearchView();
+          spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
+          spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
+            id: 'OTHER'
+          });
+
+          expect(view.isOnlyErasmusPlusProgrammeSelected()).toBe(false);
+        });
+
+        it('should return false if more than one selection of programmes is done', function () {
+          var view = new AdvancedSearchView();
+          spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
+
+          expect(view.isOnlyErasmusPlusProgrammeSelected()).toBe(false);
+        });
+      });
+
+      describe('.isErasmusPlusProgrammeSelected()', function () {
+        it('should be defined', function () {
+          expect(AdvancedSearchView.prototype.isErasmusPlusProgrammeSelected).toEqual(jasmine.any(Function));
+        });
+
+        it('should return true if only one programme is selected, and that is ERASMUS_PLUS', function () {
+          var view = new AdvancedSearchView();
+          spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
+          spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
+            id: constants.ccm.ERASMUS_PLUS
+          });
+          spyOn(view.programmes, 'selectedItems').and.returnValue([{
+            id: constants.ccm.ERASMUS_PLUS
+          }]);
 
           expect(view.isErasmusPlusProgrammeSelected()).toBe(true);
         });
@@ -916,15 +1034,37 @@ define(function (require) {
           spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
             id: 'OTHER'
           });
+          spyOn(view.programmes, 'selectedItems').and.returnValue([{
+            id: 'OTHER'
+          }]);
 
           expect(view.isErasmusPlusProgrammeSelected()).toBe(false);
         });
 
-        it('should return false if more than one selection of programmes is done', function () {
+        it('should return false if more than one selection of programmes is done and none of them is ERASMUS_PLUS', function () {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
+          spyOn(view.programmes, 'selectedItems').and.returnValue([{
+            id: 'OTHER1'
+          }, {
+            id: 'OTHER2'
+          }]);
 
           expect(view.isErasmusPlusProgrammeSelected()).toBe(false);
+        });
+
+        it('should return true if more than one selection of programmes is done and one of them is ERASMUS_PLUS', function () {
+          var view = new AdvancedSearchView();
+          spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
+          spyOn(view.programmes, 'selectedItems').and.returnValue([{
+            id: 'OTHER1'
+          }, {
+            id: constants.ccm.ERASMUS_PLUS
+          }, {
+            id: 'OTHER2'
+          }]);
+
+          expect(view.isErasmusPlusProgrammeSelected()).toBe(true);
         });
       });
 
@@ -939,6 +1079,7 @@ define(function (require) {
           spyOn(this.view.programmes, 'update');
           spyOn(this.view.actions, 'update');
           spyOn(this.view.actionsTypes, 'update');
+          spyOn(this.view.topics, 'update');
           spyOn(this.view.activityYears, 'update');
           spyOn(this.view.fundingYears, 'update');
           spyOn(this.view.countries, 'update');
@@ -980,6 +1121,10 @@ define(function (require) {
           expect(this.view.actionsTypes.update).toHaveBeenCalledWith([]);
         });
 
+        it('should clear topics component', function () {
+          expect(this.view.topics.update).toHaveBeenCalledWith(advancedSearchService.getTopicsForFormerProgrammes());
+        });
+
         it('should clear activity years component', function () {
           expect(this.view.activityYears.update).toHaveBeenCalledWith(advancedSearchService.allActivityYears());
         });
@@ -1018,6 +1163,7 @@ define(function (require) {
           this.view = new AdvancedSearchView();
           spyOn(this.view.actions, 'hide');
           spyOn(this.view.actionsTypes, 'hide');
+          spyOn(this.view.topics, 'hide');
           spyOn(this.view.organisationTypes, 'hide');
           spyOn(this.view.regions, 'hide');
 
@@ -1038,6 +1184,10 @@ define(function (require) {
 
         it('should hide actionsTypes', function () {
           expect(this.view.actionsTypes.hide).toHaveBeenCalled();
+        });
+
+        it('should hide topics', function () {
+          expect(this.view.topics.hide).toHaveBeenCalled();
         });
 
         it('should hide organisationTypes', function () {
@@ -1281,11 +1431,11 @@ define(function (require) {
               spyOn(this.view.actions, 'update');
               spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(true);
               spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: 'PL'
+                id: 'programme1'
               });
 
-              spyOn(advancedSearchService, 'getActionsByProgramme').and.callFake(function (actionCode) {
-                if (actionCode === 'PL') {
+              spyOn(advancedSearchService, 'getActionsByProgramme').and.callFake(function (programmeCode) {
+                if (programmeCode === 'programme1') {
                   return self.fakeActions;
                 }
               });
@@ -1296,7 +1446,7 @@ define(function (require) {
             });
 
             it('should call advancedSearchService to get actions according to programme selection', function () {
-              expect(advancedSearchService.getActionsByProgramme).toHaveBeenCalledWith('PL');
+              expect(advancedSearchService.getActionsByProgramme).toHaveBeenCalledWith('programme1');
             });
 
             it('should update actions dropdown according to programme selection', function () {
@@ -1312,15 +1462,6 @@ define(function (require) {
 
               spyOn(this.view.actions, 'update');
               spyOn(this.view.programmes, 'hasOneSelection').and.returnValue(false);
-              spyOn(this.view.programmes, 'firstSelectedItem').and.returnValue({
-                id: 'PL'
-              });
-
-              spyOn(advancedSearchService, 'getActionsByProgramme').and.callFake(function (actionCode) {
-                if (actionCode === 'PL') {
-                  return self.fakeActions;
-                }
-              });
 
               spyOn(this.view.actions, 'clear');
               spyOn(this.view.actionsTypes, 'clear');

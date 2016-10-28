@@ -243,6 +243,27 @@ define(function (require) {
             });
           });
 
+          describe('Topics', function () {
+            beforeEach(function () {
+              this.criteria = {};
+            });
+
+            it('should map to empty value if not provided', function () {
+              expect(searchInputMapper.map(this.criteria)).toEqual(jasmine.objectContaining({
+                'FILTER-TAGS': ''
+              }));
+            });
+
+            it('should map to properties if provided', function () {
+              var criteria = {
+                topics: ['test1', 'test2']
+              };
+              expect(searchInputMapper.map(criteria)).toEqual(jasmine.objectContaining({
+                'FILTER-TAGS': 'test1;test2'
+              }));
+            });
+          });
+
           describe('Activity Years', function () {
             it('should map to empty value if not provided', function () {
               var criteria = {};
