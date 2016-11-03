@@ -9,7 +9,7 @@ define(function(require) {
     SearchableResultsListComponent = require('app/eplus/components/landing-page/results/list/searchable-results-list/main.component'),
     ResultsMapComponent = require('app/eplus/components/landing-page/results/map/results-map/main.component'),
     ResultStatsComponent = require('app/eplus/components/landing-page/results/results-stats/main.component'),
-    router = require('app/eplus/routers/landing-page.router');
+    router = require('app/shared/routers/search.router');
 
   describe('Eplus Landing Page View', function() {
     describe('type', function() {
@@ -82,7 +82,6 @@ define(function(require) {
       it('should init the results map', function() {
         expect(this.view.resultsMap.initMap).toHaveBeenCalled();
       });
-
     });
 
     describe('api', function() {
@@ -113,6 +112,7 @@ define(function(require) {
         beforeEach(function() {
           spyOn(SearchableResultsListComponent.prototype, 'onSearchRequest');
           spyOn(ResultsMapComponent.prototype, 'onSearchRequest');
+          spyOn(router, 'updateUrl');
 
           this.view = new LandingPageView();
         });
@@ -137,6 +137,13 @@ define(function(require) {
           expect(this.view.resultsMap.onSearchRequest).toHaveBeenCalledWith(fakeSearchCriteria);
         });
 
+        it('should update url with router', function() {
+          var fakeSearchCriteria = { foo: 'bar' };
+
+          this.view.onSearchRequest(fakeSearchCriteria);
+
+          expect(router.updateUrl).toHaveBeenCalledWith(fakeSearchCriteria);
+        });
       });
 
       describe('.onExportToXlsRequest()', function() {
@@ -339,9 +346,21 @@ define(function(require) {
 
             expect(view.didSelectTab).toHaveBeenCalled();
           });
+
+        it('should listen to router route event', function() {
+          spyOn(LandingPageView.prototype, 'didRoute');
+          spyOn(SearchComponent.prototype, 'update');
+          spyOn(SearchComponent.prototype, 'requestSearch');
+
+          var view = new LandingPageView(),
+            fakeCriteria = { foo: 'bar' };
+
+          router.trigger('router:search', fakeCriteria);
+
+          expect(view.didRoute).toHaveBeenCalledWith(fakeCriteria);
+        });
         });
       });
-
 
       describe('rendering', function() {
         describe('.render()', function() {

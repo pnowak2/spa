@@ -8,7 +8,7 @@ define(function(require) {
     ResultsMapComponent = require('app/eplus/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
     searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
-    router = require('app/eplus/routers/landing-page.router');
+    router = require('app/shared/routers/search.router');
 
   return Backbone.View.extend({
     initialize: function() {
@@ -72,6 +72,7 @@ define(function(require) {
     onSearchRequest: function(criteria) {
       this.searchableResultsList.onSearchRequest(criteria);
       this.resultsMap.onSearchRequest(criteria);
+      router.updateUrl(criteria);
     },
 
     didRoute: function(criteria) {
