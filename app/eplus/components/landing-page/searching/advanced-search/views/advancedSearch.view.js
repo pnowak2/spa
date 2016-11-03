@@ -97,7 +97,7 @@ define(function(require) {
     },
 
     createTopicsMultiselect: function() {
-      return new MultiselectComponent([], {
+      return new MultiselectComponent(advancedSearchService.getTopicsForFormerProgrammes(), {
         placeholder: 'All Topics',
         multiple: true
       });
@@ -259,7 +259,7 @@ define(function(require) {
 
       this.actions.toggle(isOnlyErasmusPlusProgrammeSelected);
       this.actionsTypes.toggle(this.actions.hasOneSelection());
-      this.topics.toggle(isNotErasmusPlusProgrammeSelected);
+      this.topics.toggle(this.programmes.hasSelection() && isNotErasmusPlusProgrammeSelected);
       this.organisationTypes.toggle(isOnlyErasmusPlusProgrammeSelected);
       this.regions.toggle(this.countries.hasOneSelection());
 

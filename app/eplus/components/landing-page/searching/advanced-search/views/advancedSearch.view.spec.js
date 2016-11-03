@@ -848,7 +848,6 @@ define(function (require) {
         });
 
         it('should show actions when only programme ERASMUS_PLUS is selected', function () {
-
           var view = new AdvancedSearchView();
           spyOn(view, 'isOnlyErasmusPlusProgrammeSelected').and.returnValue(true);
           spyOn(view.actions, 'toggle');
@@ -884,14 +883,25 @@ define(function (require) {
           expect(view.actionsTypes.toggle).toHaveBeenCalledWith(false);
         });
 
-        it('should show topics when programme ERASMUS_PLUS is not selected', function () {
-
+        it('should show topics when at least one programme is selected but it is not ERASMUS_PLUS', function () {
           var view = new AdvancedSearchView();
+          spyOn(view.programmes, 'hasSelection').and.returnValue(true);
           spyOn(view, 'isErasmusPlusProgrammeSelected').and.returnValue(false);
           spyOn(view.topics, 'toggle');
           view.calculateCriteriaVisibility();
 
           expect(view.topics.toggle).toHaveBeenCalledWith(true);
+        });
+
+        it('should hide topics when no programme is selected', function () {
+          var view = new AdvancedSearchView();
+          spyOn(view.programmes, 'hasSelection').and.returnValue(false);
+          spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
+          spyOn(view.programmes, 'selectedItems').and.returnValue([]);
+          spyOn(view.topics, 'toggle');
+          view.calculateCriteriaVisibility();
+
+          expect(view.topics.toggle).toHaveBeenCalledWith(false);
         });
 
         it('should hide topics when programme ERASMUS_PLUS is selected (either alone, or together with other programmes)', function () {
@@ -933,7 +943,7 @@ define(function (require) {
 
         it('should hide regions if no countries has been selected', function () {
           var view = new AdvancedSearchView();
-          spyOn(view.countries, 'hasOneSelection').and.returnValue(false);
+          spyOn(view.countries, 'hasSelection').and.returnValue(false);
           spyOn(view.regions, 'toggle');
           view.calculateCriteriaVisibility();
 
@@ -1013,6 +1023,15 @@ define(function (require) {
       describe('.isErasmusPlusProgrammeSelected()', function () {
         it('should be defined', function () {
           expect(AdvancedSearchView.prototype.isErasmusPlusProgrammeSelected).toEqual(jasmine.any(Function));
+        });
+
+        it('should return false if no programme is selected', function () {
+          var view = new AdvancedSearchView();
+          spyOn(view.programmes, 'hasSelection').and.returnValue(false);
+          spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
+          spyOn(view.programmes, 'selectedItems').and.returnValue([]);
+
+          expect(view.isErasmusPlusProgrammeSelected()).toBe(false);
         });
 
         it('should return true if only one programme is selected, and that is ERASMUS_PLUS', function () {
