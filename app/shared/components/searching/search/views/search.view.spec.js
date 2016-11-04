@@ -128,16 +128,6 @@ define(function(require) {
           expect(SearchView.prototype.didPressKeyInSearchbox).toEqual(jasmine.any(Function));
         });
 
-        it('should not throw if .isDirty() method is not defined in advanced search', function() {
-          var view = new SearchView({
-            advancedSearchComponent: {}
-          });
-
-          expect(function () {
-            view.didPressKeyInSearchbox();
-          }).not.toThrow();
-        });
-
         it('should show advanced search and toggle more button to open if criteria is changed (dirty)', function() {
           spyOn(this.view.advancedSearch, 'isDirty').and.returnValue(true);
 
