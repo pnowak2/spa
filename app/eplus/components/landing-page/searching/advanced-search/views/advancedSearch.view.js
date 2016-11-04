@@ -145,6 +145,37 @@ define(function(require) {
       });
     },
 
+    isDirty: function() {
+      return this.options.isVisible() && this.options.isDirty() ||
+        this.programmes.isVisible() && this.programmes.isDirty() ||
+        this.actions.isVisible() && this.actions.isDirty() ||
+        this.actionsTypes.isVisible() && this.actionsTypes.isDirty() ||
+        this.topics.isVisible() && this.topics.isDirty() ||
+        this.activityYears.isVisible() && this.activityYears.isDirty() ||
+        this.fundingYears.isVisible() && this.fundingYears.isDirty() ||
+        this.countries.isVisible() && this.countries.isDirty() ||
+        this.regions.isVisible() && this.regions.isDirty() ||
+        this.organisationTypes.isVisible() && this.organisationTypes.isDirty() ||
+        this.organisationRoles.isVisible() && this.organisationRoles.isDirty() ||
+        this.isMatchAllCountriesVisible() && this.isMatchAllCountriesSelected();
+    },
+
+    update: function(criteria) {
+      this.options.selectItems(criteria.options);
+      this.programmes.selectItems(criteria.programmes);
+      this.actions.selectItems(criteria.actions);
+      this.actionsTypes.selectItems(criteria.actionsTypes);
+      this.topics.selectItems(criteria.topics);
+      this.activityYears.selectItems(criteria.activityYears);
+      this.fundingYears.selectItems(criteria.fundingYears);
+      this.countries.selectItems(criteria.countries);
+      this.regions.selectItems(criteria.regions);
+      this.organisationTypes.selectItems(criteria.organisationTypes);
+      this.organisationRoles.selectItems(criteria.organisationRoles);
+      this.toggleMatchAllCountriesSelection(criteria.matchAllCountries);
+    },
+
+
     didClickClearFilters: function(e) {
       e.preventDefault();
 
@@ -223,11 +254,11 @@ define(function(require) {
       return this.getMatchAllCountriesElement().is(':checked');
     },
 
-    getMatchAllCountriesContainerElement: function () {
+    getMatchAllCountriesContainerElement: function() {
       return this.$el.find('.vlr-advanced-search__match-all-countries-container');
     },
 
-    getMatchAllCountriesElement: function () {
+    getMatchAllCountriesElement: function() {
       return this.$el.find('.vlr-advanced-search__match-all-countries-input');
     },
 
@@ -239,7 +270,7 @@ define(function(require) {
       this.getMatchAllCountriesContainerElement().toggle(isVisible);
     },
 
-    isOnlyErasmusPlusProgrammeSelected: function () {
+    isOnlyErasmusPlusProgrammeSelected: function() {
       if (this.programmes.hasOneSelection()) {
         return this.programmes.firstSelectedItem().id === constants.ccm.ERASMUS_PLUS;
       } else {
@@ -247,8 +278,10 @@ define(function(require) {
       }
     },
 
-    isErasmusPlusProgrammeSelected: function () {
-      return _.some(this.programmes.selectedItems(), function(item) { return item.id === constants.ccm.ERASMUS_PLUS});
+    isErasmusPlusProgrammeSelected: function() {
+      return _.some(this.programmes.selectedItems(), function(item) {
+        return item.id === constants.ccm.ERASMUS_PLUS;
+      });
     },
 
     calculateCriteriaVisibility: function() {

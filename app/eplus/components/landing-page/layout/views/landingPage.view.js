@@ -7,7 +7,6 @@ define(function(require) {
     SearchableResultsListComponent = require('app/eplus/components/landing-page/results/list/searchable-results-list/main.component'),
     ResultsMapComponent = require('app/eplus/components/landing-page/results/map/results-map/main.component'),
     TabSwitcherComponent = require('app/shared/components/other/tab-switcher/main.component'),
-    searchCriteriaBuilder = require('../util/searchCriteriaBuilder'),
     router = require('app/shared/routers/search.router');
 
   return Backbone.View.extend({
@@ -56,7 +55,7 @@ define(function(require) {
       this.handleUpdatedResultsDisplay(response.data.total);
     },
 
-    onExportToXlsRequest: function () {
+    onExportToXlsRequest: function() {
       this.searchableResultsList.onExportToXlsRequest();
     },
 
@@ -65,19 +64,19 @@ define(function(require) {
       this.getTabbedResultsContainer().toggle(total > 0);
     },
 
+    didRoute: function(criteria) {
+      this.search.update(criteria);
+      this.search.requestSearch();
+    },
+
     didSelectTab: function(identifier) {
       this.resultsMap.invalidateSize();
     },
 
     onSearchRequest: function(criteria) {
+      router.updateUrl(criteria);
       this.searchableResultsList.onSearchRequest(criteria);
       this.resultsMap.onSearchRequest(criteria);
-      router.updateUrl(criteria);
-    },
-
-    didRoute: function(criteria) {
-      this.search.update(criteria);
-      this.search.requestSearch();
     },
 
     handleInitialResultsDisplay: function() {

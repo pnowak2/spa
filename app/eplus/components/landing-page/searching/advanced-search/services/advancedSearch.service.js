@@ -1,10 +1,10 @@
-define(function (require) {
+define(function(require) {
 
-  var programmesDatasource = require('app/eplus/data/programmes.datasource'),
+  var _ = require('underscore'),
+    programmesDatasource = require('app/eplus/data/programmes.datasource'),
     optionsDatasource = require('app/eplus/data/options.datasource'),
     countriesDatasource = require('app/eplus/data/countries.datasource'),
     activitiesYearsDatasource = require('app/eplus/data/activityYears.datasource'),
-    fundingYearsDatasource = require('app/eplus/data/fundingYears.datasource'),
     organisationTypesDatasource = require('app/eplus/data/organisation-types.datasource'),
     organisationRolesDatasource = require('app/eplus/data/organisation-roles.datasource'),
     regionsDatasource = require('app/eplus/data/regions.datasource'),
@@ -12,47 +12,57 @@ define(function (require) {
     actionsTypeDatasource = require('app/eplus/data/actionsType.datasource'),
     topicsDatasource = require('app/eplus/data/topics.datasource'),
 
-    allOptions = function () {
+    allOptions = function() {
       return optionsDatasource.getItems();
     },
 
-    allProgrammes = function () {
+    allProgrammes = function() {
       return programmesDatasource.getItems();
     },
 
-    allCountries = function () {
+    allCountries = function() {
       return countriesDatasource.getItems();
     },
 
-    allActivityYears = function () {
+    allActivityYears = function() {
       return activitiesYearsDatasource.getItems();
     },
 
-    allFundingYears = function () {
-      return fundingYearsDatasource.getItems();
+    allFundingYears = function() {
+      var startYear = 2014,
+        currentYear = new Date().getFullYear(),
+        yearsRange = _.range(startYear, currentYear + 1);
+
+      return _.map(yearsRange, function(year) {
+        return {
+          id: year,
+          title: year,
+          hint: 'funding year'
+        };
+      });
     },
 
-    allOrganisationTypes = function () {
+    allOrganisationTypes = function() {
       return organisationTypesDatasource.getItems();
     },
 
-    allOrganisationRoles = function () {
+    allOrganisationRoles = function() {
       return organisationRolesDatasource.getItems();
     },
 
-    getRegionsByCountry = function (countryCode) {
+    getRegionsByCountry = function(countryCode) {
       return regionsDatasource.getItems()[countryCode];
     },
 
-    getActionsByProgramme = function (programmeCode) {
+    getActionsByProgramme = function(programmeCode) {
       return actionsDatasource.getItems()[programmeCode];
     },
 
-    getActionsTypeByAction = function (actionCode) {
+    getActionsTypeByAction = function(actionCode) {
       return actionsTypeDatasource.getItems()[actionCode];
     },
 
-    getTopicsForFormerProgrammes = function () {
+    getTopicsForFormerProgrammes = function() {
       return topicsDatasource.getItems();
     };
 

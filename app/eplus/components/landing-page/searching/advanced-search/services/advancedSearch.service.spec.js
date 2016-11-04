@@ -1,5 +1,6 @@
-define(function (require) {
-  var advancedSearchService = require('./advancedSearch.service'),
+define(function(require) {
+  var _ = require('underscore'),
+    advancedSearchService = require('./advancedSearch.service'),
     optionsDatasource = require('app/eplus/data/options.datasource'),
     countriesDatasource = require('app/eplus/data/countries.datasource'),
     activityYearsDatasource = require('app/eplus/data/activityYears.datasource'),
@@ -12,8 +13,8 @@ define(function (require) {
     actionsTypeByActionDatasource = require('app/eplus/data/actionsType.datasource'),
     topicsDatasource = require('app/eplus/data/topics.datasource');
 
-  describe('EPLUS advancedSearch Service', function () {
-    beforeEach(function () {
+  describe('EPLUS advancedSearch Service', function() {
+    beforeEach(function() {
       var fakeData = [{
         id: "",
         title: "fake 1"
@@ -56,97 +57,120 @@ define(function (require) {
       spyOn(topicsDatasource, 'getItems').and.returnValue(fakeTopics);
     });
 
-    describe('.allOptions()', function () {
+    describe('.allOptions()', function() {
 
-      it('should be defined', function () {
+      it('should be defined', function() {
         expect(advancedSearchService.allOptions).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve data from getItems datasource', function () {
+      it('should retrieve data from getItems datasource', function() {
         var items = optionsDatasource.getItems();
         expect(advancedSearchService.allOptions()).toEqual(items);
       });
     });
 
-    describe('.allProgrammes()', function () {
+    describe('.allProgrammes()', function() {
 
-      it('should be defined', function () {
+      it('should be defined', function() {
         expect(advancedSearchService.allProgrammes).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve data from getItems datasource', function () {
+      it('should retrieve data from getItems datasource', function() {
         var items = programmesDatasource.getItems();
         expect(advancedSearchService.allProgrammes()).toEqual(items);
       });
     });
 
-    describe('.allCountries()', function () {
+    describe('.allCountries()', function() {
 
-      it('should be defined', function () {
+      it('should be defined', function() {
         expect(advancedSearchService.allCountries).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve data from getItems datasource', function () {
+      it('should retrieve data from getItems datasource', function() {
         var items = countriesDatasource.getItems();
         expect(advancedSearchService.allCountries()).toEqual(items);
       });
     });
 
-    describe('.allActivityYears()', function () {
+    describe('.allActivityYears()', function() {
 
-      it('should be defined', function () {
+      it('should be defined', function() {
         expect(advancedSearchService.allActivityYears).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve data from getItems datasource', function () {
+      it('should retrieve data from getItems datasource', function() {
         var items = activityYearsDatasource.getItems();
         expect(advancedSearchService.allActivityYears()).toEqual(items);
       });
     });
 
-    describe('.allFundingYears()', function () {
-
-      it('should be defined', function () {
+    describe('.allFundingYears()', function() {
+      it('should be defined', function() {
         expect(advancedSearchService.allFundingYears).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve data from getItems datasource', function () {
-        var items = fundingYearsDatasource.getItems();
-        expect(advancedSearchService.allFundingYears()).toEqual(items);
+      it('should return array with correct size', function() {
+        var years = advancedSearchService.allFundingYears(),
+          startYear = 2014,
+          currentYear = new Date().getFullYear();
+
+        expect(years.length).toEqual(_.range(startYear, currentYear + 1).length);
+      });
+
+      it('should have correct first item', function() {
+        var years = advancedSearchService.allFundingYears();
+
+        expect(_.first(years)).toEqual({
+          id: 2014,
+          title: 2014,
+          hint: 'funding year'
+        });
+      });
+
+      it('have have correct last item', function() {
+        var years = advancedSearchService.allFundingYears(),
+          currentYear = new Date().getFullYear();
+
+        expect(_.last(years)).toEqual({
+          id: currentYear,
+          title: currentYear,
+          hint: 'funding year'
+        });
       });
     });
 
-    describe('.allOrganisationTypes()', function () {
+    describe('.allOrganisationTypes()', function() {
 
-      it('should be defined', function () {
+      it('should be defined', function() {
         expect(advancedSearchService.allOrganisationTypes).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve data from getItems datasource', function () {
+      it('should retrieve data from getItems datasource', function() {
         var items = organisationTypesDatasource.getItems();
         expect(advancedSearchService.allOrganisationTypes()).toEqual(items);
       });
     });
 
-    describe('.allOrganisationRoles()', function () {
+    describe('.allOrganisationRoles()', function() {
 
-      it('should be defined', function () {
+      it('should be defined', function() {
         expect(advancedSearchService.allOrganisationRoles).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve data from getItems datasource', function () {
+      it('should retrieve data from getItems datasource', function() {
         var items = organisationRolesDatasource.getItems();
         expect(advancedSearchService.allOrganisationRoles()).toEqual(items);
       });
     });
 
-    describe('.getRegionsByCountry', function () {
+    describe('.getRegionsByCountry', function() {
 
-      it('should be defined', function () {
+      it('should be defined', function() {
         expect(advancedSearchService.getRegionsByCountry).toEqual(jasmine.any(Function));
       });
 
-      it('should pass parameter to retrieve data', function () {
+      it('should pass parameter to retrieve data', function() {
         expect(advancedSearchService.getRegionsByCountry('PL')).toEqual([{
           id: "1",
           title: "Region 1"
@@ -157,12 +181,12 @@ define(function (require) {
       });
     });
 
-    describe('.getActionsByProgramme()', function () {
-      it('should be defined', function () {
+    describe('.getActionsByProgramme()', function() {
+      it('should be defined', function() {
         expect(advancedSearchService.getActionsByProgramme).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve actions by Programme code', function () {
+      it('should retrieve actions by Programme code', function() {
         expect(advancedSearchService.getActionsByProgramme('31046216')).toEqual([{
           id: "1",
           title: "act 1"
@@ -173,12 +197,12 @@ define(function (require) {
       });
     });
 
-    describe('.getActionsTypeByAction()', function () {
-      it('should be defined', function () {
+    describe('.getActionsTypeByAction()', function() {
+      it('should be defined', function() {
         expect(advancedSearchService.getActionsTypeByAction).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve actions types by Action code', function () {
+      it('should retrieve actions types by Action code', function() {
         expect(advancedSearchService.getActionsTypeByAction('31046216')).toEqual([{
           id: "1",
           title: "act 1"
@@ -189,12 +213,12 @@ define(function (require) {
       });
     });
 
-    describe('.getTopicsForFormerProgrammes()', function () {
-      it('should be defined', function () {
+    describe('.getTopicsForFormerProgrammes()', function() {
+      it('should be defined', function() {
         expect(advancedSearchService.getTopicsForFormerProgrammes).toEqual(jasmine.any(Function));
       });
 
-      it('should retrieve all the topics for the former programmes', function () {
+      it('should retrieve all the topics for the former programmes', function() {
         expect(advancedSearchService.getTopicsForFormerProgrammes()).toEqual([{
           id: "1",
           title: "topic 1"

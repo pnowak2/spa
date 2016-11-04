@@ -180,9 +180,6 @@ require(['jasmine-boot', 'jasmine-jquery', 'jasmine-ajax'], function() {
     // eplus util
     'app/eplus/util/constants.spec',
 
-    // eplus router
-    'app/eplus/routers/landing-page.router.spec',
-
     // eplus project partners page component
     'app/eplus/components/project-partners-page/partners-map/main.component.spec',
 

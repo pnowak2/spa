@@ -1,7 +1,9 @@
 define(function(require) {
   var _ = require('underscore'),
+    searchInputMapper = require('app/eplus/components/landing-page/results/list/searchable-results-list/services/search/searchInput.mapper'),
 
     map = function(input) {
+      var mapped = searchInputMapper.map(input);
       input = input || {};
       input.bounds = input.bounds || {};
       input.bounds.northWest = input.bounds.northWest || {};
@@ -20,6 +22,7 @@ define(function(require) {
         input.clustering = 'boundary';
       }
 
+      input = _.extend(input, mapped);
       return _.omit(input, 'bounds', 'sort');
     };
 

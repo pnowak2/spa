@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
   var $ = require('jquery'),
     AdvancedSearchView = require('./advancedSearch.view'),
     MultiselectComponent = require('app/shared/components/other/multiselect/main.component'),
@@ -6,25 +6,25 @@ define(function (require) {
     constants = require('app/eplus/util/constants'),
     Backbone = require('backbone');
 
-  describe('EPLUS Advanced Search View', function () {
-    describe('type', function () {
-      it('Should be a view', function () {
+  describe('EPLUS Advanced Search View', function() {
+    describe('type', function() {
+      it('Should be a view', function() {
         expect(AdvancedSearchView.prototype).toEqual(jasmine.any(Backbone.View));
       });
     });
 
-    describe('Events', function () {
+    describe('Events', function() {
 
-      describe('dom', function () {
-        it('should have be properly defined', function () {
+      describe('dom', function() {
+        it('should have be properly defined', function() {
           expect(AdvancedSearchView.prototype.events).toEqual({
             'click a.vlr-advanced-search__clear': 'didClickClearFilters'
           });
         });
       });
 
-      describe('custom', function () {
-        beforeEach(function () {
+      describe('custom', function() {
+        beforeEach(function() {
           spyOn(AdvancedSearchView.prototype, 'didCountriesChange');
           spyOn(AdvancedSearchView.prototype, 'didProgrammesChange');
           spyOn(AdvancedSearchView.prototype, 'didActionsChange');
@@ -32,25 +32,25 @@ define(function (require) {
           this.view = new AdvancedSearchView();
         });
 
-        it('should listen to country multiselect change event', function () {
+        it('should listen to country multiselect change event', function() {
           this.view.countries.trigger('multiselect:change');
           expect(this.view.didCountriesChange).toHaveBeenCalled();
         });
 
-        it('should listen to programmes multiselect change event', function () {
+        it('should listen to programmes multiselect change event', function() {
           this.view.programmes.trigger('multiselect:change');
           expect(this.view.didProgrammesChange).toHaveBeenCalled();
         });
 
-        it('should listen to actions multiselect change event', function () {
+        it('should listen to actions multiselect change event', function() {
           this.view.actions.trigger('multiselect:change');
           expect(this.view.didActionsChange).toHaveBeenCalled();
         });
       });
     });
 
-    describe('.render()', function () {
-      beforeEach(function () {
+    describe('.render()', function() {
+      beforeEach(function() {
 
         spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
 
@@ -58,72 +58,72 @@ define(function (require) {
         this.$el = this.view.render().$el;
       });
 
-      it('should return view', function () {
+      it('should return view', function() {
         var view = new AdvancedSearchView();
         expect(view.render()).toBe(view);
       });
 
-      it('should init criteria visibility', function () {
+      it('should init criteria visibility', function() {
         expect(this.view.initCriteriaVisibility).toHaveBeenCalled();
       });
 
-      describe('Project Criterias Section', function () {
-        it('should render Options section', function () {
+      describe('Project Criterias Section', function() {
+        it('should render Options section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-options');
         });
 
-        it('should render Programmes section', function () {
+        it('should render Programmes section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-programmes');
         });
 
-        it('should render Actions section', function () {
+        it('should render Actions section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-actions');
         });
 
-        it('should render ActionsTypes section', function () {
+        it('should render ActionsTypes section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-actions-types');
         });
 
-        it('should render Topics section', function () {
+        it('should render Topics section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-topics');
         });
 
-        it('should render ActivityYears section', function () {
+        it('should render ActivityYears section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-activity-years');
         });
 
-        it('should render FundingYears section', function () {
+        it('should render FundingYears section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-funding-years');
         });
       });
 
-      describe('Prganisation Criterias Section', function () {
-        it('should render Countries section', function () {
+      describe('Prganisation Criterias Section', function() {
+        it('should render Countries section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-countries');
         });
 
-        it('should render Regions section', function () {
+        it('should render Regions section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-regions');
         });
 
-        it('should render OrganisationTypes section', function () {
+        it('should render OrganisationTypes section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-organisation-types');
         });
 
-        it('should render OrganisationRoles section', function () {
+        it('should render OrganisationRoles section', function() {
           expect(this.$el).toContainElement('.vlr-advanced-search__section.vlr-advanced-search__section-organisation-roles');
         });
       });
     });
 
-    describe('API', function () {
-      describe('.initialize()', function () {
-        it('should been defined', function () {
+    describe('API', function() {
+      describe('.initialize()', function() {
+        it('should been defined', function() {
           var view = new AdvancedSearchView();
           expect(view.initialize).toEqual(jasmine.any(Function));
         });
 
-        it('should create options', function () {
+        it('should create options', function() {
           var fakeOptions = {};
           spyOn(AdvancedSearchView.prototype, 'createOptionMultiselect').and.returnValue(fakeOptions);
 
@@ -132,7 +132,7 @@ define(function (require) {
           expect(view.options).toBe(fakeOptions);
         });
 
-        it('should create programmes', function () {
+        it('should create programmes', function() {
           var fakeProgrammes = {};
           spyOn(AdvancedSearchView.prototype, 'createProgrammesMultiselect').and.returnValue(fakeProgrammes);
 
@@ -140,7 +140,7 @@ define(function (require) {
           expect(view.programmes).toBe(fakeProgrammes);
         });
 
-        it('should create actions', function () {
+        it('should create actions', function() {
           var fakeActions = {};
           spyOn(AdvancedSearchView.prototype, 'createActionsMultiselect').and.returnValue(fakeActions);
 
@@ -148,7 +148,7 @@ define(function (require) {
           expect(view.actions).toBe(fakeActions);
         });
 
-        it('should create actionsTypes', function () {
+        it('should create actionsTypes', function() {
           var fakeActionsTypes = {};
           spyOn(AdvancedSearchView.prototype, 'createActionsTypesMultiselect').and.returnValue(fakeActionsTypes);
 
@@ -156,7 +156,7 @@ define(function (require) {
           expect(view.actionsTypes).toBe(fakeActionsTypes);
         });
 
-        it('should create topics', function () {
+        it('should create topics', function() {
           var fakeTopics = {};
           spyOn(AdvancedSearchView.prototype, 'createTopicsMultiselect').and.returnValue(fakeTopics);
 
@@ -164,7 +164,7 @@ define(function (require) {
           expect(view.topics).toBe(fakeTopics);
         });
 
-        it('should create activityYears', function () {
+        it('should create activityYears', function() {
           var fakeActivityYears = {};
           spyOn(AdvancedSearchView.prototype, 'createActivityYearsMultiselect').and.returnValue(fakeActivityYears);
 
@@ -172,7 +172,7 @@ define(function (require) {
           expect(view.activityYears).toBe(fakeActivityYears);
         });
 
-        it('should create fundingYears', function () {
+        it('should create fundingYears', function() {
           var fakeFundingYears = {};
           spyOn(AdvancedSearchView.prototype, 'createFundingYearsMultiselect').and.returnValue(fakeFundingYears);
 
@@ -180,7 +180,7 @@ define(function (require) {
           expect(view.fundingYears).toBe(fakeFundingYears);
         });
 
-        it('should create country', function () {
+        it('should create country', function() {
           var fakeCountry = {};
           spyOn(AdvancedSearchView.prototype, 'createCountryMultiselect').and.returnValue(fakeCountry);
 
@@ -200,7 +200,7 @@ define(function (require) {
           expect(view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(false);
         });
 
-        it('should create regions', function () {
+        it('should create regions', function() {
           var fakeRegions = {};
           spyOn(AdvancedSearchView.prototype, 'createRegionsMultiselect').and.returnValue(fakeRegions);
 
@@ -208,7 +208,7 @@ define(function (require) {
           expect(view.regions).toBe(fakeRegions);
         });
 
-        it('should create organisationsTypes', function () {
+        it('should create organisationsTypes', function() {
           var fakeOrganisationsTypes = {};
           spyOn(AdvancedSearchView.prototype, 'createOrganisationTypesMultiselect').and.returnValue(fakeOrganisationsTypes);
 
@@ -216,7 +216,7 @@ define(function (require) {
           expect(view.organisationTypes).toBe(fakeOrganisationsTypes);
         });
 
-        it('should create organisationsRoles', function () {
+        it('should create organisationsRoles', function() {
           var fakeOrganisationsRoles = {};
           spyOn(AdvancedSearchView.prototype, 'createOrganisationRolesMultiselect').and.returnValue(fakeOrganisationsRoles);
 
@@ -225,14 +225,285 @@ define(function (require) {
         });
       });
 
-      describe('.getCriteria()', function () {
-        it('should been defined', function () {
+      describe('.isDirty()', function() {
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.isDirty).toEqual(jasmine.any(Function));
+        });
+
+        describe('Criteria Visible', function() {
+          beforeEach(function() {
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(true);
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(false);
+            spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(true);
+            spyOn(MultiselectComponent.prototype, 'isDirty').and.returnValue(false);
+
+            this.view = new AdvancedSearchView();
+          });
+
+          it('should return true if options is dirty', function() {
+            this.view.options.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if programmes is dirty', function() {
+            this.view.programmes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if actions is dirty', function() {
+            this.view.actions.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if actionsTypes is dirty', function() {
+            this.view.actionsTypes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if topics is dirty', function() {
+            this.view.topics.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if activity years is dirty', function() {
+            this.view.activityYears.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if funding years is dirty', function() {
+            this.view.fundingYears.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if countries is dirty', function() {
+            this.view.countries.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if regions is dirty', function() {
+            this.view.regions.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if organisation types is dirty', function() {
+            this.view.organisationTypes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if organisation roles is dirty', function() {
+            this.view.organisationRoles.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+
+          it('should return true if match all countries is visible', function() {
+            this.view.isMatchAllCountriesSelected = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(true);
+          });
+        });
+
+        describe('Criteria Invisible', function() {
+          beforeEach(function() {
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(false);
+            spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesSelected').and.returnValue(false);
+            spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(false);
+            spyOn(MultiselectComponent.prototype, 'isDirty').and.returnValue(false);
+
+            this.view = new AdvancedSearchView();
+          });
+
+          it('should return false if options is dirty', function() {
+            this.view.options.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if programmes is dirty', function() {
+            this.view.programmes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if actions is dirty', function() {
+            this.view.actions.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if actionsTypes is dirty', function() {
+            this.view.actionsTypes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if topics is dirty', function() {
+            this.view.topics.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if activity years is dirty', function() {
+            this.view.activityYears.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if funding years is dirty', function() {
+            this.view.fundingYears.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if countries is dirty', function() {
+            this.view.countries.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if regions is dirty', function() {
+            this.view.regions.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if organisation types is dirty', function() {
+            this.view.organisationTypes.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if organisation roles is dirty', function() {
+            this.view.organisationRoles.isDirty = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+
+          it('should return false if match all countries is invisible', function() {
+            this.view.isMatchAllCountriesSelected = jasmine.createSpy().and.returnValue(true);
+            expect(this.view.isDirty()).toBe(false);
+          });
+        });
+      });
+
+      describe('.update()', function() {
+        beforeEach(function() {
+          this.view = new AdvancedSearchView();
+
+          spyOn(this.view.options, 'selectItems');
+          spyOn(this.view.programmes, 'selectItems');
+          spyOn(this.view.actionsTypes, 'selectItems');
+          spyOn(this.view.actions, 'selectItems');
+          spyOn(this.view.topics, 'selectItems');
+          spyOn(this.view.activityYears, 'selectItems');
+          spyOn(this.view.fundingYears, 'selectItems');
+          spyOn(this.view.countries, 'selectItems');
+          spyOn(this.view.regions, 'selectItems');
+          spyOn(this.view.organisationTypes, 'selectItems');
+          spyOn(this.view.organisationRoles, 'selectItems');
+          spyOn(this.view, 'toggleMatchAllCountriesSelection');
+        });
+
+        it('should be defined', function() {
+          expect(AdvancedSearchView.prototype.update).toEqual(jasmine.any(Function));
+        });
+
+        it('should update options', function() {
+          this.view.update({
+            options: ['a', 'b']
+          });
+
+          expect(this.view.options.selectItems).toHaveBeenCalledWith(['a', 'b']);
+        });
+
+        it('should update programmes', function() {
+          this.view.update({
+            programmes: ['CE']
+          });
+
+          expect(this.view.programmes.selectItems).toHaveBeenCalledWith(['CE']);
+        });
+
+
+
+        it('should update actions', function() {
+          this.view.update({
+            actions: ['Market Access Support']
+          });
+
+          expect(this.view.actions.selectItems).toHaveBeenCalledWith(['Market Access Support']);
+        });
+
+        it('should update actionsTypes', function() {
+          this.view.update({
+            actionsTypes: ['1']
+          });
+
+          expect(this.view.actionsTypes.selectItems).toHaveBeenCalledWith(['1']);
+        });
+
+        it('should update topics', function() {
+          this.view.update({
+            topics: ['top1', 'top2']
+          });
+
+          expect(this.view.topics.selectItems).toHaveBeenCalledWith(['top1', 'top2']);
+        });
+
+        it('should update activity years', function() {
+          this.view.update({
+            activityYears: ['2012', '2022']
+          });
+
+          expect(this.view.activityYears.selectItems).toHaveBeenCalledWith(['2012', '2022']);
+        });
+
+        it('should update funding years', function() {
+          this.view.update({
+            fundingYears: ['2014', '2024']
+          });
+
+          expect(this.view.fundingYears.selectItems).toHaveBeenCalledWith(['2014', '2024']);
+        });
+
+        it('should update match all countries', function() {
+          this.view.update({
+            matchAllCountries: true
+          });
+
+          expect(this.view.toggleMatchAllCountriesSelection).toHaveBeenCalledWith(true);
+        });
+
+        it('should update countries', function() {
+          this.view.update({
+            countries: ['PL', 'BE']
+          });
+
+          expect(this.view.countries.selectItems).toHaveBeenCalledWith(['PL', 'BE']);
+        });
+
+        it('should update regions', function() {
+          this.view.update({
+            regions: ['reg1', 'reg2']
+          });
+
+          expect(this.view.regions.selectItems).toHaveBeenCalledWith(['reg1', 'reg2']);
+        });
+
+        it('should update organisation types', function() {
+          this.view.update({
+            organisationTypes: ['org1', 'org2']
+          });
+
+          expect(this.view.organisationTypes.selectItems).toHaveBeenCalledWith(['org1', 'org2']);
+        });
+
+        it('should update organisation roles', function() {
+          this.view.update({
+            organisationRoles: ['ben', 'off']
+          });
+
+          expect(this.view.organisationRoles.selectItems).toHaveBeenCalledWith(['ben', 'off']);
+        });
+      });
+
+
+
+      describe('.getCriteria()', function() {
+        it('should been defined', function() {
           var view = new AdvancedSearchView();
           expect(view.getCriteria).toEqual(jasmine.any(Function));
         });
 
-        describe('should return values if the multiselect is visible and values are set', function () {
-          beforeEach(function () {
+        describe('should return values if the multiselect is visible and values are set', function() {
+          beforeEach(function() {
             spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(true);
             spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(true);
 
@@ -307,49 +578,49 @@ define(function (require) {
             }]);
           });
 
-          it('should return options', function () {
+          it('should return options', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               options: ['opt1', 'opt2']
             }));
           });
 
-          it('should return programmes', function () {
+          it('should return programmes', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               programmes: ['prog1', 'prog2']
             }));
           });
 
-          it('should return actions', function () {
+          it('should return actions', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               actions: ['act1', 'act2']
             }));
           });
 
-          it('should return actionsTypes', function () {
+          it('should return actionsTypes', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               actionsTypes: ['actType1', 'actType2']
             }));
           });
 
-          it('should return topics', function () {
+          it('should return topics', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               topics: ['topic1', 'topic2']
             }));
           });
 
-          it('should return activityYears', function () {
+          it('should return activityYears', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               activityYears: ['actYear1', 'actYear2']
             }));
           });
 
-          it('should return fundingYears', function () {
+          it('should return fundingYears', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               fundingYears: ['funYear1', 'funYear2']
             }));
           });
 
-          it('should return countries', function () {
+          it('should return countries', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               countries: ['country1', 'country2']
             }));
@@ -361,27 +632,27 @@ define(function (require) {
             }));
           });
 
-          it('should return regions', function () {
+          it('should return regions', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               regions: ['region1', 'region2']
             }));
           });
 
-          it('should return organisationTypes', function () {
+          it('should return organisationTypes', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               organisationTypes: ['ot1', 'ot2']
             }));
           });
 
-          it('should return organisationRoles', function () {
+          it('should return organisationRoles', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               organisationRoles: ['or1', 'or2']
             }));
           });
         });
 
-        describe('should return empty values if the multiselect is not visible', function () {
-          beforeEach(function () {
+        describe('should return empty values if the multiselect is not visible', function() {
+          beforeEach(function() {
             spyOn(MultiselectComponent.prototype, 'isVisible').and.returnValue(false);
             spyOn(AdvancedSearchView.prototype, 'isMatchAllCountriesVisible').and.returnValue(false);
             this.view = new AdvancedSearchView();
@@ -389,49 +660,49 @@ define(function (require) {
             spyOn(this.view, 'isMatchAllCountriesSelected').and.returnValue(true);
           });
 
-          it('should return empty options', function () {
+          it('should return empty options', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               options: []
             }));
           });
 
-          it('should return empty programmes', function () {
+          it('should return empty programmes', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               programmes: []
             }));
           });
 
-          it('should return empty actions', function () {
+          it('should return empty actions', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               actions: []
             }));
           });
 
-          it('should return empty actionsTypes', function () {
+          it('should return empty actionsTypes', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               actionsTypes: []
             }));
           });
 
-          it('should return empty topics', function () {
+          it('should return empty topics', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               topics: []
             }));
           });
 
-          it('should return empty activityYears', function () {
+          it('should return empty activityYears', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               activityYears: []
             }));
           });
 
-          it('should return empty fundingYears', function () {
+          it('should return empty fundingYears', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               fundingYears: []
             }));
           });
 
-          it('should return empty countries', function () {
+          it('should return empty countries', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               countries: []
             }));
@@ -443,19 +714,19 @@ define(function (require) {
             }));
           });
 
-          it('should return empty regions', function () {
+          it('should return empty regions', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               regions: []
             }));
           });
 
-          it('should return empty organisationTypes', function () {
+          it('should return empty organisationTypes', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               organisationTypes: []
             }));
           });
 
-          it('should return empty organisationRoles', function () {
+          it('should return empty organisationRoles', function() {
             expect(this.view.getCriteria()).toEqual(jasmine.objectContaining({
               organisationRoles: []
             }));
@@ -464,74 +735,74 @@ define(function (require) {
 
       });
 
-      describe('.createOptionMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createOptionMultiselect()', function() {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
 
           this.options = this.view.createOptionMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createOptionMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createOptionMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with all options', function () {
+        it('should initialize multiple select with all options', function() {
           expect(this.options.initialize).toHaveBeenCalledWith(advancedSearchService.allOptions(), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.options.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Options'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.options.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
       });
 
-      describe('.createProgrammesMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createProgrammesMultiselect()', function() {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
 
           this.programmes = this.view.createProgrammesMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createProgrammesMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createProgrammesMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with all programmes', function () {
+        it('should initialize multiple select with all programmes', function() {
           expect(this.programmes.initialize).toHaveBeenCalledWith(advancedSearchService.allProgrammes(), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.programmes.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Programmes'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.programmes.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
       });
 
-      describe('.createActionsMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createActionsMultiselect()', function() {
+        beforeEach(function() {
 
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
@@ -539,177 +810,177 @@ define(function (require) {
           this.actions = this.view.createActionsMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createActionsMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createActionsMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with empty array', function () {
+        it('should initialize multiple select with empty array', function() {
           expect(this.actions.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.actions.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Actions'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.actions.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
 
-        it('should initialize multiple select with correct maximumSelectionLength property', function () {
+        it('should initialize multiple select with correct maximumSelectionLength property', function() {
           expect(this.actions.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             maximumSelectionLength: 1
           }));
         });
       });
 
-      describe('.createActionsTypesMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createActionsTypesMultiselect()', function() {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
 
           this.actionsTypes = this.view.createActionsTypesMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createActionsTypesMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createActionsTypesMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with empty array', function () {
+        it('should initialize multiple select with empty array', function() {
           expect(this.actionsTypes.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.actionsTypes.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Actions Types'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.actionsTypes.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
 
-        it('should initialize multiple select with correct maximumSelectionLength property', function () {
+        it('should initialize multiple select with correct maximumSelectionLength property', function() {
           expect(this.actionsTypes.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             maximumSelectionLength: 1
           }));
         });
       });
 
-      describe('.createTopicsMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createTopicsMultiselect()', function() {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
 
           this.topics = this.view.createTopicsMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createTopicsMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createTopicsMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with empty array', function () {
+        it('should initialize multiple select with empty array', function() {
           expect(this.topics.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.topics.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Topics'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.topics.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
       });
 
-      describe('.createActivityYearsMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createActivityYearsMultiselect()', function() {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
 
           this.activityYears = this.view.createActivityYearsMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createActivityYearsMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createActivityYearsMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with all activityYears', function () {
+        it('should initialize multiple select with all activityYears', function() {
           expect(this.activityYears.initialize).toHaveBeenCalledWith(advancedSearchService.allActivityYears(), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.activityYears.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Activity Years'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.activityYears.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
       });
 
-      describe('.createFundingYearsMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createFundingYearsMultiselect()', function() {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
 
           this.fundingYears = this.view.createFundingYearsMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createFundingYearsMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createFundingYearsMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with all fundingYears', function () {
+        it('should initialize multiple select with all fundingYears', function() {
           expect(this.fundingYears.initialize).toHaveBeenCalledWith(advancedSearchService.allFundingYears(), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.fundingYears.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Funding Years'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.fundingYears.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
       });
 
-      describe('.createCountryMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createCountryMultiselect()', function() {
+        beforeEach(function() {
 
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
@@ -717,33 +988,33 @@ define(function (require) {
           this.country = this.view.createCountryMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createCountryMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createCountryMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with all country', function () {
+        it('should initialize multiple select with all country', function() {
           expect(this.country.initialize).toHaveBeenCalledWith(advancedSearchService.allCountries(), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.country.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Countries'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.country.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
       });
 
-      describe('.createRegionsMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createRegionsMultiselect()', function() {
+        beforeEach(function() {
 
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
@@ -751,103 +1022,103 @@ define(function (require) {
           this.regions = this.view.createRegionsMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createRegionsMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createRegionsMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with empty array', function () {
+        it('should initialize multiple select with empty array', function() {
           expect(this.regions.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.regions.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Regions'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.regions.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
       });
 
-      describe('.createOrganisationTypesMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createOrganisationTypesMultiselect()', function() {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
 
           this.organisationTypes = this.view.createOrganisationTypesMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createOrganisationTypesMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createOrganisationTypesMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with all organisationTypes', function () {
+        it('should initialize multiple select with all organisationTypes', function() {
           expect(this.organisationTypes.initialize).toHaveBeenCalledWith(advancedSearchService.allOrganisationTypes(), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.organisationTypes.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Organisation Types'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.organisationTypes.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
       });
 
-      describe('.createOrganisationRolesMultiselect()', function () {
-        beforeEach(function () {
+      describe('.createOrganisationRolesMultiselect()', function() {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(MultiselectComponent.prototype, 'initialize');
 
           this.organisationRoles = this.view.createOrganisationRolesMultiselect();
         });
 
-        it('should been defined', function () {
+        it('should been defined', function() {
           expect(this.view.createOrganisationRolesMultiselect).toEqual(jasmine.any(Function));
         });
 
-        it('should return a MultiselectComponent', function () {
+        it('should return a MultiselectComponent', function() {
           expect(this.view.createOrganisationRolesMultiselect()).toEqual(jasmine.any(MultiselectComponent));
         });
 
-        it('should initialize multiple select with all organisationRoles', function () {
+        it('should initialize multiple select with all organisationRoles', function() {
           expect(this.organisationRoles.initialize).toHaveBeenCalledWith(advancedSearchService.allOrganisationRoles(), jasmine.any(Object));
         });
 
-        it('should initialize multiple select with correct placeholder', function () {
+        it('should initialize multiple select with correct placeholder', function() {
           expect(this.organisationRoles.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             placeholder: 'All Organisation Roles'
           }));
         });
 
-        it('should initialize multiple select with correct multiple property', function () {
+        it('should initialize multiple select with correct multiple property', function() {
           expect(this.organisationRoles.initialize).toHaveBeenCalledWith(jasmine.any(Array), jasmine.objectContaining({
             multiple: true
           }));
         });
       });
 
-      describe('.calculateCriteriaVisibility()', function () {
-        it('should be defined', function () {
+      describe('.calculateCriteriaVisibility()', function() {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.calculateCriteriaVisibility).toEqual(jasmine.any(Function));
         });
 
-        it('should show actions when only programme ERASMUS_PLUS is selected', function () {
+        it('should show actions when only programme ERASMUS_PLUS is selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view, 'isOnlyErasmusPlusProgrammeSelected').and.returnValue(true);
           spyOn(view.actions, 'toggle');
@@ -856,7 +1127,7 @@ define(function (require) {
           expect(view.actions.toggle).toHaveBeenCalledWith(true);
         });
 
-        it('should hide actions when programme ERASMUS_PLUS is not selected, or is selected together with other programmes', function () {
+        it('should hide actions when programme ERASMUS_PLUS is not selected, or is selected together with other programmes', function() {
           var view = new AdvancedSearchView();
           spyOn(view, 'isOnlyErasmusPlusProgrammeSelected').and.returnValue(false);
           spyOn(view.actions, 'toggle');
@@ -865,7 +1136,7 @@ define(function (require) {
           expect(view.actions.toggle).toHaveBeenCalledWith(false);
         });
 
-        it('should show actions types if actions has one selection', function () {
+        it('should show actions types if actions has one selection', function() {
           var view = new AdvancedSearchView();
           spyOn(view.actions, 'hasOneSelection').and.returnValue(true);
           spyOn(view.actionsTypes, 'toggle');
@@ -874,7 +1145,7 @@ define(function (require) {
           expect(view.actionsTypes.toggle).toHaveBeenCalledWith(true);
         });
 
-        it('should hide actions types if actions has one selection', function () {
+        it('should hide actions types if actions has one selection', function() {
           var view = new AdvancedSearchView();
           spyOn(view.actions, 'hasOneSelection').and.returnValue(false);
           spyOn(view.actionsTypes, 'toggle');
@@ -883,7 +1154,8 @@ define(function (require) {
           expect(view.actionsTypes.toggle).toHaveBeenCalledWith(false);
         });
 
-        it('should show topics when at least one programme is selected but it is not ERASMUS_PLUS', function () {
+
+        it('should show topics when at least one programme is selected but it is not ERASMUS_PLUS', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasSelection').and.returnValue(true);
           spyOn(view, 'isErasmusPlusProgrammeSelected').and.returnValue(false);
@@ -893,7 +1165,7 @@ define(function (require) {
           expect(view.topics.toggle).toHaveBeenCalledWith(true);
         });
 
-        it('should hide topics when no programme is selected', function () {
+        it('should hide topics when no programme is selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasSelection').and.returnValue(false);
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
@@ -904,7 +1176,7 @@ define(function (require) {
           expect(view.topics.toggle).toHaveBeenCalledWith(false);
         });
 
-        it('should hide topics when programme ERASMUS_PLUS is selected (either alone, or together with other programmes)', function () {
+        it('should hide topics when programme ERASMUS_PLUS is selected (either alone, or together with other programmes)', function() {
           var view = new AdvancedSearchView();
           spyOn(view, 'isErasmusPlusProgrammeSelected').and.returnValue(true);
           spyOn(view.topics, 'toggle');
@@ -913,7 +1185,7 @@ define(function (require) {
           expect(view.topics.toggle).toHaveBeenCalledWith(false);
         });
 
-        it('should show organisationTypes when only programme ERASMUS_PLUS is selected', function () {
+        it('should show organisationTypes when only programme ERASMUS_PLUS is selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view, 'isOnlyErasmusPlusProgrammeSelected').and.returnValue(true);
           spyOn(view.organisationTypes, 'toggle');
@@ -922,7 +1194,7 @@ define(function (require) {
           expect(view.organisationTypes.toggle).toHaveBeenCalledWith(true);
         });
 
-        it('should hide organisationTypes when programme ERASMUS_PLUS is not selected, or is selected together with other programmes', function () {
+        it('should hide organisationTypes when programme ERASMUS_PLUS is not selected, or is selected together with other programmes', function() {
           var view = new AdvancedSearchView();
           spyOn(view, 'isOnlyErasmusPlusProgrammeSelected').and.returnValue(false);
           spyOn(view.organisationTypes, 'toggle');
@@ -932,7 +1204,7 @@ define(function (require) {
 
         });
 
-        it('should show regions if countries has one selection', function () {
+        it('should show regions if countries has one selection', function() {
           var view = new AdvancedSearchView();
           spyOn(view.countries, 'hasOneSelection').and.returnValue(true);
           spyOn(view.regions, 'toggle');
@@ -941,7 +1213,7 @@ define(function (require) {
           expect(view.regions.toggle).toHaveBeenCalledWith(true);
         });
 
-        it('should hide regions if no countries has been selected', function () {
+        it('should hide regions if no countries has been selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view.countries, 'hasSelection').and.returnValue(false);
           spyOn(view.regions, 'toggle');
@@ -950,7 +1222,7 @@ define(function (require) {
           expect(view.regions.toggle).toHaveBeenCalledWith(false);
         });
 
-        it('should show match all countries if more than one country is selected', function () {
+        it('should show match all countries if more than one country is selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view.countries, 'hasMultipleSelections').and.returnValue(true);
 
@@ -962,7 +1234,7 @@ define(function (require) {
           expect(view.getMatchAllCountriesContainerElement().toggle).toHaveBeenCalledWith(true);
         });
 
-        it('should hide match all countries if one country is selected', function () {
+        it('should hide match all countries if one country is selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view.countries, 'hasMultipleSelections').and.returnValue(false);
 
@@ -974,7 +1246,7 @@ define(function (require) {
           expect(view.getMatchAllCountriesContainerElement().toggle).toHaveBeenCalledWith(false);
         });
 
-        it('should hide match all countries if no country is selected', function () {
+        it('should hide match all countries if no country is selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view.countries, 'hasMultipleSelections').and.returnValue(false);
 
@@ -987,12 +1259,12 @@ define(function (require) {
         });
       });
 
-      describe('.isOnlyErasmusPlusProgrammeSelected()', function () {
-        it('should be defined', function () {
+      describe('.isOnlyErasmusPlusProgrammeSelected()', function() {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.isOnlyErasmusPlusProgrammeSelected).toEqual(jasmine.any(Function));
         });
 
-        it('should return true if ERASMUS_PLUS programme is selected', function () {
+        it('should return true if ERASMUS_PLUS programme is selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
           spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
@@ -1002,7 +1274,7 @@ define(function (require) {
           expect(view.isOnlyErasmusPlusProgrammeSelected()).toBe(true);
         });
 
-        it('should return false if ERASMUS_PLUS programme is NOT selected', function () {
+        it('should return false if ERASMUS_PLUS programme is NOT selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
           spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
@@ -1012,7 +1284,7 @@ define(function (require) {
           expect(view.isOnlyErasmusPlusProgrammeSelected()).toBe(false);
         });
 
-        it('should return false if more than one selection of programmes is done', function () {
+        it('should return false if more than one selection of programmes is done', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
 
@@ -1020,12 +1292,12 @@ define(function (require) {
         });
       });
 
-      describe('.isErasmusPlusProgrammeSelected()', function () {
-        it('should be defined', function () {
+      describe('.isErasmusPlusProgrammeSelected()', function() {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.isErasmusPlusProgrammeSelected).toEqual(jasmine.any(Function));
         });
 
-        it('should return false if no programme is selected', function () {
+        it('should return false if no programme is selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasSelection').and.returnValue(false);
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
@@ -1034,7 +1306,7 @@ define(function (require) {
           expect(view.isErasmusPlusProgrammeSelected()).toBe(false);
         });
 
-        it('should return true if only one programme is selected, and that is ERASMUS_PLUS', function () {
+        it('should return true if only one programme is selected, and that is ERASMUS_PLUS', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
           spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
@@ -1047,7 +1319,7 @@ define(function (require) {
           expect(view.isErasmusPlusProgrammeSelected()).toBe(true);
         });
 
-        it('should return false if ERASMUS_PLUS programme is NOT selected', function () {
+        it('should return false if ERASMUS_PLUS programme is NOT selected', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(true);
           spyOn(view.programmes, 'firstSelectedItem').and.returnValue({
@@ -1060,7 +1332,7 @@ define(function (require) {
           expect(view.isErasmusPlusProgrammeSelected()).toBe(false);
         });
 
-        it('should return false if more than one selection of programmes is done and none of them is ERASMUS_PLUS', function () {
+        it('should return false if more than one selection of programmes is done and none of them is ERASMUS_PLUS', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
           spyOn(view.programmes, 'selectedItems').and.returnValue([{
@@ -1072,7 +1344,7 @@ define(function (require) {
           expect(view.isErasmusPlusProgrammeSelected()).toBe(false);
         });
 
-        it('should return true if more than one selection of programmes is done and one of them is ERASMUS_PLUS', function () {
+        it('should return true if more than one selection of programmes is done and one of them is ERASMUS_PLUS', function() {
           var view = new AdvancedSearchView();
           spyOn(view.programmes, 'hasOneSelection').and.returnValue(false);
           spyOn(view.programmes, 'selectedItems').and.returnValue([{
@@ -1087,8 +1359,8 @@ define(function (require) {
         });
       });
 
-      describe('.didClickClearFilters()', function () {
-        beforeEach(function () {
+      describe('.didClickClearFilters()', function() {
+        beforeEach(function() {
           spyOn(AdvancedSearchView.prototype, 'initCriteriaVisibility');
 
           this.view = new AdvancedSearchView();
@@ -1112,47 +1384,47 @@ define(function (require) {
           this.view.didClickClearFilters(this.fakeEvent);
         });
 
-        it('should be defined', function () {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didClickClearFilters).toEqual(jasmine.any(Function));
         });
 
-        it('should init criteria visibility', function () {
+        it('should init criteria visibility', function() {
           expect(this.view.initCriteriaVisibility).toHaveBeenCalled();
         });
 
-        it('should prevent default action', function () {
+        it('should prevent default action', function() {
           expect(this.fakeEvent.preventDefault).toHaveBeenCalled();
         });
 
-        it('should clear options component', function () {
+        it('should clear options component', function() {
           expect(this.view.options.update).toHaveBeenCalledWith(advancedSearchService.allOptions());
         });
 
-        it('should clear programmes component', function () {
+        it('should clear programmes component', function() {
           expect(this.view.programmes.update).toHaveBeenCalledWith(advancedSearchService.allProgrammes());
         });
 
-        it('should clear actions component', function () {
+        it('should clear actions component', function() {
           expect(this.view.actions.update).toHaveBeenCalledWith([]);
         });
 
-        it('should clear actionsTypes component', function () {
+        it('should clear actionsTypes component', function() {
           expect(this.view.actionsTypes.update).toHaveBeenCalledWith([]);
         });
 
-        it('should clear topics component', function () {
+        it('should clear topics component', function() {
           expect(this.view.topics.update).toHaveBeenCalledWith(advancedSearchService.getTopicsForFormerProgrammes());
         });
 
-        it('should clear activity years component', function () {
+        it('should clear activity years component', function() {
           expect(this.view.activityYears.update).toHaveBeenCalledWith(advancedSearchService.allActivityYears());
         });
 
-        it('should clear funding years component', function () {
+        it('should clear funding years component', function() {
           expect(this.view.fundingYears.update).toHaveBeenCalledWith(advancedSearchService.allFundingYears());
         });
 
-        it('should clear countries component', function () {
+        it('should clear countries component', function() {
           expect(this.view.countries.update).toHaveBeenCalledWith(advancedSearchService.allCountries());
         });
 
@@ -1164,21 +1436,21 @@ define(function (require) {
           expect(this.view.toggleMatchAllCountriesVisibility).toHaveBeenCalledWith(false);
         });
 
-        it('should clear regions component', function () {
+        it('should clear regions component', function() {
           expect(this.view.regions.update).toHaveBeenCalledWith([]);
         });
 
-        it('should clear organisation types component', function () {
+        it('should clear organisation types component', function() {
           expect(this.view.organisationTypes.update).toHaveBeenCalledWith(advancedSearchService.allOrganisationTypes());
         });
 
-        it('should clear organisation roles component', function () {
+        it('should clear organisation roles component', function() {
           expect(this.view.organisationRoles.update).toHaveBeenCalledWith(advancedSearchService.allOrganisationRoles());
         });
       });
 
-      describe('.initCriteriaVisibility()', function () {
-        beforeEach(function () {
+      describe('.initCriteriaVisibility()', function() {
+        beforeEach(function() {
           this.view = new AdvancedSearchView();
           spyOn(this.view.actions, 'hide');
           spyOn(this.view.actionsTypes, 'hide');
@@ -1193,31 +1465,31 @@ define(function (require) {
           this.view.initCriteriaVisibility();
         });
 
-        it('should be defined', function () {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.initCriteriaVisibility).toEqual(jasmine.any(Function));
         });
 
-        it('should hide actions', function () {
+        it('should hide actions', function() {
           expect(this.view.actions.hide).toHaveBeenCalled();
         });
 
-        it('should hide actionsTypes', function () {
+        it('should hide actionsTypes', function() {
           expect(this.view.actionsTypes.hide).toHaveBeenCalled();
         });
 
-        it('should hide topics', function () {
+        it('should hide topics', function() {
           expect(this.view.topics.hide).toHaveBeenCalled();
         });
 
-        it('should hide organisationTypes', function () {
+        it('should hide organisationTypes', function() {
           expect(this.view.organisationTypes.hide).toHaveBeenCalled();
         });
 
-        it('should hide regions', function () {
+        it('should hide regions', function() {
           expect(this.view.regions.hide).toHaveBeenCalled();
         });
 
-        it('should hide matchAllCountries', function () {
+        it('should hide matchAllCountries', function() {
           expect(this.view.getMatchAllCountriesContainerElement().hide).toHaveBeenCalled();
         });
       });
@@ -1280,16 +1552,16 @@ define(function (require) {
         });
       });
 
-      describe('.getMatchAllCountriesContainerElement', function () {
-        it('should be defined', function () {
+      describe('.getMatchAllCountriesContainerElement', function() {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.getMatchAllCountriesContainerElement).toEqual(jasmine.any(Function));
         });
 
-        it('should return match all countries container element', function () {
+        it('should return match all countries container element', function() {
           var view = new AdvancedSearchView(),
             fakeElement = {};
 
-          spyOn($.prototype, 'find').and.callFake(function (selector) {
+          spyOn($.prototype, 'find').and.callFake(function(selector) {
             if (selector === '.vlr-advanced-search__match-all-countries-container') {
               return fakeElement;
             }
@@ -1299,16 +1571,16 @@ define(function (require) {
         });
       });
 
-      describe('.getMatchAllCountriesElement', function () {
-        it('should be defined', function () {
+      describe('.getMatchAllCountriesElement', function() {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.getMatchAllCountriesElement).toEqual(jasmine.any(Function));
         });
 
-        it('should return match all countries element', function () {
+        it('should return match all countries element', function() {
           var view = new AdvancedSearchView(),
             fakeElement = {};
 
-          spyOn($.prototype, 'find').and.callFake(function (selector) {
+          spyOn($.prototype, 'find').and.callFake(function(selector) {
             if (selector === '.vlr-advanced-search__match-all-countries-input') {
               return fakeElement;
             }
@@ -1352,14 +1624,14 @@ define(function (require) {
         });
       });
 
-      describe('.didCountryChange()', function () {
-        it('should be defined', function () {
+      describe('.didCountryChange()', function() {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didCountriesChange).toEqual(jasmine.any(Function));
         });
 
-        describe('Handling Regions', function () {
-          describe('having only one country selected', function () {
-            beforeEach(function () {
+        describe('Handling Regions', function() {
+          describe('having only one country selected', function() {
+            beforeEach(function() {
               var self = this;
               this.fakeRegions = [{}, {}];
               this.view = new AdvancedSearchView();
@@ -1371,7 +1643,7 @@ define(function (require) {
                 id: 'PL'
               });
 
-              spyOn(advancedSearchService, 'getRegionsByCountry').and.callFake(function (countryCode) {
+              spyOn(advancedSearchService, 'getRegionsByCountry').and.callFake(function(countryCode) {
                 if (countryCode === 'PL') {
                   return self.fakeRegions;
                 }
@@ -1382,22 +1654,22 @@ define(function (require) {
               this.view.didCountriesChange();
             });
 
-            it('should call advancedSearchService to get regions according to country selection', function () {
+            it('should call advancedSearchService to get regions according to country selection', function() {
               expect(advancedSearchService.getRegionsByCountry).toHaveBeenCalledWith('PL');
             });
 
-            it('should update regions dropdown according to country selection', function () {
+            it('should update regions dropdown according to country selection', function() {
               expect(this.view.regions.update).toHaveBeenCalledWith(this.fakeRegions);
             });
 
-            it('should calculate criteria visibility', function () {
+            it('should calculate criteria visibility', function() {
 
               expect(this.view.calculateCriteriaVisibility).toHaveBeenCalled();
             });
           });
 
-          describe('having more than one country selected', function () {
-            beforeEach(function () {
+          describe('having more than one country selected', function() {
+            beforeEach(function() {
               var self = this;
               this.fakeRegions = [{}, {}];
               this.view = new AdvancedSearchView();
@@ -1408,7 +1680,7 @@ define(function (require) {
                 id: 'PL'
               });
 
-              spyOn(advancedSearchService, 'getRegionsByCountry').and.callFake(function (countryCode) {
+              spyOn(advancedSearchService, 'getRegionsByCountry').and.callFake(function(countryCode) {
                 if (countryCode === 'PL') {
                   return self.fakeRegions;
                 }
@@ -1418,7 +1690,7 @@ define(function (require) {
 
               this.view.didCountriesChange();
             });
-            it('should clear regions if more than one country is selected', function () {
+            it('should clear regions if more than one country is selected', function() {
               expect(this.view.regions.clear).toHaveBeenCalled();
             });
           });
@@ -1426,12 +1698,12 @@ define(function (require) {
 
       });
 
-      describe('.didProgrammesChange()', function () {
-        it('should be defined', function () {
+      describe('.didProgrammesChange()', function() {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didProgrammesChange).toEqual(jasmine.any(Function));
         });
 
-        it('should calculate criteria visibility', function () {
+        it('should calculate criteria visibility', function() {
           var view = new AdvancedSearchView();
           spyOn(view, 'calculateCriteriaVisibility');
 
@@ -1440,9 +1712,9 @@ define(function (require) {
           expect(view.calculateCriteriaVisibility).toHaveBeenCalled();
         });
 
-        describe('Handling Actions', function () {
-          describe('having only one programme selected', function () {
-            beforeEach(function () {
+        describe('Handling Actions', function() {
+          describe('having only one programme selected', function() {
+            beforeEach(function() {
               var self = this;
               this.fakeActions = [{}, {}];
               this.view = new AdvancedSearchView();
@@ -1453,7 +1725,7 @@ define(function (require) {
                 id: 'programme1'
               });
 
-              spyOn(advancedSearchService, 'getActionsByProgramme').and.callFake(function (programmeCode) {
+              spyOn(advancedSearchService, 'getActionsByProgramme').and.callFake(function(programmeCode) {
                 if (programmeCode === 'programme1') {
                   return self.fakeActions;
                 }
@@ -1464,17 +1736,17 @@ define(function (require) {
               this.view.didProgrammesChange();
             });
 
-            it('should call advancedSearchService to get actions according to programme selection', function () {
+            it('should call advancedSearchService to get actions according to programme selection', function() {
               expect(advancedSearchService.getActionsByProgramme).toHaveBeenCalledWith('programme1');
             });
 
-            it('should update actions dropdown according to programme selection', function () {
+            it('should update actions dropdown according to programme selection', function() {
               expect(this.view.actions.update).toHaveBeenCalledWith(this.fakeActions);
             });
           });
 
-          describe('having more than one programme selected', function () {
-            beforeEach(function () {
+          describe('having more than one programme selected', function() {
+            beforeEach(function() {
               var self = this;
               this.fakeActions = [{}, {}];
               this.view = new AdvancedSearchView();
@@ -1488,23 +1760,23 @@ define(function (require) {
               this.view.didProgrammesChange();
             });
 
-            it('should clear actions if more than one programme is selected', function () {
+            it('should clear actions if more than one programme is selected', function() {
               expect(this.view.actions.clear).toHaveBeenCalled();
             });
 
-            it('should clear actionsTypes if more than one programme is selected', function () {
+            it('should clear actionsTypes if more than one programme is selected', function() {
               expect(this.view.actionsTypes.clear).toHaveBeenCalled();
             });
           });
         });
       });
 
-      describe('.didActionsChange()', function () {
-        it('should be defined', function () {
+      describe('.didActionsChange()', function() {
+        it('should be defined', function() {
           expect(AdvancedSearchView.prototype.didActionsChange).toEqual(jasmine.any(Function));
         });
 
-        it('should calculate criteria visibility', function () {
+        it('should calculate criteria visibility', function() {
           var view = new AdvancedSearchView();
           spyOn(view, 'calculateCriteriaVisibility');
 
@@ -1513,9 +1785,9 @@ define(function (require) {
           expect(view.calculateCriteriaVisibility).toHaveBeenCalled();
         });
 
-        describe('Handling ActionsTypes', function () {
-          describe('having only one action selected', function () {
-            beforeEach(function () {
+        describe('Handling ActionsTypes', function() {
+          describe('having only one action selected', function() {
+            beforeEach(function() {
               var self = this;
               this.fakeActions = [{}, {}];
               this.view = new AdvancedSearchView();
@@ -1526,7 +1798,7 @@ define(function (require) {
                 id: 'PL'
               });
 
-              spyOn(advancedSearchService, 'getActionsTypeByAction').and.callFake(function (actionCode) {
+              spyOn(advancedSearchService, 'getActionsTypeByAction').and.callFake(function(actionCode) {
                 if (actionCode === 'PL') {
                   return self.fakeActions;
                 }
@@ -1537,17 +1809,17 @@ define(function (require) {
               this.view.didActionsChange();
             });
 
-            it('should call advancedSearchService to get actionsTypes according to action selection', function () {
+            it('should call advancedSearchService to get actionsTypes according to action selection', function() {
               expect(advancedSearchService.getActionsTypeByAction).toHaveBeenCalledWith('PL');
             });
 
-            it('should update actionsTypes dropdown according to actions selection', function () {
+            it('should update actionsTypes dropdown according to actions selection', function() {
               expect(this.view.actionsTypes.update).toHaveBeenCalledWith(this.fakeActions);
             });
           });
 
-          describe('having more than one action selected', function () {
-            beforeEach(function () {
+          describe('having more than one action selected', function() {
+            beforeEach(function() {
               var self = this;
               this.fakeActions = [{}, {}];
               this.view = new AdvancedSearchView();
@@ -1558,7 +1830,7 @@ define(function (require) {
                 id: 'PL'
               });
 
-              spyOn(advancedSearchService, 'getActionsTypeByAction').and.callFake(function (actionCode) {
+              spyOn(advancedSearchService, 'getActionsTypeByAction').and.callFake(function(actionCode) {
                 if (actionCode === 'PL') {
                   return self.fakeActions;
                 }
@@ -1569,7 +1841,7 @@ define(function (require) {
               this.view.didActionsChange();
             });
 
-            it('should clear actionsTypes if more than one action is selected', function () {
+            it('should clear actionsTypes if more than one action is selected', function() {
               expect(this.view.actionsTypes.clear).toHaveBeenCalled();
             });
           });
