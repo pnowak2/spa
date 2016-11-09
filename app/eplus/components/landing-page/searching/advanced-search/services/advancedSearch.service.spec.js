@@ -4,7 +4,6 @@ define(function(require) {
     optionsDatasource = require('app/eplus/data/options.datasource'),
     countriesDatasource = require('app/eplus/data/countries.datasource'),
     activityYearsDatasource = require('app/eplus/data/activityYears.datasource'),
-    fundingYearsDatasource = require('app/eplus/data/fundingYears.datasource'),
     programmesDatasource = require('app/eplus/data/programmes.datasource'),
     organisationTypesDatasource = require('app/eplus/data/organisation-types.datasource'),
     organisationRolesDatasource = require('app/eplus/data/organisation-roles.datasource'),
